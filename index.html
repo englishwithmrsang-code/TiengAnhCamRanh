@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Chuyển Cấu Trúc Bị Động Tương Tác</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f7f6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .section-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            color: #2980b9;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 8px;
+            margin-top: 0;
+            font-size: 1.25rem;
+        }
+
+        .exercise-item {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-left: 4px solid #cbd5e1;
+            background-color: #f8fafc;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .exercise-item:hover {
+            background-color: #f1f5f9;
+            border-left-color: #3b82f6;
+        }
+
+        .question {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .instruction {
+            font-size: 0.85em;
+            color: #64748b;
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #dcfce7;
+            border: 1px solid #86efac;
+            border-radius: 4px;
+            color: #166534;
+            font-weight: 600;
+        }
+
+        .answer.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>BÀI TẬP CÂU BỊ ĐỘNG (PASSIVE VOICE)</h1>
+
+    <!-- Phần A -->
+    <div class="section-card">
+        <h2 class="section-title">A. Chuyển câu chủ động sang bị động – Quá khứ đơn</h2>
+        
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">1. The teacher checked the students' homework.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The students' homework was checked by the teacher.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">2. My mother cooked dinner yesterday.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ Dinner was cooked by my mother yesterday.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">3. They built this school in 2010.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ This school was built in 2010.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">4. The police arrested the thief last night.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The thief was arrested by the police last night.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">5. Someone stole my bike yesterday.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ My bike was stolen yesterday.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">6. They cleaned the classroom after the lesson.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The classroom was cleaned after the lesson.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">7. My father repaired the car last weekend.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The car was repaired by my father last weekend.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">8. The students completed the project last Friday.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The project was completed by the students last Friday.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">9. People used this road many years ago.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ This road was used many years ago.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">10. The company opened a new office in 2020.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ A new office was opened by the company in 2020.</div>
+        </div>
+    </div>
+
+    <!-- Phần B -->
+    <div class="section-card">
+        <h2 class="section-title">B. Chuyển câu chủ động sang bị động – Hiện tại đơn</h2>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">1. People speak English in many countries.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ English is spoken in many countries.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">2. Students use computers in this classroom.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ Computers are used by students in this classroom.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">3. My mother prepares breakfast every morning.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ Breakfast is prepared by my mother every morning.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">4. They sell fresh vegetables at this market.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ Fresh vegetables are sold at this market.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">5. The school organizes many activities every year.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ Many activities are organized by the school every year.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">6. People grow coffee in this area.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ Coffee is grown in this area.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">7. The teacher gives us homework every week.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ We are given homework by the teacher every week. / Homework is given to us by the teacher every week.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">8. They produce these cars in Japan.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ These cars are produced in Japan.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">9. Many people watch this TV program.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ This TV program is watched by many people.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">10. The company delivers the products to customers.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The products are delivered to customers by the company.</div>
+        </div>
+    </div>
+
+    <!-- Phần C -->
+    <div class="section-card">
+        <h2 class="section-title">C. Chuyển câu chủ động sang bị động – Tương lai đơn</h2>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">1. They will build a new hospital next year.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ A new hospital will be built next year.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">2. The school will organize a sports day next month.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ A sports day will be organized by the school next month.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">3. They will finish the project tomorrow.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The project will be finished tomorrow.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">4. The company will open a new branch next year.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ A new branch will be opened by the company next year.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">5. The government will build a new road.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ A new road will be built by the government.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">6. They will send the documents next week.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The documents will be sent next week.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">7. The teacher will announce the results tomorrow.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The results will be announced by the teacher tomorrow.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">8. They will repair the bridge soon.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The bridge will be repaired soon.</div>
+        </div>
+    </div>
+
+    <!-- Phần D -->
+    <div class="section-card">
+        <h2 class="section-title">D. Chuyển câu chủ động sang bị động – Quá khứ tiếp diễn</h2>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">1. The workers were repairing the road at 8 a.m.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The road was being repaired by the workers at 8 a.m.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">2. She was cleaning the room when I arrived.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The room was being cleaned by her when I arrived.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">3. They were painting the house yesterday afternoon.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The house was being painted yesterday afternoon.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">4. The students were doing the test at 9 a.m.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The test was being done by the students at 9 a.m.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">5. The mechanic was repairing my car.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ My car was being repaired by the mechanic.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">6. The workers were building a new shopping center.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ A new shopping center was being built by the workers.</div>
+        </div>
+    </div>
+
+    <!-- Phần E -->
+    <div class="section-card">
+        <h2 class="section-title">E. Chuyển câu chủ động sang bị động – Hiện tại tiếp diễn</h2>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">1. The workers are building a new school.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ A new school is being built by the workers.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">2. My mother is preparing dinner.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ Dinner is being prepared by my mother.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">3. They are cleaning the streets.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The streets are being cleaned.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">4. The company is developing a new product.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ A new product is being developed by the company.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">5. The students are discussing the problem.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The problem is being discussed by the students.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">6. The workers are repairing the bridge.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The bridge is being repaired by the workers.</div>
+        </div>
+    </div>
+
+    <!-- Phần F -->
+    <div class="section-card">
+        <h2 class="section-title">F. Chuyển câu chủ động sang bị động – Quá khứ hoàn thành</h2>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">1. They had finished the work before noon.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The work had been finished before noon.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">2. She had cleaned the room before her parents arrived.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The room had been cleaned by her before her parents arrived.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">3. The workers had completed the building by 2015.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The building had been completed by the workers by 2015.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">4. They had sold all the tickets before the concert started.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ All the tickets had been sold before the concert started.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">5. The students had completed the test before the teacher arrived.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The test had been completed by the students before the teacher arrived.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">6. Someone had stolen the documents before the police arrived.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The documents had been stolen before the police arrived.</div>
+        </div>
+    </div>
+
+    <!-- Phần G -->
+    <div class="section-card">
+        <h2 class="section-title">G. Chuyển câu chủ động sang bị động – Hiện tại hoàn thành</h2>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">1. They have completed the project.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The project has been completed.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">2. Someone has stolen my phone.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ My phone has been stolen.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">3. The students have finished their homework.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ Their homework has been finished by the students.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">4. The company has produced a new model.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ A new model has been produced by the company.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">5. They have built several new houses in this area.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ Several new houses have been built in this area.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">6. The teacher has corrected all the tests.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ All the tests have been corrected by the teacher.</div>
+        </div>
+    </div>
+
+    <!-- Phần H -->
+    <div class="section-card">
+        <h2 class="section-title">H. Chuyển câu chủ động sang bị động – Tương lai hoàn thành</h2>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">1. They will have completed the project by Friday.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The project will have been completed by Friday.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">2. The workers will have finished the building by next year.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The building will have been finished by the workers by next year.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">3. They will have delivered all the products by Monday.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ All the products will have been delivered by Monday.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">4. The students will have completed the course by June.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The course will have been completed by the students by June.</div>
+        </div>
+    </div>
+
+    <!-- Phần I -->
+    <div class="section-card">
+        <h2 class="section-title">I. Luyện tập tổng hợp – Chọn đúng thì bị động</h2>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">1. English __________ (speak) in many countries.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ is spoken</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">2. The classroom __________ (clean) yesterday.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ was cleaned</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">3. A new hospital __________ (build) next year.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ will be built</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">4. The road __________ (repair) at the moment.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ is being repaired</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">5. The homework __________ already __________ (finish).</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ has / been finished</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">6. The house __________ (paint) when we arrived.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ was being painted</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">7. The project __________ (complete) before the manager came.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ had been completed</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">8. The results __________ (announce) tomorrow.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ will be announced</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">9. Many cars __________ (produce) in this factory every year.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ are produced</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">10. The bridge __________ (repair) last month.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ was repaired</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">11. The documents __________ already __________ (send) to the company.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ have / been sent</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">12. The new school __________ (build) by next year.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ will have been built</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">13. Dinner __________ (prepare) when the guests arrived.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ was being prepared</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">14. The problem __________ (discuss) by the students right now.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ is being discussed</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">15. The tickets __________ already __________ (sell).</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ have / been sold</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">16. The work __________ (finish) by Friday.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ will have been finished</div>
+        </div>
+    </div>
+
+    <!-- Phần J -->
+    <div class="section-card">
+        <h2 class="section-title">J. Viết lại câu sử dụng bị động</h2>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">1. People grow rice in many parts of Vietnam.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ Rice is grown in many parts of Vietnam.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">2. They built this bridge ten years ago.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ This bridge was built ten years ago.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">3. They will open the new shopping center next month.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The new shopping center will be opened next month.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">4. Someone is cleaning the classroom now.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The classroom is being cleaned now.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">5. They have repaired the road.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The road has been repaired.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">6. The workers were painting the house when I arrived.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The house was being painted by the workers when I arrived.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">7. They had completed the project before the deadline.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The project had been completed before the deadline.</div>
+        </div>
+
+        <div class="exercise-item" onclick="toggleAnswer(this)">
+            <div class="question">8. They will have finished the work by Monday.</div>
+            <div class="instruction">(Nhấp để xem đáp án)</div>
+            <div class="answer">→ The work will have been finished by Monday.</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.querySelector('.answer');
+            answer.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
