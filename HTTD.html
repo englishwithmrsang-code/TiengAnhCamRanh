@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luyện Tập Thì Hiện Tại Tiếp Diễn (Present Continuous)</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+      --warning: #d97706;
+      --warning-bg: #fffbeb;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 20px; line-height: 1.5; }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    /* Header & Controls */
+    header { text-align: center; margin-bottom: 24px; }
+    h1 { color: var(--primary); font-size: 1.8rem; margin-bottom: 8px; }
+    p.subtitle { color: var(--text-secondary); font-size: 0.95rem; }
+
+    .sticky-header {
+      position: sticky; top: 10px; z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px; margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .stats-bar { display: flex; justify-content: space-around; margin-bottom: 12px; text-align: center; }
+    .stat-item { flex: 1; }
+    .stat-val { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
+    .stat-lbl { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .progress-wrapper { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 12px; }
+    .progress-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.3s ease; }
+
+    .action-bar { display: flex; gap: 10px; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+    .filter-select { padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--card-bg); outline: none; font-size: 0.9rem; }
+    
+    .btn {
+      padding: 8px 16px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: #e2e8f0; color: var(--text); }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .btn-outline { border: 1px solid var(--primary); color: var(--primary); background: transparent; }
+    .btn-outline:hover { background: #eff6ff; }
+
+    /* Exercise Items */
+    .exercise-list { display: flex; flex-direction: column; gap: 16px; }
+    .card {
+      background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 20px; box-shadow: var(--shadow); transition: border-color 0.2s ease;
+    }
+    .card.correct { border-color: var(--success); background-color: var(--success-bg); }
+    .card.incorrect { border-color: var(--error); background-color: var(--error-bg); }
+
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .q-number { font-weight: 700; color: var(--primary); font-size: 0.85rem; background: #eff6ff; padding: 2px 8px; border-radius: 4px; }
+    .q-section { font-size: 0.8rem; color: var(--text-secondary); }
+
+    .q-text { font-size: 1.05rem; margin-bottom: 12px; line-height: 1.8; }
+    .q-input {
+      padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px;
+      font-size: 1rem; outline: none; width: 140px; text-align: center;
+      transition: all 0.2s ease; display: inline-block; margin: 0 4px;
+    }
+    .q-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
+    .q-input.correct-input { border-color: var(--success); background-color: #ffffff; color: var(--success); font-weight: 700; }
+    .q-input.incorrect-input { border-color: var(--error); background-color: #ffffff; color: var(--error); font-weight: 700; }
+
+    .card-footer { margin-top: 12px; display: flex; gap: 8px; justify-content: flex-end; }
+
+    /* Feedback Box */
+    .feedback-box {
+      margin-top: 14px; padding: 12px; border-radius: 8px; font-size: 0.9rem;
+      background: #ffffff; border-left: 4px solid var(--border); display: none;
+    }
+    .feedback-box.show { display: block; }
+    .feedback-box.correct { border-left-color: var(--success); }
+    .feedback-box.incorrect { border-left-color: var(--error); }
+
+    .fb-row { margin-bottom: 4px; }
+    .fb-row:last-child { margin-bottom: 0; }
+    .fb-label { font-weight: 700; display: inline-block; width: 110px; }
+    .fb-ans { color: var(--success); font-weight: 600; }
+    .fb-trans { color: var(--text-secondary); font-style: italic; }
+    .fb-tip { color: var(--warning); font-weight: 500; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px);
+      display: none; justify-content: center; align-items: center; z-index: 1000;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--card-bg); width: 90%; max-width: 650px; max-height: 85vh;
+      border-radius: var(--radius); padding: 24px; overflow-y: auto; box-shadow: var(--shadow);
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); }
+    .theory-section { margin-bottom: 16px; }
+    .theory-title { font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+    .theory-list { padding-left: 20px; font-size: 0.9rem; color: var(--text-secondary); }
+
+    @media (max-width: 600px) {
+      .action-bar { flex-direction: column; align-items: stretch; }
+      .q-input { width: 110px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Thì Hiện Tại Tiếp Diễn (Present Continuous)</h1>
+    <p class="subtitle">Ứng dụng 70 bài tập chia động từ theo 3 cách dùng chuẩn ngữ pháp</p>
+  </header>
+
+  <div class="sticky-header">
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-val" id="completed-count">0 / 70</div>
+        <div class="stat-lbl">Đã kiểm tra</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val" id="score">0</div>
+        <div class="stat-lbl">Điểm số</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val" id="accuracy">0%</div>
+        <div class="stat-lbl">Chính xác</div>
+      </div>
+    </div>
+    <div class="progress-wrapper">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="action-bar">
+      <select class="filter-select" id="section-filter">
+        <option value="ALL">Tất cả bài tập (A - G)</option>
+        <option value="A">Phần A: Hành động đang xảy ra</option>
+        <option value="B">Phần B: Kế hoạch đã sắp xếp</option>
+        <option value="C">Phần C: Phàn nàn (Always)</option>
+        <option value="D">Phần D: Câu phủ định</option>
+        <option value="E">Phần E: Câu nghi vấn</option>
+        <option value="F">Phần F: Tổng hợp dấu hiệu</option>
+        <option value="G">Phần G: Phân biệt 3 cách dùng</option>
+      </select>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-outline" id="btn-theory">📘 Mẹo lý thuyết</button>
+        <button class="btn btn-secondary" id="btn-reset">🔄 Làm lại</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-list" id="exercise-container"></div>
+</div>
+
+<!-- Modal Lý Thuyết -->
+<div class="modal-overlay" id="theory-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Tóm Tắt Lý Thuyết & Mẹo Làm Bài</h2>
+      <button class="modal-close" id="btn-close-modal">&times;</button>
+    </div>
+    <div class="theory-section">
+      <div class="theory-title">1. Công thức chung: S + am/is/are + V-ing</div>
+      <ul class="theory-list">
+        <li><b>I</b> + am ('m) / am not</li>
+        <li><b>He/She/It/Danh từ số ít</b> + is ('s) / is not (isn't)</li>
+        <li><b>You/We/They/Danh từ số nhiều</b> + are ('re) / are not (aren't)</li>
+      </ul>
+    </div>
+    <div class="theory-section">
+      <div class="theory-title">2. 3 Cách dùng trọng tâm & Dấu hiệu</div>
+      <ul class="theory-list">
+        <li><b>Hành động đang xảy ra:</b> now, right now, at the moment, at present, Look!, Listen!, Be careful!</li>
+        <li><b>Kế hoạch cụ thể tương lai:</b> tomorrow, tonight, next week... + mốc thời gian/địa điểm xác định.</li>
+        <li><b>Sự phàn nàn (lặp đi lặp lại gây khó chịu):</b> S + am/is/are + <b>always</b> + V-ing.</li>
+      </ul>
+    </div>
+    <div class="theory-section">
+      <div class="theory-title">3. Quy tắc thêm -ing</div>
+      <ul class="theory-list">
+        <li>Tận cùng là <b>e</b> đơn: Bỏ <i>e</i> thêm <i>-ing</i> (write -> writing, lose -> losing).</li>
+        <li>1 nguyên âm + 1 phụ âm ở cuối (đơn âm/trọng âm rơi vào cuối): Nhân đôi phụ âm (run -> running).</li>
+        <li>Tận cùng là <b>ie</b>: Đổi <i>ie</i> -> <i>y</i> rồi thêm <i>-ing</i> (die -> dying).</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+const rawData = [
+  // SECTION A
+  { id: 1, sec: 'A', template: "She {input} (study) English now.", ans: [["is studying"]], trans: "Cô ấy đang học tiếng Anh ngay lúc này.", tip: "Dấu hiệu 'now' -> Hành động đang xảy ra." },
+  { id: 2, sec: 'A', template: "I {input} (do) my homework right now.", ans: [["am doing", "'m doing"]], trans: "Tôi đang làm bài tập về nhà ngay lúc này.", tip: "Dấu hiệu 'right now' -> Hành động đang xảy ra." },
+  { id: 3, sec: 'A', template: "They {input} (play) football at the moment.", ans: [["are playing"]], trans: "Họ đang chơi bóng đá vào lúc này.", tip: "Dấu hiệu 'at the moment' -> Hành động đang xảy ra." },
+  { id: 4, sec: 'A', template: "We {input} (watch) TV now.", ans: [["are watching"]], trans: "Chúng tôi đang xem TV bây giờ.", tip: "Dấu hiệu 'now' -> Hành động đang xảy ra." },
+  { id: 5, sec: 'A', template: "He {input} (read) a book at present.", ans: [["is reading"]], trans: "Anh ấy đang đọc sách hiện tại.", tip: "Dấu hiệu 'at present' -> Hành động đang xảy ra." },
+  { id: 6, sec: 'A', template: "My mother {input} (cook) dinner right now.", ans: [["is cooking"]], trans: "Mẹ tôi đang nấu ăn tối ngay lúc này.", tip: "Dấu hiệu 'right now' -> Hành động đang xảy ra." },
+  { id: 7, sec: 'A', template: "The students {input} (write) an exercise at the moment.", ans: [["are writing"]], trans: "Các học sinh đang làm bài tập vào lúc này.", tip: "Dấu hiệu 'at the moment', bỏ 'e' thêm 'ing' (writing)." },
+  { id: 8, sec: 'A', template: "I {input} (listen) to music now.", ans: [["am listening", "'m listening"]], trans: "Tôi đang nghe nhạc bây giờ.", tip: "Dấu hiệu 'now' -> Hành động đang xảy ra." },
+  { id: 9, sec: 'A', template: "Look! The baby {input} (sleep).", ans: [["is sleeping"]], trans: "Nhìn kìa! Em bé đang ngủ.", tip: "Dấu hiệu gây chú ý 'Look!' -> Hành động đang diễn ra." },
+  { id: 10, sec: 'A', template: "Listen! Someone {input} (sing).", ans: [["is singing"]], trans: "Lắng nghe kìa! Ai đó đang hát.", tip: "Dấu hiệu gây chú ý 'Listen!' -> Someone đi với 'is'." },
+  { id: 11, sec: 'A', template: "Be careful! The car {input} (come).", ans: [["is coming"]], trans: "Cẩn thận! Xe ô tô đang đi đến kìa.", tip: "Dấu hiệu 'Be careful!', bỏ 'e' thêm 'ing' (coming)." },
+  { id: 12, sec: 'A', template: "Look! The children {input} (run) in the garden.", ans: [["are running"]], trans: "Nhìn kìa! Mấy đứa trẻ đang chạy trong vườn.", tip: "Dấu hiệu 'Look!', gấp đôi chữ 'n' (running)." },
+  { id: 13, sec: 'A', template: "The teacher {input} (explain) the lesson at this time.", ans: [["is explaining"]], trans: "Giáo viên đang giảng bài vào lúc này.", tip: "Dấu hiệu 'at this time' -> Hành động đang diễn ra." },
+  { id: 14, sec: 'A', template: "My father {input} (wash) his car right now.", ans: [["is washing"]], trans: "Bố tôi đang rửa xe ô tô ngay lúc này.", tip: "Dấu hiệu 'right now' -> Hành động đang xảy ra." },
+  { id: 15, sec: 'A', template: "We {input} (learn) about the present continuous now.", ans: [["are learning"]], trans: "Chúng tôi đang học về thì hiện tại tiếp diễn bây giờ.", tip: "Dấu hiệu 'now' -> Hành động đang xảy ra." },
+
+  // SECTION B
+  { id: 16, sec: 'B', template: "I {input} (meet) my friend tomorrow at 7 p.m.", ans: [["am meeting", "'m meeting"]], trans: "Tôi sẽ gặp bạn tôi vào 7 giờ tối mai.", tip: "Kế hoạch tương lai có thời gian cụ thể (tomorrow at 7 p.m.)." },
+  { id: 17, sec: 'B', template: "She {input} (visit) her doctor tomorrow morning.", ans: [["is visiting"]], trans: "Cô ấy sẽ đi khám bác sĩ vào sáng mai.", tip: "Kế hoạch đã sắp xếp cho sáng mai." },
+  { id: 18, sec: 'B', template: "We {input} (have) a meeting at 9 a.m. next Monday.", ans: [["are having"]], trans: "Chúng tôi sẽ có cuộc họp lúc 9 giờ sáng thứ Hai tuần tới.", tip: "Lịch trình cụ thể, bỏ 'e' thêm 'ing' (having)." },
+  { id: 19, sec: 'B', template: "They {input} (travel) to Hanoi next Friday.", ans: [["are traveling", "are travelling"]], trans: "Họ sẽ đi Hà Nội vào thứ Sáu tuần tới.", tip: "Kế hoạch đã định, hỗ trợ cả traveling/travelling." },
+  { id: 20, sec: 'B', template: "He {input} (play) tennis with his friends this evening.", ans: [["is playing"]], trans: "Anh ấy sẽ chơi quần vợt với bạn tối nay.", tip: "Kế hoạch cụ thể vào tối nay." },
+  { id: 21, sec: 'B', template: "I {input} (have) an English class at 8 a.m. tomorrow.", ans: [["am having", "'m having"]], trans: "Tôi sẽ có lớp học tiếng Anh lúc 8 giờ sáng mai.", tip: "Lịch học đã sắp xếp thời gian cụ thể." },
+  { id: 22, sec: 'B', template: "My family {input} (go) to Nha Trang this weekend.", ans: [["is going", "are going"]], trans: "Gia đình tôi sẽ đi Nha Trang cuối tuần này.", tip: "Kế hoạch chuyến đi đã dự định cho cuối tuần." },
+  { id: 23, sec: 'B', template: "She {input} (meet) her teacher at 3 p.m. tomorrow.", ans: [["is meeting"]], trans: "Cô ấy sẽ gặp giáo viên lúc 3 giờ chiều mai.", tip: "Cuộc hẹn cố định trong tương lai gần." },
+  { id: 24, sec: 'B', template: "We {input} (have) a party at my house tonight.", ans: [["are having"]], trans: "Chúng tôi sẽ tổ chức tiệc tại nhà tôi tối nay.", tip: "Sự kiện đã lên kế hoạch (having)." },
+  { id: 25, sec: 'B', template: "They {input} (fly) to Da Nang next Saturday morning.", ans: [["are flying"]], trans: "Họ sẽ bay vào Đà Nẵng sáng thứ Bảy tuần tới.", tip: "Lịch trình chuyến bay cụ thể trong tương lai." },
+  { id: 26, sec: 'B', template: "I {input} (see) the dentist at 10 a.m. tomorrow.", ans: [["am seeing", "'m seeing"]], trans: "Tôi sẽ đi khám nha sĩ lúc 10 giờ sáng mai.", tip: "Cuộc hẹn bác sĩ/nha sĩ đã lên lịch." },
+  { id: 27, sec: 'B', template: "He {input} (have) a job interview next Monday.", ans: [["is having"]], trans: "Anh ấy sẽ có phỏng vấn xin việc thứ Hai tuần tới.", tip: "Lịch phỏng vấn cụ thể đã được sắp xếp." },
+  { id: 28, sec: 'B', template: "Our class {input} (visit) the museum next Friday morning.", ans: [["is visiting", "are visiting"]], trans: "Lớp chúng tôi sẽ tham quan bảo tàng vào sáng thứ Sáu tuần tới.", tip: "Chuyến đi thực tế của lớp đã sắp đặt trước." },
+  { id: 29, sec: 'B', template: "She {input} (have) dinner with her parents tonight.", ans: [["is having"]], trans: "Cô ấy sẽ ăn tối với bố mẹ tối nay.", tip: "Kế hoạch cụ thể cho tối nay." },
+  { id: 30, sec: 'B', template: "We {input} (leave) for Hanoi at 6 a.m. tomorrow.", ans: [["are leaving"]], trans: "Chúng tôi sẽ khởi hành đi Hà Nội lúc 6 giờ sáng mai.", tip: "Lịch khởi hành đã cố định (leaving)." },
+
+  // SECTION C
+  { id: 31, sec: 'C', template: "He is always {input} (forget) his homework.", ans: [["forgetting"]], trans: "Anh ấy lúc nào cũng quên bài tập về nhà.", tip: "Sự phàn nàn dùng 'always' -> gấp đôi 't' (forgetting)." },
+  { id: 32, sec: 'C', template: "She is always {input} (lose) her keys.", ans: [["losing"]], trans: "Cô ấy lúc nào cũng làm mất chìa khóa.", tip: "Sự phàn nàn dùng 'always' -> bỏ 'e' thêm 'ing' (losing)." },
+  { id: 33, sec: 'C', template: "My brother is always {input} (make) a mess in his room.", ans: [["making"]], trans: "Anh trai tôi lúc nào cũng bày hừa phòng ngủ.", tip: "Sự phàn nàn dùng 'always' -> bỏ 'e' thêm 'ing' (making)." },
+  { id: 34, sec: 'C', template: "They are always {input} (arrive) late for class.", ans: [["arriving"]], trans: "Họ lúc nào cũng đến lớp muộn.", tip: "Sự phàn nàn dùng 'always' -> bỏ 'e' thêm 'ing' (arriving)." },
+  { id: 35, sec: 'C', template: "He is always {input} (use) my computer without asking.", ans: [["using"]], trans: "Anh ấy cứ luôn dùng máy tính của tôi mà không xin phép.", tip: "Sự phàn nàn hành động lặp lại gây khó chịu (using)." },
+  { id: 36, sec: 'C', template: "She is always {input} (talk) during the lesson.", ans: [["talking"]], trans: "Cô ấy lúc nào cũng nói chuyện trong giờ học.", tip: "Sự phàn nàn dùng 'always + V-ing'." },
+  { id: 37, sec: 'C', template: "My sister is always {input} (borrow) my clothes.", ans: [["borrowing"]], trans: "Chị/em gái tôi cứ luôn mượn quần áo của tôi.", tip: "Thói quen lặp lại gây phiền phức (borrowing)." },
+  { id: 38, sec: 'C', template: "You are always {input} (leave) the door open.", ans: [["leaving"]], trans: "Cậu lúc nào cũng để cửa mở.", tip: "Thói quen xấu gây phàn nàn -> bỏ 'e' thêm 'ing'." },
+  { id: 39, sec: 'C', template: "He is always {input} (complain) about his homework.", ans: [["complaining"]], trans: "Anh ấy lúc nào cũng phàn nàn về bài tập.", tip: "Sự phàn nàn dùng 'always + V-ing'." },
+  { id: 40, sec: 'C', template: "They are always {input} (make) too much noise.", ans: [["making"]], trans: "Họ lúc nào cũng làm ồn quá mức.", tip: "Sự phàn nàn dùng 'always', bỏ 'e' thêm 'ing'." },
+
+  // SECTION D
+  { id: 41, sec: 'D', template: "I {input} (not watch) TV now.", ans: [["am not watching", "'m not watching"]], trans: "Tôi đang không xem TV lúc này.", tip: "Thể phủ định ngôi 'I': am not + V-ing." },
+  { id: 42, sec: 'D', template: "She {input} (not study) at the moment.", ans: [["is not studying", "isn't studying"]], trans: "Cô ấy đang không học bài vào lúc này.", tip: "Thể phủ định ngôi 'She': is not / isn't + V-ing." },
+  { id: 43, sec: 'D', template: "They {input} (not play) football right now.", ans: [["are not playing", "aren't playing"]], trans: "Họ đang không chơi bóng đá ngay lúc này.", tip: "Thể phủ định ngôi số nhiều: are not / aren't + V-ing." },
+  { id: 44, sec: 'D', template: "We {input} (not have) dinner at present.", ans: [["are not having", "aren't having"]], trans: "Hiện tại chúng tôi đang không ăn tối.", tip: "Phủ định 'have' -> having." },
+  { id: 45, sec: 'D', template: "He {input} (not work) today.", ans: [["is not working", "isn't working"]], trans: "Hôm nay anh ấy không làm việc.", tip: "Phủ định thì tiếp diễn chỉ lịch trình/trạng thái tạm thời." },
+  { id: 46, sec: 'D', template: "I {input} (not meet) anyone tonight.", ans: [["am not meeting", "'m not meeting"]], trans: "Tôi sẽ không gặp ai vào tối nay.", tip: "Phủ định kế hoạch tương lai gần." },
+  { id: 47, sec: 'D', template: "She {input} (not travel) to Hanoi next week.", ans: [["is not traveling", "isn't traveling", "is not travelling", "isn't travelling"]], trans: "Cô ấy sẽ không đi Hà Nội vào tuần tới.", tip: "Phủ định kế hoạch tương lai." },
+  { id: 48, sec: 'D', template: "We {input} (not have) a meeting tomorrow morning.", ans: [["are not having", "aren't having"]], trans: "Chúng tôi sẽ không có cuộc họp vào sáng mai.", tip: "Phủ định kế hoạch lịch trình." },
+  { id: 49, sec: 'D', template: "They {input} (not go) to the party this evening.", ans: [["are not going", "aren't going"]], trans: "Họ sẽ không đến bữa tiệc tối nay.", tip: "Phủ định dự định tối nay." },
+  { id: 50, sec: 'D', template: "He {input} (not visit) his grandparents this weekend.", ans: [["is not visiting", "isn't visiting"]], trans: "Anh ấy sẽ không đi thăm ông bà vào cuối tuần này.", tip: "Phủ định kế hoạch cuối tuần." },
+
+  // SECTION E
+  { id: 51, sec: 'E', template: "{input} you {input} (study) English now?", ans: [["Are", "are"], ["studying"]], trans: "Bây giờ bạn có đang học tiếng Anh không?", tip: "Câu hỏi Yes/No ngôi 'you': Are + S + V-ing?" },
+  { id: 52, sec: 'E', template: "{input} she {input} (cook) dinner at the moment?", ans: [["Is", "is"], ["cooking"]], trans: "Hiện tại cô ấy có đang nấu ăn tối không?", tip: "Câu hỏi Yes/No ngôi 'she': Is + S + V-ing?" },
+  { id: 53, sec: 'E', template: "{input} they {input} (play) football right now?", ans: [["Are", "are"], ["playing"]], trans: "Ngay lúc này họ có đang chơi bóng đá không?", tip: "Câu hỏi Yes/No ngôi 'they': Are + S + V-ing?" },
+  { id: 54, sec: 'E', template: "{input} he {input} (work) today?", ans: [["Is", "is"], ["working"]], trans: "Hôm nay anh ấy có làm việc không?", tip: "Câu hỏi Yes/No ngôi 'he': Is + S + V-ing?" },
+  { id: 55, sec: 'E', template: "{input} you {input} (meet) your friend tomorrow?", ans: [["Are", "are"], ["meeting"]], trans: "Ngày mai bạn có gặp bạn của bạn không?", tip: "Hỏi về kế hoạch tương lai: Are + you + V-ing?" },
+  { id: 56, sec: 'E', template: "{input} she {input} (visit) the doctor next Monday?", ans: [["Is", "is"], ["visiting"]], trans: "Thứ Hai tới cô ấy có đi khám bác sĩ không?", tip: "Hỏi về lịch trình tương lai: Is + she + V-ing?" },
+  { id: 57, sec: 'E', template: "{input} they {input} (have) a party tonight?", ans: [["Are", "are"], ["having"]], trans: "Tối nay họ có tổ chức tiệc không?", tip: "Hỏi về sự kiện sắp xếp tối nay: Are + they + having?" },
+  { id: 58, sec: 'E', template: "What {input} you {input} (do) now?", ans: [["are"], ["doing"]], trans: "Bây giờ bạn đang làm gì đấy?", tip: "Câu hỏi Wh-question: What + are + you + doing?" },
+  { id: 59, sec: 'E', template: "Where {input} she {input} (go) tomorrow?", ans: [["is"], ["going"]], trans: "Ngày mai cô ấy sẽ đi đâu?", tip: "Câu hỏi Wh-question kế hoạch: Where + is + she + going?" },
+  { id: 60, sec: 'E', template: "Who {input} you {input} (meet) this evening?", ans: [["are"], ["meeting"]], trans: "Tối nay bạn sẽ gặp ai?", tip: "Câu hỏi Wh-question kế hoạch: Who + are + you + meeting?" },
+
+  // SECTION F
+  { id: 61, sec: 'F', template: "Look! The dog {input} (run) after the cat.", ans: [["is running"]], trans: "Nhìn kìa! Con chó đang đuổi theo con mèo.", tip: "Dấu hiệu 'Look!' -> Hành động đang diễn ra, gấp đôi 'n'." },
+  { id: 62, sec: 'F', template: "I {input} (meet) my English teacher at 5 p.m. tomorrow.", ans: [["am meeting", "'m meeting"]], trans: "Tôi sẽ gặp giáo viên tiếng Anh lúc 5 giờ chiều mai.", tip: "Dấu hiệu thời gian cụ thể trong tương lai -> Kế hoạch." },
+  { id: 63, sec: 'F', template: "Listen! Someone {input} (knock) on the door.", ans: [["is knocking"]], trans: "Lắng nghe kìa! Ai đó đang gõ cửa.", tip: "Dấu hiệu 'Listen!' -> Sự việc đang diễn ra." },
+  { id: 64, sec: 'F', template: "She {input} (study) for her exam right now.", ans: [["is studying"]], trans: "Cô ấy đang học cho kỳ thi ngay lúc này.", tip: "Dấu hiệu 'right now' -> Hành động đang diễn ra." },
+  { id: 65, sec: 'F', template: "We {input} (have) dinner with our grandparents at 7 p.m. tonight.", ans: [["are having"]], trans: "Chúng tôi sẽ ăn tối với ông bà lúc 7 giờ tối nay.", tip: "Dấu hiệu thời gian cụ thể tối nay -> Kế hoạch cụ thể." },
+  { id: 66, sec: 'F', template: "He is always {input} (forget) his books.", ans: [["forgetting"]], trans: "Anh ấy lúc nào cũng quên sách vở.", tip: "Dấu hiệu 'always' mang tính phàn nàn -> V-ing." },
+  { id: 67, sec: 'F', template: "They {input} (travel) to Da Nang next Saturday morning.", ans: [["are traveling", "are travelling"]], trans: "Họ sẽ đi Đà Nẵng vào sáng thứ Bảy tuần tới.", tip: "Dấu hiệu lịch trình tương lai cụ thể." },
+  { id: 68, sec: 'F', template: "Be careful! The baby {input} (touch) the hot pan.", ans: [["is touching"]], trans: "Cẩn thận! Em bé đang chạm vào cái chảo nóng kìa.", tip: "Dấu hiệu 'Be careful!' -> Cảnh báo hành động đang xảy ra." },
+  { id: 69, sec: 'F', template: "My parents {input} (watch) TV at the moment.", ans: [["are watching"]], trans: "Bố mẹ tôi đang xem TV vào lúc này.", tip: "Dấu hiệu 'at the moment' -> Hành động đang xảy ra." },
+  { id: 70, sec: 'F', template: "She is always {input} (arrive) late for class.", ans: [["arriving"]], trans: "Cô ấy lúc nào cũng đến lớp muộn.", tip: "Dấu hiệu 'is always' chỉ sự phàn nàn." },
+
+  // SECTION G
+  { id: 71, sec: 'G', template: "A: Where is Tom?\nB: He {input} (play) football now.", ans: [["is playing"]], trans: "A: Tom đâu rồi?\nB: Cậu ấy đang chơi bóng đá bây giờ.", tip: "Cách dùng 1: Hành động đang xảy ra lúc nói (now)." },
+  { id: 72, sec: 'G', template: "I {input} (meet) my doctor at 10 a.m. tomorrow.", ans: [["am meeting", "'m meeting"]], trans: "Tôi sẽ gặp bác sĩ lúc 10 giờ sáng mai.", tip: "Cách dùng 2: Kế hoạch tương lai đã xếp lịch cố định." },
+  { id: 73, sec: 'G', template: "She is always {input} (lose) her phone.", ans: [["losing"]], trans: "Cô ấy lúc nào cũng làm mất điện thoại.", tip: "Cách dùng 3: Thói quen lặp lại gây khó chịu (phàn nàn)." },
+  { id: 74, sec: 'G', template: "Look! The bus {input} (come).", ans: [["is coming"]], trans: "Nhìn kìa! Xe buýt đang đi tới.", tip: "Cách dùng 1: Hành động đang diễn ra ngay trước mắt." },
+  { id: 75, sec: 'G', template: "We {input} (have) an important meeting at 8 a.m. next Monday.", ans: [["are having"]], trans: "Chúng tôi sẽ có cuộc họp quan trọng lúc 8 giờ sáng thứ Hai tới.", tip: "Cách dùng 2: Kế hoạch công việc có thời gian cụ thể." },
+  { id: 76, sec: 'G', template: "He is always {input} (interrupt) me when I am speaking.", ans: [["interrupting"]], trans: "Anh ấy lúc nào cũng ngắt lời khi tôi đang nói.", tip: "Cách dùng 3: Thói quen xấu gây bực mình (always)." },
+  { id: 77, sec: 'G', template: "Listen! The students {input} (sing) in the classroom.", ans: [["are singing"]], trans: "Lắng nghe kìa! Các học sinh đang hát trong lớp.", tip: "Cách dùng 1: Hành động xảy ra tại thời điểm nói." },
+  { id: 78, sec: 'G', template: "My family {input} (fly) to Singapore at 9 a.m. next Sunday.", ans: [["is flying", "are flying"]], trans: "Gia đình tôi sẽ bay sang Singapore lúc 9 giờ sáng Chủ nhật tới.", tip: "Cách dùng 2: Kế hoạch di chuyển tương lai rõ ràng." },
+  { id: 79, sec: 'G', template: "You are always {input} (leave) your clothes on the floor.", ans: [["leaving"]], trans: "Cậu lúc nào cũng vứt quần áo dưới sàn nhà.", tip: "Cách dùng 3: Phàn nàn hành động lặp đi lặp lại." },
+  { id: 80, sec: 'G', template: "I {input} (prepare) my lesson at the moment.", ans: [["am preparing", "'m preparing"]], trans: "Tôi đang chuẩn bị bài giảng vào lúc này.", tip: "Cách dùng 1: Hành động đang thực hiện ở hiện tại." }
+];
+
+// App State
+let userState = {}; 
+
+// Elements
+const container = document.getElementById('exercise-container');
+const filterSelect = document.getElementById('section-filter');
+const completedEl = document.getElementById('completed-count');
+const scoreEl = document.getElementById('score');
+const accuracyEl = document.getElementById('accuracy');
+const progressBar = document.getElementById('progress-bar');
+const btnTheory = document.getElementById('btn-theory');
+const btnReset = document.getElementById('btn-reset');
+const modal = document.getElementById('theory-modal');
+const btnCloseModal = document.getElementById('btn-close-modal');
+
+// Normalize String
+function normalize(str) {
+  return str.trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+// Render Exercises
+function renderExercises() {
+  const selectedSec = filterSelect.value;
+  container.innerHTML = '';
+
+  const filteredData = selectedSec === 'ALL' ? rawData : rawData.filter(d => d.sec === selectedSec);
+
+  filteredData.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = `card-${item.id}`;
+
+    // Header
+    const header = document.createElement('div');
+    header.className = 'card-header';
+    header.innerHTML = `
+      <span class="q-number">Câu ${item.id}</span>
+      <span class="q-section">Phần ${item.sec}</span>
+    `;
+    card.appendChild(header);
+
+    // Text & Inputs
+    const qText = document.createElement('div');
+    qText.className = 'q-text';
+
+    // Replace {input} with actual input markup
+    const parts = item.template.split('{input}');
+    let htmlContent = '';
+    
+    parts.forEach((part, index) => {
+      // Replace newline in template with <br>
+      htmlContent += part.replace(/\n/g, '<br>');
+      if (index < parts.length - 1) {
+        htmlContent += `<input type="text" class="q-input" data-qid="${item.id}" data-idx="${index}" autocomplete="off" spellcheck="false">`;
+      }
+    });
+
+    qText.innerHTML = htmlContent;
+    card.appendChild(qText);
+
+    // Footer / Buttons
+    const footer = document.createElement('div');
+    footer.className = 'card-footer';
+    footer.innerHTML = `
+      <button class="btn btn-primary btn-check" data-qid="${item.id}">Kiểm Tra</button>
+    `;
+    card.appendChild(footer);
+
+    // Feedback Box
+    const fb = document.createElement('div');
+    fb.className = 'feedback-box';
+    fb.id = `fb-${item.id}`;
+    
+    // Construct display text for correct answer
+    const displayAns = item.ans.map(a => a[0]).join(' ... ');
+
+    fb.innerHTML = `
+      <div class="fb-row"><span class="fb-label">Đáp án đúng:</span><span class="fb-ans">${displayAns}</span></div>
+      <div class="fb-row"><span class="fb-label">Dịch nghĩa:</span><span class="fb-trans">${item.trans}</span></div>
+      <div class="fb-row"><span class="fb-label">Mẹo nhận biết:</span><span class="fb-tip">${item.tip}</span></div>
+    `;
+    card.appendChild(fb);
+
+    container.appendChild(card);
+  });
+
+  // Re-apply state if exists
+  restoreState();
+  bindInputEvents();
+}
+
+// Bind Enter & Events
+function bindInputEvents() {
+  document.querySelectorAll('.q-input').forEach(input => {
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const qid = parseInt(this.dataset.qid);
+        checkAnswer(qid);
+      }
+    });
+  });
+
+  document.querySelectorAll('.btn-check').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const qid = parseInt(this.dataset.qid);
+      checkAnswer(qid);
+    });
+  });
+}
+
+// Check Logic
+function checkAnswer(qid) {
+  const item = rawData.find(d => d.id === qid);
+  const inputs = document.querySelectorAll(`.q-input[data-qid="${qid}"]`);
+  let isAllCorrect = true;
+  let userAnswers = [];
+
+  inputs.forEach((input, idx) => {
+    const val = normalize(input.value);
+    userAnswers.push(input.value);
+    const validOptions = item.ans[idx].map(normalize);
+
+    if (validOptions.includes(val)) {
+      input.classList.add('correct-input');
+      input.classList.remove('incorrect-input');
+    } else {
+      input.classList.add('incorrect-input');
+      input.classList.remove('correct-input');
+      isAllCorrect = false;
+    }
+  });
+
+  // Update State
+  userState[qid] = {
+    checked: true,
+    correct: isAllCorrect,
+    answers: userAnswers
+  };
+
+  // Render UI status for card
+  const card = document.getElementById(`card-${qid}`);
+  const fb = document.getElementById(`fb-${qid}`);
+
+  if (isAllCorrect) {
+    card.className = 'card correct';
+    fb.className = 'feedback-box show correct';
+  } else {
+    card.className = 'card incorrect';
+    fb.className = 'feedback-box show incorrect';
+  }
+
+  updateStats();
+}
+
+// Restore UI State
+function restoreState() {
+  Object.keys(userState).forEach(qid => {
+    const state = userState[qid];
+    const item = rawData.find(d => d.id === parseInt(qid));
+    const inputs = document.querySelectorAll(`.q-input[data-qid="${qid}"]`);
+
+    if (inputs.length && state.checked) {
+      inputs.forEach((input, idx) => {
+        input.value = state.answers[idx] || '';
+        const val = normalize(input.value);
+        const validOptions = item.ans[idx].map(normalize);
+
+        if (validOptions.includes(val)) {
+          input.classList.add('correct-input');
+        } else {
+          input.classList.add('incorrect-input');
+        }
+      });
+
+      const card = document.getElementById(`card-${qid}`);
+      const fb = document.getElementById(`fb-${qid}`);
+
+      if (card && fb) {
+        if (state.correct) {
+          card.className = 'card correct';
+          fb.className = 'feedback-box show correct';
+        } else {
+          card.className = 'card incorrect';
+          fb.className = 'feedback-box show incorrect';
+        }
+      }
+    }
+  });
+
+  updateStats();
+}
+
+// Update Stats
+function updateStats() {
+  const checkedKeys = Object.keys(userState).filter(k => userState[k].checked);
+  const checkedCount = checkedKeys.length;
+  const correctCount = checkedKeys.filter(k => userState[k].correct).length;
+  const total = rawData.length;
+
+  completedEl.innerText = `${checkedCount} / ${total}`;
+  scoreEl.innerText = `${correctCount * 10}`;
+  
+  const acc = checkedCount > 0 ? Math.round((correctCount / checkedCount) * 100) : 0;
+  accuracyEl.innerText = `${acc}%`;
+
+  const pct = Math.round((checkedCount / total) * 100);
+  progressBar.style.width = `${pct}%`;
+}
+
+// Filter Event
+filterSelect.addEventListener('change', renderExercises);
+
+// Reset Event
+btnReset.addEventListener('click', () => {
+  if (confirm('Bạn có chắc chắn muốn làm lại từ đầu không?')) {
+    userState = {};
+    renderExercises();
+    updateStats();
+  }
+});
+
+// Modal Events
+btnTheory.addEventListener('click', () => modal.classList.add('active'));
+btnCloseModal.addEventListener('click', () => modal.classList.remove('active'));
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) modal.classList.remove('active');
+});
+
+// Initial Setup
+renderExercises();
+</script>
+</body>
+</html>
