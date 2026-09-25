@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="vi" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Thì Quá Khứ Hoàn Thành - Past Perfect Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct-input {
+            border-color: #10B981 !important;
+            background-color: #ECFDF5 !important;
+            color: #065F46 !important;
+        }
+        .dark .correct-input {
+            background-color: #064E3B !important;
+            color: #A7F3D0 !important;
+        }
+        .incorrect-input {
+            border-color: #EF4444 !important;
+            background-color: #FEF2F2 !important;
+            color: #991B1B !important;
+        }
+        .dark .incorrect-input {
+            background-color: #7F1D1D !important;
+            color: #FECACA !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom scrollbar for section tabs */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
+
+    <!-- Header Navbar -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg sm:text-xl text-slate-900 dark:text-white leading-tight">Thì Quá Khứ Hoàn Thành</h1>
+                    <p class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">Luyện Tập & Phối Hợp Thì (70 Câu)</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <button onclick="toggleTheoryModal()" class="px-3 py-2 text-sm font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 rounded-xl transition-colors flex items-center gap-1.5 border border-indigo-200 dark:border-indigo-800">
+                    <i class="fa-solid fa-book-open text-indigo-600 dark:text-indigo-400"></i>
+                    <span class="hidden sm:inline">Lý Thuyết & Mẹo Mẫu</span>
+                </button>
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Bật/Tắt Chế Độ Tối">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        
+        <!-- Top Progress Banner -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 shadow-xs border border-slate-200 dark:border-slate-700 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                <div class="md:col-span-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-semibold text-slate-600 dark:text-slate-300">Tiến độ bài tập đã làm</span>
+                        <span id="progress-percentage" class="text-sm font-bold text-indigo-600 dark:text-indigo-400">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
+                        <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-around md:justify-end md:space-x-8 border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 dark:border-slate-700">
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">Số Câu Đúng</p>
+                        <p id="score-text" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">0 / 70</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">Đã Kiểm Tra</p>
+                        <p id="checked-text" class="text-2xl font-black text-slate-800 dark:text-white">0 / 70</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Filters & Action Buttons -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+            <!-- Filter Tabs -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
+                <button onclick="filterSection('ALL')" class="section-tab active-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-indigo-600 text-white shadow-xs" data-section="ALL">Tất Cả (70)</button>
+                <button onclick="filterSection('A')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="A">Phần A (10)</button>
+                <button onclick="filterSection('B')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="B">Phần B (10)</button>
+                <button onclick="filterSection('C')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="C">Phần C (10)</button>
+                <button onclick="filterSection('D')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="D">Phần D (10)</button>
+                <button onclick="filterSection('E')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="E">Phần E (10)</button>
+                <button onclick="filterSection('F')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="F">Phần F (10)</button>
+                <button onclick="filterSection('G')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="G">Phần G (10)</button>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex flex-wrap items-center gap-2">
+                <button onclick="checkAllAnswers()" class="flex-1 sm:flex-none px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold shadow-xs transition-colors flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Nộp Toàn Bộ Bài Tập
+                </button>
+                <button onclick="resetAll()" class="px-3.5 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-1.5" title="Làm Lại Từ Đầu">
+                    <i class="fa-solid fa-rotate-left"></i> <span class="hidden sm:inline">Làm Lại</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Section Info Card -->
+        <div id="section-info-card" class="bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 rounded-xl p-4 mb-6 flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-indigo-600 dark:text-indigo-400 text-xl mt-0.5"></i>
+            <div>
+                <h2 id="section-title" class="font-bold text-indigo-900 dark:text-indigo-200">Tất Cả Bài Tập (70 Câu)</h2>
+                <p id="section-desc" class="text-sm text-indigo-700 dark:text-indigo-300 mt-0.5">Điền từ vào ô trống. Nhấn <b>Enter</b> hoặc bấm nút <b>"Kiểm Tra"</b> tại mỗi câu để hiển thị ngay lập tức đáp án đúng, dịch nghĩa và mẹo ngữ pháp.</p>
+            </div>
+        </div>
+
+        <!-- Questions Dynamic List -->
+        <div id="questions-container" class="space-y-4">
+            <!-- Dynamically generated by JS -->
+        </div>
+    </main>
+
+    <!-- Modal Theory Sheet -->
+    <div id="theory-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden transition-opacity duration-200">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto p-6 shadow-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center pb-4 mb-4 border-b border-slate-200 dark:border-slate-700">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-indigo-600 dark:text-indigo-400"></i>
+                    Tóm Tắt Lý Thuyết Quá Khứ Hoàn Thành
+                </h3>
+                <button onclick="toggleTheoryModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="space-y-6 text-sm sm:text-base leading-relaxed">
+                <!-- Concept 1 -->
+                <div class="bg-indigo-50 dark:bg-indigo-950/40 p-4 rounded-xl border border-indigo-100 dark:border-indigo-900">
+                    <h4 class="font-bold text-indigo-900 dark:text-indigo-200 mb-1">1. Công thức Thì Quá Khứ Hoàn Thành (Past Perfect)</h4>
+                    <p class="text-slate-700 dark:text-slate-300"><b>Khẳng định:</b> S + had + V3/ed</p>
+                    <p class="text-slate-700 dark:text-slate-300"><b>Phủ định:</b> S + had not (hadn't) + V3/ed</p>
+                    <p class="text-slate-700 dark:text-slate-300"><b>Nghi vấn:</b> (Wh-) + Had + S + V3/ed...?</p>
+                </div>
+
+                <!-- Concept 2 -->
+                <div class="bg-purple-50 dark:bg-purple-950/40 p-4 rounded-xl border border-purple-100 dark:border-purple-900">
+                    <h4 class="font-bold text-purple-900 dark:text-purple-200 mb-1">2. Nguyên Tắc Phối Hợp Thời Gian</h4>
+                    <p class="text-slate-700 dark:text-slate-300">Sử dụng khi một hành động xảy ra <b>TRƯỚC</b> một hành động hoặc mốc thời gian khác trong quá khứ:</p>
+                    <div class="mt-2 space-y-1 text-xs sm:text-sm font-mono bg-white dark:bg-slate-900 p-3 rounded-lg border border-purple-200 dark:border-purple-800">
+                        <p class="text-slate-800 dark:text-slate-200">▪ Hành động xảy ra trước: <b>Quá khứ hoàn thành (had + V3)</b></p>
+                        <p class="text-slate-800 dark:text-slate-200">▪ Hành động xảy ra sau: <b>Quá khứ đơn (V2/ed)</b></p>
+                    </div>
+                </div>
+
+                <!-- Concept 3 -->
+                <div class="bg-amber-50 dark:bg-amber-950/40 p-4 rounded-xl border border-amber-100 dark:border-amber-900">
+                    <h4 class="font-bold text-amber-900 dark:text-amber-200 mb-1">3. Cụm Từ Nhận Biết Quan Trọng</h4>
+                    <ul class="list-disc pl-5 space-y-1.5 text-slate-700 dark:text-slate-300 text-xs sm:text-sm">
+                        <li><b>BEFORE + QKĐ, QKHT</b> <i>(Trước khi làm gì thì đã làm gì xong)</i></li>
+                        <li><b>AFTER + QKHT, QKĐ</b> <i>(Sau khi đã làm xong gì thì mới làm gì)</i></li>
+                        <li><b>BY THE TIME + QKĐ, QKHT</b> <i>(Vào lúc ai đó làm gì thì điều khác đã xong)</i></li>
+                        <li><b>AS SOON AS + QKHT, QKĐ</b> <i>(Ngay sau khi đã làm xong gì thì...)</i></li>
+                        <li><b>BY + Mốc thời gian quá khứ (By 2010, By 8 p.m. yesterday...) + QKHT</b></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 text-right">
+                <button onclick="toggleTheoryModal()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold text-sm transition-colors">
+                    Đã Hiểu, Bắt Đầu Làm Bài
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data & Interactive Logic -->
+    <script>
+        const rawData = [
+            // Section A (1-10)
+            {
+                id: 1, section: 'A', sectionTitle: 'A. Một sự việc xảy ra trước một thời điểm cụ thể trong quá khứ',
+                text: '1. By 2010, he [input0] (work) as a teacher for many years.',
+                answers: [['had worked']],
+                translation: 'Tính đến trước năm 2010, ông ấy đã làm giáo viên được nhiều năm.',
+                tip: 'Dấu hiệu "By + mốc thời gian quá khứ" (By 2010) -> Hành động hoàn thành trước mốc này -> Chia Quá khứ hoàn thành (had worked).'
+            },
+            {
+                id: 2, section: 'A',
+                text: '2. Before 2000, my father [input0] (live) in Hanoi.',
+                answers: [['had lived']],
+                translation: 'Trước năm 2000, bố tôi đã từng sống ở Hà Nội.',
+                tip: 'Dấu hiệu "Before + mốc thời gian trong quá khứ" (Before 2000) -> Chia Quá khứ hoàn thành (had lived).'
+            },
+            {
+                id: 3, section: 'A',
+                text: '3. By 2015, she [input0] (finish) university.',
+                answers: [['had finished']],
+                translation: 'Tính đến trước năm 2015, cô ấy đã tốt nghiệp đại học.',
+                tip: 'Dấu hiệu "By 2015" chỉ hành động xảy ra và hoàn thành trước năm 2015 -> Chia had finished.'
+            },
+            {
+                id: 4, section: 'A',
+                text: '4. Before last year, we [input0] (never / visit) Da Nang.',
+                answers: [['had never visited']],
+                translation: 'Trước năm ngoái, chúng tôi chưa từng đến thăm Đà Nẵng.',
+                tip: 'Trước một thời điểm quá khứ (Before last year) kết hợp "never" -> Had never + V3 (had never visited).'
+            },
+            {
+                id: 5, section: 'A',
+                text: '5. By the end of 2020, they [input0] (build) a new school.',
+                answers: [['had built']],
+                translation: 'Tính đến cuối năm 2020, họ đã xây xong một ngôi trường mới.',
+                tip: '"By the end of + mốc quá khứ" -> QKHT. Động từ bất quy tắc: build -> built -> had built.'
+            },
+            {
+                id: 6, section: 'A',
+                text: '6. Before 1995, my grandfather [input0] (work) in a factory.',
+                answers: [['had worked']],
+                translation: 'Trước năm 1995, ông tôi đã từng làm việc trong một nhà máy.',
+                tip: '"Before 1995" chỉ mốc thời điểm quá khứ -> Chia QKHT: had worked.'
+            },
+            {
+                id: 7, section: 'A',
+                text: '7. By 8 p.m. yesterday, I [input0] (finish) my homework.',
+                answers: [['had finished']],
+                translation: 'Tính đến 8 giờ tối qua, tôi đã làm xong bài tập về nhà.',
+                tip: '"By 8 p.m. yesterday" (By + giờ + quá khứ) -> Chia QKHT: had finished.'
+            },
+            {
+                id: 8, section: 'A',
+                text: '8. Before last summer, she [input0] (never / travel) abroad.',
+                answers: [['had never traveled', 'had never travelled']],
+                translation: 'Trước mùa hè năm ngoái, cô ấy chưa từng đi du lịch nước ngoài.',
+                tip: 'Trước mùa hè ngoái -> QKHT. Chấp nhận cả 2 cách viết chính tả: traveled (Mỹ) hoặc travelled (Anh).'
+            },
+            {
+                id: 9, section: 'A',
+                text: '9. By the time I was 18, I [input0] (learn) how to drive.',
+                answers: [['had learned', 'had learnt']],
+                translation: 'Vào lúc tôi 18 tuổi, tôi đã học xong cách lái xe.',
+                tip: '"By the time I was 18" (Mốc quá khứ) -> Vế sau chia QKHT: had learned / had learnt.'
+            },
+            {
+                id: 10, section: 'A',
+                text: '10. By 2018, the company [input0] (open) three new offices.',
+                answers: [['had opened']],
+                translation: 'Tính đến trước năm 2018, công ty đã mở thêm ba văn phòng mới.',
+                tip: '"By 2018" -> Xảy ra trước năm 2018 -> Chia QKHT: had opened.'
+            },
+
+            // Section B (11-20)
+            {
+                id: 11, section: 'B', sectionTitle: 'B. Hai sự việc xảy ra trong quá khứ – sự việc xảy ra trước dùng QUÁ KHỨ HOÀN THÀNH',
+                text: '11. By the time I [input0] (arrive), the class [input1] (start).',
+                answers: [['arrived'], ['had started']],
+                translation: 'Vào lúc tôi đến nơi thì lớp học đã bắt đầu rồi.',
+                tip: 'Lớp học bắt đầu trước (QKHT: had started), tôi đến sau (QKĐ: arrived).'
+            },
+            {
+                id: 12, section: 'B',
+                text: '12. When she [input0] (come) home, her family [input1] (already / have) dinner.',
+                answers: [['came'], ['had already had']],
+                translation: 'Khi cô ấy về đến nhà, gia đình cô ấy đã ăn tối xong rồi.',
+                tip: 'Gia đình ăn tối trước (QKHT: had already had), cô ấy về sau (QKĐ: came).'
+            },
+            {
+                id: 13, section: 'B',
+                text: '13. Before he [input0] (go) to bed, he [input1] (finish) his homework.',
+                answers: [['went'], ['had finished']],
+                translation: 'Trước khi anh ấy đi ngủ, anh ấy đã làm xong bài tập.',
+                tip: 'Sau BEFORE chia QKĐ (went), vế còn lại hành động xong trước chia QKHT (had finished).'
+            },
+            {
+                id: 14, section: 'B',
+                text: '14. After they [input0] (finish) lunch, they [input1] (go) for a walk.',
+                answers: [['had finished'], ['went']],
+                translation: 'Sau khi họ ăn trưa xong, họ đã đi dạo.',
+                tip: 'Sau AFTER chia QKHT (had finished), vế còn lại xảy ra sau chia QKĐ (went).'
+            },
+            {
+                id: 15, section: 'B',
+                text: '15. When we [input0] (get) to the station, the train [input1] (leave).',
+                answers: [['got'], ['had left']],
+                translation: 'Khi chúng tôi đến ga thì tàu đã chạy mất rồi.',
+                tip: 'Tàu chạy trước (QKHT: leave -> had left), chúng tôi đến ga sau (QKĐ: got).'
+            },
+            {
+                id: 16, section: 'B',
+                text: '16. By the time the teacher [input0] (arrive), the students [input1] (sit) down.',
+                answers: [['arrived'], ['had sat']],
+                translation: 'Vào lúc giáo viên đến nơi, các học sinh đã ngồi vào chỗ.',
+                tip: 'Học sinh ngồi xuống trước (QKHT: sit -> had sat), giáo viên đến sau (QKĐ: arrived).'
+            },
+            {
+                id: 17, section: 'B',
+                text: '17. Before I [input0] (watch) the movie, I [input1] (read) the book.',
+                answers: [['watched'], ['had read']],
+                translation: 'Trước khi tôi xem phim, tôi đã đọc cuốn sách đó rồi.',
+                tip: 'Đọc sách trước (QKHT: had read), xem phim sau (QKĐ: watched).'
+            },
+            {
+                id: 18, section: 'B',
+                text: '18. After she [input0] (do) her homework, she [input1] (watch) TV.',
+                answers: [['had done'], ['watched']],
+                translation: 'Sau khi làm xong bài tập về nhà, cô ấy mới xem TV.',
+                tip: 'Sau AFTER dùng QKHT (had done), vế sau chia QKĐ (watched).'
+            },
+            {
+                id: 19, section: 'B',
+                text: '19. When I [input0] (meet) him, he [input1] (already / hear) the news.',
+                answers: [['met'], ['had already heard']],
+                translation: 'Khi tôi gặp anh ấy, anh ấy đã nghe tin tức đó rồi.',
+                tip: 'Nghe tin trước (QKHT: had already heard), gặp nhau sau (QKĐ: meet -> met).'
+            },
+            {
+                id: 20, section: 'B',
+                text: '20. By the time we [input0] (arrive) at the restaurant, our friends [input1] (order) the food.',
+                answers: [['arrived'], ['had ordered']],
+                translation: 'Vào lúc chúng tôi đến nhà hàng, bạn bè chúng tôi đã gọi món xong rồi.',
+                tip: 'Gọi món trước (QKHT: had ordered), đến sau (QKĐ: arrived).'
+            },
+
+            // Section C (21-30)
+            {
+                id: 21, section: 'C', sectionTitle: 'C. BEFORE / AFTER',
+                text: '21. Before I [input0] (go) to school, I [input1] (have) breakfast.',
+                answers: [['went'], ['had had']],
+                translation: 'Trước khi đi học, tôi đã ăn sáng rồi.',
+                tip: 'Before + QKĐ (went), vế còn lại QKHT (have -> had had).'
+            },
+            {
+                id: 22, section: 'C',
+                text: '22. Before she [input0] (leave) the house, she [input1] (lock) the door.',
+                answers: [['left'], ['had locked']],
+                translation: 'Trước khi rời khỏi nhà, cô ấy đã khóa cửa.',
+                tip: 'Khóa cửa trước (QKHT: had locked), rời nhà sau (QKĐ: leave -> left).'
+            },
+            {
+                id: 23, section: 'C',
+                text: '23. Before they [input0] (move) to Cam Ranh, they [input1] (live) in Hanoi.',
+                answers: [['moved'], ['had lived']],
+                translation: 'Trước khi chuyển đến Cam Ranh, họ đã từng sống ở Hà Nội.',
+                tip: 'Sống ở Hà Nội trước (QKHT: had lived), chuyển đến Cam Ranh sau (QKĐ: moved).'
+            },
+            {
+                id: 24, section: 'C',
+                text: '24. After he [input0] (finish) his work, he [input1] (go) home.',
+                answers: [['had finished'], ['went']],
+                translation: 'Sau khi hoàn thành công việc, anh ấy đã đi về nhà.',
+                tip: 'After + QKHT (had finished), vế còn lại QKĐ (go -> went).'
+            },
+            {
+                id: 25, section: 'C',
+                text: '25. After we [input0] (eat) dinner, we [input1] (wash) the dishes.',
+                answers: [['had eaten'], ['washed']],
+                translation: 'Sau khi chúng tôi ăn tối xong, chúng tôi đã rửa bát.',
+                tip: 'After + QKHT (eat -> had eaten), vế còn lại QKĐ (washed).'
+            },
+            {
+                id: 26, section: 'C',
+                text: '26. After she [input0] (read) the instructions, she [input1] (start) the test.',
+                answers: [['had read'], ['started']],
+                translation: 'Sau khi đọc kỹ hướng dẫn, cô ấy bắt đầu làm bài kiểm tra.',
+                tip: 'After + QKHT (read -> had read), vế còn lại QKĐ (started).'
+            },
+            {
+                id: 27, section: 'C',
+                text: '27. Before the students [input0] (take) the exam, they [input1] (review) the lesson.',
+                answers: [['took'], ['had reviewed']],
+                translation: 'Trước khi các học sinh làm bài thi, họ đã ôn lại bài học.',
+                tip: 'Before + QKĐ (take -> took), vế hành động xảy ra trước chia QKHT (had reviewed).'
+            },
+            {
+                id: 28, section: 'C',
+                text: '28. After my father [input0] (come) home, we [input1] (have) dinner.',
+                answers: [['had come'], ['ate', 'had', 'had ate']],
+                translation: 'Sau khi bố tôi về đến nhà, chúng tôi mới ăn tối.',
+                tip: 'After + QKHT (had come), vế sau chia QKĐ (ate / had).'
+            },
+            {
+                id: 29, section: 'C',
+                text: '29. Before I [input0] (buy) the laptop, I [input1] (compare) several models.',
+                answers: [['bought'], ['had compared']],
+                translation: 'Trước khi mua chiếc máy tính xách tay, tôi đã so sánh nhiều mẫu khác nhau.',
+                tip: 'So sánh trước (QKHT: had compared), mua sau (QKĐ: buy -> bought).'
+            },
+            {
+                id: 30, section: 'C',
+                text: '30. After they [input0] (clean) the classroom, they [input1] (go) home.',
+                answers: [['had cleaned'], ['went']],
+                translation: 'Sau khi dọn dẹp lớp học xong, họ đã đi về nhà.',
+                tip: 'After + QKHT (had cleaned), vế sau QKĐ (go -> went).'
+            },
+
+            // Section D (31-40)
+            {
+                id: 31, section: 'D', sectionTitle: 'D. BY THE TIME',
+                text: '31. By the time I [input0] (get) home, my mother [input1] (cook) dinner.',
+                answers: [['got'], ['had cooked']],
+                translation: 'Vào lúc tôi về đến nhà, mẹ tôi đã nấu xong bữa tối rồi.',
+                tip: 'By the time + QKĐ (get -> got), vế chính chỉ hành động đã xong trước chia QKHT (had cooked).'
+            },
+            {
+                id: 32, section: 'D',
+                text: '32. By the time the movie [input0] (start), we [input1] (find) our seats.',
+                answers: [['started'], ['had found']],
+                translation: 'Vào lúc bộ phim bắt đầu, chúng tôi đã tìm được chỗ ngồi.',
+                tip: 'By the time + QKĐ (started), vế còn lại chia QKHT (find -> had found).'
+            },
+            {
+                id: 33, section: 'D',
+                text: '33. By the time she [input0] (arrive), everyone [input1] (leave).',
+                answers: [['arrived'], ['had left']],
+                translation: 'Vào lúc cô ấy đến nơi, mọi người đã đi về hết rồi.',
+                tip: 'Mọi người rời đi trước (QKHT: leave -> had left), cô ấy đến sau (QKĐ: arrived).'
+            },
+            {
+                id: 34, section: 'D',
+                text: '34. By the time we [input0] (reach) the airport, the plane [input1] (take) off.',
+                answers: [['reached'], ['had taken']],
+                translation: 'Vào lúc chúng tôi đến sân bay, máy bay đã cất cánh rồi.',
+                tip: 'Máy bay cất cánh trước (QKHT: take off -> had taken off).'
+            },
+            {
+                id: 35, section: 'D',
+                text: '35. By the time he [input0] (come) back, his friends [input1] (go) home.',
+                answers: [['came'], ['had gone']],
+                translation: 'Vào lúc anh ấy quay lại, bạn bè anh ấy đã đi về nhà rồi.',
+                tip: 'By the time + QKĐ (came), vế còn lại chia QKHT (go -> had gone).'
+            },
+            {
+                id: 36, section: 'D',
+                text: '36. By the time the teacher [input0] (enter) the classroom, the students [input1] (open) their books.',
+                answers: [['entered'], ['had opened']],
+                translation: 'Vào lúc thầy giáo bước vào lớp, các học sinh đã mở sẵn sách ra.',
+                tip: 'Học sinh mở sách trước (QKHT: had opened), thầy bước vào sau (QKĐ: entered).'
+            },
+            {
+                id: 37, section: 'D',
+                text: '37. By the time I [input0] (call) him, he [input1] (already / go) to bed.',
+                answers: [['called'], ['had already gone']],
+                translation: 'Vào lúc tôi gọi cho anh ấy, anh ấy đã đi ngủ rồi.',
+                tip: 'By the time + QKĐ (called), vế sau QKHT (had already gone).'
+            },
+            {
+                id: 38, section: 'D',
+                text: '38. By the time they [input0] (arrive) at the hotel, the staff [input1] (prepare) their rooms.',
+                answers: [['arrived'], ['had prepared']],
+                translation: 'Vào lúc họ đến khách sạn, nhân viên đã chuẩn bị xong phòng cho họ.',
+                tip: 'Chuẩn bị phòng trước (QKHT: had prepared), đến nơi sau (QKĐ: arrived).'
+            },
+            {
+                id: 39, section: 'D',
+                text: '39. By the time she [input0] (finish) school, she [input1] (learn) three foreign languages.',
+                answers: [['finished'], ['had learned', 'had learnt']],
+                translation: 'Vào lúc cô ấy học xong phổ thông, cô ấy đã học được 3 ngoại ngữ.',
+                tip: 'By the time + QKĐ (finished), vế còn lại QKHT (had learned / had learnt).'
+            },
+            {
+                id: 40, section: 'D',
+                text: '40. By the time we [input0] (reach) the station, the train [input1] (already / leave).',
+                answers: [['reached'], ['had already left']],
+                translation: 'Vào lúc chúng tôi đến ga, con tàu đã rời đi rồi.',
+                tip: 'Tàu chạy trước (QKHT: had already left), chúng tôi đến ga sau (QKĐ: reached).'
+            },
+
+            // Section E (41-50)
+            {
+                id: 41, section: 'E', sectionTitle: 'E. WHEN / AS SOON AS',
+                text: '41. When I [input0] (arrive) at the party, my friends [input1] (already / eat).',
+                answers: [['arrived'], ['had already eaten']],
+                translation: 'Khi tôi đến bữa tiệc, các bạn tôi đã ăn xong rồi.',
+                tip: 'Ăn tiệc trước (QKHT: had already eaten), tôi đến sau (QKĐ: arrived).'
+            },
+            {
+                id: 42, section: 'E',
+                text: '42. When she [input0] (open) the door, someone [input1] (already / leave).',
+                answers: [['opened'], ['had already left']],
+                translation: 'Khi cô ấy mở cửa, ai đó đã rời đi mất rồi.',
+                tip: 'Ai đó rời đi trước (QKHT: had already left), mở cửa sau (QKĐ: opened).'
+            },
+            {
+                id: 43, section: 'E',
+                text: '43. When we [input0] (get) home, our parents [input1] (already / have) dinner.',
+                answers: [['got'], ['had already had']],
+                translation: 'Khi chúng tôi về đến nhà, bố mẹ chúng tôi đã ăn tối xong rồi.',
+                tip: 'Bố mẹ ăn tối trước (QKHT: had already had), chúng tôi về sau (QKĐ: got).'
+            },
+            {
+                id: 44, section: 'E',
+                text: '44. When he [input0] (meet) his teacher, he [input1] (already / finish) the assignment.',
+                answers: [['met'], ['had already finished']],
+                translation: 'Khi cậu ấy gặp thầy giáo, cậu ấy đã làm xong bài tập được giao rồi.',
+                tip: 'Làm xong bài trước (QKHT: had already finished), gặp thầy sau (QKĐ: met).'
+            },
+            {
+                id: 45, section: 'E',
+                text: '45. As soon as I [input0] (finish) my homework, I [input1] (go) to bed.',
+                answers: [['had finished'], ['went']],
+                translation: 'Ngay sau khi tôi làm xong bài tập về nhà, tôi đi ngủ ngay.',
+                tip: 'As soon as + QKHT (hoàn thành trước), vế sau chia QKĐ (went).'
+            },
+            {
+                id: 46, section: 'E',
+                text: '46. As soon as she [input0] (finish) cooking, she [input1] (serve) the food.',
+                answers: [['had finished'], ['served']],
+                translation: 'Ngay sau khi nấu ăn xong, cô ấy đã dọn thức ăn ra.',
+                tip: 'As soon as + QKHT (had finished), vế còn lại QKĐ (served).'
+            },
+            {
+                id: 47, section: 'E',
+                text: '47. As soon as they [input0] (arrive), we [input1] (start) the meeting.',
+                answers: [['arrived', 'had arrived'], ['started']],
+                translation: 'Ngay khi họ vừa đến, chúng tôi bắt đầu cuộc họp.',
+                tip: 'Sau As soon as có thể chia QKHT (had arrived) hoặc QKĐ (arrived) nếu chuỗi hành động nối tiếp ngay.'
+            },
+            {
+                id: 48, section: 'E',
+                text: '48. As soon as he [input0] (complete) the project, he [input1] (send) it to his manager.',
+                answers: [['had completed'], ['sent']],
+                translation: 'Ngay sau khi hoàn thành dự án, anh ấy đã gửi nó cho quản lý.',
+                tip: 'As soon as + QKHT (had completed), vế sau QKĐ (send -> sent).'
+            },
+            {
+                id: 49, section: 'E',
+                text: '49. When the police [input0] (arrive), the thief [input1] (already / escape).',
+                answers: [['arrived'], ['had already escaped']],
+                translation: 'Khi cảnh sát đến nơi, tên trộm đã tẩu thoát từ trước rồi.',
+                tip: 'Tên trộm trốn trước (QKHT: had already escaped), cảnh sát đến sau (QKĐ: arrived).'
+            },
+            {
+                id: 50, section: 'E',
+                text: '50. When I [input0] (see) her, she [input1] (already / hear) the news.',
+                answers: [['saw'], ['had already heard']],
+                translation: 'Khi tôi gặp cô ấy, cô ấy đã biết tin tức đó rồi.',
+                tip: 'Nghe tin trước (QKHT: had already heard), gặp sau (QKĐ: see -> saw).'
+            },
+
+            // Section F (51-60)
+            {
+                id: 51, section: 'F', sectionTitle: 'F. Câu phủ định và nghi vấn',
+                text: '51. She [input0] (not finish) her homework before she [input1] (go) to bed.',
+                answers: [['hadn\'t finished', 'had not finished'], ['went']],
+                translation: 'Cô ấy đã chưa làm xong bài tập trước khi đi ngủ.',
+                tip: 'Phủ định QKHT: hadn\'t finished (hoặc had not finished) + Before + QKĐ (went).'
+            },
+            {
+                id: 52, section: 'F',
+                text: '52. They [input0] (not leave) when we [input1] (arrive).',
+                answers: [['hadn\'t left', 'had not left'], ['arrived']],
+                translation: 'Họ vẫn chưa rời đi khi chúng tôi đến nơi.',
+                tip: 'Phủ định QKHT: hadn\'t left (hoặc had not left) + QKĐ (arrived).'
+            },
+            {
+                id: 53, section: 'F',
+                text: '53. I [input0] (not see) that movie before my friend [input1] (recommend) it.',
+                answers: [['hadn\'t seen', 'had not seen'], ['recommended']],
+                translation: 'Tôi chưa từng xem bộ phim đó trước khi bạn tôi giới thiệu nó.',
+                tip: 'Phủ định QKHT: hadn\'t seen / had not seen.'
+            },
+            {
+                id: 54, section: 'F',
+                text: '54. He [input0] (not eat) breakfast before he [input1] (go) to school.',
+                answers: [['hadn\'t eaten', 'had not eaten'], ['went']],
+                translation: 'Anh ấy đã chưa ăn sáng trước khi đi học.',
+                tip: 'Phủ định QKHT: hadn\'t eaten (had not eaten) + Before + QKĐ (went).'
+            },
+            {
+                id: 55, section: 'F',
+                text: '55. [input0] you [input1] (finish) your homework before you [input2] (go) out?',
+                answers: [['Had', 'had'], ['finished'], ['went']],
+                translation: 'Bạn đã làm xong bài tập trước khi đi chơi chưa?',
+                tip: 'Câu hỏi QKHT: Had + S + V3/ed...? -> Ô 1: Had | Ô 2: finished | Vế sau Before + QKĐ -> Ô 3: went.'
+            },
+            {
+                id: 56, section: 'F',
+                text: '56. [input0] she [input1] (already / leave) when you [input2] (arrive)?',
+                answers: [['Had', 'had'], ['already left'], ['arrived']],
+                translation: 'Cô ấy đã rời đi rồi khi bạn đến nơi phải không?',
+                tip: 'Câu hỏi QKHT: Had she + already left + when you + arrived?'
+            },
+            {
+                id: 57, section: 'F',
+                text: '57. What [input0] you [input1] (do) after you [input2] (finish) school?',
+                answers: [['did'], ['do'], ['had finished']],
+                translation: 'Bạn đã làm gì sau khi tốt nghiệp phổ thông?',
+                tip: 'Hỏi hành động sau: What did you do + After + QKHT (had finished)?'
+            },
+            {
+                id: 58, section: 'F',
+                text: '58. Where [input0] they [input1] (go) after they [input2] (finish) the meeting?',
+                answers: [['did'], ['go'], ['had finished']],
+                translation: 'Họ đã đi đâu sau khi kết thúc cuộc họp?',
+                tip: 'Cấu trúc: Where + did + S + V_bare + after + S + had + V3/ed?'
+            },
+            {
+                id: 59, section: 'F',
+                text: '59. Why [input0] he [input1] (leave) after he [input2] (hear) the news?',
+                answers: [['did'], ['leave'], ['had heard']],
+                translation: 'Tại sao anh ấy lại bỏ đi sau khi nghe tin tức đó?',
+                tip: 'Why + did + he + leave + after he + had heard the news?'
+            },
+            {
+                id: 60, section: 'F',
+                text: '60. Had they [input0] (already / start) the lesson when the teacher [input1] (arrive)?',
+                answers: [['already started'], ['arrived']],
+                translation: 'Họ đã bắt đầu bài học rồi khi giáo viên đến có phải không?',
+                tip: 'Đã có "Had" đầu câu -> Ô 1 chia V3: already started | Vế sau QKĐ: arrived.'
+            },
+
+            // Section G (61-70)
+            {
+                id: 61, section: 'G', sectionTitle: 'G. Bài tập tổng hợp – QUÁ KHỨ ĐƠN / QUÁ KHỨ TIẾP DIỄN / QUÁ KHỨ HOÀN THÀNH',
+                text: '61. When I [input0] (arrive) home, my mother [input1] (already / cook) dinner.',
+                answers: [['arrived'], ['had already cooked']],
+                translation: 'Khi tôi về đến nhà, mẹ tôi đã nấu xong bữa tối rồi.',
+                tip: 'Ăn tối xong trước (QKHT: had already cooked), tôi về sau (QKĐ: arrived).'
+            },
+            {
+                id: 62, section: 'G',
+                text: '62. While I [input0] (walk) to school, I [input1] (see) my old teacher.',
+                answers: [['was walking'], ['saw']],
+                translation: 'Trong khi tôi đang đi bộ đến trường, tôi đã gặp lại thầy giáo cũ.',
+                tip: 'Sự kết hợp giữa QKTD (đang đi bộ: was walking) và QKĐ (gặp bất ngờ: saw).'
+            },
+            {
+                id: 63, section: 'G',
+                text: '63. By the time we [input0] (get) to the station, the train [input1] (leave).',
+                answers: [['got'], ['had left']],
+                translation: 'Vào lúc chúng tôi đến ga, xe lửa đã rời đi rồi.',
+                tip: 'By the time + QKĐ (got), vế tàu chạy trước chia QKHT (had left).'
+            },
+            {
+                id: 64, section: 'G',
+                text: '64. While she [input0] (study), her brother [input1] (play) computer games.',
+                answers: [['was studying'], ['was playing']],
+                translation: 'Trong khi cô ấy đang học, em trai cô ấy đang chơi game.',
+                tip: 'WHILE chỉ 2 hành động xảy ra song song cùng lúc -> Cả hai vế chia QKTD (was studying | was playing).'
+            },
+            {
+                id: 65, section: 'G',
+                text: '65. Before he [input0] (go) to bed, he [input1] (finish) his homework.',
+                answers: [['went'], ['had finished']],
+                translation: 'Trước khi đi ngủ, anh ấy đã làm xong bài tập.',
+                tip: 'Làm bài xong trước (QKHT: had finished), đi ngủ sau (QKĐ: went).'
+            },
+            {
+                id: 66, section: 'G',
+                text: '66. I [input0] (watch) TV when my father [input1] (come) home.',
+                answers: [['was watching'], ['came']],
+                translation: 'Tôi đang xem TV thì bố tôi về nhà.',
+                tip: 'Hành động đang diễn ra chia QKTD (was watching), hành động xen vào chia QKĐ (came).'
+            },
+            {
+                id: 67, section: 'G',
+                text: '67. After they [input0] (finish) dinner, they [input1] (go) for a walk.',
+                answers: [['had finished'], ['went']],
+                translation: 'Sau khi ăn tối xong, họ đã đi dạo.',
+                tip: 'After + QKHT (had finished), vế còn lại chia QKĐ (went).'
+            },
+            {
+                id: 68, section: 'G',
+                text: '68. By 9 p.m. yesterday, I [input0] (complete) all my work.',
+                answers: [['had completed']],
+                translation: 'Tính đến 9 giờ tối qua, tôi đã hoàn thành toàn bộ công việc.',
+                tip: '"By + giờ + mốc quá khứ" -> QKHT (had completed).'
+            },
+            {
+                id: 69, section: 'G',
+                text: '69. When we [input0] (arrive) at the cinema, the movie [input1] (already / start).',
+                answers: [['arrived'], ['had already started']],
+                translation: 'Khi chúng tôi đến rạp chiếu phim, bộ phim đã bắt đầu chiếu rồi.',
+                tip: 'Phim chiếu trước (QKHT: had already started), chúng tôi đến rạp sau (QKĐ: arrived).'
+            },
+            {
+                id: 70, section: 'G',
+                text: '70. While the students [input0] (do) the test, the teacher [input1] (walk) around the classroom.',
+                answers: [['were doing'], ['was walking']],
+                translation: 'Trong khi học sinh đang làm bài thi, thầy giáo đang đi dạo quanh lớp.',
+                tip: 'Hai hành động song song diễn ra trong quá khứ -> Cả 2 vế chia QKTD (were doing | was walking).'
+            }
+        ];
+
+        // State variables
+        let currentSection = 'ALL';
+        const totalQuestionsCount = rawData.length;
+        const checkedStatus = {}; // Stores checked state for each question ID
+
+        // Utility: Normalize whitespace and case
+        function normalizeText(text) {
+            return text.trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            const filteredData = currentSection === 'ALL' 
+                ? rawData 
+                : rawData.filter(q => q.section === currentSection);
+
+            let currentSectionGroup = '';
+
+            filteredData.forEach((q) => {
+                const globalIndex = rawData.indexOf(q);
+
+                // Section Title Banner
+                if (q.sectionTitle && q.section !== currentSectionGroup) {
+                    currentSectionGroup = q.section;
+                    const headerEl = document.createElement('div');
+                    headerEl.className = 'pt-6 pb-2 border-b-2 border-indigo-500/30 flex items-center justify-between mb-2';
+                    headerEl.innerHTML = `
+                        <h3 class="text-base sm:text-lg font-bold text-indigo-700 dark:text-indigo-400 flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
+                            ${q.sectionTitle}
+                        </h3>
+                    `;
+                    container.appendChild(headerEl);
+                }
+
+                // Render Question Card
+                const card = document.createElement('div');
+                card.id = `card-${globalIndex}`;
+                card.className = 'bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200 dark:border-slate-700 transition-all';
+
+                // Format inputs inside the text string
+                let formattedText = q.text;
+                q.answers.forEach((_, inputIdx) => {
+                    const placeholderTag = `[input${inputIdx}]`;
+                    const inputHtml = `
+                        <span class="inline-block mx-1 my-1">
+                            <input type="text" 
+                                id="input-${globalIndex}-${inputIdx}"
+                                data-global-idx="${globalIndex}"
+                                data-input-idx="${inputIdx}"
+                                class="quiz-input px-3 py-1.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-100 font-semibold text-sm sm:text-base focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-900/50 transition-all min-w-[110px] max-w-[180px] text-center"
+                                placeholder="..."
+                                autocomplete="off"
+                                onkeydown="handleKeyDown(event, ${globalIndex}, ${inputIdx})"
+                            />
+                        </span>
+                    `;
+                    formattedText = formattedText.replace(placeholderTag, inputHtml);
+                });
+
+                const isAlreadyChecked = !!checkedStatus[globalIndex];
+
+                card.innerHTML = `
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                        <div class="text-base sm:text-lg font-medium text-slate-800 dark:text-slate-100 leading-relaxed flex-1">
+                            ${formattedText}
+                        </div>
+                        <div class="flex items-center gap-2 self-end sm:self-start">
+                            <button onclick="checkSingleQuestion(${globalIndex})" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-check"></i> Kiểm Tra
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hidden Explanation Card - Revealed only after submission -->
+                    <div id="explanation-${globalIndex}" class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 ${isAlreadyChecked ? 'fade-in' : 'hidden'}">
+                        <div id="feedback-${globalIndex}" class="mb-3 text-xs sm:text-sm font-bold flex items-center gap-2"></div>
+                        
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <div class="text-slate-700 dark:text-slate-200 bg-indigo-50/60 dark:bg-indigo-950/30 p-2.5 rounded-xl border border-indigo-100 dark:border-indigo-900/40 flex items-start gap-2">
+                                <i class="fa-solid fa-key text-indigo-600 dark:text-indigo-400 mt-0.5"></i>
+                                <div><b>Đáp án đúng:</b> <span id="correct-ans-text-${globalIndex}" class="font-bold text-indigo-700 dark:text-indigo-300"></span></div>
+                            </div>
+
+                            <div class="text-slate-700 dark:text-slate-200 bg-blue-50/60 dark:bg-blue-950/30 p-2.5 rounded-xl border border-blue-100 dark:border-blue-900/40 flex items-start gap-2">
+                                <i class="fa-solid fa-language text-blue-500 mt-0.5"></i>
+                                <div><b>Dịch câu:</b> ${q.translation}</div>
+                            </div>
+
+                            <div class="text-slate-700 dark:text-slate-200 bg-amber-50/60 dark:bg-amber-950/30 p-2.5 rounded-xl border border-amber-100 dark:border-amber-900/40 flex items-start gap-2">
+                                <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5"></i>
+                                <div><b>Mẹo nhớ:</b> ${q.tip}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            updateProgressStats();
+        }
+
+        function handleKeyDown(event, globalIndex, inputIdx) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const q = rawData[globalIndex];
+                
+                // Trigger question evaluation
+                checkSingleQuestion(globalIndex);
+
+                // Auto advance to next input or next card
+                if (inputIdx < q.answers.length - 1) {
+                    const nextInput = document.getElementById(`input-${globalIndex}-${inputIdx + 1}`);
+                    if (nextInput) nextInput.focus();
+                } else {
+                    const nextCardInput = document.getElementById(`input-${globalIndex + 1}-0`);
+                    if (nextCardInput) nextCardInput.focus();
+                }
+            }
+        }
+
+        // Single Question Evaluation
+        function checkSingleQuestion(globalIndex) {
+            const q = rawData[globalIndex];
+            let allCorrect = true;
+
+            q.answers.forEach((acceptableAnswers, inputIdx) => {
+                const inputEl = document.getElementById(`input-${globalIndex}-${inputIdx}`);
+                if (!inputEl) return;
+
+                const val = normalizeText(inputEl.value);
+                const isMatch = acceptableAnswers.some(ans => normalizeText(ans) === val);
+
+                inputEl.classList.remove('correct-input', 'incorrect-input');
+                if (isMatch) {
+                    inputEl.classList.add('correct-input');
+                } else {
+                    inputEl.classList.add('incorrect-input');
+                    allCorrect = false;
+                }
+            });
+
+            // Mark question as checked
+            checkedStatus[globalIndex] = true;
+
+            // Reveal explanation section
+            const explanationEl = document.getElementById(`explanation-${globalIndex}`);
+            const feedbackEl = document.getElementById(`feedback-${globalIndex}`);
+            const correctAnsTextEl = document.getElementById(`correct-ans-text-${globalIndex}`);
+
+            if (explanationEl) {
+                explanationEl.classList.remove('hidden');
+                explanationEl.classList.add('fade-in');
+            }
+
+            // Display clear correct options
+            const formattedCorrectAns = q.answers.map(ansArr => ansArr[0]).join('  |  ');
+            if (correctAnsTextEl) {
+                correctAnsTextEl.textContent = formattedCorrectAns;
+            }
+
+            // Set Feedback badge
+            if (feedbackEl) {
+                if (allCorrect) {
+                    feedbackEl.className = 'mb-3 text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5';
+                    feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check text-base"></i> Chính xác! Tuyệt vời.`;
+                } else {
+                    feedbackEl.className = 'mb-3 text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5';
+                    feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-base"></i> Chưa chính xác. Xem đáp án và mẹo giải thích bên dưới!`;
+                }
+            }
+
+            updateProgressStats();
+        }
+
+        // Check All Questions globally
+        function checkAllAnswers() {
+            rawData.forEach((_, idx) => {
+                checkSingleQuestion(idx);
+            });
+        }
+
+        // Reset All state
+        function resetAll() {
+            rawData.forEach((q, globalIndex) => {
+                delete checkedStatus[globalIndex];
+
+                q.answers.forEach((_, inputIdx) => {
+                    const inputEl = document.getElementById(`input-${globalIndex}-${inputIdx}`);
+                    if (inputEl) {
+                        inputEl.value = '';
+                        inputEl.classList.remove('correct-input', 'incorrect-input');
+                    }
+                });
+
+                const explanationEl = document.getElementById(`explanation-${globalIndex}`);
+                if (explanationEl) {
+                    explanationEl.classList.add('hidden');
+                    explanationEl.classList.remove('fade-in');
+                }
+            });
+
+            updateProgressStats();
+        }
+
+        // Section Navigation Filter
+        function filterSection(sectionCode) {
+            currentSection = sectionCode;
+            
+            document.querySelectorAll('.section-tab').forEach(tab => {
+                if (tab.dataset.section === sectionCode) {
+                    tab.className = 'section-tab active-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-indigo-600 text-white shadow-xs';
+                } else {
+                    tab.className = 'section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700';
+                }
+            });
+
+            const titleEl = document.getElementById('section-title');
+            const descEl = document.getElementById('section-desc');
+
+            const infoMap = {
+                'ALL': ['Tất Cả Bài Tập (70 Câu)', 'Tổng hợp toàn bộ 70 câu hỏi từ Phần A đến G.'],
+                'A': ['Phần A: Sự việc xảy ra trước mốc thời gian quá khứ', 'Dấu hiệu: By + mốc thời gian quá khứ, Before + năm...'],
+                'B': ['Phần B: Sự việc xảy ra trước dùng Quá Khứ Hoàn Thành', 'Thứ tự hành động: Xảy ra trước (QKHT) - Xảy ra sau (QKĐ).'],
+                'C': ['Phần C: BEFORE / AFTER', 'Cấu trúc: BEFORE + QKĐ, QKHT | AFTER + QKHT, QKĐ.'],
+                'D': ['Phần D: BY THE TIME', 'Cấu trúc: BY THE TIME + QKĐ, QKHT.'],
+                'E': ['Phần E: WHEN / AS SOON AS', 'Sự nối tiếp và hoàn thành trước của các hành động.'],
+                'F': ['Phần F: Câu phủ định và nghi vấn', 'Thực hành dạng phủ định (hadn\'t + V3) và nghi vấn (Had + S + V3...?).'],
+                'G': ['Phần G: Bài tập tổng hợp 3 thì quá khứ', 'Phối hợp Quá Khứ Đơn / Quá Khứ Tiếp Diễn / Quá Khứ Hoàn Thành.']
+            };
+
+            if (infoMap[sectionCode]) {
+                titleEl.textContent = infoMap[sectionCode][0];
+                descEl.textContent = infoMap[sectionCode][1];
+            }
+
+            renderQuestions();
+        }
+
+        // Update Stats Summary
+        function updateProgressStats() {
+            let correctCount = 0;
+            let checkedCount = 0;
+
+            rawData.forEach((q, globalIndex) => {
+                if (checkedStatus[globalIndex]) {
+                    checkedCount++;
+                    let qCorrect = true;
+
+                    q.answers.forEach((ansGroup, inputIdx) => {
+                        const inputEl = document.getElementById(`input-${globalIndex}-${inputIdx}`);
+                        const val = inputEl ? normalizeText(inputEl.value) : '';
+                        const isMatch = ansGroup.some(ans => normalizeText(ans) === val);
+                        if (!isMatch) qCorrect = false;
+                    });
+
+                    if (qCorrect) correctCount++;
+                }
+            });
+
+            const percent = Math.round((checkedCount / totalQuestionsCount) * 100);
+            
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('progress-percentage').textContent = `${percent}%`;
+            document.getElementById('score-text').textContent = `${correctCount} / ${totalQuestionsCount}`;
+            document.getElementById('checked-text').textContent = `${checkedCount} / ${totalQuestionsCount}`;
+        }
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fa-solid fa-moon';
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fa-solid fa-sun';
+            }
+        }
+
+        // Modal Toggle
+        function toggleTheoryModal() {
+            const modal = document.getElementById('theory-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // On Page Load
+        window.onload = function() {
+            renderQuestions();
+        };
+    </script>
+</body>
+</html>
