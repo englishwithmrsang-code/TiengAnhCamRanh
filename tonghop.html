@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="vi" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Tổng Hợp 6 Thì - English Verb Tenses Practice</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct-input {
+            border-color: #10B981 !important;
+            background-color: #ECFDF5 !important;
+            color: #065F46 !important;
+        }
+        .dark .correct-input {
+            background-color: #064E3B !important;
+            color: #A7F3D0 !important;
+        }
+        .incorrect-input {
+            border-color: #EF4444 !important;
+            background-color: #FEF2F2 !important;
+            color: #991B1B !important;
+        }
+        .dark .incorrect-input {
+            background-color: #7F1D1D !important;
+            color: #FECACA !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg sm:text-xl text-slate-900 dark:text-white leading-tight">Bài Tập Tổng Hợp 6 Thì</h1>
+                    <p class="text-xs text-blue-600 dark:text-blue-400 font-medium">Verb Tenses Mastery (100 Câu Hỏi)</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <button onclick="toggleTheoryModal()" class="px-3 py-2 text-sm font-semibold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 rounded-xl transition-colors flex items-center gap-1.5 border border-blue-200 dark:border-blue-800">
+                    <i class="fa-solid fa-book-open text-blue-600 dark:text-blue-400"></i>
+                    <span class="hidden sm:inline">Ôn Lý Thuyết 6 Thì</span>
+                </button>
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Bật/Tắt Chế Độ Tối">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        
+        <!-- Progress Banner -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 shadow-xs border border-slate-200 dark:border-slate-700 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                <div class="md:col-span-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-semibold text-slate-600 dark:text-slate-300">Tiến độ hoàn thành bài tập</span>
+                        <span id="progress-percentage" class="text-sm font-bold text-blue-600 dark:text-blue-400">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
+                        <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-around md:justify-end md:space-x-8 border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 dark:border-slate-700">
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">Số Câu Đúng</p>
+                        <p id="score-text" class="text-2xl font-black text-blue-600 dark:text-blue-400">0 / 100</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">Đã Kiểm Tra</p>
+                        <p id="checked-text" class="text-2xl font-black text-slate-800 dark:text-white">0 / 100</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Filters & Actions -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
+                <button onclick="filterSection('ALL')" class="section-tab active-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-blue-600 text-white shadow-xs" data-section="ALL">Tất Cả (100)</button>
+                <button onclick="filterSection('1')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="1">Phần 1: Mixed Tenses (20)</button>
+                <button onclick="filterSection('2')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="2">Phần 2: Nhận Biết Dấu Hiệu (20)</button>
+                <button onclick="filterSection('3')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="3">Phần 3: Phân Biệt Thì (15)</button>
+                <button onclick="filterSection('4')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="4">Phần 4: Câu Phủ Định (10)</button>
+                <button onclick="filterSection('5')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="5">Phần 5: Câu Hỏi (10)</button>
+                <button onclick="filterSection('6')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="6">Phần 6: Challenge (25)</button>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+                <button onclick="checkAllAnswers()" class="flex-1 sm:flex-none px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold shadow-xs transition-colors flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Nộp Toàn Bộ
+                </button>
+                <button onclick="resetAll()" class="px-3.5 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-1.5" title="Làm Lại Từ Đầu">
+                    <i class="fa-solid fa-rotate-left"></i> <span class="hidden sm:inline">Làm Lại</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Section Information Card -->
+        <div id="section-info-card" class="bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/60 rounded-xl p-4 mb-6 flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-blue-600 dark:text-blue-400 text-xl mt-0.5"></i>
+            <div>
+                <h2 id="section-title" class="font-bold text-blue-900 dark:text-blue-200">Tất Cả Bài Tập (100 Câu)</h2>
+                <p id="section-desc" class="text-sm text-blue-700 dark:text-blue-300 mt-0.5">Luyện tập tổng hợp 6 thì: Past Simple, Past Continuous, Past Perfect, Future Simple, Be Going To, Present Continuous.</p>
+            </div>
+        </div>
+
+        <!-- Questions List -->
+        <div id="questions-container" class="space-y-4"></div>
+    </main>
+
+    <!-- Modal Modal Theory -->
+    <div id="theory-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden transition-opacity duration-200">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[85vh] overflow-y-auto p-6 shadow-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center pb-4 mb-4 border-b border-slate-200 dark:border-slate-700">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-book-bookmark text-blue-600 dark:text-blue-400"></i>
+                    Tóm Tắt Lý Thuyết & Dấu Hiệu 6 Thì
+                </h3>
+                <button onclick="toggleTheoryModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <!-- 1. Past Simple -->
+                <div class="bg-blue-50/70 dark:bg-blue-950/40 p-4 rounded-xl border border-blue-100 dark:border-blue-900">
+                    <h4 class="font-bold text-blue-900 dark:text-blue-200 text-base mb-1">1. Quá Khứ Đơn (Past Simple)</h4>
+                    <p class="text-slate-700 dark:text-slate-300 font-medium">S + V2/ed | S + did not + V-bare</p>
+                    <p class="text-slate-600 dark:text-slate-400 mt-1"><b>Dùng cho:</b> Hành động đã hoàn thành và kết thúc trong quá khứ.</p>
+                    <p class="text-blue-700 dark:text-blue-300 font-semibold mt-1"><b>Dấu hiệu:</b> yesterday, last (week/month), ago, in + năm quá khứ.</p>
+                </div>
+
+                <!-- 2. Past Continuous -->
+                <div class="bg-indigo-50/70 dark:bg-indigo-950/40 p-4 rounded-xl border border-indigo-100 dark:border-indigo-900">
+                    <h4 class="font-bold text-indigo-900 dark:text-indigo-200 text-base mb-1">2. Quá Khứ Tiếp Diễn (Past Continuous)</h4>
+                    <p class="text-slate-700 dark:text-slate-300 font-medium">S + was/were + V-ing</p>
+                    <p class="text-slate-600 dark:text-slate-400 mt-1"><b>Dùng cho:</b> Hành động đang xảy ra tại mốc thời điểm cụ thể trong quá khứ hoặc bị hành động khác chen vào (When/While).</p>
+                    <p class="text-indigo-700 dark:text-indigo-300 font-semibold mt-1"><b>Dấu hiệu:</b> at 8 p.m last night, at this time yesterday, while, when.</p>
+                </div>
+
+                <!-- 3. Past Perfect -->
+                <div class="bg-purple-50/70 dark:bg-purple-950/40 p-4 rounded-xl border border-purple-100 dark:border-purple-900">
+                    <h4 class="font-bold text-purple-900 dark:text-purple-200 text-base mb-1">3. Quá Khứ Hoàn Thành (Past Perfect)</h4>
+                    <p class="text-slate-700 dark:text-slate-300 font-medium">S + had + V3/ed</p>
+                    <p class="text-slate-600 dark:text-slate-400 mt-1"><b>Dùng cho:</b> Hành động xảy ra và hoàn tất trước một hành động/thời điểm khác trong quá khứ.</p>
+                    <p class="text-purple-700 dark:text-purple-300 font-semibold mt-1"><b>Dấu hiệu:</b> By the time, Before, After, already (trong quá khứ).</p>
+                </div>
+
+                <!-- 4. Present Continuous -->
+                <div class="bg-emerald-50/70 dark:bg-emerald-950/40 p-4 rounded-xl border border-emerald-100 dark:border-emerald-900">
+                    <h4 class="font-bold text-emerald-900 dark:text-emerald-200 text-base mb-1">4. Hiện Tại Tiếp Diễn (Present Continuous)</h4>
+                    <p class="text-slate-700 dark:text-slate-300 font-medium">S + am/is/are + V-ing</p>
+                    <p class="text-slate-600 dark:text-slate-400 mt-1"><b>Dùng cho:</b> Hành động đang diễn ra lúc nói Hoặc lịch trình/kế hoạch đã sắp xếp chắc chắn trong tương lai gần.</p>
+                    <p class="text-emerald-700 dark:text-emerald-300 font-semibold mt-1"><b>Dấu hiệu:</b> now, right now, at the moment, Look!, Listen!...</p>
+                </div>
+
+                <!-- 5. Future Simple -->
+                <div class="bg-amber-50/70 dark:bg-amber-950/40 p-4 rounded-xl border border-amber-100 dark:border-amber-900">
+                    <h4 class="font-bold text-amber-900 dark:text-amber-200 text-base mb-1">5. Tương Lai Đơn (Future Simple)</h4>
+                    <p class="text-slate-700 dark:text-slate-300 font-medium">S + will + V-bare</p>
+                    <p class="text-slate-600 dark:text-slate-400 mt-1"><b>Dùng cho:</b> Quyết định bộc phát ngay lúc nói, lời hứa/ngỏ ý giúp đỡ, hoặc dự đoán cảm tính.</p>
+                    <p class="text-amber-700 dark:text-amber-300 font-semibold mt-1"><b>Dấu hiệu:</b> I think, I promise, I hope, I'm sure...</p>
+                </div>
+
+                <!-- 6. Be Going To -->
+                <div class="bg-rose-50/70 dark:bg-rose-950/40 p-4 rounded-xl border border-rose-100 dark:border-rose-900">
+                    <h4 class="font-bold text-rose-900 dark:text-rose-200 text-base mb-1">6. Tương Lai Gần (Be Going To)</h4>
+                    <p class="text-slate-700 dark:text-slate-300 font-medium">S + am/is/are + going to + V-bare</p>
+                    <p class="text-slate-600 dark:text-slate-400 mt-1"><b>Dùng cho:</b> Dự định/kế hoạch đã quyết định từ trước Hoặc dự đoán dựa trên bằng chứng thấy trước mắt.</p>
+                    <p class="text-rose-700 dark:text-rose-300 font-semibold mt-1"><b>Dấu hiệu:</b> Look at those clouds!, decide, plan...</p>
+                </div>
+            </div>
+
+            <div class="mt-6 text-right">
+                <button onclick="toggleTheoryModal()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm transition-colors">
+                    Sẵn Sàng Làm Bài Tập
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rawData = [
+            // PHẦN 1. MIXED TENSES (1-20)
+            {
+                id: 1, section: '1', sectionTitle: 'PHẦN 1. MIXED TENSES',
+                text: '1. I usually study English in the evening, but right now I [input0] (watch) a movie.',
+                answers: [['am watching', "'m watching"]],
+                translation: 'Tôi thường học tiếng Anh vào buổi tối, nhưng ngay lúc này tôi đang xem phim.',
+                tip: 'Có dấu hiệu "right now" -> Dùng thì Hiện tại tiếp diễn (am watching).'
+            },
+            {
+                id: 2, section: '1',
+                text: '2. We [input0] (visit) our grandparents last Sunday.',
+                answers: [['visited']],
+                translation: 'Chúng tôi đã đến thăm ông bà vào Chủ nhật tuần trước.',
+                tip: 'Có mốc thời gian quá khứ "last Sunday" -> Dùng Quá khứ đơn (visited).'
+            },
+            {
+                id: 3, section: '1',
+                text: '3. Look at those dark clouds! It [input0] (rain).',
+                answers: [['is going to rain', "'s going to rain"]],
+                translation: 'Nhìn những đám mây đen kìa! Trời sắp mưa rồi.',
+                tip: 'Có bằng chứng trực quan trước mắt "dark clouds" -> Dùng Tương lai gần (is going to rain).'
+            },
+            {
+                id: 4, section: '1',
+                text: '4. I think she [input0] (pass) the exam.',
+                answers: [['will pass', "'ll pass"]],
+                translation: 'Tôi nghĩ rằng cô ấy sẽ đỗ kỳ thi.',
+                tip: 'Sau cụm từ suy đoán chủ quan "I think" -> Dùng Tương lai đơn (will pass).'
+            },
+            {
+                id: 5, section: '1',
+                text: '5. They [input0] (have) dinner at 7 p.m. yesterday.',
+                answers: [['were having']],
+                translation: 'Họ đang ăn tối vào lúc 7 giờ tối ngày hôm qua.',
+                tip: 'Thời điểm xác định trong quá khứ "at 7 p.m yesterday" -> Dùng Quá khứ tiếp diễn (were having).'
+            },
+            {
+                id: 6, section: '1',
+                text: '6. By the time we arrived, the movie [input0] already [input1] (start).',
+                answers: [['had'], ['started']],
+                translation: 'Trước khi chúng tôi đến, bộ phim đã bắt đầu rồi.',
+                tip: 'Hành động xảy ra trước "arrived" trong quá khứ có "By the time" -> Dùng Quá khứ hoàn thành (had already started).'
+            },
+            {
+                id: 7, section: '1',
+                text: '7. My family [input0] (travel) to Nha Trang next weekend. We have already booked the hotel.',
+                answers: [['is traveling', 'is travelling', 'are traveling', 'are travelling', 'is going to travel', 'are going to travel']],
+                translation: 'Gia đình tôi sẽ đi du lịch Nha Trang cuối tuần tới. Chúng tôi đã đặt phòng khách sạn rồi.',
+                tip: 'Có kế hoạch & đã chuẩn bị trước ("already booked") -> Dùng Hiện tại tiếp diễn chỉ tương lai hoặc Tương lai gần.'
+            },
+            {
+                id: 8, section: '1',
+                text: '8. He [input0] (finish) his homework two hours ago.',
+                answers: [['finished']],
+                translation: 'Anh ấy đã làm xong bài tập về nhà 2 giờ trước.',
+                tip: 'Dấu hiệu "two hours ago" -> Dùng Quá khứ đơn (finished).'
+            },
+            {
+                id: 9, section: '1',
+                text: '9. Listen! Someone [input0] (knock) at the door.',
+                answers: [['is knocking', "'s knocking"]],
+                translation: 'Nghe kìa! Ai đó đang gõ cửa.',
+                tip: 'Từ gây chú ý "Listen!" -> Dùng Hiện tại tiếp diễn (is knocking).'
+            },
+            {
+                id: 10, section: '1',
+                text: '10. When I was young, I [input0] (play) football every afternoon.',
+                answers: [['played']],
+                translation: 'Khi tôi còn nhỏ, tôi chơi bóng đá mỗi buổi chiều.',
+                tip: 'Thói quen trong quá khứ "When I was young" -> Dùng Quá khứ đơn (played).'
+            },
+            {
+                id: 11, section: '1',
+                text: '11. She [input0] (not / come) to school yesterday because she was sick.',
+                answers: [['did not come', "didn't come"]],
+                translation: 'Cô ấy đã không đến trường hôm qua vì cô ấy bị ốm.',
+                tip: 'Dấu hiệu "yesterday" dạng phủ định -> Dùng didn\'t + V-bare (did not come / didn\'t come).'
+            },
+            {
+                id: 12, section: '1',
+                text: '12. Be careful! You [input0] (fall)!',
+                answers: [['are going to fall', "'re going to fall"]],
+                translation: 'Cẩn thận! Bạn sắp ngã đấy!',
+                tip: 'Cảnh báo nguy cơ dựa trên tình huống hiện tại -> Dùng Tương lai gần (are going to fall).'
+            },
+            {
+                id: 13, section: '1',
+                text: '13. I promise I [input0] (help) you with your homework.',
+                answers: [['will help', "'ll help"]],
+                translation: 'Tôi hứa tôi sẽ giúp bạn làm bài tập về nhà.',
+                tip: 'Sau lời hứa "I promise" -> Dùng Tương lai đơn (will help).'
+            },
+            {
+                id: 14, section: '1',
+                text: '14. At this time yesterday, we [input0] (drive) to Da Lat.',
+                answers: [['were driving']],
+                translation: 'Vào thời điểm này ngày hôm qua, chúng tôi đang lái xe đi Đà Lạt.',
+                tip: 'Thời điểm cụ thể trong quá khứ "At this time yesterday" -> Dùng Quá khứ tiếp diễn (were driving).'
+            },
+            {
+                id: 15, section: '1',
+                text: '15. After they [input0] (finish) dinner, they went for a walk.',
+                answers: [['had finished']],
+                translation: 'Sau khi họ ăn tối xong, họ đi dạo.',
+                tip: 'Cấu trúc "After + Quá khứ hoàn thành, Quá khứ đơn" -> Dùng had finished.'
+            },
+            {
+                id: 16, section: '1',
+                text: '16. We [input0] (meet) our English teacher tomorrow at 9 a.m. The appointment is already arranged.',
+                answers: [['are meeting', "'re meeting", 'are going to meet', "'re going to meet"]],
+                translation: 'Chúng tôi sẽ gặp giáo viên tiếng Anh vào 9 giờ sáng mai. Cuộc hẹn đã được sắp xếp.',
+                tip: '"already arranged" chỉ kế hoạch đã đặt sẵn -> Dùng Hiện tại tiếp diễn hoặc Be going to.'
+            },
+            {
+                id: 17, section: '1',
+                text: '17. I [input0] (not / watch) TV right now. I am doing my homework.',
+                answers: [['am not watching', "'m not watching"]],
+                translation: 'Tôi đang không xem TV ngay lúc này. Tôi đang làm bài tập.',
+                tip: 'Dấu hiệu "right now" phủ định -> Dùng Hiện tại tiếp diễn (am not watching).'
+            },
+            {
+                id: 18, section: '1',
+                text: '18. They [input0] (buy) a new house next year. They have already made the decision.',
+                answers: [['are going to buy', "'re going to buy", 'are buying']],
+                translation: 'Họ sẽ mua một căn nhà mới vào năm tới. Họ đã đưa ra quyết định rồi.',
+                tip: '"made the decision" từ trước -> Dùng Tương lai gần (are going to buy).'
+            },
+            {
+                id: 19, section: '1',
+                text: '19. While my mother [input0] (cook), I was doing my homework.',
+                answers: [['was cooking']],
+                translation: 'Trong khi mẹ tôi đang nấu ăn, tôi đang làm bài tập.',
+                tip: 'Hai hành động song song diễn ra trong quá khứ "While + Quá khứ tiếp diễn" -> was cooking.'
+            },
+            {
+                id: 20, section: '1',
+                text: '20. He [input0] (lose) his keys yesterday.',
+                answers: [['lost']],
+                translation: 'Anh ấy đã làm mất chìa khóa vào ngày hôm qua.',
+                tip: 'Dấu hiệu "yesterday" -> Dùng Quá khứ đơn (lost).'
+            },
+
+            // PHẦN 2. NHẬN BIẾT DẤU HIỆU (21-40)
+            {
+                id: 21, section: '2', sectionTitle: 'PHẦN 2. NHẬN BIẾT DẤU HIỆU',
+                text: '21. She [input0] (study) English at the moment.',
+                answers: [['is studying', "'s studying"]],
+                translation: 'Cô ấy đang học tiếng Anh vào lúc này.',
+                tip: 'Dấu hiệu "at the moment" -> Dùng Hiện tại tiếp diễn (is studying).'
+            },
+            {
+                id: 22, section: '2',
+                text: '22. We [input0] (go) to the beach last Saturday.',
+                answers: [['went']],
+                translation: 'Chúng tôi đã đi ra bãi biển vào Thứ Bảy tuần trước.',
+                tip: 'Dấu hiệu "last Saturday" -> Dùng Quá khứ đơn (went).'
+            },
+            {
+                id: 23, section: '2',
+                text: '23. They [input0] (play) football when it started to rain.',
+                answers: [['were playing']],
+                translation: 'Họ đang chơi bóng đá thì trời bắt đầu mưa.',
+                tip: 'Hành động đang diễn ra trong quá khứ bị hành động khác chen vào -> Quá khứ tiếp diễn (were playing).'
+            },
+            {
+                id: 24, section: '2',
+                text: '24. By the time I got home, my parents [input0] (eat) dinner.',
+                answers: [['had eaten', 'had had']],
+                translation: 'Trước khi tôi về đến nhà, bố mẹ tôi đã ăn tối xong.',
+                tip: 'Cấu trúc "By the time + Quá khứ đơn, Quá khứ hoàn thành" -> had eaten.'
+            },
+            {
+                id: 25, section: '2',
+                text: '25. I think people [input0] (use) more electric cars in the future.',
+                answers: [['will use', "'ll use"]],
+                translation: 'Tôi nghĩ mọi người sẽ sử dụng nhiều xe điện hơn trong tương lai.',
+                tip: 'Dự đoán có "I think" + "in the future" -> Dùng Tương lai đơn (will use).'
+            },
+            {
+                id: 26, section: '2',
+                text: '26. Look! That boy [input0] (run) across the road.',
+                answers: [['is running', "'s running"]],
+                translation: 'Nhìn kìa! Cậu bé đó đang chạy băng qua đường.',
+                tip: 'Dấu hiệu "Look!" -> Dùng Hiện tại tiếp diễn (is running).'
+            },
+            {
+                id: 27, section: '2',
+                text: '27. We [input0] (have) a party next Friday. Everything is already planned.',
+                answers: [['are having', "'re having", 'are going to have', "'re going to have"]],
+                translation: 'Chúng tôi sẽ tổ chức tiệc vào Thứ Sáu tới. Mọi thứ đã lên kế hoạch sẵn.',
+                tip: '"Everything is already planned" -> Dùng Hiện tại tiếp diễn chỉ tương lai hoặc Tương lai gần.'
+            },
+            {
+                id: 28, section: '2',
+                text: '28. He [input0] (not / finish) his homework yet.',
+                answers: [['has not finished', "hasn't finished", 'had not finished', "hadn't finished", "didn't finish"]],
+                translation: 'Anh ấy vẫn chưa hoàn thành bài tập về nhà.',
+                tip: 'Dấu hiệu "yet" thường dùng với thì Hoàn thành (has not finished / had not finished).'
+            },
+            {
+                id: 29, section: '2',
+                text: '29. At 8 p.m. last night, I [input0] (read) a book.',
+                answers: [['was reading']],
+                translation: 'Vào lúc 8 giờ tối qua, tôi đang đọc một cuốn sách.',
+                tip: 'Thời điểm cụ thể quá khứ "At 8 p.m last night" -> Dùng Quá khứ tiếp diễn (was reading).'
+            },
+            {
+                id: 30, section: '2',
+                text: '30. After she [input0] (leave) the house, she realized that she had forgotten her phone.',
+                answers: [['had left', 'left']],
+                translation: 'Sau khi cô ấy rời khỏi nhà, cô ấy mới nhận ra mình quên điện thoại.',
+                tip: 'Cấu trúc "After + Quá khứ hoàn thành" -> had left.'
+            },
+            {
+                id: 31, section: '2',
+                text: '31. I [input0] (call) you tonight, I promise.',
+                answers: [['will call', "'ll call"]],
+                translation: 'Tôi sẽ gọi cho bạn tối nay, tôi hứa đấy.',
+                tip: 'Lời hứa "I promise" -> Dùng Tương lai đơn (will call).'
+            },
+            {
+                id: 32, section: '2',
+                text: '32. They [input0] (visit) Ha Noi two years ago.',
+                answers: [['visited']],
+                translation: 'Họ đã đến thăm Hà Nội hai năm trước.',
+                tip: 'Dấu hiệu "two years ago" -> Dùng Quá khứ đơn (visited).'
+            },
+            {
+                id: 33, section: '2',
+                text: '33. Look at the broken window! The ball [input0] (hit) it.',
+                answers: [['is going to hit', 'hit', 'has hit']],
+                translation: 'Nhìn chiếc cửa sổ vỡ kìa! Quả bóng đã đập trúng nó.',
+                tip: 'Dấu hiệu bằng chứng cửa sổ vỡ -> Quá khứ/Hoàn thành hoặc kết quả kéo theo.'
+            },
+            {
+                id: 34, section: '2',
+                text: '34. When I arrived at the station, the train [input0] already [input1] (leave).',
+                answers: [['had'], ['left']],
+                translation: 'Khi tôi đến ga, tàu đã rời đi rồi.',
+                tip: 'Hành động "the train leave" hoàn tất trước khi "I arrived" -> Dùng Quá khứ hoàn thành (had already left).'
+            },
+            {
+                id: 35, section: '2',
+                text: '35. My brother [input0] (study) in his room right now.',
+                answers: [['is studying', "'s studying"]],
+                translation: 'Anh trai tôi đang học bài trong phòng ngay lúc này.',
+                tip: 'Dấu hiệu "right now" -> Dùng Hiện tại tiếp diễn (is studying).'
+            },
+            {
+                id: 36, section: '2',
+                text: '36. We [input0] (have) an English test tomorrow morning. The teacher has already told us about it.',
+                answers: [['are having', "'re having", 'are going to have', "'re going to have"]],
+                translation: 'Chúng tôi sẽ có bài kiểm tra tiếng Anh vào sáng mai. Giáo viên đã báo trước rồi.',
+                tip: 'Sắp xếp chắc chắn có thông báo -> Dùng Hiện tại tiếp diễn / Be going to.'
+            },
+            {
+                id: 37, section: '2',
+                text: '37. I am sure you [input0] (do) well in the exam.',
+                answers: [['will do', "'ll do"]],
+                translation: 'Tôi chắc chắn bạn sẽ làm tốt trong kỳ thi.',
+                tip: 'Cụm từ niềm tin cá nhân "I am sure" -> Dùng Tương lai đơn (will do).'
+            },
+            {
+                id: 38, section: '2',
+                text: '38. While Tom [input0] (walk) home, he saw an accident.',
+                answers: [['was walking']],
+                translation: 'Trong khi Tom đang đi bộ về nhà, anh ấy thấy một vụ tai nạn.',
+                tip: 'Hành động đang diễn ra "While + Quá khứ tiếp diễn" -> was walking.'
+            },
+            {
+                id: 39, section: '2',
+                text: '39. She [input0] (clean) her room yesterday morning.',
+                answers: [['cleaned']],
+                translation: 'Cô ấy đã dọn phòng vào sáng hôm qua.',
+                tip: 'Dấu hiệu "yesterday morning" -> Dùng Quá khứ đơn (cleaned).'
+            },
+            {
+                id: 40, section: '2',
+                text: '40. They [input0] (move) to a new apartment next month. They have already signed the contract.',
+                answers: [['are moving', "'re moving", 'are going to move', "'re going to move"]],
+                translation: 'Họ sẽ chuyển đến căn hộ mới vào tháng tới. Họ đã ký hợp đồng rồi.',
+                tip: '"already signed the contract" = Kế hoạch chính thức -> Dùng Hiện tại tiếp diễn hoặc Be going to.'
+            },
+
+            // PHẦN 3. PHÂN BIỆT CÁC THÌ GẦN GIỐNG NHAU (41-55)
+            {
+                id: 41, section: '3', sectionTitle: 'PHẦN 3. PHÂN BIỆT CÁC THÌ GẦN GIỐNG NHAU',
+                text: '41. A: The phone is ringing.<br/>B: I [input0] (answer) it.',
+                answers: [['will answer', "'ll answer"]],
+                translation: 'A: Điện thoại đang reo kìa.<br/>B: Để tôi nghe cho.',
+                tip: 'Quyết định tức thì bộc phát ngay thời điểm nói -> Dùng Will (will answer).'
+            },
+            {
+                id: 42, section: '3',
+                text: '42. Look at that car! It [input0] (crash) into the wall.',
+                answers: [['is going to crash', "'s going to crash"]],
+                translation: 'Nhìn chiếc xe kia kìa! Nó sắp tông vào tường rồi.',
+                tip: 'Dự đoán có bằng chứng trực quan nhìn thấy -> Dùng Be going to (is going to crash).'
+            },
+            {
+                id: 43, section: '3',
+                text: '43. We [input0] (visit) our uncle tomorrow evening. We have arranged everything.',
+                answers: [['are visiting', "'re visiting", 'are going to visit', "'re going to visit"]],
+                translation: 'Chúng tôi sẽ đi thăm chú vào tối mai. Chúng tôi đã sắp xếp mọi thứ.',
+                tip: 'Sắp xếp chắc chắn "arranged everything" -> Dùng Hiện tại tiếp diễn hoặc Be going to.'
+            },
+            {
+                id: 44, section: '3',
+                text: '44. I think our team [input0] (win) the match.',
+                answers: [['will win', "'ll win"]],
+                translation: 'Tôi nghĩ đội của chúng ta sẽ chiến thắng trận đấu.',
+                tip: 'Dự đoán cá nhân có "I think" -> Dùng Will (will win).'
+            },
+            {
+                id: 45, section: '3',
+                text: '45. When I saw Peter yesterday, he [input0] (run) in the park.',
+                answers: [['was running']],
+                translation: 'Khi tôi nhìn thấy Peter hôm qua, anh ấy đang chạy bộ trong công viên.',
+                tip: 'Hành động đang diễn ra tại thời điểm cắt ngang "saw Peter" -> Dùng Quá khứ tiếp diễn (was running).'
+            },
+            {
+                id: 46, section: '3',
+                text: '46. Peter [input0] (run) in the park yesterday morning.',
+                answers: [['ran', 'was running']],
+                translation: 'Peter đã chạy bộ trong công viên vào sáng hôm qua.',
+                tip: 'Sự việc hoàn thành trong quá khứ -> Dùng Quá khứ đơn (ran).'
+            },
+            {
+                id: 47, section: '3',
+                text: '47. When we arrived, the students [input0] (do) an exercise.',
+                answers: [['were doing']],
+                translation: 'Khi chúng tôi đến, các học sinh đang làm bài tập.',
+                tip: 'Hành động đang diễn ra lúc hành động khác đến -> Dùng Quá khứ tiếp diễn (were doing).'
+            },
+            {
+                id: 48, section: '3',
+                text: '48. When we arrived, the students [input0] already [input1] (finish) the exercise.',
+                answers: [['had'], ['finished']],
+                translation: 'Khi chúng tôi đến, các học sinh đã hoàn thành xong bài tập rồi.',
+                tip: 'Hành động làm xong xảy ra trước lúc đến -> Dùng Quá khứ hoàn thành (had finished).'
+            },
+            {
+                id: 49, section: '3',
+                text: '49. She [input0] (study) at the moment, so she cannot answer the phone.',
+                answers: [['is studying', "'s studying"]],
+                translation: 'Cô ấy đang học bài lúc này, nên không thể nghe điện thoại.',
+                tip: 'Hành động đang diễn ra ở hiện tại "at the moment" -> Dùng Hiện tại tiếp diễn (is studying).'
+            },
+            {
+                id: 50, section: '3',
+                text: '50. She [input0] (study) English last night.',
+                answers: [['studied']],
+                translation: 'Cô ấy đã học tiếng Anh tối qua.',
+                tip: 'Sự việc kết thúc tối qua "last night" -> Dùng Quá khứ đơn (studied).'
+            },
+            {
+                id: 51, section: '3',
+                text: '51. I [input0] (help) you carry those bags.',
+                answers: [['will help', "'ll help"]],
+                translation: 'Để tôi giúp bạn xách mấy cái túi đó.',
+                tip: 'Lời đề nghị giúp đỡ bộc phát -> Dùng Will (will help).'
+            },
+            {
+                id: 52, section: '3',
+                text: '52. I [input0] (buy) a new laptop next month. I have already saved enough money.',
+                answers: [['am going to buy', "'m going to buy", 'am buying', "'m buying"]],
+                translation: 'Tôi sẽ mua laptop mới vào tháng tới. Tôi đã tiết kiệm đủ tiền rồi.',
+                tip: 'Có dự định và đã tiết kiệm sẵn -> Dùng Be going to (am going to buy).'
+            },
+            {
+                id: 53, section: '3',
+                text: '53. Listen! The baby [input0] (cry).',
+                answers: [['is crying', "'s crying"]],
+                translation: 'Nghe kìa! Em bé đang khóc.',
+                tip: 'Dấu hiệu "Listen!" -> Dùng Hiện tại tiếp diễn (is crying).'
+            },
+            {
+                id: 54, section: '3',
+                text: '54. We [input0] (watch) TV when the electricity went out.',
+                answers: [['were watching']],
+                translation: 'Chúng tôi đang xem TV thì mất điện.',
+                tip: 'Hành động đang xảy ra bị hành động khác cắt ngang -> Dùng Quá khứ tiếp diễn (were watching).'
+            },
+            {
+                id: 55, section: '3',
+                text: '55. Before the teacher came, the students [input0] (prepare) everything.',
+                answers: [['had prepared']],
+                translation: 'Trước khi giáo viên vào, các học sinh đã chuẩn bị xong mọi thứ.',
+                tip: 'Cấu trúc "Before + Quá khứ đơn, Quá khứ hoàn thành" -> had prepared.'
+            },
+
+            // PHẦN 4. NEGATIVE SENTENCES (56-65)
+            {
+                id: 56, section: '4', sectionTitle: 'PHẦN 4. NEGATIVE SENTENCES',
+                text: '56. I [input0] (not / go) to school yesterday because I was ill.',
+                answers: [['did not go', "didn't go"]],
+                translation: 'Tôi đã không đi học hôm qua vì bị ốm.',
+                tip: 'Phủ định quá khứ đơn: didn\'t + V-bare (did not go / didn\'t go).'
+            },
+            {
+                id: 57, section: '4',
+                text: '57. She [input0] (not / sleep) now. She is studying.',
+                answers: [['is not sleeping', "isn't sleeping", "'s not sleeping"]],
+                translation: 'Hiện tại cô ấy không ngủ. Cô ấy đang học bài.',
+                tip: 'Phủ định hiện tại tiếp diễn với "now": is not sleeping / isn\'t sleeping.'
+            },
+            {
+                id: 58, section: '4',
+                text: '58. They [input0] (not / finish) the project before the deadline last week.',
+                answers: [['had not finished', "hadn't finished", 'did not finish', "didn't finish"]],
+                translation: 'Họ đã không hoàn thành dự án trước hạn chót tuần trước.',
+                tip: 'Xảy ra trước deadline trong quá khứ -> Dùng Quá khứ hoàn thành (had not finished).'
+            },
+            {
+                id: 59, section: '4',
+                text: '59. We [input0] (not / travel) next weekend. We have to work.',
+                answers: [['are not going to travel', "aren't going to travel", "'re not going to travel", 'are not traveling', "aren't traveling"]],
+                translation: 'Chúng tôi sẽ không đi du lịch tuần tới. Chúng tôi phải làm việc.',
+                tip: 'Phủ định kế hoạch tương lai -> Dùng Be going to hoặc Hiện tại tiếp diễn.'
+            },
+            {
+                id: 60, section: '4',
+                text: '60. He [input0] (not / watch) TV at 8 p.m. yesterday. He was studying.',
+                answers: [['was not watching', "wasn't watching"]],
+                translation: 'Anh ấy không đang xem TV lúc 8 giờ tối qua. Anh ấy đang học bài.',
+                tip: 'Phủ định quá khứ tiếp diễn tại thời điểm 8 p.m yesterday -> was not watching.'
+            },
+            {
+                id: 61, section: '4',
+                text: '61. I [input0] (not / forget) your birthday. I promise.',
+                answers: [['will not forget', "won't forget"]],
+                translation: 'Tôi sẽ không quên sinh nhật của bạn đâu. Tôi hứa đấy.',
+                tip: 'Lời hứa phủ định -> Dùng won\'t + V-bare (will not forget / won\'t forget).'
+            },
+            {
+                id: 62, section: '4',
+                text: '62. She [input0] (not / come) to the party tomorrow because she has another appointment.',
+                answers: [['is not coming', "isn't coming", 'is not going to come', "isn't going to come"]],
+                translation: 'Cô ấy sẽ không đến bữa tiệc ngày mai vì có cuộc hẹn khác.',
+                tip: 'Lịch trình/kế hoạch tương lai -> Dùng Hiện tại tiếp diễn / Be going to.'
+            },
+            {
+                id: 63, section: '4',
+                text: '63. They [input0] (not / play) football when I saw them. They were studying.',
+                answers: [['were not playing', "weren't playing"]],
+                translation: 'Họ không đang chơi bóng đá khi tôi nhìn thấy. Họ đang học bài.',
+                tip: 'Phủ định quá khứ tiếp diễn lúc cắt ngang -> were not playing.'
+            },
+            {
+                id: 64, section: '4',
+                text: '64. He [input0] (not / buy) that phone. He has decided to save his money.',
+                answers: [['is not going to buy', "isn't going to buy", "'s not going to buy"]],
+                translation: 'Anh ấy sẽ không mua chiếc điện thoại đó. Anh ấy quyết định tiết kiệm tiền.',
+                tip: 'Dự định cá nhân phủ định "decided" -> is not going to buy.'
+            },
+            {
+                id: 65, section: '4',
+                text: '65. We [input0] (not / have) dinner at the moment.',
+                answers: [['are not having', "aren't having", "'re not having"]],
+                translation: 'Lúc này chúng tôi đang không ăn tối.',
+                tip: 'Phủ định hiện tại tiếp diễn "at the moment" -> are not having.'
+            },
+
+            // PHẦN 5. QUESTIONS (66-75)
+            {
+                id: 66, section: '5', sectionTitle: 'PHẦN 5. QUESTIONS',
+                text: '66. What [input0] you [input1] (do) right now?',
+                answers: [['are'], ['doing']],
+                translation: 'Bạn đang làm gì ngay lúc này?',
+                tip: 'Câu hỏi Hiện tại tiếp diễn: What + are + S + doing + right now?'
+            },
+            {
+                id: 67, section: '5',
+                text: '67. Where [input0] you [input1] (go) yesterday?',
+                answers: [['did'], ['go']],
+                translation: 'Bạn đã đi đâu ngày hôm qua?',
+                tip: 'Câu hỏi Quá khứ đơn: Where + did + S + V-bare...?'
+            },
+            {
+                id: 68, section: '5',
+                text: '68. What [input0] she [input1] (do) at 9 p.m. last night?',
+                answers: [['was'], ['doing']],
+                translation: 'Cô ấy đang làm gì vào 9 giờ tối qua?',
+                tip: 'Câu hỏi Quá khứ tiếp diễn: What + was + she + doing...?'
+            },
+            {
+                id: 69, section: '5',
+                text: '69. Why [input0] they [input1] (leave) before we arrived?',
+                answers: [['had'], ['left']],
+                translation: 'Tại sao họ lại rời đi trước khi chúng tôi đến?',
+                tip: 'Câu hỏi Quá khứ hoàn thành: Why + had + they + left...?'
+            },
+            {
+                id: 70, section: '5',
+                text: '70. [input0] you [input1] (visit) your grandparents next weekend?',
+                answers: [['Are', 'are', 'Will', 'will'], ['going to visit', 'visiting', 'visit']],
+                translation: 'Bạn có định đi thăm ông bà vào cuối tuần tới không?',
+                tip: 'Câu hỏi dự định tương lai: Are + you + going to visit / visiting...?'
+            },
+            {
+                id: 71, section: '5',
+                text: '71. [input0] she [input1] (come) to the meeting tomorrow? It has already been arranged.',
+                answers: [['Is', 'is'], ['coming', 'going to come']],
+                translation: 'Cô ấy sẽ đến cuộc họp ngày mai chứ? Cuộc họp đã được sắp xếp rồi.',
+                tip: 'Câu hỏi kế hoạch chắc chắn: Is + she + coming / going to come...?'
+            },
+            {
+                id: 72, section: '5',
+                text: '72. What [input0] you [input1] (do) when I called you last night?',
+                answers: [['were'], ['doing']],
+                translation: 'Bạn đang làm gì khi tôi gọi cho bạn tối qua?',
+                tip: 'Câu hỏi hành động đang diễn ra bị chen ngang: What + were + you + doing...?'
+            },
+            {
+                id: 73, section: '5',
+                text: '73. [input0] he [input1] (help) us with the project, do you think?',
+                answers: [['Will', 'will'], ['help']],
+                translation: 'Bạn có nghĩ anh ấy sẽ giúp chúng ta làm dự án không?',
+                tip: 'Câu hỏi suy đoán với "do you think": Will + he + help...?'
+            },
+            {
+                id: 74, section: '5',
+                text: '74. When [input0] they [input1] (arrive) yesterday?',
+                answers: [['did'], ['arrive']],
+                translation: 'Họ đã đến vào lúc nào ngày hôm qua?',
+                tip: 'Câu hỏi Quá khứ đơn: When + did + they + arrive...?'
+            },
+            {
+                id: 75, section: '5',
+                text: '75. What [input0] you [input1] (buy) next month?',
+                answers: [['are', 'will'], ['going to buy', 'buying', 'buy']],
+                translation: 'Bạn định mua gì vào tháng tới?',
+                tip: 'Câu hỏi dự định tương lai: What + are + you + going to buy...?'
+            },
+
+            // PHẦN 6. MIXED CHALLENGE (76-100)
+            {
+                id: 76, section: '6', sectionTitle: 'PHẦN 6. MIXED CHALLENGE',
+                text: '76. Yesterday, I [input0] (walk) home when I [input1] (see) an old friend.',
+                answers: [['was walking'], ['saw']],
+                translation: 'Hôm qua, khi tôi đang đi bộ về nhà thì tôi gặp một người bạn cũ.',
+                tip: 'Hành động đang diễn ra (was walking) bị hành động khác cắt ngang (saw).'
+            },
+            {
+                id: 77, section: '6',
+                text: '77. By the time the police arrived, the thief [input0] (leave).',
+                answers: [['had left']],
+                translation: 'Trước khi cảnh sát đến, tên trộm đã tẩu thoát rồi.',
+                tip: 'Tên trộm bỏ đi trước khi cảnh sát đến -> Quá khứ hoàn thành (had left).'
+            },
+            {
+                id: 78, section: '6',
+                text: '78. Look! The children [input0] (play) in the garden.',
+                answers: [['are playing']],
+                translation: 'Nhìn kìa! Các em nhỏ đang chơi trong vườn.',
+                tip: 'Dấu hiệu "Look!" -> Hiện tại tiếp diễn (are playing).'
+            },
+            {
+                id: 79, section: '6',
+                text: '79. I think it [input0] (be) cold tonight.',
+                answers: [['will be', "'ll be"]],
+                translation: 'Tôi nghĩ tối nay trời sẽ lạnh.',
+                tip: 'Suy đoán cá nhân "I think" -> Tương lai đơn (will be).'
+            },
+            {
+                id: 80, section: '6',
+                text: '80. We [input0] (have) dinner at a restaurant tomorrow evening. We have already made a reservation.',
+                answers: [['are having', "'re having", 'are going to have', "'re going to have"]],
+                translation: 'Chúng tôi sẽ ăn tối ở nhà hàng tối mai. Chúng tôi đã đặt bàn trước rồi.',
+                tip: '"made a reservation" = Đã đặt trước -> Hiện tại tiếp diễn / Be going to.'
+            },
+            {
+                id: 81, section: '6',
+                text: '81. She [input0] (finish) her homework before she went to bed last night.',
+                answers: [['had finished']],
+                translation: 'Cô ấy đã làm xong bài tập trước khi đi ngủ tối qua.',
+                tip: 'Cấu trúc "... before + Quá khứ đơn" -> Vế trước dùng Quá khứ hoàn thành (had finished).'
+            },
+            {
+                id: 82, section: '6',
+                text: '82. At 10 o\'clock yesterday morning, I [input0] (take) an English test.',
+                answers: [['was taking']],
+                translation: 'Vào lúc 10 giờ sáng qua, tôi đang làm bài kiểm tra tiếng Anh.',
+                tip: 'Mốc thời gian xác định quá khứ -> Quá khứ tiếp diễn (was taking).'
+            },
+            {
+                id: 83, section: '6',
+                text: '83. I [input0] (not / use) my computer now because it is broken.',
+                answers: [['am not using', "'m not using"]],
+                translation: 'Bây giờ tôi không dùng máy tính vì nó bị hỏng.',
+                tip: 'Dấu hiệu "now" dạng phủ định -> am not using.'
+            },
+            {
+                id: 84, section: '6',
+                text: '84. They [input0] (go) to Da Lat last summer.',
+                answers: [['went']],
+                translation: 'Họ đã đi Đà Lạt mùa hè năm ngoái.',
+                tip: 'Dấu hiệu "last summer" -> Quá khứ đơn (went).'
+            },
+            {
+                id: 85, section: '6',
+                text: '85. Look at those bags! She [input0] (go) shopping.',
+                answers: [['is going to go', 'has gone', 'is going', "'s going to go", "'s going"]],
+                translation: 'Nhìn những chiếc túi kìa! Cô ấy đã đi / sắp đi mua sắm.',
+                tip: 'Bằng chứng túi đồ trước mắt -> Dùng Be going to / Hiện tại tiếp diễn.'
+            },
+            {
+                id: 86, section: '6',
+                text: '86. I am tired. I [input0] (help) you clean the room.',
+                answers: [['will help', "'ll help", 'will not help', "won't help"]],
+                translation: 'Tôi mệt rồi. Tôi sẽ (hoặc không thể) giúp bạn dọn phòng.',
+                tip: 'Quyết định bộc phát ở thời điểm nói -> Dùng will help / won\'t help.'
+            },
+            {
+                id: 87, section: '6',
+                text: '87. While my father [input0] (drive), my mother was talking to him.',
+                answers: [['was driving']],
+                translation: 'Trong khi bố tôi đang lái xe, mẹ tôi trò chuyện với ông ấy.',
+                tip: 'Hai hành động song song quá khứ "While + Quá khứ tiếp diễn" -> was driving.'
+            },
+            {
+                id: 88, section: '6',
+                text: '88. After we [input0] (eat) breakfast, we left the hotel.',
+                answers: [['had eaten', 'ate']],
+                translation: 'Sau khi chúng tôi ăn sáng xong, chúng tôi rời khách sạn.',
+                tip: 'Cấu trúc "After + Quá khứ hoàn thành" -> had eaten.'
+            },
+            {
+                id: 89, section: '6',
+                text: '89. I [input0] (meet) my friends at 6 p.m. tomorrow. We have planned it already.',
+                answers: [['am meeting', "'m meeting", 'am going to meet', "'m going to meet"]],
+                translation: 'Tôi sẽ gặp bạn bè lúc 6 giờ tối mai. Chúng tôi đã lên kế hoạch rồi.',
+                tip: '"planned it already" -> Dùng Hiện tại tiếp diễn hoặc Be going to.'
+            },
+            {
+                id: 90, section: '6',
+                text: '90. I am sure he [input0] (be) successful one day.',
+                answers: [['will be', "'ll be"]],
+                translation: 'Tôi chắc chắn một ngày nào đó anh ấy sẽ thành công.',
+                tip: 'Cụm từ tin tưởng "I am sure" -> Tương lai đơn (will be).'
+            },
+            {
+                id: 91, section: '6',
+                text: '91. When I got to the classroom, the teacher [input0] already [input1] (start) the lesson.',
+                answers: [['had'], ['started']],
+                translation: 'Khi tôi đến lớp, thầy giáo đã bắt đầu bài giảng rồi.',
+                tip: 'Thầy bắt đầu trước khi tôi đến -> Quá khứ hoàn thành (had already started).'
+            },
+            {
+                id: 92, section: '6',
+                text: '92. What [input0] you [input1] (do) at this time yesterday?',
+                answers: [['were'], ['doing']],
+                translation: 'Bạn đang làm gì vào thời điểm này ngày hôm qua?',
+                tip: 'Thời điểm cụ thể quá khứ -> Quá khứ tiếp diễn: What were you doing...?'
+            },
+            {
+                id: 93, section: '6',
+                text: '93. They [input0] (not / go) anywhere last weekend.',
+                answers: [['did not go', "didn't go"]],
+                translation: 'Họ đã không đi đâu vào cuối tuần trước.',
+                tip: 'Dấu hiệu "last weekend" dạng phủ định -> didn\'t go.'
+            },
+            {
+                id: 94, section: '6',
+                text: '94. Be careful! You [input0] (drop) the glass.',
+                answers: [['are going to drop', "'re going to drop"]],
+                translation: 'Cẩn thận! Bạn sắp làm rơi cái ly đấy.',
+                tip: 'Cảnh báo nguy cơ nguy hiểm trước mắt -> Tương lai gần (are going to drop).'
+            },
+            {
+                id: 95, section: '6',
+                text: '95. I [input0] (call) you when I get home.',
+                answers: [['will call', "'ll call"]],
+                translation: 'Tôi sẽ gọi cho bạn khi tôi về đến nhà.',
+                tip: 'Mệnh đề chính chỉ lời hứa/hành động tương lai -> Tương lai đơn (will call).'
+            },
+            {
+                id: 96, section: '6',
+                text: '96. We [input0] (watch) a movie when the lights went out.',
+                answers: [['were watching']],
+                translation: 'Chúng tôi đang xem phim thì đèn bị tắt.',
+                tip: 'Hành động đang diễn ra thì hành động khác xen vào -> Quá khứ tiếp diễn (were watching).'
+            },
+            {
+                id: 97, section: '6',
+                text: '97. She [input0] (study) for the exam right now.',
+                answers: [['is studying', "'s studying"]],
+                translation: 'Cô ấy đang học cho kỳ thi ngay lúc này.',
+                tip: 'Dấu hiệu "right now" -> Hiện tại tiếp diễn (is studying).'
+            },
+            {
+                id: 98, section: '6',
+                text: '98. They [input0] (move) to another city next year. They have already made the decision.',
+                answers: [['are going to move', "'re going to move", 'are moving']],
+                translation: 'Họ sẽ chuyển sang thành phố khác vào năm tới. Họ đã đưa ra quyết định rồi.',
+                tip: 'Đã quyết định từ trước -> Tương lai gần (are going to move).'
+            },
+            {
+                id: 99, section: '6',
+                text: '99. After he [input0] (finish) the report, he sent it to his manager.',
+                answers: [['had finished']],
+                translation: 'Sau khi hoàn thành xong báo cáo, anh ấy gửi nó cho quản lý.',
+                tip: 'Cấu trúc "After + Quá khứ hoàn thành" -> had finished.'
+            },
+            {
+                id: 100, section: '6',
+                text: '100. I promise I [input0] (not / tell) anyone your secret.',
+                answers: [['will not tell', "won't tell"]],
+                translation: 'Tôi hứa tôi sẽ không nói bí mật của bạn cho ai biết đâu.',
+                tip: 'Lời hứa "I promise" dạng phủ định -> won\'t tell (will not tell).'
+            }
+        ];
+
+        let currentSection = 'ALL';
+        const totalQuestionsCount = rawData.length;
+        const checkedStatus = {};
+
+        function normalizeText(text) {
+            return text.trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            const filteredData = currentSection === 'ALL' 
+                ? rawData 
+                : rawData.filter(q => q.section === currentSection);
+
+            let currentSectionGroup = '';
+
+            filteredData.forEach((q) => {
+                const globalIndex = rawData.indexOf(q);
+
+                if (q.sectionTitle && q.section !== currentSectionGroup) {
+                    currentSectionGroup = q.section;
+                    const headerEl = document.createElement('div');
+                    headerEl.className = 'pt-6 pb-2 border-b-2 border-blue-500/30 flex items-center justify-between mb-2';
+                    headerEl.innerHTML = `
+                        <h3 class="text-base sm:text-lg font-bold text-blue-700 dark:text-blue-400 flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-blue-400"></span>
+                            ${q.sectionTitle}
+                        </h3>
+                    `;
+                    container.appendChild(headerEl);
+                }
+
+                const card = document.createElement('div');
+                card.id = `card-${globalIndex}`;
+                card.className = 'bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200 dark:border-slate-700 transition-all';
+
+                let formattedText = q.text;
+                q.answers.forEach((_, inputIdx) => {
+                    const placeholderTag = `[input${inputIdx}]`;
+                    const inputHtml = `
+                        <span class="inline-block mx-1 my-1">
+                            <input type="text" 
+                                id="input-${globalIndex}-${inputIdx}"
+                                data-global-idx="${globalIndex}"
+                                data-input-idx="${inputIdx}"
+                                class="quiz-input px-3 py-1.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-100 font-semibold text-sm sm:text-base focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900/50 transition-all min-w-[120px] max-w-[210px] text-center"
+                                placeholder="..."
+                                autocomplete="off"
+                                onkeydown="handleKeyDown(event, ${globalIndex}, ${inputIdx})"
+                            />
+                        </span>
+                    `;
+                    formattedText = formattedText.replace(placeholderTag, inputHtml);
+                });
+
+                const isAlreadyChecked = !!checkedStatus[globalIndex];
+
+                card.innerHTML = `
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                        <div class="text-base sm:text-lg font-medium text-slate-800 dark:text-slate-100 leading-relaxed flex-1">
+                            ${formattedText}
+                        </div>
+                        <div class="flex items-center gap-2 self-end sm:self-start">
+                            <button onclick="checkSingleQuestion(${globalIndex})" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-check"></i> Kiểm Tra
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="explanation-${globalIndex}" class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 ${isAlreadyChecked ? 'fade-in' : 'hidden'}">
+                        <div id="feedback-${globalIndex}" class="mb-3 text-xs sm:text-sm font-bold flex items-center gap-2"></div>
+                        
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <div class="text-slate-700 dark:text-slate-200 bg-blue-50/60 dark:bg-blue-950/30 p-2.5 rounded-xl border border-blue-100 dark:border-blue-900/40 flex items-start gap-2">
+                                <i class="fa-solid fa-key text-blue-600 dark:text-blue-400 mt-0.5"></i>
+                                <div><b>Đáp án hợp lệ:</b> <span id="correct-ans-text-${globalIndex}" class="font-bold text-blue-700 dark:text-blue-300"></span></div>
+                            </div>
+
+                            <div class="text-slate-700 dark:text-slate-200 bg-indigo-50/60 dark:bg-indigo-950/30 p-2.5 rounded-xl border border-indigo-100 dark:border-indigo-900/40 flex items-start gap-2">
+                                <i class="fa-solid fa-language text-indigo-500 mt-0.5"></i>
+                                <div><b>Dịch nghĩa:</b> ${q.translation}</div>
+                            </div>
+
+                            <div class="text-slate-700 dark:text-slate-200 bg-amber-50/60 dark:bg-amber-950/30 p-2.5 rounded-xl border border-amber-100 dark:border-amber-900/40 flex items-start gap-2">
+                                <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5"></i>
+                                <div><b>Giải thích & Dấu hiệu:</b> ${q.tip}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            updateProgressStats();
+        }
+
+        function handleKeyDown(event, globalIndex, inputIdx) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const q = rawData[globalIndex];
+                
+                checkSingleQuestion(globalIndex);
+
+                if (inputIdx < q.answers.length - 1) {
+                    const nextInput = document.getElementById(`input-${globalIndex}-${inputIdx + 1}`);
+                    if (nextInput) nextInput.focus();
+                } else {
+                    const nextCardInput = document.getElementById(`input-${globalIndex + 1}-0`);
+                    if (nextCardInput) nextCardInput.focus();
+                }
+            }
+        }
+
+        function checkSingleQuestion(globalIndex) {
+            const q = rawData[globalIndex];
+            let allCorrect = true;
+
+            q.answers.forEach((acceptableAnswers, inputIdx) => {
+                const inputEl = document.getElementById(`input-${globalIndex}-${inputIdx}`);
+                if (!inputEl) return;
+
+                const val = normalizeText(inputEl.value);
+                const isMatch = acceptableAnswers.some(ans => normalizeText(ans) === val);
+
+                inputEl.classList.remove('correct-input', 'incorrect-input');
+                if (isMatch) {
+                    inputEl.classList.add('correct-input');
+                } else {
+                    inputEl.classList.add('incorrect-input');
+                    allCorrect = false;
+                }
+            });
+
+            checkedStatus[globalIndex] = true;
+
+            const explanationEl = document.getElementById(`explanation-${globalIndex}`);
+            const feedbackEl = document.getElementById(`feedback-${globalIndex}`);
+            const correctAnsTextEl = document.getElementById(`correct-ans-text-${globalIndex}`);
+
+            if (explanationEl) {
+                explanationEl.classList.remove('hidden');
+                explanationEl.classList.add('fade-in');
+            }
+
+            const formattedCorrectAns = q.answers.map(ansArr => ansArr.slice(0, 2).join(' / ')).join('  |  ');
+            if (correctAnsTextEl) {
+                correctAnsTextEl.textContent = formattedCorrectAns;
+            }
+
+            if (feedbackEl) {
+                if (allCorrect) {
+                    feedbackEl.className = 'mb-3 text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5';
+                    feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check text-base"></i> Chính xác! Tuyệt vời.`;
+                } else {
+                    feedbackEl.className = 'mb-3 text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5';
+                    feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-base"></i> Chưa chính xác. Xem gợi ý bên dưới!`;
+                }
+            }
+
+            updateProgressStats();
+        }
+
+        function checkAllAnswers() {
+            rawData.forEach((_, idx) => {
+                checkSingleQuestion(idx);
+            });
+        }
+
+        function resetAll() {
+            rawData.forEach((q, globalIndex) => {
+                delete checkedStatus[globalIndex];
+
+                q.answers.forEach((_, inputIdx) => {
+                    const inputEl = document.getElementById(`input-${globalIndex}-${inputIdx}`);
+                    if (inputEl) {
+                        inputEl.value = '';
+                        inputEl.classList.remove('correct-input', 'incorrect-input');
+                    }
+                });
+
+                const explanationEl = document.getElementById(`explanation-${globalIndex}`);
+                if (explanationEl) {
+                    explanationEl.classList.add('hidden');
+                    explanationEl.classList.remove('fade-in');
+                }
+            });
+
+            updateProgressStats();
+        }
+
+        function filterSection(sectionCode) {
+            currentSection = sectionCode;
+            
+            document.querySelectorAll('.section-tab').forEach(tab => {
+                if (tab.dataset.section === sectionCode) {
+                    tab.className = 'section-tab active-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-blue-600 text-white shadow-xs';
+                } else {
+                    tab.className = 'section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700';
+                }
+            });
+
+            const titleEl = document.getElementById('section-title');
+            const descEl = document.getElementById('section-desc');
+
+            const infoMap = {
+                'ALL': ['Tất Cả Bài Tập (100 Câu)', 'Tổng hợp đầy đủ 100 câu hỏi chia động từ qua 6 thì cơ bản và nâng cao.'],
+                '1': ['Phần 1: Mixed Tenses (20 Câu)', 'Luyện tập chia động từ ngẫu nhiên giữa 6 thì theo ngữ cảnh.'],
+                '2': ['Phần 2: Nhận Biết Dấu Hiệu (20 Câu)', 'Rèn luyện phản xạ nhận diện các từ nhận biết đặc trưng.'],
+                '3': ['Phần 3: Phân Biệt Các Thì Gần Giống NHAU (15 Câu)', 'So sánh Quá khứ tiếp diễn vs. Đơn, Be going to vs. Will, v.v.'],
+                '4': ['Phần 4: Câu Phủ Định (10 Câu)', 'Luyện tập chia dạng phủ định của 6 thì.'],
+                '5': ['Phần 5: Câu Hỏi Nghi Vấn (10 Câu)', 'Chia động từ ở dạng câu hỏi Yes/No và Wh-questions.'],
+                '6': ['Phần 6: Mixed Challenge (25 Câu)', 'Thử thách tổng hợp nâng cao kết hợp nhiều dạng câu khó.']
+            };
+
+            if (infoMap[sectionCode]) {
+                titleEl.textContent = infoMap[sectionCode][0];
+                descEl.textContent = infoMap[sectionCode][1];
+            }
+
+            renderQuestions();
+        }
+
+        function updateProgressStats() {
+            let correctCount = 0;
+            let checkedCount = 0;
+
+            rawData.forEach((q, globalIndex) => {
+                if (checkedStatus[globalIndex]) {
+                    checkedCount++;
+                    let qCorrect = true;
+
+                    q.answers.forEach((ansGroup, inputIdx) => {
+                        const inputEl = document.getElementById(`input-${globalIndex}-${inputIdx}`);
+                        const val = inputEl ? normalizeText(inputEl.value) : '';
+                        const isMatch = ansGroup.some(ans => normalizeText(ans) === val);
+                        if (!isMatch) qCorrect = false;
+                    });
+
+                    if (qCorrect) correctCount++;
+                }
+            });
+
+            const percent = Math.round((checkedCount / totalQuestionsCount) * 100);
+            
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('progress-percentage').textContent = `${percent}%`;
+            document.getElementById('score-text').textContent = `${correctCount} / ${totalQuestionsCount}`;
+            document.getElementById('checked-text').textContent = `${checkedCount} / ${totalQuestionsCount}`;
+        }
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fa-solid fa-moon';
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fa-solid fa-sun';
+            }
+        }
+
+        function toggleTheoryModal() {
+            const modal = document.getElementById('theory-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        window.onload = function() {
+            renderQuestions();
+        };
+    </script>
+</body>
+</html>
