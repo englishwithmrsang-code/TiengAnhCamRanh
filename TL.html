@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="vi" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Thì Tương Lai Gần & Tương Lai Đơn - Future Simple & Near Future Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct-input {
+            border-color: #10B981 !important;
+            background-color: #ECFDF5 !important;
+            color: #065F46 !important;
+        }
+        .dark .correct-input {
+            background-color: #064E3B !important;
+            color: #A7F3D0 !important;
+        }
+        .incorrect-input {
+            border-color: #EF4444 !important;
+            background-color: #FEF2F2 !important;
+            color: #991B1B !important;
+        }
+        .dark .incorrect-input {
+            background-color: #7F1D1D !important;
+            color: #FECACA !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
+
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg sm:text-xl text-slate-900 dark:text-white leading-tight">Thì Tương Lai Gần & Tương Lai Đơn</h1>
+                    <p class="text-xs text-blue-600 dark:text-blue-400 font-medium">Be Going To vs. Will (70 Câu)</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <button onclick="toggleTheoryModal()" class="px-3 py-2 text-sm font-semibold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 rounded-xl transition-colors flex items-center gap-1.5 border border-blue-200 dark:border-blue-800">
+                    <i class="fa-solid fa-book-open text-blue-600 dark:text-blue-400"></i>
+                    <span class="hidden sm:inline">Lý Thuyết & Phân Biệt</span>
+                </button>
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors" title="Bật/Tắt Chế Độ Tối">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- 🔴 DÁN ĐOẠN NAV CỦA BẠN VÀO ĐÂY -->
+        <nav class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-xs border border-slate-200 dark:border-slate-700 mb-6 transition-all duration-200">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                
+                <!-- Nhãn thì đang chọn -->
+                <div class="flex items-center space-x-3">
+                    <span class="p-2.5 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 font-bold text-base flex items-center justify-center">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </span>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Đang chọn thì</span>
+                        <h3 id="current-tense-label" class="text-base font-extrabold text-slate-800 dark:text-slate-100">
+                            Tất Cả 6 Thì
+                        </h3>
+                    </div>
+                </div>
+
+                <!-- Các Tab Thì (Scroll ngang trên Mobile) -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
+                    <button onclick="filterTense('ALL')" class="tense-tab active-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap bg-blue-600 text-white shadow-xs" data-tense="ALL">
+                        Tất Cả
+                    </button>
+                    <button onclick="filterTense('PRESENT_SIMPLE')" class="tense-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-tense="PRESENT_SIMPLE">
+                        1. Hiện Tại Đơn
+                    </button>
+                    <button onclick="filterTense('PRESENT_CONTINUOUS')" class="tense-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-tense="PRESENT_CONTINUOUS">
+                        2. Hiện Tại Tiếp Diễn
+                    </button>
+                    <button onclick="filterTense('PRESENT_PERFECT')" class="tense-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-tense="PRESENT_PERFECT">
+                        3. Hiện Tại Hoàn Thành
+                    </button>
+                    <button onclick="filterTense('PAST_SIMPLE')" class="tense-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-tense="PAST_SIMPLE">
+                        4. Quá Khứ Đơn
+                    </button>
+                    <button onclick="filterTense('FUTURE_SIMPLE')" class="tense-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-tense="FUTURE_SIMPLE">
+                        5. Tương Lai Đơn
+                    </button>
+                    <button onclick="filterTense('NEAR_FUTURE')" class="tense-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-tense="NEAR_FUTURE">
+                        6. Tương Lai Gần
+                    </button>
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- Top Progress Banner -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 shadow-xs border border-slate-200 dark:border-slate-700 mb-6">
+            ...
+        <!-- Top Progress Banner -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 shadow-xs border border-slate-200 dark:border-slate-700 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                <div class="md:col-span-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-semibold text-slate-600 dark:text-slate-300">Tiến độ hoàn thành bài tập</span>
+                        <span id="progress-percentage" class="text-sm font-bold text-blue-600 dark:text-blue-400">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
+                        <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-around md:justify-end md:space-x-8 border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 dark:border-slate-700">
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">Số Câu Đúng</p>
+                        <p id="score-text" class="text-2xl font-black text-blue-600 dark:text-blue-400">0 / 70</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">Đã Kiểm Tra</p>
+                        <p id="checked-text" class="text-2xl font-black text-slate-800 dark:text-white">0 / 70</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Filters & Action Buttons -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+            <!-- Filter Tabs -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
+                <button onclick="filterSection('ALL')" class="section-tab active-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-blue-600 text-white shadow-xs" data-section="ALL">Tất Cả (70)</button>
+                <button onclick="filterSection('A')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="A">Phần A (10)</button>
+                <button onclick="filterSection('B')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="B">Phần B (10)</button>
+                <button onclick="filterSection('C')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="C">Phần C (10)</button>
+                <button onclick="filterSection('D')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="D">Phần D (10)</button>
+                <button onclick="filterSection('E')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="E">Phần E (10)</button>
+                <button onclick="filterSection('F')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="F">Phần F (10)</button>
+                <button onclick="filterSection('G')" class="section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700" data-section="G">Phần G (10)</button>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex flex-wrap items-center gap-2">
+                <button onclick="checkAllAnswers()" class="flex-1 sm:flex-none px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold shadow-xs transition-colors flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Nộp Toàn Bộ Bài Tập
+                </button>
+                <button onclick="resetAll()" class="px-3.5 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-1.5" title="Làm Lại Từ Đầu">
+                    <i class="fa-solid fa-rotate-left"></i> <span class="hidden sm:inline">Làm Lại</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Section Info Card -->
+        <div id="section-info-card" class="bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/60 rounded-xl p-4 mb-6 flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-blue-600 dark:text-blue-400 text-xl mt-0.5"></i>
+            <div>
+                <h2 id="section-title" class="font-bold text-blue-900 dark:text-blue-200">Tất Cả Bài Tập (70 Câu)</h2>
+                <p id="section-desc" class="text-sm text-blue-700 dark:text-blue-300 mt-0.5">Điền từ vào ô trống. Nhấn <b>Enter</b> hoặc bấm nút <b>"Kiểm Tra"</b> tại mỗi câu để hiển thị ngay đáp án đúng, dịch nghĩa và giải thích lý thuyết.</p>
+            </div>
+        </div>
+
+        <!-- Questions Container -->
+        <div id="questions-container" class="space-y-4">
+            <!-- Dynamically generated by JS -->
+        </div>
+    </main>
+
+    <div id="theory-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 hidden transition-opacity duration-200">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto p-6 shadow-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center pb-4 mb-4 border-b border-slate-200 dark:border-slate-700">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-blue-600 dark:text-blue-400"></i>
+                    Phân Biệt: BE GOING TO vs. WILL
+                </h3>
+                <button onclick="toggleTheoryModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="space-y-6 text-sm sm:text-base leading-relaxed">
+                <!-- Concept 1 -->
+                <div class="bg-blue-50 dark:bg-blue-950/40 p-4 rounded-xl border border-blue-100 dark:border-blue-900">
+                    <h4 class="font-bold text-blue-900 dark:text-blue-200 mb-1">1. Tương Lai Gần (BE GOING TO)</h4>
+                    <p class="text-slate-700 dark:text-slate-300"><b>Công thức:</b> S + am/is/are + going to + V (nguyên thể)</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                        <li><b>Kế hoạch/Dự định sẵn:</b> Đã quyết định trước thời điểm nói (tonight, tomorrow, next week...).</li>
+                        <li><b>Dự đoán có bằng chứng:</b> Thấy trước mắt hoặc có dấu hiệu rõ ràng (Look at those clouds!, Look at that car!).</li>
+                    </ul>
+                </div>
+
+                <!-- Concept 2 -->
+                <div class="bg-indigo-50 dark:bg-indigo-950/40 p-4 rounded-xl border border-indigo-100 dark:border-indigo-900">
+                    <h4 class="font-bold text-indigo-900 dark:text-indigo-200 mb-1">2. Tương Lai Đơn (WILL)</h4>
+                    <p class="text-slate-700 dark:text-slate-300"><b>Công thức:</b> S + will + V (nguyên thể)</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                        <li><b>Quyết định bộc phát:</b> Nảy ra ngay tại thời điểm nói (A: We don't have milk. B: I'll buy some).</li>
+                        <li><b>Lời đề nghị giúp đỡ/hứa hẹn:</b> (I will carry them for you, I will call you).</li>
+                        <li><b>Dự đoán chủ quan:</b> Không có bằng chứng trực quan, thường kèm <i>I think, I hope, I'm sure...</i></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Table Comparison -->
+                <div class="bg-slate-100 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">Bảng So Sánh Nhanh:</h4>
+                    <div class="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+                        <div class="p-2 bg-white dark:bg-slate-800 rounded-lg">
+                            <p class="font-bold text-blue-600 dark:text-blue-400">BE GOING TO</p>
+                            <p class="text-slate-600 dark:text-slate-300">✓ Đã lên kế hoạch trước</p>
+                            <p class="text-slate-600 dark:text-slate-300">✓ Có bằng chứng nhìn thấy</p>
+                        </div>
+                        <div class="p-2 bg-white dark:bg-slate-800 rounded-lg">
+                            <p class="font-bold text-indigo-600 dark:text-indigo-400">WILL</p>
+                            <p class="text-slate-600 dark:text-slate-300">✓ Bộc phát ngay lúc nói</p>
+                            <p class="text-slate-600 dark:text-slate-300">✓ Dự đoán cá nhân (I think...)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-right">
+                <button onclick="toggleTheoryModal()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm transition-colors">
+                    Đã Hiểu, Bắt Đầu Luyện Tập
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rawData = [
+            // PART A (1-10)
+            {
+                id: 1, section: 'A', sectionTitle: 'Part A: Kế hoạch đã dự định (am/is/are going to)',
+                text: '1. I [input0] (visit) my grandparents this weekend.',
+                answers: [['am going to visit', "'m going to visit"]],
+                translation: 'Tôi sẽ đi thăm ông bà vào cuối tuần này.',
+                tip: 'Chủ ngữ "I" dùng "am going to visit". "this weekend" chỉ kế hoạch đã có sẵn.'
+            },
+            {
+                id: 2, section: 'A',
+                text: '2. She [input0] (study) English next year.',
+                answers: [['is going to study', "'s going to study"]],
+                translation: 'Cô ấy sẽ học tiếng Anh vào năm tới.',
+                tip: 'Chủ ngữ "She" dùng "is going to study". "next year" chỉ dự định tương lai.'
+            },
+            {
+                id: 3, section: 'A',
+                text: '3. We [input0] (travel) to Da Nang next month.',
+                answers: [['are going to travel', "'re going to travel"]],
+                translation: 'Chúng tôi sẽ đi du lịch Đà Nẵng vào tháng sau.',
+                tip: 'Chủ ngữ "We" dùng "are going to travel".'
+            },
+            {
+                id: 4, section: 'A',
+                text: '4. They [input0] (buy) a new house next year.',
+                answers: [['are going to buy', "'re going to buy"]],
+                translation: 'Họ sẽ mua một ngôi nhà mới vào năm tới.',
+                tip: 'Chủ ngữ "They" đi với "are going to buy".'
+            },
+            {
+                id: 5, section: 'A',
+                text: '5. He [input0] (learn) to drive this summer.',
+                answers: [['is going to learn', "'s going to learn"]],
+                translation: 'Anh ấy sẽ học lái xe vào mùa hè này.',
+                tip: 'Chủ ngữ "He" dùng "is going to learn".'
+            },
+            {
+                id: 6, section: 'A',
+                text: '6. My family [input0] (have) a party tonight.',
+                answers: [['is going to have', "are going to have", "'s going to have", "'re going to have"]],
+                translation: 'Gia đình tôi sẽ tổ chức một bữa tiệc vào tối nay.',
+                tip: 'Danh từ tập hợp "My family" có thể đi với "is going to have" hoặc "are going to have".'
+            },
+            {
+                id: 7, section: 'A',
+                text: '7. I [input0] (start) a new English course next week.',
+                answers: [['am going to start', "'m going to start"]],
+                translation: 'Tôi sẽ bắt đầu một khóa học tiếng Anh mới vào tuần tới.',
+                tip: 'Chủ ngữ "I" dùng "am going to start".'
+            },
+            {
+                id: 8, section: 'A',
+                text: '8. She [input0] (meet) her friends tomorrow.',
+                answers: [['is going to meet', "'s going to meet"]],
+                translation: 'Cô ấy sẽ gặp các bạn của mình vào ngày mai.',
+                tip: 'Chủ ngữ "She" dùng "is going to meet".'
+            },
+            {
+                id: 9, section: 'A',
+                text: '9. We [input0] (clean) the house this afternoon.',
+                answers: [['are going to clean', "'re going to clean"]],
+                translation: 'Chúng tôi sẽ dọn dẹp nhà cửa vào chiều nay.',
+                tip: 'Chủ ngữ "We" dùng "are going to clean".'
+            },
+            {
+                id: 10, section: 'A',
+                text: '10. They [input0] (play) football this evening.',
+                answers: [['are going to play', "'re going to play"]],
+                translation: 'Họ sẽ chơi bóng đá vào tối nay.',
+                tip: 'Chủ ngữ "They" dùng "are going to play".'
+            },
+
+            // PART B (11-20)
+            {
+                id: 11, section: 'B', sectionTitle: 'Part B: Dự đoán có bằng chứng (be going to)',
+                text: '11. Look at those dark clouds! It [input0] (rain).',
+                answers: [['is going to rain', "'s going to rain"]],
+                translation: 'Nhìn những đám mây đen kìa! Trời sắp mưa rồi.',
+                tip: 'Có bằng chứng trước mắt "dark clouds" -> Dùng "is going to rain".'
+            },
+            {
+                id: 12, section: 'B',
+                text: '12. Look at that car! It [input0] (crash).',
+                answers: [['is going to crash', "'s going to crash"]],
+                translation: 'Nhìn chiếc xe đó kìa! Nó sắp đâm rồi.',
+                tip: 'Có dấu hiệu nguy hiểm trước mắt -> Dùng "is going to crash".'
+            },
+            {
+                id: 13, section: 'B',
+                text: '13. Be careful! You [input0] (fall).',
+                answers: [['are going to fall', "'re going to fall"]],
+                translation: 'Cẩn thận! Bạn sắp ngã đấy.',
+                tip: 'Cảnh báo dựa trên tình huống hiện tại -> Dùng "are going to fall".'
+            },
+            {
+                id: 14, section: 'B',
+                text: '14. Look at the sky! It [input0] (snow).',
+                answers: [['is going to snow', "'s going to snow"]],
+                translation: 'Nhìn bầu trời kìa! Trời sắp có tuyết rơi rồi.',
+                tip: 'Bằng chứng từ bầu trời -> Dùng "is going to snow".'
+            },
+            {
+                id: 15, section: 'B',
+                text: '15. That glass is near the edge of the table. It [input0] (fall).',
+                answers: [['is going to fall', "'s going to fall"]],
+                translation: 'Chiếc cốc đó đang ở sát mép bàn. Nó sắp rơi xuống rồi.',
+                tip: 'Bằng chứng vị trí chiếc cốc chông chênh -> Dùng "is going to fall".'
+            },
+            {
+                id: 16, section: 'B',
+                text: '16. Look at the little boy! He [input0] (drop) the ball.',
+                answers: [['is going to drop', "'s going to drop"]],
+                translation: 'Nhìn cậu bé kìa! Cậu ấy sắp làm rơi quả bóng rồi.',
+                tip: 'Bằng chứng nhìn thấy -> Dùng "is going to drop".'
+            },
+            {
+                id: 17, section: 'B',
+                text: '17. The road is very wet. It [input0] (be) difficult to drive.',
+                answers: [['is going to be', "'s going to be"]],
+                translation: 'Đường rất ướt. Lái xe sẽ khó khăn đây.',
+                tip: 'Bằng chứng đường trơn ướt -> Dùng "is going to be".'
+            },
+            {
+                id: 18, section: 'B',
+                text: '18. Look at those clouds! We [input0] (have) a storm.',
+                answers: [['are going to have', "'re going to have"]],
+                translation: 'Nhìn những đám mây kìa! Chúng ta sắp có bão rồi.',
+                tip: 'Chủ ngữ "We" đi với "are going to have".'
+            },
+            {
+                id: 19, section: 'B',
+                text: '19. She is driving too fast. She [input0] (have) an accident.',
+                answers: [['is going to have', "'s going to have"]],
+                translation: 'Cô ấy đang lái xe quá nhanh. Cô ấy sắp gặp tai nạn rồi.',
+                tip: 'Bằng chứng lái xe quá tốc độ -> Dùng "is going to have".'
+            },
+            {
+                id: 20, section: 'B',
+                text: '20. Look at him! He [input0] (run) into the wall.',
+                answers: [['is going to run', "'s going to run"]],
+                translation: 'Nhìn anh ấy kìa! Anh ấy sắp đâm vào tường rồi.',
+                tip: 'Bằng chứng nhìn thấy trực tiếp -> Dùng "is going to run".'
+            },
+
+            // PART C (21-30)
+            {
+                id: 21, section: 'C', sectionTitle: 'Part C: Câu phủ định',
+                text: '21. I [input0] (not stay) at home tonight.',
+                answers: [['am not going to stay', "'m not going to stay"]],
+                translation: 'Tôi sẽ không ở nhà tối nay.',
+                tip: 'Phủ định với "I": "am not going to stay" / "\'m not going to stay".'
+            },
+            {
+                id: 22, section: 'C',
+                text: '22. She [input0] (not go) to school tomorrow.',
+                answers: [['is not going to go', "isn't going to go", "'s not going to go"]],
+                translation: 'Cô ấy sẽ không đi học vào ngày mai.',
+                tip: 'Phủ định với "She": "is not going to go" hoặc "isn\'t going to go".'
+            },
+            {
+                id: 23, section: 'C',
+                text: '23. We [input0] (not travel) next month.',
+                answers: [['are not going to travel', "aren't going to travel", "'re not going to travel"]],
+                translation: 'Chúng tôi sẽ không đi du lịch vào tháng sau.',
+                tip: 'Phủ định với "We": "are not going to travel" hoặc "aren\'t going to travel".'
+            },
+            {
+                id: 24, section: 'C',
+                text: '24. They [input0] (not buy) a new car this year.',
+                answers: [['are not going to buy', "aren't going to buy", "'re not going to buy"]],
+                translation: 'Họ sẽ không mua xe hơi mới trong năm nay.',
+                tip: 'Phủ định với "They": "are not going to buy" hoặc "aren\'t going to buy".'
+            },
+            {
+                id: 25, section: 'C',
+                text: '25. He [input0] (not study) this evening.',
+                answers: [['is not going to study', "isn't going to study", "'s not going to study"]],
+                translation: 'Anh ấy sẽ không học bài vào tối nay.',
+                tip: 'Phủ định với "He": "is not going to study" hoặc "isn\'t going to study".'
+            },
+            {
+                id: 26, section: 'C',
+                text: '26. My parents [input0] (not move) to another city next year.',
+                answers: [['are not going to move', "aren't going to move", "'re not going to move"]],
+                translation: 'Bố mẹ tôi sẽ không chuyển sang thành phố khác vào năm tới.',
+                tip: 'Danh từ số nhiều "My parents" đi với "are not going to move".'
+            },
+            {
+                id: 27, section: 'C',
+                text: '27. I [input0] (not watch) TV tonight.',
+                answers: [['am not going to watch', "'m not going to watch"]],
+                translation: 'Tôi sẽ không xem TV tối nay.',
+                tip: 'Phủ định với "I": "am not going to watch".'
+            },
+            {
+                id: 28, section: 'C',
+                text: '28. She [input0] (not join) the trip next weekend.',
+                answers: [['is not going to join', "isn't going to join", "'s not going to join"]],
+                translation: 'Cô ấy sẽ không tham gia chuyến đi vào cuối tuần tới.',
+                tip: 'Phủ định với "She": "is not going to join" / "isn\'t going to join".'
+            },
+            {
+                id: 29, section: 'C',
+                text: '29. We [input0] (not have) a party this weekend.',
+                answers: [['are not going to have', "aren't going to have", "'re not going to have"]],
+                translation: 'Chúng tôi sẽ không tổ chức tiệc vào cuối tuần này.',
+                tip: 'Phủ định với "We": "are not going to have" / "aren\'t going to have".'
+            },
+            {
+                id: 30, section: 'C',
+                text: '30. They [input0] (not play) football this afternoon.',
+                answers: [['are not going to play', "aren't going to play", "'re not going to play"]],
+                translation: 'Họ sẽ không chơi bóng đá vào chiều nay.',
+                tip: 'Phủ định với "They": "are not going to play" / "aren\'t going to play".'
+            },
+
+            // PART D (31-40)
+            {
+                id: 31, section: 'D', sectionTitle: 'Part D: Câu nghi vấn',
+                text: '31. [input0] you [input1] (visit) your grandparents this weekend?',
+                answers: [['Are', 'are'], ['going to visit']],
+                translation: 'Bạn có định đi thăm ông bà vào cuối tuần này không?',
+                tip: 'Thao tác đảo Be lên đầu: Are + you + going to visit...?'
+            },
+            {
+                id: 32, section: 'D',
+                text: '32. [input0] she [input1] (travel) to Hanoi next month?',
+                answers: [['Is', 'is'], ['going to travel']],
+                translation: 'Cô ấy có kế hoạch đi du lịch Hà Nội vào tháng sau không?',
+                tip: 'Cấu trúc câu hỏi YES/NO: Is + she + going to travel...?'
+            },
+            {
+                id: 33, section: 'D',
+                text: '33. [input0] they [input1] (buy) a new computer next year?',
+                answers: [['Are', 'are'], ['going to buy']],
+                translation: 'Họ có dự định mua máy tính mới vào năm tới không?',
+                tip: 'Cấu trúc câu hỏi YES/NO: Are + they + going to buy...?'
+            },
+            {
+                id: 34, section: 'D',
+                text: '34. [input0] he [input1] (study) English tonight?',
+                answers: [['Is', 'is'], ['going to study']],
+                translation: 'Anh ấy có định học tiếng Anh vào tối nay không?',
+                tip: 'Cấu trúc câu hỏi YES/NO: Is + he + going to study...?'
+            },
+            {
+                id: 35, section: 'D',
+                text: '35. [input0] we [input1] (have) a test tomorrow?',
+                answers: [['Are', 'are'], ['going to have']],
+                translation: 'Ngày mai chúng ta có bài kiểm tra không?',
+                tip: 'Cấu trúc câu hỏi YES/NO: Are + we + going to have...?'
+            },
+            {
+                id: 36, section: 'D',
+                text: '36. What [input0] you [input1] (do) this weekend?',
+                answers: [['are'], ['going to do']],
+                translation: 'Bạn định làm gì vào cuối tuần này?',
+                tip: 'Câu hỏi có từ hỏi Wh-: What + are + you + going to do...?'
+            },
+            {
+                id: 37, section: 'D',
+                text: '37. Where [input0] she [input1] (go) next month?',
+                answers: [['is'], ['going to go']],
+                translation: 'Cô ấy dự định đi đâu vào tháng sau?',
+                tip: 'Wh- question: Where + is + she + going to go...?'
+            },
+            {
+                id: 38, section: 'D',
+                text: '38. When [input0] they [input1] (start) the new course?',
+                answers: [['are'], ['going to start']],
+                translation: 'Khi nào thì họ dự định bắt đầu khóa học mới?',
+                tip: 'Wh- question: When + are + they + going to start...?'
+            },
+            {
+                id: 39, section: 'D',
+                text: '39. Who [input0] you [input1] (invite) to the party?',
+                answers: [['are'], ['going to invite']],
+                translation: 'Bạn định mời ai đến bữa tiệc?',
+                tip: 'Wh- question: Who + are + you + going to invite...?'
+            },
+            {
+                id: 40, section: 'D',
+                text: '40. How [input0] your family [input1] (travel) next summer?',
+                answers: [['is', 'are'], ['going to travel']],
+                translation: 'Gia đình bạn sẽ đi du lịch bằng phương tiện gì vào mùa hè tới?',
+                tip: 'How + is/are + your family + going to travel...?'
+            },
+
+            // PART E (41-50)
+            {
+                id: 41, section: 'E', sectionTitle: 'Part E: Có bằng chứng → BE GOING TO',
+                text: '41. Look at those black clouds! It [input0] (rain).',
+                answers: [['is going to rain', "'s going to rain"]],
+                translation: 'Nhìn những đám mây đen kìa! Trời sắp mưa rồi.',
+                tip: 'Bằng chứng trực quan mây đen -> "is going to rain".'
+            },
+            {
+                id: 42, section: 'E',
+                text: '42. Look at the baby! He [input0] (cry).',
+                answers: [['is going to cry', "'s going to cry"]],
+                translation: 'Nhìn em bé kìa! Cậu bé sắp khóc rồi.',
+                tip: 'Dấu hiệu mếu khóc ở em bé -> "is going to cry".'
+            },
+            {
+                id: 43, section: 'E',
+                text: '43. Be careful! You [input0] (break) that glass.',
+                answers: [['are going to break', "'re going to break"]],
+                translation: 'Cẩn thận! Bạn sắp làm vỡ chiếc ly đó đấy.',
+                tip: 'Cảnh báo nguy cơ làm vỡ -> "are going to break".'
+            },
+            {
+                id: 44, section: 'E',
+                text: '44. Look at that tree! It [input0] (fall).',
+                answers: [['is going to fall', "'s going to fall"]],
+                translation: 'Nhìn cái cây đó kìa! Nó sắp đổ rồi.',
+                tip: 'Cây có vẻ bị nghiêng/sắp đổ -> "is going to fall".'
+            },
+            {
+                id: 45, section: 'E',
+                text: '45. She is not watching the road. She [input0] (have) an accident.',
+                answers: [['is going to have', "'s going to have"]],
+                translation: 'Cô ấy không nhìn đường. Cô ấy sắp gặp tai nạn rồi.',
+                tip: 'Không tập trung lái xe là bằng chứng nguy hiểm -> "is going to have".'
+            },
+            {
+                id: 46, section: 'E',
+                text: '46. Look at the score! Our team [input0] (win) the game.',
+                answers: [['is going to win', "'s going to win"]],
+                translation: 'Nhìn tỷ số kìa! Đội của chúng ta sắp thắng trận đấu rồi.',
+                tip: 'Bằng chứng từ bảng tỷ số -> "is going to win".'
+            },
+            {
+                id: 47, section: 'E',
+                text: '47. The sky is very dark. It [input0] (storm).',
+                answers: [['is going to storm', "'s going to storm"]],
+                translation: 'Bầu trời rất tối. Trời sắp có bão rồi.',
+                tip: 'Trời tối sầm là dấu hiệu giông bão -> "is going to storm".'
+            },
+            {
+                id: 48, section: 'E',
+                text: '48. Look at all these boxes! We [input0] (move) house.',
+                answers: [['are going to move', "'re going to move"]],
+                translation: 'Nhìn tất cả những chiếc hộp này kìa! Chúng ta sắp chuyển nhà rồi.',
+                tip: 'Bằng chứng là rất nhiều thùng hàng -> "are going to move".'
+            },
+            {
+                id: 49, section: 'E',
+                text: '49. He is driving very fast. He [input0] (get) a speeding ticket.',
+                answers: [['is going to get', "'s going to get"]],
+                translation: 'Anh ấy đang chạy rất nhanh. Anh ấy sắp bị phạt vì vượt quá tốc độ rồi.',
+                tip: 'Hành vi lái nhanh là căn cứ -> "is going to get".'
+            },
+            {
+                id: 50, section: 'E',
+                text: '50. Look at that boy on the wall! He [input0] (fall).',
+                answers: [['is going to fall', "'s going to fall"]],
+                translation: 'Nhìn cậu bé trên bức tường kìa! Cậu ấy sắp ngã rồi.',
+                tip: 'Bằng chứng đứng chông chênh trên tường -> "is going to fall".'
+            },
+
+            // PART F (51-60)
+            {
+                id: 51, section: 'F', sectionTitle: 'Part F: Bài tập tổng hợp – Kế hoạch và dự đoán có bằng chứng',
+                text: '51. I [input0] (visit) my grandparents next Sunday. I have already decided to go.',
+                answers: [['am going to visit', "'m going to visit"]],
+                translation: 'Tôi sẽ đi thăm ông bà vào Chủ nhật tới. Tôi đã quyết định đi rồi.',
+                tip: '"already decided" = Đã quyết định từ trước -> Dùng "am going to visit".'
+            },
+            {
+                id: 52, section: 'F',
+                text: '52. Look at those clouds! It [input0] (rain).',
+                answers: [['is going to rain', "'s going to rain"]],
+                translation: 'Nhìn những đám mây kìa! Trời sắp mưa rồi.',
+                tip: 'Dấu hiệu mây đen trước mắt -> "is going to rain".'
+            },
+            {
+                id: 53, section: 'F',
+                text: '53. She [input0] (start) an English course next month. She has decided to join it.',
+                answers: [['is going to start', "'s going to start"]],
+                translation: 'Cô ấy sẽ bắt đầu khóa học tiếng Anh vào tháng tới. Cô ấy đã quyết định tham gia.',
+                tip: '"has decided" = Quyết định sẵn -> Dùng "is going to start".'
+            },
+            {
+                id: 54, section: 'F',
+                text: '54. Look at that glass! It [input0] (fall).',
+                answers: [['is going to fall', "'s going to fall"]],
+                translation: 'Nhìn chiếc cốc đó kìa! Nó sắp rơi rồi.',
+                tip: 'Nhìn thấy nguy cơ vỡ -> "is going to fall".'
+            },
+            {
+                id: 55, section: 'F',
+                text: '55. We [input0] (travel) to Nha Trang this weekend. We have already planned the trip.',
+                answers: [['are going to travel', "'re going to travel"]],
+                translation: 'Chúng tôi sẽ đi du lịch Nha Trang vào cuối tuần này. Chúng tôi đã lên kế hoạch cho chuyến đi.',
+                tip: '"already planned" = Lên kế hoạch rồi -> Dùng "are going to travel".'
+            },
+            {
+                id: 56, section: 'F',
+                text: '56. Be careful! You [input0] (drop) those books.',
+                answers: [['are going to drop', "'re going to drop"]],
+                translation: 'Cẩn thận! Bạn sắp làm rơi những cuốn sách đó đấy.',
+                tip: 'Cảnh báo nguy cơ rớt đồ -> "are going to drop".'
+            },
+            {
+                id: 57, section: 'F',
+                text: '57. They [input0] (have) a party tonight. They have already planned it.',
+                answers: [['are going to have', "'re going to have"]],
+                translation: 'Họ sẽ tổ chức một bữa tiệc vào tối nay. Họ đã lên kế hoạch sẵn rồi.',
+                tip: '"already planned" -> Dùng "are going to have".'
+            },
+            {
+                id: 58, section: 'F',
+                text: '58. Look at the traffic! We [input0] (be) late.',
+                answers: [['are going to be', "'re going to be"]],
+                translation: 'Nhìn tình trạng giao thông kìa! Chúng ta sắp bị trễ rồi.',
+                tip: 'Tắc đường là bằng chứng bị muộn -> Dùng "are going to be".'
+            },
+            {
+                id: 59, section: 'F',
+                text: '59. He [input0] (buy) a new laptop next month. He has already decided which one he wants.',
+                answers: [['is going to buy', "'s going to buy"]],
+                translation: 'Anh ấy sẽ mua một chiếc laptop mới vào tháng tới. Anh ấy đã chọn xong chiếc mình muốn.',
+                tip: '"already decided" -> Dùng "is going to buy".'
+            },
+            {
+                id: 60, section: 'F',
+                text: '60. Look at that dog! It [input0] (jump) into the water.',
+                answers: [['is going to jump', "'s going to jump"]],
+                translation: 'Nhìn chú chó kìa! Nó sắp nhảy xuống nước rồi.',
+                tip: 'Bằng chứng quan sát chú chó -> Dùng "is going to jump".'
+            },
+
+            // PART G (61-70)
+            {
+                id: 61, section: 'G', sectionTitle: 'Part G: WILL hay BE GOING TO?',
+                text: '61. A: We don\'t have any milk.<br/>B: I [input0] (buy) some.',
+                answers: [['will buy', "'ll buy"]],
+                translation: 'A: Chúng ta hết sữa rồi.<br/>B: Ồ vậy để tôi đi mua một ít.',
+                tip: 'Quyết định bộc phát ngay thời điểm nghe tin -> Dùng "will buy" / "\'ll buy".'
+            },
+            {
+                id: 62, section: 'G',
+                text: '62. I have already decided. I [input0] (study) English next year.',
+                answers: [['am going to study', "'m going to study"]],
+                translation: 'Tôi đã quyết định rồi. Tôi sẽ học tiếng Anh vào năm tới.',
+                tip: '"already decided" = Đã có kế hoạch trước -> Dùng "am going to study".'
+            },
+            {
+                id: 63, section: 'G',
+                text: '63. Look at those clouds! It [input0] (rain).',
+                answers: [['is going to rain', "'s going to rain"]],
+                translation: 'Nhìn những đám mây kìa! Trời sắp mưa rồi.',
+                tip: 'Dự đoán có bằng chứng trực quan -> Dùng "is going to rain".'
+            },
+            {
+                id: 64, section: 'G',
+                text: '64. I think our team [input0] (win) the match.',
+                answers: [['will win', "'ll win"]],
+                translation: 'Tôi nghĩ đội của chúng ta sẽ chiến thắng trận đấu.',
+                tip: 'Chứa "I think" chỉ suy đoán chủ quan -> Dùng "will win".'
+            },
+            {
+                id: 65, section: 'G',
+                text: '65. A: These bags are very heavy.<br/>B: Don\'t worry. I [input0] (carry) them for you.',
+                answers: [['will carry', "'ll carry"]],
+                translation: 'A: Mấy cái túi này nặng quá.<br/>B: Đừng lo. Để tôi xách giúp bạn.',
+                tip: 'Đề nghị giúp đỡ ngẫu nhiên bộc phát -> Dùng "will carry" / "\'ll carry".'
+            },
+            {
+                id: 66, section: 'G',
+                text: '66. She has already bought a ticket. She [input0] (travel) to Hanoi tomorrow.',
+                answers: [['is going to travel', "'s going to travel"]],
+                translation: 'Cô ấy đã mua vé rồi. Cô ấy sẽ đi Hà Nội vào ngày mai.',
+                tip: 'Đã mua vé = Kế hoạch chắc chắn -> Dùng "is going to travel".'
+            },
+            {
+                id: 67, section: 'G',
+                text: '67. Look at that car! It [input0] (crash).',
+                answers: [['is going to crash', "'s going to crash"]],
+                translation: 'Nhìn chiếc xe đó kìa! Nó sắp đâm rồi.',
+                tip: 'Bằng chứng trước mắt -> Dùng "is going to crash".'
+            },
+            {
+                id: 68, section: 'G',
+                text: '68. I’m sure he [input0] (pass) the exam.',
+                answers: [['will pass', "'ll pass"]],
+                translation: 'Tôi chắc chắn là anh ấy sẽ vượt qua kỳ thi.',
+                tip: 'Có "I\'m sure" chỉ cảm nhận cá nhân -> Dùng "will pass".'
+            },
+            {
+                id: 69, section: 'G',
+                text: '69. We have already planned our holiday. We [input0] (visit) Da Nang next month.',
+                answers: [['are going to visit', "'re going to visit"]],
+                translation: 'Chúng tôi đã lên kế hoạch cho kỳ nghỉ. Chúng tôi sẽ thăm Đà Nẵng vào tháng sau.',
+                tip: '"already planned" = Dự định sẵn -> Dùng "are going to visit".'
+            },
+            {
+                id: 70, section: 'G',
+                text: '70. A: The phone is ringing.<br/>B: I [input0] (answer) it.',
+                answers: [['will answer', "'ll answer"]],
+                translation: 'A: Điện thoại đang reo kìa.<br/>B: Để tôi nghe cho.',
+                tip: 'Quyết định tức thì khi điện thoại reo -> Dùng "will answer" / "\'ll answer".'
+            }
+        ];
+
+        let currentSection = 'ALL';
+        const totalQuestionsCount = rawData.length;
+        const checkedStatus = {};
+
+        function normalizeText(text) {
+            return text.trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            const filteredData = currentSection === 'ALL' 
+                ? rawData 
+                : rawData.filter(q => q.section === currentSection);
+
+            let currentSectionGroup = '';
+
+            filteredData.forEach((q) => {
+                const globalIndex = rawData.indexOf(q);
+
+                if (q.sectionTitle && q.section !== currentSectionGroup) {
+                    currentSectionGroup = q.section;
+                    const headerEl = document.createElement('div');
+                    headerEl.className = 'pt-6 pb-2 border-b-2 border-blue-500/30 flex items-center justify-between mb-2';
+                    headerEl.innerHTML = `
+                        <h3 class="text-base sm:text-lg font-bold text-blue-700 dark:text-blue-400 flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-blue-400"></span>
+                            ${q.sectionTitle}
+                        </h3>
+                    `;
+                    container.appendChild(headerEl);
+                }
+
+                const card = document.createElement('div');
+                card.id = `card-${globalIndex}`;
+                card.className = 'bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200 dark:border-slate-700 transition-all';
+
+                let formattedText = q.text;
+                q.answers.forEach((_, inputIdx) => {
+                    const placeholderTag = `[input${inputIdx}]`;
+                    const inputHtml = `
+                        <span class="inline-block mx-1 my-1">
+                            <input type="text" 
+                                id="input-${globalIndex}-${inputIdx}"
+                                data-global-idx="${globalIndex}"
+                                data-input-idx="${inputIdx}"
+                                class="quiz-input px-3 py-1.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-100 font-semibold text-sm sm:text-base focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900/50 transition-all min-w-[120px] max-w-[200px] text-center"
+                                placeholder="..."
+                                autocomplete="off"
+                                onkeydown="handleKeyDown(event, ${globalIndex}, ${inputIdx})"
+                            />
+                        </span>
+                    `;
+                    formattedText = formattedText.replace(placeholderTag, inputHtml);
+                });
+
+                const isAlreadyChecked = !!checkedStatus[globalIndex];
+
+                card.innerHTML = `
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                        <div class="text-base sm:text-lg font-medium text-slate-800 dark:text-slate-100 leading-relaxed flex-1">
+                            ${formattedText}
+                        </div>
+                        <div class="flex items-center gap-2 self-end sm:self-start">
+                            <button onclick="checkSingleQuestion(${globalIndex})" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-check"></i> Kiểm Tra
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="explanation-${globalIndex}" class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 ${isAlreadyChecked ? 'fade-in' : 'hidden'}">
+                        <div id="feedback-${globalIndex}" class="mb-3 text-xs sm:text-sm font-bold flex items-center gap-2"></div>
+                        
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <div class="text-slate-700 dark:text-slate-200 bg-blue-50/60 dark:bg-blue-950/30 p-2.5 rounded-xl border border-blue-100 dark:border-blue-900/40 flex items-start gap-2">
+                                <i class="fa-solid fa-key text-blue-600 dark:text-blue-400 mt-0.5"></i>
+                                <div><b>Đáp án đúng:</b> <span id="correct-ans-text-${globalIndex}" class="font-bold text-blue-700 dark:text-blue-300"></span></div>
+                            </div>
+
+                            <div class="text-slate-700 dark:text-slate-200 bg-indigo-50/60 dark:bg-indigo-950/30 p-2.5 rounded-xl border border-indigo-100 dark:border-indigo-900/40 flex items-start gap-2">
+                                <i class="fa-solid fa-language text-indigo-500 mt-0.5"></i>
+                                <div><b>Dịch câu:</b> ${q.translation}</div>
+                            </div>
+
+                            <div class="text-slate-700 dark:text-slate-200 bg-amber-50/60 dark:bg-amber-950/30 p-2.5 rounded-xl border border-amber-100 dark:border-amber-900/40 flex items-start gap-2">
+                                <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5"></i>
+                                <div><b>Giải thích & Mẹo:</b> ${q.tip}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            updateProgressStats();
+        }
+
+        function handleKeyDown(event, globalIndex, inputIdx) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const q = rawData[globalIndex];
+                
+                checkSingleQuestion(globalIndex);
+
+                if (inputIdx < q.answers.length - 1) {
+                    const nextInput = document.getElementById(`input-${globalIndex}-${inputIdx + 1}`);
+                    if (nextInput) nextInput.focus();
+                } else {
+                    const nextCardInput = document.getElementById(`input-${globalIndex + 1}-0`);
+                    if (nextCardInput) nextCardInput.focus();
+                }
+            }
+        }
+
+        function checkSingleQuestion(globalIndex) {
+            const q = rawData[globalIndex];
+            let allCorrect = true;
+
+            q.answers.forEach((acceptableAnswers, inputIdx) => {
+                const inputEl = document.getElementById(`input-${globalIndex}-${inputIdx}`);
+                if (!inputEl) return;
+
+                const val = normalizeText(inputEl.value);
+                const isMatch = acceptableAnswers.some(ans => normalizeText(ans) === val);
+
+                inputEl.classList.remove('correct-input', 'incorrect-input');
+                if (isMatch) {
+                    inputEl.classList.add('correct-input');
+                } else {
+                    inputEl.classList.add('incorrect-input');
+                    allCorrect = false;
+                }
+            });
+
+            checkedStatus[globalIndex] = true;
+
+            const explanationEl = document.getElementById(`explanation-${globalIndex}`);
+            const feedbackEl = document.getElementById(`feedback-${globalIndex}`);
+            const correctAnsTextEl = document.getElementById(`correct-ans-text-${globalIndex}`);
+
+            if (explanationEl) {
+                explanationEl.classList.remove('hidden');
+                explanationEl.classList.add('fade-in');
+            }
+
+            const formattedCorrectAns = q.answers.map(ansArr => ansArr[0]).join('  |  ');
+            if (correctAnsTextEl) {
+                correctAnsTextEl.textContent = formattedCorrectAns;
+            }
+
+            if (feedbackEl) {
+                if (allCorrect) {
+                    feedbackEl.className = 'mb-3 text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5';
+                    feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check text-base"></i> Chính xác! Tuyệt vời.`;
+                } else {
+                    feedbackEl.className = 'mb-3 text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5';
+                    feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-base"></i> Chưa chính xác. Xem đáp án và mẹo giải thích bên dưới!`;
+                }
+            }
+
+            updateProgressStats();
+        }
+
+        function checkAllAnswers() {
+            rawData.forEach((_, idx) => {
+                checkSingleQuestion(idx);
+            });
+        }
+
+        function resetAll() {
+            rawData.forEach((q, globalIndex) => {
+                delete checkedStatus[globalIndex];
+
+                q.answers.forEach((_, inputIdx) => {
+                    const inputEl = document.getElementById(`input-${globalIndex}-${inputIdx}`);
+                    if (inputEl) {
+                        inputEl.value = '';
+                        inputEl.classList.remove('correct-input', 'incorrect-input');
+                    }
+                });
+
+                const explanationEl = document.getElementById(`explanation-${globalIndex}`);
+                if (explanationEl) {
+                    explanationEl.classList.add('hidden');
+                    explanationEl.classList.remove('fade-in');
+                }
+            });
+
+            updateProgressStats();
+        }
+
+        function filterSection(sectionCode) {
+            currentSection = sectionCode;
+            
+            document.querySelectorAll('.section-tab').forEach(tab => {
+                if (tab.dataset.section === sectionCode) {
+                    tab.className = 'section-tab active-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-blue-600 text-white shadow-xs';
+                } else {
+                    tab.className = 'section-tab px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700';
+                }
+            });
+
+            const titleEl = document.getElementById('section-title');
+            const descEl = document.getElementById('section-desc');
+
+            const infoMap = {
+                'ALL': ['Tất Cả Bài Tập (70 Câu)', 'Tổng hợp toàn bộ 70 câu hỏi từ Phần A đến G.'],
+                'A': ['Part A: Kế hoạch đã dự định (be going to)', 'Sử dụng "am/is/are going to + V" cho kế hoạch đã dự định từ trước.'],
+                'B': ['Part B: Dự đoán có bằng chứng (be going to)', 'Sử dụng "be going to" khi có dấu hiệu/bằng chứng trước mắt.'],
+                'C': ['Part C: Câu phủ định (be not going to)', 'Dạng phủ định: am not / is not (isn\'t) / are not (aren\'t) going to + V.'],
+                'D': ['Part D: Câu nghi vấn', 'Đảo trợ động từ BE lên trước chủ ngữ trong câu hỏi.'],
+                'E': ['Part E: Có bằng chứng → BE GOING TO', 'Luyện tập phát hiện dấu hiệu nhận biết trực quan.'],
+                'F': ['Part F: Bài tập tổng hợp Be Going To', 'Kết hợp nhận biết kế hoạch sẵn và dự đoán có bằng chứng.'],
+                'G': ['Part G: WILL hay BE GOING TO?', 'Phân biệt Quyết định tức thì / Suy đoán chủ quan (WILL) vs. Kế hoạch / Bằng chứng (BE GOING TO).']
+            };
+
+            if (infoMap[sectionCode]) {
+                titleEl.textContent = infoMap[sectionCode][0];
+                descEl.textContent = infoMap[sectionCode][1];
+            }
+
+            renderQuestions();
+        }
+
+        function updateProgressStats() {
+            let correctCount = 0;
+            let checkedCount = 0;
+
+            rawData.forEach((q, globalIndex) => {
+                if (checkedStatus[globalIndex]) {
+                    checkedCount++;
+                    let qCorrect = true;
+
+                    q.answers.forEach((ansGroup, inputIdx) => {
+                        const inputEl = document.getElementById(`input-${globalIndex}-${inputIdx}`);
+                        const val = inputEl ? normalizeText(inputEl.value) : '';
+                        const isMatch = ansGroup.some(ans => normalizeText(ans) === val);
+                        if (!isMatch) qCorrect = false;
+                    });
+
+                    if (qCorrect) correctCount++;
+                }
+            });
+
+            const percent = Math.round((checkedCount / totalQuestionsCount) * 100);
+            
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('progress-percentage').textContent = `${percent}%`;
+            document.getElementById('score-text').textContent = `${correctCount} / ${totalQuestionsCount}`;
+            document.getElementById('checked-text').textContent = `${checkedCount} / ${totalQuestionsCount}`;
+        }
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fa-solid fa-moon';
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fa-solid fa-sun';
+            }
+        }
+
+        function toggleTheoryModal() {
+            const modal = document.getElementById('theory-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        window.onload = function() {
+            renderQuestions();
+        };
+    </script>
+</body>
+</html>
