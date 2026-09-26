@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài Tập Dịch Việt - Anh</title>
+    <title>Bài Tập Dịch & So Sánh Hơn Tiếng Anh</title>
     <style>
         :root {
             --primary: #2563eb;
             --bg: #f8fafc;
             --card-bg: #ffffff;
             --text: #1e293b;
-            --border: #e2e8f0;
-            --success-bg: #f0fdf4;
-            --success-border: #bbf7d0;
+            --border: #cbd5e1;
+            --correct-bg: #f0fdf4;
+            --correct-border: #86efac;
+            --correct-text: #166534;
+            --wrong-bg: #fef2f2;
+            --wrong-border: #fca5a5;
+            --wrong-text: #991b1b;
         }
 
         body {
@@ -25,14 +29,19 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
         }
 
-        h1 {
+        h1, h2 {
             text-align: center;
             color: var(--primary);
-            margin-bottom: 24px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
         }
 
         .exercise-item {
@@ -42,9 +51,10 @@
             padding: 16px 20px;
             margin-bottom: 16px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
 
-        .sentence-vi {
+        .sentence {
             font-weight: 600;
             margin-bottom: 10px;
         }
@@ -64,30 +74,54 @@
             border-color: var(--primary);
         }
 
-        .explanation {
+        .result-box {
             display: none;
             margin-top: 12px;
             padding: 12px;
-            background-color: var(--success-bg);
-            border: 1px solid var(--success-border);
             border-radius: 6px;
             font-size: 14px;
         }
 
-        .explanation strong {
-            color: #166534;
+        .correct {
+            background-color: var(--correct-bg);
+            border: 1px solid var(--correct-border);
+            color: var(--correct-text);
+        }
+
+        .wrong {
+            background-color: var(--wrong-bg);
+            border: 1px solid var(--wrong-border);
+            color: var(--wrong-text);
+        }
+
+        .status-tag {
+            font-weight: bold;
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+
+        .status-correct {
+            background-color: #bbf7d0;
+            color: #14532d;
+        }
+
+        .status-wrong {
+            background-color: #fecaca;
+            color: #7f1d1d;
         }
 
         .actions {
             text-align: center;
-            margin-top: 24px;
+            margin: 30px 0;
         }
 
         button {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 12px 32px;
+            padding: 14px 36px;
             font-size: 16px;
             font-weight: 600;
             border-radius: 6px;
@@ -103,241 +137,155 @@
 <body>
 
 <div class="container">
-    <h1>Bài Tập Dịch Việt - Anh</h1>
-    <form id="quiz-form">
-        <div id="questions-container"></div>
-        <div class="actions">
-            <button type="button" onclick="submitQuiz()">Nộp đáp án</button>
-        </div>
-    </form>
+    <h1>Bài Tập Tiếng Anh: Dịch & So Sánh Hơn</h1>
+
+    <h2>Phần 1: Bài Tập Dịch Việt - Anh (40 Câu)</h2>
+    <div id="trans-container"></div>
+
+    <h2>Phần 2: Bài Tập Chia Dạng So Sánh Hơn (20 Câu)</h2>
+    <div id="comp-container"></div>
+
+    <div class="actions">
+        <button type="button" onclick="submitQuiz()">Nộp Bài & Kiểm Tra Đáp Án</button>
+    </div>
 </div>
 
 <script>
-const data = [
-    {
-        vi: "1. Nông dân thường chăn dắt gia súc trên cánh đồng.",
-        en: "Farmers often herd cattle in the field.",
-        note: "Trạng từ chỉ tần suất 'often' đứng trước động từ thường 'herd'. Danh từ 'cattle' (gia súc) luôn ở dạng số nhiều."
-    },
-    {
-        vi: "2. Gia đình tôi có một vườn cây ăn trái nhỏ.",
-        en: "My family has a small orchard.",
-        note: "'Orchard' nghĩa là vườn cây ăn trái. Sử dụng tính từ 'small' đứng trước danh từ."
-    },
-    {
-        vi: "3. Những người nông dân rất bận rộn vào mùa thu hoạch.",
-        en: "The farmers are very busy during the harvest season.",
-        note: "Cấu trúc: Be + busy + during + [danh từ/cụm danh từ] (mùa thu hoạch)."
-    },
-    {
-        vi: "4. Chúng tôi thường hái trái cây trong vườn vào buổi sáng.",
-        en: "We often pick fruit in the garden in the morning.",
-        note: "Dùng động từ 'pick' cho hành động hái trái cây. Cụm từ chỉ thời gian 'in the morning' đứng ở cuối câu."
-    },
-    {
-        vi: "5. Có một cái ao nhỏ gần ngôi nhà của tôi.",
-        en: "There is a small pond near my house.",
-        note: "Cấu trúc 'There is + danh từ số ít' dùng để mô tả sự tồn tại."
-    },
-    {
-        vi: "6. Chú tôi nuôi gia cầm trong trang trại.",
-        en: "My uncle raises poultry on the farm.",
-        note: "'Poultry' (gia cầm) là danh từ tập hợp. Dùng giới từ 'on the farm' (trên trang trại)."
-    },
-    {
-        vi: "7. Người dân địa phương trong làng rất thân thiện và hiếu khách.",
-        en: "The local people in the village are very friendly and hospitable.",
-        note: "Chủ ngữ 'local people' là số nhiều nên đi với động từ tobe 'are'."
-    },
-    {
-        vi: "8. Họ thường bắt cá ở hồ gần làng.",
-        en: "They often catch fish in the lake near the village.",
-        note: "Từ 'fish' ở dạng số ít và số nhiều đều giữ nguyên hình thức."
-    },
-    {
-        vi: "9. Những công nhân này được đào tạo tốt.",
-        en: "These workers are well-trained.",
-        note: "Sử dụng tính từ ghép 'well-trained' (được đào tạo bài bản/tốt)."
-    },
-    {
-        vi: "10. Cha tôi làm việc trong một nhà máy gần làng.",
-        en: "My father works in a factory near the village.",
-        note: "Thì hiện tại đơn, chủ ngữ số ít 'My father' nên động từ 'work' thêm 's'."
-    },
-    {
-        vi: "11. Có rất nhiều cây xung quanh ngôi nhà nhỏ.",
-        en: "There are many trees around the small house.",
-        note: "Cấu trúc 'There are + danh từ số nhiều' (many trees)."
-    },
-    {
-        vi: "12. Gia đình tôi thường tụ tập vào cuối tuần.",
-        en: "My family often gathers on the weekend.",
-        note: "Cụm động từ 'gather' nghĩa là tụ tập, tập hợp."
-    },
-    {
-        vi: "13. Những người nông dân đang chất các thùng trái cây lên xe tải.",
-        en: "The farmers are loading crates of fruit onto the truck.",
-        note: "Thì hiện tại tiếp diễn (S + am/is/are + V-ing). Cấu trúc: 'load [something] onto [something'."
-    },
-    {
-        vi: "14. Sau đó, họ dỡ trái cây xuống ở chợ.",
-        en: "Then, they unload the fruit at the market.",
-        note: "Động từ 'unload' trái nghĩa với 'load' (dỡ hàng xuống)."
-    },
-    {
-        vi: "15. Ngôi làng này có phong cảnh rất đẹp.",
-        en: "This village has very beautiful scenery.",
-        note: "'Scenery' là danh từ không đếm được, dùng để chỉ phong cảnh."
-    },
-    {
-        vi: "16. Chúng tôi thường chụp ảnh những ngọn núi gần đó.",
-        en: "We often take photos of the nearby mountains.",
-        note: "Cụm động từ 'take photos of...' (chụp ảnh cái gì). Tính từ 'nearby' đứng trước danh từ."
-    },
-    {
-        vi: "17. Mẹ tôi thường mua mì ống ở siêu thị.",
-        en: "My mother often buys pasta at the supermarket.",
-        note: "Chủ ngữ 'My mother' đi với động từ chia số ít 'buys'."
-    },
-    {
-        vi: "18. Ông bà tôi sống trong một ngôi nhà tranh nhỏ ở vùng nông thôn.",
-        en: "My grandparents live in a small cottage in the countryside.",
-        note: "'Cottage' là nhà tranh/nhà nhỏ ở nông thôn."
-    },
-    {
-        vi: "19. Người dân trong làng rất hào phóng và tử tế.",
-        en: "The villagers are very generous and kind.",
-        note: "Có thể dùng danh từ 'villagers' để chỉ người dân trong làng."
-    },
-    {
-        vi: "20. Vào mùa hè, chúng tôi thường làm nhiều hoạt động ngoài trời.",
-        en: "In the summer, we often do many outdoor activities.",
-        note: "Sử dụng động từ 'do' đi với 'activities' (do outdoor activities)."
-    },
-    {
-        vi: "21. Ngôi làng này yên tĩnh hơn thành phố.",
-        en: "This village is quieter than the city.",
-        note: "So sánh hơn với tính từ ngắn: 'quiet' -> 'quieter than'."
-    },
-    {
-        vi: "22. Con đường này rộng hơn con đường kia.",
-        en: "This road is wider than that one.",
-        note: "So sánh hơn tính từ ngắn tận cùng là 'e': 'wide' -> 'wider than'."
-    },
-    {
-        vi: "23. Trang trại của ông tôi lớn hơn trang trại của hàng xóm.",
-        en: "My grandfather's farm is larger than the neighbor's farm.",
-        note: "Sử dụng sở hữu cách ('s) cho cả hai vế so sánh."
-    },
-    {
-        vi: "24. Hôm nay bận rộn hơn hôm qua.",
-        en: "Today is busier than yesterday.",
-        note: "Tính từ 2 âm tiết kết thúc bằng 'y': đổi 'y' thành 'i' rồi thêm 'er' ('busy' -> 'busier')."
-    },
-    {
-        vi: "25. Chiếc xe tải này nhanh hơn chiếc xe cũ.",
-        en: "This truck is faster than the old car.",
-        note: "So sánh hơn tính từ ngắn: 'fast' -> 'faster than'."
-    },
-    {
-        vi: "26. Hồ này sâu hơn cái ao gần nhà tôi.",
-        en: "This lake is deeper than the pond near my house.",
-        note: "So sánh hơn tính từ ngắn: 'deep' -> 'deeper than'."
-    },
-    {
-        vi: "27. Người dân ở làng này thân thiện hơn người dân ở thành phố.",
-        en: "People in this village are friendlier than people in the city.",
-        note: "'Friendly' biến đổi thành 'friendlier' trong so sánh hơn."
-    },
-    {
-        vi: "28. Vườn cây này đẹp hơn khu vườn của chúng tôi.",
-        en: "This orchard is more beautiful than our garden.",
-        note: "So sánh hơn với tính từ dài: 'more + adj + than' (more beautiful than)."
-    },
-    {
-        vi: "29. Công việc ở nông trại khó hơn công việc ở nhà.",
-        en: "Farm work is harder than housework.",
-        note: "So sánh hơn tính từ ngắn: 'hard' -> 'harder than'."
-    },
-    {
-        vi: "30. Mùa thu hoạch năm nay bận rộn hơn năm ngoái.",
-        en: "This year's harvest season is busier than last year's.",
-        note: "So sánh hai mốc thời gian bằng cách dùng sở hữu cách 's."
-    },
-    {
-        vi: "31. Phong cảnh ở đây đẹp hơn tôi nghĩ.",
-        en: "The scenery here is more beautiful than I thought.",
-        note: "So sánh hơn với mệnh đề: 'more + adj + than + S + V' (than I thought)."
-    },
-    {
-        vi: "32. Ngôi nhà này hiện đại hơn ngôi nhà cũ.",
-        en: "This house is more modern than the old one.",
-        note: "Tính từ dài 'modern' đi với 'more' trong so sánh hơn."
-    },
-    {
-        vi: "33. Anh trai tôi làm việc chăm chỉ hơn tôi.",
-        en: "My brother works harder than I do.",
-        note: "So sánh hơn của trạng từ 'hard' là 'harder'. Vế sau dùng trợ động từ 'do'."
-    },
-    {
-        vi: "34. Người nông dân này làm việc nhanh hơn người nông dân kia.",
-        en: "This farmer works faster than that farmer.",
-        note: "So sánh hơn của trạng từ 'fast' vẫn là 'faster'."
-    },
-    {
-        vi: "35. Chúng tôi đến siêu thị sớm hơn bố mẹ.",
-        en: "We arrived at the supermarket earlier than our parents.",
-        note: "Trạng từ 'early' đổi thành 'earlier' trong so sánh hơn."
-    },
-    {
-        vi: "36. Cô ấy nói tiếng Anh tốt hơn anh trai mình.",
-        en: "She speaks English better than her brother.",
-        note: "Trạng từ bất quy tắc: 'well' chuyển thành 'better' trong so sánh hơn."
-    },
-    {
-        vi: "37. Những công nhân được đào tạo tốt làm việc hiệu quả hơn.",
-        en: "Well-trained workers work more efficiently.",
-        note: "So sánh hơn với trạng từ dài kết thúc bằng '-ly': 'more efficiently'."
-    },
-    {
-        vi: "38. Gia đình tôi thường xuyên đến thăm ông bà hơn trước.",
-        en: "My family visits my grandparents more frequently than before.",
-        note: "Trạng từ dài 'frequently' chuyển thành 'more frequently'."
-    },
-    {
-        vi: "39. Chiếc xe này chạy chậm hơn chiếc xe kia.",
-        en: "This car runs more slowly than that one.",
-        note: "Trạng từ dài 'slowly' đi với 'more' trong so sánh hơn."
-    },
-    {
-        vi: "40. Cuộc sống ở nông thôn thoải mái hơn cuộc sống ở thành phố.",
-        en: "Life in the countryside is more comfortable than life in the city.",
-        note: "Tính từ dài 'comfortable' sử dụng cấu trúc 'more + adj + than'."
-    }
+// Dữ liệu Phần 1: Dịch Việt -> Anh
+const transData = [
+    { vi: "1. Nông dân thường chăn dắt gia súc trên cánh đồng.", en: "Farmers often herd cattle in the field.", note: "Cattle (gia súc) là danh từ số nhiều. Trạng từ 'often' đứng trước động từ 'herd'." },
+    { vi: "2. Gia đình tôi có một vườn cây ăn trái nhỏ.", en: "My family has a small orchard.", note: "Orchard = vườn cây ăn trái." },
+    { vi: "3. Những người nông dân rất bận rộn vào mùa thu hoạch.", en: "The farmers are very busy during the harvest season.", note: "Busy + during + N (mùa thu hoạch)." },
+    { vi: "4. Chúng tôi thường hái trái cây trong vườn vào buổi sáng.", en: "We often pick fruit in the garden in the morning.", note: "Pick fruit = hái trái cây." },
+    { vi: "5. Có một cái ao nhỏ gần ngôi nhà của tôi.", en: "There is a small pond near my house.", note: "There is + N số ít." },
+    { vi: "6. Chú tôi nuôi gia cầm trong trang trại.", en: "My uncle raises poultry on the farm.", note: "Raise poultry = nuôi gia cầm. On the farm = trên trang trại." },
+    { vi: "7. Người dân địa phương trong làng rất thân thiện và hiếu khách.", en: "The local people in the village are very friendly and hospitable.", note: "Hospitable = hiếu khách." },
+    { vi: "8. Họ thường bắt cá ở hồ gần làng.", en: "They often catch fish in the lake near the village.", note: "Fish ở dạng số nhiều vẫn là 'fish'." },
+    { vi: "9. Những công nhân này được đào tạo tốt.", en: "These workers are well-trained.", note: "Well-trained = được đào tạo bài bản/tốt." },
+    { vi: "10. Cha tôi làm việc trong một nhà máy gần làng.", en: "My father works in a factory near the village.", note: "Thì hiện tại đơn, chia động từ theo chủ ngữ số ít." },
+    { vi: "11. Có rất nhiều cây xung quanh ngôi nhà nhỏ.", en: "There are many trees around the small house.", note: "There are + N số nhiều." },
+    { vi: "12. Gia đình tôi thường tụ tập vào cuối tuần.", en: "My family often gathers on the weekend.", note: "Gather = tụ tập, sum họp." },
+    { vi: "13. Những người nông dân đang chất các thùng trái cây lên xe tải.", en: "The farmers are loading crates of fruit onto the truck.", note: "Thì HTTĐ. Load... onto... = chất... lên..." },
+    { vi: "14. Sau đó, họ dỡ trái cây xuống ở chợ.", en: "Then, they unload the fruit at the market.", note: "Unload = dỡ hàng xuống." },
+    { vi: "15. Ngôi làng này có phong cảnh rất đẹp.", en: "This village has very beautiful scenery.", note: "Scenery là danh từ không đếm được." },
+    { vi: "16. Chúng tôi thường chụp ảnh những ngọn núi gần đó.", en: "We often take photos of the nearby mountains.", note: "Take photos of = chụp ảnh..." },
+    { vi: "17. Mẹ tôi thường mua mì ống ở siêu thị.", en: "My mother often buys pasta at the supermarket.", note: "Pasta = mì ống." },
+    { vi: "18. Ông bà tôi sống trong một ngôi nhà tranh nhỏ ở vùng nông thôn.", en: "My grandparents live in a small cottage in the countryside.", note: "Cottage = nhà tranh/nhà nhỏ ở nông thôn." },
+    { vi: "19. Người dân trong làng rất hào phóng và tử tế.", en: "The villagers are very generous and kind.", note: "Villagers = người dân trong làng." },
+    { vi: "20. Vào mùa hè, chúng tôi thường làm nhiều hoạt động ngoài trời.", en: "In the summer, we often do many outdoor activities.", note: "Do outdoor activities = làm hoạt động ngoài trời." },
+    { vi: "21. Ngôi làng này yên tĩnh hơn thành phố.", en: "This village is quieter than the city.", note: "Quiet -> quieter than." },
+    { vi: "22. Con đường này rộng hơn con đường kia.", en: "This road is wider than that one.", note: "Wide -> wider than." },
+    { vi: "23. Trang trại của ông tôi lớn hơn trang trại của hàng xóm.", en: "My grandfather's farm is larger than the neighbor's farm.", note: "Large -> larger than." },
+    { vi: "24. Hôm nay bận rộn hơn hôm qua.", en: "Today is busier than yesterday.", note: "Busy -> busier than (đổi y thành i + er)." },
+    { vi: "25. Chiếc xe tải này nhanh hơn chiếc xe cũ.", en: "This truck is faster than the old car.", note: "Fast -> faster than." },
+    { vi: "26. Hồ này sâu hơn cái ao gần nhà tôi.", en: "This lake is deeper than the pond near my house.", note: "Deep -> deeper than." },
+    { vi: "27. Người dân ở làng này thân thiện hơn người dân ở thành phố.", en: "People in this village are friendlier than people in the city.", note: "Friendly -> friendlier than." },
+    { vi: "28. Vườn cây này đẹp hơn khu vườn của chúng tôi.", en: "This orchard is more beautiful than our garden.", note: "More beautiful than (tính từ dài)." },
+    { vi: "29. Công việc ở nông trại khó hơn công việc ở nhà.", en: "Farm work is harder than housework.", note: "Hard -> harder than." },
+    { vi: "30. Mùa thu hoạch năm nay bận rộn hơn năm ngoái.", en: "This year's harvest season is busier than last year's.", note: "Busy -> busier than." },
+    { vi: "31. Phong cảnh ở đây đẹp hơn tôi nghĩ.", en: "The scenery here is more beautiful than I thought.", note: "More + adj + than + S + V." },
+    { vi: "32. Ngôi nhà này hiện đại hơn ngôi nhà cũ.", en: "This house is more modern than the old one.", note: "Modern -> more modern than." },
+    { vi: "33. Anh trai tôi làm việc chăm chỉ hơn tôi.", en: "My brother works harder than I do.", note: "Hard (trạng từ) -> harder than." },
+    { vi: "34. Người nông dân này làm việc nhanh hơn người nông dân kia.", en: "This farmer works faster than that farmer.", note: "Fast (trạng từ) -> faster than." },
+    { vi: "35. Chúng tôi đến siêu thị sớm hơn bố mẹ.", en: "We arrived at the supermarket earlier than our parents.", note: "Early -> earlier than." },
+    { vi: "36. Cô ấy nói tiếng Anh tốt hơn anh trai mình.", en: "She speaks English better than her brother.", note: "Well -> better than (bất quy tắc)." },
+    { vi: "37. Những công nhân được đào tạo tốt làm việc hiệu quả hơn.", en: "Well-trained workers work more efficiently.", note: "Efficiently -> more efficiently (trạng từ dài)." },
+    { vi: "38. Gia đình tôi thường xuyên đến thăm ông bà hơn trước.", en: "My family visits my grandparents more frequently than before.", note: "Frequently -> more frequently." },
+    { vi: "39. Chiếc xe này chạy chậm hơn chiếc xe kia.", en: "This car runs more slowly than that one.", note: "Slowly -> more slowly." },
+    { vi: "40. Cuộc sống ở nông thôn thoải mái hơn cuộc sống ở thành phố.", en: "Life in the countryside is more comfortable than life in the city.", note: "Comfortable -> more comfortable than." }
 ];
 
-function renderQuestions() {
-    const container = document.getElementById('questions-container');
-    container.innerHTML = data.map((item, index) => `
-        <div class="exercise-item">
-            <div class="sentence-vi">${item.vi}</div>
-            <input type="text" id="input-${index}" placeholder="Nhập câu dịch tiếng Anh tại đây..." autocomplete="off">
-            <div class="explanation" id="exp-${index}">
-                <div><strong>Đáp án gợi ý:</strong> ${item.en}</div>
-                <div><strong>Ngữ pháp:</strong> ${item.note}</div>
-            </div>
+// Dữ liệu Phần 2: Cho dạng So sánh hơn
+const compData = [
+    { q: "1. Life in the country is ____________ (peaceful) than life in the city.", ans: "more peaceful", note: "Peaceful là tính từ dài 2 âm tiết -> more peaceful." },
+    { q: "2. A tractor is ____________ (heavy) than a bicycle.", ans: "heavier", note: "Heavy kết thúc bằng 'y' -> biến thành 'i' rồi thêm 'er' (heavier)." },
+    { q: "3. Summer in my hometown is ____________ (hot) than in the mountains.", ans: "hotter", note: "Hot có cấu trúc phụ âm - nguyên âm - phụ âm -> gấp đôi 't' (hotter)." },
+    { q: "4. This year's crop is ____________ (good) than last year's crop.", ans: "better", note: "Good là tính từ bất quy tắc -> better." },
+    { q: "5. Doing farm work is ____________ (difficult) than studying at school.", ans: "more difficult", note: "Difficult là tính từ dài -> more difficult." },
+    { q: "6. The air in the village is ____________ (clean) than in the industrial area.", ans: "cleaner", note: "Clean là tính từ ngắn -> cleaner." },
+    { q: "7. My uncle drives his truck ____________ (carefully) than my cousin.", ans: "more carefully", note: "Carefully là trạng từ tận cùng '-ly' -> more carefully." },
+    { q: "8. The new machine works ____________ (efficiently) than the old one.", ans: "more efficiently", note: "Efficiently là trạng từ dài -> more efficiently." },
+    { q: "9. People in rural areas often live ____________ (long) than urban residents.", ans: "longer", note: "Long là trạng từ ngắn -> longer." },
+    { q: "10. Today, the farmers woke up ____________ (early) than usual.", ans: "earlier", note: "Early chuyển đổi thành earlier." },
+    { q: "11. The river near our village is ____________ (broad) than the stream.", ans: "broader", note: "Broad là tính từ ngắn -> broader." },
+    { q: "12. Houses in the city are usually ____________ (expensive) than houses in the village.", ans: "more expensive", note: "Expensive là tính từ dài -> more expensive." },
+    { q: "13. Fresh vegetables from the garden taste ____________ (delicious) than canned food.", ans: "more delicious", note: "Delicious là tính từ dài -> more delicious." },
+    { q: "14. My father works ____________ (hard) than anyone else in the family.", ans: "harder", note: "Hard (trạng từ/tính từ) -> harder." },
+    { q: "15. The condition of this road is ____________ (bad) than it was last month.", ans: "worse", note: "Bad là tính từ bất quy tắc -> worse." },
+    { q: "16. Living in a cottage is ____________ (cozy) than living in a big apartment.", ans: "cozier", note: "Cozy kết thúc bằng 'y' -> cozier." },
+    { q: "17. Fruit in the local market is ____________ (cheap) than in the big supermarket.", ans: "cheaper", note: "Cheap là tính từ ngắn -> cheaper." },
+    { q: "18. The night in the countryside is ____________ (dark) than in the city.", ans: "darker", note: "Dark là tính từ ngắn -> darker." },
+    { q: "19. The horse runs ____________ (fast) than the donkey.", ans: "faster", note: "Fast -> faster." },
+    { q: "20. The local villagers treated us ____________ (hospitably) than we expected.", ans: "more hospitably", note: "Hospitably là trạng từ dài -> more hospitably." }
+];
+
+// Hàm làm sạch chuỗi để so sánh
+function normalizeStr(str) {
+    return str.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+}
+
+// Render giao diện
+function initApp() {
+    // Render phần 1
+    const transContainer = document.getElementById('trans-container');
+    transContainer.innerHTML = transData.map((item, index) => `
+        <div class="exercise-item" id="trans-card-${index}">
+            <div class="sentence">${item.vi}</div>
+            <input type="text" id="trans-input-${index}" placeholder="Nhập câu dịch tiếng Anh..." autocomplete="off">
+            <div class="result-box" id="trans-res-${index}"></div>
+        </div>
+    `).join('');
+
+    // Render phần 2
+    const compContainer = document.getElementById('comp-container');
+    compContainer.innerHTML = compData.map((item, index) => `
+        <div class="exercise-item" id="comp-card-${index}">
+            <div class="sentence">${item.q}</div>
+            <input type="text" id="comp-input-${index}" placeholder="Nhập dạng so sánh đúng..." autocomplete="off">
+            <div class="result-box" id="comp-res-${index}"></div>
         </div>
     `).join('');
 }
 
+// Xử lý khi nhấn nộp bài
 function submitQuiz() {
-    data.forEach((_, index) => {
-        const expDiv = document.getElementById(`exp-${index}`);
-        expDiv.style.display = 'block';
+    // Kiểm tra phần dịch
+    transData.forEach((item, index) => {
+        const inputVal = document.getElementById(`trans-input-${index}`).value;
+        const resBox = document.getElementById(`trans-res-${index}`);
+        
+        const isCorrect = normalizeStr(inputVal) === normalizeStr(item.en);
+        
+        resBox.className = `result-box ${isCorrect ? 'correct' : 'wrong'}`;
+        resBox.style.display = 'block';
+        resBox.innerHTML = `
+            <span class="status-tag ${isCorrect ? 'status-correct' : 'status-wrong'}">${isCorrect ? 'ĐÚNG' : 'SAI'}</span>
+            <div><strong>Đáp án gợi ý:</strong> ${item.en}</div>
+            <div><strong>Giải thích:</strong> ${item.note}</div>
+        `;
     });
+
+    // Kiểm tra phần so sánh hơn
+    compData.forEach((item, index) => {
+        const inputVal = document.getElementById(`comp-input-${index}`).value;
+        const resBox = document.getElementById(`comp-res-${index}`);
+        
+        const isCorrect = normalizeStr(inputVal) === normalizeStr(item.ans);
+        
+        resBox.className = `result-box ${isCorrect ? 'correct' : 'wrong'}`;
+        resBox.style.display = 'block';
+        resBox.innerHTML = `
+            <span class="status-tag ${isCorrect ? 'status-correct' : 'status-wrong'}">${isCorrect ? 'ĐÚNG' : 'SAI'}</span>
+            <div><strong>Đáp án đúng:</strong> ${item.ans}</div>
+            <div><strong>Giải thích ngữ pháp:</strong> ${item.note}</div>
+        `;
+    });
+
+    // Tự động cuộn mượt tới phần kết quả bài tập
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-renderQuestions();
+window.onload = initApp;
 </script>
 
 </body>
