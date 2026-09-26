@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài Tập Dịch & So Sánh Hơn Tiếng Anh</title>
+    <title>Bài Tập Tiếng Anh: Dịch & So Sánh Hơn</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -59,8 +59,13 @@
             margin-bottom: 10px;
         }
 
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
         input[type="text"] {
-            width: 100%;
+            flex: 1;
             padding: 10px 12px;
             border: 1px solid var(--border);
             border-radius: 6px;
@@ -72,6 +77,23 @@
         input[type="text"]:focus {
             outline: none;
             border-color: var(--primary);
+        }
+
+        .btn-check-item {
+            background-color: #0d9488;
+            color: white;
+            border: none;
+            padding: 0 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color 0.2s;
+        }
+
+        .btn-check-item:hover {
+            background-color: #0f766e;
         }
 
         .result-box {
@@ -117,7 +139,7 @@
             margin: 30px 0;
         }
 
-        button {
+        .btn-submit-all {
             background-color: var(--primary);
             color: white;
             border: none;
@@ -129,7 +151,7 @@
             transition: background-color 0.2s;
         }
 
-        button:hover {
+        .btn-submit-all:hover {
             background-color: #1d4ed8;
         }
     </style>
@@ -146,7 +168,7 @@
     <div id="comp-container"></div>
 
     <div class="actions">
-        <button type="button" onclick="submitQuiz()">Nộp Bài & Kiểm Tra Đáp Án</button>
+        <button type="button" class="btn-submit-all" onclick="checkAll()">Nộp & Kiểm Tra Tất Cả Các Câu</button>
     </div>
 </div>
 
@@ -231,7 +253,10 @@ function initApp() {
     transContainer.innerHTML = transData.map((item, index) => `
         <div class="exercise-item" id="trans-card-${index}">
             <div class="sentence">${item.vi}</div>
-            <input type="text" id="trans-input-${index}" placeholder="Nhập câu dịch tiếng Anh..." autocomplete="off">
+            <div class="input-group">
+                <input type="text" id="trans-input-${index}" placeholder="Nhập câu dịch tiếng Anh..." autocomplete="off">
+                <button type="button" class="btn-check-item" onclick="checkTransItem(${index})">Kiểm tra</button>
+            </div>
             <div class="result-box" id="trans-res-${index}"></div>
         </div>
     `).join('');
@@ -241,48 +266,53 @@ function initApp() {
     compContainer.innerHTML = compData.map((item, index) => `
         <div class="exercise-item" id="comp-card-${index}">
             <div class="sentence">${item.q}</div>
-            <input type="text" id="comp-input-${index}" placeholder="Nhập dạng so sánh đúng..." autocomplete="off">
+            <div class="input-group">
+                <input type="text" id="comp-input-${index}" placeholder="Nhập dạng so sánh đúng..." autocomplete="off">
+                <button type="button" class="btn-check-item" onclick="checkCompItem(${index})">Kiểm tra</button>
+            </div>
             <div class="result-box" id="comp-res-${index}"></div>
         </div>
     `).join('');
 }
 
-// Xử lý khi nhấn nộp bài
-function submitQuiz() {
-    // Kiểm tra phần dịch
-    transData.forEach((item, index) => {
-        const inputVal = document.getElementById(`trans-input-${index}`).value;
-        const resBox = document.getElementById(`trans-res-${index}`);
-        
-        const isCorrect = normalizeStr(inputVal) === normalizeStr(item.en);
-        
-        resBox.className = `result-box ${isCorrect ? 'correct' : 'wrong'}`;
-        resBox.style.display = 'block';
-        resBox.innerHTML = `
-            <span class="status-tag ${isCorrect ? 'status-correct' : 'status-wrong'}">${isCorrect ? 'ĐÚNG' : 'SAI'}</span>
-            <div><strong>Đáp án gợi ý:</strong> ${item.en}</div>
-            <div><strong>Giải thích:</strong> ${item.note}</div>
-        `;
-    });
+// Kiểm tra 1 câu Phần 1
+function checkTransItem(index) {
+    const item = transData[index];
+    const inputVal = document.getElementById(`trans-input-${index}`).value;
+    const resBox = document.getElementById(`trans-res-${index}`);
+    
+    const isCorrect = normalizeStr(inputVal) === normalizeStr(item.en);
+    
+    resBox.className = `result-box ${isCorrect ? 'correct' : 'wrong'}`;
+    resBox.style.display = 'block';
+    resBox.innerHTML = `
+        <span class="status-tag ${isCorrect ? 'status-correct' : 'status-wrong'}">${isCorrect ? 'ĐÚNG' : 'SAI'}</span>
+        <div><strong>Đáp án gợi ý:</strong> ${item.en}</div>
+        <div><strong>Giải thích:</strong> ${item.note}</div>
+    `;
+}
 
-    // Kiểm tra phần so sánh hơn
-    compData.forEach((item, index) => {
-        const inputVal = document.getElementById(`comp-input-${index}`).value;
-        const resBox = document.getElementById(`comp-res-${index}`);
-        
-        const isCorrect = normalizeStr(inputVal) === normalizeStr(item.ans);
-        
-        resBox.className = `result-box ${isCorrect ? 'correct' : 'wrong'}`;
-        resBox.style.display = 'block';
-        resBox.innerHTML = `
-            <span class="status-tag ${isCorrect ? 'status-correct' : 'status-wrong'}">${isCorrect ? 'ĐÚNG' : 'SAI'}</span>
-            <div><strong>Đáp án đúng:</strong> ${item.ans}</div>
-            <div><strong>Giải thích ngữ pháp:</strong> ${item.note}</div>
-        `;
-    });
+// Kiểm tra 1 câu Phần 2
+function checkCompItem(index) {
+    const item = compData[index];
+    const inputVal = document.getElementById(`comp-input-${index}`).value;
+    const resBox = document.getElementById(`comp-res-${index}`);
+    
+    const isCorrect = normalizeStr(inputVal) === normalizeStr(item.ans);
+    
+    resBox.className = `result-box ${isCorrect ? 'correct' : 'wrong'}`;
+    resBox.style.display = 'block';
+    resBox.innerHTML = `
+        <span class="status-tag ${isCorrect ? 'status-correct' : 'status-wrong'}">${isCorrect ? 'ĐÚNG' : 'SAI'}</span>
+        <div><strong>Đáp án đúng:</strong> ${item.ans}</div>
+        <div><strong>Giải thích ngữ pháp:</strong> ${item.note}</div>
+    `;
+}
 
-    // Tự động cuộn mượt tới phần kết quả bài tập
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+// Kiểm tra toàn bộ
+function checkAll() {
+    transData.forEach((_, index) => checkTransItem(index));
+    compData.forEach((_, index) => checkCompItem(index));
 }
 
 window.onload = initApp;
