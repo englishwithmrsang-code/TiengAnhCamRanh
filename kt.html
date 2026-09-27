@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Từ Vựng & Ngữ Pháp Tiếng Anh</title>
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --correct-green: #16a34a;
+            --correct-bg: #f0fdf4;
+            --wrong-red: #dc2626;
+            --wrong-bg: #fef2f2;
+            --progress-bg: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            color: var(--primary-blue);
+            font-size: 2em;
+            margin: 0 0 8px 0;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 1.05em;
+        }
+
+        /* Dashboard Stats Panel */
+        .stats-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stat-item .stat-value {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 4px;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.85em;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Progress Bar */
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: var(--progress-bg);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-blue);
+            transition: width 0.3s ease;
+            border-radius: 5px;
+        }
+
+        /* Controls / Filter Bar */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--text-dark);
+            outline: none;
+            cursor: pointer;
+            min-width: 250px;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary-blue);
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-reset {
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+
+        .btn-reset:hover {
+            background-color: #cbd5e1;
+        }
+
+        /* Question Item Card */
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            transition: border-color 0.2s;
+            position: relative;
+        }
+
+        .question-card.correct-border {
+            border: 1.5px solid var(--correct-green);
+            background-color: #fafdfb;
+        }
+
+        .question-card.wrong-border {
+            border: 1.5px solid var(--wrong-red);
+            background-color: #fffafa;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .badge-qnum {
+            background-color: #eff6ff;
+            color: var(--primary-blue);
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .section-tag {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-bottom: 18px;
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* MCQ Options */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95em;
+        }
+
+        .option-label:hover {
+            background-color: #f1f5f9;
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 12px;
+            accent-color: var(--primary-blue);
+            width: 16px;
+            height: 16px;
+        }
+
+        .option-label.selected {
+            border-color: var(--primary-blue);
+            background-color: #eff6ff;
+        }
+
+        /* Fill in inputs */
+        .input-inline {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 1em;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 6px;
+            min-width: 180px;
+            max-width: 100%;
+            margin: 0 4px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-inline.wide {
+            width: 90%;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .input-inline:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-inline.input-correct {
+            border-color: var(--correct-green);
+            background-color: var(--correct-bg);
+            color: var(--correct-green);
+            font-weight: bold;
+        }
+
+        .input-inline.input-wrong {
+            border-color: var(--wrong-red);
+            background-color: var(--wrong-bg);
+            color: var(--wrong-red);
+            font-weight: bold;
+        }
+
+        .btn-check {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            float: right;
+            transition: background 0.2s;
+        }
+
+        .btn-check:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-check:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .clear-float {
+            clear: both;
+        }
+
+        /* Explanation Box */
+        .explanation-card {
+            margin-top: 18px;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            display: none;
+            border-left: 4px solid var(--primary-blue);
+            background-color: #f8fafc;
+        }
+
+        .explanation-card.show {
+            display: block;
+        }
+
+        .explanation-card .expl-row {
+            margin-bottom: 8px;
+        }
+
+        .explanation-card .expl-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .expl-label {
+            font-weight: 700;
+            display: inline-block;
+            min-width: 110px;
+        }
+
+        .expl-label.correct-text { color: var(--correct-green); }
+        .expl-label.trans-text { color: var(--text-dark); }
+        .expl-label.tip-text { color: #d97706; }
+
+        .expl-val-correct {
+            color: var(--correct-green);
+            font-weight: 700;
+        }
+
+        .expl-val-trans {
+            font-style: italic;
+            color: #475569;
+        }
+
+        .expl-val-tip {
+            color: #b45309;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            .controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-select {
+                width: 100%;
+            }
+            .action-btns {
+                justify-content: space-between;
+            }
+            .input-inline {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 id="app-title">Luyện Tập Từ Vựng & Ngữ Pháp (80 Câu)</h1>
+        <p id="app-subtitle">Chọn đáp án hoặc nhập câu trả lời, sau đó nhấn "Kiểm Tra" để xem kết quả và giải thích</p>
+    </header>
+
+    <!-- Stats Panel -->
+    <div class="stats-card">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value"><span id="checked-count">0</span> / <span id="total-count">0</span></div>
+                <div class="stat-label">Đã kiểm tra</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="score-count">0</div>
+                <div class="stat-label">Điểm số</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="accuracy-percent">0%</div>
+                <div class="stat-label">Chính xác</div>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div class="controls-bar">
+            <select class="filter-select" id="section-filter" onchange="filterExercises()">
+                <option value="ALL">Tất cả bài tập (80 câu)</option>
+                <option value="PHẦN I">Phần I: Từ vựng (30 câu)</option>
+                <option value="II-A">Phần II-A: Chia động từ (30 câu)</option>
+                <option value="II-B">Phần II-B: Viết lại câu (6 câu)</option>
+                <option value="II-C">Phần II-C: Kết hợp câu (2 câu)</option>
+                <option value="II-D">Phần II-D: Câu bị động (12 câu)</option>
+            </select>
+
+            <div class="action-btns">
+                <button class="btn btn-reset" onclick="resetAll()">🔄 Làm lại tất cả</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Questions Container -->
+    <div id="questions-list"></div>
+</div>
+
+<script>
+const rawExercises = [
+    // --- PHẦN I: TỪ VỰNG (1-30) ---
+    { id: 1, section: "PHẦN I", type: "mcq", qText: "Make sure you submit your college __________ before the deadline.", options: ["A. fuel", "B. application", "C. diagram"], ans: "B", trans: "Hãy đảm bảo bạn nộp đơn đăng ký đại học trước thời hạn.", expl: "college application: đơn đăng ký xét tuyển đại học." },
+    { id: 2, section: "PHẦN I", type: "mcq", qText: "The local government __________ introduced strict educational regulations.", options: ["A. disadvantage", "B. currency", "C. authority"], ans: "C", trans: "Chính quyền địa phương đã đưa ra các quy định giáo dục nghiêm ngặt.", expl: "local government authority: cơ quan chính quyền địa phương." },
+    { id: 3, section: "PHẦN I", type: "mcq", qText: "The two research groups reached an __________ on how to share data.", options: ["A. agreement", "B. percentage", "C. narrative"], ans: "A", trans: "Hai nhóm nghiên cứu đã đạt được sự thỏa thuận về cách chia sẻ dữ liệu.", expl: "reach an agreement: đạt được thỏa thuận." },
+    { id: 4, section: "PHẦN I", type: "mcq", qText: "We should __________ the vital role that teachers play in society.", options: ["A. consume", "B. appreciate", "C. export"], ans: "B", trans: "Chúng ta nên trân trọng/đánh giá cao vai trò quan trọng của giáo viên.", expl: "appreciate: trân trọng, đánh giá cao." },
+    { id: 5, section: "PHẦN I", type: "mcq", qText: "This course covers the __________ principles of organic chemistry.", options: ["A. obvious", "B. official", "C. basic"], ans: "C", trans: "Khóa học này bao gồm các nguyên lý cơ bản của hóa học hữu cơ.", expl: "basic principles: các nguyên lý cơ bản." },
+    { id: 6, section: "PHẦN I", type: "mcq", qText: "The university offers financial __________ to students with low income.", options: ["A. assistance", "B. election", "C. loss"], ans: "A", trans: "Trường đại học cung cấp hỗ trợ tài chính cho sinh viên có thu nhập thấp.", expl: "financial assistance: sự hỗ trợ tài chính." },
+    { id: 7, section: "PHẦN I", type: "mcq", qText: "Students must be __________ of safety procedures in the laboratory.", options: ["A. advanced", "B. aware", "C. complex"], ans: "B", trans: "Học sinh phải nhận thức được các quy trình an toàn trong phòng thí nghiệm.", expl: "be aware of: nhận thức, biết về." },
+    { id: 8, section: "PHẦN I", type: "mcq", qText: "Completing this thesis presented a major __________ for the candidate.", options: ["A. diagram", "B. function", "C. challenge"], ans: "C", trans: "Hoàn thành luận văn này là một thách thức lớn đối với ứng viên.", expl: "major challenge: thử thách lớn." },
+    { id: 9, section: "PHẦN I", type: "mcq", qText: "The main conclusions are detailed in the final __________ of the book.", options: ["A. chapter", "B. authority", "C. fuel"], ans: "A", trans: "Các kết luận chính được trình bày chi tiết ở chương cuối của cuốn sách.", expl: "final chapter: chương cuối." },
+    { id: 10, section: "PHẦN I", type: "mcq", qText: "The scientist made a surprising __________ regarding global warming trends.", options: ["A. accommodation", "B. claim", "C. mixture"], ans: "B", trans: "Nhà khoa học đã đưa ra một tuyên bố bất ngờ về xu hướng biến đổi khí hậu.", expl: "make a claim: đưa ra lời tuyên bố/khẳng định." },
+    { id: 11, section: "PHẦN I", type: "mcq", qText: "A relative __________ is used in this sentence to give extra details.", options: ["A. loss", "B. clause", "C. generation"], ans: "B", trans: "Mệnh đề quan hệ được sử dụng trong câu này để cung cấp thêm thông tin.", expl: "relative clause: mệnh đề quan hệ." },
+    { id: 12, section: "PHẦN I", type: "mcq", qText: "The department seeks a __________ researcher with extensive knowledge.", options: ["A. competent", "B. liquid", "C. mental"], ans: "A", trans: "Khoa đang tìm kiếm một nhà nghiên cứu có năng lực và kiến thức rộng.", expl: "competent: có năng lực, giỏi chuyên môn." },
+    { id: 13, section: "PHẦN I", type: "mcq", qText: "Clear __________ between teachers and students prevents misunderstandings.", options: ["A. fuel", "B. muscle", "C. communication"], ans: "C", trans: "Sự giao tiếp rõ ràng giữa thầy và trò giúp ngăn ngừa sự hiểu lầm.", expl: "communication: sự giao tiếp." },
+    { id: 14, section: "PHẦN I", type: "mcq", qText: "The study provides a direct __________ of two different learning styles.", options: ["A. narrative", "B. comparison", "C. percentage"], ans: "B", trans: "Nghiên cứu đưa ra sự so sánh trực tiếp giữa hai phong cách học tập.", expl: "direct comparison: sự so sánh trực tiếp." },
+    { id: 15, section: "PHẦN I", type: "mcq", qText: "The mathematical formula was too __________ for beginners to solve.", options: ["A. complex", "B. basic", "C. equal"], ans: "A", trans: "Công thức toán học quá phức tạp đối với người mới bắt đầu.", expl: "complex: phức tạp." },
+    { id: 16, section: "PHẦN I", type: "mcq", qText: "You should __________ on your studies during the exam period.", options: ["A. locate", "B. concentrate", "C. export"], ans: "B", trans: "Bạn nên tập trung vào việc học trong kỳ thi.", expl: "concentrate on: tập trung vào." },
+    { id: 17, section: "PHẦN I", type: "mcq", qText: "The researchers __________ that further testing was required.", options: ["A. attached", "B. expanded", "C. concluded"], ans: "C", trans: "Các nhà nghiên cứu đã kết luận rằng cần phải kiểm tra thêm.", expl: "concluded: đã kết luận." },
+    { id: 18, section: "PHẦN I", type: "mcq", qText: "The final paragraph states the overall __________ of the paper.", options: ["A. conclusion", "B. disadvantage", "C. leisure"], ans: "A", trans: "Đoạn văn cuối cùng nêu ra kết luận tổng thể của bài báo.", expl: "conclusion: kết luận." },
+    { id: 19, section: "PHẦN I", type: "mcq", qText: "Please email us to __________ your attendance at the conference.", options: ["A. consume", "B. confirm", "C. limit"], ans: "B", trans: "Vui lòng gửi email xác nhận sự tham dự của bạn tại hội thảo.", expl: "confirm: xác nhận." },
+    { id: 20, section: "PHẦN I", type: "mcq", qText: "Unclear instructions will only __________ the students further.", options: ["A. assist", "B. define", "C. confuse"], ans: "C", trans: "Hướng dẫn không rõ ràng chỉ làm sinh viên thêm bối rối.", expl: "confuse: gây bối rối, hoang mang." },
+    { id: 21, section: "PHẦN I", type: "mcq", qText: "There is a proven __________ between exercise and mental health.", options: ["A. connection", "B. authority", "C. currency"], ans: "A", trans: "Có một mối liên hệ đã được chứng minh giữa tập thể dục và sức khỏe tinh thần.", expl: "connection: mối liên hệ." },
+    { id: 22, section: "PHẦN I", type: "mcq", qText: "Environmental damage is a direct __________ of industrial pollution.", options: ["A. addition", "B. consequence", "C. location"], ans: "B", trans: "Tổn hại môi trường là hậu quả trực tiếp của ô nhiễm công nghiệp.", expl: "direct consequence: hậu quả trực tiếp." },
+    { id: 23, section: "PHẦN I", type: "mcq", qText: "The test __________ of fifty multiple-choice vocabulary questions.", options: ["A. attracts", "B. examines", "C. consists"], ans: "C", trans: "Bài kiểm tra bao gồm 50 câu hỏi từ vựng trắc nghiệm.", expl: "consist of: bao gồm." },
+    { id: 24, section: "PHẦN I", type: "mcq", qText: "Modern vehicles __________ less fuel than older models.", options: ["A. consume", "B. advise", "C. attach"], ans: "A", trans: "Các phương tiện hiện đại tiêu thụ ít nhiên liệu hơn các dòng xe cũ.", expl: "consume fuel: tiêu thụ nhiên liệu." },
+    { id: 25, section: "PHẦN I", type: "mcq", qText: "The store guarantees that every __________ receives high-quality service.", options: ["A. agreement", "B. chapter", "C. consumer"], ans: "C", trans: "Cửa hàng đảm bảo mỗi người tiêu dùng đều nhận dịch vụ chất lượng cao.", expl: "consumer: người tiêu dùng/khách hàng." },
+    { id: 26, section: "PHẦN I", type: "mcq", qText: "The professor reviewed the __________ status of scientific research.", options: ["A. current", "B. basic", "C. obvious"], ans: "A", trans: "Giáo sư đã xem xét tình trạng hiện tại của nghiên cứu khoa học.", expl: "current status: tình trạng hiện tại." },
+    { id: 27, section: "PHẦN I", type: "mcq", qText: "Language study often reveals interesting __________ differences.", options: ["A. advanced", "B. cultural", "C. equal"], ans: "B", trans: "Việc học ngôn ngữ thường hé lộ những sự khác biệt văn hóa thú vị.", expl: "cultural differences: sự khác biệt văn hóa." },
+    { id: 28, section: "PHẦN I", type: "mcq", qText: "The official __________ of Japan is the Japanese Yen.", options: ["A. accommodation", "B. achievement", "C. currency"], ans: "C", trans: "Đơn vị tiền tệ chính thức của Nhật Bản là Yên Nhật.", expl: "official currency: đơn vị tiền tệ chính thức." },
+    { id: 29, section: "PHẦN I", type: "mcq", qText: "The textbook includes a clear __________ explaining the plant cell.", options: ["A. diagram", "B. consequence", "C. connection"], ans: "A", trans: "Sách giáo khoa có một sơ đồ/hình minh họa rõ ràng giải thích về tế bào thực vật.", expl: "diagram: sơ đồ, biểu đồ." },
+    { id: 30, section: "PHẦN I", type: "mcq", qText: "In the dictionary, writers must clearly __________ technical terms.", options: ["A. afford", "B. define", "C. participate"], ans: "B", trans: "Trong từ điển, người viết phải định nghĩa rõ ràng các thuật ngữ kỹ thuật.", expl: "define: định nghĩa." },
+
+    // --- PHẦN II-A: CHIA ĐỘNG TỪ (31-60) ---
+    { id: 31, section: "II-A", type: "fill", qTemplate: "I {input1} my grandparents last weekend.", inputs: [{ id: 1, hints: "visit", ans: ["visited"] }], trans: "Tôi đã thăm ông bà vào cuối tuần trước.", expl: "Dấu hiệu 'last weekend' -> Quá khứ đơn (visited)." },
+    { id: 32, section: "II-A", type: "fill", qTemplate: "She {input1} TV when I called her.", inputs: [{ id: 1, hints: "watch", ans: ["was watching"] }], trans: "Cô ấy đang xem TV thì tôi gọi điện.", expl: "Hành động đang diễn ra trong quá khứ (was watching) thì hành động khác xen vào (called)." },
+    { id: 33, section: "II-A", type: "fill", qTemplate: "They {input1} dinner before their guests arrived.", inputs: [{ id: 1, hints: "finish", ans: ["had finished"] }], trans: "Họ đã ăn xong bữa tối trước khi khách tới.", expl: "Hành động xảy ra trước một thời điểm/hành động khác trong quá khứ -> Quá khứ hoàn thành (had finished)." },
+    { id: 34, section: "II-A", type: "fill", qTemplate: "We have already planned our summer trip. We {input1} to Da Nang next summer.", inputs: [{ id: 1, hints: "go", ans: ["are going to go", "are going"] }], trans: "Chúng tôi đã lên kế hoạch cho chuyến đi hè. Chúng tôi sẽ đi Đà Nẵng vào mùa hè tới.", expl: "Dự định/Kế hoạch đã lên trước -> be going to V." },
+    { id: 35, section: "II-A", type: "fill", qTemplate: "Look! The children {input1} in the yard.", inputs: [{ id: 1, hints: "play", ans: ["are playing"] }], trans: "Nhìn kìa! Mấy đứa trẻ đang chơi ngoài sân.", expl: "Dấu hiệu 'Look!' -> Hiện tại tiếp diễn (are playing)." },
+    { id: 36, section: "II-A", type: "fill", qTemplate: "While I {input1}, my brother was playing games.", inputs: [{ id: 1, hints: "study", ans: ["was studying"] }], trans: "Trong khi tôi đang học, em trai tôi đang chơi game.", expl: "Hai hành động diễn ra song song trong quá khứ -> Quá khứ tiếp diễn (was studying)." },
+    { id: 37, section: "II-A", type: "fill", qTemplate: "By the time we reached the station, the train {input1}.", inputs: [{ id: 1, hints: "leave", ans: ["had left"] }], trans: "Vào lúc chúng tôi tới ga, tàu đã chạy mất rồi.", expl: "By the time + Quá khứ đơn, Quá khứ hoàn thành (had left)." },
+    { id: 38, section: "II-A", type: "fill", qTemplate: "I think it {input1} tomorrow.", inputs: [{ id: 1, hints: "rain", ans: ["will rain"] }], trans: "Tôi nghĩ ngày mai trời sẽ mưa.", expl: "Dự đoán không có căn cứ cụ thể (I think...) -> Tương lai đơn (will rain)." },
+    { id: 39, section: "II-A", type: "fill", qTemplate: "At 8 p.m. yesterday, we {input1} a movie.", inputs: [{ id: 1, hints: "watch", ans: ["were watching"] }], trans: "Vào 8 giờ tối qua, chúng tôi đang xem phim.", expl: "Thời điểm xác định trong quá khứ (8 p.m. yesterday) -> Quá khứ tiếp diễn (were watching)." },
+    { id: 40, section: "II-A", type: "fill", qTemplate: "She {input1} already {input2} her homework before dinner.", inputs: [{ id: 1, hints: "have/has", ans: ["had"] }, { id: 2, hints: "do", ans: ["done"] }], trans: "Cô ấy đã làm xong bài tập về nhà trước bữa tối.", expl: "Xảy ra trước mốc thời gian quá khứ ('before dinner') -> Quá khứ hoàn thành (had already done)." },
+    { id: 41, section: "II-A", type: "fill", qTemplate: "We have already planned to visit our uncle. We {input1} him this weekend.", inputs: [{ id: 1, hints: "visit", ans: ["are going to visit", "are visiting"] }], trans: "Chúng tôi đã kế hoạch đi thăm chú. Chúng tôi sẽ thăm chú vào cuối tuần này.", expl: "Hành động có kế hoạch trước -> be going to V." },
+    { id: 42, section: "II-A", type: "fill", qTemplate: "Why {input1} you {input2} now?", inputs: [{ id: 1, hints: "be", ans: ["are"] }, { id: 2, hints: "smile", ans: ["smiling"] }], trans: "Tại sao bây giờ bạn lại đang mỉm cười?", expl: "Dấu hiệu 'now' -> Hiện tại tiếp diễn (Why are you smiling?)." },
+    { id: 43, section: "II-A", type: "fill", qTemplate: "While my mother {input1}, my father was reading a newspaper.", inputs: [{ id: 1, hints: "cook", ans: ["was cooking"] }], trans: "Trong khi mẹ tôi đang nấu ăn, bố tôi đang đọc báo.", expl: "Hành động song song quá khứ -> Quá khứ tiếp diễn (was cooking)." },
+    { id: 44, section: "II-A", type: "fill", qTemplate: "By the time I arrived home, my sister {input1} to bed.", inputs: [{ id: 1, hints: "go", ans: ["had gone"] }], trans: "Vào lúc tôi về tới nhà, chị tôi đã đi ngủ rồi.", expl: "By the time + QKD, QKHT (had gone)." },
+    { id: 45, section: "II-A", type: "fill", qTemplate: "I am sure she {input1} the exam.", inputs: [{ id: 1, hints: "pass", ans: ["will pass"] }], trans: "Tôi chắc chắn cô ấy sẽ đỗ kỳ thi.", expl: "Dự đoán chủ quan (I am sure...) -> Tương lai đơn (will pass)." },
+    { id: 46, section: "II-A", type: "fill", qTemplate: "The students {input1} their homework when the teacher came.", inputs: [{ id: 1, hints: "do", ans: ["were doing"] }], trans: "Các học sinh đang làm bài tập thì giáo viên vào.", expl: "Hành động đang diễn ra (were doing) thì hành động khác chen vào (came)." },
+    { id: 47, section: "II-A", type: "fill", qTemplate: "After he {input1} the project, he went on holiday.", inputs: [{ id: 1, hints: "finish", ans: ["had finished"] }], trans: "Sau khi anh ấy hoàn thành dự án, anh ấy đã đi nghỉ mát.", expl: "After + Quá khứ hoàn thành (had finished), Quá khứ đơn." },
+    { id: 48, section: "II-A", type: "fill", qTemplate: "Look at those clouds! It {input1}.", inputs: [{ id: 1, hints: "rain", ans: ["is going to rain"] }], trans: "Nhìn những đám mây kìa! Trời sắp mưa đấy.", expl: "Dự đoán có bằng chứng rõ ràng ở hiện tại -> Near Future (is going to rain)." },
+    { id: 49, section: "II-A", type: "fill", qTemplate: "We {input1} our teacher tomorrow morning.", inputs: [{ id: 1, hints: "meet", ans: ["will meet", "are meeting", "are going to meet"] }], trans: "Chúng tôi sẽ gặp thầy giáo vào sáng mai.", expl: "Dùng will meet / are meeting / are going to meet." },
+    { id: 50, section: "II-A", type: "fill", qTemplate: "At this time yesterday, I {input1} a book.", inputs: [{ id: 1, hints: "read", ans: ["was reading"] }], trans: "Vào giờ này ngày hôm qua, tôi đang đọc sách.", expl: "Thời điểm xác định trong quá khứ -> Quá khứ tiếp diễn (was reading)." },
+    { id: 51, section: "II-A", type: "fill", qTemplate: "By 2020, they {input1} in Cam Ranh for five years.", inputs: [{ id: 1, hints: "live", ans: ["had lived", "had been living"] }], trans: "Tính đến năm 2020, họ đã sống ở Cam Ranh được 5 năm.", expl: "Mốc thời gian trong quá khứ 'By 2020' + 'for 5 years' -> Quá khứ hoàn thành (had lived)." },
+    { id: 52, section: "II-A", type: "fill", qTemplate: "Don't worry. I {input1} you.", inputs: [{ id: 1, hints: "help", ans: ["will help", "'ll help"] }], trans: "Đừng lo. Tôi sẽ giúp bạn.", expl: "Quyết định đưa ra ngay tại thời điểm nói -> Tương lai đơn (will help)." },
+    { id: 53, section: "II-A", type: "fill", qTemplate: "The children {input1} football yesterday afternoon.", inputs: [{ id: 1, hints: "play", ans: ["played", "were playing"] }], trans: "Mấy đứa trẻ đã chơi bóng đá vào chiều qua.", expl: "Quá khứ đơn (played) hoặc Quá khứ tiếp diễn (were playing)." },
+    { id: 54, section: "II-A", type: "fill", qTemplate: "While we {input1} home, it started to rain.", inputs: [{ id: 1, hints: "walk", ans: ["were walking"] }], trans: "Trong khi chúng tôi đang đi bộ về nhà, trời bắt đầu mưa.", expl: "While + Quá khứ tiếp diễn (were walking)." },
+    { id: 55, section: "II-A", type: "fill", qTemplate: "By the time the movie started, we {input1} our seats.", inputs: [{ id: 1, hints: "find", ans: ["had found"] }], trans: "Trước khi bộ phim bắt đầu, chúng tôi đã tìm được chỗ ngồi.", expl: "By the time + QKD, QKHT (had found)." },
+    { id: 56, section: "II-A", type: "fill", qTemplate: "They have already planned their trip to Ho Chi Minh City. They {input1} there next week.", inputs: [{ id: 1, hints: "travel", ans: ["are going to travel", "are traveling"] }], trans: "Họ đã lên kế hoạch cho chuyến đi TP.HCM. Họ sẽ đi vào tuần tới.", expl: "Có kế hoạch trước -> are going to travel." },
+    { id: 57, section: "II-A", type: "fill", qTemplate: "She {input1} when the phone rang.", inputs: [{ id: 1, hints: "sleep", ans: ["was sleeping"] }], trans: "Cô ấy đang ngủ thì điện thoại reo.", expl: "Hành động đang diễn ra trong quá khứ -> Quá khứ tiếp diễn (was sleeping)." },
+    { id: 58, section: "II-A", type: "fill", qTemplate: "By the time I got there, the meeting {input1}.", inputs: [{ id: 1, hints: "start", ans: ["had started"] }], trans: "Khi tôi đến đó, cuộc họp đã bắt đầu rồi.", expl: "By the time + QKD, QKHT (had started)." },
+    { id: 59, section: "II-A", type: "fill", qTemplate: "I think Vietnam {input1} the match.", inputs: [{ id: 1, hints: "win", ans: ["will win"] }], trans: "Tôi nghĩ Việt Nam sẽ thắng trận đấu này.", expl: "I think + Tương lai đơn (will win)." },
+    { id: 60, section: "II-A", type: "fill", qTemplate: "The students {input1} for the test at the moment.", inputs: [{ id: 1, hints: "prepare", ans: ["are preparing"] }], trans: "Các học sinh đang chuẩn bị cho bài kiểm tra lúc này.", expl: "at the moment -> Hiện tại tiếp diễn (are preparing)." },
+
+    // --- PHẦN II-B: VIẾT LẠI CÂU (61-66) ---
+    { id: 61, section: "II-B", type: "fill", qTemplate: "I am not you, so I do not study harder.<br>→ If I {input1} you, I {input2} harder.", inputs: [{ id: 1, hints: "were/was", ans: ["were", "was"] }, { id: 2, hints: "would study", ans: ["would study", "'d study"] }], trans: "Nếu tôi là bạn, tôi sẽ học chăm chỉ hơn.", expl: "Câu điều kiện loại 2 (trái thực tế ở hiện tại): If + S + were, S + would + V." },
+    { id: 62, section: "II-B", type: "fill", qTemplate: "He did not study harder last year, so he did not pass the exam.<br>→ If he {input1} harder last year, he {input2} the exam.", inputs: [{ id: 1, hints: "had studied", ans: ["had studied"] }, { id: 2, hints: "would have passed", ans: ["would have passed"] }], trans: "Nếu năm ngoái anh ấy học chăm hơn, anh ấy đã đỗ kỳ thi.", expl: "Câu điều kiện loại 3 (trái thực tế ở quá khứ): If + had + V3, S + would have + V3." },
+    { id: 63, section: "II-B", type: "fill", qTemplate: "It may rain tomorrow, so we will stay at home.<br>→ If it {input1} tomorrow, we {input2} at home.", inputs: [{ id: 1, hints: "rains", ans: ["rains"] }, { id: 2, hints: "will stay", ans: ["will stay", "'ll stay"] }], trans: "Nếu ngày mai trời mưa, chúng tôi sẽ ở nhà.", expl: "Câu điều kiện loại 1: If + Hiện tại đơn, Will + V." },
+    { id: 64, section: "II-B", type: "fill", qTemplate: "I do not have enough money, so I cannot buy a new laptop.<br>→ If I {input1} enough money, I {input2} a new laptop.", inputs: [{ id: 1, hints: "had", ans: ["had"] }, { id: 2, hints: "could buy / would buy", ans: ["could buy", "would buy"] }], trans: "Nếu tôi có đủ tiền, tôi có thể mua một chiếc laptop mới.", expl: "Câu điều kiện loại 2: If + QKD (had), would/could + V." },
+    { id: 65, section: "II-B", type: "fill", qTemplate: "She was tired, but she finished all her work.<br>→ Despite {input1}.", inputs: [{ id: 1, hints: "being tired / her tiredness", ans: ["being tired", "her tiredness", "the fact that she was tired"] }], trans: "Mặc dù mệt mỏi, cô ấy vẫn hoàn thành tất cả công việc.", expl: "Despite + V-ing / Noun Phrase." },
+    { id: 66, section: "II-B", type: "fill", qTemplate: "The match was cancelled because it rained heavily.<br>→ Because of {input1}.", inputs: [{ id: 1, hints: "the heavy rain / heavy rain", ans: ["the heavy rain", "heavy rain", "raining heavily", "the fact that it rained heavily"] }], trans: "Trận đấu bị hủy vì mưa lớn.", expl: "Because of + Cụm danh từ / V-ing." },
+
+    // --- PHẦN II-C: KẾT HỢP CÂU (67-68) ---
+    { id: 67, section: "II-C", type: "fill", qTemplate: "While I {input1} home, I {input2} an old friend.", inputs: [{ id: 1, hints: "walk", ans: ["was walking"] }, { id: 2, hints: "see", ans: ["saw"] }], trans: "Trong khi tôi đang đi bộ về nhà, tôi đã gặp một người bạn cũ.", expl: "While + QK tiếp diễn (was walking), QK đơn (saw)." },
+    { id: 68, section: "II-C", type: "fill", qTemplate: "When we {input1} at the airport, the plane {input2} already {input3}.", inputs: [{ id: 1, hints: "arrive", ans: ["arrived"] }, { id: 2, hints: "had", ans: ["had"] }, { id: 3, hints: "leave", ans: ["left"] }], trans: "Khi chúng tôi tới sân bay, máy bay đã cất cánh từ trước.", expl: "When + QKD (arrived), QKHT (had already left)." },
+
+    // --- PHẦN II-D: CÂU BỊ ĐỘNG (69-80) ---
+    { id: 69, section: "II-D", type: "fill", qTemplate: "They built this bridge last year.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["This bridge was built last year", "This bridge was built last year."] }], trans: "Cây cầu này đã được xây dựng vào năm ngoái.", expl: "Quá khứ đơn bị động: S + was/were + V3/ed." },
+    { id: 70, section: "II-D", type: "fill", qTemplate: "The students are cleaning the classroom now.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["The classroom is being cleaned by the students now", "The classroom is being cleaned now by the students", "The classroom is being cleaned now"] }], trans: "Lớp học đang được dọn dẹp bởi các học sinh.", expl: "Hiện tại tiếp diễn bị động: S + am/is/are + being + V3/ed." },
+    { id: 71, section: "II-D", type: "fill", qTemplate: "People speak English in many countries.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["English is spoken in many countries", "English is spoken in many countries."] }], trans: "Tiếng Anh được nói ở nhiều quốc gia.", expl: "Hiện tại đơn bị động: S + am/is/are + V3/ed." },
+    { id: 72, section: "II-D", type: "fill", qTemplate: "She will finish the report tomorrow.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["The report will be finished tomorrow", "The report will be finished by her tomorrow", "The report will be finished tomorrow by her"] }], trans: "Bản báo cáo sẽ được hoàn thành vào ngày mai.", expl: "Tương lai đơn bị động: S + will be + V3/ed." },
+    { id: 73, section: "II-D", type: "fill", qTemplate: "They had completed the project before 2020.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["The project had been completed before 2020", "The project had been completed before 2020."] }], trans: "Dự án đã được hoàn thành trước năm 2020.", expl: "Quá khứ hoàn thành bị động: S + had been + V3/ed." },
+    { id: 74, section: "II-D", type: "fill", qTemplate: "The teacher cleaned the classroom yesterday.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["The classroom was cleaned by the teacher yesterday", "The classroom was cleaned yesterday by the teacher"] }], trans: "Lớp học đã được dọn dẹp bởi thầy giáo vào hôm qua.", expl: "Quá khứ đơn bị động: was/were + V3/ed." },
+    { id: 75, section: "II-D", type: "fill", qTemplate: "The boy is washing the car now.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["The car is being washed by the boy now", "The car is being washed now by the boy", "The car is being washed now"] }], trans: "Chiếc xe ô tô đang được rửa bởi cậu bé.", expl: "Hiện tại tiếp diễn bị động: is being + V3/ed." },
+    { id: 76, section: "II-D", type: "fill", qTemplate: "My father will fix the bike tomorrow.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["The bike will be fixed by my father tomorrow", "The bike will be fixed tomorrow by my father"] }], trans: "Chiếc xe đạp sẽ được sửa bởi bố tôi vào ngày mai.", expl: "Tương lai đơn bị động: will be + V3/ed." },
+    { id: 77, section: "II-D", type: "fill", qTemplate: "People use this room for meetings.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["This room is used for meetings", "This room is used for meetings."] }], trans: "Căn phòng này được sử dụng cho các cuộc họp.", expl: "Hiện tại đơn bị động: is used." },
+    { id: 78, section: "II-D", type: "fill", qTemplate: "The students have finished the exercise.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["The exercise has been finished by the students", "The exercise has been finished"] }], trans: "Bài tập đã được hoàn thành bởi các học sinh.", expl: "Hiện tại hoàn thành bị động: has/have been + V3/ed." },
+    { id: 79, section: "II-D", type: "fill", qTemplate: "The girl was reading the book when I came.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["The book was being read by the girl when I came", "The book was being read when I came"] }], trans: "Cuốn sách đang được đọc bởi cô gái khi tôi đến.", expl: "Quá khứ tiếp diễn bị động: was/were being + V3/ed." },
+    { id: 80, section: "II-D", type: "fill", qTemplate: "My mother had cooked dinner before I came home.<br>→ {input1}", inputs: [{ id: 1, hints: "Nhập câu bị động hoàn chỉnh", ans: ["Dinner had been cooked by my mother before I came home", "Dinner had been cooked before I came home"] }], trans: "Bữa tối đã được nấu bởi mẹ trước khi tôi về nhà.", expl: "Quá khứ hoàn thành bị động: had been cooked." }
+];
+
+let userState = [];
+
+function initApp() {
+    userState = rawExercises.map((ex, idx) => ({
+        ...ex,
+        originalIndex: idx,
+        userAnswers: {},
+        isChecked: false,
+        isCorrect: false
+    }));
+    renderQuestions();
+    updateStats();
+}
+
+function normalizeText(str) {
+    return (str || '')
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, ' ')
+        .replace(/’/g, "'")
+        .replace(/[.,!?]$/, ""); // bớt dấu câu cuối
+}
+
+function renderQuestions() {
+    const filterValue = document.getElementById('section-filter').value;
+    const container = document.getElementById('questions-list');
+    container.innerHTML = '';
+
+    userState.forEach((ex, index) => {
+        if (filterValue !== 'ALL' && !ex.section.startsWith(filterValue)) {
+            return;
+        }
+
+        const card = document.createElement('div');
+        card.className = `question-card ${ex.isChecked ? (ex.isCorrect ? 'correct-border' : 'wrong-border') : ''}`;
+        card.id = `card-${index}`;
+
+        let interactiveHTML = '';
+
+        if (ex.type === 'mcq') {
+            // Render Multiple Choice Question
+            let optionsHTML = '';
+            ex.options.forEach((opt, optIdx) => {
+                const optLetter = opt.substring(0, 1);
+                const isSelected = ex.userAnswers[1] === optLetter;
+                optionsHTML += `
+                    <label class="option-label ${isSelected ? 'selected' : ''}">
+                        <input type="radio" 
+                            name="radio-${index}" 
+                            value="${optLetter}" 
+                            ${isSelected ? 'checked' : ''} 
+                            ${ex.isChecked ? 'disabled' : ''}
+                            onchange="handleMcqSelect(${index}, '${optLetter}')"
+                        >
+                        ${opt}
+                    </label>
+                `;
+            });
+            interactiveHTML = `
+                <div class="question-text">${ex.qText}</div>
+                <div class="options-grid">${optionsHTML}</div>
+            `;
+        } else {
+            // Render Fill-in-the-blank Question
+            let renderedQ = ex.qTemplate;
+            const isWide = ex.inputs.length === 1 && ex.inputs[0].hints.includes("Nhập câu bị động");
+            
+            ex.inputs.forEach(inputObj => {
+                const val = ex.userAnswers[inputObj.id] || '';
+                let statusClass = '';
+                if (ex.isChecked) {
+                    const userVal = normalizeText(val);
+                    const isInputCorrect = inputObj.ans.some(a => normalizeText(a) === userVal);
+                    statusClass = isInputCorrect ? 'input-correct' : 'input-wrong';
+                }
+
+                const inputHTML = `<input type="text" 
+                    class="input-inline ${isWide ? 'wide' : ''} ${statusClass}" 
+                    id="input-${index}-${inputObj.id}" 
+                    placeholder="(${inputObj.hints})" 
+                    value="${val}" 
+                    ${ex.isChecked ? 'disabled' : ''}
+                    oninput="handleInput(${index}, ${inputObj.id}, this.value)"
+                    onkeydown="handleKeyDown(event, ${index})"
+                />`;
+                renderedQ = renderedQ.replace(`{input${inputObj.id}}`, inputHTML);
+            });
+            interactiveHTML = `<div class="question-text">${renderedQ}</div>`;
+        }
+
+        // Correct answer displaying text
+        let correctAnsDisplay = '';
+        if (ex.type === 'mcq') {
+            const correctOpt = ex.options.find(o => o.startsWith(ex.ans));
+            correctAnsDisplay = correctOpt || ex.ans;
+        } else {
+            let tempAns = ex.qTemplate;
+            ex.inputs.forEach(inputObj => {
+                tempAns = tempAns.replace(`{input${inputObj.id}}`, `<b>${inputObj.ans[0]}</b>`);
+            });
+            correctAnsDisplay = tempAns.replace(/<br>/g, " ");
+        }
+
+        card.innerHTML = `
+            <div class="card-header">
+                <span class="badge-qnum">Câu ${ex.id}</span>
+                <span class="section-tag">${ex.section}</span>
+            </div>
+            ${interactiveHTML}
+            <button class="btn-check" onclick="checkQuestion(${index})" ${ex.isChecked ? 'disabled' : ''}>
+                ${ex.isChecked ? 'Đã Kiểm Tra' : 'Kiểm Tra'}
+            </button>
+            <div class="clear-float"></div>
+
+            <div class="explanation-card ${ex.isChecked ? 'show' : ''}" id="expl-${index}">
+                <div class="expl-row">
+                    <span class="expl-label correct-text">Đáp án đúng:</span>
+                    <span class="expl-val-correct">${correctAnsDisplay}</span>
+                </div>
+                <div class="expl-row">
+                    <span class="expl-label trans-text">Dịch nghĩa:</span>
+                    <span class="expl-val-trans">${ex.trans}</span>
+                </div>
+                <div class="expl-row">
+                    <span class="expl-label tip-text">Giải thích:</span>
+                    <span class="expl-val-tip">${ex.expl}</span>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+function handleMcqSelect(qIdx, letter) {
+    userState[qIdx].userAnswers[1] = letter;
+    renderQuestions();
+}
+
+function handleInput(qIdx, inputId, value) {
+    userState[qIdx].userAnswers[inputId] = value;
+}
+
+function handleKeyDown(event, qIdx) {
+    if (event.key === 'Enter') {
+        checkQuestion(qIdx);
+    }
+}
+
+function checkQuestion(index) {
+    const item = userState[index];
+    if (item.isChecked) return;
+
+    let allCorrect = true;
+
+    if (item.type === 'mcq') {
+        const userVal = item.userAnswers[1];
+        if (userVal !== item.ans) {
+            allCorrect = false;
+        }
+    } else {
+        item.inputs.forEach(inputObj => {
+            const userVal = normalizeText(item.userAnswers[inputObj.id]);
+            const isMatch = inputObj.ans.some(a => normalizeText(a) === userVal);
+            if (!isMatch) {
+                allCorrect = false;
+            }
+        });
+    }
+
+    item.isChecked = true;
+    item.isCorrect = allCorrect;
+
+    renderQuestions();
+    updateStats();
+}
+
+function updateStats() {
+    const total = userState.length;
+    const checkedItems = userState.filter(i => i.isChecked);
+    const checkedCount = checkedItems.length;
+    const scoreCount = userState.filter(i => i.isChecked && i.isCorrect).length;
+    const accuracy = checkedCount > 0 ? Math.round((scoreCount / checkedCount) * 100) : 0;
+    const progressPercent = Math.round((checkedCount / total) * 100);
+
+    document.getElementById('total-count').innerText = total;
+    document.getElementById('checked-count').innerText = checkedCount;
+    document.getElementById('score-count').innerText = scoreCount;
+    document.getElementById('accuracy-percent').innerText = `${accuracy}%`;
+    document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+}
+
+function filterExercises() {
+    renderQuestions();
+}
+
+function resetAll() {
+    initApp();
+}
+
+// Start app on window load
+window.onload = initApp;
+</script>
+</body>
+</html>
