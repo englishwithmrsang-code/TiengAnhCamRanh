@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Biến Đổi Câu: Although / Because / Despite / Because of</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen pb-12">
+
+    <!-- Header Section -->
+    <header class="bg-indigo-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-pen-to-square text-3xl text-amber-300"></i>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">LUYỆN BÀI TẬP BIẾN ĐỔI CÂU</h1>
+                    <p class="text-xs text-indigo-200">Although / Because / Despite / Because of</p>
+                </div>
+            </div>
+            
+            <button onclick="resetAll()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-800 text-indigo-100 text-xs font-semibold rounded-lg border border-indigo-400 transition flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-rotate-right"></i> Làm lại từ đầu
+            </button>
+        </div>
+    </header>
+
+    <div class="max-w-5xl mx-auto px-4 mt-6">
+
+        <!-- LÝ THUYẾT CONTAINER -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 mb-6">
+            <div class="flex justify-between items-center cursor-pointer select-none" onclick="toggleTheory()">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-book-open text-indigo-600 text-lg"></i>
+                    <h2 class="text-lg font-bold text-slate-800">BẢNG LÝ THUYẾT CẦN NẮM (3 BẢNG)</h2>
+                </div>
+                <button id="theory-toggle-btn" class="text-indigo-600 hover:text-indigo-800 font-semibold text-xs flex items-center gap-1">
+                    <span>Ẩn / Hiện lý thuyết</span>
+                    <i id="theory-icon" class="fa-solid fa-chevron-up"></i>
+                </button>
+            </div>
+
+            <div id="theory-content" class="mt-4 space-y-6">
+                <!-- Bảng Tổng Quan -->
+                <div>
+                    <h3 class="font-bold text-slate-700 mb-2 border-l-4 border-indigo-500 pl-2 text-sm">1. Tổng Quan Cấu Trúc</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-slate-700 border border-slate-200">
+                            <thead class="bg-indigo-50 text-indigo-900 font-semibold uppercase border-b">
+                                <tr>
+                                    <th class="p-2.5 border-r">Nhóm</th>
+                                    <th class="p-2.5 border-r">Theo sau</th>
+                                    <th class="p-2.5">Ví dụ ngắn</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold border-r">Despite / In spite of</td>
+                                    <td class="p-2.5 border-r font-medium text-emerald-700">Cụm từ (N / V-ing)</td>
+                                    <td class="p-2.5 italic"><strong>Despite the rain</strong>, we went out.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold border-r">Although</td>
+                                    <td class="p-2.5 border-r font-medium text-indigo-700">Mệnh đề (S + V)</td>
+                                    <td class="p-2.5 italic"><strong>Although it rained</strong>, we went out.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold border-r">Because / Since / As</td>
+                                    <td class="p-2.5 border-r font-medium text-indigo-700">Mệnh đề (S + V)</td>
+                                    <td class="p-2.5 italic"><strong>Because it rained</strong>, we stayed home.</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold border-r">Because of / Due to / Owing to</td>
+                                    <td class="p-2.5 border-r font-medium text-emerald-700">Cụm từ (N / V-ing)</td>
+                                    <td class="p-2.5 italic"><strong>Because of the rain</strong>, we stayed home.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Bảng 1: Nhóm mô tả tính chất -->
+                <div>
+                    <h3 class="font-bold text-slate-700 mb-2 border-l-4 border-rose-500 pl-2 text-sm">2. Bảng 1: Nhóm Mô Tả Tính Chất (Tính từ & Danh từ)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-slate-700 border border-slate-200">
+                            <thead class="bg-rose-600 text-white font-semibold uppercase">
+                                <tr>
+                                    <th class="p-2.5 border-r w-1/3">Loại</th>
+                                    <th class="p-2.5 border-r w-1/3">Tiếng Anh</th>
+                                    <th class="p-2.5 w-1/3">Dịch nghĩa</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr class="bg-rose-50/50"><td class="p-2 border-r font-medium">Despite / In spite of + Cụm từ</td><td class="p-2 border-r font-bold">The difficult exam</td><td class="p-2">Kỳ thi khó</td></tr>
+                                <tr><td class="p-2 border-r font-medium">Although + Mệnh đề</td><td class="p-2 border-r italic">The exam is difficult</td><td class="p-2">Kỳ thi thì khó</td></tr>
+                                <tr class="bg-rose-50/50"><td class="p-2 border-r font-medium">Despite / In spite of + Cụm từ</td><td class="p-2 border-r font-bold">The expensive car</td><td class="p-2">Chiếc xe đắt tiền</td></tr>
+                                <tr><td class="p-2 border-r font-medium">Although + Mệnh đề</td><td class="p-2 border-r italic">The car is expensive</td><td class="p-2">Chiếc xe thì đắt tiền</td></tr>
+                                <tr class="bg-rose-50/50"><td class="p-2 border-r font-medium">Despite / In spite of + Cụm từ</td><td class="p-2 border-r font-bold">The noisy street</td><td class="p-2">Con phố ồn ào</td></tr>
+                                <tr><td class="p-2 border-r font-medium">Although + Mệnh đề</td><td class="p-2 border-r italic">The street is noisy</td><td class="p-2">Con phố thì ồn ào</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Bảng 2: Nhóm mô tả hành động -->
+                <div>
+                    <h3 class="font-bold text-slate-700 mb-2 border-l-4 border-emerald-500 pl-2 text-sm">3. Bảng 2: Nhóm Mô Tả Hành Động (Động từ & Trạng từ)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-slate-700 border border-slate-200">
+                            <thead class="bg-emerald-700 text-white font-semibold uppercase">
+                                <tr>
+                                    <th class="p-2.5 border-r w-1/3">Loại</th>
+                                    <th class="p-2.5 border-r w-1/3">Tiếng Anh</th>
+                                    <th class="p-2.5 w-1/3">Dịch nghĩa</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr class="bg-emerald-50/50"><td class="p-2 border-r font-medium">Despite / In spite of + Cụm từ</td><td class="p-2 border-r font-bold">A quick runner</td><td class="p-2">Một người chạy nhanh</td></tr>
+                                <tr><td class="p-2 border-r font-medium">Although + Mệnh đề</td><td class="p-2 border-r italic">He runs quickly</td><td class="p-2">Anh ấy chạy nhanh</td></tr>
+                                <tr class="bg-emerald-50/50"><td class="p-2 border-r font-medium">Despite / In spite of + Cụm từ</td><td class="p-2 border-r font-bold">A beautiful singer</td><td class="p-2">Một ca sĩ hát hay</td></tr>
+                                <tr><td class="p-2 border-r font-medium">Although + Mệnh đề</td><td class="p-2 border-r italic">She sings beautifully</td><td class="p-2">Cô ấy hát hay</td></tr>
+                                <tr class="bg-emerald-50/50"><td class="p-2 border-r font-medium">Despite / In spite of + Cụm từ</td><td class="p-2 border-r font-bold">A careless driver</td><td class="p-2">Một tài xế bất cẩn</td></tr>
+                                <tr><td class="p-2 border-r font-medium">Although + Mệnh đề</td><td class="p-2 border-r italic">He drives carelessly</td><td class="p-2">Anh ấy lái xe bất cẩn</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scorebar & Stats Dashboard -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 mb-6">
+            <div class="grid grid-cols-3 gap-4 mb-4 text-center">
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                    <span class="block text-xs font-medium text-slate-500 uppercase tracking-wider">Số câu đã làm</span>
+                    <span id="stat-completed" class="text-xl font-bold text-slate-800">0 / 0</span>
+                </div>
+                <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-100">
+                    <span class="block text-xs font-medium text-emerald-600 uppercase tracking-wider">Số câu đúng</span>
+                    <span id="stat-correct" class="text-xl font-bold text-emerald-700">0</span>
+                </div>
+                <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-100">
+                    <span class="block text-xs font-medium text-indigo-600 uppercase tracking-wider">Tỷ lệ chính xác</span>
+                    <span id="stat-accuracy" class="text-xl font-bold text-indigo-700">0%</span>
+                </div>
+            </div>
+
+            <!-- Progress bar -->
+            <div>
+                <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
+                    <span>TIẾN TRÌNH LÀM BÀI</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                    <div id="progress-bar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Filter Controls -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-none" id="filter-buttons">
+            <!-- Buttons generated dynamically -->
+        </div>
+
+        <!-- Questions List Container -->
+        <div id="questions-container" class="space-y-4">
+            <!-- Questions rendered by JS -->
+        </div>
+    </div>
+
+    <script>
+        // Data Structure for Rewrite Exercises
+        const exercisesData = [
+            // PART I - Section A
+            { id: 1, section: "A. DESPITE", original: "Although it was raining heavily, we went to school.", prefix: "Despite ", correct: ["the heavy rain, we went to school", "heavy rain, we went to school", "it raining heavily, we went to school", "the heavy rain we went to school"], explain: "Biến đổi S + V (it was raining heavily) thành Cụm danh từ (the heavy rain)." },
+            { id: 2, section: "A. DESPITE", original: "Although he was tired, he continued working.", prefix: "Despite ", correct: ["being tired, he continued working", "his tiredness, he continued working", "being tired he continued working"], explain: "Đồng chủ ngữ (he), chuyển 'was tired' thành V-ing: 'being tired' hoặc Cụm danh từ 'his tiredness'." },
+            { id: 3, section: "A. DESPITE", original: "Although she was sick, she went to work.", prefix: "Despite ", correct: ["being sick, she went to work", "her sickness, she went to work", "her illness, she went to work"], explain: "Chuyển thành 'being sick' hoặc Noun phrase 'her sickness/illness'." },
+            { id: 4, section: "A. DESPITE", original: "Although the weather was bad, they went camping.", prefix: "Despite ", correct: ["the bad weather, they went camping", "the bad weather they went camping"], explain: "Chuyển Mệnh đề 'the weather was bad' thành Cụm danh từ 'the bad weather'." },
+            { id: 5, section: "A. DESPITE", original: "Although the test was difficult, many students passed it.", prefix: "Despite ", correct: ["the difficult test, many students passed it", "the difficulty of the test, many students passed it"], explain: "Theo Bảng 1: 'the test was difficult' -> 'the difficult test'." },
+            { id: 6, section: "A. DESPITE", original: "Although he was poor, he was happy.", prefix: "Despite ", correct: ["being poor, he was happy", "his poverty, he was happy"], explain: "Đồng chủ ngữ: 'being poor' hoặc Noun 'his poverty'." },
+            { id: 7, section: "A. DESPITE", original: "Although she studied hard, she failed the exam.", prefix: "Despite ", correct: ["studying hard, she failed the exam", "her hard studying, she failed the exam"], explain: "Đồng chủ ngữ: chuyển động từ 'studied' thành V-ing: 'studying hard'." },
+            { id: 8, section: "A. DESPITE", original: "Although the traffic was heavy, we arrived on time.", prefix: "Despite ", correct: ["the heavy traffic, we arrived on time", "heavy traffic, we arrived on time"], explain: "Chuyển thành Cụm danh từ 'the heavy traffic'." },
+            { id: 9, section: "A. DESPITE", original: "Although the restaurant was expensive, we had dinner there.", prefix: "Despite ", correct: ["the expensive restaurant, we had dinner there", "the high price of the restaurant, we had dinner there"], explain: "Theo Bảng 1: 'the restaurant was expensive' -> 'the expensive restaurant'." },
+            { id: 10, section: "A. DESPITE", original: "Although he had a headache, he went to school.", prefix: "Having a headache, he went to school", correct: ["having a headache, he went to school", "his headache, he went to school"], explain: "Chuyển thành V-ing 'having a headache' hoặc Noun 'his headache'." },
+
+            // PART I - Section B
+            { id: 11, section: "B. IN SPITE OF", original: "Although it was cold, they went swimming.", prefix: "In spite of ", correct: ["the cold weather, they went swimming", "the cold, they went swimming", "it being cold, they went swimming"], explain: "Chuyển thành Noun phrase 'the cold' hoặc 'the cold weather'." },
+            { id: 12, section: "B. IN SPITE OF", original: "Although she was tired, she finished her homework.", prefix: "In spite of ", correct: ["being tired, she finished her homework", "her tiredness, she finished her homework"], explain: "Đồng chủ ngữ: 'being tired' hoặc 'her tiredness'." },
+            { id: 13, section: "B. IN SPITE OF", original: "Although he didn't have much money, he bought a new phone.", prefix: "In spite of ", correct: ["not having much money, he bought a new phone"], explain: "Dạng phủ định đồng chủ ngữ: 'not + V-ing' -> 'not having much money'." },
+            { id: 14, section: "B. IN SPITE OF", original: "Although the road was dangerous, they continued driving.", prefix: "In spite of ", correct: ["the dangerous road, they continued driving"], explain: "Theo Bảng 1: 'the road was dangerous' -> 'the dangerous road'." },
+            { id: 15, section: "B. IN SPITE OF", original: "Although the movie was long, we enjoyed it.", prefix: "In spite of ", correct: ["the long movie, we enjoyed it", "the length of the movie, we enjoyed it"], explain: "Chuyển 'the movie was long' thành 'the long movie'." },
+            { id: 16, section: "B. IN SPITE OF", original: "Although the hotel was expensive, we stayed there.", prefix: "In spite of ", correct: ["the expensive hotel, we stayed there"], explain: "Chuyển thành Cụm danh từ 'the expensive hotel'." },
+            { id: 17, section: "B. IN SPITE OF", original: "Although he was nervous, he gave a good presentation.", prefix: "In spite of ", correct: ["being nervous, he gave a good presentation", "his nervousness, he gave a good presentation"], explain: "Đồng chủ ngữ: 'being nervous' hoặc 'his nervousness'." },
+            { id: 18, section: "B. IN SPITE OF", original: "Although she had little experience, she got the job.", prefix: "In spite of ", correct: ["having little experience, she got the job", "her little experience, she got the job"], explain: "Đồng chủ ngữ: 'having little experience'." },
+            { id: 19, section: "B. IN SPITE OF", original: "Although the weather was extremely hot, they played football.", prefix: "In spite of ", correct: ["the extremely hot weather, they played football", "the hot weather, they played football"], explain: "Chuyển thành Cụm danh từ 'the extremely hot weather'." },
+            { id: 20, section: "B. IN SPITE OF", original: "Although the question was difficult, he answered it correctly.", prefix: "In spite of ", correct: ["the difficult question, he answered it correctly"], explain: "Chuyển 'the question was difficult' thành 'the difficult question'." },
+
+            // PART I - Section C
+            { id: 21, section: "C. DESPITE/IN SPITE OF + V-ING", original: "Although she worked hard, she didn't get a promotion.", prefix: "Despite ", correct: ["working hard, she didn't get a promotion", "working hard, she did not get a promotion"], explain: "Rút gọn đồng chủ ngữ She -> V-ing: 'working hard'." },
+            { id: 22, section: "C. DESPITE/IN SPITE OF + V-ING", original: "Although he studied carefully, he made several mistakes.", prefix: "In spite of ", correct: ["studying carefully, he made several mistakes"], explain: "Rút gọn đồng chủ ngữ He -> V-ing: 'studying carefully'." },
+            { id: 23, section: "C. DESPITE/IN SPITE OF + V-ING", original: "Although they practiced every day, they didn't win the competition.", prefix: "Despite ", correct: ["practicing every day, they didn't win the competition", "practicing every day, they did not win the competition"], explain: "Rút gọn đồng chủ ngữ They -> V-ing: 'practicing every day'." },
+            { id: 24, section: "C. DESPITE/IN SPITE OF + V-ING", original: "Although I tried my best, I couldn't solve the problem.", prefix: "In spite of ", correct: ["trying my best, I couldn't solve the problem", "trying my best, I could not solve the problem"], explain: "Rút gọn đồng chủ ngữ I -> V-ing: 'trying my best'." },
+            { id: 25, section: "C. DESPITE/IN SPITE OF + V-ING", original: "Although she followed the instructions, she made a mistake.", prefix: "Despite ", correct: ["following the instructions, she made a mistake"], explain: "Rút gọn đồng chủ ngữ She -> V-ing: 'following the instructions'." },
+            { id: 26, section: "C. DESPITE/IN SPITE OF + V-ING", original: "Although he apologized several times, she was still angry.", prefix: "In spite of ", correct: ["his apologizing several times, she was still angry", "apologizing several times, she was still angry"], explain: "Rút gọn V-ing: 'apologizing several times'." },
+            { id: 27, section: "C. DESPITE/IN SPITE OF + V-ING", original: "Although they trained hard, they lost the match.", prefix: "Despite ", correct: ["training hard, they lost the match"], explain: "Rút gọn đồng chủ ngữ They -> V-ing: 'training hard'." },
+            { id: 28, section: "C. DESPITE/IN SPITE OF + V-ING", original: "Although we left early, we arrived late.", prefix: "In spite of ", correct: ["leaving early, we arrived late"], explain: "Rút gọn đồng chủ ngữ We -> V-ing: 'leaving early'." },
+            { id: 29, section: "C. DESPITE/IN SPITE OF + V-ING", original: "Although he saved money for many years, he couldn't buy the house.", prefix: "Despite ", correct: ["saving money for many years, he couldn't buy the house", "saving money for many years, he could not buy the house"], explain: "Rút gọn đồng chủ ngữ He -> V-ing: 'saving money for many years'." },
+            { id: 30, section: "C. DESPITE/IN SPITE OF + V-ING", original: "Although she prepared carefully, she felt nervous during the presentation.", prefix: "In spite of ", correct: ["preparing carefully, she felt nervous during the presentation"], explain: "Rút gọn đồng chủ ngữ She -> V-ing: 'preparing carefully'." },
+
+            // PART II - Section D
+            { id: 31, section: "D. BECAUSE OF (NOUN PHRASE)", original: "Because it rained heavily, we stayed at home.", prefix: "Because of ", correct: ["the heavy rain, we stayed at home", "heavy rain, we stayed at home"], explain: "Chuyển Mệnh đề chỉ lý do thành Cụm danh từ 'the heavy rain'." },
+            { id: 32, section: "D. BECAUSE OF (NOUN PHRASE)", original: "Because he was sick, he didn't go to school.", prefix: "Because of ", correct: ["his sickness, he didn't go to school", "his illness, he didn't go to school", "being sick, he didn't go to school"], explain: "Chuyển thành Noun phrase 'his sickness / illness'." },
+            { id: 33, section: "D. BECAUSE OF (NOUN PHRASE)", original: "Because she was tired, she went to bed early.", prefix: "Because of ", correct: ["her tiredness, she went to bed early", "being tired, she went to bed early"], explain: "Chuyển thành Noun phrase 'her tiredness' hoặc 'being tired'." },
+            { id: 34, section: "D. BECAUSE OF (NOUN PHRASE)", original: "Because the weather was bad, we canceled the trip.", prefix: "Because of ", correct: ["the bad weather, we canceled the trip", "the bad weather, we cancelled the trip"], explain: "Chuyển 'the weather was bad' thành 'the bad weather'." },
+            { id: 35, section: "D. BECAUSE OF (NOUN PHRASE)", original: "Because the traffic was heavy, I arrived late.", prefix: "Because of ", correct: ["the heavy traffic, I arrived late", "heavy traffic, I arrived late"], explain: "Chuyển thành 'the heavy traffic'." },
+            { id: 36, section: "D. BECAUSE OF (NOUN PHRASE)", original: "Because he was careless, he made many mistakes.", prefix: "Because of ", correct: ["his carelessness, he made many mistakes", "being careless, he made many mistakes"], explain: "Theo Bảng 2: chuyển tính từ 'careless' thành Danh từ 'his carelessness' hoặc 'being careless'." },
+            { id: 37, section: "D. BECAUSE OF (NOUN PHRASE)", original: "Because she was ill, she couldn't attend the meeting.", prefix: "Because of ", correct: ["her illness, she couldn't attend the meeting", "her illness, she could not attend the meeting"], explain: "Chuyển 'she was ill' thành 'her illness'." },
+            { id: 38, section: "D. BECAUSE OF (NOUN PHRASE)", original: "Because the road was dangerous, we drove slowly.", prefix: "Because of ", correct: ["the dangerous road, we drove slowly"], explain: "Theo Bảng 1: 'the road was dangerous' -> 'the dangerous road'." },
+            { id: 39, section: "D. BECAUSE OF (NOUN PHRASE)", original: "Because the movie was boring, we left early.", prefix: "Because of ", correct: ["the boring movie, we left early"], explain: "Chuyển 'the movie was boring' thành 'the boring movie'." },
+            { id: 40, section: "D. BECAUSE OF (NOUN PHRASE)", original: "Because the hotel was expensive, we stayed somewhere else.", prefix: "Because of ", correct: ["the expensive hotel, we stayed somewhere else"], explain: "Chuyển 'the hotel was expensive' thành 'the expensive hotel'." },
+
+            // PART II - Section E
+            { id: 41, section: "E. BECAUSE OF + V-ING", original: "Because she worked hard, she got a promotion.", prefix: "Because of ", correct: ["working hard, she got a promotion"], explain: "Đồng chủ ngữ She -> V-ing: 'working hard'." },
+            { id: 42, section: "E. BECAUSE OF + V-ING", original: "Because he studied hard, he passed the exam.", prefix: "Because of ", correct: ["studying hard, he passed the exam"], explain: "Đồng chủ ngữ He -> V-ing: 'studying hard'." },
+            { id: 43, section: "E. BECAUSE OF + V-ING", original: "Because they arrived late, they missed the beginning of the meeting.", prefix: "Because of ", correct: ["arriving late, they missed the beginning of the meeting"], explain: "Đồng chủ ngữ They -> V-ing: 'arriving late'." },
+            { id: 44, section: "E. BECAUSE OF + V-ING", original: "Because she didn't study, she failed the test.", prefix: "Because of ", correct: ["not studying, she failed the test"], explain: "Dạng phủ định đồng chủ ngữ: 'not + V-ing' -> 'not studying'." },
+            { id: 45, section: "E. BECAUSE OF + V-ING", original: "Because he drove too fast, he got a ticket.", prefix: "Because of ", correct: ["driving too fast, he got a ticket"], explain: "Đồng chủ ngữ He -> V-ing: 'driving too fast'." },
+            { id: 46, section: "E. BECAUSE OF + V-ING", original: "Because they practiced regularly, they improved quickly.", prefix: "Because of ", correct: ["practicing regularly, they improved quickly"], explain: "Đồng chủ ngữ They -> V-ing: 'practicing regularly'." },
+            { id: 47, section: "E. BECAUSE OF + V-ING", original: "Because I forgot my umbrella, I got wet.", prefix: "Because of ", correct: ["forgetting my umbrella, I got wet"], explain: "Đồng chủ ngữ I -> V-ing: 'forgetting my umbrella'." },
+            { id: 48, section: "E. BECAUSE OF + V-ING", original: "Because she stayed up late, she felt tired the next day.", prefix: "Because of ", correct: ["staying up late, she felt tired the next day"], explain: "Đồng chủ ngữ She -> V-ing: 'staying up late'." },
+            { id: 49, section: "E. BECAUSE OF + V-ING", original: "Because he didn't follow the instructions, he made a mistake.", prefix: "Because of ", correct: ["not following the instructions, he made a mistake"], explain: "Dạng phủ định đồng chủ ngữ: 'not + V-ing' -> 'not following the instructions'." },
+            { id: 50, section: "E. BECAUSE OF + V-ING", original: "Because we left late, we missed the train.", prefix: "Because of ", correct: ["leaving late, we missed the train"], explain: "Đồng chủ ngữ We -> V-ing: 'leaving late'." }
+        ];
+
+        // State
+        let currentSection = "ALL";
+        let userAnswers = {};
+
+        // Get Unique Sections
+        const sections = ["ALL", ...new Set(exercisesData.map(item => item.section))];
+
+        // Toggle Theory visibility
+        function toggleTheory() {
+            const content = document.getElementById("theory-content");
+            const icon = document.getElementById("theory-icon");
+            if (content.classList.contains("hidden")) {
+                content.classList.remove("hidden");
+                icon.className = "fa-solid fa-chevron-up";
+            } else {
+                content.classList.add("hidden");
+                icon.className = "fa-solid fa-chevron-down";
+            }
+        }
+
+        // Init
+        function init() {
+            renderFilterButtons();
+            renderQuestions();
+            updateStats();
+        }
+
+        // Render Tabs
+        function renderFilterButtons() {
+            const filterContainer = document.getElementById("filter-buttons");
+            filterContainer.innerHTML = sections.map(sec => {
+                const isActive = sec === currentSection;
+                return `
+                    <button onclick="setSection('${sec}')" class="px-3.5 py-1.5 text-xs font-semibold rounded-full whitespace-nowrap transition-all shadow-sm ${
+                        isActive 
+                        ? 'bg-indigo-600 text-white ring-2 ring-indigo-300' 
+                        : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                    }">
+                        ${sec === 'ALL' ? 'Tất cả 5 mục' : sec}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function setSection(sec) {
+            currentSection = sec;
+            renderFilterButtons();
+            renderQuestions();
+        }
+
+        // Helper to normalize strings for comparison
+        function normalizeText(text) {
+            return text.toLowerCase()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+
+        // Render Questions
+        function renderQuestions() {
+            const container = document.getElementById("questions-container");
+            const filtered = currentSection === "ALL" 
+                ? exercisesData 
+                : exercisesData.filter(q => q.section === currentSection);
+
+            container.innerHTML = filtered.map(item => {
+                const state = userAnswers[item.id] || { answered: false, userVal: "", isCorrect: false };
+
+                let borderStyle = "border-slate-300 focus:border-indigo-500 focus:ring-indigo-200";
+                if (state.answered) {
+                    borderStyle = state.isCorrect 
+                        ? "border-emerald-500 bg-emerald-50 text-emerald-900 font-medium" 
+                        : "border-rose-400 bg-rose-50 text-rose-900";
+                }
+
+                let feedbackHTML = "";
+                if (state.answered) {
+                    feedbackHTML = `
+                        <div class="mt-3 p-3 rounded-lg text-xs ${state.isCorrect ? 'bg-emerald-50 border border-emerald-200 text-emerald-900' : 'bg-rose-50 border border-rose-200 text-rose-900'}">
+                            <div class="font-bold flex items-center gap-1.5 mb-1 text-sm">
+                                ${state.isCorrect ? '<i class="fa-solid fa-circle-check text-emerald-600"></i> Chính xác!' : '<i class="fa-solid fa-circle-xmark text-rose-600"></i> Chưa chính xác!'}
+                            </div>
+                            <p class="mb-1"><strong>Đáp án đầy đủ tham khảo:</strong></p>
+                            <div class="bg-white/80 p-2 rounded border border-slate-200 font-mono text-slate-800 font-semibold mb-2">
+                                ${item.prefix}${item.correct[0]}
+                            </div>
+                            <p><strong>Giải thích quy tắc:</strong> ${item.explain}</p>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="bg-white rounded-xl p-4 md:p-5 shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase rounded bg-indigo-50 text-indigo-700 border border-indigo-100">
+                                Mục ${item.section}
+                            </span>
+                        </div>
+                        
+                        <!-- Original Sentence -->
+                        <div class="mb-2 text-slate-700 text-sm md:text-base">
+                            <span class="font-semibold text-slate-500">Câu gốc:</span> 
+                            <span class="font-medium">${item.original}</span>
+                        </div>
+
+                        <!-- Rewrite Input Area -->
+                        <div class="mt-3">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="font-bold text-indigo-700 text-sm md:text-base min-w-[70px]">&rarr; ${item.prefix}</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <input type="text" id="input-${item.id}" value="${state.userVal}" ${state.answered ? 'readonly' : ''} 
+                                    placeholder="Viết tiếp phần còn lại của câu..."
+                                    onkeydown="if(event.key==='Enter') checkInput(${item.id})"
+                                    class="flex-1 px-3.5 py-2 text-sm rounded-lg border focus:outline-none focus:ring-2 transition ${borderStyle}">
+                                
+                                ${!state.answered ? `
+                                    <button onclick="checkInput(${item.id})" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition shadow-sm">
+                                        Kiểm Tra
+                                    </button>
+                                ` : `
+                                    <button onclick="retryQuestion(${item.id})" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold rounded-lg transition flex items-center justify-center gap-1">
+                                        <i class="fa-solid fa-arrow-rotate-left"></i> Thử lại
+                                    </button>
+                                `}
+                            </div>
+                        </div>
+
+                        ${feedbackHTML}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Logic Check
+        function checkInput(id) {
+            const inputEl = document.getElementById(`input-${id}`);
+            if (!inputEl) return;
+            const userRaw = inputEl.value.trim();
+            if (!userRaw) return;
+
+            const item = exercisesData.find(q => q.id === id);
+            const userNormalized = normalizeText(userRaw);
+
+            // Check if user accidentally included the prefix in their text
+            const prefixNorm = normalizeText(item.prefix);
+            let checkText = userNormalized;
+            if (checkText.startsWith(prefixNorm)) {
+                checkText = checkText.replace(prefixNorm, "").trim();
+            }
+
+            const isCorrect = item.correct.some(possibleAns => {
+                const ansNorm = normalizeText(possibleAns);
+                return checkText === ansNorm;
+            });
+
+            userAnswers[id] = { answered: true, userVal: userRaw, isCorrect };
+            renderQuestions();
+            updateStats();
+        }
+
+        function retryQuestion(id) {
+            delete userAnswers[id];
+            renderQuestions();
+            updateStats();
+        }
+
+        function resetAll() {
+            if (confirm("Bạn có chắc chắn muốn làm lại tất cả các câu từ đầu không?")) {
+                userAnswers = {};
+                renderQuestions();
+                updateStats();
+            }
+        }
+
+        function updateStats() {
+            const total = exercisesData.length;
+            const answeredKeys = Object.keys(userAnswers);
+            const completed = answeredKeys.length;
+            const correct = answeredKeys.filter(k => userAnswers[k].isCorrect).length;
+            const accuracy = completed > 0 ? Math.round((correct / completed) * 100) : 0;
+            const progress = Math.round((completed / total) * 100);
+
+            document.getElementById("stat-completed").innerText = `${completed} / ${total}`;
+            document.getElementById("stat-correct").innerText = correct;
+            document.getElementById("stat-accuracy").innerText = `${accuracy}%`;
+            document.getElementById("progress-percent").innerText = `${progress}%`;
+            document.getElementById("progress-bar").style.width = `${progress}%`;
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
