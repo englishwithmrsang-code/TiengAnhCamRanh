@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Câu Điều Kiện - Conditional Sentences Practice</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166534;
+            --accent-color: #e0f2fe;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --tip-bg: #fef3c7;
+            --tip-border: #f59e0b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+        }
+
+        header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .btn-toggle-all {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-toggle-all:hover {
+            background-color: #3b5998;
+        }
+
+        .section-title {
+            background-color: #0f172a;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exercise-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: border-color 0.2s;
+        }
+
+        .exercise-item:hover {
+            border-color: #94a3b8;
+        }
+
+        .question-box {
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            user-select: none;
+        }
+
+        .question-box .q-text {
+            flex: 1;
+        }
+
+        .question-box .icon {
+            font-size: 1.2em;
+            margin-left: 15px;
+            transition: transform 0.3s;
+            color: var(--primary-color);
+        }
+
+        .exercise-item.active .icon {
+            transform: rotate(180deg);
+        }
+
+        .answer-box {
+            display: none;
+            padding: 16px 20px;
+            background-color: #f1f5f9;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .exercise-item.active .answer-box {
+            display: block;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .tag-type-0 { background-color: #64748b; }
+        .tag-type-1 { background-color: #0284c7; }
+        .tag-type-modal { background-color: #0d9488; }
+        .tag-type-2 { background-color: #d97706; }
+        .tag-type-3 { background-color: #dc2626; }
+
+        .answer-text {
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.05em;
+            margin-bottom: 8px;
+        }
+
+        .translation {
+            font-style: italic;
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        .explanation {
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+
+        .tip-box {
+            background-color: var(--tip-bg);
+            border-left: 4px solid var(--tip-border);
+            padding: 8px 12px;
+            font-size: 0.9em;
+            border-radius: 0 4px 4px 0;
+            color: #78350f;
+        }
+
+        .tip-box strong {
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Bài Tập Câu Điều Kiện (Conditionals)</h1>
+        <p>Nhấp vào từng câu để xem đáp án, dịch nghĩa, giải thích và mẹo ghi nhớ!</p>
+    </header>
+
+    <div class="controls">
+        <button class="btn-toggle-all" onclick="toggleAll()">Hiện / Ẩn tất cả đáp án</button>
+    </div>
+
+    <div id="exercise-container"></div>
+</div>
+
+<script>
+const exercises = [
+    {
+        section: "A. Câu điều kiện loại 0 – Zero Conditional",
+        items: [
+            {
+                q: "1. If you ______ (heat) ice, it ______ (melt).",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If you heat ice, it melts.",
+                trans: "Nếu bạn đun nóng băng, nó sẽ tan chảy.",
+                expl: "Hiện tượng tự nhiên/Sự thật hiển nhiên. Cả 2 vế đều chia ở thì Hiện tại đơn (Chủ ngữ 'you' đi với 'heat', chủ ngữ 'it' đi với 'melts').",
+                tip: "Loại 0 = If + Hiện tại đơn, Hiện tại đơn (Chỉ sự thật hiển nhiên/quy luật khoa học)."
+            },
+            {
+                q: "2. If water ______ (reach) 100°C, it ______ (boil).",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If water reaches 100°C, it boils.",
+                trans: "Nếu nước đạt đến 100°C, nó sẽ sôi.",
+                expl: "Sự thật khoa học. 'Water' là danh từ không đếm được (ngôi thứ 3 số ít) nên chia 'reaches', 'it' chia 'boils'.",
+                tip: "Danh từ không đếm được (water, ice, milk...) động từ thêm -s/-es ở hiện tại đơn."
+            },
+            {
+                q: "3. If people ______ (not drink) enough water, they ______ (become) thirsty.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If people don't drink enough water, they become thirsty.",
+                trans: "Nếu con người không uống đủ nước, họ sẽ bị khát.",
+                expl: "Quy luật cơ thể/Sự thật. 'People' số nhiều -> phủ định dùng 'don't drink', vế sau 'they' + V nguyên mẫu ('become').",
+                tip: "Số nhiều (People/They/We/You) + don't + V_bare."
+            },
+            {
+                q: "4. If you ______ (mix) blue and yellow, you ______ (get) green.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If you mix blue and yellow, you get green.",
+                trans: "Nếu bạn trộn màu xanh dương và màu vàng, bạn sẽ được màu xanh lá.",
+                expl: "Sự thật hiển nhiên (quy tắc phối màu). Động từ giữ nguyên mẫu theo chủ ngữ 'you'.",
+                tip: "Trộn màu là quy luật vật lý/hội họa -> Luôn là điều kiện loại 0."
+            },
+            {
+                q: "5. If plants ______ (not get) enough sunlight, they ______ (not grow) well.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If plants don't get enough sunlight, they don't grow well.",
+                trans: "Nếu cây cối không nhận đủ ánh sáng mặt trời, chúng không phát triển tốt.",
+                expl: "Sự thật sinh học. 'Plants' và 'they' là số nhiều -> Phủ định dùng 'don't + V'.",
+                tip: "Cả hai vế chia Hiện tại đơn."
+            },
+            {
+                q: "6. If you ______ (touch) fire, it ______ (burn) you.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If you touch fire, it burns you.",
+                trans: "Nếu bạn chạm vào lửa, nó sẽ làm bạn bị bỏng.",
+                expl: "Sự thật hiển nhiên. 'You' đi với 'touch', 'it' (ngôi 3 số ít) đi với 'burns'.",
+                tip: "Hành động chạm lửa luôn gây ra kết quả bỏng."
+            },
+            {
+                q: "7. If it ______ (rain) heavily, the streets ______ (become) wet.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If it rains heavily, the streets become wet.",
+                trans: "Nếu trời mưa to, đường xá sẽ bị ướt.",
+                expl: "Sự thật tự nhiên. 'It' + rains, 'the streets' (số nhiều) + become.",
+                tip: "Chú ý số ít / số nhiều của chủ ngữ để thêm -s/-es đúng cách."
+            },
+            {
+                q: "8. If people ______ (eat) too much sugar, they ______ (gain) weight.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If people eat too much sugar, they gain weight.",
+                trans: "Nếu mọi người ăn quá nhiều đường, họ sẽ tăng cân.",
+                expl: "Quy luật sức khỏe chung. Cả hai vế giữ nguyên mẫu vì chủ ngữ là số nhiều (people/they).",
+                tip: "Ăn đường -> Tăng cân là hệ quả tự nhiên."
+            },
+            {
+                q: "9. If you ______ (heat) water, it ______ (turn) into steam.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If you heat water, it turns into steam.",
+                trans: "Nếu bạn đun sôi nước, nó sẽ biến thành hơi nước.",
+                expl: "Sự thật khoa học. 'You' + heat, 'it' + turns.",
+                tip: "Biến đổi trạng thái vật chất luôn dùng Loại 0."
+            },
+            {
+                q: "10. If students ______ (study) regularly, they usually ______ (make) progress.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If students study regularly, they usually make progress.",
+                trans: "Nếu học sinh học tập thường xuyên, họ thường tiến bộ.",
+                expl: "Thói quen/Quy luật học tập. 'Students' và 'they' số nhiều -> động từ ở dạng nguyên mẫu.",
+                tip: "Có trạng từ chỉ tần suất (usually, always) ở vế chính -> thường là loại 0."
+            },
+            {
+                q: "11. If the temperature ______ (fall) below 0°C, water ______ (freeze).",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If the temperature falls below 0°C, water freezes.",
+                trans: "Nếu nhiệt độ giảm xuống dưới 0°C, nước sẽ đóng băng.",
+                expl: "Sự thật khoa học. 'Temperature' và 'water' là danh từ số ít/không đếm được -> thêm 's' vào động từ (falls, freezes).",
+                tip: "Hiện tượng đóng băng của nước = Sự thật khách quan."
+            },
+            {
+                q: "12. If you ______ (not water) plants, they ______ (die).",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If you don't water plants, they die.",
+                trans: "Nếu bạn không tưới nước cho cây, chúng sẽ chết.",
+                expl: "Sự thật sinh học. Vế If dùng 'don't water', vế chính dùng 'die'.",
+                tip: "Cây không nước = Chết (Hiện thực tự nhiên)."
+            },
+            {
+                q: "13. If metal ______ (get) hot, it ______ (expand).",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If metal gets hot, it expands.",
+                trans: "Nếu kim loại nóng lên, nó sẽ nở ra.",
+                expl: "Sự thật vật lý (Kim loại giãn nở vì nhiệt). 'Metal' và 'it' là số ít -> 'gets', 'expands'.",
+                tip: "Quy luật vật lý = Loại 0."
+            },
+            {
+                q: "14. If you ______ (press) this button, the machine ______ (start).",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If you press this button, the machine starts.",
+                trans: "Nếu bạn nhấn nút này, máy sẽ khởi động.",
+                expl: "Nguyên lý hoạt động của máy móc. 'You' + press, 'the machine' + starts.",
+                tip: "Nút bấm -> máy chạy = Quy luật vận hành cố định."
+            },
+            {
+                q: "15. If people ______ (exercise) regularly, they ______ (feel) healthier.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If people exercise regularly, they feel healthier.",
+                trans: "Nếu mọi người tập thể dục đều đặn, họ sẽ cảm thấy khỏe mạnh hơn.",
+                expl: "Thói quen tốt đưa đến kết quả tất yếu. Chủ ngữ số nhiều -> động từ nguyên mẫu (exercise, feel).",
+                tip: "Loại 0 diễn tả thói quen hoặc quy luật chung."
+            }
+        ]
+    },
+    {
+        section: "B. Câu điều kiện loại 1 – First Conditional",
+        items: [
+            {
+                q: "1. If it ______ (rain) tomorrow, I ______ (stay) at home.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If it rains tomorrow, I will stay at home.",
+                trans: "Nếu ngày mai trời mưa, tôi sẽ ở nhà.",
+                expl: "Dự đoán sự việc có thể xảy ra ở tương lai ('tomorrow'). Vế If: Hiện tại đơn (rains), Vế chính: will + V (will stay).",
+                tip: "Loại 1 = If + Hiện tại đơn, Will + V_bare (Có thể xảy ra ở tương lai)."
+            },
+            {
+                q: "2. If I ______ (finish) my homework early, I ______ (watch) a movie.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If I finish my homework early, I will watch a movie.",
+                trans: "Nếu tôi làm xong bài tập sớm, tôi sẽ xem phim.",
+                expl: "Sự việc có khả năng xảy ra. Vế If chia hiện tại đơn (finish), vế chính dùng 'will watch'.",
+                tip: "Vế có 'If' KHÔNG BAO GIỜ dùng 'will'."
+            },
+            {
+                q: "3. If she ______ (study) hard, she ______ (pass) the exam.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If she studies hard, she will pass the exam.",
+                trans: "Nếu cô ấy học tập chăm chỉ, cô ấy sẽ đỗ kỳ thi.",
+                expl: "Vế If: Chủ ngữ 'she' nên 'study' đổi thành 'studies'. Vế chính dùng 'will pass'.",
+                tip: "Động từ kết thúc bằng phụ âm + y -> đổi y thành i + es (study -> studies)."
+            },
+            {
+                q: "4. If we ______ (leave) now, we ______ (arrive) on time.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If we leave now, we will arrive on time.",
+                trans: "Nếu chúng ta đi bây giờ, chúng ta sẽ đến đúng giờ.",
+                expl: "Hành động có thể xảy ra ở hiện tại/tương lai. 'leave' giữ nguyên, vế chính dùng 'will arrive'.",
+                tip: "Cấu trúc chuẩn Loại 1: If + V(s/es), will + V."
+            },
+            {
+                q: "5. If they ______ (invite) me, I ______ (go) to the party.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If they invite me, I will go to the party.",
+                trans: "Nếu họ mời tôi, tôi sẽ đến buổi tiệc.",
+                expl: "Khả năng xảy ra cao. Vế If: 'invite' (chủ ngữ 'they'), Vế chính: 'will go'.",
+                tip: "Hành động phụ thuộc vào điều kiện ở hiện tại."
+            },
+            {
+                q: "6. If you ______ (not hurry), you ______ (miss) the bus.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If you don't hurry, you will miss the bus.",
+                trans: "Nếu bạn không nhanh lên, bạn sẽ nhỡ chuyến xe bứt.",
+                expl: "Phủ định vế If ở hiện tại đơn dùng 'don't hurry'. Vế chính dùng 'will miss'.",
+                tip: "Cảnh báo/Lời khuyên ở hiện tại dùng Loại 1."
+            },
+            {
+                q: "7. If he ______ (save) enough money, he ______ (buy) a new laptop.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If he saves enough money, he will buy a new laptop.",
+                trans: "Nếu anh ấy tiết kiệm đủ tiền, anh ấy sẽ mua một chiếc máy tính xách tay mới.",
+                expl: "Chủ ngữ 'he' -> 'saves'. Vế chính -> 'will buy'.",
+                tip: "Nhớ thêm 's' vào động từ vế If khi chủ ngữ là He/She/It."
+            },
+            {
+                q: "8. If the weather ______ (be) good tomorrow, we ______ (go) to the beach.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If the weather is good tomorrow, we will go to the beach.",
+                trans: "Nếu thời tiết tốt vào ngày mai, chúng tôi sẽ đi biển.",
+                expl: "Động từ 'be' ở hiện tại đơn đi với 'the weather' là 'is'. Vế chính: 'will go'.",
+                tip: "Động từ BE ở vế If loại 1 biến thành am/is/are."
+            },
+            {
+                q: "9. If I ______ (see) Tom, I ______ (tell) him the news.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If I see Tom, I will tell him the news.",
+                trans: "Nếu tôi gặp Tom, tôi sẽ nói cho anh ấy biết tin tức.",
+                expl: "Vế If: 'see' (chủ ngữ 'I'), vế chính: 'will tell'.",
+                tip: "Lời hứa/Dự định khi gặp ai đó dùng Loại 1."
+            },
+            {
+                q: "10. If she ______ (not feel) well, she ______ (stay) at home.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If she doesn't feel well, she will stay at home.",
+                trans: "Nếu cô ấy không cảm thấy khỏe, cô ấy sẽ ở nhà.",
+                expl: "Phủ định ngôi 'she' ở hiện tại đơn là 'doesn't feel'. Vế chính dùng 'will stay'.",
+                tip: "He/She/It + doesn't + V_bare ở vế If."
+            },
+            {
+                q: "11. If you ______ (practice) every day, you ______ (improve) your English.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If you practice every day, you will improve your English.",
+                trans: "Nếu bạn luyện tập mỗi ngày, bạn sẽ cải thiện tiếng Anh của mình.",
+                expl: "Vế If: 'practice', vế chính: 'will improve'. Khả năng thực tế.",
+                tip: "Sự việc hoàn toàn có thể đạt được trong tương lai."
+            },
+            {
+                q: "12. If they ______ (arrive) early, we ______ (start) the meeting.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If they arrive early, we will start the meeting.",
+                trans: "Nếu họ đến sớm, chúng ta sẽ bắt đầu cuộc họp.",
+                expl: "Vế If chia 'arrive', vế chính chia 'will start'.",
+                tip: "Kế hoạch tương lai phụ thuộc điều kiện."
+            },
+            {
+                q: "13. If my parents ______ (give) me permission, I ______ (join) the trip.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If my parents give me permission, I will join the trip.",
+                trans: "Nếu bố mẹ cho phép, tôi sẽ tham gia chuyến đi.",
+                expl: "'my parents' là số nhiều -> 'give'. Vế chính dùng 'will join'.",
+                tip: "Bố mẹ (parents) là số nhiều nên V nguyên mẫu."
+            },
+            {
+                q: "14. If you ______ (not study), you ______ (not pass) the test.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If you don't study, you won't pass the test.",
+                trans: "Nếu bạn không học bài, bạn sẽ không vượt qua bài kiểm tra.",
+                expl: "Vế If dùng 'don't study'. Vế chính dạng phủ định dùng 'will not pass' = 'won't pass'.",
+                tip: "will not = won't."
+            },
+            {
+                q: "15. If we ______ (have) enough time, we ______ (visit) the museum.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If we have enough time, we will visit the museum.",
+                trans: "Nếu chúng ta có đủ thời gian, chúng ta sẽ thăm bảo tàng.",
+                expl: "Vế If dùng 'have', vế chính dùng 'will visit'.",
+                tip: "Dự định tham quan trong tương lai."
+            }
+        ]
+    },
+    {
+        section: "C. Will / can / may / should / must (Modal Verbs trong Loại 1)",
+        items: [
+            {
+                q: "1. If you finish your homework, you ______ (can / play) computer games.",
+                type: "ĐK Loại 1 với Modal Verb",
+                typeClass: "tag-type-modal",
+                ans: "If you finish your homework, you can play computer games.",
+                trans: "Nếu bạn hoàn thành bài tập về nhà, bạn có thể chơi trò chơi máy tính.",
+                expl: "'can' diễn tả sự cho phép (permission). Động từ theo sau 'can' ở dạng nguyên mẫu.",
+                tip: "Thay vì 'will', dùng 'can' để chỉ khả năng hoặc sự cho phép."
+            },
+            {
+                q: "2. If she studies harder, she ______ (may / get) a better result.",
+                type: "ĐK Loại 1 với Modal Verb",
+                typeClass: "tag-type-modal",
+                ans: "If she studies harder, she may get a better result.",
+                trans: "Nếu cô ấy học chăm chỉ hơn, cô ấy có thể nhận được kết quả tốt hơn.",
+                expl: "'may' diễn tả khả năng có thể xảy ra (possibility) nhưng không chắc chắn bằng 'will'.",
+                tip: "may + V_bare = có thể (mức độ chắc chắn trung bình)."
+            },
+            {
+                q: "3. If you feel sick, you ______ (should / see) a doctor.",
+                type: "ĐK Loại 1 với Modal Verb",
+                typeClass: "tag-type-modal",
+                ans: "If you feel sick, you should see a doctor.",
+                trans: "Nếu bạn cảm thấy mệt, bạn nên đi khám bác sĩ.",
+                expl: "'should' được dùng để đưa ra lời khuyên (advice).",
+                tip: "Should + V_bare = Lời khuyên nên làm gì."
+            },
+            {
+                q: "4. If you want to improve your English, you ______ (must / practice) regularly.",
+                type: "ĐK Loại 1 với Modal Verb",
+                typeClass: "tag-type-modal",
+                ans: "If you want to improve your English, you must practice regularly.",
+                trans: "Nếu bạn muốn cải thiện tiếng Anh, bạn bắt buộc phải luyện tập thường xuyên.",
+                expl: "'must' diễn tả sự bắt buộc, yêu cầu cần thiết (necessity/obligation).",
+                tip: "Must + V_bare = Bắt buộc / Nhất định phải."
+            },
+            {
+                q: "5. If we leave early, we ______ (can / avoid) the traffic.",
+                type: "ĐK Loại 1 với Modal Verb",
+                typeClass: "tag-type-modal",
+                ans: "If we leave early, we can avoid the traffic.",
+                trans: "Nếu chúng ta đi sớm, chúng ta có thể tránh được tắc đường.",
+                expl: "'can' chỉ khả năng thực hiện được hành động.",
+                tip: "Can + V_bare = Có khả năng làm gì."
+            },
+            {
+                q: "6. If he works harder, he ______ (may / get) a promotion.",
+                type: "ĐK Loại 1 với Modal Verb",
+                typeClass: "tag-type-modal",
+                ans: "If he works harder, he may get a promotion.",
+                trans: "Nếu anh ấy làm việc chăm chỉ hơn, anh ấy có thể được thăng chức.",
+                expl: "'may' thể hiện khả năng thăng tiến trong tương lai.",
+                tip: "May = Có lẽ / Có thể."
+            },
+            {
+                q: "7. If you are tired, you ______ (should / take) a break.",
+                type: "ĐK Loại 1 với Modal Verb",
+                typeClass: "tag-type-modal",
+                ans: "If you are tired, you should take a break.",
+                trans: "Nếu bạn mệt, bạn nên nghỉ ngơi.",
+                expl: "Lời khuyên dùng 'should'.",
+                tip: "Đưa ra lời khuyên luôn ưu tiên 'should'."
+            },
+            {
+                q: "8. If they arrive late, they ______ (might / miss) the beginning of the meeting.",
+                type: "ĐK Loại 1 với Modal Verb",
+                typeClass: "tag-type-modal",
+                ans: "If they arrive late, they might miss the beginning of the meeting.",
+                trans: "Nếu họ đến muộn, họ có thể sẽ bỏ lỡ phần đầu buổi họp.",
+                expl: "'might' chỉ khả năng xảy ra thấp hơn 'may'.",
+                tip: "Might + V_bare = Có thể (khả năng thấp hơn may)."
+            }
+        ]
+    },
+    {
+        section: "D. Câu điều kiện loại 2 – Second Conditional",
+        items: [
+            {
+                q: "1. If I ______ (have) more free time, I ______ (learn) another language.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I had more free time, I would learn another language.",
+                trans: "Nếu tôi có nhiều thời gian rảnh hơn, tôi sẽ học một ngôn ngữ khác.",
+                expl: "Giả định không có thật ở hiện tại. Vế If chia Quá khứ đơn (had), Vế chính: would + V (would learn).",
+                tip: "Loại 2 = If + Quá khứ đơn, would/could + V_bare (Giả định trái với hiện tại)."
+            },
+            {
+                q: "2. If I ______ (be) rich, I ______ (travel) around the world.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I were (hoặc was) rich, I would travel around the world.",
+                trans: "Nếu tôi giàu, tôi sẽ đi du lịch quanh thế giới.",
+                expl: "Giả định trái thực tế hiện tại. Động từ BE trong vế If của loại 2 trang trọng luôn dùng 'were' cho mọi ngôi.",
+                tip: "Trong câu điều kiện loại 2, ưu tiên dùng 'were' cho tất cả các ngôi (I, he, she, it)."
+            },
+            {
+                q: "3. If she ______ (live) near the beach, she ______ (go) swimming every day.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If she lived near the beach, she would go swimming every day.",
+                trans: "Nếu cô ấy sống gần biển, cô ấy sẽ đi bơi mỗi ngày.",
+                expl: "Thực tế cô ấy không sống gần biển. Vế If: 'lived', vế chính: 'would go'.",
+                tip: "Động từ có quy tắc thêm -ed ở vế If."
+            },
+            {
+                q: "4. If we ______ (have) a bigger house, we ______ (invite) more friends.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If we had a bigger house, we would invite more friends.",
+                trans: "Nếu chúng tôi có một ngôi nhà lớn hơn, chúng tôi sẽ mời nhiều bạn bè hơn.",
+                expl: "Thực tế nhà không lớn. Vế If chia 'had', vế chính dùng 'would invite'.",
+                tip: "have -> had ở quá khứ."
+            },
+            {
+                q: "5. If he ______ (know) the answer, he ______ (tell) us.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If he knew the answer, he would tell us.",
+                trans: "Nếu anh ấy biết câu trả lời, anh ấy sẽ nói cho chúng ta biết.",
+                expl: "Thực tế anh ấy không biết. 'know' -> 'knew', vế chính dùng 'would tell'.",
+                tip: "know -> knew (bất quy tắc)."
+            },
+            {
+                q: "6. If I ______ (be) you, I ______ (study) harder.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I were you, I would study harder.",
+                trans: "Nếu tôi là bạn, tôi sẽ học chăm chỉ hơn.",
+                expl: "Cấu trúc đưa ra lời khuyên cố định: 'If I were you, I would...'",
+                tip: "Mẫu câu khuyên nhủ kinh điển: 'If I were you...' luôn dùng loại 2."
+            },
+            {
+                q: "7. If they ______ (have) enough money, they ______ (buy) a new car.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If they had enough money, they would buy a new car.",
+                trans: "Nếu họ có đủ tiền, họ sẽ mua một chiếc xe ô tô mới.",
+                expl: "Hiện tại họ không đủ tiền. Vế If: 'had', vế chính: 'would buy'.",
+                tip: "Không có thật ở hiện tại -> Lùi thì về Quá khứ."
+            },
+            {
+                q: "8. If she ______ (speak) English fluently, she ______ (apply) for that job.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If she spoke English fluently, she would apply for that job.",
+                trans: "Nếu cô ấy nói tiếng Anh trôi chảy, cô ấy sẽ nộp đơn xin việc đó.",
+                expl: "Thực tế cô ấy chưa nói trôi chảy. 'speak' -> 'spoke', vế chính dùng 'would apply'.",
+                tip: "speak -> spoke."
+            },
+            {
+                q: "9. If I ______ (live) in Hanoi, I ______ (visit) museums more often.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I lived in Hanoi, I would visit museums more often.",
+                trans: "Nếu tôi sống ở Hà Nội, tôi sẽ đi thăm các bảo tàng thường xuyên hơn.",
+                expl: "Thực tế hiện tại tôi không sống ở Hà Nội. Vế If: 'lived', vế chính: 'would visit'.",
+                tip: "Giả định trái thực tế sống."
+            },
+            {
+                q: "10. If we ______ (not have) to work tomorrow, we ______ (go) camping.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If we didn't have to work tomorrow, we would go camping.",
+                trans: "Nếu ngày mai chúng tôi không phải đi làm, chúng tôi sẽ đi dã ngoại.",
+                expl: "Thực tế ngày mai phải đi làm. Phủ định quá khứ đơn vế If: 'didn't have'. Vế chính: 'would go'.",
+                tip: "Phủ định loại 2 vế If = didn't + V_bare."
+            },
+            {
+                q: "11. If he ______ (be) taller, he ______ (play) basketball.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If he were (hoặc was) taller, he would play basketball.",
+                trans: "Nếu anh ấy cao hơn, anh ấy sẽ chơi bóng rổ.",
+                expl: "Thực tế anh ấy không cao. 'be' biến thành 'were' (hoặc 'was'). Vế chính: 'would play'.",
+                tip: "Giả định trái ngược với ngoại hình hiện tại."
+            },
+            {
+                q: "12. If I ______ (know) how to cook, I ______ (make) dinner for my family.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I knew how to cook, I would make dinner for my family.",
+                trans: "Nếu tôi biết nấu ăn, tôi sẽ nấu bữa tối cho gia đình.",
+                expl: "Thực tế không biết nấu. 'know' -> 'knew', vế chính: 'would make'.",
+                tip: "knew + would make."
+            },
+            {
+                q: "13. If you ______ (have) one million dollars, what ______ you ______ (do)?",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If you had one million dollars, what would you do?",
+                trans: "Nếu bạn có một triệu đô la, bạn sẽ làm gì?",
+                expl: "Câu hỏi loại 2. Vế If: 'had'. Vế chính (nghi vấn): 'what would you do?'.",
+                tip: "Câu hỏi loại 2: Wh-question + would + S + V_bare?"
+            },
+            {
+                q: "14. Where ______ you ______ (go) if you ______ (have) a free month?",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "Where would you go if you had a free month?",
+                trans: "Bạn sẽ đi đâu nếu bạn có một tháng rảnh rỗi?",
+                expl: "Vế chính đứng trước: 'Where would you go', vế If đứng sau: 'if you had...'",
+                tip: "Khi vế If đứng sau thì KHÔNG có dấu phẩy ngăn cách."
+            },
+            {
+                q: "15. What ______ she ______ (buy) if she ______ (win) the lottery?",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "What would she buy if she won the lottery?",
+                trans: "Cô ấy sẽ mua gì nếu cô ấy trúng số?",
+                expl: "Vế chính: 'What would she buy', vế If chia quá khứ: 'win' -> 'won'.",
+                tip: "win -> won ở vế If."
+            },
+            {
+                q: "16. If I ______ (not be) so busy, I ______ (spend) more time with my family.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I weren't (hoặc wasn't) so busy, I would spend more time with my family.",
+                trans: "Nếu tôi không quá bận rộn, tôi sẽ dành nhiều thời gian hơn cho gia đình.",
+                expl: "Thực tế hiện tại rất bận. Phủ định 'be' ở quá khứ: 'weren't'. Vế chính: 'would spend'.",
+                tip: "be not ở vế If loại 2 -> weren't / wasn't."
+            },
+            {
+                q: "17. If we ______ (live) in the countryside, we ______ (have) a quieter life.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If we lived in the countryside, we would have a quieter life.",
+                trans: "Nếu chúng tôi sống ở nông thôn, chúng tôi sẽ có một cuộc sống yên bình hơn.",
+                expl: "Thực tế không sống ở nông thôn. Vế If: 'lived', vế chính: 'would have'.",
+                tip: "Giả định hoàn cảnh sống ở hiện tại."
+            }
+        ]
+    },
+    {
+        section: "E. Câu điều kiện loại 3 – Third Conditional",
+        items: [
+            {
+                q: "1. If I ______ (study) harder, I ______ (pass) the exam.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If I had studied harder, I would have passed the exam.",
+                trans: "Nếu tôi đã học chăm chỉ hơn, tôi đã đỗ kỳ thi rồi.",
+                expl: "Giả định trái ngược với quá khứ (Quá khứ không học chăm nên đã trượt). Vế If: Quá khứ hoàn thành (had studied), Vế chính: would have + V3/ed (would have passed).",
+                tip: "Loại 3 = If + had + V3/ed, would/could + have + V3/ed (Tiếc nuối về quá khứ)."
+            },
+            {
+                q: "2. If she ______ (leave) earlier, she ______ (catch) the bus.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If she had left earlier, she would have caught the bus.",
+                trans: "Nếu cô ấy rời đi sớm hơn, cô ấy đã kịp chuyến xe bứt rồi.",
+                expl: "Thực tế trong quá khứ đã không đi sớm. Vế If: 'had left' (leave -> left -> left), Vế chính: 'would have caught' (catch -> caught -> caught).",
+                tip: "Nhớ tra cột 3 (V3) của động từ bất quy tắc."
+            },
+            {
+                q: "3. If we ______ (know) about the problem, we ______ (help) you.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If we had known about the problem, we would have helped you.",
+                trans: "Nếu chúng tôi biết về vấn đề đó, chúng tôi đã giúp bạn rồi.",
+                expl: "Quá khứ không biết nên không giúp. Vế If: 'had known', Vế chính: 'would have helped'.",
+                tip: "know -> known (V3)."
+            },
+            {
+                q: "4. If he ______ (not forget) his passport, he ______ (be able to) travel.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If he hadn't forgotten his passport, he would have been able to travel.",
+                trans: "Nếu anh ấy không quên hộ chiếu, anh ấy đã có thể đi du lịch rồi.",
+                expl: "Vế If phủ định: 'hadn't forgotten'. Vế chính: 'would have been able to'.",
+                tip: "had not = hadn't. V3 của forget là forgotten."
+            },
+            {
+                q: "5. If they ______ (book) earlier, they ______ (get) cheaper tickets.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If they had booked earlier, they would have got (hoặc gotten) cheaper tickets.",
+                trans: "Nếu họ đặt vé sớm hơn, họ đã mua được vé rẻ hơn rồi.",
+                expl: "Vế If: 'had booked', Vế chính: 'would have got/gotten'.",
+                tip: "book là động từ có quy tắc -> booked."
+            },
+            {
+                q: "6. If I ______ (wake) up earlier, I ______ (not miss) the train.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If I had woken up earlier, I wouldn't have missed the train.",
+                trans: "Nếu tôi thức dậy sớm hơn, tôi đã không bị lỡ chuyến tàu.",
+                expl: "Vế If: 'had woken' (wake -> woke -> woken). Vế chính phủ định: 'wouldn't have missed'.",
+                tip: "would not have = wouldn't have."
+            },
+            {
+                q: "7. If she ______ (study) English before, she ______ (have) a better job.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If she had studied English before, she would have had a better job.",
+                trans: "Nếu trước đây cô ấy đã học tiếng Anh, cô ấy đã có một công việc tốt hơn.",
+                expl: "Vế If: 'had studied'. Vế chính: 'would have had' (have ở dạng V3 là had).",
+                tip: "have had: 'have' thứ nhất là trợ động từ, 'had' thứ hai là V3."
+            },
+            {
+                q: "8. If we ______ (take) a taxi, we ______ (arrive) on time.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If we had taken a taxi, we would have arrived on time.",
+                trans: "Nếu chúng tôi bắt xe taxi, chúng tôi đã đến đúng giờ rồi.",
+                expl: "Vế If: 'had taken' (take -> took -> taken). Vế chính: 'would have arrived'.",
+                tip: "take -> taken (V3)."
+            },
+            {
+                q: "9. If he ______ (listen) to the teacher, he ______ (understand) the lesson.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If he had listened to the teacher, he would have understood the lesson.",
+                trans: "Nếu anh ấy lắng nghe giáo viên, anh ấy đã hiểu bài học rồi.",
+                expl: "Vế If: 'had listened'. Vế chính: 'would have understood' (understand -> understood).",
+                tip: "Chỉ sự tiếc nuối trong quá khứ."
+            },
+            {
+                q: "10. If you ______ (tell) me earlier, I ______ (help) you.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If you had told me earlier, I would have helped you.",
+                trans: "Nếu bạn nói với tôi sớm hơn, tôi đã giúp bạn rồi.",
+                expl: "Vế If: 'had told' (tell -> told -> told). Vế chính: 'would have helped'.",
+                tip: "tell -> told (V3)."
+            },
+            {
+                q: "11. If they ______ (not spend) so much money, they ______ (save) more.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If they hadn't spent so much money, they would have saved more.",
+                trans: "Nếu họ không tiêu quá nhiều tiền, họ đã tiết kiệm được nhiều hơn rồi.",
+                expl: "Vế If: 'hadn't spent' (spend -> spent -> spent). Vế chính: 'would have saved'.",
+                tip: "spend -> spent (V3)."
+            },
+            {
+                q: "12. If I ______ (know) the truth, I ______ (not make) that decision.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If I had known the truth, I wouldn't have made that decision.",
+                trans: "Nếu tôi biết sự thật, tôi đã không đưa ra quyết định đó.",
+                expl: "Vế If: 'had known'. Vế chính phủ định: 'wouldn't have made' (make -> made -> made).",
+                tip: "make -> made (V3)."
+            },
+            {
+                q: "13. If she ______ (prepare) better, she ______ (do) better in the interview.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If she had prepared better, she would have done better in the interview.",
+                trans: "Nếu cô ấy chuẩn bị tốt hơn, cô ấy đã làm tốt hơn trong buổi phỏng vấn.",
+                expl: "Vế If: 'had prepared'. Vế chính: 'would have done' (do -> did -> done).",
+                tip: "do -> done (V3)."
+            },
+            {
+                q: "14. If we ______ (not take) the wrong road, we ______ (arrive) earlier.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If we hadn't taken the wrong road, we would have arrived earlier.",
+                trans: "Nếu chúng tôi không đi sai đường, chúng tôi đã đến sớm hơn rồi.",
+                expl: "Vế If: 'hadn't taken'. Vế chính: 'would have arrived'.",
+                tip: "Khôi phục lại giả định trái với quá khứ."
+            },
+            {
+                q: "15. If he ______ (follow) the instructions, he ______ (not make) that mistake.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If he had followed the instructions, he wouldn't have made that mistake.",
+                trans: "Nếu anh ấy làm theo hướng dẫn, anh ấy đã không mắc phải sai lầm đó.",
+                expl: "Vế If: 'had followed'. Vế chính: 'wouldn't have made'.",
+                tip: "follow -> followed."
+            }
+        ]
+    },
+    {
+        section: "F. Viết lại câu sử dụng câu điều kiện",
+        items: [
+            {
+                q: "1. I don't have enough money, so I can't buy a new laptop.\n→ If I ______________________________________________",
+                type: "Viết lại - Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I had enough money, I could (hoặc would) buy a new laptop.",
+                trans: "Nếu tôi có đủ tiền, tôi có thể mua một chiếc máy tính xách tay mới.",
+                expl: "Tình huống ở hiện tại (don't have, can't buy) -> Chuyển sang Điều kiện loại 2 (trái hiện tại). Đổi từ phủ định (-) sang khẳng định (+).",
+                tip: "Mẹo viết lại câu: Thực tế ở HIỆN TẠI -> Dùng LOẠI 2. Nhớ ngược dấu (Hiện tại (-) -> Điều kiện (+))."
+            },
+            {
+                q: "2. She doesn't study hard, so she doesn't get good grades.\n→ If she _____________________________________________",
+                type: "Viết lại - Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If she studied hard, she would get good grades.",
+                trans: "Nếu cô ấy học tập chăm chỉ, cô ấy sẽ đạt điểm cao.",
+                expl: "Tình huống hiện tại (-) -> Viết thành Điều kiện loại 2 (+). 'study' -> 'studied', 'doesn't get' -> 'would get'.",
+                tip: "Hiện tại đơn (-) -> Loại 2 (+)."
+            },
+            {
+                q: "3. I am not you, so I can't give you the best advice.\n→ If I ______________________________________________",
+                type: "Viết lại - Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I were you, I could (hoặc would) give you the best advice.",
+                trans: "Nếu tôi là bạn, tôi có thể cho bạn lời khuyên tốt nhất.",
+                expl: "Giả định 'If I were you' (Loại 2) dùng để khuyên nhủ.",
+                tip: "Gặp 'I am not you' -> Luôn viết thành 'If I were you...'"
+            },
+            {
+                q: "4. He doesn't live near the beach, so he can't go swimming every day.\n→ If he _____________________________________________",
+                type: "Viết lại - Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If he lived near the beach, he could go swimming every day.",
+                trans: "Nếu anh ấy sống gần biển, anh ấy có thể đi bơi hàng ngày.",
+                expl: "Thực tế hiện tại không sống gần biển -> Dùng Loại 2. 'live' -> 'lived', 'can't go' -> 'could go'.",
+                tip: "can't -> could (trong vế chính loại 2)."
+            },
+            {
+                q: "5. We didn't leave early, so we missed the train.\n→ If we _____________________________________________",
+                type: "Viết lại - Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If we had left early, we wouldn't have missed the train.",
+                trans: "Nếu chúng tôi đi sớm, chúng tôi đã không bị lỡ chuyến tàu.",
+                expl: "Tình huống ở QUÁ KHỨ (didn't leave, missed) -> Chuyển sang Điều kiện loại 3 (trái quá khứ). 'didn't leave' (-) -> 'had left' (+); 'missed' (+) -> 'wouldn't have missed' (-).",
+                tip: "Mẹo viết lại câu: Thực tế ở QUÁ KHỨ -> Dùng LOẠI 3. Ngược dấu với thực tế."
+            },
+            {
+                q: "6. She didn't study for the exam, so she failed it.\n→ If she _____________________________________________",
+                type: "Viết lại - Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If she had studied for the exam, she wouldn't have failed it (hoặc she would have passed it).",
+                trans: "Nếu cô ấy học cho kỳ thi, cô ấy đã không bị trượt (đã đỗ rồi).",
+                expl: "Thực tế quá khứ không học (-) và trượt (+). Chuyển thành Loại 3: 'had studied' và 'wouldn't have failed'.",
+                tip: "Quá khứ đơn -> Loại 3 (had + V3)."
+            },
+            {
+                q: "7. I forgot my umbrella, so I got wet.\n→ If I ______________________________________________",
+                type: "Viết lại - Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If I hadn't forgotten my umbrella, I wouldn't have got (hoặc gotten) wet.",
+                trans: "Nếu tôi không quên ô, tôi đã không bị ướt.",
+                expl: "Thực tế quá khứ đã quên (+) và bị ướt (+). Loại 3 đổi thành phủ định: 'hadn't forgotten' và 'wouldn't have got wet'.",
+                tip: "Forgot (+) -> hadn't forgotten (-)."
+            },
+            {
+                q: "8. They didn't book the hotel early, so they couldn't get a good room.\n→ If they ___________________________________________",
+                type: "Viết lại - Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If they had booked the hotel early, they could have got (hoặc gotten) a good room.",
+                trans: "Nếu họ đặt khách sạn sớm, họ đã có thể lấy được phòng tốt.",
+                expl: "Tình huống quá khứ. 'didn't book' (-) -> 'had booked' (+); 'couldn't get' (-) -> 'could have got' (+).",
+                tip: "couldn't + V -> could have + V3."
+            },
+            {
+                q: "9. I don't know her phone number, so I can't call her.\n→ If I ______________________________________________",
+                type: "Viết lại - Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I knew her phone number, I could (hoặc would) call her.",
+                trans: "Nếu tôi biết số điện thoại của cô ấy, tôi có thể gọi cho cô ấy.",
+                expl: "Thực tế ở hiện tại (don't know) -> Dùng Loại 2. 'don't know' (-) -> 'knew' (+).",
+                tip: "Hiện tại -> Loại 2."
+            },
+            {
+                q: "10. He isn't rich, so he can't travel around the world.\n→ If he _____________________________________________",
+                type: "Viết lại - Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If he were (hoặc was) rich, he could (hoặc would) travel around the world.",
+                trans: "Nếu anh ấy giàu, anh ấy có thể đi du lịch quanh thế giới.",
+                expl: "Thực tế hiện tại không giàu (isn't) -> Dùng Loại 2: 'were rich', vế chính 'could travel'.",
+                tip: "isn't -> were / was."
+            }
+        ]
+    },
+    {
+        section: "G. Chọn loại câu điều kiện phù hợp",
+        items: [
+            {
+                q: "1. If you heat ice, it ______ (melt).",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "melts",
+                trans: "Nếu bạn đun nóng băng, nó sẽ tan chảy.",
+                expl: "Sự thật khoa học hiển nhiên -> Điều kiện loại 0. 'it' đi với 'melts'.",
+                tip: "Sự thật tự nhiên = Loại 0."
+            },
+            {
+                q: "2. If I have enough money next year, I ______ (buy) a new computer.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "will buy",
+                trans: "Nếu tôi có đủ tiền vào năm tới, tôi sẽ mua một chiếc máy tính mới.",
+                expl: "Có mốc thời gian 'next year' + vế If ở Hiện tại đơn ('have') -> Điều kiện loại 1 (will buy).",
+                tip: "Vế If hiện tại + thời gian tương lai -> Loại 1."
+            },
+            {
+                q: "3. If I ______ (be) you, I would talk to the teacher.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "were (hoặc was)",
+                trans: "Nếu tôi là bạn, tôi sẽ nói chuyện với giáo viên.",
+                expl: "Vế chính có 'would talk' (would + V) -> Đây là câu điều kiện loại 2. Vế If chọn 'were'.",
+                tip: "Nhìn vế chính 'would + V' -> Vế If chọn Quá khứ đơn."
+            },
+            {
+                q: "4. If she had left earlier, she ______ (not miss) the bus.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "wouldn't have missed",
+                trans: "Nếu cô ấy rời đi sớm hơn, cô ấy đã không bỏ lỡ chuyến xe bứt.",
+                expl: "Vế If có 'had left' (had + V3) -> Điều kiện loại 3. Vế chính dạng phủ định: 'wouldn't have missed'.",
+                tip: "Vế If 'had + V3' -> Vế chính 'would have + V3'."
+            },
+            {
+                q: "5. If people don't eat, they ______ (become) hungry.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "become",
+                trans: "Nếu người ta không ăn, họ sẽ bị đói.",
+                expl: "Quy luật sinh học hiển nhiên -> Loại 0. Vế chính dùng hiện tại đơn 'become'.",
+                tip: "Không ăn -> Đói = Quy luật tất yếu."
+            },
+            {
+                q: "6. If it rains tomorrow, we ______ (not go) camping.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "won't go (hoặc will not go)",
+                trans: "Nếu ngày mai trời mưa, chúng tôi sẽ không đi dã ngoại.",
+                expl: "Có 'tomorrow' và vế If chia 'rains' -> Loại 1. Vế chính: 'won't go'.",
+                tip: "Loại 1 vế chính phủ định = won't + V."
+            },
+            {
+                q: "7. If I ______ (have) more time, I would learn to play the guitar.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "had",
+                trans: "Nếu tôi có nhiều thời gian hơn, tôi sẽ học chơi đàn guitar.",
+                expl: "Vế chính có 'would learn' (would + V) -> Loại 2. Vế If chia quá khứ đơn: 'had'.",
+                tip: "would + V ở vế chính -> Vế If dùng Quá khứ đơn."
+            },
+            {
+                q: "8. If they had studied harder, they ______ (pass) the exam.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "would have passed",
+                trans: "Nếu họ đã học chăm chỉ hơn, họ đã đỗ kỳ thi rồi.",
+                expl: "Vế If có 'had studied' -> Loại 3. Vế chính chia 'would have passed'.",
+                tip: "had + V3 -> would have + V3."
+            },
+            {
+                q: "9. If you press this button, the machine ______ (start).",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "starts",
+                trans: "Nếu bạn nhấn nút này, máy sẽ chạy.",
+                expl: "Quy tắc vận hành máy móc -> Loại 0. Chia 'starts'.",
+                tip: "Nút bấm cơ học = Loại 0."
+            },
+            {
+                q: "10. If he studies hard, he ______ (get) a good grade.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "will get",
+                trans: "Nếu anh ấy học hành chăm chỉ, anh ấy sẽ đạt điểm tốt.",
+                expl: "Vế If hiện tại đơn 'studies' -> Loại 1. Vế chính dùng 'will get'.",
+                tip: "If + V(s/es) -> will + V."
+            },
+            {
+                q: "11. If I ______ (live) abroad, I would learn about a new culture.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "lived",
+                trans: "Nếu tôi sống ở nước ngoài, tôi sẽ tìm hiểu về một văn hóa mới.",
+                expl: "Vế chính 'would learn' -> Loại 2. Vế If chia quá khứ 'lived'.",
+                tip: "would + V -> Quá khứ đơn ở vế If."
+            },
+            {
+                q: "12. If we had taken a taxi, we ______ (arrive) earlier.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "would have arrived",
+                trans: "Nếu chúng tôi đi taxi, chúng tôi đã đến sớm hơn rồi.",
+                expl: "Vế If 'had taken' -> Loại 3. Vế chính 'would have arrived'.",
+                tip: "Dấu hiệu 'had + V3' ở vế If."
+            },
+            {
+                q: "13. If plants don't get water, they ______ (die).",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "die",
+                trans: "Nếu cây không có nước, chúng sẽ chết.",
+                expl: "Sự thật tự nhiên -> Loại 0. 'they' + 'die'.",
+                tip: "Sự thật sinh học."
+            },
+            {
+                q: "14. If she ______ (have) enough money, she would buy a new house.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "had",
+                trans: "Nếu cô ấy có đủ tiền, cô ấy sẽ mua một ngôi nhà mới.",
+                expl: "Vế chính 'would buy' -> Loại 2. Vế If chia 'had'.",
+                tip: "would + V -> had."
+            },
+            {
+                q: "15. If you don't hurry, you ______ (miss) the bus.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "will miss",
+                trans: "Nếu bạn không nhanh lên, bạn sẽ nhỡ xe bứt.",
+                expl: "Vế If 'don't hurry' (Hiện tại đơn) -> Loại 1. Vế chính 'will miss'.",
+                tip: "Lời cảnh báo ở hiện tại = Loại 1."
+            }
+        ]
+    },
+    {
+        section: "H. Tổng hợp 4 loại câu điều kiện",
+        items: [
+            {
+                q: "1. If I ______ (have) more money, I would travel around the world.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "had",
+                trans: "Nếu tôi có nhiều tiền hơn, tôi sẽ đi du lịch quanh thế giới.",
+                expl: "Vế chính có 'would travel' -> Điều kiện loại 2 -> Vế If chia Quá khứ đơn ('had').",
+                tip: "Dựa vào 'would travel' để xác định Loại 2."
+            },
+            {
+                q: "2. If you ______ (heat) water to 100°C, it boils.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "heat",
+                trans: "Nếu bạn đun nước đến 100°C, nó sẽ sôi.",
+                expl: "Vế chính chia hiện tại đơn ('boils') chỉ sự thật khoa học -> Loại 0 -> Vế If chia Hiện tại đơn ('heat').",
+                tip: "Sự thật khoa học."
+            },
+            {
+                q: "3. If she studies hard, she ______ (pass) the exam.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "will pass",
+                trans: "Nếu cô ấy học tập chăm chỉ, cô ấy sẽ đỗ kỳ thi.",
+                expl: "Vế If chia 'studies' (Hiện tại đơn) -> Loại 1 -> Vế chính chia 'will pass'.",
+                tip: "If + Hiện tại đơn -> Will + V."
+            },
+            {
+                q: "4. If they had arrived earlier, they ______ (see) the beginning of the show.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "would have seen",
+                trans: "Nếu họ đến sớm hơn, họ đã xem được phần đầu của buổi diễn.",
+                expl: "Vế If chia 'had arrived' (Quá khứ hoàn thành) -> Loại 3 -> Vế chính chia 'would have seen'.",
+                tip: "had + V3 -> would have + V3."
+            },
+            {
+                q: "5. If I ______ (be) you, I would accept the offer.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "were (hoặc was)",
+                trans: "Nếu tôi là bạn, tôi sẽ chấp nhận lời đề nghị.",
+                expl: "Lời khuyên 'If I were you' thuộc Điều kiện loại 2 (vế chính 'would accept').",
+                tip: "Cấu trúc đưa ra lời khuyên."
+            },
+            {
+                q: "6. If you don't water plants, they ______ (die).",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "die",
+                trans: "Nếu bạn không tưới cây, chúng sẽ chết.",
+                expl: "Sự thật sinh học -> Loại 0 -> Vế chính chia Hiện tại đơn ('die').",
+                tip: "Hiện tại đơn + Hiện tại đơn."
+            },
+            {
+                q: "7. If we leave now, we ______ (arrive) before 7 p.m.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "will arrive",
+                trans: "Nếu chúng ta đi bây giờ, chúng ta sẽ đến trước 7 giờ tối.",
+                expl: "Vế If 'leave' -> Loại 1 -> Vế chính 'will arrive'.",
+                tip: "Khả năng thực tế ở hiện tại/tương lai."
+            },
+            {
+                q: "8. If he ______ (know) the answer, he would tell us.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "knew",
+                trans: "Nếu anh ấy biết câu trả lời, anh ấy sẽ nói cho chúng ta.",
+                expl: "Vế chính 'would tell' -> Loại 2 -> Vế If chia quá khứ 'knew'.",
+                tip: "would + V -> Quá khứ đơn."
+            },
+            {
+                q: "9. If she had listened carefully, she ______ (not make) that mistake.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "wouldn't have made",
+                trans: "Nếu cô ấy lắng nghe cẩn thận, cô ấy đã không mắc sai lầm đó.",
+                expl: "Vế If 'had listened' -> Loại 3 -> Vế chính phủ định 'wouldn't have made'.",
+                tip: "had + V3 -> wouldn't have + V3."
+            },
+            {
+                q: "10. If you mix red and blue, you ______ (get) purple.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "get",
+                trans: "Nếu bạn trộn màu đỏ và màu xanh dương, bạn sẽ được màu tím.",
+                expl: "Sự thật/Quy tắc pha màu -> Loại 0 -> Vế chính 'get'.",
+                tip: "Pha màu = Loại 0."
+            },
+            {
+                q: "11. If I have time tonight, I ______ (call) you.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "will call",
+                trans: "Nếu tối nay tôi có thời gian, tôi sẽ gọi cho bạn.",
+                expl: "Vế If 'have' + thời gian 'tonight' -> Loại 1 -> Vế chính 'will call'.",
+                tip: "Dự định tối nay."
+            },
+            {
+                q: "12. If he ______ (have) a car, he would drive to work.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "had",
+                trans: "Nếu anh ấy có ô tô, anh ấy sẽ lái xe đi làm.",
+                expl: "Vế chính 'would drive' -> Loại 2 -> Vế If chia quá khứ 'had'.",
+                tip: "would + V -> had."
+            },
+            {
+                q: "13. If they had booked the tickets earlier, they ______ (pay) less.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "would have paid",
+                trans: "Nếu họ đặt vé sớm hơn, họ đã trả ít tiền hơn rồi.",
+                expl: "Vế If 'had booked' -> Loại 3 -> Vế chính 'would have paid' (pay -> paid -> paid).",
+                tip: "pay -> paid (V3)."
+            },
+            {
+                q: "14. If people exercise regularly, they ______ (feel) healthier.",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "feel",
+                trans: "Nếu mọi người tập thể dục đều đặn, họ sẽ cảm thấy khỏe mạnh hơn.",
+                expl: "Sự thật/Thói quen -> Loại 0 -> Vế chính 'feel'.",
+                tip: "Thói quen sức khỏe."
+            },
+            {
+                q: "15. If the weather is good tomorrow, we ______ (go) to the beach.",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "will go",
+                trans: "Nếu ngày mai thời tiết tốt, chúng tôi sẽ đi biển.",
+                expl: "Vế If 'is' + 'tomorrow' -> Loại 1 -> Vế chính 'will go'.",
+                tip: "Thời tiết tương lai."
+            },
+            {
+                q: "16. If I ______ (know) about the meeting yesterday, I would have attended it.",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "had known",
+                trans: "Nếu ngày qua tôi biết về cuộc họp, tôi đã tham dự rồi.",
+                expl: "Vế chính 'would have attended' và thời gian 'yesterday' -> Loại 3 -> Vế If chia Quá khứ hoàn thành 'had known'.",
+                tip: "would have + V3 + yesterday -> Loại 3."
+            },
+            {
+                q: "17. If she were more confident, she ______ (speak) English more often.",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "would speak",
+                trans: "Nếu cô ấy tự tin hơn, cô ấy sẽ nói tiếng Anh thường xuyên hơn.",
+                expl: "Vế If 'were' -> Loại 2 -> Vế chính chia 'would speak'.",
+                tip: "were -> would + V."
+            }
+        ]
+    },
+    {
+        section: "I. Viết câu theo tình huống",
+        items: [
+            {
+                q: "1. You don't have enough money. You want to buy a new laptop.\n→ If I ______________________________________________",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I had enough money, I would buy a new laptop.",
+                trans: "Nếu tôi có đủ tiền, tôi sẽ mua một chiếc máy tính xách tay mới.",
+                expl: "Tình huống giả định trái với hiện tại (hiện không đủ tiền) -> Dùng Điều kiện loại 2.",
+                tip: "Hiện tại không có tiền -> Dùng 'If I had money, I would...'"
+            },
+            {
+                q: "2. Your friend didn't study. He failed the exam.\n→ If he _____________________________________________",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If he had studied, he wouldn't have failed the exam (hoặc he would have passed the exam).",
+                trans: "Nếu bạn ấy đã học bài, bạn ấy đã không bị trượt kỳ thi.",
+                expl: "Sự việc đã xảy ra trong quá khứ (didn't study, failed) -> Giả định trái quá khứ dùng Điều kiện loại 3.",
+                tip: "Quá khứ không học -> Loại 3: If he had studied..."
+            },
+            {
+                q: "3. You are giving advice to your friend about studying English.\n→ If I ______________________________________________",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I were you, I would study English every day.",
+                trans: "Nếu tôi là bạn, tôi sẽ học tiếng Anh mỗi ngày.",
+                expl: "Cho lời khuyên -> Dùng cấu trúc loại 2 cố định: 'If I were you, I would...'",
+                tip: "Đưa ra lời khuyên (giving advice) -> 'If I were you, I would...'"
+            },
+            {
+                q: "4. It may rain tomorrow. You will stay at home if it rains.\n→ If it ______________________________________________",
+                type: "Loại 1",
+                typeClass: "tag-type-1",
+                ans: "If it rains tomorrow, I will stay at home.",
+                trans: "Nếu ngày mai trời mưa, tôi sẽ ở nhà.",
+                expl: "Dự đoán có khả năng xảy ra ở tương lai ('tomorrow') -> Dùng Điều kiện loại 1.",
+                tip: "Sự việc có thể xảy ra ở tương lai -> Loại 1."
+            },
+            {
+                q: "5. You heat ice. It becomes water.\n→ If you _____________________________________________",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If you heat ice, it turns (hoặc becomes) into water.",
+                trans: "Nếu bạn đun nóng băng, nó sẽ biến thành nước.",
+                expl: "Sự thật khoa học hiển nhiên -> Dùng Điều kiện loại 0.",
+                tip: "Sự thật khoa học về băng/nước -> Loại 0."
+            },
+            {
+                q: "6. Your friend didn't leave early. He missed the train.\n→ If he _____________________________________________",
+                type: "Loại 3",
+                typeClass: "tag-type-3",
+                ans: "If he had left early, he wouldn't have missed the train.",
+                trans: "Nếu bạn ấy rời đi sớm, bạn ấy đã không bị lỡ chuyến tàu.",
+                expl: "Sự việc xảy ra trong quá khứ -> Dùng Điều kiện loại 3.",
+                tip: "didn't leave -> had left; missed -> wouldn't have missed."
+            },
+            {
+                q: "7. You want to describe an unreal situation: you are not rich, but you imagine being rich.\n→ If I ______________________________________________",
+                type: "Loại 2",
+                typeClass: "tag-type-2",
+                ans: "If I were rich, I would travel around the world (hoặc buy a big house).",
+                trans: "Nếu tôi giàu, tôi sẽ đi du lịch quanh thế giới.",
+                expl: "Tưởng tượng một tình huống không có thật ở hiện tại ('unreal situation') -> Dùng Điều kiện loại 2.",
+                tip: "Tưởng tượng không thật ở hiện tại -> Loại 2."
+            },
+            {
+                q: "8. You want to describe a general scientific fact about water.\n→ If water ___________________________________________",
+                type: "Loại 0",
+                typeClass: "tag-type-0",
+                ans: "If water reaches 100°C, it boils (hoặc If you heat water, it turns into steam).",
+                trans: "Nếu nước đạt 100°C, nó sẽ sôi.",
+                expl: "Mô tả sự thật khoa học chung ('general scientific fact') -> Dùng Điều kiện loại 0.",
+                tip: "Scientific fact -> Câu điều kiện loại 0."
+            }
+        ]
+    }
+];
+
+function renderExercises() {
+    const container = document.getElementById('exercise-container');
+    let html = '';
+
+    exercises.forEach((sec, secIdx) => {
+        html += `<div class="section-title">
+                    <span>${sec.section}</span>
+                 </div>`;
+
+        sec.items.forEach((item, itemIdx) => {
+            const id = `item-${secIdx}-${itemIdx}`;
+            // Format line breaks in questions
+            const formattedQ = item.q.replace(/\n/g, '<br>');
+            
+            html += `
+                <div class="exercise-item" id="${id}">
+                    <div class="question-box" onclick="toggleAnswer('${id}')">
+                        <div class="q-text">${formattedQ}</div>
+                        <div class="icon">▼</div>
+                    </div>
+                    <div class="answer-box">
+                        <span class="tag ${item.typeClass}">${item.type}</span>
+                        <div class="answer-text">👉 Đáp án: ${item.ans}</div>
+                        <div class="translation"><b>Dịch nghĩa:</b> ${item.trans}</div>
+                        <div class="explanation"><b>Giải thích:</b> ${item.expl}</div>
+                        <div class="tip-box">💡 <strong>Mẹo cần nhớ:</strong> ${item.tip}</div>
+                    </div>
+                </div>
+            `;
+        });
+    });
+
+    container.innerHTML = html;
+}
+
+function toggleAnswer(id) {
+    const item = document.getElementById(id);
+    item.classList.toggle('active');
+}
+
+let allOpen = false;
+function toggleAll() {
+    const items = document.querySelectorAll('.exercise-item');
+    allOpen = !allOpen;
+    items.forEach(item => {
+        if (allOpen) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Initial Render
+renderExercises();
+</script>
+
+</body>
+</html>
+```eof
+
+### Tóm tắt các tính năng của trang web:
+1. **Chia phần rõ ràng**: Đầy đủ các phần A, B, C, D, E, F, G, H, I tương ứng với câu hỏi của bạn.
+2. **Tương tác thông minh**: Nhấp vào bất kỳ câu hỏi nào để mở rộng xem chi tiết đáp án và giải thích. Nhấp lại để thu gọn.
+3. **Nút Hiện/Ẩn Tất Cả**: Giúp bạn nhanh chóng xem toàn bộ đáp án hoặc thu gọn để tự làm lại bài tập.
+4. **Chi tiết từng câu**:
+   - **Loại câu điều kiện**: Phân loại rõ ràng (Loại 0, 1, 2, 3, Modal Verbs).
+   - **Đáp án chuẩn xác**: Hoàn thiện các chỗ trống hoặc viết lại câu hoàn chỉnh.
+   - **Dịch nghĩa**: Giúp bạn hiểu rõ nghĩa tiếng Việt của toàn bộ câu.
+   - **Giải thích ngữ pháp**: Giải thích chi tiết vì sao lại chia động từ/viết lại câu như vậy.
+   - **Mẹo cần nhớ**: Đưa ra bí kíp ngắn gọn giúp nhận biết và làm bài nhanh cho từng dạng.
