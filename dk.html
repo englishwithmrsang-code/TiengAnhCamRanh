@@ -3,69 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luyện Tập Câu Điều Kiện - Conditional Sentences Practice</title>
+    <title>Luyện Bài Tập Câu Điều Kiện - Full A-I</title>
     <style>
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #166534;
-            --accent-color: #e0f2fe;
-            --bg-color: #f8fafc;
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f3f4f6;
             --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --border-color: #e2e8f0;
-            --tip-bg: #fef3c7;
-            --tip-border: #f59e0b;
+            --text-main: #1f2937;
+            --text-sub: #4b5563;
+            --border-color: #e5e7eb;
+            --correct-bg: #f0fdf4;
+            --correct-border: #86efac;
+            --correct-text: #166534;
+            --wrong-bg: #fef2f2;
+            --wrong-border: #fca5a5;
+            --wrong-text: #991b1b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
+            color: var(--text-main);
+            line-height: 1.5;
+            padding-bottom: 50px;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
+        /* HEADER */
         header {
-            position: relative;
-            text-align: center;
-            margin-bottom: 25px;
-            padding: 25px 20px;
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            background: #2563eb;
             color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        header h1 {
-            margin: 0 0 10px 0;
-            font-size: 2em;
+        .header-title-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        header p {
-            margin: 0;
+        .header-icon {
+            font-size: 28px;
+        }
+
+        .header-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .header-subtitle {
+            font-size: 0.85rem;
             opacity: 0.9;
         }
 
-        /* Nút Làm lại từ đầu trên Header */
         .btn-reset-top {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             background: rgba(255, 255, 255, 0.2);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 8px 18px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             font-size: 0.9em;
-            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
             transition: all 0.2s;
         }
 
@@ -73,12 +87,18 @@
             background: rgba(255, 255, 255, 0.35);
         }
 
-        /* KHU VỰC TRACKING / THỐNG KÊ */
+        .container {
+            max-width: 1000px;
+            margin: 25px auto 0 auto;
+            padding: 0 15px;
+        }
+
+        /* TRACKING / THỐNG KÊ */
         .stats-container {
             background: white;
-            padding: 20px;
+            padding: 20px 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             border: 1px solid var(--border-color);
             margin-bottom: 25px;
         }
@@ -86,262 +106,271 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            gap: 20px;
             margin-bottom: 20px;
         }
 
         .stat-card {
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 8px;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
 
-        .stat-card.blue { background-color: #f0fdf4; border: 1px solid #bbf7d0; }
-        .stat-card.green { background-color: #f0fdf4; border: 1px solid #bbf7d0; }
-        .stat-card.purple { background-color: #f0f9ff; border: 1px solid #bae6fd; }
+        .stat-card.gray { background-color: #f8fafc; }
+        .stat-card.green { background-color: #f0fdf4; }
+        .stat-card.blue { background-color: #f0f9ff; }
 
         .stat-title {
-            font-size: 0.85em;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: #64748b;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .stat-value {
-            font-size: 1.8em;
+            font-size: 1.8rem;
             font-weight: 800;
             color: #0f172a;
         }
 
-        /* Thanh tiến trình */
         .progress-header {
             display: flex;
             justify-content: space-between;
-            font-size: 0.85em;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 800;
             color: #64748b;
             margin-bottom: 8px;
             text-transform: uppercase;
         }
 
         .progress-bar-bg {
-            height: 10px;
+            height: 12px;
             background-color: #e2e8f0;
-            border-radius: 5px;
+            border-radius: 6px;
             overflow: hidden;
         }
 
         .progress-bar-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #3b82f6, #10b981);
-            border-radius: 5px;
+            background: #2563eb;
+            border-radius: 6px;
             transition: width 0.3s ease;
         }
 
-        .controls {
+        /* THANH FILTER / MỤC */
+        .filter-bar {
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
         }
 
-        .btn-toggle-all {
-            background-color: var(--primary-color);
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: #2563eb;
             color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
+            border-color: #2563eb;
+        }
+
+        /* DANH SÁCH CÂU HỎI */
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 20px 24px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .tag-sec {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .q-original {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .q-trans {
+            font-size: 0.9rem;
+            color: #2563eb;
+            font-style: italic;
+            margin-bottom: 14px;
+        }
+
+        /* KHU VỰC NHẬP DẠNG INPUT */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .q-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .q-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .q-input.correct {
+            border-color: #22c55e;
+            background-color: #f0fdf4;
+            color: #15803d;
+            font-weight: 600;
+        }
+
+        .q-input.wrong {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+            color: #b91c1c;
+            font-weight: 600;
+        }
+
+        .btn-retry {
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            padding: 0 16px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            transition: background 0.2s;
-        }
-
-        .btn-toggle-all:hover {
-            background-color: #3b5998;
-        }
-
-        .section-title {
-            background-color: #0f172a;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.2em;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
         }
 
-        .exercise-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            margin-bottom: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            transition: border-color 0.2s;
+        .btn-retry:hover {
+            background: #e2e8f0;
         }
 
-        .exercise-item:hover {
-            border-color: #94a3b8;
-        }
-
-        .question-box {
-            padding: 16px 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 500;
-            user-select: none;
-        }
-
-        .question-box .q-text {
-            flex: 1;
-        }
-
-        .question-box .icon {
-            font-size: 1.2em;
-            margin-left: 15px;
-            transition: transform 0.3s;
-            color: var(--primary-color);
-        }
-
-        .exercise-item.active .icon {
-            transform: rotate(180deg);
-        }
-
-        .answer-box {
+        /* PHẦN KẾT QUẢ VÀ GIẢI THÍCH */
+        .result-box {
             display: none;
-            padding: 16px 20px;
-            background-color: #f1f5f9;
-            border-top: 1px dashed var(--border-color);
-        }
-
-        .exercise-item.active .answer-box {
-            display: block;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 8px;
-        }
-
-        .tag-type-0 { background-color: #64748b; }
-        .tag-type-1 { background-color: #0284c7; }
-        .tag-type-modal { background-color: #0d9488; }
-        .tag-type-2 { background-color: #d97706; }
-        .tag-type-3 { background-color: #dc2626; }
-
-        .answer-text {
-            color: var(--secondary-color);
-            font-weight: bold;
-            font-size: 1.05em;
-            margin-bottom: 8px;
-        }
-
-        .translation {
-            font-style: italic;
-            color: #475569;
-            margin-bottom: 10px;
-        }
-
-        .explanation {
-            font-size: 0.95em;
-            margin-bottom: 8px;
-            color: #334155;
-        }
-
-        .tip-box {
-            background-color: var(--tip-bg);
-            border-left: 4px solid var(--tip-border);
-            padding: 8px 12px;
-            font-size: 0.9em;
-            border-radius: 0 4px 4px 0;
-            color: #78350f;
-        }
-
-        .tip-box strong {
-            color: #92400e;
-        }
-
-        /* Nút đánh dấu ĐÚNG / SAI */
-        .check-actions {
+            padding: 14px 16px;
+            border-radius: 8px;
             margin-top: 12px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
+            font-size: 0.9rem;
         }
 
-        .btn-status {
-            padding: 6px 14px;
+        .result-box.correct {
+            display: block;
+            background-color: var(--correct-bg);
+            border: 1px solid var(--correct-border);
+            color: var(--correct-text);
+        }
+
+        .result-box.wrong {
+            display: block;
+            background-color: var(--wrong-bg);
+            border: 1px solid var(--wrong-border);
+            color: var(--wrong-text);
+        }
+
+        .result-status {
+            font-weight: 800;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .ans-reference-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #475569;
+        }
+
+        .ans-reference {
+            background: white;
+            padding: 8px 12px;
             border-radius: 6px;
-            border: none;
-            font-weight: bold;
-            font-size: 0.85em;
-            cursor: pointer;
-            transition: opacity 0.2s;
+            border: 1px solid var(--border-color);
+            font-family: monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
         }
 
-        .btn-correct { background-color: #16a34a; color: white; }
-        .btn-wrong { background-color: #dc2626; color: white; }
-        .btn-status:hover { opacity: 0.85; }
-
-        .status-badge {
-            font-size: 0.85em;
-            font-weight: bold;
-            margin-left: 10px;
+        .expl-text {
+            font-size: 0.85rem;
+            color: #334155;
+            line-height: 1.4;
         }
-        .status-badge.correct { color: #16a34a; }
-        .status-badge.wrong { color: #dc2626; }
 
-        @media (max-width: 600px) {
+        @media (max-width: 640px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
             .stats-grid { grid-template-columns: 1fr; }
-            .btn-reset-top { position: static; margin-top: 10px; display: inline-block; }
+            .input-group { flex-direction: column; }
+            .btn-retry { justify-content: center; padding: 10px; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <button class="btn-reset-top" onclick="resetTracking()">↺ Làm lại từ đầu</button>
-        <h1>Bài Tập Câu Điều Kiện (Conditionals)</h1>
-        <p>Nhấp vào từng câu để xem đáp án, dịch nghĩa, giải thích và mẹo ghi nhớ!</p>
-    </header>
+<header>
+    <div class="header-title-box">
+        <div class="header-icon">📚</div>
+        <div>
+            <div class="header-title">BÀI TẬP CÂU ĐIỀU KIỆN (FULL A - I)</div>
+            <div class="header-subtitle">Nhập đáp án (hoặc các đáp án phân cách bằng dấu gạch /), nhấn Enter để kiểm tra</div>
+        </div>
+    </div>
+    <button class="btn-reset-top" onclick="resetAll()">↺ Làm lại từ đầu</button>
+</header>
 
+<div class="container">
     <!-- THỐNG KÊ TRACKING -->
     <div class="stats-container">
         <div class="stats-grid">
-            <div class="stat-card blue">
-                <div class="stat-title">Số câu đã xem / làm</div>
+            <div class="stat-card gray">
+                <div class="stat-title">SỐ CÂU ĐÃ LÀM</div>
                 <div class="stat-value" id="stat-done">0 / 0</div>
             </div>
             <div class="stat-card green">
-                <div class="stat-title">Số câu đúng</div>
+                <div class="stat-title">SỐ CÂU ĐÚNG</div>
                 <div class="stat-value" id="stat-correct">0</div>
             </div>
-            <div class="stat-card purple">
-                <div class="stat-title">Tỷ lệ chính xác</div>
+            <div class="stat-card blue">
+                <div class="stat-title">TỶ LỆ CHÍNH XÁC</div>
                 <div class="stat-value" id="stat-accuracy">0%</div>
             </div>
         </div>
 
         <div class="progress-header">
-            <span>Tiến trình làm bài</span>
+            <span>TIẾN TRÌNH LÀM BÀI</span>
             <span id="stat-percent">0%</span>
         </div>
         <div class="progress-bar-bg">
@@ -349,196 +378,321 @@
         </div>
     </div>
 
-    <div class="controls">
-        <button class="btn-toggle-all" onclick="toggleAll()">Hiện / Ẩn tất cả đáp án</button>
-    </div>
+    <!-- MỤC LỌC DANH MỤC -->
+    <div class="filter-bar" id="filter-bar"></div>
 
-    <div id="exercise-container"></div>
+    <!-- DANH SÁCH CÂU HỎI -->
+    <div id="questions-list"></div>
 </div>
 
 <script>
-const exercises = [
-    {
-        section: "A. Câu điều kiện loại 0 – Zero Conditional",
-        items: [
-            {
-                q: "1. If you ______ (heat) ice, it ______ (melt).",
-                type: "Loại 0",
-                typeClass: "tag-type-0",
-                ans: "If you heat ice, it melts.",
-                trans: "Nếu bạn đun nóng băng, nó sẽ tan chảy.",
-                expl: "Hiện tượng tự nhiên/Sự thật hiển nhiên. Cả 2 vế đều chia ở thì Hiện tại đơn (Chủ ngữ 'you' đi với 'heat', chủ ngữ 'it' đi với 'melts').",
-                tip: "Loại 0 = If + Hiện tại đơn, Hiện tại đơn (Chỉ sự thật hiển nhiên/quy luật khoa học)."
-            },
-            {
-                q: "2. If water ______ (reach) 100°C, it ______ (boil).",
-                type: "Loại 0",
-                typeClass: "tag-type-0",
-                ans: "If water reaches 100°C, it boils.",
-                trans: "Nếu nước đạt đến 100°C, nó sẽ sôi.",
-                expl: "Sự thật khoa học. 'Water' là danh từ không đếm được (ngôi thứ 3 số ít) nên chia 'reaches', 'it' chia 'boils'.",
-                tip: "Danh từ không đếm được (water, ice, milk...) động từ thêm -s/-es ở hiện tại đơn."
-            }
-        ]
-    },
-    {
-        section: "B. Câu điều kiện loại 1 – First Conditional",
-        items: [
-            {
-                q: "1. If it ______ (rain) tomorrow, I ______ (stay) at home.",
-                type: "Loại 1",
-                typeClass: "tag-type-1",
-                ans: "If it rains tomorrow, I will stay at home.",
-                trans: "Nếu ngày mai trời mưa, tôi sẽ ở nhà.",
-                expl: "Dự đoán sự việc có thể xảy ra ở tương lai ('tomorrow'). Vế If: Hiện tại đơn (rains), Vế chính: will + V (will stay).",
-                tip: "Loại 1 = If + Hiện tại đơn, Will + V_bare (Có thể xảy ra ở tương lai)."
-            }
-        ]
-    }
+// TOÀN BỘ DỮ LIỆU BÀI TẬP TỪ A ĐẾN I (76 CÂU)
+const questionsData = [
+    // A. Câu điều kiện loại 0
+    { id: 1, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If you ______ (heat) ice, it ______ (melt).", trans: "Nếu bạn đun nóng băng, nó sẽ tan chảy.", answer: ["heat / melts", "heat/melts"], fullAnswer: "heat / melts", expl: "Sự thật hiển nhiên: Điều kiện loại 0 (If + Present Simple, Present Simple)." },
+    { id: 2, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If water ______ (reach) 100°C, it ______ (boil).", trans: "Nếu nước đạt 100°C, nó sẽ sôi.", answer: ["reaches / boils", "reaches/boils"], fullAnswer: "reaches / boils", expl: "Sự thật khoa học: water (ngôi thứ 3 số ít) + reaches/boils." },
+    { id: 3, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If people ______ (not drink) enough water, they ______ (become) thirsty.", trans: "Nếu mọi người không uống đủ nước, họ sẽ khát.", answer: ["don't drink / become", "do not drink / become"], fullAnswer: "don't drink / become", expl: "Chủ ngữ people số nhiều dùng don't drink / become." },
+    { id: 4, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If you ______ (mix) blue and yellow, you ______ (get) green.", trans: "Nếu bạn trộn màu xanh dương và vàng, bạn sẽ được màu xanh lá.", answer: ["mix / get", "mix/get"], fullAnswer: "mix / get", expl: "Quy luật tự nhiên dùng Hiện tại đơn ở cả 2 vế." },
+    { id: 5, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If plants ______ (not get) enough sunlight, they ______ (not grow) well.", trans: "Nếu cây cối không có đủ ánh nắng, chúng không phát triển tốt.", answer: ["don't get / don't grow", "do not get / do not grow"], fullAnswer: "don't get / don't grow", expl: "Phủ định hiện tại đơn với chủ ngữ số nhiều (plants/they) dùng don't." },
+    { id: 6, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If you ______ (touch) fire, it ______ (burn) you.", trans: "Nếu bạn chạm vào lửa, nó sẽ làm bạn bị bỏng.", answer: ["touch / burns", "touch/burns"], fullAnswer: "touch / burns", expl: "Thực tế hiển nhiên: touch / it burns." },
+    { id: 7, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If it ______ (rain) heavily, the streets ______ (become) wet.", trans: "Nếu trời mưa to, đường xá sẽ bị ướt.", answer: ["rains / become", "rains/become"], fullAnswer: "rains / become", expl: "it rains (số ít) / streets become (số nhiều)." },
+    { id: 8, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If people ______ (eat) too much sugar, they ______ (gain) weight.", trans: "Nếu mọi người ăn quá nhiều đường, họ sẽ tăng cân.", answer: ["eat / gain", "eat/gain"], fullAnswer: "eat / gain", expl: "Thực tế sức khỏe: Hiện tại đơn cho cả 2 vế." },
+    { id: 9, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If you ______ (heat) water, it ______ (turn) into steam.", trans: "Nếu bạn đun nước, nó chuyển thành hơi nước.", answer: ["heat / turns", "heat/turns"], fullAnswer: "heat / turns", expl: "Hiện tượng vật lý: heat / turns." },
+    { id: 10, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If students ______ (study) regularly, they usually ______ (make) progress.", trans: "Nếu học sinh học tập thường xuyên, họ thường tiến bộ.", answer: ["study / make", "study/make"], fullAnswer: "study / make", expl: "Thói quen/sự thật: study / make." },
+    { id: 11, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If the temperature ______ (fall) below 0°C, water ______ (freeze).", trans: "Nếu nhiệt độ giảm xuống dưới 0°C, nước sẽ đóng băng.", answer: ["falls / freezes", "falls/freezes"], fullAnswer: "falls / freezes", expl: "Sự thật khoa học: falls / freezes." },
+    { id: 12, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If you ______ (not water) plants, they ______ (die).", trans: "Nếu bạn không tưới cây, chúng sẽ chết.", answer: ["don't water / die", "do not water / die"], fullAnswer: "don't water / die", expl: "don't water / die." },
+    { id: 13, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If metal ______ (get) hot, it ______ (expand).", trans: "Nếu kim loại nóng lên, nó sẽ giãn nở.", answer: ["gets / expands", "gets/expands"], fullAnswer: "gets / expands", expl: "Hiện tượng vật lý: metal gets / it expands." },
+    { id: 14, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If you ______ (press) this button, the machine ______ (start).", trans: "Nếu bạn nhấn nút này, máy sẽ khởi động.", answer: ["press / starts", "press/starts"], fullAnswer: "press / starts", expl: "Cơ chế hoạt động: press / starts." },
+    { id: 15, sec: "A. Điều kiện loại 0", secId: "sec_a", original: "If people ______ (exercise) regularly, they ______ (feel) healthier.", trans: "Nếu mọi người tập thể dục đều đặn, họ thấy khỏe mạnh hơn.", answer: ["exercise / feel", "exercise/feel"], fullAnswer: "exercise / feel", expl: "Thực tế đời sống: exercise / feel." },
+
+    // B. Câu điều kiện loại 1
+    { id: 16, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If it ______ (rain) tomorrow, I ______ (stay) at home.", trans: "Nếu ngày mai trời mưa, tôi sẽ ở nhà.", answer: ["rains / will stay", "rains/will stay"], fullAnswer: "rains / will stay", expl: "Điều kiện loại 1 (có thật ở tương lai): If + Present Simple, S + will + V." },
+    { id: 17, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If I ______ (finish) my homework early, I ______ (watch) a movie.", trans: "Nếu tôi làm xong bài tập sớm, tôi sẽ xem phim.", answer: ["finish / will watch", "finish/will watch"], fullAnswer: "finish / will watch", expl: "If I finish, I will watch." },
+    { id: 18, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If she ______ (study) hard, she ______ (pass) the exam.", trans: "Nếu cô ấy học chăm chỉ, cô ấy sẽ đỗ kỳ thi.", answer: ["studies / will pass", "studies/will pass"], fullAnswer: "studies / will pass", expl: "Chủ ngữ 'she' chia studies / will pass." },
+    { id: 19, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If we ______ (leave) now, we ______ (arrive) on time.", trans: "Nếu chúng ta đi ngay bây giờ, chúng ta sẽ đến đúng giờ.", answer: ["leave / will arrive", "leave/will arrive"], fullAnswer: "leave / will arrive", expl: "leave / will arrive." },
+    { id: 20, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If they ______ (invite) me, I ______ (go) to the party.", trans: "Nếu họ mời tôi, tôi sẽ đến buổi tiệc.", answer: ["invite / will go", "invite/will go"], fullAnswer: "invite / will go", expl: "invite / will go." },
+    { id: 21, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If you ______ (not hurry), you ______ (miss) the bus.", trans: "Nếu bạn không nhanh lên, bạn sẽ nhỡ xe buýt.", answer: ["don't hurry / will miss", "do not hurry / will miss"], fullAnswer: "don't hurry / will miss", expl: "Vế If phủ định: don't hurry / will miss." },
+    { id: 22, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If he ______ (save) enough money, he ______ (buy) a new laptop.", trans: "Nếu anh ấy tiết kiệm đủ tiền, anh ấy sẽ mua laptop mới.", answer: ["saves / will buy", "saves/will buy"], fullAnswer: "saves / will buy", expl: "saves / will buy." },
+    { id: 23, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If the weather ______ (be) good tomorrow, we ______ (go) to the beach.", trans: "Nếu thời tiết đẹp vào ngày mai, chúng tôi sẽ đi biển.", answer: ["is / will go", "is/will go"], fullAnswer: "is / will go", expl: "To be ở hiện tại cho weather là 'is'." },
+    { id: 24, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If I ______ (see) Tom, I ______ (tell) him the news.", trans: "Nếu tôi gặp Tom, tôi sẽ báo tin cho anh ấy.", answer: ["see / will tell", "see/will tell"], fullAnswer: "see / will tell", expl: "see / will tell." },
+    { id: 25, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If she ______ (not feel) well, she ______ (stay) at home.", trans: "Nếu cô ấy không thấy khỏe, cô ấy sẽ ở nhà.", answer: ["doesn't feel / will stay", "does not feel / will stay"], fullAnswer: "doesn't feel / will stay", expl: "doesn't feel / will stay." },
+    { id: 26, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If you ______ (practice) every day, you ______ (improve) your English.", trans: "Nếu bạn luyện tập mỗi ngày, bạn sẽ cải thiện tiếng Anh.", answer: ["practice / will improve", "practise / will improve"], fullAnswer: "practice / will improve", expl: "practice / will improve." },
+    { id: 27, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If they ______ (arrive) early, we ______ (start) the meeting.", trans: "Nếu họ đến sớm, chúng ta sẽ bắt đầu cuộc họp.", answer: ["arrive / will start", "arrive/will start"], fullAnswer: "arrive / will start", expl: "arrive / will start." },
+    { id: 28, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If my parents ______ (give) me permission, I ______ (join) the trip.", trans: "Nếu bố mẹ cho phép, tôi sẽ tham gia chuyến đi.", answer: ["give / will join", "give/will join"], fullAnswer: "give / will join", expl: "give / will join." },
+    { id: 29, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If you ______ (not study), you ______ (not pass) the test.", trans: "Nếu bạn không học, bạn sẽ không đỗ bài kiểm tra.", answer: ["don't study / won't pass", "don't study / will not pass", "do not study / won't pass"], fullAnswer: "don't study / won't pass", expl: "don't study / won't pass." },
+    { id: 30, sec: "B. Điều kiện loại 1", secId: "sec_b", original: "If we ______ (have) enough time, we ______ (visit) the museum.", trans: "Nếu chúng ta có đủ thời gian, chúng ta sẽ thăm bảo tàng.", answer: ["have / will visit", "have/will visit"], fullAnswer: "have / will visit", expl: "have / will visit." },
+
+    // C. Will / can / may / should / must
+    { id: 31, sec: "C. Modal Verbs trong ĐK 1", secId: "sec_c", original: "If you finish your homework, you ______ (can / play) computer games.", trans: "Nếu làm xong bài tập, bạn có thể chơi game.", answer: ["can play"], fullAnswer: "can play", expl: "Sử dụng Động từ khuyết thiếu 'can play' ở vế chính." },
+    { id: 32, sec: "C. Modal Verbs trong ĐK 1", secId: "sec_c", original: "If she studies harder, she ______ (may / get) a better result.", trans: "Nếu học chăm hơn, cô ấy có thể đạt kết quả tốt hơn.", answer: ["may get"], fullAnswer: "may get", expl: "Sử dụng 'may get' thể hiện khả năng." },
+    { id: 33, sec: "C. Modal Verbs trong ĐK 1", secId: "sec_c", original: "If you feel sick, you ______ (should / see) a doctor.", trans: "Nếu thấy mệt, bạn nên đi khám bác sĩ.", answer: ["should see"], fullAnswer: "should see", expl: "Lời khuyên dùng 'should see'." },
+    { id: 34, sec: "C. Modal Verbs trong ĐK 1", secId: "sec_c", original: "If you want to improve your English, you ______ (must / practice) regularly.", trans: "Nếu muốn giỏi tiếng Anh, bạn phải luyện tập đều đặn.", answer: ["must practice", "must practise"], fullAnswer: "must practice", expl: "Sự bắt buộc/cần thiết dùng 'must practice'." },
+    { id: 35, sec: "C. Modal Verbs trong ĐK 1", secId: "sec_c", original: "If we leave early, we ______ (can / avoid) the traffic.", trans: "Nếu đi sớm, chúng ta có thể tránh tắc đường.", answer: ["can avoid"], fullAnswer: "can avoid", expl: "Khả năng xảy ra dùng 'can avoid'." },
+    { id: 36, sec: "C. Modal Verbs trong ĐK 1", secId: "sec_c", original: "If he works harder, he ______ (may / get) a promotion.", trans: "Nếu làm việc chăm hơn, anh ấy có thể được thăng tiến.", answer: ["may get"], fullAnswer: "may get", expl: "Khả năng trong tương lai dùng 'may get'." },
+    { id: 37, sec: "C. Modal Verbs trong ĐK 1", secId: "sec_c", original: "If you are tired, you ______ (should / take) a break.", trans: "Nếu bạn mệt, bạn nên nghỉ ngơi.", answer: ["should take"], fullAnswer: "should take", expl: "Lời khuyên dùng 'should take'." },
+    { id: 38, sec: "C. Modal Verbs trong ĐK 1", secId: "sec_c", original: "If they arrive late, they ______ (might / miss) the beginning of the meeting.", trans: "Nếu họ đến muộn, họ có thể bỏ lỡ phần đầu cuộc họp.", answer: ["might miss"], fullAnswer: "might miss", expl: "Khả năng dùng 'might miss'." },
+
+    // D. Câu điều kiện loại 2
+    { id: 39, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If I ______ (have) more free time, I ______ (learn) another language.", trans: "Nếu tôi có nhiều thời gian rảnh hơn (hiện tại không có), tôi sẽ học ngoại ngữ khác.", answer: ["had / would learn", "had/would learn"], fullAnswer: "had / would learn", expl: "Điều kiện loại 2 (trái với hiện tại): If + Past Simple, S + would + V." },
+    { id: 40, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If I ______ (be) rich, I ______ (travel) around the world.", trans: "Nếu tôi giàu, tôi sẽ đi du lịch vòng quanh thế giới.", answer: ["were / would travel", "was / would travel"], fullAnswer: "were / would travel", expl: "Loại 2 dùng 'were' cho tất cả các ngôi." },
+    { id: 41, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If she ______ (live) near the beach, she ______ (go) swimming every day.", trans: "Nếu cô ấy sống gần biển, cô ấy sẽ đi bơi hàng ngày.", answer: ["lived / would go", "lived/would go"], fullAnswer: "lived / would go", expl: "lived / would go." },
+    { id: 42, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If we ______ (have) a bigger house, we ______ (invite) more friends.", trans: "Nếu chúng tôi có nhà rộng hơn, chúng tôi sẽ mời nhiều bạn hơn.", answer: ["had / would invite", "had/would invite"], fullAnswer: "had / would invite", expl: "had / would invite." },
+    { id: 43, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If he ______ (know) the answer, he ______ (tell) us.", trans: "Nếu anh ấy biết câu trả lời, anh ấy sẽ nói cho chúng ta.", answer: ["knew / would tell", "knew/would tell"], fullAnswer: "knew / would tell", expl: "knew / would tell." },
+    { id: 44, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If I ______ (be) you, I ______ (study) harder.", trans: "Nếu tôi là bạn, tôi sẽ học chăm chỉ hơn.", answer: ["were / would study", "was / would study"], fullAnswer: "were / would study", expl: "Cấu trúc đưa ra lời khuyên: If I were you, I would..." },
+    { id: 45, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If they ______ (have) enough money, they ______ (buy) a new car.", trans: "Nếu họ có đủ tiền, họ sẽ mua xe mới.", answer: ["had / would buy", "had/would buy"], fullAnswer: "had / would buy", expl: "had / would buy." },
+    { id: 46, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If she ______ (speak) English fluently, she ______ (apply) for that job.", trans: "Nếu cô ấy nói tiếng Anh lưu trát, cô ấy sẽ ứng tuyển công việc đó.", answer: ["spoke / would apply", "spoke/would apply"], fullAnswer: "spoke / would apply", expl: "spoke / would apply." },
+    { id: 47, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If I ______ (live) in Hanoi, I ______ (visit) museums more often.", trans: "Nếu tôi sống ở Hà Nội, tôi sẽ đi thăm bảo tàng thường xuyên hơn.", answer: ["lived / would visit", "lived/would visit"], fullAnswer: "lived / would visit", expl: "lived / would visit." },
+    { id: 48, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If we ______ (not have) to work tomorrow, we ______ (go) camping.", trans: "Nếu ngày mai chúng tôi không phải đi làm, chúng tôi sẽ đi cắm trại.", answer: ["didn't have / would go", "did not have / would go"], fullAnswer: "didn't have / would go", expl: "Phủ định quá khứ đơn dùng didn't have." },
+    { id: 49, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If he ______ (be) taller, he ______ (play) basketball.", trans: "Nếu anh ấy cao hơn, anh ấy sẽ chơi bóng rổ.", answer: ["were / would play", "was / would play"], fullAnswer: "were / would play", expl: "were / would play." },
+    { id: 50, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If I ______ (know) how to cook, I ______ (make) dinner for my family.", trans: "Nếu tôi biết nấu ăn, tôi sẽ nấu bữa tối cho gia đình.", answer: ["knew / would make", "knew/would make"], fullAnswer: "knew / would make", expl: "knew / would make." },
+    { id: 51, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If you ______ (have) one million dollars, what ______ you ______ (do)?", trans: "Nếu bạn có 1 triệu đô, bạn sẽ làm gì?", answer: ["had / would / do", "had/would/do"], fullAnswer: "had / would / do", expl: "Câu hỏi ĐK2: If + S + V2, what + would + S + V?" },
+    { id: 52, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "Where ______ you ______ (go) if you ______ (have) a free month?", trans: "Bạn sẽ đi đâu nếu bạn có 1 tháng rảnh rỗi?", answer: ["would / go / had", "would/go/had"], fullAnswer: "would / go / had", expl: "Where would you go if you had..." },
+    { id: 53, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "What ______ she ______ (buy) if she ______ (win) the lottery?", trans: "Cô ấy sẽ mua gì nếu cô ấy trúng số?", answer: ["would / buy / won", "would/buy/won"], fullAnswer: "would / buy / won", expl: "What would she buy if she won..." },
+    { id: 54, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If I ______ (not be) so busy, I ______ (spend) more time with my family.", trans: "Nếu tôi không quá bận, tôi sẽ dành nhiều thời gian hơn cho gia đình.", answer: ["weren't / would spend", "wasn't / would spend", "were not / would spend"], fullAnswer: "weren't / would spend", expl: "weren't / would spend." },
+    { id: 55, sec: "D. Điều kiện loại 2", secId: "sec_d", original: "If we ______ (live) in the countryside, we ______ (have) a quieter life.", trans: "Nếu sống ở nông thôn, chúng tôi sẽ có cuộc sống yên bình hơn.", answer: ["lived / would have", "lived/would have"], fullAnswer: "lived / would have", expl: "lived / would have." },
+
+    // E. Câu điều kiện loại 3
+    { id: 56, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If I ______ (study) harder, I ______ (pass) the exam.", trans: "Nếu tôi đã học chăm hơn (trong quá khứ), tôi đã đỗ kỳ thi.", answer: ["had studied / would have passed", "had studied/would have passed"], fullAnswer: "had studied / would have passed", expl: "Trái ngược quá khứ (ĐK3): If + Had + V3, S + would have + V3." },
+    { id: 57, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If she ______ (leave) earlier, she ______ (catch) the bus.", trans: "Nếu cô ấy bắt đầu đi sớm hơn, cô ấy đã kịp chuyến xe buýt.", answer: ["had left / would have caught", "had left/would have caught"], fullAnswer: "had left / would have caught", expl: "had left / would have caught." },
+    { id: 58, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If we ______ (know) about the problem, we ______ (help) you.", trans: "Nếu chúng tôi biết về sự cố đó, chúng tôi đã giúp bạn.", answer: ["had known / would have helped", "had known/would have helped"], fullAnswer: "had known / would have helped", expl: "had known / would have helped." },
+    { id: 59, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If he ______ (not forget) his passport, he ______ (be able to) travel.", trans: "Nếu anh ấy không quên hộ chiếu, anh ấy đã có thể đi du lịch.", answer: ["hadn't forgotten / would have been able to", "had not forgotten / would have been able to"], fullAnswer: "hadn't forgotten / would have been able to", expl: "hadn't forgotten / would have been able to." },
+    { id: 60, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If they ______ (book) earlier, they ______ (get) cheaper tickets.", trans: "Nếu họ đặt vé sớm hơn, họ đã mua được vé rẻ hơn.", answer: ["had booked / would have got", "had booked / would have gotten"], fullAnswer: "had booked / would have got", expl: "had booked / would have got(ten)." },
+    { id: 61, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If I ______ (wake) up earlier, I ______ (not miss) the train.", trans: "Nếu tôi thức dậy sớm hơn, tôi đã không lỡ chuyến tàu.", answer: ["had woken / wouldn't have missed", "had waked / wouldn't have missed", "had woken / would not have missed"], fullAnswer: "had woken / wouldn't have missed", expl: "had woken / wouldn't have missed." },
+    { id: 62, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If she ______ (study) English before, she ______ (have) a better job.", trans: "Nếu cô ấy học tiếng Anh trước đó, cô ấy đã có công việc tốt hơn.", answer: ["had studied / would have had", "had studied/would have had"], fullAnswer: "had studied / would have had", expl: "had studied / would have had." },
+    { id: 63, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If we ______ (take) a taxi, we ______ (arrive) on time.", trans: "Nếu chúng tôi đi taxi, chúng tôi đã đến đúng giờ.", answer: ["had taken / would have arrived", "had taken/would have arrived"], fullAnswer: "had taken / would have arrived", expl: "had taken / would have arrived." },
+    { id: 64, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If he ______ (listen) to the teacher, he ______ (understand) the lesson.", trans: "Nếu anh ấy lắng nghe giáo viên, anh ấy đã hiểu bài.", answer: ["had listened / would have understood", "had listened/would have understood"], fullAnswer: "had listened / would have understood", expl: "had listened / would have understood." },
+    { id: 65, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If you ______ (tell) me earlier, I ______ (help) you.", trans: "Nếu bạn nói với tôi sớm hơn, tôi đã giúp bạn rồi.", answer: ["had told / would have helped", "had told/would have helped"], fullAnswer: "had told / would have helped", expl: "had told / would have helped." },
+    { id: 66, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If they ______ (not spend) so much money, they ______ (save) more.", trans: "Nếu họ không tiêu quá nhiều tiền, họ đã tiết kiệm được nhiều hơn.", answer: ["hadn't spent / would have saved", "had not spent / would have saved"], fullAnswer: "hadn't spent / would have saved", expl: "hadn't spent / would have saved." },
+    { id: 67, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If I ______ (know) the truth, I ______ (not make) that decision.", trans: "Nếu tôi biết sự thật, tôi đã không đưa ra quyết định đó.", answer: ["had known / wouldn't have made", "had known / would not have made"], fullAnswer: "had known / wouldn't have made", expl: "had known / wouldn't have made." },
+    { id: 68, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If she ______ (prepare) better, she ______ (do) better in the interview.", trans: "Nếu cô ấy chuẩn bị tốt hơn, cô ấy đã làm tốt hơn ở buổi phỏng vấn.", answer: ["had prepared / would have done", "had prepared/would have done"], fullAnswer: "had prepared / would have done", expl: "had prepared / would have done." },
+    { id: 69, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If we ______ (not take) the wrong road, we ______ (arrive) earlier.", trans: "Nếu không đi nhầm đường, chúng tôi đã đến sớm hơn.", answer: ["hadn't taken / would have arrived", "had not taken / would have arrived"], fullAnswer: "hadn't taken / would have arrived", expl: "hadn't taken / would have arrived." },
+    { id: 70, sec: "E. Điều kiện loại 3", secId: "sec_e", original: "If he ______ (follow) the instructions, he ______ (not make) that mistake.", trans: "Nếu anh ấy làm theo hướng dẫn, anh ấy đã không mắc lỗi đó.", answer: ["had followed / wouldn't have made", "had followed / would not have made"], fullAnswer: "had followed / wouldn't have made", expl: "had followed / wouldn't have made." },
+
+    // F. Viết lại câu
+    { id: 71, sec: "F. Viết lại câu", secId: "sec_f", original: "I don't have enough money, so I can't buy a new laptop.", trans: "Tôi không có đủ tiền nên không thể mua laptop mới.", answer: ["had enough money, I could buy a new laptop", "had enough money, I would buy a new laptop"], fullAnswer: "If I had enough money, I could buy a new laptop.", expl: "Tình huống hiện tại -> Dùng ĐK loại 2." },
+    { id: 72, sec: "F. Viết lại câu", secId: "sec_f", original: "She doesn't study hard, so she doesn't get good grades.", trans: "Cô ấy không học chăm nên không đạt điểm cao.", answer: ["studied hard, she would get good grades"], fullAnswer: "If she studied hard, she would get good grades.", expl: "Hiện tại -> ĐK loại 2." },
+    { id: 73, sec: "F. Viết lại câu", secId: "sec_f", original: "I am not you, so I can't give you the best advice.", trans: "Tôi không phải bạn nên tôi không thể cho bạn lời khuyên tốt nhất.", answer: ["were you, I could give you the best advice", "were you, I would give you the best advice"], fullAnswer: "If I were you, I could give you the best advice.", expl: "Khuyên nhủ / Giả định hiện tại -> ĐK loại 2." },
+    { id: 74, sec: "F. Viết lại câu", secId: "sec_f", original: "He doesn't live near the beach, so he can't go swimming every day.", trans: "Anh ấy không sống gần biển nên không thể đi bơi hàng ngày.", answer: ["lived near the beach, he could go swimming every day"], fullAnswer: "If he lived near the beach, he could go swimming every day.", expl: "Hiện tại -> ĐK loại 2." },
+    { id: 75, sec: "F. Viết lại câu", secId: "sec_f", original: "We didn't leave early, so we missed the train.", trans: "Chúng tôi đã không đi sớm nên đã trễ chuyến tàu.", answer: ["had left early, we wouldn't have missed the train", "had left early, we would not have missed the train"], fullAnswer: "If we had left early, we wouldn't have missed the train.", expl: "Tình huống quá khứ -> Dùng ĐK loại 3." },
+    { id: 76, sec: "F. Viết lại câu", secId: "sec_f", original: "She didn't study for the exam, so she failed it.", trans: "Cô ấy không học cho kỳ thi nên đã trượt.", answer: ["had studied for the exam, she wouldn't have failed it", "had studied for the exam, she would have passed it"], fullAnswer: "If she had studied for the exam, she wouldn't have failed it.", expl: "Quá khứ -> ĐK loại 3." },
+    { id: 77, sec: "F. Viết lại câu", secId: "sec_f", original: "I forgot my umbrella, so I got wet.", trans: "Tôi quên ô nên bị ướt.", answer: ["hadn't forgotten my umbrella, I wouldn't have got wet", "hadn't forgotten my umbrella, I wouldn't have gotten wet"], fullAnswer: "If I hadn't forgotten my umbrella, I wouldn't have got wet.", expl: "Quá khứ -> ĐK loại 3." },
+    { id: 78, sec: "F. Viết lại câu", secId: "sec_f", original: "They didn't book the hotel early, so they couldn't get a good room.", trans: "Họ không đặt khách sạn sớm nên không lấy được phòng tốt.", answer: ["had booked the hotel early, they could have got a good room", "had booked the hotel early, they could have gotten a good room"], fullAnswer: "If they had booked the hotel early, they could have got a good room.", expl: "Quá khứ -> ĐK loại 3." },
+    { id: 79, sec: "F. Viết lại câu", secId: "sec_f", original: "I don't know her phone number, so I can't call her.", trans: "Tôi không biết số điện thoại cô ấy nên không thể gọi.", answer: ["knew her phone number, I could call her", "knew her phone number, I would call her"], fullAnswer: "If I knew her phone number, I could call her.", expl: "Hiện tại -> ĐK loại 2." },
+    { id: 80, sec: "F. Viết lại câu", secId: "sec_f", original: "He isn't rich, so he can't travel around the world.", trans: "Anh ấy không giàu nên không thể đi du lịch thế giới.", answer: ["were rich, he could travel around the world", "was rich, he could travel around the world"], fullAnswer: "If he were rich, he could travel around the world.", expl: "Hiện tại -> ĐK loại 2." },
+
+    // G. Chọn loại câu điều kiện phù hợp
+    { id: 81, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If you heat ice, it ______ (melt).", trans: "Nếu bạn đun nóng băng, nó sẽ tan.", answer: ["melts"], fullAnswer: "melts", expl: "Sự thật tự nhiên -> ĐK 0 (melts)." },
+    { id: 82, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If I have enough money next year, I ______ (buy) a new computer.", trans: "Nếu năm tới tôi có đủ tiền, tôi sẽ mua máy tính mới.", answer: ["will buy"], fullAnswer: "will buy", expl: "Có thể xảy ra trong tương lai (next year) -> ĐK 1." },
+    { id: 83, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If I ______ (be) you, I would talk to the teacher.", trans: "Nếu tôi là bạn, tôi sẽ nói chuyện với giáo viên.", answer: ["were", "was"], fullAnswer: "were", expl: "Vế chính là 'would talk' -> ĐK 2 (were)." },
+    { id: 84, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If she had left earlier, she ______ (not miss) the bus.", trans: "Nếu cô ấy đã rời đi sớm hơn, cô ấy đã không nhỡ buýt.", answer: ["wouldn't have missed", "would not have missed"], fullAnswer: "wouldn't have missed", expl: "Vế If là 'had left' (quá khứ hoàn thành) -> ĐK 3 (wouldn't have missed)." },
+    { id: 85, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If people don't eat, they ______ (become) hungry.", trans: "Nếu người ta không ăn, họ sẽ đói.", answer: ["become"], fullAnswer: "become", expl: "Sự thật sinh lý -> ĐK 0 (become)." },
+    { id: 86, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If it rains tomorrow, we ______ (not go) camping.", trans: "Nếu ngày mai trời mưa, chúng tôi sẽ không đi cắm trại.", answer: ["won't go", "will not go"], fullAnswer: "won't go", expl: "Dự đoán tương lai -> ĐK 1 (won't go)." },
+    { id: 87, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If I ______ (have) more time, I would learn to play the guitar.", trans: "Nếu tôi có nhiều thời gian hơn, tôi sẽ học đàn guitar.", answer: ["had"], fullAnswer: "had", expl: "Vế chính có 'would learn' -> ĐK 2 (had)." },
+    { id: 88, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If they had studied harder, they ______ (pass) the exam.", trans: "Nếu họ học chăm hơn, họ đã đỗ kỳ thi rồi.", answer: ["would have passed"], fullAnswer: "would have passed", expl: "Vế If là 'had studied' -> ĐK 3 (would have passed)." },
+    { id: 89, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If you press this button, the machine ______ (start).", trans: "Nếu bạn ấn nút này, máy sẽ chạy.", answer: ["starts"], fullAnswer: "starts", expl: "Sự thật cơ khí -> ĐK 0 (starts)." },
+    { id: 90, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If he studies hard, he ______ (get) a good grade.", trans: "Nếu anh ấy học chăm, anh ấy sẽ đạt điểm cao.", answer: ["will get"], fullAnswer: "will get", expl: "Vế If là hiện tại 'studies' -> ĐK 1 (will get)." },
+    { id: 91, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If I ______ (live) abroad, I would learn about a new culture.", trans: "Nếu sống ở nước ngoài, tôi sẽ tìm hiểu văn hóa mới.", answer: ["lived"], fullAnswer: "lived", expl: "Vế chính 'would learn' -> ĐK 2 (lived)." },
+    { id: 92, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If we had taken a taxi, we ______ (arrive) earlier.", trans: "Nếu chúng tôi đi taxi, chúng tôi đã tới sớm hơn.", answer: ["would have arrived"], fullAnswer: "would have arrived", expl: "ĐK 3 (would have arrived)." },
+    { id: 93, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If plants don't get water, they ______ (die).", trans: "Nếu cây không có nước, chúng sẽ chết.", answer: ["die"], fullAnswer: "die", expl: "Sự thật hiển nhiên -> ĐK 0 (die)." },
+    { id: 94, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If she ______ (have) enough money, she would buy a new house.", trans: "Nếu cô ấy có đủ tiền, cô ấy sẽ mua nhà mới.", answer: ["had"], fullAnswer: "had", expl: "Vế chính 'would buy' -> ĐK 2 (had)." },
+    { id: 95, sec: "G. Chọn loại ĐK phù hợp", secId: "sec_g", original: "If you don't hurry, you ______ (miss) the bus.", trans: "Nếu không nhanh lên, bạn sẽ lỡ buýt.", answer: ["will miss"], fullAnswer: "will miss", expl: "ĐK 1 (will miss)." },
+
+    // H. Tổng hợp 4 loại câu điều kiện
+    { id: 96, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If I ______ (have) more money, I would travel around the world.", trans: "Nếu tôi có nhiều tiền hơn, tôi sẽ đi du lịch thế giới.", answer: ["had"], fullAnswer: "had", expl: "ĐK 2: Vế chính 'would travel'." },
+    { id: 97, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If you ______ (heat) water to 100°C, it boils.", trans: "Nếu đun nước đến 100°C, nó sôi.", answer: ["heat"], fullAnswer: "heat", expl: "ĐK 0: Vế chính 'boils'." },
+    { id: 98, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If she studies hard, she ______ (pass) the exam.", trans: "Nếu cô ấy học chăm, cô ấy sẽ đỗ.", answer: ["will pass"], fullAnswer: "will pass", expl: "ĐK 1: Vế If 'studies'." },
+    { id: 99, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If they had arrived earlier, they ______ (see) the beginning of the show.", trans: "Nếu họ đến sớm hơn, họ đã xem được phần đầu chương trình.", answer: ["would have seen"], fullAnswer: "would have seen", expl: "ĐK 3: Vế If 'had arrived'." },
+    { id: 100, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If I ______ (be) you, I would accept the offer.", trans: "Nếu tôi là bạn, tôi sẽ nhận lời đề nghị.", answer: ["were", "was"], fullAnswer: "were", expl: "ĐK 2 khuyên nhủ." },
+    { id: 101, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If you don't water plants, they ______ (die).", trans: "Nếu không tưới cây, chúng chết.", answer: ["die"], fullAnswer: "die", expl: "ĐK 0." },
+    { id: 102, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If we leave now, we ______ (arrive) before 7 p.m.", trans: "Nếu đi bây giờ, chúng ta sẽ đến trước 7 giờ tối.", answer: ["will arrive"], fullAnswer: "will arrive", expl: "ĐK 1." },
+    { id: 103, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If he ______ (know) the answer, he would tell us.", trans: "Nếu anh ấy biết đáp án, anh ấy sẽ nói cho chúng ta.", answer: ["knew"], fullAnswer: "knew", expl: "ĐK 2." },
+    { id: 104, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If she had listened carefully, she ______ (not make) that mistake.", trans: "Nếu lắng nghe cẩn thận, cô ấy đã không mắc sai lầm đó.", answer: ["wouldn't have made", "would not have made"], fullAnswer: "wouldn't have made", expl: "ĐK 3." },
+    { id: 105, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If you mix red and blue, you ______ (get) purple.", trans: "Pha đỏ và xanh dương sẽ được màu tím.", answer: ["get"], fullAnswer: "get", expl: "ĐK 0." },
+    { id: 106, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If I have time tonight, I ______ (call) you.", trans: "Nếu tối nay rảnh, tôi sẽ gọi cho bạn.", answer: ["will call"], fullAnswer: "will call", expl: "ĐK 1." },
+    { id: 107, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If he ______ (have) a car, he would drive to work.", trans: "Nếu có xe hơi, anh ấy sẽ lái đi làm.", answer: ["had"], fullAnswer: "had", expl: "ĐK 2." },
+    { id: 108, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If they had booked the tickets earlier, they ______ (pay) less.", trans: "Nếu đặt vé sớm hơn, họ đã trả ít tiền hơn.", answer: ["would have paid"], fullAnswer: "would have paid", expl: "ĐK 3." },
+    { id: 109, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If people exercise regularly, they ______ (feel) healthier.", trans: "Nếu tập thể dục thường xuyên, người ta thấy khỏe hơn.", answer: ["feel"], fullAnswer: "feel", expl: "ĐK 0." },
+    { id: 110, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If the weather is good tomorrow, we ______ (go) to the beach.", trans: "Nếu thời tiết đẹp ngày mai, chúng tôi sẽ đi biển.", answer: ["will go"], fullAnswer: "will go", expl: "ĐK 1." },
+    { id: 111, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If I ______ (know) about the meeting yesterday, I would have attended it.", trans: "Nếu biết về cuộc họp hôm qua, tôi đã tham dự.", answer: ["had known"], fullAnswer: "had known", expl: "ĐK 3 (quá khứ)." },
+    { id: 112, sec: "H. Tổng hợp 4 loại", secId: "sec_h", original: "If she were more confident, she ______ (speak) English more often.", trans: "Nếu tự tin hơn, cô ấy sẽ nói tiếng Anh thường xuyên hơn.", answer: ["would speak"], fullAnswer: "would speak", expl: "ĐK 2." },
+
+    // I. Viết câu theo tình huống
+    { id: 113, sec: "I. Viết câu theo tình huống", secId: "sec_i", original: "You don't have enough money. You want to buy a new laptop.", trans: "Bạn không có đủ tiền. Bạn muốn mua laptop mới.", answer: ["had enough money, I would buy a new laptop", "had enough money, I could buy a new laptop"], fullAnswer: "If I had enough money, I would buy a new laptop.", expl: "Tình huống giả định ở hiện tại -> Dùng ĐK loại 2." },
+    { id: 114, sec: "I. Viết câu theo tình huống", secId: "sec_i", original: "Your friend didn't study. He failed the exam.", trans: "Bạn bạn đã không học. Anh ấy trượt kỳ thi.", answer: ["had studied, he wouldn't have failed the exam", "had studied, he would have passed the exam"], fullAnswer: "If he had studied, he wouldn't have failed the exam.", expl: "Tình huống quá khứ -> Dùng ĐK loại 3." },
+    { id: 115, sec: "I. Viết câu theo tình huống", secId: "sec_i", original: "You are giving advice to your friend about studying English.", trans: "Bạn đang cho bạn mình lời khuyên về việc học tiếng Anh.", answer: ["were you, I would study English every day", "were you, I would practice English more"], fullAnswer: "If I were you, I would study English every day.", expl: "Đưa ra lời khuyên -> If I were you, I would..." },
+    { id: 116, sec: "I. Viết câu theo tình huống", secId: "sec_i", original: "It may rain tomorrow. You will stay at home if it rains.", trans: "Ngày mai trời có thể mưa. Bạn sẽ ở nhà nếu mưa.", answer: ["rains tomorrow, I will stay at home"], fullAnswer: "If it rains tomorrow, I will stay at home.", expl: "Khả năng tương lai -> Dùng ĐK loại 1." },
+    { id: 117, sec: "I. Viết câu theo tình huống", secId: "sec_i", original: "You heat ice. It becomes water.", trans: "Bạn đun nóng băng. Nó thành nước.", answer: ["heat ice, it becomes water", "heat ice, it turns into water"], fullAnswer: "If you heat ice, it becomes water.", expl: "Sự thật hiển nhiên -> Dùng ĐK loại 0." },
+    { id: 118, sec: "I. Viết câu theo tình huống", secId: "sec_i", original: "Your friend didn't leave early. He missed the train.", trans: "Bạn bạn đã không đi sớm. Anh ấy lỡ chuyến tàu.", answer: ["had left early, he wouldn't have missed the train"], fullAnswer: "If he had left early, he wouldn't have missed the train.", expl: "Sự việc trong quá khứ -> Dùng ĐK loại 3." },
+    { id: 119, sec: "I. Viết câu theo tình huống", secId: "sec_i", original: "You want to describe an unreal situation: you are not rich, but you imagine being rich.", trans: "Bạn giả định: Bạn không giàu, nhưng bạn tưởng tượng mình giàu.", answer: ["were rich, I would travel the world", "were rich, I would buy a big house"], fullAnswer: "If I were rich, I would travel around the world.", expl: "Giả định không thật ở hiện tại -> Dùng ĐK loại 2." },
+    { id: 120, sec: "I. Viết câu theo tình huống", secId: "sec_i", original: "You want to describe a general scientific fact about water.", trans: "Mô tả sự thật khoa học về nước (đun sôi ở 100°C).", answer: ["reaches 100°C, it boils", "is heated to 100°C, it boils"], fullAnswer: "If water reaches 100°C, it boils.", expl: "Sự thật khoa học -> Dùng ĐK loại 0." }
 ];
 
-let userState = {}; 
-let totalQuestions = 0;
+let userResults = {}; 
+let currentFilter = "all";
 
-function getTotalQuestionsCount() {
-    let count = 0;
-    exercises.forEach(sec => count += sec.items.length);
-    return count;
+function renderFilters() {
+    const categories = [
+        { id: "all", name: `Tất cả (${questionsData.length} câu)` },
+        { id: "sec_a", name: "A. Điều kiện L0" },
+        { id: "sec_b", name: "B. Điều kiện L1" },
+        { id: "sec_c", name: "C. Modal Verbs" },
+        { id: "sec_d", name: "D. Điều kiện L2" },
+        { id: "sec_e", name: "E. Điều kiện L3" },
+        { id: "sec_f", name: "F. Viết lại câu" },
+        { id: "sec_g", name: "G. Chọn loại ĐK" },
+        { id: "sec_h", name: "H. Tổng hợp" },
+        { id: "sec_i", name: "I. Theo tình huống" }
+    ];
+
+    const filterBar = document.getElementById("filter-bar");
+    filterBar.innerHTML = "";
+
+    categories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.className = `filter-btn ${currentFilter === cat.id ? 'active' : ''}`;
+        btn.innerText = cat.name;
+        btn.onclick = () => {
+            currentFilter = cat.id;
+            renderFilters();
+            renderQuestions();
+        };
+        filterBar.appendChild(btn);
+    });
 }
 
-function renderExercises() {
-    const container = document.getElementById("exercise-container");
-    container.innerHTML = "";
-    totalQuestions = getTotalQuestionsCount();
+function renderQuestions() {
+    const list = document.getElementById("questions-list");
+    list.innerHTML = "";
 
-    let globalIndex = 0;
+    const filtered = currentFilter === "all" 
+        ? questionsData 
+        : questionsData.filter(q => q.secId === currentFilter);
 
-    exercises.forEach((sec) => {
-        const secTitle = document.createElement("div");
-        secTitle.className = "section-title";
-        secTitle.innerText = sec.section;
-        container.appendChild(secTitle);
+    filtered.forEach(q => {
+        const state = userResults[q.id] || { done: false, isCorrect: false, userVal: "" };
+        const card = document.createElement("div");
+        card.className = "question-card";
 
-        sec.items.forEach((item) => {
-            const qId = "q_" + globalIndex;
-            const itemDiv = document.createElement("div");
-            itemDiv.className = "exercise-item";
-            itemDiv.id = "item_" + qId;
+        let resultClass = "";
+        if (state.done) {
+            resultClass = state.isCorrect ? "correct" : "wrong";
+        }
 
-            const state = userState[qId] || { opened: false, status: null };
+        card.innerHTML = `
+            <div class="tag-sec">${q.sec}</div>
+            <div class="q-original">Câu ${q.id}: ${q.original}</div>
+            <div class="q-trans">🌐 Dịch: "${q.trans}"</div>
+            
+            <div class="input-group">
+                <input type="text" 
+                       class="q-input ${resultClass}" 
+                       id="input_${q.id}" 
+                       placeholder="Nhập từ/cụm từ chia động từ hoặc câu điền tiếp..." 
+                       value="${state.userVal}"
+                       onkeydown="handleKeyDown(event, ${q.id})"
+                       ${state.done ? 'readonly' : ''} />
+                
+                <button class="btn-retry" onclick="retryQuestion(${q.id})">
+                    ↺ Thử lại
+                </button>
+            </div>
 
-            let statusText = "";
-            if (state.status === 'correct') statusText = '<span class="status-badge correct">✓ Đúng</span>';
-            if (state.status === 'wrong') statusText = '<span class="status-badge wrong">✗ Sai</span>';
-
-            itemDiv.innerHTML = `
-                <div class="question-box" onclick="toggleItem('${qId}')">
-                    <div class="q-text">${item.q} ${statusText}</div>
-                    <div class="icon">▼</div>
+            <div class="result-box ${resultClass}" id="result_${q.id}">
+                <div class="result-status">
+                    ${state.isCorrect ? '✔ Chính xác!' : '✖ Chưa chính xác!'}
                 </div>
-                <div class="answer-box">
-                    <span class="tag ${item.typeClass}">${item.type}</span>
-                    <div class="answer-text">Đáp án: ${item.ans}</div>
-                    <div class="translation">Dịch nghĩa: ${item.trans}</div>
-                    <div class="explanation"><strong>Giải thích:</strong> ${item.expl}</div>
-                    <div class="tip-box"><strong>Mẹo:</strong> ${item.tip}</div>
-                    <div class="check-actions">
-                        <span>Đánh dấu tự ôn tập:</span>
-                        <button class="btn-status btn-correct" onclick="setStatus('${qId}', 'correct', event)">Làm đúng</button>
-                        <button class="btn-status btn-wrong" onclick="setStatus('${qId}', 'wrong', event)">Làm sai</button>
-                    </div>
-                </div>
-            `;
-            container.appendChild(itemDiv);
-            globalIndex++;
-        });
+                <div class="ans-reference-title">Đáp án tham khảo:</div>
+                <div class="ans-reference">${q.fullAnswer}</div>
+                <div class="expl-text"><strong>Giải thích:</strong> ${q.expl}</div>
+            </div>
+        `;
+        list.appendChild(card);
     });
 
     updateStats();
 }
 
-function toggleItem(qId) {
-    const itemDiv = document.getElementById("item_" + qId);
-    itemDiv.classList.toggle("active");
-
-    if (!userState[qId]) {
-        userState[qId] = { opened: true, status: null };
-    } else {
-        userState[qId].opened = true;
-    }
-
-    updateStats();
+// Chuẩn hóa văn bản để so sánh đáp án mềm dẻo hơn
+function normalizeString(str) {
+    return str.trim()
+              .toLowerCase()
+              .replace(/\s+/g, ' ')
+              .replace(/[.,!?;:'"’]/g, "");
 }
 
-function setStatus(qId, status, event) {
-    event.stopPropagation();
-    if (!userState[qId]) {
-        userState[qId] = { opened: true, status: status };
-    } else {
-        userState[qId].status = status;
-        userState[qId].opened = true;
+function handleKeyDown(event, id) {
+    if (event.key === "Enter") {
+        submitQuestion(id);
     }
-    renderExercises();
+}
+
+function submitQuestion(id) {
+    const inputEl = document.getElementById(`input_${id}`);
+    if (!inputEl) return;
+
+    const userVal = inputEl.value;
+    if (!userVal.trim()) return;
+
+    const q = questionsData.find(item => item.id === id);
+    if (!q) return;
+
+    const cleanUser = normalizeString(userVal);
     
-    // Mở lại câu vừa chọn
-    const itemDiv = document.getElementById("item_" + qId);
-    if (itemDiv) itemDiv.classList.add("active");
+    // Kiểm tra trùng khớp với bất kỳ đáp án chấp nhận nào trong mảng answer
+    const isCorrect = q.answer.some(ans => normalizeString(ans) === cleanUser);
+
+    userResults[id] = {
+        done: true,
+        isCorrect: isCorrect,
+        userVal: userVal
+    };
+
+    renderQuestions();
+}
+
+function retryQuestion(id) {
+    delete userResults[id];
+    renderQuestions();
+    setTimeout(() => {
+        const inputEl = document.getElementById(`input_${id}`);
+        if (inputEl) inputEl.focus();
+    }, 50);
 }
 
 function updateStats() {
-    let openedCount = 0;
+    const total = questionsData.length;
+    let doneCount = 0;
     let correctCount = 0;
-    let assessedCount = 0;
 
-    Object.keys(userState).forEach(qId => {
-        if (userState[qId].opened) openedCount++;
-        if (userState[qId].status === 'correct') {
-            correctCount++;
-            assessedCount++;
-        } else if (userState[qId].status === 'wrong') {
-            assessedCount++;
+    Object.keys(userResults).forEach(id => {
+        if (userResults[id].done) {
+            doneCount++;
+            if (userResults[id].isCorrect) {
+                correctCount++;
+            }
         }
     });
 
-    const doneCount = Math.max(openedCount, assessedCount);
-    const accuracy = assessedCount > 0 ? Math.round((correctCount / assessedCount) * 100) : 0;
-    const progressPercent = totalQuestions > 0 ? Math.round((doneCount / totalQuestions) * 100) : 0;
+    const accuracy = doneCount > 0 ? Math.round((correctCount / doneCount) * 100) : 0;
+    const progressPercent = total > 0 ? Math.round((doneCount / total) * 100) : 0;
 
-    document.getElementById("stat-done").innerText = `${doneCount} / ${totalQuestions}`;
+    document.getElementById("stat-done").innerText = `${doneCount} / ${total}`;
     document.getElementById("stat-correct").innerText = correctCount;
     document.getElementById("stat-accuracy").innerText = `${accuracy}%`;
     document.getElementById("stat-percent").innerText = `${progressPercent}%`;
     document.getElementById("progress-bar").style.width = `${progressPercent}%`;
 }
 
-function resetTracking() {
-    if (confirm("Bạn có chắc chắn muốn xóa tiến trình và làm lại từ đầu?")) {
-        userState = {};
-        renderExercises();
+function resetAll() {
+    if (confirm("Bạn có chắc chắn muốn xóa tiến trình làm bài và bắt đầu lại từ đầu?")) {
+        userResults = {};
+        renderQuestions();
     }
 }
 
-function toggleAll() {
-    const allItems = document.querySelectorAll(".exercise-item");
-    const anyActive = Array.from(allItems).some(item => item.classList.contains("active"));
-
-    allItems.forEach((item, idx) => {
-        const qId = "q_" + idx;
-        if (!userState[qId]) userState[qId] = { opened: true, status: null };
-        else userState[qId].opened = true;
-
-        if (anyActive) {
-            item.classList.remove("active");
-        } else {
-            item.classList.add("active");
-        }
-    });
-
-    updateStats();
-}
-
-// Khởi chạy
-renderExercises();
+// KHỞI CHẠY
+renderFilters();
+renderQuestions();
 </script>
 
 </body>
