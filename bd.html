@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Bài Tập Câu Bị Động - Passive Voice (Full A-J)</title>
+    <style>
+        :root {
+            --primary-color: #0284c7;
+            --primary-hover: #0369a1;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --border-color: #e2e8f0;
+            --correct-bg: #f0fdf4;
+            --correct-border: #86efac;
+            --correct-text: #166534;
+            --wrong-bg: #fef2f2;
+            --wrong-border: #fca5a5;
+            --wrong-text: #991b1b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding-bottom: 50px;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-title-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-icon {
+            font-size: 28px;
+        }
+
+        .header-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .header-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .btn-reset-top {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-reset-top:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 25px auto 0 auto;
+            padding: 0 15px;
+        }
+
+        /* TRACKING / THỐNG KÊ */
+        .stats-container {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card.gray { background-color: #f1f5f9; }
+        .stat-card.green { background-color: #f0fdf4; }
+        .stat-card.blue { background-color: #f0f9ff; }
+
+        .stat-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #64748b;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .progress-bar-bg {
+            height: 12px;
+            background-color: #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: #0284c7;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+
+        /* THANH FILTER / MỤC */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: #0284c7;
+            color: white;
+            border-color: #0284c7;
+        }
+
+        /* DANH SÁCH CÂU HỎI */
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 20px 24px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .tag-sec {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .q-original {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .q-trans {
+            font-size: 0.88rem;
+            color: #64748b;
+            font-style: italic;
+            margin-bottom: 14px;
+        }
+
+        /* KHU VỰC NHẬP DẠNG INPUT */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .q-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .q-input:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .q-input.correct {
+            border-color: #22c55e;
+            background-color: #f0fdf4;
+            color: #15803d;
+            font-weight: 600;
+        }
+
+        .q-input.wrong {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+            color: #b91c1c;
+            font-weight: 600;
+        }
+
+        .btn-retry {
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            padding: 0 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        .btn-retry:hover {
+            background: #e2e8f0;
+        }
+
+        /* PHẦN KẾT QUẢ VÀ GIẢI THÍCH */
+        .result-box {
+            display: none;
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .result-box.correct {
+            display: block;
+            background-color: var(--correct-bg);
+            border: 1px solid var(--correct-border);
+            color: var(--correct-text);
+        }
+
+        .result-box.wrong {
+            display: block;
+            background-color: var(--wrong-bg);
+            border: 1px solid var(--wrong-border);
+            color: var(--wrong-text);
+        }
+
+        .result-status {
+            font-weight: 800;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+
+        .ans-reference-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #475569;
+        }
+
+        .ans-reference {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            font-family: monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .passive-trans {
+            font-size: 0.88rem;
+            color: #0369a1;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: #f0f9ff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border-left: 3px solid #0284c7;
+        }
+
+        .expl-text {
+            font-size: 0.85rem;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 640px) {
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .input-group { flex-direction: column; }
+            .btn-retry { justify-content: center; padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-title-box">
+        <div class="header-icon">🔄</div>
+        <div>
+            <div class="header-title">LUYỆN TẬP CÂU BỊ ĐỘNG (PASSIVE VOICE FULL A - J)</div>
+            <div class="header-subtitle">Nhập đáp án chuyển đổi, nhấn Enter để kiểm tra và xem dịch nghĩa bị động</div>
+        </div>
+    </div>
+    <button class="btn-reset-top" onclick="resetAll()">↺ Làm lại từ đầu</button>
+</header>
+
+<div class="container">
+    <!-- THỐNG KÊ TRACKING -->
+    <div class="stats-container">
+        <div class="stats-grid">
+            <div class="stat-card gray">
+                <div class="stat-title">SỐ CÂU ĐÃ LÀM</div>
+                <div class="stat-value" id="stat-done">0 / 0</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-title">SỐ CÂU ĐÚNG</div>
+                <div class="stat-value" id="stat-correct">0</div>
+            </div>
+            <div class="stat-card blue">
+                <div class="stat-title">TỶ LỆ CHÍNH XÁC</div>
+                <div class="stat-value" id="stat-accuracy">0%</div>
+            </div>
+        </div>
+
+        <div class="progress-header">
+            <span>TIẾN TRÌNH LÀM BÀI</span>
+            <span id="stat-percent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- MỤC LỌC DANH MỤC -->
+    <div class="filter-bar" id="filter-bar"></div>
+
+    <!-- DANH SÁCH CÂU HỎI -->
+    <div id="questions-list"></div>
+</div>
+
+<script>
+// TOÀN BỘ DỮ LIỆU BÀI TẬP BỊ ĐỘNG VỚI ĐẦY ĐỦ PHẦN DỊCH BỊ ĐỘNG
+const questionsData = [
+    // A. Quá khứ đơn
+    { id: 1, sec: "A. Quá khứ đơn", secId: "sec_a", original: "The teacher checked the students' homework.", trans: "Giáo viên đã kiểm tra bài tập về nhà của học sinh.", passiveTrans: "Bài tập về nhà của học sinh đã được kiểm tra bởi giáo viên.", answer: ["The students' homework was checked by the teacher.", "The students' homework was checked by the teacher"], fullAnswer: "The students' homework was checked by the teacher.", expl: "Quá khứ đơn: S + was/were + V3/ed (+ by O)." },
+    { id: 2, sec: "A. Quá khứ đơn", secId: "sec_a", original: "My mother cooked dinner yesterday.", trans: "Mẹ tôi đã nấu bữa tối ngày hôm qua.", passiveTrans: "Bữa tối đã được nấu bởi mẹ tôi ngày hôm qua.", answer: ["Dinner was cooked by my mother yesterday.", "Dinner was cooked yesterday by my mother."], fullAnswer: "Dinner was cooked by my mother yesterday.", expl: "Quá khứ đơn: Dinner (số ít) -> was cooked." },
+    { id: 3, sec: "A. Quá khứ đơn", secId: "sec_a", original: "They built this school in 2010.", trans: "Họ đã xây ngôi trường này vào năm 2010.", passiveTrans: "Ngôi trường này đã được xây dựng vào năm 2010.", answer: ["This school was built in 2010.", "This school was built in 2010 by them."], fullAnswer: "This school was built in 2010.", expl: "Bỏ 'by them', This school (số ít) -> was built." },
+    { id: 4, sec: "A. Quá khứ đơn", secId: "sec_a", original: "The police arrested the thief last night.", trans: "Cảnh sát đã bắt tên trộm tối qua.", passiveTrans: "Tên trộm đã bị cảnh sát bắt tối qua.", answer: ["The thief was arrested by the police last night.", "The thief was arrested last night by the police."], fullAnswer: "The thief was arrested by the police last night.", expl: "The thief (số ít) -> was arrested." },
+    { id: 5, sec: "A. Quá khứ đơn", secId: "sec_a", original: "Someone stole my bike yesterday.", trans: "Ai đó đã trộm xe đạp của tôi ngày hôm qua.", passiveTrans: "Xe đạp của tôi đã bị trộm ngày hôm qua.", answer: ["My bike was stolen yesterday.", "My bike was stolen yesterday by someone."], fullAnswer: "My bike was stolen yesterday.", expl: "Bỏ 'by someone', My bike -> was stolen." },
+    { id: 6, sec: "A. Quá khứ đơn", secId: "sec_a", original: "They cleaned the classroom after the lesson.", trans: "Họ đã dọn dẹp lớp học sau giờ học.", passiveTrans: "Lớp học đã được dọn dẹp sau giờ học.", answer: ["The classroom was cleaned after the lesson.", "The classroom was cleaned after the lesson by them."], fullAnswer: "The classroom was cleaned after the lesson.", expl: "The classroom -> was cleaned." },
+    { id: 7, sec: "A. Quá khứ đơn", secId: "sec_a", original: "My father repaired the car last weekend.", trans: "Bố tôi đã sửa ô tô cuối tuần trước.", passiveTrans: "Chiếc ô tô đã được sửa bởi bố tôi cuối tuần trước.", answer: ["The car was repaired by my father last weekend.", "The car was repaired last weekend by my father."], fullAnswer: "The car was repaired by my father last weekend.", expl: "The car -> was repaired by my father." },
+    { id: 8, sec: "A. Quá khứ đơn", secId: "sec_a", original: "The students completed the project last Friday.", trans: "Các học sinh đã hoàn thành dự án thứ Sáu tuần trước.", passiveTrans: "Dự án đã được hoàn thành bởi các học sinh vào thứ Sáu tuần trước.", answer: ["The project was completed by the students last Friday.", "The project was completed last Friday by the students."], fullAnswer: "The project was completed by the students last Friday.", expl: "The project -> was completed." },
+    { id: 9, sec: "A. Quá khứ đơn", secId: "sec_a", original: "People used this road many years ago.", trans: "Người ta đã sử dụng con đường này nhiều năm trước.", passiveTrans: "Con đường này đã được sử dụng nhiều năm trước.", answer: ["This road was used many years ago.", "This road was used by people many years ago."], fullAnswer: "This road was used many years ago.", expl: "Bỏ 'by people', This road -> was used." },
+    { id: 10, sec: "A. Quá khứ đơn", secId: "sec_a", original: "The company opened a new office in 2020.", trans: "Công ty đã mở một văn phòng mới vào năm 2020.", passiveTrans: "Một văn phòng mới đã được mở bởi công ty vào năm 2020.", answer: ["A new office was opened by the company in 2020.", "A new office was opened in 2020 by the company."], fullAnswer: "A new office was opened by the company in 2020.", expl: "A new office -> was opened." },
+
+    // B. Hiện tại đơn
+    { id: 11, sec: "B. Hiện tại đơn", secId: "sec_b", original: "People speak English in many countries.", trans: "Người ta nói tiếng Anh ở nhiều quốc gia.", passiveTrans: "Tiếng Anh được nói ở nhiều quốc gia.", answer: ["English is spoken in many countries.", "English is spoken in many countries by people."], fullAnswer: "English is spoken in many countries.", expl: "Hiện tại đơn: English (số ít) -> is spoken." },
+    { id: 12, sec: "B. Hiện tại đơn", secId: "sec_b", original: "Students use computers in this classroom.", trans: "Học sinh sử dụng máy tính trong phòng học này.", passiveTrans: "Máy tính được sử dụng bởi học sinh trong phòng học này.", answer: ["Computers are used by students in this classroom.", "Computers are used in this classroom by students."], fullAnswer: "Computers are used by students in this classroom.", expl: "Computers (số nhiều) -> are used." },
+    { id: 13, sec: "B. Hiện tại đơn", secId: "sec_b", original: "My mother prepares breakfast every morning.", trans: "Mẹ tôi chuẩn bị bữa sáng mỗi sáng.", passiveTrans: "Bữa sáng được chuẩn bị bởi mẹ tôi mỗi sáng.", answer: ["Breakfast is prepared by my mother every morning.", "Breakfast is prepared every morning by my mother."], fullAnswer: "Breakfast is prepared by my mother every morning.", expl: "Breakfast -> is prepared." },
+    { id: 14, sec: "B. Hiện tại đơn", secId: "sec_b", original: "They sell fresh vegetables at this market.", trans: "Họ bán rau tươi ở chợ này.", passiveTrans: "Rau tươi được bán ở chợ này.", answer: ["Fresh vegetables are sold at this market.", "Fresh vegetables are sold at this market by them."], fullAnswer: "Fresh vegetables are sold at this market.", expl: "Fresh vegetables (số nhiều) -> are sold." },
+    { id: 15, sec: "B. Hiện tại đơn", secId: "sec_b", original: "The school organizes many activities every year.", trans: "Trường học tổ chức nhiều hoạt động hàng năm.", passiveTrans: "Nhiều hoạt động được tổ chức bởi nhà trường hàng năm.", answer: ["Many activities are organized by the school every year.", "Many activities are organized every year by the school."], fullAnswer: "Many activities are organized by the school every year.", expl: "Many activities -> are organized." },
+    { id: 16, sec: "B. Hiện tại đơn", secId: "sec_b", original: "People grow coffee in this area.", trans: "Người ta trồng cà phê ở khu vực này.", passiveTrans: "Cà phê được trồng ở khu vực này.", answer: ["Coffee is grown in this area.", "Coffee is grown in this area by people."], fullAnswer: "Coffee is grown in this area.", expl: "Coffee -> is grown." },
+    { id: 17, sec: "B. Hiện tại đơn", secId: "sec_b", original: "The teacher gives us homework every week.", trans: "Giáo viên giao bài tập về nhà cho chúng tôi hàng tuần.", passiveTrans: "Chúng tôi được giao bài tập về nhà bởi giáo viên hàng tuần.", answer: ["We are given homework by the teacher every week.", "Homework is given to us by the teacher every week."], fullAnswer: "We are given homework by the teacher every week.", expl: "Tân ngữ 'us' chuyển thành 'We are given'." },
+    { id: 18, sec: "B. Hiện tại đơn", secId: "sec_b", original: "They produce these cars in Japan.", trans: "Họ sản xuất những chiếc xe ô tô này ở Nhật Bản.", passiveTrans: "Những chiếc xe ô tô này được sản xuất ở Nhật Bản.", answer: ["These cars are produced in Japan.", "These cars are produced in Japan by them."], fullAnswer: "These cars are produced in Japan.", expl: "These cars -> are produced." },
+    { id: 19, sec: "B. Hiện tại đơn", secId: "sec_b", original: "Many people watch this TV program.", trans: "Nhiều người xem chương trình truyền hình này.", passiveTrans: "Chương trình truyền hình này được xem bởi nhiều người.", answer: ["This TV program is watched by many people.", "This TV program is watched by many people."], fullAnswer: "This TV program is watched by many people.", expl: "This TV program -> is watched." },
+    { id: 20, sec: "B. Hiện tại đơn", secId: "sec_b", original: "The company delivers the products to customers.", trans: "Công ty giao sản phẩm tới khách hàng.", passiveTrans: "Các sản phẩm được giao tới khách hàng bởi công ty.", answer: ["The products are delivered to customers by the company.", "The products are delivered by the company to customers."], fullAnswer: "The products are delivered to customers by the company.", expl: "The products -> are delivered." },
+
+    // C. Tương lai đơn
+    { id: 21, sec: "C. Tương lai đơn", secId: "sec_c", original: "They will build a new hospital next year.", trans: "Họ sẽ xây một bệnh viện mới vào năm tới.", passiveTrans: "Một bệnh viện mới sẽ được xây dựng vào năm tới.", answer: ["A new hospital will be built next year.", "A new hospital will be built next year by them."], fullAnswer: "A new hospital will be built next year.", expl: "Tương lai đơn: S + will be + V3/ed." },
+    { id: 22, sec: "C. Tương lai đơn", secId: "sec_c", original: "The school will organize a sports day next month.", trans: "Trường sẽ tổ chức ngày hội thể thao vào tháng tới.", passiveTrans: "Một ngày hội thể thao sẽ được tổ chức bởi nhà trường vào tháng tới.", answer: ["A sports day will be organized by the school next month.", "A sports day will be organized next month by the school."], fullAnswer: "A sports day will be organized by the school next month.", expl: "A sports day -> will be organized." },
+    { id: 23, sec: "C. Tương lai đơn", secId: "sec_c", original: "They will finish the project tomorrow.", trans: "Họ sẽ hoàn thành dự án vào ngày mai.", passiveTrans: "Dự án sẽ được hoàn thành vào ngày mai.", answer: ["The project will be finished tomorrow.", "The project will be finished tomorrow by them."], fullAnswer: "The project will be finished tomorrow.", expl: "The project -> will be finished." },
+    { id: 24, sec: "C. Tương lai đơn", secId: "sec_c", original: "The company will open a new branch next year.", trans: "Công ty sẽ mở một chi nhánh mới vào năm tới.", passiveTrans: "Một chi nhánh mới sẽ được mở bởi công ty vào năm tới.", answer: ["A new branch will be opened by the company next year.", "A new branch will be opened next year by the company."], fullAnswer: "A new branch will be opened by the company next year.", expl: "A new branch -> will be opened." },
+    { id: 25, sec: "C. Tương lai đơn", secId: "sec_c", original: "The government will build a new road.", trans: "Chính phủ sẽ xây một con đường mới.", passiveTrans: "Một con đường mới sẽ được xây bởi chính phủ.", answer: ["A new road will be built by the government.", "A new road will be built by the government."], fullAnswer: "A new road will be built by the government.", expl: "A new road -> will be built." },
+    { id: 26, sec: "C. Tương lai đơn", secId: "sec_c", original: "They will send the documents next week.", trans: "Họ sẽ gửi các tài liệu vào tuần tới.", passiveTrans: "Các tài liệu sẽ được gửi vào tuần tới.", answer: ["The documents will be sent next week.", "The documents will be sent next week by them."], fullAnswer: "The documents will be sent next week.", expl: "The documents -> will be sent." },
+    { id: 27, sec: "C. Tương lai đơn", secId: "sec_c", original: "The teacher will announce the results tomorrow.", trans: "Giáo viên sẽ thông báo kết quả vào ngày mai.", passiveTrans: "Kết quả sẽ được thông báo bởi giáo viên vào ngày mai.", answer: ["The results will be announced by the teacher tomorrow.", "The results will be announced tomorrow by the teacher."], fullAnswer: "The results will be announced by the teacher tomorrow.", expl: "The results -> will be announced." },
+    { id: 28, sec: "C. Tương lai đơn", secId: "sec_c", original: "They will repair the bridge soon.", trans: "Họ sẽ sớm sửa chữa cây cầu.", passiveTrans: "Cây cầu sẽ sớm được sửa chữa.", answer: ["The bridge will be repaired soon.", "The bridge will be repaired soon by them."], fullAnswer: "The bridge will be repaired soon.", expl: "The bridge -> will be repaired." },
+
+    // D. Quá khứ tiếp diễn
+    { id: 29, sec: "D. Quá khứ tiếp diễn", secId: "sec_d", original: "The workers were repairing the road at 8 a.m.", trans: "Các công nhân đang sửa đường lúc 8 giờ sáng.", passiveTrans: "Con đường đang được sửa chữa bởi các công nhân lúc 8 giờ sáng.", answer: ["The road was being repaired by the workers at 8 a.m.", "The road was being repaired at 8 a.m. by the workers."], fullAnswer: "The road was being repaired by the workers at 8 a.m.", expl: "Quá khứ tiếp diễn: S + was/were being + V3/ed." },
+    { id: 30, sec: "D. Quá khứ tiếp diễn", secId: "sec_d", original: "She was cleaning the room when I arrived.", trans: "Cô ấy đang dọn phòng khi tôi đến.", passiveTrans: "Căn phòng đang được dọn dẹp bởi cô ấy khi tôi đến.", answer: ["The room was being cleaned when I arrived.", "The room was being cleaned by her when I arrived."], fullAnswer: "The room was being cleaned by her when I arrived.", expl: "The room -> was being cleaned." },
+    { id: 31, sec: "D. Quá khứ tiếp diễn", secId: "sec_d", original: "They were painting the house yesterday afternoon.", trans: "Họ đang sơn nhà vào chiều qua.", passiveTrans: "Ngôi nhà đang được sơn vào chiều qua.", answer: ["The house was being painted yesterday afternoon.", "The house was being painted yesterday afternoon by them."], fullAnswer: "The house was being painted yesterday afternoon.", expl: "The house -> was being painted." },
+    { id: 32, sec: "D. Quá khứ tiếp diễn", secId: "sec_d", original: "The students were doing the test at 9 a.m.", trans: "Các học sinh đang làm bài kiểm tra lúc 9 giờ sáng.", passiveTrans: "Bài kiểm tra đang được làm bởi các học sinh lúc 9 giờ sáng.", answer: ["The test was being done by the students at 9 a.m.", "The test was being done at 9 a.m. by the students."], fullAnswer: "The test was being done by the students at 9 a.m.", expl: "The test -> was being done." },
+    { id: 33, sec: "D. Quá khứ tiếp diễn", secId: "sec_d", original: "The mechanic was repairing my car.", trans: "Thợ máy đang sửa xe ô tô của tôi.", passiveTrans: "Xe ô tô của tôi đang được sửa bởi thợ máy.", answer: ["My car was being repaired by the mechanic.", "My car was being repaired by the mechanic."], fullAnswer: "My car was being repaired by the mechanic.", expl: "My car -> was being repaired." },
+    { id: 34, sec: "D. Quá khứ tiếp diễn", secId: "sec_d", original: "The workers were building a new shopping center.", trans: "Các công nhân đang xây một trung tâm thương mại mới.", passiveTrans: "Một trung tâm thương mại mới đang được xây dựng bởi các công nhân.", answer: ["A new shopping center was being built by the workers.", "A new shopping center was being built by the workers."], fullAnswer: "A new shopping center was being built by the workers.", expl: "A new shopping center -> was being built." },
+
+    // E. Hiện tại tiếp diễn
+    { id: 35, sec: "E. Hiện tại tiếp diễn", secId: "sec_e", original: "The workers are building a new school.", trans: "Các công nhân đang xây một ngôi trường mới.", passiveTrans: "Một ngôi trường mới đang được xây dựng bởi các công nhân.", answer: ["A new school is being built by the workers.", "A new school is being built by the workers."], fullAnswer: "A new school is being built by the workers.", expl: "Hiện tại tiếp diễn: S + am/is/are being + V3/ed." },
+    { id: 36, sec: "E. Hiện tại tiếp diễn", secId: "sec_e", original: "My mother is preparing dinner.", trans: "Mẹ tôi đang chuẩn bị bữa tối.", passiveTrans: "Bữa tối đang được chuẩn bị bởi mẹ tôi.", answer: ["Dinner is being prepared by my mother.", "Dinner is being prepared by my mother."], fullAnswer: "Dinner is being prepared by my mother.", expl: "Dinner -> is being prepared." },
+    { id: 37, sec: "E. Hiện tại tiếp diễn", secId: "sec_e", original: "They are cleaning the streets.", trans: "Họ đang dọn dẹp đường phố.", passiveTrans: "Đường phố đang được dọn dẹp.", answer: ["The streets are being cleaned.", "The streets are being cleaned by them."], fullAnswer: "The streets are being cleaned.", expl: "The streets (số nhiều) -> are being cleaned." },
+    { id: 38, sec: "E. Hiện tại tiếp diễn", secId: "sec_e", original: "The company is developing a new product.", trans: "Công ty đang phát triển một sản phẩm mới.", passiveTrans: "Một sản phẩm mới đang được phát triển bởi công ty.", answer: ["A new product is being developed by the company.", "A new product is being developed by the company."], fullAnswer: "A new product is being developed by the company.", expl: "A new product -> is being developed." },
+    { id: 39, sec: "E. Hiện tại tiếp diễn", secId: "sec_e", original: "The students are discussing the problem.", trans: "Các học sinh đang thảo luận về vấn đề đó.", passiveTrans: "Vấn đề đó đang được thảo luận bởi các học sinh.", answer: ["The problem is being discussed by the students.", "The problem is being discussed by the students."], fullAnswer: "The problem is being discussed by the students.", expl: "The problem -> is being discussed." },
+    { id: 40, sec: "E. Hiện tại tiếp diễn", secId: "sec_e", original: "The workers are repairing the bridge.", trans: "Các công nhân đang sửa chữa cây cầu.", passiveTrans: "Cây cầu đang được sửa chữa bởi các công nhân.", answer: ["The bridge is being repaired by the workers.", "The bridge is being repaired by the workers."], fullAnswer: "The bridge is being repaired by the workers.", expl: "The bridge -> is being repaired." },
+
+    // F. Quá khứ hoàn thành
+    { id: 41, sec: "F. Quá khứ hoàn thành", secId: "sec_f", original: "They had finished the work before noon.", trans: "Họ đã hoàn thành công việc trước buổi trưa.", passiveTrans: "Công việc đã được hoàn thành trước buổi trưa.", answer: ["The work had been finished before noon.", "The work had been finished before noon by them."], fullAnswer: "The work had been finished before noon.", expl: "Quá khứ hoàn thành: S + had been + V3/ed." },
+    { id: 42, sec: "F. Quá khứ hoàn thành", secId: "sec_f", original: "She had cleaned the room before her parents arrived.", trans: "Cô ấy đã dọn phòng trước khi bố mẹ tới.", passiveTrans: "Căn phòng đã được dọn dẹp trước khi bố mẹ cô ấy tới.", answer: ["The room had been cleaned before her parents arrived.", "The room had been cleaned by her before her parents arrived."], fullAnswer: "The room had been cleaned before her parents arrived.", expl: "The room -> had been cleaned." },
+    { id: 43, sec: "F. Quá khứ hoàn thành", secId: "sec_f", original: "The workers had completed the building by 2015.", trans: "Các công nhân đã hoàn thành tòa nhà trước năm 2015.", passiveTrans: "Tòa nhà đã được hoàn thành bởi các công nhân trước năm 2015.", answer: ["The building had been completed by the workers by 2015.", "The building had been completed by 2015 by the workers."], fullAnswer: "The building had been completed by the workers by 2015.", expl: "The building -> had been completed." },
+    { id: 44, sec: "F. Quá khứ hoàn thành", secId: "sec_f", original: "They had sold all the tickets before the concert started.", trans: "Họ đã bán hết vé trước khi buổi hòa nhạc bắt đầu.", passiveTrans: "Tất cả vé đã được bán hết trước khi buổi hòa nhạc bắt đầu.", answer: ["All the tickets had been sold before the concert started.", "All the tickets had been sold before the concert started by them."], fullAnswer: "All the tickets had been sold before the concert started.", expl: "All the tickets -> had been sold." },
+    { id: 45, sec: "F. Quá khứ hoàn thành", secId: "sec_f", original: "The students had completed the test before the teacher arrived.", trans: "Học sinh đã làm xong bài kiểm tra trước khi giáo viên đến.", passiveTrans: "Bài kiểm tra đã được hoàn thành bởi các học sinh trước khi giáo viên đến.", answer: ["The test had been completed by the students before the teacher arrived.", "The test had been completed before the teacher arrived by the students."], fullAnswer: "The test had been completed by the students before the teacher arrived.", expl: "The test -> had been completed." },
+    { id: 46, sec: "F. Quá khứ hoàn thành", secId: "sec_f", original: "Someone had stolen the documents before the police arrived.", trans: "Ai đó đã đánh trộm tài liệu trước khi cảnh sát đến.", passiveTrans: "Các tài liệu đã bị đánh trộm trước khi cảnh sát đến.", answer: ["The documents had been stolen before the police arrived.", "The documents had been stolen before the police arrived by someone."], fullAnswer: "The documents had been stolen before the police arrived.", expl: "The documents -> had been stolen (bỏ by someone)." },
+
+    // G. Hiện tại hoàn thành
+    { id: 47, sec: "G. Hiện tại hoàn thành", secId: "sec_g", original: "They have completed the project.", trans: "Họ đã hoàn thành dự án.", passiveTrans: "Dự án đã được hoàn thành.", answer: ["The project has been completed.", "The project has been completed by them."], fullAnswer: "The project has been completed.", expl: "Hiện tại hoàn thành: S + have/has been + V3/ed. The project (số ít) -> has been completed." },
+    { id: 48, sec: "G. Hiện tại hoàn thành", secId: "sec_g", original: "Someone has stolen my phone.", trans: "Ai đó đã lấy trộm điện thoại của tôi.", passiveTrans: "Điện thoại của tôi đã bị trộm.", answer: ["My phone has been stolen.", "My phone has been stolen by someone."], fullAnswer: "My phone has been stolen.", expl: "My phone -> has been stolen." },
+    { id: 49, sec: "G. Hiện tại hoàn thành", secId: "sec_g", original: "The students have finished their homework.", trans: "Học sinh đã hoàn thành bài tập về nhà của họ.", passiveTrans: "Bài tập về nhà của các học sinh đã được hoàn thành.", answer: ["Their homework has been finished by the students.", "Their homework has been finished by the students."], fullAnswer: "Their homework has been finished by the students.", expl: "Their homework (không đếm được) -> has been finished." },
+    { id: 50, sec: "G. Hiện tại hoàn thành", secId: "sec_g", original: "The company has produced a new model.", trans: "Công ty đã sản xuất một mẫu mới.", passiveTrans: "Một mẫu mới đã được sản xuất bởi công ty.", answer: ["A new model has been produced by the company.", "A new model has been produced by the company."], fullAnswer: "A new model has been produced by the company.", expl: "A new model -> has been produced." },
+    { id: 51, sec: "G. Hiện tại hoàn thành", secId: "sec_g", original: "They have built several new houses in this area.", trans: "Họ đã xây một số ngôi nhà mới ở khu vực này.", passiveTrans: "Một số ngôi nhà mới đã được xây dựng ở khu vực này.", answer: ["Several new houses have been built in this area.", "Several new houses have been built in this area by them."], fullAnswer: "Several new houses have been built in this area.", expl: "Several new houses (số nhiều) -> have been built." },
+    { id: 52, sec: "G. Hiện tại hoàn thành", secId: "sec_g", original: "The teacher has corrected all the tests.", trans: "Giáo viên đã chấm tất cả các bài kiểm tra.", passiveTrans: "Tất cả các bài kiểm tra đã được chấm bởi giáo viên.", answer: ["All the tests have been corrected by the teacher.", "All the tests have been corrected by the teacher."], fullAnswer: "All the tests have been corrected by the teacher.", expl: "All the tests (số nhiều) -> have been corrected." },
+
+    // H. Tương lai hoàn thành
+    { id: 53, sec: "H. Tương lai hoàn thành", secId: "sec_h", original: "They will have completed the project by Friday.", trans: "Họ sẽ hoàn thành dự án trước thứ Sáu.", passiveTrans: "Dự án sẽ được hoàn thành trước thứ Sáu.", answer: ["The project will have been completed by Friday.", "The project will have been completed by Friday by them."], fullAnswer: "The project will have been completed by Friday.", expl: "Tương lai hoàn thành: S + will have been + V3/ed." },
+    { id: 54, sec: "H. Tương lai hoàn thành", secId: "sec_h", original: "The workers will have finished the building by next year.", trans: "Các công nhân sẽ hoàn thành tòa nhà trước năm tới.", passiveTrans: "Tòa nhà sẽ được hoàn thành bởi các công nhân trước năm tới.", answer: ["The building will have been finished by the workers by next year.", "The building will have been finished by next year by the workers."], fullAnswer: "The building will have been finished by the workers by next year.", expl: "The building -> will have been finished." },
+    { id: 55, sec: "H. Tương lai hoàn thành", secId: "sec_h", original: "They will have delivered all the products by Monday.", trans: "Họ sẽ giao tất cả sản phẩm trước thứ Hai.", passiveTrans: "Tất cả các sản phẩm sẽ được giao trước thứ Hai.", answer: ["All the products will have been delivered by Monday.", "All the products will have been delivered by Monday by them."], fullAnswer: "All the products will have been delivered by Monday.", expl: "All the products -> will have been delivered." },
+    { id: 56, sec: "H. Tương lai hoàn thành", secId: "sec_h", original: "The students will have completed the course by June.", trans: "Các học sinh sẽ hoàn thành khóa học trước tháng 6.", passiveTrans: "Khóa học sẽ được hoàn thành bởi các học sinh trước tháng 6.", answer: ["The course will have been completed by the students by June.", "The course will have been completed by June by the students."], fullAnswer: "The course will have been completed by the students by June.", expl: "The course -> will have been completed." },
+
+    // I. Chia động từ tổng hợp
+    { id: 57, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "English ______ (speak) in many countries.", trans: "Tiếng Anh (được nói) ở nhiều quốc gia.", passiveTrans: "English is spoken in many countries. (Tiếng Anh được nói ở nhiều quốc gia)", answer: ["is spoken"], fullAnswer: "is spoken", expl: "Sự thật ở hiện tại -> Hiện tại đơn bị động: is spoken." },
+    { id: 58, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The classroom ______ (clean) yesterday.", trans: "Lớp học (đã được dọn dẹp) ngày hôm qua.", passiveTrans: "The classroom was cleaned yesterday. (Lớp học đã được dọn dẹp ngày hôm qua)", answer: ["was cleaned"], fullAnswer: "was cleaned", expl: "yesterday -> Quá khứ đơn bị động: was cleaned." },
+    { id: 59, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "A new hospital ______ (build) next year.", trans: "Một bệnh viện mới (sẽ được xây) vào năm tới.", passiveTrans: "A new hospital will be built next year. (Một bệnh viện mới sẽ được xây vào năm tới)", answer: ["will be built"], fullAnswer: "will be built", expl: "next year -> Tương lai đơn bị động: will be built." },
+    { id: 60, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The road ______ (repair) at the moment.", trans: "Con đường (đang được sửa chữa) vào lúc này.", passiveTrans: "The road is being repaired at the moment. (Con đường đang được sửa chữa lúc này)", answer: ["is being repaired"], fullAnswer: "is being repaired", expl: "at the moment -> Hiện tại tiếp diễn bị động: is being repaired." },
+    { id: 61, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The homework ______ already ______ (finish).", trans: "Bài tập về nhà (đã được hoàn thành) rồi.", passiveTrans: "The homework has already been finished. (Bài tập về nhà đã được hoàn thành rồi)", answer: ["has / been finished", "has/been finished", "has been finished"], fullAnswer: "has / been finished", expl: "already -> Hiện tại hoàn thành bị động: has already been finished." },
+    { id: 62, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The house ______ (paint) when we arrived.", trans: "Ngôi nhà (đang được sơn) khi chúng tôi đến.", passiveTrans: "The house was being painted when we arrived. (Ngôi nhà đang được sơn khi chúng tôi đến)", answer: ["was being painted"], fullAnswer: "was being painted", expl: "when we arrived -> Quá khứ tiếp diễn bị động: was being painted." },
+    { id: 63, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The project ______ (complete) before the manager came.", trans: "Dự án (đã được hoàn thành) trước khi quản lý đến.", passiveTrans: "The project had been completed before the manager came. (Dự án đã được hoàn thành trước khi quản lý đến)", answer: ["had been completed"], fullAnswer: "had been completed", expl: "before + quá khứ -> Quá khứ hoàn thành bị động: had been completed." },
+    { id: 64, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The results ______ (announce) tomorrow.", trans: "Kết quả (sẽ được thông báo) vào ngày mai.", passiveTrans: "The results will be announced tomorrow. (Kết quả sẽ được thông báo vào ngày mai)", answer: ["will be announced"], fullAnswer: "will be announced", expl: "tomorrow -> Tương lai đơn bị động: will be announced." },
+    { id: 65, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "Many cars ______ (produce) in this factory every year.", trans: "Nhiều ô tô (được sản xuất) ở nhà máy này mỗi năm.", passiveTrans: "Many cars are produced in this factory every year. (Nhiều ô tô được sản xuất ở nhà máy này mỗi năm)", answer: ["are produced"], fullAnswer: "are produced", expl: "every year -> Hiện tại đơn bị động: are produced." },
+    { id: 66, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The bridge ______ (repair) last month.", trans: "Cây cầu (đã được sửa chữa) tháng trước.", passiveTrans: "The bridge was repaired last month. (Cây cầu đã được sửa chữa tháng trước)", answer: ["was repaired"], fullAnswer: "was repaired", expl: "last month -> Quá khứ đơn bị động: was repaired." },
+    { id: 67, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The documents ______ already ______ (send) to the company.", trans: "Các tài liệu (đã được gửi) tới công ty rồi.", passiveTrans: "The documents have already been sent to the company. (Các tài liệu đã được gửi tới công ty rồi)", answer: ["have / been sent", "have/been sent", "have been sent"], fullAnswer: "have / been sent", expl: "already (documents số nhiều) -> Hiện tại hoàn thành bị động: have been sent." },
+    { id: 68, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The new school ______ (build) by next year.", trans: "Ngôi trường mới (sẽ được xây xong) trước năm tới.", passiveTrans: "The new school will have been built by next year. (Ngôi trường mới sẽ được xây xong trước năm tới)", answer: ["will have been built"], fullAnswer: "will have been built", expl: "by next year -> Tương lai hoàn thành bị động: will have been built." },
+    { id: 69, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "Dinner ______ (prepare) when the guests arrived.", trans: "Bữa tối (đang được chuẩn bị) khi khách đến.", passiveTrans: "Dinner was being prepared when the guests arrived. (Bữa tối đang được chuẩn bị khi khách đến)", answer: ["was being prepared"], fullAnswer: "was being prepared", expl: "Quá khứ tiếp diễn bị động: was being prepared." },
+    { id: 70, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The problem ______ (discuss) by the students right now.", trans: "Vấn đề (đang được thảo luận) bởi học sinh ngay lúc này.", passiveTrans: "The problem is being discussed by the students right now. (Vấn đề đang được thảo luận bởi học sinh ngay lúc này)", answer: ["is being discussed"], fullAnswer: "is being discussed", expl: "right now -> Hiện tại tiếp diễn bị động: is being discussed." },
+    { id: 71, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The tickets ______ already ______ (sell).", trans: "Vé (đã được bán) hết rồi.", passiveTrans: "The tickets have already been sold. (Vé đã được bán hết rồi)", answer: ["have / been sold", "have/been sold", "have been sold"], fullAnswer: "have / been sold", expl: "tickets (số nhiều) -> Hiện tại hoàn thành bị động: have been sold." },
+    { id: 72, sec: "I. Luyện tập tổng hợp", secId: "sec_i", original: "The work ______ (finish) by Friday.", trans: "Công việc (sẽ được hoàn thành) trước thứ Sáu.", passiveTrans: "The work will have been finished by Friday. (Công việc sẽ được hoàn thành trước thứ Sáu)", answer: ["will have been finished", "will be finished"], fullAnswer: "will have been finished / will be finished", expl: "Dùng Tương lai hoàn thành (will have been finished) hoặc Tương lai đơn (will be finished)." },
+
+    // J. Viết lại câu có gợi ý đầu
+    { id: 73, sec: "J. Viết lại câu", secId: "sec_j", original: "People grow rice in many parts of Vietnam.\n→ Rice __________________________________________", trans: "Người ta trồng lúa ở nhiều vùng của Việt Nam.", passiveTrans: "Lúa được trồng ở nhiều vùng của Việt Nam.", answer: ["is grown in many parts of Vietnam.", "is grown in many parts of Vietnam"], fullAnswer: "Rice is grown in many parts of Vietnam.", expl: "Hiện tại đơn: Rice (không đếm được) -> is grown." },
+    { id: 74, sec: "J. Viết lại câu", secId: "sec_j", original: "They built this bridge ten years ago.\n→ This bridge ____________________________________", trans: "Họ xây cây cầu này 10 năm trước.", passiveTrans: "Cây cầu này đã được xây 10 năm trước.", answer: ["was built ten years ago.", "was built ten years ago"], fullAnswer: "This bridge was built ten years ago.", expl: "Quá khứ đơn: This bridge -> was built." },
+    { id: 75, sec: "J. Viết lại câu", secId: "sec_j", original: "They will open the new shopping center next month.\n→ The new shopping center ________________________", trans: "Họ sẽ mở trung tâm thương mại mới vào tháng tới.", passiveTrans: "Trung tâm thương mại mới sẽ được mở vào tháng tới.", answer: ["will be opened next month.", "will be opened next month"], fullAnswer: "The new shopping center will be opened next month.", expl: "Tương lai đơn: will be opened." },
+    { id: 76, sec: "J. Viết lại câu", secId: "sec_j", original: "Someone is cleaning the classroom now.\n→ The classroom __________________________________", trans: "Ai đó đang dọn dẹp lớp học bây giờ.", passiveTrans: "Lớp học đang được dọn dẹp ngay bây giờ.", answer: ["is being cleaned now.", "is being cleaned now"], fullAnswer: "The classroom is being cleaned now.", expl: "Hiện tại tiếp diễn: is being cleaned." },
+    { id: 77, sec: "J. Viết lại câu", secId: "sec_j", original: "They have repaired the road.\n→ The road _______________________________________", trans: "Họ đã sửa chữa con đường.", passiveTrans: "Con đường đã được sửa chữa.", answer: ["has been repaired.", "has been repaired"], fullAnswer: "The road has been repaired.", expl: "Hiện tại hoàn thành: has been repaired." },
+    { id: 78, sec: "J. Viết lại câu", secId: "sec_j", original: "The workers were painting the house when I arrived.\n→ The house _____________________________________", trans: "Các công nhân đang sơn nhà khi tôi đến.", passiveTrans: "Ngôi nhà đang được sơn bởi các công nhân khi tôi đến.", answer: ["was being painted by the workers when I arrived.", "was being painted when I arrived."], fullAnswer: "The house was being painted by the workers when I arrived.", expl: "Quá khứ tiếp diễn: was being painted." },
+    { id: 79, sec: "J. Viết lại câu", secId: "sec_j", original: "They had completed the project before the deadline.\n→ The project ____________________________________", trans: "Họ đã hoàn thành dự án trước hạn chót.", passiveTrans: "Dự án đã được hoàn thành trước hạn chót.", answer: ["had been completed before the deadline.", "had been completed before the deadline"], fullAnswer: "The project had been completed before the deadline.", expl: "Quá khứ hoàn thành: had been completed." },
+    { id: 80, sec: "J. Viết lại câu", secId: "sec_j", original: "They will have finished the work by Monday.\n→ The work ______________________________________", trans: "Họ sẽ hoàn thành công việc trước thứ Hai.", passiveTrans: "Công việc sẽ được hoàn thành trước thứ Hai.", answer: ["will have been finished by Monday.", "will have been finished by Monday"], fullAnswer: "The work will have been finished by Monday.", expl: "Tương lai hoàn thành: will have been finished." }
+];
+
+let userResults = {}; 
+let currentFilter = "all";
+
+function renderFilters() {
+    const categories = [
+        { id: "all", name: `Tất cả (${questionsData.length} câu)` },
+        { id: "sec_a", name: "A. Quá khứ đơn" },
+        { id: "sec_b", name: "B. Hiện tại đơn" },
+        { id: "sec_c", name: "C. Tương lai đơn" },
+        { id: "sec_d", name: "D. Quá khứ tiếp diễn" },
+        { id: "sec_e", name: "E. Hiện tại tiếp diễn" },
+        { id: "sec_f", name: "F. Quá khứ hoàn thành" },
+        { id: "sec_g", name: "G. Hiện tại hoàn thành" },
+        { id: "sec_h", name: "H. Tương lai hoàn thành" },
+        { id: "sec_i", name: "I. Chia động từ" },
+        { id: "sec_j", name: "J. Viết lại câu" }
+    ];
+
+    const filterBar = document.getElementById("filter-bar");
+    filterBar.innerHTML = "";
+
+    categories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.className = `filter-btn ${currentFilter === cat.id ? 'active' : ''}`;
+        btn.innerText = cat.name;
+        btn.onclick = () => {
+            currentFilter = cat.id;
+            renderFilters();
+            renderQuestions();
+        };
+        filterBar.appendChild(btn);
+    });
+}
+
+function renderQuestions() {
+    const list = document.getElementById("questions-list");
+    list.innerHTML = "";
+
+    const filtered = currentFilter === "all" 
+        ? questionsData 
+        : questionsData.filter(q => q.secId === currentFilter);
+
+    filtered.forEach((q, index) => {
+        const state = userResults[q.id] || { done: false, isCorrect: false, userVal: "" };
+        const card = document.createElement("div");
+        card.className = "question-card";
+
+        let resultClass = "";
+        if (state.done) {
+            resultClass = state.isCorrect ? "correct" : "wrong";
+        }
+
+        const formattedOriginal = q.original.replace(/\n/g, '<br>');
+
+        card.innerHTML = `
+            <div class="tag-sec">${q.sec}</div>
+            <div class="q-original">${formattedOriginal}</div>
+            <div class="q-trans">🌐 Dịch gốc: "${q.trans}"</div>
+            
+            <div class="input-group">
+                <input type="text" 
+                       class="q-input ${resultClass}" 
+                       id="input_${q.id}" 
+                       placeholder="Nhập câu bị động hoàn chỉnh hoặc cụm động từ chia..." 
+                       value="${state.userVal}"
+                       onkeydown="handleKeyDown(event, ${q.id})"
+                       ${state.done ? 'readonly' : ''} />
+                
+                <button class="btn-retry" onclick="retryQuestion(${q.id})">
+                    ↺ Thử lại
+                </button>
+            </div>
+
+            <div class="result-box ${resultClass}" id="result_${q.id}">
+                <div class="result-status">
+                    ${state.isCorrect ? '✔ Chính xác!' : '✖ Chưa chính xác!'}
+                </div>
+                <div class="ans-reference-title">Đáp án bị động chuẩn:</div>
+                <div class="ans-reference">${q.fullAnswer}</div>
+                <div class="passive-trans">💡 Dịch nghĩa câu bị động: "${q.passiveTrans}"</div>
+                <div class="expl-text"><strong>Giải thích:</strong> ${q.expl}</div>
+            </div>
+        `;
+        list.appendChild(card);
+    });
+
+    updateStats();
+}
+
+function normalizeString(str) {
+    return str.trim()
+              .toLowerCase()
+              .replace(/\s+/g, ' ')
+              .replace(/[.,!?;:'"’]/g, "");
+}
+
+function handleKeyDown(event, id) {
+    if (event.key === "Enter") {
+        submitQuestion(id);
+    }
+}
+
+function submitQuestion(id) {
+    const inputEl = document.getElementById(`input_${id}`);
+    if (!inputEl) return;
+
+    const userVal = inputEl.value;
+    if (!userVal.trim()) return;
+
+    const q = questionsData.find(item => item.id === id);
+    if (!q) return;
+
+    const cleanUser = normalizeString(userVal);
+    const isCorrect = q.answer.some(ans => normalizeString(ans) === cleanUser);
+
+    userResults[id] = {
+        done: true,
+        isCorrect: isCorrect,
+        userVal: userVal
+    };
+
+    renderQuestions();
+}
+
+function retryQuestion(id) {
+    delete userResults[id];
+    renderQuestions();
+    setTimeout(() => {
+        const inputEl = document.getElementById(`input_${id}`);
+        if (inputEl) inputEl.focus();
+    }, 50);
+}
+
+function updateStats() {
+    const total = questionsData.length;
+    let doneCount = 0;
+    let correctCount = 0;
+
+    Object.keys(userResults).forEach(id => {
+        if (userResults[id].done) {
+            doneCount++;
+            if (userResults[id].isCorrect) {
+                correctCount++;
+            }
+        }
+    });
+
+    const accuracy = doneCount > 0 ? Math.round((correctCount / doneCount) * 100) : 0;
+    const progressPercent = total > 0 ? Math.round((doneCount / total) * 100) : 0;
+
+    document.getElementById("stat-done").innerText = `${doneCount} / ${total}`;
+    document.getElementById("stat-correct").innerText = correctCount;
+    document.getElementById("stat-accuracy").innerText = `${accuracy}%`;
+    document.getElementById("stat-percent").innerText = `${progressPercent}%`;
+    document.getElementById("progress-bar").style.width = `${progressPercent}%`;
+}
+
+function resetAll() {
+    if (confirm("Bạn có chắc chắn muốn xóa tiến trình làm bài bị động và bắt đầu lại từ đầu?")) {
+        userResults = {};
+        renderQuestions();
+    }
+}
+
+// KHỞI CHẠY
+renderFilters();
+renderQuestions();
+</script>
+
+</body>
+</html>
