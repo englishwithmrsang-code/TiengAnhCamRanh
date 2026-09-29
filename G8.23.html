@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Tiếng Anh: So Sánh Hơn (A Closer Look 2)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Header Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-800 leading-tight">Luyện Tập Dịch Câu Tiếng Anh</h1>
+                    <p class="text-xs text-slate-500">Unit 2: A Closer Look 2 - So sánh hơn với Tính từ & Trạng từ</p>
+                </div>
+            </div>
+            <div class="hidden sm:flex items-center gap-2">
+                <button onclick="toggleVocabularyModal()" class="px-3 py-1.5 text-sm font-medium text-sky-700 bg-sky-50 hover:bg-sky-100 rounded-lg transition border border-sky-200">
+                    <i class="fa-solid fa-book-open mr-1"></i> Từ vựng bài học
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 py-6 w-full flex-grow">
+        
+        <!-- Dashboard / Progress Banner -->
+        <section class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                <!-- Progress bar area -->
+                <div class="md:col-span-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tiến độ làm bài</span>
+                        <span id="progress-text" class="text-xs font-bold text-sky-600">0/15 Đã trả lời</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+                        <div id="progress-bar" class="bg-gradient-to-r from-sky-400 to-indigo-500 h-3 rounded-full transition-all duration-300 w-0"></div>
+                    </div>
+                </div>
+
+                <!-- Stats summary -->
+                <div class="flex items-center justify-around border-t md:border-t-0 md:border-l border-slate-200 pt-3 md:pt-0 md:pl-4">
+                    <div class="text-center">
+                        <span class="block text-2xl font-bold text-emerald-600" id="score-correct">0</span>
+                        <span class="text-xs text-slate-500 font-medium">Chính xác</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-2xl font-bold text-rose-500" id="score-incorrect">0</span>
+                        <span class="text-xs text-slate-500 font-medium">Cần chữa</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-2xl font-bold text-sky-600" id="score-accuracy">0%</span>
+                        <span class="text-xs text-slate-500 font-medium">Điểm số</span>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex gap-2">
+                    <button onclick="checkAllAnswers()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 px-4 rounded-xl shadow-sm transition flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Nộp Tất Cả</span>
+                    </button>
+                    <button onclick="resetExercise()" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium p-2.5 rounded-xl transition text-sm" title="Làm lại từ đầu">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vocabulary Mobile Toggle -->
+        <div class="sm:hidden mb-4">
+            <button onclick="toggleVocabularyModal()" class="w-full py-2 bg-sky-50 text-sky-700 font-medium text-sm rounded-xl border border-sky-200 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-book-open"></i> Tra cứu từ vựng bài học
+            </button>
+        </div>
+
+        <!-- Exercise Cards List -->
+        <div id="exercise-list" class="space-y-4">
+            <!-- Exercise cards will be injected dynamically by JavaScript -->
+        </div>
+
+    </main>
+
+    <!-- Modal Vocabulary Reference -->
+    <div id="vocab-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-xl overflow-hidden animate-fade-in">
+            <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-book text-sky-600"></i> Từ Vựng Unit 2: A Closer Look 2
+                </h3>
+                <button onclick="toggleVocabularyModal()" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div class="p-4 overflow-y-auto custom-scrollbar flex-grow space-y-2 text-sm">
+                <div id="vocab-list-content" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <!-- Vocabulary items injected here -->
+                </div>
+            </div>
+            <div class="p-3 border-t border-slate-200 bg-slate-50 text-right">
+                <button onclick="toggleVocabularyModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-800 text-white font-medium text-sm rounded-lg transition">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8">
+        <div class="max-w-5xl mx-auto px-4 text-center text-xs text-slate-500">
+            Ứng dụng Ôn Tập Ngữ Pháp Tiếng Anh • So Sánh Hơn Của Tính Từ & Trạng Từ (Comparative Forms)
+        </div>
+    </footer>
+
+    <script>
+        // Vocabulary dataset provided in prompt
+        const vocabularyData = [
+            { word: "long", phonetic: "/lɒŋ/", pos: "adj.", meaning: "dài" },
+            { word: "longer", phonetic: "/ˈlɒŋɡə(r)/", pos: "adj.", meaning: "dài hơn" },
+            { word: "high", phonetic: "/haɪ/", pos: "adj.", meaning: "cao" },
+            { word: "higher", phonetic: "/ˈhaɪə(r)/", pos: "adj.", meaning: "cao hơn" },
+            { word: "late", phonetic: "/leɪt/", pos: "adj.", meaning: "trễ" },
+            { word: "later", phonetic: "/ˈleɪtə(r)/", pos: "adv.", meaning: "trễ hơn" },
+            { word: "quickly", phonetic: "/ˈkwɪkli/", pos: "adv.", meaning: "nhanh chóng" },
+            { word: "more quickly", phonetic: "/mɔː ˈkwɪkli/", pos: "adv.", meaning: "nhanh hơn" },
+            { word: "frequently", phonetic: "/ˈfriːkwəntli/", pos: "adv.", meaning: "thường xuyên" },
+            { word: "more frequently", phonetic: "/mɔː ˈfriːkwəntli/", pos: "adv.", meaning: "thường xuyên hơn" },
+            { word: "early", phonetic: "/ˈɜːli/", pos: "adv.", meaning: "sớm" },
+            { word: "earlier", phonetic: "/ˈɜːliə(r)/", pos: "adv.", meaning: "sớm hơn" },
+            { word: "much", phonetic: "/mʌtʃ/", pos: "adv./det.", meaning: "nhiều" },
+            { word: "more", phonetic: "/mɔː(r)/", pos: "adv./det.", meaning: "nhiều hơn" },
+            { word: "little", phonetic: "/ˈlɪtl/", pos: "adj./det.", meaning: "ít" },
+            { word: "less", phonetic: "/les/", pos: "adv./det.", meaning: "ít hơn" },
+            { word: "dance", phonetic: "/dɑːns/", pos: "v.", meaning: "nhảy, múa" },
+            { word: "beautifully", phonetic: "/ˈbjuːtɪfli/", pos: "adv.", meaning: "một cách đẹp đẽ" },
+            { word: "write", phonetic: "/raɪt/", pos: "v.", meaning: "viết" },
+            { word: "clearly", phonetic: "/ˈklɪəli/", pos: "adv.", meaning: "rõ ràng" },
+            { word: "read", phonetic: "/riːd/", pos: "v.", meaning: "đọc" },
+            { word: "want", phonetic: "/wɒnt/", pos: "v.", meaning: "muốn" },
+            { word: "get better mark", phonetic: "", pos: "phrase", meaning: "đạt điểm tốt hơn" },
+            { word: "must", phonetic: "/mʌst/", pos: "modal v.", meaning: "phải" },
+            { word: "work harder", phonetic: "", pos: "phrase", meaning: "làm việc chăm chỉ hơn" },
+            { word: "life", phonetic: "/laɪf/", pos: "n.", meaning: "cuộc sống" },
+            { word: "city", phonetic: "/ˈsɪti/", pos: "n.", meaning: "thành phố" },
+            { word: "seem", phonetic: "/siːm/", pos: "v.", meaning: "dường như" },
+            { word: "move faster", phonetic: "", pos: "phrase", meaning: "di chuyển nhanh hơn" },
+            { word: "countryside", phonetic: "/ˈkʌntrisaɪd/", pos: "n.", meaning: "miền quê" },
+            { word: "rain heavily", phonetic: "", pos: "phrase", meaning: "mưa nặng hạt/to" },
+            { word: "accident", phonetic: "/ˈæksɪdənt/", pos: "n.", meaning: "tai nạn" },
+            { word: "drive carefully", phonetic: "", pos: "phrase", meaning: "lái xe cẩn thận" },
+            { word: "horse", phonetic: "/hɔːs/", pos: "n.", meaning: "ngựa" },
+            { word: "buffalo", phonetic: "/ˈbʌfələʊ/", pos: "n.", meaning: "trâu" },
+            { word: "quietly", phonetic: "/ˈkwaɪətli/", pos: "adv.", meaning: "một cách yên lặng" },
+            { word: "sleep soundly", phonetic: "", pos: "phrase", meaning: "ngủ sâu / ngủ ngon" },
+            { word: "harvest crop", phonetic: "", pos: "phrase", meaning: "thu hoạch mùa vụ" }
+        ];
+
+        // 15 Sentences designed around the target vocabulary & comparative grammar
+        const exercises = [
+            {
+                id: 1,
+                vietnamese: "Nếu bạn muốn đạt điểm tốt hơn, bạn phải học tập chăm chỉ hơn.",
+                answers: [
+                    "If you want to get better marks, you must work harder.",
+                    "If you want to get a better mark, you must work harder.",
+                    "If you want to get better marks, you have to work harder."
+                ],
+                keyPoints: ["want to get better mark(s)", "must work harder"],
+                explanation: "Trạng từ <b>hard</b> biến đổi đặc biệt thành <b>harder</b> ở dạng so sánh hơn (không dùng 'more hard'). Cấu trúc điều kiện Loại 1 đơn giản: <i>If + S + V(present), S + modal verb + V</i>."
+            },
+            {
+                id: 2,
+                vietnamese: "Cuộc sống ở thành phố dường như di chuyển nhanh hơn ở nông thôn.",
+                answers: [
+                    "Life in the city seems to move faster than in the countryside.",
+                    "Life in the city seems to move faster than countryside life.",
+                    "City life seems to move faster than country life."
+                ],
+                keyPoints: ["seems to move faster than"],
+                explanation: "Trạng từ ngắn <b>fast</b> chuyển sang so sánh hơn bằng cách thêm hậu tố <i>-er</i> &rarr; <b>faster</b>. Cấu trúc so sánh hơn: <i>V + faster + than</i>."
+            },
+            {
+                id: 3,
+                vietnamese: "Hôm nay trời mưa to hơn (nặng hạt hơn) hôm qua.",
+                answers: [
+                    "Today it rains more heavily than yesterday.",
+                    "Today it is raining more heavily than yesterday.",
+                    "It rains more heavily today than yesterday."
+                ],
+                keyPoints: ["rains / is raining", "more heavily than"],
+                explanation: "Trạng từ dài kết thúc bằng đuôi '-ly' như <b>heavily</b> sử dụng cấu trúc: <i>more + adverb</i> &rarr; <b>more heavily</b>."
+            },
+            {
+                id: 4,
+                vietnamese: "Sau vụ tai nạn tháng trước, anh ấy lái xe cẩn thận hơn bây giờ.",
+                answers: [
+                    "After the accident last month, he drives more carefully now.",
+                    "After last month's accident, he drives more carefully now.",
+                    "After the accident last month, he is driving more carefully now."
+                ],
+                keyPoints: ["accident last month", "drives more carefully"],
+                explanation: "Trạng từ chỉ cách thức <b>carefully</b> là trạng từ dài, dạng so sánh hơn là <b>more carefully</b>. 'Last month' đi với thì quá khứ đơn còn 'now' mô tả thói quen/hành động hiện tại."
+            },
+            {
+                id: 5,
+                vietnamese: "Con ngựa chạy nhanh hơn con trâu.",
+                answers: [
+                    "A horse runs faster than a buffalo.",
+                    "The horse runs faster than the buffalo.",
+                    "Horses run faster than buffaloes."
+                ],
+                keyPoints: ["horse", "runs faster than", "buffalo"],
+                explanation: "Động từ 'run' đi với trạng từ ngắn 'fast'. Dạng so sánh hơn của 'fast' là <b>faster</b> + <b>than</b>."
+            },
+            {
+                id: 6,
+                vietnamese: "Bạn có thể nói nhỏ hơn (yên lặng hơn) một chút được không?",
+                answers: [
+                    "Can you speak a bit more quietly?",
+                    "Could you speak a bit more quietly?",
+                    "Can you speak a little more quietly?"
+                ],
+                keyPoints: ["speak a bit / a little", "more quietly"],
+                explanation: "<b>quietly</b> là trạng từ dài &rarr; <b>more quietly</b>. Cụm từ 'a bit' hoặc 'a little' đặt trước hình thức so sánh hơn để làm giảm bớt tính mức độ ('một chút')."
+            },
+            {
+                id: 7,
+                vietnamese: "Sau một ngày làm việc chăm chỉ trên trang trại, họ đã ngủ sâu hơn bao giờ hết.",
+                answers: [
+                    "After a day of working hard on the farm, they slept more soundly than ever before.",
+                    "After a hard working day on the farm, they slept more soundly than ever before.",
+                    "After working hard on the farm all day, they slept more soundly than ever."
+                ],
+                keyPoints: ["working hard on the farm", "slept more soundly than ever"],
+                explanation: "Trạng từ <b>soundly</b> (sâu) có hình thức so sánh hơn là <b>more soundly</b>. Quá khứ của 'sleep' là <b>slept</b>. Cụm 'than ever before' nghĩa là 'hơn bao giờ hết'."
+            },
+            {
+                id: 8,
+                vietnamese: "Năm nay, các nông dân thu hoạch mùa vụ sớm hơn mong đợi.",
+                answers: [
+                    "This year, the farmers harvest crops earlier than expected.",
+                    "This year, farmers harvested crops earlier than expected.",
+                    "This year, the farmers harvest the crops earlier than expected."
+                ],
+                keyPoints: ["farmers harvest / harvested crops", "earlier than expected"],
+                explanation: "Trạng từ <b>early</b> có tận cùng là '-y', khi chuyển sang dạng so sánh hơn ta đổi thành '-ier' &rarr; <b>earlier</b> (dù là từ 2 âm tiết)."
+            },
+            {
+                id: 9,
+                vietnamese: "Chiếc xe hơi màu đỏ di chuyển nhanh hơn chiếc xe hơi màu đen.",
+                answers: [
+                    "The red car moves faster than the black car.",
+                    "The red car drives faster than the black car.",
+                    "The red car runs faster than the black car."
+                ],
+                keyPoints: ["red car", "moves / runs faster than", "black car"],
+                explanation: "So sánh hơn của tính từ/trạng từ ngắn: <b>fast &rarr; faster + than</b>."
+            },
+            {
+                id: 10,
+                vietnamese: "Cô ấy nhảy (múa) đẹp hơn bạn gái của cô ấy.",
+                answers: [
+                    "She dances more beautifully than her friend.",
+                    "She dances more beautifully than her girlfriend.",
+                    "She dances more beautifully than her female friend."
+                ],
+                keyPoints: ["dances more beautifully than"],
+                explanation: "Động từ 'dance' cần trạng từ theo sau. Trạng từ <b>beautifully</b> dài &rarr; dùng <b>more beautifully than</b>."
+            },
+            {
+                id: 11,
+                vietnamese: "Nam viết rõ ràng hơn trước đây.",
+                answers: [
+                    "Nam writes more clearly than before.",
+                    "Nam writes more clearly than he did before.",
+                    "Nam is writing more clearly than before."
+                ],
+                keyPoints: ["writes more clearly than before"],
+                explanation: "Trạng từ <b>clearly</b> đi kèm cấu trúc <b>more clearly + than</b> để thể hiện việc viết rõ ràng hơn so với quá khứ ('before')."
+            },
+            {
+                id: 12,
+                vietnamese: "Họ đến trễ hơn chúng tôi 10 phút.",
+                answers: [
+                    "They arrived 10 minutes later than us.",
+                    "They arrived ten minutes later than we did.",
+                    "They came 10 minutes later than us."
+                ],
+                keyPoints: ["arrived / came", "later than"],
+                explanation: "Trạng từ/Tính từ <b>late</b> có dạng so sánh hơn là <b>later</b>. Muốn nói khoảng thời gian lệch ta đặt con số lên trước: <i>10 minutes later than...</i>"
+            },
+            {
+                id: 13,
+                vietnamese: "Xe buýt chạy thường xuyên hơn tàu hỏa ở khu vực này.",
+                answers: [
+                    "Buses run more frequently than trains in this area.",
+                    "The bus runs more frequently than the train in this area.",
+                    "Buses operate more frequently than trains in this region."
+                ],
+                keyPoints: ["buses run / operate", "more frequently than trains"],
+                explanation: "Trạng từ tần suất <b>frequently</b> là trạng từ dài &rarr; <b>more frequently than</b>."
+            },
+            {
+                id: 14,
+                vietnamese: "Trẻ em dành ít thời gian đọc sách hơn và nhiều thời gian chơi trò chơi hơn.",
+                answers: [
+                    "Children spend less time reading and more time playing games.",
+                    "Children spend less time reading books and more time playing games.",
+                    "Kids spend less time reading and more time playing games."
+                ],
+                keyPoints: ["less time reading", "more time playing games"],
+                explanation: "Dạng so sánh hơn bất quy tắc: <b>little &rarr; less</b> (dùng với danh từ không đếm được 'time') và <b>much &rarr; more</b>. Cấu trúc: <i>spend time doing sth</i>."
+            },
+            {
+                id: 15,
+                vietnamese: "Bài thi này cao điểm hơn bài thi trước của tôi.",
+                answers: [
+                    "This exam mark is higher than my previous one.",
+                    "This exam result is higher than my last one.",
+                    "This exam mark is higher than my last exam mark."
+                ],
+                keyPoints: ["exam mark", "is higher than"],
+                explanation: "Tính từ ngắn <b>high</b> có dạng so sánh hơn là <b>higher + than</b>."
+            }
+        ];
+
+        // Render vocabulary list in modal
+        function renderVocabularyModal() {
+            const container = document.getElementById('vocab-list-content');
+            container.innerHTML = vocabularyData.map(v => `
+                <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 flex justify-between items-center text-xs">
+                    <div>
+                        <span class="font-bold text-slate-800 text-sm">${v.word}</span>
+                        ${v.phonetic ? `<span class="text-slate-400 font-mono ml-1">${v.phonetic}</span>` : ''}
+                        <span class="ml-1 text-sky-600 font-semibold">(${v.pos})</span>
+                    </div>
+                    <span class="text-slate-600 font-medium">${v.meaning}</span>
+                </div>
+            `).join('');
+        }
+
+        // Toggle Modal
+        function toggleVocabularyModal() {
+            const modal = document.getElementById('vocab-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Render exercise cards
+        function renderExercises() {
+            const container = document.getElementById('exercise-list');
+            container.innerHTML = exercises.map((item, index) => `
+                <div id="card-${item.id}" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm transition hover:border-slate-300">
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center">
+                                ${index + 1}
+                            </span>
+                            <span id="badge-${item.id}" class="text-xs px-2.5 py-1 rounded-full font-medium bg-slate-100 text-slate-500">
+                                Chưa làm
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Vietnamese Sentence -->
+                    <p class="text-base font-semibold text-slate-800 mb-3 leading-relaxed">
+                        "${item.vietnamese}"
+                    </p>
+
+                    <!-- Input Section -->
+                    <div class="space-y-3">
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="input-${item.id}" 
+                                placeholder="Nhập câu dịch tiếng Anh của bạn tại đây..."
+                                onkeydown="handleKeyPress(event, ${item.id})"
+                                oninput="handleInputChange(${item.id})"
+                                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-slate-800 placeholder-slate-400 text-sm transition pr-24"
+                            />
+                            <button 
+                                onclick="checkSingleAnswer(${item.id})"
+                                class="absolute right-2 top-2 bottom-2 px-3 bg-sky-600 hover:bg-sky-700 text-white font-medium text-xs rounded-lg transition flex items-center gap-1">
+                                <i class="fa-solid fa-check"></i> Kiểm tra
+                            </button>
+                        </div>
+
+                        <!-- Feedback Container (Hidden initially) -->
+                        <div id="feedback-${item.id}" class="hidden text-sm rounded-xl p-4 transition-all animate-fade-in space-y-2">
+                            <div class="flex items-center gap-2 font-bold" id="feedback-status-${item.id}">
+                                <!-- Status Icon and Text injected here -->
+                            </div>
+                            
+                            <div>
+                                <span class="text-xs font-semibold uppercase tracking-wide text-slate-500 block mb-1">Đáp án gợi ý chuẩn:</span>
+                                <p id="feedback-answer-${item.id}" class="font-medium text-slate-800 bg-white/70 p-2 rounded-lg border border-slate-200/60 font-mono text-xs sm:text-sm"></p>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-200/60">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-indigo-600 block mb-1">
+                                    <i class="fa-solid fa-lightbulb"></i> Giải thích ngữ pháp:
+                                </span>
+                                <p id="feedback-explanation-${item.id}" class="text-xs text-slate-600 leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // String Normalization Helper
+        function normalizeText(text) {
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?'"]/g, "") // Remove punctuation
+                .replace(/\s+/g, " "); // Collapse multiple spaces
+        }
+
+        // Check if answer is accurate or acceptable
+        function evaluateAnswer(userAnswer, exercise) {
+            const cleanUser = normalizeText(userAnswer);
+            if (!cleanUser) return { score: 'empty' };
+
+            // Check exact or variation matches
+            const exactMatch = exercise.answers.some(ans => normalizeText(ans) === cleanUser);
+            if (exactMatch) return { score: 'correct' };
+
+            // Check partial keyPoints match
+            let matchesCount = 0;
+            exercise.keyPoints.forEach(kp => {
+                const cleanKP = normalizeText(kp);
+                if (cleanUser.includes(cleanKP)) {
+                    matchesCount++;
+                }
+            });
+
+            if (matchesCount > 0) {
+                return { score: 'partial' };
+            }
+
+            return { score: 'incorrect' };
+        }
+
+        // Key Press handler (Enter to check)
+        function handleKeyPress(event, id) {
+            if (event.key === 'Enter') {
+                checkSingleAnswer(id);
+            }
+        }
+
+        // Track Input changes for live progress updates
+        function handleInputChange(id) {
+            updateProgressStats();
+        }
+
+        // Check single question
+        function checkSingleAnswer(id) {
+            const inputEl = document.getElementById(`input-${id}`);
+            const feedbackEl = document.getElementById(`feedback-${id}`);
+            const statusEl = document.getElementById(`feedback-status-${id}`);
+            const answerEl = document.getElementById(`feedback-answer-${id}`);
+            const explanationEl = document.getElementById(`feedback-explanation-${id}`);
+            const badgeEl = document.getElementById(`badge-${id}`);
+
+            const userVal = inputEl.value;
+            const exercise = exercises.find(e => e.id === id);
+
+            if (!userVal.trim()) {
+                alert("Vui lòng nhập câu trả lời bằng tiếng Anh trước khi kiểm tra!");
+                return;
+            }
+
+            const evalResult = evaluateAnswer(userVal, exercise);
+
+            feedbackEl.classList.remove('hidden', 'bg-emerald-50', 'bg-rose-50', 'bg-amber-50', 'border-emerald-200', 'border-rose-200', 'border-amber-200');
+
+            if (evalResult.score === 'correct') {
+                feedbackEl.classList.add('bg-emerald-50', 'border', 'border-emerald-200');
+                statusEl.className = "flex items-center gap-2 font-bold text-emerald-700";
+                statusEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i> Chính xác! Hoàn hảo.`;
+                badgeEl.className = "text-xs px-2.5 py-1 rounded-full font-semibold bg-emerald-100 text-emerald-700";
+                badgeEl.textContent = "Chính xác";
+            } else if (evalResult.score === 'partial') {
+                feedbackEl.classList.add('bg-amber-50', 'border', 'border-amber-200');
+                statusEl.className = "flex items-center gap-2 font-bold text-amber-700";
+                statusEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg"></i> Gần chính xác (Cần lưu ý từ vựng/ngữ pháp)`;
+                badgeEl.className = "text-xs px-2.5 py-1 rounded-full font-semibold bg-amber-100 text-amber-700";
+                badgeEl.textContent = "Gần đúng";
+            } else {
+                feedbackEl.classList.add('bg-rose-50', 'border', 'border-rose-200');
+                statusEl.className = "flex items-center gap-2 font-bold text-rose-700";
+                statusEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-lg"></i> Chưa chính xác`;
+                badgeEl.className = "text-xs px-2.5 py-1 rounded-full font-semibold bg-rose-100 text-rose-700";
+                badgeEl.textContent = "Chưa đúng";
+            }
+
+            answerEl.innerHTML = exercise.answers[0];
+            explanationEl.innerHTML = exercise.explanation;
+
+            updateProgressStats();
+        }
+
+        // Check all questions at once
+        function checkAllAnswers() {
+            let answeredCount = 0;
+            exercises.forEach(e => {
+                const inputEl = document.getElementById(`input-${e.id}`);
+                if (inputEl.value.trim() !== '') {
+                    answeredCount++;
+                    checkSingleAnswer(e.id);
+                }
+            });
+
+            if (answeredCount === 0) {
+                alert("Bạn chưa nhập câu trả lời nào. Hãy thử dịch ít nhất 1 câu nhé!");
+            } else {
+                // Scroll to top or first incorrect
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Update Dashboard Stats & Progress Bar
+        function updateProgressStats() {
+            let total = exercises.length;
+            let attempted = 0;
+            let correctCount = 0;
+            let incorrectCount = 0;
+
+            exercises.forEach(e => {
+                const inputVal = document.getElementById(`input-${e.id}`).value.trim();
+                const badgeEl = document.getElementById(`badge-${e.id}`);
+
+                if (inputVal !== '') {
+                    attempted++;
+                }
+
+                if (badgeEl.textContent.trim() === "Chính xác") {
+                    correctCount++;
+                } else if (badgeEl.textContent.trim() === "Chưa đúng" || badgeEl.textContent.trim() === "Gần đúng") {
+                    incorrectCount++;
+                }
+            });
+
+            // Update Progress UI
+            document.getElementById('progress-text').textContent = `${attempted}/${total} Đã nhập`;
+            const progressPercent = Math.round((attempted / total) * 100);
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            // Update Score Breakdown
+            document.getElementById('score-correct').textContent = correctCount;
+            document.getElementById('score-incorrect').textContent = incorrectCount;
+
+            const evaluated = correctCount + incorrectCount;
+            const accuracy = evaluated > 0 ? Math.round((correctCount / evaluated) * 100) : 0;
+            document.getElementById('score-accuracy').textContent = `${accuracy}%`;
+        }
+
+        // Reset all inputs
+        function resetExercise() {
+            if (confirm("Bạn có chắc chắn muốn làm lại từ đầu không? All data will be cleared.")) {
+                exercises.forEach(e => {
+                    document.getElementById(`input-${e.id}`).value = '';
+                    const feedbackEl = document.getElementById(`feedback-${e.id}`);
+                    feedbackEl.classList.add('hidden');
+                    const badgeEl = document.getElementById(`badge-${e.id}`);
+                    badgeEl.className = "text-xs px-2.5 py-1 rounded-full font-medium bg-slate-100 text-slate-500";
+                    badgeEl.textContent = "Chưa làm";
+                });
+                updateProgressStats();
+            }
+        }
+
+        // Initialize App
+        window.onload = function() {
+            renderExercises();
+            renderVocabularyModal();
+            updateProgressStats();
+        };
+    </script>
+</body>
+</html>
