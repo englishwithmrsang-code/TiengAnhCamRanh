@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Dịch Câu Từ Vựng Tiếng Anh</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-800 leading-tight">Luyện Tập Dịch Câu Tiếng Anh</h1>
+                    <p class="text-xs text-slate-500">22 Câu Ví Dụ Nguyên Bản Trong Từ Điển</p>
+                </div>
+            </div>
+            <button onclick="toggleVocabularyModal()" class="px-3.5 py-2 text-xs sm:text-sm font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 rounded-xl transition border border-sky-200/80 flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-book-bookmark text-sky-600"></i>
+                <span>Xem Bảng Từ Vựng (22 từ)</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-6 w-full flex-grow">
+
+        <!-- Control Panel: Mode Selection & Stats -->
+        <section class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm mb-6 space-y-4">
+            <!-- Mode Switcher -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider whitespace-nowrap">Chế độ luyện:</span>
+                    <select id="practice-mode" onchange="changeMode()" class="bg-slate-50 border border-slate-300 font-semibold text-slate-700 text-xs sm:text-sm rounded-xl px-3 py-2 focus:ring-2 focus:ring-sky-500 focus:outline-none w-full sm:w-auto cursor-pointer">
+                        <option value="vi-en">Dịch Việt ➔ Anh (Gõ Tiếng Anh)</option>
+                        <option value="en-vi">Dịch Anh ➔ Việt (Gõ Tiếng Việt)</option>
+                        <option value="mix">Xáo trộn (Anh ➔ Việt & Việt ➔ Anh)</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <button onclick="checkAllAnswers()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-xl shadow-sm transition flex items-center justify-center gap-2 text-xs sm:text-sm">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Nộp Tất Cả</span>
+                    </button>
+                    <button onclick="resetExercise()" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium p-2 rounded-xl transition text-sm" title="Làm lại từ đầu">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress & Score -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                <div class="sm:col-span-2">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tiến độ làm bài</span>
+                        <span id="progress-text" class="text-xs font-bold text-sky-600">0/22 đã trả lời</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                        <div id="progress-bar" class="bg-gradient-to-r from-sky-500 to-indigo-600 h-2.5 rounded-full transition-all duration-300 w-0"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-around border-t sm:border-t-0 sm:border-l border-slate-100 pt-3 sm:pt-0 sm:pl-4">
+                    <div class="text-center">
+                        <span id="score-correct" class="block text-xl font-extrabold text-emerald-600">0</span>
+                        <span class="text-[11px] text-slate-500 font-medium">Đúng</span>
+                    </div>
+                    <div class="text-center">
+                        <span id="score-incorrect" class="block text-xl font-extrabold text-rose-500">0</span>
+                        <span class="text-[11px] text-slate-500 font-medium">Chưa đúng</span>
+                    </div>
+                    <div class="text-center">
+                        <span id="score-accuracy" class="block text-xl font-extrabold text-sky-600">0%</span>
+                        <span class="text-[11px] text-slate-500 font-medium">Chính xác</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercise Sentence Cards Container -->
+        <div id="exercise-list" class="space-y-4">
+            <!-- Dynamic list generated by JS -->
+        </div>
+
+    </main>
+
+    <!-- Modal Vocabulary Dictionary -->
+    <div id="vocab-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-fade-in">
+            <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                <div>
+                    <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-book text-sky-600"></i> Danh Sách 22 Từ Vựng & Câu Mẫu
+                    </h3>
+                    <p class="text-xs text-slate-500">Từ vựng chính xác trong bài học kèm phiên âm IPA</p>
+                </div>
+                <button onclick="toggleVocabularyModal()" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-4 overflow-y-auto custom-scrollbar flex-grow space-y-2.5 text-sm bg-slate-50/50">
+                <div id="vocab-modal-content" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+            <div class="p-3 border-t border-slate-200 bg-slate-50 text-right">
+                <button onclick="toggleVocabularyModal()" class="px-5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-medium text-sm rounded-xl transition shadow-sm">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Exact 22 Vocabulary and Sentence Items provided
+        const dataset = [
+            {
+                id: 1,
+                word: "email",
+                phonetic: "/ˈiːmeɪl/",
+                meaning: "email / thư điện tử",
+                en: "I sent you an email yesterday.",
+                vi: "Tôi đã gửi cho bạn một email hôm qua.",
+                viVariants: ["Tôi đã gửi cho bạn một email hôm qua", "Tôi đã gửi bạn một email ngày hôm qua", "Tôi gửi cho bạn một email hôm qua"],
+                enVariants: ["I sent you an email yesterday", "I sent an email to you yesterday"],
+                grammar: "<b>Thì Quá khứ đơn (Past Simple):</b> Động từ bất quy tắc <i>sent</i> (nguyên thể là <i>send</i>). Trạng từ thời gian <i>yesterday</i> đứng cuối câu."
+            },
+            {
+                id: 2,
+                word: "letter",
+                phonetic: "/ˈletər/",
+                meaning: "thư tay",
+                en: "I wrote a letter to my friend.",
+                vi: "Tôi đã viết một lá thư cho bạn tôi.",
+                viVariants: ["Tôi đã viết một lá thư cho bạn tôi", "Tôi đã viết thư cho bạn tôi", "Tôi đã viết một lá thư gửi cho bạn tôi"],
+                enVariants: ["I wrote a letter to my friend", "I wrote my friend a letter"],
+                grammar: "<b>Thì Quá khứ đơn:</b> Động từ bất quy tắc <i>wrote</i> (nguyên thể <i>write</i>). Cấu trúc <i>write something to someone</i> (viết cái gì cho ai)."
+            },
+            {
+                id: 3,
+                word: "message",
+                phonetic: "/ˈmesɪdʒ/",
+                meaning: "tin nhắn",
+                en: "She sent me a message.",
+                vi: "Cô ấy đã gửi cho tôi một tin nhắn.",
+                viVariants: ["Cô ấy đã gửi cho tôi một tin nhắn", "Cô ấy đã gửi tôi một tin nhắn", "Cô ấy gửi cho tôi tin nhắn"],
+                enVariants: ["She sent me a message", "She sent a message to me"],
+                grammar: "<b>Thì Quá khứ đơn:</b> Cấu trúc <i>send someone something</i> (gửi cho ai cái gì) tương đương với <i>send something to someone</i>."
+            },
+            {
+                id: 4,
+                word: "stay (at)",
+                phonetic: "/steɪ æt/",
+                meaning: "ở lại tại",
+                en: "We stayed at a hotel.",
+                vi: "Chúng tôi đã ở tại một khách sạn.",
+                viVariants: ["Chúng tôi đã ở tại một khách sạn", "Chúng tôi đã ở một khách sạn", "Chúng tôi ở tại khách sạn"],
+                enVariants: ["We stayed at a hotel", "We stayed in a hotel"],
+                grammar: "<b>Thì Quá khứ đơn có quy tắc:</b> <i>stay</i> + <i>-ed</i> &rarr; <i>stayed</i>. Giới từ <i>at</i> dùng cho vị trí địa điểm cụ thể (at a hotel)."
+            },
+            {
+                id: 5,
+                word: "crazy",
+                phonetic: "/ˈkreɪzi/",
+                meaning: "điên rồ",
+                en: "That sounds crazy!",
+                vi: "Điều đó nghe thật điên rồ!",
+                viVariants: ["Điều đó nghe thật điên rồ", "Nghe thật điên rồ", "Điều đó nghe điên rồ"],
+                enVariants: ["That sounds crazy", "That sounds crazy!"],
+                grammar: "<b>Động từ nối (Linking Verb):</b> <i>sound + adj</i> (nghe có vẻ như thế nào). <i>Crazy</i> là tính từ đứng sau động từ <i>sounds</i>."
+            },
+            {
+                id: 6,
+                word: "kangaroo",
+                phonetic: "/ˌkæŋɡəˈruː/",
+                meaning: "chuột túi",
+                en: "The kangaroo can jump far.",
+                vi: "Con kangaroo có thể nhảy xa.",
+                viVariants: ["Con kangaroo có thể nhảy xa", "Chuột túi có thể nhảy xa", "Con chuột túi có thể nhảy xa"],
+                enVariants: ["The kangaroo can jump far", "A kangaroo can jump far"],
+                grammar: "<b>Động từ khuyết thiếu (Modal Verb):</b> <i>can + V (nguyên thể)</i> diễn tả khả năng (can jump). <i>Far</i> là trạng từ chỉ khoảng cách."
+            },
+            {
+                id: 7,
+                word: "eagle",
+                phonetic: "/ˈiːɡəl/",
+                meaning: "đại bàng",
+                en: "The eagle is flying high.",
+                vi: "Con đại bàng đang bay cao.",
+                viVariants: ["Con đại bàng đang bay cao", "Đại bàng đang bay cao"],
+                enVariants: ["The eagle is flying high", "An eagle is flying high"],
+                grammar: "<b>Thì Hiện tại tiếp diễn (Present Continuous):</b> <i>S + am/is/are + V-ing</i> (is flying) diễn tả hành động đang xảy ra. <i>High</i> là trạng từ bổ nghĩa cho động từ <i>fly</i>."
+            },
+            {
+                id: 8,
+                word: "even",
+                phonetic: "/ˈiːvən/",
+                meaning: "thậm chí",
+                en: "He can even swim.",
+                vi: "Cậu ấy thậm chí còn biết bơi.",
+                viVariants: ["Cậu ấy thậm chí còn biết bơi", "Anh ấy thậm chí còn biết bơi", "Cậu ấy thậm chí biết bơi", "Anh ấy thậm chí biết bơi"],
+                enVariants: ["He can even swim"],
+                grammar: "<b>Trạng từ nhấn mạnh (Even):</b> <i>Even</i> đứng giữa động từ khuyết thiếu <i>can</i> và động từ chính <i>swim</i> để nhấn mạnh mức độ bất ngờ."
+            },
+            {
+                id: 9,
+                word: "ant",
+                phonetic: "/ænt/",
+                meaning: "con kiến",
+                en: "I saw an ant on the table.",
+                vi: "Tôi thấy một con kiến trên bàn.",
+                viVariants: ["Tôi thấy một con kiến trên bàn", "Tôi đã thấy một con kiến trên bàn", "Tôi nhìn thấy một con kiến trên bàn"],
+                enVariants: ["I saw an ant on the table"],
+                grammar: "<b>Thì Quá khứ đơn & Mạo từ:</b> <i>saw</i> là quá khứ của <i>see</i>. Mạo từ <i>an</i> dùng trước danh từ bắt đầu bằng nguyên âm (an ant)."
+            },
+            {
+                id: 10,
+                word: "tiger",
+                phonetic: "/ˈtaɪɡər/",
+                meaning: "con hổ",
+                en: "The tiger is very strong.",
+                vi: "Con hổ rất khỏe.",
+                viVariants: ["Con hổ rất khỏe", "Con hổ rất mạnh"],
+                enVariants: ["The tiger is very strong", "A tiger is very strong"],
+                grammar: "<b>Tính từ mô tả:</b> Động từ to-be <i>is</i> + trạng từ chỉ mức độ <i>very</i> + tính từ <i>strong</i>."
+            },
+            {
+                id: 11,
+                word: "bathroom door",
+                phonetic: "/ˈbɑːθruːm dɔːr/",
+                meaning: "cửa phòng tắm",
+                en: "Please close the bathroom door.",
+                vi: "Làm ơn đóng cửa phòng tắm.",
+                viVariants: ["Làm ơn đóng cửa phòng tắm", "Xin vui lòng đóng cửa phòng tắm", "Hãy đóng cửa phòng tắm", "Vui lòng đóng cửa phòng tắm"],
+                enVariants: ["Please close the bathroom door", "Close the bathroom door please"],
+                grammar: "<b>Câu mệnh lệnh lịch sự (Imperative Sentence):</b> <i>Please + V (nguyên thể)</i> dùng để yêu cầu ai đó làm gì một cách lịch sự."
+            },
+            {
+                id: 12,
+                word: "strange shape",
+                phonetic: "/streɪndʒ ʃeɪp/",
+                meaning: "hình dạng lạ",
+                en: "It has a strange shape.",
+                vi: "Nó có một hình dạng lạ.",
+                viVariants: ["Nó có một hình dạng lạ", "Nó có một hình dáng lạ", "Nó có hình dạng lạ"],
+                enVariants: ["It has a strange shape"],
+                grammar: "<b>Cụm danh từ (Noun Phrase):</b> Tính từ <i>strange</i> đứng trước danh từ <i>shape</i> để bổ nghĩa. Chủ ngữ <i>It</i> đi với động từ <i>has</i>."
+            },
+            {
+                id: 13,
+                word: "put",
+                phonetic: "/pʊt/",
+                meaning: "đặt / để",
+                en: "Please put it here.",
+                vi: "Làm ơn đặt nó ở đây.",
+                viVariants: ["Làm ơn đặt nó ở đây", "Xin vui lòng đặt nó ở đây", "Làm ơn để nó ở đây", "Vui lòng đặt nó ở đây"],
+                enVariants: ["Please put it here", "Put it here please"],
+                grammar: "<b>Câu mệnh lệnh lịch sự:</b> <i>Please + put + tân ngữ (it) + trạng từ chỉ nơi chốn (here)</i>."
+            },
+            {
+                id: 14,
+                word: "wardrobe",
+                phonetic: "/ˈwɔːdrəʊb/",
+                meaning: "tủ quần áo",
+                en: "My clothes are in the wardrobe.",
+                vi: "Quần áo của tôi ở trong tủ quần áo.",
+                viVariants: ["Quần áo của tôi ở trong tủ quần áo", "Quần áo tôi ở trong tủ quần áo", "Quần áo của tôi trong tủ quần áo"],
+                enVariants: ["My clothes are in the wardrobe"],
+                grammar: "<b>Danh từ số nhiều & Giới từ:</b> <i>Clothes</i> luôn ở dạng số nhiều nên đi với to-be <i>are</i>. Giới từ <i>in</i> chỉ vị trí bên trong."
+            },
+            {
+                id: 15,
+                word: "closet",
+                phonetic: "/ˈklɒzɪt/",
+                meaning: "tủ quần áo",
+                en: "My shoes are in the closet.",
+                vi: "Giày của tôi ở trong tủ quần áo.",
+                viVariants: ["Giày của tôi ở trong tủ quần áo", "Những chiếc giày của tôi ở trong tủ quần áo", "Giày tôi ở trong tủ quần áo"],
+                enVariants: ["My shoes are in the closet"],
+                grammar: "<b>Danh từ đếm được số nhiều:</b> <i>shoes</i> (đôi giày) đi với động từ to-be <i>are</i>. Từ <i>closet</i> đồng nghĩa với <i>wardrobe</i>."
+            },
+            {
+                id: 16,
+                word: "visit",
+                phonetic: "/ˈvɪzɪt/",
+                meaning: "thăm",
+                en: "We will visit Grandma tomorrow.",
+                vi: "Chúng tôi sẽ thăm bà vào ngày mai.",
+                viVariants: ["Chúng tôi sẽ thăm bà vào ngày mai", "Chúng tôi sẽ đi thăm bà vào ngày mai", "Chúng tôi sẽ thăm bà ngày mai"],
+                enVariants: ["We will visit Grandma tomorrow", "We will visit grandmother tomorrow"],
+                grammar: "<b>Thì Tương lai đơn (Future Simple):</b> <i>S + will + V (nguyên thể)</i> diễn tả quyết định hoặc kế hoạch tương lai (will visit). Trạng từ <i>tomorrow</i>."
+            },
+            {
+                id: 17,
+                word: "circle",
+                phonetic: "/ˈsɜːkəl/",
+                meaning: "khoanh tròn",
+                en: "Please circle the correct answer.",
+                vi: "Hãy khoanh tròn đáp án đúng.",
+                viVariants: ["Hãy khoanh tròn đáp án đúng", "Làm ơn khoanh tròn đáp án đúng", "Vui lòng khoanh tròn đáp án đúng", "Hãy khoanh tròn câu trả lời đúng"],
+                enVariants: ["Please circle the correct answer", "Circle the correct answer please"],
+                grammar: "<b>Câu mệnh lệnh & Tính từ:</b> Động từ <i>circle</i> (khoanh tròn). Tính từ <i>correct</i> (đúng) đứng trước danh từ <i>answer</i>."
+            },
+            {
+                id: 18,
+                word: "window",
+                phonetic: "/ˈwɪndəʊ/",
+                meaning: "cửa sổ",
+                en: "Please open the window.",
+                vi: "Làm ơn mở cửa sổ.",
+                viVariants: ["Làm ơn mở cửa sổ", "Xin vui lòng mở cửa sổ", "Hãy mở cửa sổ", "Vui lòng mở cửa sổ"],
+                enVariants: ["Please open the window", "Open the window please"],
+                grammar: "<b>Câu yêu cầu lịch sự:</b> <i>Please + open</i> (động từ nguyên thể). Mạo từ xác định <i>the</i> dùng trước <i>window</i> khi cả người nói và nghe đều biết cửa sổ nào."
+            },
+            {
+                id: 19,
+                word: "cooker",
+                phonetic: "/ˈkʊkər/",
+                meaning: "nồi nấu cơm / bếp",
+                en: "The rice is on the cooker.",
+                vi: "Cơm ở trên nồi nấu cơm.",
+                viVariants: ["Cơm ở trên nồi nấu cơm", "Cơm ở trên bếp", "Cơm ở trên nồi cơm"],
+                enVariants: ["The rice is on the cooker"],
+                grammar: "<b>Danh từ không đếm được & Giới từ:</b> <i>Rice</i> (cơm/gạo) là danh từ không đếm được &rarr; dùng động từ số ít <i>is</i>. Giới từ <i>on</i> (trên bề mặt)."
+            },
+            {
+                id: 20,
+                word: "shelf",
+                phonetic: "/ʃelf/",
+                meaning: "kệ / giá sách",
+                en: "Put the books on the shelf.",
+                vi: "Hãy đặt sách lên kệ.",
+                viVariants: ["Hãy đặt sách lên kệ", "Hãy để sách lên kệ", "Đặt sách lên kệ", "Đặt những quyển sách lên kệ"],
+                enVariants: ["Put the books on the shelf", "Please put the books on the shelf"],
+                grammar: "<b>Câu mệnh lệnh & Số nhiều:</b> <i>Put</i> đứng đầu câu. <i>Books</i> là danh từ số nhiều (những cuốn sách)."
+            },
+            {
+                id: 21,
+                word: "cupboard",
+                phonetic: "/ˈkʌbəd/",
+                meaning: "tủ chén",
+                en: "The cups are in the cupboard.",
+                vi: "Những chiếc cốc ở trong tủ chén.",
+                viVariants: ["Những chiếc cốc ở trong tủ chén", "Mấy cái cốc ở trong tủ chén", "Những chiếc cốc trong tủ chén", "Cốc ở trong tủ chén"],
+                enVariants: ["The cups are in the cupboard"],
+                grammar: "<b>Chủ ngữ số nhiều & Giới từ:</b> <i>The cups</i> (số nhiều) đi với <i>are</i>. Giới từ <i>in</i> chỉ đồ vật nằm bên trong tủ (cupboard)."
+            },
+            {
+                id: 22,
+                word: "lamp",
+                phonetic: "/læmp/",
+                meaning: "đèn bàn",
+                en: "The lamp is next to my bed.",
+                vi: "Đèn bàn ở cạnh giường của tôi.",
+                viVariants: ["Đèn bàn ở cạnh giường của tôi", "Chiếc đèn bàn ở cạnh giường của tôi", "Cái đèn ở bên cạnh giường tôi", "Đèn bàn ở bên cạnh giường của tôi"],
+                enVariants: ["The lamp is next to my bed"],
+                grammar: "<b>Cụm giới từ chỉ vị trí:</b> <i>next to + N</i> (ngay bên cạnh cái gì). Tính từ sở hữu <i>my</i> đứng trước danh từ <i>bed</i>."
+            }
+        ];
+
+        // State variables
+        let currentMode = 'vi-en'; // 'vi-en', 'en-vi', 'mix'
+        let currentExerciseList = [];
+
+        function initData() {
+            currentExerciseList = dataset.map((item, index) => {
+                let direction = currentMode;
+                if (currentMode === 'mix') {
+                    direction = index % 2 === 0 ? 'vi-en' : 'en-vi';
+                }
+                return {
+                    ...item,
+                    direction: direction // 'vi-en' -> Prompt VI, answer EN; 'en-vi' -> Prompt EN, answer VI
+                };
+            });
+        }
+
+        function renderVocabularyModal() {
+            const container = document.getElementById('vocab-modal-content');
+            container.innerHTML = dataset.map((item, i) => `
+                <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-sm flex flex-col justify-between text-xs space-y-1.5 hover:border-sky-300 transition">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-slate-800 text-sm">${i + 1}. ${item.word}</span>
+                        <span class="text-slate-400 font-mono text-[11px]">${item.phonetic}</span>
+                    </div>
+                    <div class="text-sky-700 font-medium">${item.meaning}</div>
+                    <div class="bg-slate-50 p-2 border border-slate-100 rounded-lg space-y-0.5">
+                        <p class="font-semibold text-slate-800">${item.en}</p>
+                        <p class="text-slate-500 italic">${item.vi}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleVocabularyModal() {
+            const modal = document.getElementById('vocab-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function renderExercises() {
+            const container = document.getElementById('exercise-list');
+            container.innerHTML = currentExerciseList.map((item, index) => {
+                const isViToEn = item.direction === 'vi-en';
+                const promptText = isViToEn ? item.vi : item.en;
+                const placeholderText = isViToEn 
+                    ? "Nhập câu dịch Tiếng Anh..." 
+                    : "Nhập câu dịch Tiếng Việt...";
+
+                return `
+                <div id="card-${item.id}" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm transition hover:border-slate-300">
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center">
+                                ${index + 1}
+                            </span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${isViToEn ? 'bg-indigo-50 text-indigo-600 border border-indigo-100' : 'bg-emerald-50 text-emerald-600 border border-emerald-100'}">
+                                ${isViToEn ? 'Dịch Việt ➔ Anh' : 'Dịch Anh ➔ Việt'}
+                            </span>
+                            <span id="badge-${item.id}" class="text-xs px-2.5 py-0.5 rounded-full font-medium bg-slate-100 text-slate-500">
+                                Chưa trả lời
+                            </span>
+                        </div>
+                        
+                        <button onclick="toggleHint(${item.id})" class="text-xs font-semibold text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 px-2.5 py-1 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb"></i> Từ vựng: <b>${item.word}</b>
+                        </button>
+                    </div>
+
+                    <!-- Hint Box -->
+                    <div id="hint-box-${item.id}" class="hidden mb-3 p-3 rounded-xl bg-amber-50/90 border border-amber-200/80 text-xs text-amber-900 animate-fade-in flex items-center gap-2">
+                        <i class="fa-solid fa-key text-amber-600 text-sm"></i>
+                        <div>
+                            Từ vựng cốt lõi: <b class="text-amber-950">${item.word}</b> <span class="font-mono text-amber-700">${item.phonetic}</span> : <i>${item.meaning}</i>
+                        </div>
+                    </div>
+
+                    <!-- Prompt Sentence -->
+                    <p class="text-base font-bold text-slate-800 mb-3 leading-relaxed">
+                        "${promptText}"
+                    </p>
+
+                    <!-- Input Section -->
+                    <div class="space-y-3">
+                        <div class="flex gap-2">
+                            <input 
+                                type="text" 
+                                id="input-${item.id}" 
+                                placeholder="${placeholderText}"
+                                onkeydown="handleKeyPress(event, ${item.id})"
+                                oninput="updateProgressStats()"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-slate-800 text-sm transition"
+                            />
+                            <button 
+                                onclick="checkSingleAnswer(${item.id})"
+                                class="whitespace-nowrap px-4 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs sm:text-sm rounded-xl transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-check"></i> Kiểm tra
+                            </button>
+                        </div>
+
+                        <!-- Feedback Area -->
+                        <div id="feedback-${item.id}" class="hidden text-sm rounded-xl p-4 transition-all animate-fade-in space-y-2.5">
+                            <div class="flex items-center gap-2 font-bold" id="feedback-status-${item.id}">
+                                <!-- Status text and icon -->
+                            </div>
+                            
+                            <div>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1">Đáp án mẫu chính xác:</span>
+                                <p id="feedback-answer-${item.id}" class="font-medium text-slate-800 bg-white/90 p-2.5 rounded-lg border border-slate-200/80 font-mono text-xs sm:text-sm"></p>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-200/60">
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600 block mb-1">
+                                    <i class="fa-solid fa-graduation-cap"></i> Giải thích ngữ pháp & từ vựng:
+                                </span>
+                                <p id="feedback-explanation-${item.id}" class="text-xs text-slate-600 leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        function toggleHint(id) {
+            const hintBox = document.getElementById(`hint-box-${id}`);
+            hintBox.classList.toggle('hidden');
+        }
+
+        function normalizeString(str) {
+            if (!str) return "";
+            return str
+                .toLowerCase()
+                .trim()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?'"!]/g, "")
+                .replace(/\s+/g, " ");
+        }
+
+        function checkAnswerMatch(userStr, item) {
+            const cleanUser = normalizeString(userStr);
+            if (!cleanUser) return false;
+
+            if (item.direction === 'vi-en') {
+                // Check exact original EN or EN variants
+                const targets = [item.en, ...(item.enVariants || [])];
+                return targets.some(target => normalizeString(target) === cleanUser);
+            } else {
+                // Check exact original VI or VI variants
+                const targets = [item.vi, ...(item.viVariants || [])];
+                return targets.some(target => normalizeString(target) === cleanUser);
+            }
+        }
+
+        function handleKeyPress(event, id) {
+            if (event.key === 'Enter') {
+                checkSingleAnswer(id);
+            }
+        }
+
+        function checkSingleAnswer(id) {
+            const inputEl = document.getElementById(`input-${id}`);
+            const feedbackEl = document.getElementById(`feedback-${id}`);
+            const statusEl = document.getElementById(`feedback-status-${id}`);
+            const answerEl = document.getElementById(`feedback-answer-${id}`);
+            const explanationEl = document.getElementById(`feedback-explanation-${id}`);
+            const badgeEl = document.getElementById(`badge-${id}`);
+
+            const userVal = inputEl.value;
+            const item = currentExerciseList.find(e => e.id === id);
+
+            if (!userVal.trim()) {
+                alert("Vui lòng nhập câu dịch trước khi kiểm tra!");
+                return;
+            }
+
+            const isCorrect = checkAnswerMatch(userVal, item);
+
+            feedbackEl.classList.remove('hidden', 'bg-emerald-50', 'bg-rose-50', 'border-emerald-200', 'border-rose-200');
+
+            if (isCorrect) {
+                feedbackEl.classList.add('bg-emerald-50', 'border', 'border-emerald-200');
+                statusEl.className = "flex items-center gap-2 font-bold text-emerald-700";
+                statusEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i> Chính xác! Bạn làm rất tốt.`;
+                badgeEl.className = "text-xs px-2.5 py-0.5 rounded-full font-semibold bg-emerald-100 text-emerald-700";
+                badgeEl.textContent = "Chính xác";
+            } else {
+                feedbackEl.classList.add('bg-rose-50', 'border', 'border-rose-200');
+                statusEl.className = "flex items-center gap-2 font-bold text-rose-700";
+                statusEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-lg"></i> Chưa chính xác. Hãy so sánh với đáp án mẫu bên dưới!`;
+                badgeEl.className = "text-xs px-2.5 py-0.5 rounded-full font-semibold bg-rose-100 text-rose-700";
+                badgeEl.textContent = "Chưa đúng";
+            }
+
+            const mainAnswer = item.direction === 'vi-en' ? item.en : item.vi;
+            answerEl.innerHTML = `${mainAnswer}`;
+            explanationEl.innerHTML = item.grammar;
+
+            updateProgressStats();
+        }
+
+        function checkAllAnswers() {
+            let answeredCount = 0;
+            currentExerciseList.forEach(e => {
+                const inputEl = document.getElementById(`input-${e.id}`);
+                if (inputEl.value.trim() !== '') {
+                    answeredCount++;
+                    checkSingleAnswer(e.id);
+                }
+            });
+
+            if (answeredCount === 0) {
+                alert("Bạn chưa nhập câu dịch nào. Hãy bắt đầu nhập câu trả lời nhé!");
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function updateProgressStats() {
+            let total = currentExerciseList.length;
+            let attempted = 0;
+            let correctCount = 0;
+            let incorrectCount = 0;
+
+            currentExerciseList.forEach(e => {
+                const inputVal = document.getElementById(`input-${e.id}`).value.trim();
+                const badgeEl = document.getElementById(`badge-${e.id}`);
+
+                if (inputVal !== '') {
+                    attempted++;
+                }
+
+                if (badgeEl.textContent.trim() === "Chính xác") {
+                    correctCount++;
+                } else if (badgeEl.textContent.trim() === "Chưa đúng") {
+                    incorrectCount++;
+                }
+            });
+
+            document.getElementById('progress-text').textContent = `${attempted}/${total} đã trả lời`;
+            const progressPercent = Math.round((attempted / total) * 100);
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            document.getElementById('score-correct').textContent = correctCount;
+            document.getElementById('score-incorrect').textContent = incorrectCount;
+
+            const evaluated = correctCount + incorrectCount;
+            const accuracy = evaluated > 0 ? Math.round((correctCount / evaluated) * 100) : 0;
+            document.getElementById('score-accuracy').textContent = `${accuracy}%`;
+        }
+
+        function changeMode() {
+            currentMode = document.getElementById('practice-mode').value;
+            resetExercise(false);
+        }
+
+        function resetExercise(askConfirm = true) {
+            if (!askConfirm || confirm("Bạn có chắc chắn muốn xóa hết bài làm để bắt đầu lại không?")) {
+                initData();
+                renderExercises();
+                updateProgressStats();
+            }
+        }
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            initData();
+            renderExercises();
+            renderVocabularyModal();
+            updateProgressStats();
+        };
+    </script>
+</body>
+</html>
