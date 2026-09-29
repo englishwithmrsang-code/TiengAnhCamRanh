@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Bài Đọc Tiếng Anh Tương Tác - Chia Đôi Màn Hình</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .evidence-highlight {
+            background-color: #fef08a !important;
+            color: #854d0e !important;
+            font-weight: 700 !important;
+            padding: 2px 6px;
+            border-radius: 4px;
+            box-shadow: 0 0 0 2px #facc15;
+            transition: all 0.3s ease;
+            animation: pulse-glow 1.5s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 0 2px #facc15, 0 0 8px rgba(250, 204, 21, 0.5);
+                background-color: #fef08a;
+            }
+            100% {
+                box-shadow: 0 0 0 4px #eab308, 0 0 16px rgba(234, 179, 8, 0.8);
+                background-color: #fde047;
+            }
+        }
+
+        .tab-btn.active {
+            background-color: #2563eb;
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        /* Independent Column Scrollbars */
+        .column-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .column-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+        .column-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+        .column-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Screen Height Layout Fix for True Split View */
+        @media (min-width: 1024px) {
+            .split-container {
+                height: calc(100vh - 4.5rem);
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col overflow-x-hidden">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm shrink-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-600 text-white p-2.5 rounded-xl flex items-center justify-center shadow-md">
+                    <i class="fa-solid fa-book-open-reader text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">Interactive English Reading</h1>
+                    <p class="text-xs text-slate-500 hidden sm:block">Màn hình chia đôi: Bên trái Bài đọc - Bên phải Câu hỏi</p>
+                </div>
+            </div>
+
+            <!-- TAB NAVIGATION -->
+            <div class="flex bg-slate-100 p-1 rounded-xl gap-1 border border-slate-200">
+                <button onclick="switchTab('reading1')" id="tab-reading1" class="tab-btn active px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all">
+                    Reading 1
+                </button>
+                <button onclick="switchTab('reading2')" id="tab-reading2" class="tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all">
+                    Reading 2
+                </button>
+                <button onclick="switchTab('reading3')" id="tab-reading3" class="tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all">
+                    Reading 3
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-3 lg:py-4 flex-grow w-full">
+
+        <!-- ========================================== -->
+        <!-- READING 1 SECTION (SPLIT SCREEN)           -->
+        <!-- ========================================== -->
+        <section id="reading1" class="split-container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+            <!-- Left Column: Passage -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col h-full overflow-hidden">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3 shrink-0">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full">Part 1</span>
+                        <h3 class="font-bold text-slate-900 text-base">A Village in Ninh Binh</h3>
+                    </div>
+                    <span class="text-xs text-slate-500"><i class="fa-solid fa-pen-to-square text-blue-500 mr-1"></i> Điền từ vào chỗ trống</span>
+                </div>
+                
+                <div id="r1-passage-text" class="column-scroll overflow-y-auto pr-3 text-slate-700 text-base leading-relaxed bg-slate-50 p-5 rounded-xl border border-slate-200 flex-grow space-y-3">
+                    <p>
+                        I live in a small village in Ninh Binh. I love the <span id="r1-blank-1" class="font-bold underline decoration-blue-500 decoration-2 text-blue-700 px-1 hover:bg-blue-100 transition-colors cursor-pointer" onclick="scrollToQ('r1-q-1')">(1) ______</span> peace and quiet of my village. 
+                        The air is unpolluted, and the <span id="r1-blank-2" class="font-bold underline decoration-blue-500 decoration-2 text-blue-700 px-1 hover:bg-blue-100 transition-colors cursor-pointer" onclick="scrollToQ('r1-q-2')">(2) ______</span> of life is slow. 
+                        The people in my village are friendly and hospitable. They are always willing <span id="r1-blank-3" class="font-bold underline decoration-blue-500 decoration-2 text-blue-700 px-1 hover:bg-blue-100 transition-colors cursor-pointer" onclick="scrollToQ('r1-q-3')">(3) ______</span> each other. 
+                        We cultivate mainly rice and beans. We raise cows and buffaloes too. 
+                        We can also enjoy <span id="r1-blank-4" class="font-bold underline decoration-blue-500 decoration-2 text-blue-700 px-1 hover:bg-blue-100 transition-colors cursor-pointer" onclick="scrollToQ('r1-q-4')">(4) ______</span> in the nearby area. 
+                        It is actually a national park, so the wildlife there can live and move about <span id="r1-blank-5" class="font-bold underline decoration-blue-500 decoration-2 text-blue-700 px-1 hover:bg-blue-100 transition-colors cursor-pointer" onclick="scrollToQ('r1-q-5')">(5) ______</span>. 
+                        All these things make me love my village more, and I intend to live here my whole life.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Column: Questions & Options -->
+            <div class="flex flex-col h-full overflow-hidden space-y-3">
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex justify-between items-center shrink-0">
+                    <div>
+                        <h2 class="font-bold text-slate-900 text-sm">Choose A, B, or C</h2>
+                        <p class="text-xs text-slate-500">Click chọn đáp án để hoàn thành câu</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="r1-score" class="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg">Đã làm: <b class="text-blue-600">0/5</b></span>
+                        <button onclick="resetReading1()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-2.5 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-right"></i> Thử lại
+                        </button>
+                    </div>
+                </div>
+
+                <div id="r1-questions-container" class="column-scroll overflow-y-auto pr-2 space-y-3 flex-grow">
+                    <!-- Questions injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- READING 2 SECTION (SPLIT SCREEN)           -->
+        <!-- ========================================== -->
+        <section id="reading2" class="hidden split-container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+            <!-- Left Column: Passage -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col h-full overflow-hidden">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3 shrink-0">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-full">Part 2</span>
+                        <h3 class="font-bold text-slate-900 text-base">The Countryside in Britain</h3>
+                    </div>
+                    <span class="text-xs text-slate-500"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Highlight dẫn chứng tự động</span>
+                </div>
+                
+                <div id="r2-passage-text" class="column-scroll overflow-y-auto pr-3 space-y-4 text-slate-700 text-base leading-relaxed bg-slate-50 p-5 rounded-xl border border-slate-200 flex-grow">
+                    <p>
+                        <span id="r2-ev-1">Besides its beauty, the countryside of Britain is well known for its many contrasts: its bare mountains and moorland, its lakes, rivers and woods, and its long, often wild coastline.</span> 
+                        National parks which are protected from development by the government have the most beautiful and picturesque scenery. 
+                        British people often associate the countryside with farmland, open spaces like fields of wheat and barley, green fields enclosed by hedges or stone walls in which cows or sheep are raised. 
+                        <span id="r2-ev-2">Most farmland is now owned by individual people or independent companies.</span> 
+                        However, the government has built a network of public footpaths across the farmland.
+                    </p>
+                    <p>
+                        <span id="r2-ev-3">Many British people enjoy the peace and relaxation of life in the countryside</span> where they can spend their free time walking, cycling, or going for a picnic or a pub lunch. 
+                        In summer they can pick strawberries and other fruit in fruit farms. 
+                        Nowadays, few rural people work on farms. 
+                        <span id="r2-ev-4">Many of them <b>commute</b> to work in towns.</span> 
+                        <span id="r2-ev-5">Many others wish to live in the countryside so that <b>they</b> could have a better and healthier lifestyle.</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Column: Questions & Options -->
+            <div class="flex flex-col h-full overflow-hidden space-y-3">
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex justify-between items-center shrink-0">
+                    <div>
+                        <h2 class="font-bold text-slate-900 text-sm">Choose A, B, C, or D</h2>
+                        <p class="text-xs text-slate-500">Click đáp án để xem giải thích & dẫn chứng</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="r2-score" class="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg">Đã làm: <b class="text-indigo-600">0/5</b></span>
+                        <button onclick="resetReading2()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-2.5 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-right"></i> Thử lại
+                        </button>
+                    </div>
+                </div>
+
+                <div id="r2-questions-container" class="column-scroll overflow-y-auto pr-2 space-y-3 flex-grow">
+                    <!-- Questions injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- READING 3 SECTION (SPLIT SCREEN)           -->
+        <!-- ========================================== -->
+        <section id="reading3" class="hidden split-container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+            <!-- Left Column: Passage -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col h-full overflow-hidden">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3 shrink-0">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full">Part 3</span>
+                        <h3 class="font-bold text-slate-900 text-base">The Countryside in America</h3>
+                    </div>
+                    <span class="text-xs text-slate-500"><i class="fa-solid fa-circle-check text-emerald-500 mr-1"></i> Bài tập True / False</span>
+                </div>
+                
+                <div id="r3-passage-text" class="column-scroll overflow-y-auto pr-3 space-y-4 text-slate-700 text-base leading-relaxed bg-slate-50 p-5 rounded-xl border border-slate-200 flex-grow">
+                    <p>
+                        <span id="r3-ev-1">Few Americans live in the areas of wild and beautiful scenery, like the Western states of Montana and Colorado.</span> 
+                        We often see small farms surrounded by hills and green areas in the New England states, such as Vermont and New Hampshire. 
+                        <span id="r3-ev-2">In Ohio, Indiana, Illinois, and other Midwestern states, there are very large fields of corn or wheat with great distances between towns.</span>
+                    </p>
+                    <p>
+                        <span id="r3-ev-3">About a quarter of Americans live outside cities and towns because life there is harder.</span> 
+                        <span id="r3-ev-4">Shops, post offices, hospitals, schools, etc. may be further away and it takes rural people a very long time to get there.</span> 
+                        <span id="r3-ev-5">However, many people choose to live in the countryside because of its safe, clean, and attractive environment.</span> 
+                        But their children often move to a town or city when they grow up.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Column: True / False Questions -->
+            <div class="flex flex-col h-full overflow-hidden space-y-3">
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex justify-between items-center shrink-0">
+                    <div>
+                        <h2 class="font-bold text-slate-900 text-sm">Tick True (T) or False (F)</h2>
+                        <p class="text-xs text-slate-500">Xác định câu Đúng (T) hay Sai (F)</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="r3-score" class="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg">Đã làm: <b class="text-emerald-600">0/5</b></span>
+                        <button onclick="resetReading3()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-2.5 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-right"></i> Thử lại
+                        </button>
+                    </div>
+                </div>
+
+                <div id="r3-questions-container" class="column-scroll overflow-y-auto pr-2 space-y-3 flex-grow">
+                    <!-- Questions injected by JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Data for Reading 1
+        const reading1Data = [
+            {
+                id: 1,
+                question: "1. I love the (1) ______ peace and quiet of my village.",
+                options: [
+                    { key: "A", text: "urban" },
+                    { key: "B", text: "rural" },
+                    { key: "C", text: "suburban" }
+                ],
+                correct: "B",
+                explanation: "Chọn <b>rural</b> (thuộc về nông thôn) phù hợp với ngữ cảnh 'my village'.<br>• <i>urban</i>: thuộc thành thị<br>• <i>suburban</i>: thuộc ngoại ô.",
+                translation: "Tôi sống trong một ngôi làng nhỏ ở Ninh Bình. Tôi yêu sự bình yên và tĩnh lặng <b>thôn quê</b> của làng tôi."
+            },
+            {
+                id: 2,
+                question: "2. The air is unpolluted, and the (2) ______ of life is slow.",
+                options: [
+                    { key: "A", text: "speed" },
+                    { key: "B", text: "step" },
+                    { key: "C", text: "pace" }
+                ],
+                correct: "C",
+                explanation: "Cụm từ cố định: <b>pace of life</b> = nhịp sống.<br>• <i>pace of life is slow</i>: nhịp sống diễn ra chậm rãi.",
+                translation: "Không khí không bị ô nhiễm, và <b>nhịp sống</b> diễn ra chậm rãi."
+            },
+            {
+                id: 3,
+                question: "3. They are always willing (3) ______ each other.",
+                options: [
+                    { key: "A", text: "to help" },
+                    { key: "B", text: "helping" },
+                    { key: "C", text: "help" }
+                ],
+                correct: "A",
+                explanation: "Cấu trúc ngữ pháp: <b>be willing + to V</b> (sẵn lòng làm gì). Do đó chọn <i>to help</i>.",
+                translation: "Mọi người ở làng tôi rất thân thiện và hiếu khách. Họ luôn sẵn lòng <b>giúp đỡ</b> lẫn nhau."
+            },
+            {
+                id: 4,
+                question: "4. We can also enjoy (4) ______ in the nearby area.",
+                options: [
+                    { key: "A", text: "nature" },
+                    { key: "B", text: "environment" },
+                    { key: "C", text: "countryside" }
+                ],
+                correct: "A",
+                explanation: "Danh từ <b>nature</b> (thiên nhiên). Cụm 'enjoy nature' nghĩa là hòa mình thưởng thức thiên nhiên.",
+                translation: "Chúng tôi cũng có thể hòa mình vào <b>thiên nhiên</b> ở khu vực lân cận."
+            },
+            {
+                id: 5,
+                question: "5. The wildlife there can live and move about (5) ______.",
+                options: [
+                    { key: "A", text: "safe" },
+                    { key: "B", text: "safety" },
+                    { key: "C", text: "safely" }
+                ],
+                correct: "C",
+                explanation: "Bổ nghĩa cho động từ hành động 'move about' ta dùng <b>Trạng từ (Adverb)</b> -> Chọn <b>safely</b>.",
+                translation: "Nơi đó thực chất là một vườn quốc gia, nên động vật hoang dã có thể sinh sống và đi lại <b>một cách an toàn</b>."
+            }
+        ];
+
+        // Data for Reading 2
+        const reading2Data = [
+            {
+                id: 1,
+                question: "1. The countryside of Britain is NOT famous for its ______",
+                options: [
+                    { key: "A", text: "farmland" },
+                    { key: "B", text: "moorland" },
+                    { key: "C", text: "bare mountains" },
+                    { key: "D", text: "lakes, rivers, and woods" }
+                ],
+                correct: "A",
+                evidenceId: "r2-ev-1",
+                explanation: "Trong câu đầu đoạn văn liệt kê nổi tiếng với: <i>bare mountains, moorland, lakes, rivers, woods, coastline</i>. Farmland (đất nông nghiệp) được nhắc ở câu sau như yếu tố người dân liên tưởng chứ không nằm trong danh sách sự tương phản cảnh quan nổi tiếng ban đầu.",
+                qTranslation: "Nông thôn nước Anh KHÔNG nổi tiếng về điều gì?",
+                evidenceTranslation: "Dẫn chứng: 'Besides its beauty, the countryside of Britain is well known for its many contrasts: its bare mountains and moorland, its lakes, rivers and woods, and its long, often wild coastline.'"
+            },
+            {
+                id: 2,
+                question: "2. Individual people or independent companies own ______",
+                options: [
+                    { key: "A", text: "some of the farmland in Britain" },
+                    { key: "B", text: "most farmland in Britain" },
+                    { key: "C", text: "footpaths across the farmland" },
+                    { key: "D", text: "a network of public footpaths" }
+                ],
+                correct: "B",
+                evidenceId: "r2-ev-2",
+                explanation: "Thông tin trực tiếp trong bài: 'Most farmland is now owned by individual people or independent companies' (Hầu hết đất nông nghiệp hiện thuộc sở hữu của tư nhân hoặc các công ty độc lập).",
+                qTranslation: "Các cá nhân hoặc công ty độc lập sở hữu ______",
+                evidenceTranslation: "Dẫn chứng: 'Most farmland is now owned by individual people or independent companies.'"
+            },
+            {
+                id: 3,
+                question: "3. Many British people think the countryside goes with ______",
+                options: [
+                    { key: "A", text: "work in towns" },
+                    { key: "B", text: "work on farms" },
+                    { key: "C", text: "peace and relaxation" },
+                    { key: "D", text: "public farmland" }
+                ],
+                correct: "C",
+                evidenceId: "r2-ev-3",
+                explanation: "Khớp trực tiếp thông tin: 'Many British people enjoy the peace and relaxation of life in the countryside...'",
+                qTranslation: "Nhiều người Anh nghĩ rằng nông thôn đi liền với ______",
+                evidenceTranslation: "Dẫn chứng: 'Many British people enjoy the peace and relaxation of life in the countryside...'"
+            },
+            {
+                id: 4,
+                question: "4. The word \"commute\" in the passage is closest in meaning to ______",
+                options: [
+                    { key: "A", text: "go on foot" },
+                    { key: "B", text: "travel a long distance to get to work" },
+                    { key: "C", text: "go by bicycle" },
+                    { key: "D", text: "travel or move around an area" }
+                ],
+                correct: "D",
+                evidenceId: "r2-ev-4",
+                explanation: "Từ **commute** mang nghĩa di chuyển thường xuyên giữa nơi ở và nơi làm việc.",
+                qTranslation: "Từ \"commute\" trong bài gần nghĩa nhất với ______",
+                evidenceTranslation: "Dẫn chứng: 'Many of them commute to work in towns.'"
+            },
+            {
+                id: 5,
+                question: "5. What does the word \"they\" in the passage refer to?",
+                options: [
+                    { key: "A", text: "Those who commute to work in towns." },
+                    { key: "B", text: "Those who go to the countryside for a picnic." },
+                    { key: "C", text: "Those who go to fruit farms in summer." },
+                    { key: "D", text: "Those who dream of living in the countryside." }
+                ],
+                correct: "D",
+                evidenceId: "r2-ev-5",
+                explanation: "Đại từ 'they' thay thế cho chủ ngữ 'Many others wish to live in the countryside' (Những người mong muốn sống ở nông thôn).",
+                qTranslation: "Từ \"they\" trong đoạn văn đề cập tới nhóm người nào?",
+                evidenceTranslation: "Dẫn chứng: 'Many others wish to live in the countryside so that they could have a better and healthier lifestyle.'"
+            }
+        ];
+
+        // Data for Reading 3
+        const reading3Data = [
+            {
+                id: 1,
+                statement: "1. A large number of people live in the areas in the West, such as Montana and Colorado.",
+                correct: "F",
+                evidenceId: "r3-ev-1",
+                explanation: "<b>FALSE (Sai)</b>. Đề ghi 'A large number' (Số lượng lớn), nhưng bài viết là <b>Few Americans</b> (Rất ít người Mỹ).",
+                qTranslation: "Một lượng lớn người dân sống ở các khu vực phía Tây như Montana và Colorado.",
+                evidenceTranslation: "Dẫn chứng: 'Few Americans live in the areas of wild and beautiful scenery, like the Western states of Montana and Colorado.'"
+            },
+            {
+                id: 2,
+                statement: "2. There are very large fields of corn or wheat in Ohio, Indiana, Illinois, and other Midwestern states.",
+                correct: "T",
+                evidenceId: "r3-ev-2",
+                explanation: "<b>TRUE (Đúng)</b>. Khớp hoàn toàn thông tin câu cuối đoạn 1.",
+                qTranslation: "Có những cánh đồng ngô hoặc lúa mì rất rộng lớn ở Ohio, Indiana, Illinois và các bang Trung Tây khác.",
+                evidenceTranslation: "Dẫn chứng: 'In Ohio, Indiana, Illinois, and other Midwestern states, there are very large fields of corn or wheat with great distances between towns.'"
+            },
+            {
+                id: 3,
+                statement: "3. The majority of Americans live outside cities or towns.",
+                correct: "F",
+                evidenceId: "r3-ev-3",
+                explanation: "<b>FALSE (Sai)</b>. Bài đọc ghi <b>'About a quarter'</b> (Khoảng 25%), không phải 'The majority' (Đa số > 50%).",
+                qTranslation: "Đa số người Mỹ sống bên ngoài các thành phố hoặc thị trấn.",
+                evidenceTranslation: "Dẫn chứng: 'About a quarter of Americans live outside cities and towns because life there is harder.'"
+            },
+            {
+                id: 4,
+                statement: "4. Many Americans choose to live in the countryside because everything is convenient there.",
+                correct: "F",
+                evidenceId: "r3-ev-4",
+                explanation: "<b>FALSE (Sai)</b>. Bài đọc nêu cuộc sống ở đó khó khăn hơn, các tiện ích cách xa ('life there is harder. Shops, post offices, hospitals, schools... may be further away').",
+                qTranslation: "Nhiều người Mỹ chọn sống ở nông thôn vì mọi thứ ở đó rất tiện lợi.",
+                evidenceTranslation: "Dẫn chứng: 'Shops, post offices, hospitals, schools, etc. may be further away and it takes rural people a very long time to get there.'"
+            },
+            {
+                id: 5,
+                statement: "5. Many Americans living in the countryside like the safe, clean, and attractive environment there.",
+                correct: "T",
+                evidenceId: "r3-ev-5",
+                explanation: "<b>TRUE (Đúng)</b>. Khớp chính xác với thông tin trong đoạn 2.",
+                qTranslation: "Nhiều người Mỹ sống ở nông thôn thích môi trường an toàn, sạch sẽ và hấp dẫn ở đó.",
+                evidenceTranslation: "Dẫn chứng: 'However, many people choose to live in the countryside because of its safe, clean, and attractive environment.'"
+            }
+        ];
+
+        // State Trackers
+        let userR1Answers = {};
+        let userR2Answers = {};
+        let userR3Answers = {};
+
+        function switchTab(tabId) {
+            ['reading1', 'reading2', 'reading3'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+                document.getElementById('tab-' + id).classList.remove('active');
+                document.getElementById('tab-' + id).classList.add('text-slate-600');
+            });
+
+            document.getElementById(tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-slate-600');
+        }
+
+        function scrollToQ(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // ==========================================
+        // READING 1 LOGIC
+        // ==========================================
+        function renderReading1() {
+            const container = document.getElementById('r1-questions-container');
+            container.innerHTML = reading1Data.map(q => {
+                const userAns = userR1Answers[q.id];
+                return `
+                    <div id="r1-q-${q.id}" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 transition-all">
+                        <div class="font-semibold text-slate-800 text-sm mb-2.5">${q.question}</div>
+                        
+                        <div class="grid grid-cols-3 gap-2 mb-2">
+                            ${q.options.map(opt => {
+                                let btnStyle = "bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200";
+                                if (userAns) {
+                                    if (opt.key === q.correct) {
+                                        btnStyle = "bg-emerald-50 text-emerald-800 border-emerald-400 font-bold ring-2 ring-emerald-200";
+                                    } else if (userAns === opt.key) {
+                                        btnStyle = "bg-rose-50 text-rose-800 border-rose-300 font-bold";
+                                    } else {
+                                        btnStyle = "bg-slate-50 text-slate-400 border-slate-100 opacity-50";
+                                    }
+                                }
+
+                                return `
+                                    <button onclick="selectR1(${q.id}, '${opt.key}')" 
+                                            class="py-2 px-2 rounded-xl border text-xs text-center transition-all ${btnStyle}">
+                                        <b>${opt.key}.</b> ${opt.text}
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+
+                        ${userAns ? `
+                            <div class="mt-3 p-3 rounded-xl ${userAns === q.correct ? 'bg-emerald-50/90 border border-emerald-200' : 'bg-rose-50/90 border border-rose-200'} text-xs space-y-1.5">
+                                <div class="font-bold ${userAns === q.correct ? 'text-emerald-800' : 'text-rose-800'} flex items-center gap-1.5">
+                                    <i class="${userAns === q.correct ? 'fa-solid fa-circle-check text-emerald-600' : 'fa-solid fa-circle-xmark text-rose-600'}"></i>
+                                    Đáp án đúng: ${q.correct}. ${q.options.find(o => o.key === q.correct).text}
+                                </div>
+                                <div class="text-slate-700"><b>Giải thích:</b> ${q.explanation}</div>
+                                <div class="text-slate-600 pt-1 border-t border-slate-200/60"><b>Dịch nghĩa:</b> ${q.translation}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            // Update blanks in left column
+            reading1Data.forEach(q => {
+                const blankEl = document.getElementById(`r1-blank-${q.id}`);
+                if (userR1Answers[q.id]) {
+                    const selectedText = q.options.find(o => o.key === userR1Answers[q.id]).text;
+                    const isCorrect = userR1Answers[q.id] === q.correct;
+                    blankEl.innerHTML = `(${q.id}) <span class="${isCorrect ? 'text-emerald-800 font-bold bg-emerald-200' : 'text-rose-800 font-bold bg-rose-200'} px-2 py-0.5 rounded shadow-sm">${selectedText}</span>`;
+                } else {
+                    blankEl.innerHTML = `(${q.id}) ______`;
+                }
+            });
+
+            const answeredCount = Object.keys(userR1Answers).length;
+            document.getElementById('r1-score').innerHTML = `Đã làm: <b class="text-blue-600">${answeredCount}/5</b>`;
+        }
+
+        function selectR1(questionId, optionKey) {
+            userR1Answers[questionId] = optionKey;
+            renderReading1();
+            
+            // Scroll to updated blank on left side smoothly
+            const blankEl = document.getElementById(`r1-blank-${questionId}`);
+            if (blankEl) {
+                blankEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function resetReading1() {
+            userR1Answers = {};
+            renderReading1();
+        }
+
+        // ==========================================
+        // READING 2 LOGIC
+        // ==========================================
+        function renderReading2() {
+            const container = document.getElementById('r2-questions-container');
+            container.innerHTML = reading2Data.map(q => {
+                const userAns = userR2Answers[q.id];
+                return `
+                    <div id="r2-q-${q.id}" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 transition-all">
+                        <div class="font-semibold text-slate-800 text-sm mb-2.5">${q.question}</div>
+                        
+                        <div class="space-y-1.5 mb-2">
+                            ${q.options.map(opt => {
+                                let btnStyle = "bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200";
+                                if (userAns) {
+                                    if (opt.key === q.correct) {
+                                        btnStyle = "bg-emerald-50 text-emerald-800 border-emerald-400 font-bold ring-2 ring-emerald-200";
+                                    } else if (userAns === opt.key) {
+                                        btnStyle = "bg-rose-50 text-rose-800 border-rose-300 font-bold";
+                                    } else {
+                                        btnStyle = "bg-slate-50 text-slate-400 border-slate-100 opacity-50";
+                                    }
+                                }
+
+                                return `
+                                    <button onclick="selectR2(${q.id}, '${opt.key}')" 
+                                            class="w-full text-left px-3 py-2 rounded-xl border transition-all text-xs flex items-center ${btnStyle}">
+                                        <span class="font-bold mr-2 text-slate-500">${opt.key}.</span>
+                                        <span>${opt.text}</span>
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+
+                        ${userAns ? `
+                            <div class="mt-3 p-3 rounded-xl ${userAns === q.correct ? 'bg-emerald-50/90 border border-emerald-200' : 'bg-rose-50/90 border border-rose-200'} text-xs space-y-1.5">
+                                <div class="font-bold ${userAns === q.correct ? 'text-emerald-800' : 'text-rose-800'} flex items-center gap-1.5">
+                                    <i class="${userAns === q.correct ? 'fa-solid fa-circle-check text-emerald-600' : 'fa-solid fa-circle-xmark text-rose-600'}"></i>
+                                    Đáp án chuẩn: ${q.correct}
+                                </div>
+                                <div class="text-slate-700"><b>Dịch câu hỏi:</b> ${q.qTranslation}</div>
+                                <div class="text-slate-700"><b>Giải thích:</b> ${q.explanation}</div>
+                                <div class="text-amber-900 bg-amber-50 p-2 rounded-lg border border-amber-200">
+                                    <i class="fa-solid fa-quote-left text-amber-500 mr-1"></i> ${q.evidenceTranslation}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            const answeredCount = Object.keys(userR2Answers).length;
+            document.getElementById('r2-score').innerHTML = `Đã làm: <b class="text-indigo-600">${answeredCount}/5</b>`;
+        }
+
+        function selectR2(questionId, optionKey) {
+            userR2Answers[questionId] = optionKey;
+            renderReading2();
+            highlightEvidenceR2(questionId);
+        }
+
+        function highlightEvidenceR2(questionId) {
+            document.querySelectorAll('#r2-passage-text .evidence-highlight').forEach(el => {
+                el.classList.remove('evidence-highlight');
+            });
+
+            const qData = reading2Data.find(q => q.id === questionId);
+            if (qData && qData.evidenceId) {
+                const el = document.getElementById(qData.evidenceId);
+                if (el) {
+                    el.classList.add('evidence-highlight');
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        function resetReading2() {
+            userR2Answers = {};
+            document.querySelectorAll('#r2-passage-text .evidence-highlight').forEach(el => {
+                el.classList.remove('evidence-highlight');
+            });
+            renderReading2();
+        }
+
+        // ==========================================
+        // READING 3 LOGIC
+        // ==========================================
+        function renderReading3() {
+            const container = document.getElementById('r3-questions-container');
+            container.innerHTML = reading3Data.map(q => {
+                const userAns = userR3Answers[q.id];
+                
+                return `
+                    <div id="r3-q-${q.id}" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 transition-all">
+                        <div class="font-semibold text-slate-800 text-xs sm:text-sm mb-2.5 leading-snug">${q.statement}</div>
+                        
+                        <div class="flex gap-2 mb-2">
+                            <button onclick="selectR3(${q.id}, 'T')" 
+                                    class="flex-1 py-2 rounded-xl font-bold border text-xs transition-all flex items-center justify-center gap-1.5 ${
+                                        userAns === 'T' 
+                                            ? (q.correct === 'T' ? 'bg-emerald-600 text-white border-emerald-600 shadow-md' : 'bg-rose-600 text-white border-rose-600 shadow-md')
+                                            : (userAns && q.correct === 'T' ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200')
+                                    }">
+                                <i class="fa-solid fa-check"></i> True (Đúng)
+                            </button>
+
+                            <button onclick="selectR3(${q.id}, 'F')" 
+                                    class="flex-1 py-2 rounded-xl font-bold border text-xs transition-all flex items-center justify-center gap-1.5 ${
+                                        userAns === 'F' 
+                                            ? (q.correct === 'F' ? 'bg-emerald-600 text-white border-emerald-600 shadow-md' : 'bg-rose-600 text-white border-rose-600 shadow-md')
+                                            : (userAns && q.correct === 'F' ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200')
+                                    }">
+                                <i class="fa-solid fa-xmark"></i> False (Sai)
+                            </button>
+                        </div>
+
+                        ${userAns ? `
+                            <div class="mt-3 p-3 rounded-xl ${userAns === q.correct ? 'bg-emerald-50/90 border border-emerald-200' : 'bg-rose-50/90 border border-rose-200'} text-xs space-y-1.5">
+                                <div class="font-bold ${userAns === q.correct ? 'text-emerald-800' : 'text-rose-800'} flex items-center gap-1.5">
+                                    <i class="${userAns === q.correct ? 'fa-solid fa-circle-check text-emerald-600' : 'fa-solid fa-circle-xmark text-rose-600'}"></i>
+                                    Kết quả: ${userAns === q.correct ? 'Chính xác!' : 'Chưa chính xác!'} (Đáp án đúng: ${q.correct})
+                                </div>
+                                <div class="text-slate-700"><b>Dịch câu:</b> ${q.qTranslation}</div>
+                                <div class="text-slate-700"><b>Giải thích:</b> ${q.explanation}</div>
+                                <div class="text-amber-900 bg-amber-50 p-2 rounded-lg border border-amber-200">
+                                    <i class="fa-solid fa-quote-left text-amber-500 mr-1"></i> ${q.evidenceTranslation}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            const answeredCount = Object.keys(userR3Answers).length;
+            document.getElementById('r3-score').innerHTML = `Đã làm: <b class="text-emerald-600">${answeredCount}/5</b>`;
+        }
+
+        function selectR3(questionId, optionKey) {
+            userR3Answers[questionId] = optionKey;
+            renderReading3();
+            highlightEvidenceR3(questionId);
+        }
+
+        function highlightEvidenceR3(questionId) {
+            document.querySelectorAll('#r3-passage-text .evidence-highlight').forEach(el => {
+                el.classList.remove('evidence-highlight');
+            });
+
+            const qData = reading3Data.find(q => q.id === questionId);
+            if (qData && qData.evidenceId) {
+                const el = document.getElementById(qData.evidenceId);
+                if (el) {
+                    el.classList.add('evidence-highlight');
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        function resetReading3() {
+            userR3Answers = {};
+            document.querySelectorAll('#r3-passage-text .evidence-highlight').forEach(el => {
+                el.classList.remove('evidence-highlight');
+            });
+            renderReading3();
+        }
+
+        window.onload = function() {
+            renderReading1();
+            renderReading2();
+            renderReading3();
+        };
+    </script>
+</body>
+</html>
