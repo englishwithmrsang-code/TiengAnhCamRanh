@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 2: Cars vs Alternative Transport</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-radius: 8px;
+            --correct-color: #15803d;
+            --incorrect-color: #b91c1c;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0 0 4px 0;
+            color: #0f172a;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #ffffff;
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            border: 1px solid transparent;
+            background-color: var(--bg-color);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn[data-target="v1"] { color: #d97706; border-color: #fde68a; }
+        .tab-btn[data-target="v1"].active, .tab-btn[data-target="v1"]:hover { background-color: #d97706; color: #fff; }
+
+        .tab-btn[data-target="v2"] { color: #2563eb; border-color: #bfdbfe; }
+        .tab-btn[data-target="v2"].active, .tab-btn[data-target="v2"]:hover { background-color: #2563eb; color: #fff; }
+
+        .tab-btn[data-target="v3"] { color: #059669; border-color: #a7f3d0; }
+        .tab-btn[data-target="v3"].active, .tab-btn[data-target="v3"]:hover { background-color: #059669; color: #fff; }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            background: #e2e8f0;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover { background: #cbd5e1; }
+
+        .version-card {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 18px 22px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .version-card.active { display: block; }
+
+        .version-header {
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .version-header h2 {
+            margin: 0;
+            font-size: 1.05rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .theme-v1 { border-top: 4px solid #d97706; }
+        .theme-v1 .version-header { background: #fffbeb; color: #92400e; }
+        .theme-v1 .vi-label { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+        .theme-v2 { border-top: 4px solid #2563eb; }
+        .theme-v2 .version-header { background: #eff6ff; color: #1e40af; }
+        .theme-v2 .vi-label { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+
+        .theme-v3 { border-top: 4px solid #059669; }
+        .theme-v3 .version-header { background: #ecfdf5; color: #065f46; }
+        .theme-v3 .vi-label { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+        .essay-body p {
+            margin-bottom: 16px;
+            text-align: justify;
+            font-size: 0.92rem;
+        }
+
+        .blank-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin: 3px 2px;
+            vertical-align: baseline;
+        }
+
+        .vi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-right: 3px;
+            user-select: none;
+            white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .blank-input {
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 0.86rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+            height: 22px;
+        }
+
+        .blank-input:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .blank-input.correct {
+            border-color: var(--correct-color) !important;
+            background-color: #f0fdf4 !important;
+            color: var(--correct-color) !important;
+            font-weight: 600;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--incorrect-color) !important;
+            background-color: #fef2f2 !important;
+            color: var(--incorrect-color) !important;
+            font-weight: 600;
+        }
+
+        .blank-wrapper .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            background-color: #0f172a;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 3px 7px;
+            position: absolute;
+            z-index: 10;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: opacity 0.15s ease-in-out;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .blank-wrapper .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            border-width: 4px;
+            border-style: solid;
+            border-color: #0f172a transparent transparent transparent;
+        }
+
+        .blank-wrapper:hover .blank-input.incorrect + .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>IELTS Writing Task 2: Cars vs Alternative Transport</h1>
+        <p>Xem từ/cụm từ <strong>Tiếng Việt highlight</strong> → Nhập cụm <strong>Tiếng Anh</strong> tương ứng → Nhấn <strong>Enter</strong> để kiểm tra</p>
+    </header>
+
+    <div class="controls">
+        <div class="tabs">
+            <button class="tab-btn active" data-target="v1">Bài 1 (Giữ ý gốc)</button>
+            <button class="tab-btn" data-target="v2">Bài 2 (Học thuật)</button>
+            <button class="tab-btn" data-target="v3">Bài 3 (Band 8.0-9.0)</button>
+        </div>
+        <div class="action-btns">
+            <button class="btn-action" id="showAnswersBtn">Hiển thị đáp án</button>
+            <button class="btn-action" id="resetBtn">Làm lại</button>
+        </div>
+    </div>
+
+    <!-- BÀI 1 -->
+    <div id="v1" class="version-card theme-v1 active">
+        <div class="version-header">
+            <h2>Bài 1 — Improved, giữ ý học sinh tối đa</h2>
+            <span class="badge">Band 6.5 - 7.0</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Trong xã hội hiện đại</span><input type="text" class="blank-input" data-ans="In contemporary society" style="width: 170px;"><span class="tooltip">Đáp án: In contemporary society</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ô tô đã trở thành một phương tiện giao thông chính</span><input type="text" class="blank-input" data-ans="cars have become a major means of transport" style="width: 280px;"><span class="tooltip">Đáp án: cars have become a major means of transport</span></span>
+                <span class="blank-wrapper"><span class="vi-label">ở nhiều nơi trên thế giới</span><input type="text" class="blank-input" data-ans="in many parts of the world" style="width: 180px;"><span class="tooltip">Đáp án: in many parts of the world</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi người dân ở các thành phố khác lại đang chuyển sang</span><input type="text" class="blank-input" data-ans="while people in other cities are switching to" style="width: 290px;"><span class="tooltip">Đáp án: while people in other cities are switching to</span></span>
+                <span class="blank-wrapper"><span class="vi-label">các hình thức giao thông thay thế</span><input type="text" class="blank-input" data-ans="alternative forms of transport" style="width: 210px;"><span class="tooltip">Đáp án: alternative forms of transport</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chẳng hạn như xe đạp</span><input type="text" class="blank-input" data-ans="such as bicycles" style="width: 130px;"><span class="tooltip">Đáp án: such as bicycles</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Bài viết này sẽ phân tích các lý do đằng sau các xu hướng này</span><input type="text" class="blank-input" data-ans="This essay will analyze the reasons behind these trends" style="width: 320px;"><span class="tooltip">Đáp án: This essay will analyze the reasons behind these trends</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trước khi thảo luận phát triển nào có lợi hơn</span><input type="text" class="blank-input" data-ans="before discussing which development is more beneficial" style="width: 310px;"><span class="tooltip">Đáp án: before discussing which development is more beneficial</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Những người ủng hộ việc sử dụng ô tô</span><input type="text" class="blank-input" data-ans="Proponents of car use" style="width: 160px;"><span class="tooltip">Đáp án: Proponents of car use</span></span>
+                <span class="blank-wrapper"><span class="vi-label">nhấn mạnh một số ưu điểm quan trọng</span><input type="text" class="blank-input" data-ans="highlight several significant advantages" style="width: 250px;"><span class="tooltip">Đáp án: highlight several significant advantages</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Quan trọng nhất trong số đó là sự tiện lợi</span><input type="text" class="blank-input" data-ans="Chief among them is the convenience" style="width: 230px;"><span class="tooltip">Đáp án: Chief among them is the convenience</span></span>
+                <span class="blank-wrapper"><span class="vi-label">mà ô tô mang lại</span><input type="text" class="blank-input" data-ans="that cars provide" style="width: 120px;"><span class="tooltip">Đáp án: that cars provide</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">giúp chủ sở hữu ô tô có sự tự chủ lớn hơn</span><input type="text" class="blank-input" data-ans="giving car owners greater autonomy" style="width: 230px;"><span class="tooltip">Đáp án: giving car owners greater autonomy</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Kết quả là</span><input type="text" class="blank-input" data-ans="As a result" style="width: 90px;"><span class="tooltip">Đáp án: As a result</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">họ có thể đi lại độc lập hơn</span><input type="text" class="blank-input" data-ans="they can travel more independently" style="width: 220px;"><span class="tooltip">Đáp án: they can travel more independently</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và tận hưởng một chuyến đi thoải mái hơn</span><input type="text" class="blank-input" data-ans="and enjoy a more comfortable journey" style="width: 240px;"><span class="tooltip">Đáp án: and enjoy a more comfortable journey</span></span>
+                <span class="blank-wrapper"><span class="vi-label">vì họ không bị phụ thuộc vào lịch trình cố định</span><input type="text" class="blank-input" data-ans="because they are not reliant on fixed schedules" style="width: 280px;"><span class="tooltip">Đáp án: because they are not reliant on fixed schedules</span></span>
+                <span class="blank-wrapper"><span class="vi-label">được cung cấp bởi phương tiện công cộng</span><input type="text" class="blank-input" data-ans="provided by public transportation" style="width: 220px;"><span class="tooltip">Đáp án: provided by public transportation</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một yếu tố lớn khác khiến ô tô được ưa chuộng hơn</span><input type="text" class="blank-input" data-ans="Another major factor making cars preferable" style="width: 280px;"><span class="tooltip">Đáp án: Another major factor making cars preferable</span></span>
+                <span class="blank-wrapper"><span class="vi-label">là hiệu suất/hiệu quả của chúng</span><input type="text" class="blank-input" data-ans="is their efficiency" style="width: 130px;"><span class="tooltip">Đáp án: is their efficiency</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trên thực tế</span><input type="text" class="blank-input" data-ans="In fact" style="width: 70px;"><span class="tooltip">Đáp án: In fact</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ô tô đặc biệt phù hợp cho các chuyến đi đường dài</span><input type="text" class="blank-input" data-ans="cars are particularly suitable for long-distance journeys" style="width: 320px;"><span class="tooltip">Đáp án: cars are particularly suitable for long-distance journeys</span></span>
+                <span class="blank-wrapper"><span class="vi-label">bởi vì tài xế có thể đến các điểm đến xa</span><input type="text" class="blank-input" data-ans="because drivers can reach distant destinations" style="width: 270px;"><span class="tooltip">Đáp án: because drivers can reach distant destinations</span></span>
+                <span class="blank-wrapper"><span class="vi-label">nhanh hơn nhiều so với người đi xe đạp</span><input type="text" class="blank-input" data-ans="much faster than cyclists" style="width: 180px;"><span class="tooltip">Đáp án: much faster than cyclists</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">những người mà việc đi khoảng cách xa như vậy</span><input type="text" class="blank-input" data-ans="for whom travelling such long distances" style="width: 260px;"><span class="tooltip">Đáp án: for whom travelling such long distances</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể vắt kiệt sức lực</span><input type="text" class="blank-input" data-ans="can be physically exhausting" style="width: 190px;"><span class="tooltip">Đáp án: can be physically exhausting</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Mặt khác, những người phản đối</span><input type="text" class="blank-input" data-ans="Opponents, on the other hand" style="width: 200px;"><span class="tooltip">Đáp án: Opponents, on the other hand</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">lập luận ủng hộ các phương tiện giao thông thay thế</span><input type="text" class="blank-input" data-ans="argue in favour of alternative means of transport" style="width: 300px;"><span class="tooltip">Đáp án: argue in favour of alternative means of transport</span></span>
+                <span class="blank-wrapper"><span class="vi-label">vì chi phí nhiên liệu tăng cao</span><input type="text" class="blank-input" data-ans="because of increasing fuel costs" style="width: 210px;"><span class="tooltip">Đáp án: because of increasing fuel costs</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và các vấn đề môi trường nghiêm trọng</span><input type="text" class="blank-input" data-ans="and serious environmental issues" style="width: 220px;"><span class="tooltip">Đáp án: and serious environmental issues</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Về mặt kinh tế</span><input type="text" class="blank-input" data-ans="Economically" style="width: 100px;"><span class="tooltip">Đáp án: Economically</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">giá xăng dầu đã tăng vọt</span><input type="text" class="blank-input" data-ans="oil prices have skyrocketed" style="width: 180px;"><span class="tooltip">Đáp án: oil prices have skyrocketed</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">khiến việc sử dụng ô tô chạy bằng nhiên liệu</span><input type="text" class="blank-input" data-ans="making the use of fuel-powered cars" style="width: 230px;"><span class="tooltip">Đáp án: making the use of fuel-powered cars</span></span>
+                <span class="blank-wrapper"><span class="vi-label">ngày càng đắt đỏ</span><input type="text" class="blank-input" data-ans="increasingly expensive" style="width: 150px;"><span class="tooltip">Đáp án: increasingly expensive</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Nếu chính phủ và cá nhân tiếp tục phụ thuộc nhiều</span><input type="text" class="blank-input" data-ans="If governments and individuals continue to depend heavily" style="width: 340px;"><span class="tooltip">Đáp án: If governments and individuals continue to depend heavily</span></span>
+                <span class="blank-wrapper"><span class="vi-label">vào ô tô chạy bằng xăng</span><input type="text" class="blank-input" data-ans="on petrol-powered cars" style="width: 160px;"><span class="tooltip">Đáp án: on petrol-powered cars</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">họ có thể phải đối mặt với gánh nặng tài chính đáng kể</span><input type="text" class="blank-input" data-ans="they may face considerable financial burdens" style="width: 290px;"><span class="tooltip">Đáp án: they may face considerable financial burdens</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Từ góc độ môi trường</span><input type="text" class="blank-input" data-ans="From an environmental perspective" style="width: 230px;"><span class="tooltip">Đáp án: From an environmental perspective</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">việc áp dụng các hình thức giao thông thay thế</span><input type="text" class="blank-input" data-ans="adopting alternative forms of transport" style="width: 240px;"><span class="tooltip">Đáp án: adopting alternative forms of transport</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">bao gồm cả việc đi xe đạp</span><input type="text" class="blank-input" data-ans="including cycling" style="width: 130px;"><span class="tooltip">Đáp án: including cycling</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">có thể đóng góp tích cực vào việc bảo vệ môi trường</span><input type="text" class="blank-input" data-ans="can contribute positively to environmental protection" style="width: 320px;"><span class="tooltip">Đáp án: can contribute positively to environmental protection</span></span>
+                <span class="blank-wrapper"><span class="vi-label">bằng cách giảm khí thải</span><input type="text" class="blank-input" data-ans="by reducing emissions" style="width: 160px;"><span class="tooltip">Đáp án: by reducing emissions</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Mặc dù có những lợi ích đã nói ở trên của ô tô</span><input type="text" class="blank-input" data-ans="Notwithstanding the aforementioned benefits of cars" style="width: 310px;"><span class="tooltip">Đáp án: Notwithstanding the aforementioned benefits of cars</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">tôi cho rằng mọi người nên áp dụng</span><input type="text" class="blank-input" data-ans="I would argue that people should adopt" style="width: 240px;"><span class="tooltip">Đáp án: I would argue that people should adopt</span></span>
+                <span class="blank-wrapper"><span class="vi-label">thói quen đi lại thân thiện với môi trường hơn</span><input type="text" class="blank-input" data-ans="more environmentally friendly commuting habits" style="width: 290px;"><span class="tooltip">Đáp án: more environmentally friendly commuting habits</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chẳng hạn như đi xe đạp hoặc sử dụng phương tiện công cộng</span><input type="text" class="blank-input" data-ans="such as cycling or taking public transportation" style="width: 290px;"><span class="tooltip">Đáp án: such as cycling or taking public transportation</span></span>
+                <span class="blank-wrapper"><span class="vi-label">thay vì phụ thuộc chủ yếu vào xe cá nhân</span><input type="text" class="blank-input" data-ans="instead of relying mainly on private vehicles" style="width: 260px;"><span class="tooltip">Đáp án: instead of relying mainly on private vehicles</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Những giải pháp thay thế này có thể giúp giảm ô nhiễm</span><input type="text" class="blank-input" data-ans="These alternatives can help reduce pollution" style="width: 270px;"><span class="tooltip">Đáp án: These alternatives can help reduce pollution</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và chi phí di chuyển</span><input type="text" class="blank-input" data-ans="and transportation costs" style="width: 170px;"><span class="tooltip">Đáp án: and transportation costs</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trong khi vẫn cho phép mọi người đi lại hiệu quả khi phù hợp</span><input type="text" class="blank-input" data-ans="while still allowing people to travel efficiently when appropriate" style="width: 360px;"><span class="tooltip">Đáp án: while still allowing people to travel efficiently when appropriate</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tóm lại</span><input type="text" class="blank-input" data-ans="In conclusion" style="width: 100px;"><span class="tooltip">Đáp án: In conclusion</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">việc tiếp tục sử dụng ô tô có thể được giải thích là do</span><input type="text" class="blank-input" data-ans="the continued use of cars can be explained by" style="width: 290px;"><span class="tooltip">Đáp án: the continued use of cars can be explained by</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sự tiện lợi và hiệu quả của chúng</span><input type="text" class="blank-input" data-ans="their convenience and efficiency" style="width: 210px;"><span class="tooltip">Đáp án: their convenience and efficiency</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi sự phổ biến ngày càng tăng của việc đi xe đạp</span><input type="text" class="blank-input" data-ans="whereas the growing popularity of cycling" style="width: 270px;"><span class="tooltip">Đáp án: whereas the growing popularity of cycling</span></span>
+                <span class="blank-wrapper"><span class="vi-label">chủ yếu do các mối quan tâm về môi trường và kinh tế thúc đẩy</span><input type="text" class="blank-input" data-ans="is mainly driven by environmental and economic concerns" style="width: 340px;"><span class="tooltip">Đáp án: is mainly driven by environmental and economic concerns</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Theo quan điểm của tôi</span><input type="text" class="blank-input" data-ans="In my view" style="width: 90px;"><span class="tooltip">Đáp án: In my view</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">sự kết hợp của các phương tiện giao thông khác nhau</span><input type="text" class="blank-input" data-ans="a combination of different means of transport" style="width: 280px;"><span class="tooltip">Đáp án: a combination of different means of transport</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sẽ cho phép người đi làm thu được nhiều lợi ích nhất</span><input type="text" class="blank-input" data-ans="would allow commuters to gain the most benefits" style="width: 290px;"><span class="tooltip">Đáp án: would allow commuters to gain the most benefits</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vì các lựa chọn linh hoạt có thể giảm lượng khí thải và chi phí</span><input type="text" class="blank-input" data-ans="as flexible choices can reduce emissions and costs" style="width: 300px;"><span class="tooltip">Đáp án: as flexible choices can reduce emissions and costs</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trong khi ô tô vẫn có thể được sử dụng</span><input type="text" class="blank-input" data-ans="while cars can still be used" style="width: 180px;"><span class="tooltip">Đáp án: while cars can still be used</span></span>
+                <span class="blank-wrapper"><span class="vi-label">khi cần sự thoải mái hơn hoặc khi đi đường dài</span><input type="text" class="blank-input" data-ans="when greater comfort or longer-distance travel is required" style="width: 350px;"><span class="tooltip">Đáp án: when greater comfort or longer-distance travel is required</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- BÀI 2 -->
+    <div id="v2" class="version-card theme-v2">
+        <div class="version-header">
+            <h2>Bài 2 — Improved, học thuật hơn</h2>
+            <span class="badge">Band 7.5</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Trong xã hội hiện đại</span><input type="text" class="blank-input" data-ans="In contemporary society" style="width: 170px;"><span class="tooltip">Đáp án: In contemporary society</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ô tô vẫn là một hình thức giao thông thống trị</span><input type="text" class="blank-input" data-ans="cars remain a dominant form of transportation" style="width: 280px;"><span class="tooltip">Đáp án: cars remain a dominant form of transportation</span></span>
+                <span class="blank-wrapper"><span class="vi-label">ở nhiều thành phố</span><input type="text" class="blank-input" data-ans="in many cities" style="width: 110px;"><span class="tooltip">Đáp án: in many cities</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi các nơi khác đang ngày càng khuyến khích cư dân</span><input type="text" class="blank-input" data-ans="whereas others are increasingly encouraging residents" style="width: 320px;"><span class="tooltip">Đáp án: whereas others are increasingly encouraging residents</span></span>
+                <span class="blank-wrapper"><span class="vi-label">thay thế xe cá nhân bằng xe đạp</span><input type="text" class="blank-input" data-ans="to replace private vehicles with bicycles" style="width: 250px;"><span class="tooltip">Đáp án: to replace private vehicles with bicycles</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Những xu hướng trái ngược này có thể bắt nguồn từ</span><input type="text" class="blank-input" data-ans="These contrasting trends can be attributed to" style="width: 280px;"><span class="tooltip">Đáp án: These contrasting trends can be attributed to</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sự khác biệt về sự tiện lợi, hiệu quả di chuyển</span><input type="text" class="blank-input" data-ans="differences in convenience, travel efficiency" style="width: 280px;"><span class="tooltip">Đáp án: differences in convenience, travel efficiency</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">cân nhắc kinh tế và nhận thức về môi trường</span><input type="text" class="blank-input" data-ans="economic considerations and environmental awareness" style="width: 330px;"><span class="tooltip">Đáp án: economic considerations and environmental awareness</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Một lý do chính khiến mọi người tiếp tục chọn ô tô</span><input type="text" class="blank-input" data-ans="One major reason why people continue to choose cars" style="width: 320px;"><span class="tooltip">Đáp án: One major reason why people continue to choose cars</span></span>
+                <span class="blank-wrapper"><span class="vi-label">là sự tiện lợi và sự tự chủ mà chúng mang lại</span><input type="text" class="blank-input" data-ans="is the convenience and autonomy they offer" style="width: 270px;"><span class="tooltip">Đáp án: is the convenience and autonomy they offer</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Không giống như phương tiện giao thông công cộng</span><input type="text" class="blank-input" data-ans="Unlike public transportation" style="width: 190px;"><span class="tooltip">Đáp án: Unlike public transportation</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ô tô cá nhân cho phép cá nhân di chuyển</span><input type="text" class="blank-input" data-ans="private cars allow individuals to travel" style="width: 240px;"><span class="tooltip">Đáp án: private cars allow individuals to travel</span></span>
+                <span class="blank-wrapper"><span class="vi-label">theo lịch trình riêng của họ</span><input type="text" class="blank-input" data-ans="according to their own schedules" style="width: 210px;"><span class="tooltip">Đáp án: according to their own schedules</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và đến các điểm đến mà không cần phụ thuộc vào</span><input type="text" class="blank-input" data-ans="and reach destinations without having to depend on" style="width: 310px;"><span class="tooltip">Đáp án: and reach destinations without having to depend on</span></span>
+                <span class="blank-wrapper"><span class="vi-label">các tuyến đường hoặc thời gian biểu cố định</span><input type="text" class="blank-input" data-ans="fixed routes or timetables" style="width: 180px;"><span class="tooltip">Đáp án: fixed routes or timetables</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Điều này đặc biệt quan trọng đối với những người có</span><input type="text" class="blank-input" data-ans="This is particularly important for people who have" style="width: 300px;"><span class="tooltip">Đáp án: This is particularly important for people who have</span></span>
+                <span class="blank-wrapper"><span class="vi-label">lịch trình bận rộn</span><input type="text" class="blank-input" data-ans="busy schedules" style="width: 110px;"><span class="tooltip">Đáp án: busy schedules</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hoặc cần đi đến những nơi không dễ tiếp cận</span><input type="text" class="blank-input" data-ans="or need to travel to places that are not easily accessible" style="width: 340px;"><span class="tooltip">Đáp án: or need to travel to places that are not easily accessible</span></span>
+                <span class="blank-wrapper"><span class="vi-label">bằng phương tiện công cộng</span><input type="text" class="blank-input" data-ans="by public transport" style="width: 140px;"><span class="tooltip">Đáp án: by public transport</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ô tô cũng hiệu quả hơn cho các chuyến đi đường dài</span><input type="text" class="blank-input" data-ans="Cars are also more efficient for long-distance journeys" style="width: 320px;"><span class="tooltip">Đáp án: Cars are also more efficient for long-distance journeys</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trong khi việc đi xe đạp có thể là một lựa chọn thực tế</span><input type="text" class="blank-input" data-ans="While cycling can be a practical option" style="width: 250px;"><span class="tooltip">Đáp án: While cycling can be a practical option</span></span>
+                <span class="blank-wrapper"><span class="vi-label">cho các chuyến đi ngắn</span><input type="text" class="blank-input" data-ans="for short trips" style="width: 110px;"><span class="tooltip">Đáp án: for short trips</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">di chuyển khoảng cách đáng kể bằng xe đạp</span><input type="text" class="blank-input" data-ans="travelling considerable distances by bicycle" style="width: 280px;"><span class="tooltip">Đáp án: travelling considerable distances by bicycle</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể đòi hỏi nhiều thể lực và tốn thời gian</span><input type="text" class="blank-input" data-ans="can be physically demanding and time-consuming" style="width: 310px;"><span class="tooltip">Đáp án: can be physically demanding and time-consuming</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Vì vậy</span><input type="text" class="blank-input" data-ans="Therefore" style="width: 80px;"><span class="tooltip">Đáp án: Therefore</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">những người thường xuyên đi lại đường dài</span><input type="text" class="blank-input" data-ans="people who regularly travel long distances" style="width: 260px;"><span class="tooltip">Đáp án: people who regularly travel long distances</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể coi ô tô là phương tiện giao thông thực tế hơn</span><input type="text" class="blank-input" data-ans="may consider cars a more practical means of transport" style="width: 320px;"><span class="tooltip">Đáp án: may consider cars a more practical means of transport</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Ngược lại</span><input type="text" class="blank-input" data-ans="By contrast" style="width: 90px;"><span class="tooltip">Đáp án: By contrast</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">sự phổ biến ngày càng tăng của việc đi xe đạp</span><input type="text" class="blank-input" data-ans="the increasing popularity of cycling" style="width: 240px;"><span class="tooltip">Đáp án: the increasing popularity of cycling</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể bắt nguồn phần lớn từ các mối quan tâm kinh tế và môi trường</span><input type="text" class="blank-input" data-ans="can be attributed largely to economic and environmental concerns" style="width: 370px;"><span class="tooltip">Đáp án: can be attributed largely to economic and environmental concerns</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Giá nhiên liệu tăng đã làm cho việc sở hữu ô tô</span><input type="text" class="blank-input" data-ans="Rising fuel prices have made car ownership" style="width: 270px;"><span class="tooltip">Đáp án: Rising fuel prices have made car ownership</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và việc lái xe hàng ngày trở nên đắt đỏ hơn</span><input type="text" class="blank-input" data-ans="and daily driving more expensive" style="width: 220px;"><span class="tooltip">Đáp án: and daily driving more expensive</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">đặc biệt là đối với những người sử dụng xe thường xuyên</span><input type="text" class="blank-input" data-ans="particularly for people who use their vehicles frequently" style="width: 320px;"><span class="tooltip">Đáp án: particularly for people who use their vehicles frequently</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ngoài ra</span><input type="text" class="blank-input" data-ans="In addition" style="width: 90px;"><span class="tooltip">Đáp án: In addition</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">tác động môi trường của ô tô chạy bằng xăng</span><input type="text" class="blank-input" data-ans="the environmental impact of petrol-powered cars" style="width: 300px;"><span class="tooltip">Đáp án: the environmental impact of petrol-powered cars</span></span>
+                <span class="blank-wrapper"><span class="vi-label">đã khuyến khích cả chính phủ và cá nhân</span><input type="text" class="blank-input" data-ans="has encouraged both governments and individuals" style="width: 290px;"><span class="tooltip">Đáp án: has encouraged both governments and individuals</span></span>
+                <span class="blank-wrapper"><span class="vi-label">xem xét các giải pháp thay thế sạch hơn</span><input type="text" class="blank-input" data-ans="to consider cleaner alternatives" style="width: 210px;"><span class="tooltip">Đáp án: to consider cleaner alternatives</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đi xe đạp không tạo ra khí thải trực tiếp từ phương tiện</span><input type="text" class="blank-input" data-ans="Cycling produces no direct vehicle emissions" style="width: 280px;"><span class="tooltip">Đáp án: Cycling produces no direct vehicle emissions</span></span>
+                <span class="blank-wrapper"><span class="vi-label">do đó có thể góp phần giảm ô nhiễm không khí</span><input type="text" class="blank-input" data-ans="and can therefore contribute to reducing air pollution" style="width: 310px;"><span class="tooltip">Đáp án: and can therefore contribute to reducing air pollution</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và lượng xả thải carbon</span><input type="text" class="blank-input" data-ans="and carbon emissions" style="width: 150px;"><span class="tooltip">Đáp án: and carbon emissions</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Vì những lý do này</span><input type="text" class="blank-input" data-ans="For these reasons" style="width: 130px;"><span class="tooltip">Đáp án: For these reasons</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">một số thành phố đã thúc đẩy việc đi xe đạp</span><input type="text" class="blank-input" data-ans="some cities have promoted cycling" style="width: 220px;"><span class="tooltip">Đáp án: some cities have promoted cycling</span></span>
+                <span class="blank-wrapper"><span class="vi-label">như một phần nỗ lực xây dựng</span><input type="text" class="blank-input" data-ans="as part of their efforts to develop" style="width: 220px;"><span class="tooltip">Đáp án: as part of their efforts to develop</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hệ thống giao thông bền vững hơn</span><input type="text" class="blank-input" data-ans="more sustainable transportation systems" style="width: 260px;"><span class="tooltip">Đáp án: more sustainable transportation systems</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Mặc dù ô tô mang lại những ưu điểm rõ rệt</span><input type="text" class="blank-input" data-ans="Although cars provide clear advantages" style="width: 250px;"><span class="tooltip">Đáp án: Although cars provide clear advantages</span></span>
+                <span class="blank-wrapper"><span class="vi-label">về sự thoải mái, tiện lợi và hiệu quả</span><input type="text" class="blank-input" data-ans="in terms of comfort, convenience and efficiency" style="width: 300px;"><span class="tooltip">Đáp án: in terms of comfort, convenience and efficiency</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">tôi tin rằng sự dịch chuyển lớn hơn hướng tới</span><input type="text" class="blank-input" data-ans="I believe that a greater shift towards" style="width: 240px;"><span class="tooltip">Đáp án: I believe that a greater shift towards</span></span>
+                <span class="blank-wrapper"><span class="vi-label">xe đạp và phương tiện công cộng</span><input type="text" class="blank-input" data-ans="cycling and public transportation" style="width: 210px;"><span class="tooltip">Đáp án: cycling and public transportation</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sẽ có lợi hơn trong dài hạn</span><input type="text" class="blank-input" data-ans="is more beneficial in the long term" style="width: 210px;"><span class="tooltip">Đáp án: is more beneficial in the long term</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tuy nhiên</span><input type="text" class="blank-input" data-ans="Nevertheless" style="width: 100px;"><span class="tooltip">Đáp án: Nevertheless</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">điều này không có nghĩa là ô tô nên bị từ bỏ hoàn toàn</span><input type="text" class="blank-input" data-ans="this does not mean that cars should be completely abandoned" style="width: 370px;"><span class="tooltip">Đáp án: this does not mean that cars should be completely abandoned</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Thay vào đó</span><input type="text" class="blank-input" data-ans="Instead" style="width: 70px;"><span class="tooltip">Đáp án: Instead</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mọi người có thể chọn các phương tiện giao thông khác nhau</span><input type="text" class="blank-input" data-ans="people could choose different means of transport" style="width: 310px;"><span class="tooltip">Đáp án: people could choose different means of transport</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tùy theo khoảng cách, mục đích và hoàn cảnh</span><input type="text" class="blank-input" data-ans="according to the distance, purpose and circumstances" style="width: 330px;"><span class="tooltip">Đáp án: according to the distance, purpose and circumstances</span></span>
+                <span class="blank-wrapper"><span class="vi-label">chuyến đi</span><input type="text" class="blank-input" data-ans="of each journey" style="width: 110px;"><span class="tooltip">Đáp án: of each journey</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ô tô có thể được dùng cho các chuyến đi đường dài</span><input type="text" class="blank-input" data-ans="Cars could be used for long-distance" style="width: 240px;"><span class="tooltip">Đáp án: Cars could be used for long-distance</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hoặc những nơi ít tiếp cận hơn</span><input type="text" class="blank-input" data-ans="or less accessible trips" style="width: 170px;"><span class="tooltip">Đáp án: or less accessible trips</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi xe đạp và phương tiện công cộng</span><input type="text" class="blank-input" data-ans="while bicycles and public transport" style="width: 230px;"><span class="tooltip">Đáp án: while bicycles and public transport</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể được ưa chuộng hơn cho những hành trình ngắn hơn</span><input type="text" class="blank-input" data-ans="could be preferred for shorter journeys" style="width: 260px;"><span class="tooltip">Đáp án: could be preferred for shorter journeys</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tóm lại</span><input type="text" class="blank-input" data-ans="In conclusion" style="width: 100px;"><span class="tooltip">Đáp án: In conclusion</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">sự ưu ái tiếp tục dành cho ô tô chủ yếu liên quan đến</span><input type="text" class="blank-input" data-ans="the continued preference for cars is mainly related to" style="width: 330px;"><span class="tooltip">Đáp án: the continued preference for cars is mainly related to</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sự tiện lợi và hiệu quả của chúng</span><input type="text" class="blank-input" data-ans="their convenience and efficiency" style="width: 210px;"><span class="tooltip">Đáp án: their convenience and efficiency</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi việc sử dụng xe đạp ngày càng tăng</span><input type="text" class="blank-input" data-ans="whereas the growing use of bicycles" style="width: 230px;"><span class="tooltip">Đáp án: whereas the growing use of bicycles</span></span>
+                <span class="blank-wrapper"><span class="vi-label">được thúc đẩy bởi các lo ngại về chi phí đi lại</span><input type="text" class="blank-input" data-ans="is driven by concerns about transportation costs" style="width: 310px;"><span class="tooltip">Đáp án: is driven by concerns about transportation costs</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và việc bảo vệ môi trường</span><input type="text" class="blank-input" data-ans="and environmental protection" style="width: 180px;"><span class="tooltip">Đáp án: and environmental protection</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Sự kết hợp linh hoạt các lựa chọn giao thông</span><input type="text" class="blank-input" data-ans="A flexible combination of transport options" style="width: 280px;"><span class="tooltip">Đáp án: A flexible combination of transport options</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể cho phép mọi người duy trì sự tiện lợi</span><input type="text" class="blank-input" data-ans="could allow people to maintain convenience" style="width: 270px;"><span class="tooltip">Đáp án: could allow people to maintain convenience</span></span>
+                <span class="blank-wrapper"><span class="vi-label">đồng thời giảm cả chi phí tài chính và thiệt hại môi trường</span><input type="text" class="blank-input" data-ans="while reducing both financial costs and environmental damage" style="width: 380px;"><span class="tooltip">Đáp án: while reducing both financial costs and environmental damage</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- BÀI 3 -->
+    <div id="v3" class="version-card theme-v3">
+        <div class="version-header">
+            <h2>Bài 3 — Improved, hướng Band 8–9 nhưng vẫn giữ lập luận gốc</h2>
+            <span class="badge">Band 8.0 - 9.0</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tại nhiều thành phố</span><input type="text" class="blank-input" data-ans="In many cities" style="width: 110px;"><span class="tooltip">Đáp án: In many cities</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ô tô cá nhân vẫn là phương tiện giao thông được ưa chuộng</span><input type="text" class="blank-input" data-ans="private cars remain the preferred means of transportation" style="width: 350px;"><span class="tooltip">Đáp án: private cars remain the preferred means of transportation</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi số lượng ngày càng tăng các cư dân đô thị ở nơi khác</span><input type="text" class="blank-input" data-ans="while an increasing number of urban residents elsewhere" style="width: 360px;"><span class="tooltip">Đáp án: while an increasing number of urban residents elsewhere</span></span>
+                <span class="blank-wrapper"><span class="vi-label">đang chuyển sang sử dụng xe đạp như một giải pháp thay thế</span><input type="text" class="blank-input" data-ans="are turning to bicycles as an alternative" style="width: 270px;"><span class="tooltip">Đáp án: are turning to bicycles as an alternative</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Sự phân tách/khác biệt này có thể được giải thích bằng</span><input type="text" class="blank-input" data-ans="This divergence can be explained by" style="width: 250px;"><span class="tooltip">Đáp án: This divergence can be explained by</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sự khác biệt trong lợi ích thực tế</span><input type="text" class="blank-input" data-ans="differences in the practical advantages" style="width: 240px;"><span class="tooltip">Đáp án: differences in the practical advantages</span></span>
+                <span class="blank-wrapper"><span class="vi-label">của mỗi phương tiện giao thông</span><input type="text" class="blank-input" data-ans="of each mode of transport" style="width: 170px;"><span class="tooltip">Đáp án: of each mode of transport</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">cũng như sự gia tăng lo ngại về kinh tế và môi trường</span><input type="text" class="blank-input" data-ans="as well as by growing economic and environmental concerns" style="width: 370px;"><span class="tooltip">Đáp án: as well as by growing economic and environmental concerns</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Theo góc nhìn của tôi</span><input type="text" class="blank-input" data-ans="In my view" style="width: 90px;"><span class="tooltip">Đáp án: In my view</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mặc dù ô tô vẫn cần thiết trong một số trường hợp nhất định</span><input type="text" class="blank-input" data-ans="although cars remain necessary in certain circumstances" style="width: 340px;"><span class="tooltip">Đáp án: although cars remain necessary in certain circumstances</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">sự phụ thuộc lớn hơn vào xe đạp và giao thông công cộng</span><input type="text" class="blank-input" data-ans="a greater reliance on cycling and public transportation" style="width: 330px;"><span class="tooltip">Đáp án: a greater reliance on cycling and public transportation</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sẽ là một sự phát triển bền vững hơn</span><input type="text" class="blank-input" data-ans="would be a more sustainable development" style="width: 260px;"><span class="tooltip">Đáp án: would be a more sustainable development</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Có một số lý do khiến ô tô tiếp tục áp đảo</span><input type="text" class="blank-input" data-ans="There are several reasons why cars continue to dominate" style="width: 350px;"><span class="tooltip">Đáp án: There are several reasons why cars continue to dominate</span></span>
+                <span class="blank-wrapper"><span class="vi-label">giao thông ở một số thành phố</span><input type="text" class="blank-input" data-ans="transportation in some cities" style="width: 180px;"><span class="tooltip">Đáp án: transportation in some cities</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đầu tiên và quan trọng nhất</span><input type="text" class="blank-input" data-ans="First and foremost" style="width: 130px;"><span class="tooltip">Đáp án: First and foremost</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chúng mang lại mức độ tiện lợi cao</span><input type="text" class="blank-input" data-ans="they offer a high degree of convenience" style="width: 250px;"><span class="tooltip">Đáp án: they offer a high degree of convenience</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và sự tự chủ cá nhân</span><input type="text" class="blank-input" data-ans="and personal autonomy" style="width: 160px;"><span class="tooltip">Đáp án: and personal autonomy</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Người sử dụng ô tô có thể quyết định thời gian khởi hành</span><input type="text" class="blank-input" data-ans="Car users can determine their own departure times" style="width: 320px;"><span class="tooltip">Đáp án: Car users can determine their own departure times</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chọn tuyến đường của họ</span><input type="text" class="blank-input" data-ans="choose their routes" style="width: 140px;"><span class="tooltip">Đáp án: choose their routes</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và đi thẳng đến điểm đến</span><input type="text" class="blank-input" data-ans="and travel directly to their destinations" style="width: 250px;"><span class="tooltip">Đáp án: and travel directly to their destinations</span></span>
+                <span class="blank-wrapper"><span class="vi-label">mà không bị ràng buộc bởi</span><input type="text" class="blank-input" data-ans="without being constrained by" style="width: 190px;"><span class="tooltip">Đáp án: without being constrained by</span></span>
+                <span class="blank-wrapper"><span class="vi-label">lịch trình hoặc tuyến đường của giao thông công cộng</span><input type="text" class="blank-input" data-ans="public transport schedules or routes" style="width: 240px;"><span class="tooltip">Đáp án: public transport schedules or routes</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Sự linh hoạt này đặc biệt có giá trị</span><input type="text" class="blank-input" data-ans="This flexibility is particularly valuable" style="width: 240px;"><span class="tooltip">Đáp án: This flexibility is particularly valuable</span></span>
+                <span class="blank-wrapper"><span class="vi-label">đối với những người có lịch làm việc khắt khe</span><input type="text" class="blank-input" data-ans="for people with demanding schedules" style="width: 240px;"><span class="tooltip">Đáp án: for people with demanding schedules</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Hơn nữa</span><input type="text" class="blank-input" data-ans="Furthermore" style="width: 90px;"><span class="tooltip">Đáp án: Furthermore</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ô tô thích hợp hơn đáng kể cho các chuyến đi xa</span><input type="text" class="blank-input" data-ans="cars are considerably more suitable for long-distance journeys" style="width: 380px;"><span class="tooltip">Đáp án: cars are considerably more suitable for long-distance journeys</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trong khi xe đạp có thể thực tế cho các chuyến đi ngắn</span><input type="text" class="blank-input" data-ans="Whereas bicycles may be practical for relatively short trips" style="width: 350px;"><span class="tooltip">Đáp án: Whereas bicycles may be practical for relatively short trips</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">đi xe đạp trên quãng đường đáng kể</span><input type="text" class="blank-input" data-ans="cycling over substantial distances" style="width: 220px;"><span class="tooltip">Đáp án: cycling over substantial distances</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể vừa tốn thời gian vừa đòi hỏi nhiều thể lực</span><input type="text" class="blank-input" data-ans="can be both time-consuming and physically demanding" style="width: 340px;"><span class="tooltip">Đáp án: can be both time-consuming and physically demanding</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Do đó</span><input type="text" class="blank-input" data-ans="Consequently" style="width: 90px;"><span class="tooltip">Đáp án: Consequently</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">những người thường xuyên đi lại khoảng cách xa</span><input type="text" class="blank-input" data-ans="people who regularly commute long distances" style="width: 280px;"><span class="tooltip">Đáp án: people who regularly commute long distances</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có khả năng sẽ coi ô tô là lựa chọn hiệu quả hơn</span><input type="text" class="blank-input" data-ans="are likely to regard cars as the more efficient option" style="width: 320px;"><span class="tooltip">Đáp án: are likely to regard cars as the more efficient option</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tuy nhiên, sự ưu ái ngày càng tăng đối với xe đạp</span><input type="text" class="blank-input" data-ans="The growing preference for bicycles in other cities, however" style="width: 370px;"><span class="tooltip">Đáp án: The growing preference for bicycles in other cities, however</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">có thể được quy cho cả lý do tài chính và môi trường</span><input type="text" class="blank-input" data-ans="can be attributed to both financial and environmental considerations" style="width: 410px;"><span class="tooltip">Đáp án: can be attributed to both financial and environmental considerations</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Giá nhiên liệu tăng đã làm tăng chi phí vận hành xe cá nhân</span><input type="text" class="blank-input" data-ans="Rising fuel prices have increased the cost of operating private vehicles" style="width: 420px;"><span class="tooltip">Đáp án: Rising fuel prices have increased the cost of operating private vehicles</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">đặt thêm gánh nặng tài chính lên những người lái xe thường xuyên</span><input type="text" class="blank-input" data-ans="placing an additional financial burden on frequent drivers" style="width: 360px;"><span class="tooltip">Đáp án: placing an additional financial burden on frequent drivers</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đồng thời</span><input type="text" class="blank-input" data-ans="At the same time" style="width: 120px;"><span class="tooltip">Đáp án: At the same time</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">những lo ngại về ô nhiễm không khí và khí thải carbon</span><input type="text" class="blank-input" data-ans="concerns about air pollution and carbon emissions" style="width: 320px;"><span class="tooltip">Đáp án: concerns about air pollution and carbon emissions</span></span>
+                <span class="blank-wrapper"><span class="vi-label">đã khuyến khích các cá nhân và chính phủ</span><input type="text" class="blank-input" data-ans="have encouraged individuals and governments" style="width: 280px;"><span class="tooltip">Đáp án: have encouraged individuals and governments</span></span>
+                <span class="blank-wrapper"><span class="vi-label">xem xét lại sự phụ thuộc của họ vào giao thông chạy bằng xăng</span><input type="text" class="blank-input" data-ans="to reconsider their dependence on petrol-powered transportation" style="width: 410px;"><span class="tooltip">Đáp án: to reconsider their dependence on petrol-powered transportation</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đi xe đạp cung cấp một phương tiện di chuyển rẻ tiền</span><input type="text" class="blank-input" data-ans="Cycling provides an inexpensive means of travelling" style="width: 320px;"><span class="tooltip">Đáp án: Cycling provides an inexpensive means of travelling</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trong khi không tạo ra khí thải trực tiếp</span><input type="text" class="blank-input" data-ans="while producing no direct vehicle emissions" style="width: 270px;"><span class="tooltip">Đáp án: while producing no direct vehicle emissions</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tại các thành phố nơi cơ sở hạ tầng cho xe đạp được phát triển tốt</span><input type="text" class="blank-input" data-ans="In cities where cycling infrastructure is well developed" style="width: 370px;"><span class="tooltip">Đáp án: In cities where cycling infrastructure is well developed</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">do đó</span><input type="text" class="blank-input" data-ans="therefore" style="width: 70px;"><span class="tooltip">Đáp án: therefore</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">việc thay thế một số chuyến đi bằng ô tô bằng các chuyến đi bằng xe đạp</span><input type="text" class="blank-input" data-ans="replacing some car journeys with bicycle trips" style="width: 290px;"><span class="tooltip">Đáp án: replacing some car journeys with bicycle trips</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể giúp giảm chi phí di chuyển</span><input type="text" class="blank-input" data-ans="can help reduce transportation costs" style="width: 230px;"><span class="tooltip">Đáp án: can help reduce transportation costs</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và giảm bớt tác động môi trường của việc đi lại trong đô thị</span><input type="text" class="blank-input" data-ans="and lessen the environmental impact of urban mobility" style="width: 360px;"><span class="tooltip">Đáp án: and lessen the environmental impact of urban mobility</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Bất chấp những ưu điểm thực tế của ô tô cá nhân</span><input type="text" class="blank-input" data-ans="Despite the practical advantages of private cars" style="width: 310px;"><span class="tooltip">Đáp án: Despite the practical advantages of private cars</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">tôi tin rằng khuyến khích mọi người đi xe đạp</span><input type="text" class="blank-input" data-ans="I believe that encouraging people to cycle" style="width: 270px;"><span class="tooltip">Đáp án: I believe that encouraging people to cycle</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hoặc sử dụng phương tiện công cộng cho các chuyến đi phù hợp</span><input type="text" class="blank-input" data-ans="or use public transportation for suitable journeys" style="width: 330px;"><span class="tooltip">Đáp án: or use public transportation for suitable journeys</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sẽ là một sự phát triển có lợi hơn</span><input type="text" class="blank-input" data-ans="would be a more beneficial development" style="width: 260px;"><span class="tooltip">Đáp án: would be a more beneficial development</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Điều này không có nghĩa là ô tô nên bị thay thế hoàn toàn</span><input type="text" class="blank-input" data-ans="This does not imply that cars should be completely replaced" style="width: 370px;"><span class="tooltip">Đáp án: This does not imply that cars should be completely replaced</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vì chúng vẫn hữu ích cho các đường dài</span><input type="text" class="blank-input" data-ans="since they remain useful for long-distance journeys" style="width: 320px;"><span class="tooltip">Đáp án: since they remain useful for long-distance journeys</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vận chuyển hàng hóa nặng</span><input type="text" class="blank-input" data-ans="transporting heavy goods" style="width: 170px;"><span class="tooltip">Đáp án: transporting heavy goods</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và đi đến các khu vực ít phương tiện công cộng</span><input type="text" class="blank-input" data-ans="and travelling to areas with limited public transport" style="width: 330px;"><span class="tooltip">Đáp án: and travelling to areas with limited public transport</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Thay vào đó, phương pháp hiệu quả nhất sẽ là</span><input type="text" class="blank-input" data-ans="Rather, the most effective approach would be to" style="width: 310px;"><span class="tooltip">Đáp án: Rather, the most effective approach would be to</span></span>
+                <span class="blank-wrapper"><span class="vi-label">áp dụng một hệ thống giao thông linh hoạt</span><input type="text" class="blank-input" data-ans="adopt a flexible transportation system" style="width: 240px;"><span class="tooltip">Đáp án: adopt a flexible transportation system</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trong đó mọi người chọn phương tiện phù hợp nhất</span><input type="text" class="blank-input" data-ans="in which people select the most appropriate mode" style="width: 320px;"><span class="tooltip">Đáp án: in which people select the most appropriate mode</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tùy theo khoảng cách và mục đích của từng chuyến đi</span><input type="text" class="blank-input" data-ans="according to the distance and purpose of each journey" style="width: 350px;"><span class="tooltip">Đáp án: according to the distance and purpose of each journey</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Cách tiếp cận như vậy có thể giữ lại sự tiện lợi của ô tô</span><input type="text" class="blank-input" data-ans="Such an approach could preserve the convenience of cars" style="width: 360px;"><span class="tooltip">Đáp án: Such an approach could preserve the convenience of cars</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trong khi giảm tiêu thụ nhiên liệu không cần thiết</span><input type="text" class="blank-input" data-ans="while reducing unnecessary fuel consumption" style="width: 300px;"><span class="tooltip">Đáp án: while reducing unnecessary fuel consumption</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">khí thải và chi phí đi lại</span><input type="text" class="blank-input" data-ans="emissions and travel costs" style="width: 170px;"><span class="tooltip">Đáp án: emissions and travel costs</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tóm lại</span><input type="text" class="blank-input" data-ans="In conclusion" style="width: 100px;"><span class="tooltip">Đáp án: In conclusion</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">việc tiếp tục sử dụng ô tô có thể được giải thích chủ yếu do</span><input type="text" class="blank-input" data-ans="the continued use of cars can be explained primarily by" style="width: 360px;"><span class="tooltip">Đáp án: the continued use of cars can be explained primarily by</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sự tiện lợi, tính linh hoạt và hiệu quả trên các chuyến đi dài</span><input type="text" class="blank-input" data-ans="their convenience, flexibility and efficiency on long journeys" style="width: 380px;"><span class="tooltip">Đáp án: their convenience, flexibility and efficiency on long journeys</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi sự phổ biến ngày càng tăng của xe đạp</span><input type="text" class="blank-input" data-ans="whereas the growing popularity of bicycles" style="width: 270px;"><span class="tooltip">Đáp án: whereas the growing popularity of bicycles</span></span>
+                <span class="blank-wrapper"><span class="vi-label">gắn liền chặt chẽ với việc tăng chi phí nhiên liệu và mối lo môi trường</span><input type="text" class="blank-input" data-ans="is closely associated with rising fuel costs and environmental concerns" style="width: 440px;"><span class="tooltip">Đáp án: is closely associated with rising fuel costs and environmental concerns</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một cách tiếp cận cân bằng kết hợp ô tô</span><input type="text" class="blank-input" data-ans="A balanced approach that combines cars" style="width: 260px;"><span class="tooltip">Đáp án: A balanced approach that combines cars</span></span>
+                <span class="blank-wrapper"><span class="vi-label">với xe đạp và phương tiện giao thông công cộng</span><input type="text" class="blank-input" data-ans="with cycling and public transportation" style="width: 250px;"><span class="tooltip">Đáp án: with cycling and public transportation</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sẽ cho phép mọi người giữ lại những lợi ích thực tế của xe cá nhân</span><input type="text" class="blank-input" data-ans="would allow people to retain the practical benefits of private vehicles" style="width: 420px;"><span class="tooltip">Đáp án: would allow people to retain the practical benefits of private vehicles</span></span>
+                <span class="blank-wrapper"><span class="vi-label">đồng thời giảm bớt chi phí kinh tế và môi trường</span><input type="text" class="blank-input" data-ans="while reducing their economic and environmental costs" style="width: 340px;"><span class="tooltip">Đáp án: while reducing their economic and environmental costs</span></span>.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.version-card');
+        const inputs = document.querySelectorAll('.blank-input');
+        const showAnswersBtn = document.getElementById('showAnswersBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // Switch Tabs
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                cards.forEach(card => {
+                    if (card.id === targetId) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Normalize text for strict/lenient string comparison
+        function cleanText(text) {
+            return text.trim()
+                       .toLowerCase()
+                       .replace(/’/g, "'")
+                       .replace(/–/g, "-")
+                       .replace(/\s+/g, ' ');
+        }
+
+        // Validate Input logic
+        function validateInput(input) {
+            const userVal = cleanText(input.value);
+            const correctVal = cleanText(input.getAttribute('data-ans'));
+
+            if (userVal === "") {
+                input.classList.remove('correct', 'incorrect');
+                return;
+            }
+
+            if (userVal === correctVal) {
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+            } else {
+                input.classList.remove('correct');
+                input.classList.add('incorrect');
+            }
+        }
+
+        // Event listeners for user input
+        inputs.forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    validateInput(input);
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                validateInput(input);
+            });
+        });
+
+        // Show Answers for active tab
+        showAnswersBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = input.getAttribute('data-ans');
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+            });
+        });
+
+        // Reset inputs for active tab
+        resetBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = "";
+                input.classList.remove('correct', 'incorrect');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
