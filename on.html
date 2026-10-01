@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Giới Từ In, On, At - Dịch Câu Tiếng Anh</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-800 leading-tight">Bài Tập Giới Từ IN / ON / AT</h1>
+                    <p class="text-xs text-slate-500">Dịch 10 câu Tiếng Anh - Thời gian & Nơi chốn</p>
+                </div>
+            </div>
+            <button onclick="toggleRuleModal()" class="px-3.5 py-2 text-xs sm:text-sm font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition border border-indigo-200/80 flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-book-open text-indigo-600"></i>
+                <span>Quy Tắc In / On / At</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto px-4 py-6 w-full flex-grow">
+
+        <!-- Progress and Action Bar -->
+        <section class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm mb-6 space-y-4">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                <div>
+                    <h2 class="font-bold text-slate-800 text-sm sm:text-base">Luyện Dịch Việt ➔ Anh</h2>
+                    <p class="text-xs text-slate-500">Nhập câu trả lời bằng Tiếng Anh và nhấn Kiểm tra</p>
+                </div>
+
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <button onclick="checkAllAnswers()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-xl shadow-sm transition flex items-center justify-center gap-2 text-xs sm:text-sm">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Nộp Tất Cả (10 Câu)</span>
+                    </button>
+                    <button onclick="resetExercise()" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium p-2 rounded-xl transition text-sm" title="Làm lại từ đầu">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Score & Progress Stats -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                <div class="sm:col-span-2">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tiến độ hoàn thành</span>
+                        <span id="progress-text" class="text-xs font-bold text-sky-600">0/10 đã trả lời</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                        <div id="progress-bar" class="bg-gradient-to-r from-sky-500 to-indigo-600 h-2.5 rounded-full transition-all duration-300 w-0"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-around border-t sm:border-t-0 sm:border-l border-slate-100 pt-3 sm:pt-0 sm:pl-4">
+                    <div class="text-center">
+                        <span id="score-correct" class="block text-xl font-extrabold text-emerald-600">0</span>
+                        <span class="text-[11px] text-slate-500 font-medium">Đúng</span>
+                    </div>
+                    <div class="text-center">
+                        <span id="score-incorrect" class="block text-xl font-extrabold text-rose-500">0</span>
+                        <span class="text-[11px] text-slate-500 font-medium">Chưa đúng</span>
+                    </div>
+                    <div class="text-center">
+                        <span id="score-accuracy" class="block text-xl font-extrabold text-sky-600">0%</span>
+                        <span class="text-[11px] text-slate-500 font-medium">Chính xác</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercise Sentence List Container -->
+        <div id="exercise-list" class="space-y-4">
+            <!-- Dynamic JavaScript content -->
+        </div>
+
+    </main>
+
+    <!-- Modal Preposition Rules Guide -->
+    <div id="rule-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-fade-in">
+            <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                <div>
+                    <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-indigo-600"></i> Quy Tắc Giới Từ In, On, At
+                    </h3>
+                    <p class="text-xs text-slate-500">Tóm tắt cách dùng giới từ chỉ thời gian & nơi chốn</p>
+                </div>
+                <button onclick="toggleRuleModal()" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-5 overflow-y-auto custom-scrollbar flex-grow space-y-4 text-sm">
+                <!-- AT Rule -->
+                <div class="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-950 space-y-1">
+                    <h4 class="font-bold text-amber-900 flex items-center gap-1.5 text-base">
+                        <span class="w-6 h-6 rounded-md bg-amber-600 text-white text-xs flex items-center justify-center font-black">AT</span>
+                        Thời gian cụ thể & Địa điểm xác định
+                    </h4>
+                    <p class="text-xs text-amber-800 leading-relaxed">
+                        • <b>Giờ giấc/Mốc thời gian ngắn:</b> <i>at 7 a.m.</i>, <i>at noon</i>, <i>at midnight</i>, <i>at the weekend</i>.<br>
+                        • <b>Địa điểm cụ thể / Nơi chốn sinh hoạt:</b> <i>at home</i>, <i>at school</i>, <i>at a hotel</i>.
+                    </p>
+                </div>
+
+                <!-- ON Rule -->
+                <div class="p-3.5 rounded-xl bg-sky-50/80 border border-sky-200 text-sky-950 space-y-1">
+                    <h4 class="font-bold text-sky-900 flex items-center gap-1.5 text-base">
+                        <span class="w-6 h-6 rounded-md bg-sky-600 text-white text-xs flex items-center justify-center font-black">ON</span>
+                        Thứ trong tuần, Ngày & Bề mặt
+                    </h4>
+                    <p class="text-xs text-sky-800 leading-relaxed">
+                        • <b>Thứ trong tuần / Ngày tháng:</b> <i>on Monday</i>, <i>on Mondays</i>, <i>on July 4th</i>.<br>
+                        • <b>Cuối tuần (Anh-Mỹ):</b> <i>on weekends</i>.<br>
+                        • <b>Trên bề mặt:</b> <i>on the table</i>, <i>on the floor</i>.
+                    </p>
+                </div>
+
+                <!-- IN Rule -->
+                <div class="p-3.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-emerald-950 space-y-1">
+                    <h4 class="font-bold text-emerald-900 flex items-center gap-1.5 text-base">
+                        <span class="w-6 h-6 rounded-md bg-emerald-600 text-white text-xs flex items-center justify-center font-black">IN</span>
+                        Buổi, Tháng, Năm, Quốc gia & Thành phố
+                    </h4>
+                    <p class="text-xs text-emerald-800 leading-relaxed">
+                        • <b>Buổi trong ngày:</b> <i>in the morning</i>, <i>in the afternoon</i>, <i>in the evening</i>.<br>
+                        • <b>Tháng / Năm / Mùa:</b> <i>in July</i>, <i>in 2026</i>, <i>in summer</i>.<br>
+                        • <b>Quốc gia / Thành phố lớn:</b> <i>in Vietnam</i>, <i>in Ho Chi Minh City</i>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-3 border-t border-slate-200 bg-slate-50 text-right">
+                <button onclick="toggleRuleModal()" class="px-5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-medium text-sm rounded-xl transition shadow-sm">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Data Logic -->
+    <script>
+        const dataset = [
+            {
+                id: 1,
+                vi: "Tôi thức dậy vào lúc 7 giờ sáng.",
+                prep: "at",
+                vocabHint: "wake up / 7 a.m. / 7 o'clock",
+                enMain: "I wake up at 7 a.m.",
+                enVariants: [
+                    "I wake up at 7 a.m.",
+                    "I wake up at 7 am",
+                    "I wake up at 7 o'clock in the morning",
+                    "I wake up at 7:00 a.m.",
+                    "I get up at 7 a.m.",
+                    "I get up at 7 o'clock in the morning"
+                ],
+                grammar: "Dùng <b>AT</b> cho mốc thời gian / giờ giấc cụ thể (<i>at 7 a.m.</i> hoặc <i>at 7 o'clock</i>)."
+            },
+            {
+                id: 2,
+                vi: "Chúng tôi học tiếng Anh vào thứ Hai.",
+                prep: "on",
+                vocabHint: "study / learn English / Monday",
+                enMain: "We study English on Monday.",
+                enVariants: [
+                    "We study English on Monday",
+                    "We learn English on Monday",
+                    "We study English on Mondays",
+                    "We learn English on Mondays"
+                ],
+                grammar: "Dùng <b>ON</b> cho các thứ trong tuần (<i>on Monday</i>, <i>on Mondays</i>)."
+            },
+            {
+                id: 3,
+                vi: "Cô ấy thường đọc sách vào buổi tối.",
+                prep: "in",
+                vocabHint: "usually read books / evening",
+                enMain: "She usually reads books in the evening.",
+                enVariants: [
+                    "She usually reads books in the evening",
+                    "She often reads books in the evening",
+                    "She usually reads a book in the evening"
+                ],
+                grammar: "Dùng <b>IN</b> cho các buổi trong ngày (<i>in the evening</i>, <i>in the morning</i>, <i>in the afternoon</i>)."
+            },
+            {
+                id: 4,
+                vi: "Gia đình tôi đi du lịch vào tháng Bảy.",
+                prep: "in",
+                vocabHint: "my family / travel / July",
+                enMain: "My family travels in July.",
+                enVariants: [
+                    "My family travels in July",
+                    "My family goes on a trip in July",
+                    "My family goes traveling in July",
+                    "My family travels in July."
+                ],
+                grammar: "Dùng <b>IN</b> đứng trước tháng trong năm (<i>in July</i>, <i>in August</i>)."
+            },
+            {
+                id: 5,
+                vi: "Tôi sinh ra ở Việt Nam.",
+                prep: "in",
+                vocabHint: "be born / Vietnam",
+                enMain: "I was born in Vietnam.",
+                enVariants: [
+                    "I was born in Vietnam"
+                ],
+                grammar: "Dùng <b>IN</b> chỉ nơi chốn là quốc gia hoặc thành phố lớn (<i>in Vietnam</i>)."
+            },
+            {
+                id: 6,
+                vi: "Anh ấy ở nhà vào cuối tuần.",
+                prep: "at / on",
+                vocabHint: "stay at home / weekend",
+                enMain: "He stays at home at the weekend.",
+                enVariants: [
+                    "He stays at home at the weekend",
+                    "He stays at home on the weekend",
+                    "He stays home on weekends",
+                    "He stays at home on weekends",
+                    "He stays home at the weekend"
+                ],
+                grammar: "Dùng <b>AT HOME</b> chỉ vị trí ở nhà. Với 'cuối tuần' dùng <b>at the weekend</b> (Anh-Anh) hoặc <b>on the weekend/on weekends</b> (Anh-Mỹ)."
+            },
+            {
+                id: 7,
+                vi: "Chúng tôi ăn trưa vào buổi trưa.",
+                prep: "at",
+                vocabHint: "eat / have lunch / noon",
+                enMain: "We eat lunch at noon.",
+                enVariants: [
+                    "We eat lunch at noon",
+                    "We have lunch at noon"
+                ],
+                grammar: "Dùng <b>AT</b> đi với thời điểm ngắn đặc biệt như <i>at noon</i> (vào giữa trưa) hoặc <i>at night</i>."
+            },
+            {
+                id: 8,
+                vi: "Trường học của tôi ở Thành phố Hồ Chí Minh.",
+                prep: "in",
+                vocabHint: "my school / Ho Chi Minh City",
+                enMain: "My school is in Ho Chi Minh City.",
+                enVariants: [
+                    "My school is in Ho Chi Minh City",
+                    "My school is located in Ho Chi Minh City"
+                ],
+                grammar: "Dùng <b>IN</b> chỉ không gian rộng lớn như tỉnh, thành phố (<i>in Ho Chi Minh City</i>)."
+            },
+            {
+                id: 9,
+                vi: "Mẹ tôi làm việc ở trường học.",
+                prep: "at",
+                vocabHint: "mother / work / school",
+                enMain: "My mother works at a school.",
+                enVariants: [
+                    "My mother works at a school",
+                    "My mother works at school",
+                    "My mom works at a school",
+                    "My mom works at school",
+                    "My mother works in a school"
+                ],
+                grammar: "Dùng <b>AT</b> chỉ địa điểm công tác/làm việc chung chung (<i>at a school</i>, <i>at work</i>)."
+            },
+            {
+                id: 10,
+                vi: "Tôi đi ngủ lúc nửa đêm.",
+                prep: "at",
+                vocabHint: "go to bed / midnight",
+                enMain: "I go to bed at midnight.",
+                enVariants: [
+                    "I go to bed at midnight",
+                    "I sleep at midnight"
+                ],
+                grammar: "Dùng <b>AT</b> cho mốc thời điểm chính xác <i>at midnight</i> (vào lúc nửa đêm - 12h đêm)."
+            }
+        ];
+
+        function renderExercises() {
+            const container = document.getElementById('exercise-list');
+            container.innerHTML = dataset.map((item, index) => `
+                <div id="card-${item.id}" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm transition hover:border-slate-300">
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-700 font-bold text-xs flex items-center justify-center border border-indigo-100">
+                                ${index + 1}
+                            </span>
+                            <span id="badge-${item.id}" class="text-xs px-2.5 py-0.5 rounded-full font-medium bg-slate-100 text-slate-500">
+                                Chưa trả lời
+                            </span>
+                        </div>
+                        
+                        <button onclick="toggleHint(${item.id})" class="text-xs font-semibold text-amber-700 hover:text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 px-2.5 py-1 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb"></i> Gợi ý từ vựng & Giới từ
+                        </button>
+                    </div>
+
+                    <!-- Hint Box -->
+                    <div id="hint-box-${item.id}" class="hidden mb-3 p-3 rounded-xl bg-amber-50/90 border border-amber-200/80 text-xs text-amber-950 animate-fade-in flex items-center gap-2">
+                        <i class="fa-solid fa-key text-amber-600 text-sm"></i>
+                        <div>
+                            Giới từ trọng tâm: <b class="uppercase font-bold text-amber-900 bg-amber-200/60 px-1.5 py-0.5 rounded">${item.prep}</b> | Từ gợi ý: <i>${item.vocabHint}</i>
+                        </div>
+                    </div>
+
+                    <!-- Vietnamese Prompt -->
+                    <p class="text-base font-bold text-slate-800 mb-3 leading-relaxed">
+                        "${item.vi}"
+                    </p>
+
+                    <!-- Input Section -->
+                    <div class="space-y-3">
+                        <div class="flex gap-2">
+                            <input 
+                                type="text" 
+                                id="input-${item.id}" 
+                                placeholder="Gõ câu dịch Tiếng Anh tại đây..."
+                                onkeydown="handleKeyPress(event, ${item.id})"
+                                oninput="updateProgressStats()"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-800 text-sm transition"
+                            />
+                            <button 
+                                onclick="checkSingleAnswer(${item.id})"
+                                class="whitespace-nowrap px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm rounded-xl transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-check"></i> Kiểm tra
+                            </button>
+                        </div>
+
+                        <!-- Feedback Area -->
+                        <div id="feedback-${item.id}" class="hidden text-sm rounded-xl p-4 transition-all animate-fade-in space-y-2.5">
+                            <div class="flex items-center gap-2 font-bold" id="feedback-status-${item.id}">
+                                <!-- Status header -->
+                            </div>
+                            
+                            <div>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1">Đáp án gợi ý:</span>
+                                <p id="feedback-answer-${item.id}" class="font-medium text-slate-800 bg-white/90 p-2.5 rounded-lg border border-slate-200/80 font-mono text-xs sm:text-sm"></p>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-200/60">
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600 block mb-1">
+                                    <i class="fa-solid fa-graduation-cap"></i> Giải thích ngữ pháp giới từ:
+                                </span>
+                                <p id="feedback-explanation-${item.id}" class="text-xs text-slate-600 leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleHint(id) {
+            const hintBox = document.getElementById(`hint-box-${id}`);
+            hintBox.classList.toggle('hidden');
+        }
+
+        function toggleRuleModal() {
+            const modal = document.getElementById('rule-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function normalizeString(str) {
+            if (!str) return "";
+            return str
+                .toLowerCase()
+                .trim()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?'"!]/g, "")
+                .replace(/\s+/g, " ");
+        }
+
+        function checkAnswerMatch(userStr, item) {
+            const cleanUser = normalizeString(userStr);
+            if (!cleanUser) return false;
+            return item.enVariants.some(variant => normalizeString(variant) === cleanUser);
+        }
+
+        function handleKeyPress(event, id) {
+            if (event.key === 'Enter') {
+                checkSingleAnswer(id);
+            }
+        }
+
+        function checkSingleAnswer(id) {
+            const inputEl = document.getElementById(`input-${id}`);
+            const feedbackEl = document.getElementById(`feedback-${id}`);
+            const statusEl = document.getElementById(`feedback-status-${id}`);
+            const answerEl = document.getElementById(`feedback-answer-${id}`);
+            const explanationEl = document.getElementById(`feedback-explanation-${id}`);
+            const badgeEl = document.getElementById(`badge-${id}`);
+
+            const userVal = inputEl.value;
+            const item = dataset.find(e => e.id === id);
+
+            if (!userVal.trim()) {
+                alert("Vui lòng nhập câu dịch Tiếng Anh trước khi bấm kiểm tra!");
+                return;
+            }
+
+            const isCorrect = checkAnswerMatch(userVal, item);
+
+            feedbackEl.classList.remove('hidden', 'bg-emerald-50', 'bg-rose-50', 'border-emerald-200', 'border-rose-200');
+
+            if (isCorrect) {
+                feedbackEl.classList.add('bg-emerald-50', 'border', 'border-emerald-200');
+                statusEl.className = "flex items-center gap-2 font-bold text-emerald-700";
+                statusEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i> Chính xác! Giới từ và ngữ pháp chuẩn.`;
+                badgeEl.className = "text-xs px-2.5 py-0.5 rounded-full font-semibold bg-emerald-100 text-emerald-700";
+                badgeEl.textContent = "Chính xác";
+            } else {
+                feedbackEl.classList.add('bg-rose-50', 'border', 'border-rose-200');
+                statusEl.className = "flex items-center gap-2 font-bold text-rose-700";
+                statusEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-lg"></i> Chưa chính xác. Hãy quan sát câu mẫu và giới từ dưới đây!`;
+                badgeEl.className = "text-xs px-2.5 py-0.5 rounded-full font-semibold bg-rose-100 text-rose-700";
+                badgeEl.textContent = "Chưa đúng";
+            }
+
+            answerEl.innerHTML = `${item.enMain}`;
+            explanationEl.innerHTML = item.grammar;
+
+            updateProgressStats();
+        }
+
+        function checkAllAnswers() {
+            let answeredCount = 0;
+            dataset.forEach(e => {
+                const inputEl = document.getElementById(`input-${e.id}`);
+                if (inputEl.value.trim() !== '') {
+                    answeredCount++;
+                    checkSingleAnswer(e.id);
+                }
+            });
+
+            if (answeredCount === 0) {
+                alert("Bạn chưa điền câu trả lời nào. Hãy thử nhập đáp án nhé!");
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function updateProgressStats() {
+            let total = dataset.length;
+            let attempted = 0;
+            let correctCount = 0;
+            let incorrectCount = 0;
+
+            dataset.forEach(e => {
+                const inputVal = document.getElementById(`input-${e.id}`).value.trim();
+                const badgeEl = document.getElementById(`badge-${e.id}`);
+
+                if (inputVal !== '') {
+                    attempted++;
+                }
+
+                if (badgeEl.textContent.trim() === "Chính xác") {
+                    correctCount++;
+                } else if (badgeEl.textContent.trim() === "Chưa đúng") {
+                    incorrectCount++;
+                }
+            });
+
+            document.getElementById('progress-text').textContent = `${attempted}/${total} đã trả lời`;
+            const progressPercent = Math.round((attempted / total) * 100);
+            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+            document.getElementById('score-correct').textContent = correctCount;
+            document.getElementById('score-incorrect').textContent = incorrectCount;
+
+            const evaluated = correctCount + incorrectCount;
+            const accuracy = evaluated > 0 ? Math.round((correctCount / evaluated) * 100) : 0;
+            document.getElementById('score-accuracy').textContent = `${accuracy}%`;
+        }
+
+        function resetExercise() {
+            if (confirm("Bạn có muốn làm lại tất cả 10 câu từ đầu không?")) {
+                dataset.forEach(e => {
+                    const inputEl = document.getElementById(`input-${e.id}`);
+                    const feedbackEl = document.getElementById(`feedback-${e.id}`);
+                    const badgeEl = document.getElementById(`badge-${e.id}`);
+                    const hintBox = document.getElementById(`hint-box-${e.id}`);
+
+                    if (inputEl) inputEl.value = '';
+                    if (feedbackEl) feedbackEl.classList.add('hidden');
+                    if (hintBox) hintBox.classList.add('hidden');
+                    if (badgeEl) {
+                        badgeEl.className = "text-xs px-2.5 py-0.5 rounded-full font-medium bg-slate-100 text-slate-500";
+                        badgeEl.textContent = "Chưa trả lời";
+                    }
+                });
+                updateProgressStats();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        window.onload = function() {
+            renderExercises();
+            updateProgressStats();
+        };
+    </script>
+</body>
+</html>
