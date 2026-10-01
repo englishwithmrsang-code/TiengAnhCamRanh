@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Dịch 30 Collocations</title>
+    <style>
+        :root {
+            --primary-blue: #1e88e5;
+            --dark-blue: #0d47a1;
+            --light-blue-bg: #e3f2fd;
+            --vi-bg: #e1f5fe;             /* Background highlight Tiếng Việt xanh nhạt */
+            --vi-text: #0277bd;           /* Chữ Tiếng Việt xanh đậm */
+            --vi-border: #81d4fa;         /* Viền xanh pastel */
+            --success-color: #2ecc71;
+            --error-color: #e74c3c;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: #2c3e50;
+            line-height: 2.3;
+            padding: 20px;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* Progress Tracker */
+        .tracker-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 18px 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.08);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            border: 1px solid #bbdefb;
+        }
+
+        .tracker-info {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+        }
+
+        .progress-bar-bg {
+            background-color: var(--light-blue-bg);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #42a5f5, var(--success-color));
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease-in-out;
+        }
+
+        /* Navigation Tabs */
+        .page-nav {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: #ffffff;
+            color: #546e7a;
+            border: 1.5px solid #b0bec5;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #1e88e5, #1565c0);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 10px rgba(21, 101, 192, 0.3);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: var(--light-blue-bg);
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        /* Reading Section */
+        .reading-section {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            font-size: 16px;
+            border: 1px solid #e3f2fd;
+        }
+
+        .reading-section.active {
+            display: block;
+        }
+
+        .section-header {
+            color: var(--dark-blue);
+            border-bottom: 2px solid var(--light-blue-bg);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* Group Inline */
+        .blank-group {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            margin: 0 4px;
+            vertical-align: baseline;
+            white-space: nowrap;
+        }
+
+        .vi-hint {
+            background-color: var(--vi-bg);
+            border: 1px solid var(--vi-border);
+            color: var(--vi-text);
+            padding: 2px 10px;
+            border-radius: 6px 0 0 6px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .blank-input {
+            border: 1px solid var(--vi-border);
+            border-left: none;
+            background-color: #f8fafc;
+            padding: 3px 10px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: center;
+            border-radius: 0 6px 6px 0;
+            outline: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .blank-input:focus {
+            border-color: var(--primary-blue);
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(30, 136, 229, 0.3);
+        }
+
+        .blank-input.correct {
+            border-color: var(--success-color);
+            background-color: #e8f8f5;
+            color: #117a65;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--error-color);
+            background-color: #fadbd8;
+            color: #78281f;
+        }
+
+        /* Tooltip đáp án (Ẩn mặc định) */
+        .tooltip {
+            display: none;
+            width: max-content;
+            background-color: #263238;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            font-weight: normal;
+            line-height: 1.4;
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #263238 transparent transparent transparent;
+        }
+
+        .blank-group.checked:hover .tooltip {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Footer Controls */
+        .footer-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #1e88e5, #1565c0);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+        }
+
+        .instructions {
+            font-size: 14px;
+            color: #37474f;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            background-color: var(--light-blue-bg);
+            padding: 12px 18px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Luyện Tập Dịch 30 Collocations</h1>
+
+    <!-- Progress Tracker -->
+    <div class="tracker-card">
+        <div class="tracker-info">
+            <span>Tiến độ hoàn thành: <span id="progress-percent">0%</span></span>
+            <span>Đã đúng: <span id="correct-count">0</span> / <span id="total-count">0</span> cụm từ</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="page-nav">
+        <button class="tab-btn active" onclick="switchPage(1)">Trang 1: Food (8)</button>
+        <button class="tab-btn" onclick="switchPage(2)">Trang 2: Exercise (7)</button>
+        <button class="tab-btn" onclick="switchPage(3)">Trang 3: Daily Habits (8)</button>
+        <button class="tab-btn" onclick="switchPage(4)">Trang 4: Technology (7)</button>
+    </div>
+
+    <div class="instructions">
+        💡 <strong>Hướng dẫn:</strong> Nhìn vào <span style="background-color: var(--vi-bg); color: var(--vi-text); padding: 2px 8px; border-radius: 4px; font-weight: bold;">Cụm Tiếng Việt Highlight</span> để dịch Tiếng Anh. Nhấn <strong>Enter</strong> để kiểm tra. <em>Sau khi ấn Enter, rê chuột vào ô để xem đáp án chuẩn.</em>
+    </div>
+
+    <!-- PAGE 1 -->
+    <div class="reading-section active" id="page-1">
+        <h2 class="section-header">A. FOOD – Healthy Eating (8 Collocations)</h2>
+        <p>
+            One important way to 
+            <span class="blank-group">
+                <span class="vi-hint">1. duy trì lối sống lành mạnh</span>
+                <input type="text" class="blank-input" style="width: 210px;" data-answer="maintain a healthy lifestyle" placeholder="...">
+                <span class="tooltip">Đáp án: <b>maintain a healthy lifestyle</b></span>
+            </span> 
+            is to 
+            <span class="blank-group">
+                <span class="vi-hint">2. phát triển thói quen ăn uống lành mạnh</span>
+                <input type="text" class="blank-input" style="width: 220px;" data-answer="develop healthy eating habits" placeholder="...">
+                <span class="tooltip">Đáp án: <b>develop healthy eating habits</b></span>
+            </span>. 
+            Because the body 
+            <span class="blank-group">
+                <span class="vi-hint">3. cần đa dạng chất dinh dưỡng</span>
+                <input type="text" class="blank-input" style="width: 210px;" data-answer="needs a variety of nutrients" placeholder="...">
+                <span class="tooltip">Đáp án: <b>needs a variety of nutrients</b></span>
+            </span> 
+            to 
+            <span class="blank-group">
+                <span class="vi-hint">4. hoạt động bình thường / hiệu quả</span>
+                <input type="text" class="blank-input" style="width: 150px;" data-answer="function properly" placeholder="...">
+                <span class="tooltip">Đáp án: <b>function properly</b></span>
+            </span>, 
+            eating a 
+            <span class="blank-group">
+                <span class="vi-hint">5. chế độ ăn cân bằng</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="balanced diet" placeholder="...">
+                <span class="tooltip">Đáp án: <b>balanced diet</b></span>
+            </span> 
+            is important for maintaining good health. For example, students who eat a 
+            <span class="blank-group">
+                <span class="vi-hint">6. bữa sáng cân bằng</span>
+                <input type="text" class="blank-input" style="width: 150px;" data-answer="balanced breakfast" placeholder="...">
+                <span class="tooltip">Đáp án: <b>balanced breakfast</b></span>
+            </span>, 
+            such as eggs, 
+            <span class="blank-group">
+                <span class="vi-hint">7. bánh mì nguyên cám</span>
+                <input type="text" class="blank-input" style="width: 150px;" data-answer="whole-grain bread" placeholder="...">
+                <span class="tooltip">Đáp án: <b>whole-grain bread</b></span>
+            </span>, 
+            and fruit, can have enough energy to concentrate during their morning lessons. Consequently, people who develop healthy eating habits may feel more energetic and 
+            <span class="blank-group">
+                <span class="vi-hint">8. giảm nguy cơ mắc các vấn đề sức khỏe</span>
+                <input type="text" class="blank-input" style="width: 270px;" data-answer="reduce their risk of certain health problems" data-alt="reduce the risk of health problems" placeholder="...">
+                <span class="tooltip">Đáp án: <b>reduce their risk of certain health problems</b></span>
+            </span>.
+        </p>
+        <div class="footer-controls">
+            <span></span>
+            <button class="action-btn" onclick="switchPage(2)">Trang tiếp theo ➔</button>
+        </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="reading-section" id="page-2">
+        <h2 class="section-header">B. EXERCISE – Physical Activity (7 Collocations)</h2>
+        <p>
+            Another 
+            <span class="blank-group">
+                <span class="vi-hint">9. phương pháp hiệu quả</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="effective way" placeholder="...">
+                <span class="tooltip">Đáp án: <b>effective way</b></span>
+            </span> 
+            to maintain a healthy lifestyle is to 
+            <span class="blank-group">
+                <span class="vi-hint">10. tập thể dục thường xuyên</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="exercise regularly" placeholder="...">
+                <span class="tooltip">Đáp án: <b>exercise regularly</b></span>
+            </span>. 
+            Since regular exercise supports both 
+            <span class="blank-group">
+                <span class="vi-hint">11. sức khỏe thể chất và tinh thần</span>
+                <input type="text" class="blank-input" style="width: 200px;" data-answer="physical and mental health" placeholder="...">
+                <span class="tooltip">Đáp án: <b>physical and mental health</b></span>
+            </span>, 
+            it can help people 
+            <span class="blank-group">
+                <span class="vi-hint">12. duy trì cơ thể khỏe mạnh</span>
+                <input type="text" class="blank-input" style="width: 170px;" data-answer="maintain a healthy body" placeholder="...">
+                <span class="tooltip">Đáp án: <b>maintain a healthy body</b></span>
+            </span> 
+            and 
+            <span class="blank-group">
+                <span class="vi-hint">13. cải thiện tâm trạng</span>
+                <input type="text" class="blank-input" style="width: 150px;" data-answer="improve their mood" data-alt="improve mood" placeholder="...">
+                <span class="tooltip">Đáp án: <b>improve their mood</b></span>
+            </span>. 
+            For instance, people can 
+            <span class="blank-group">
+                <span class="vi-hint">14. duy trì hoạt động thể chất</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="stay physically active" placeholder="...">
+                <span class="tooltip">Đáp án: <b>stay physically active</b></span>
+            </span> 
+            by 
+            <span class="blank-group">
+                <span class="vi-hint">15. đi bộ đến các địa điểm gần đó</span>
+                <input type="text" class="blank-input" style="width: 170px;" data-answer="walking to nearby places" data-alt="walk to nearby places" placeholder="...">
+                <span class="tooltip">Đáp án: <b>walking to nearby places</b></span>
+            </span>, 
+            riding bicycles, or playing badminton with friends, which can make exercise more enjoyable. If people exercise regularly, they are more likely to maintain a healthy lifestyle and have enough energy for their daily activities.
+        </p>
+        <div class="footer-controls">
+            <button class="action-btn" onclick="switchPage(1)">⬅ Trang trước</button>
+            <button class="action-btn" onclick="switchPage(3)">Trang tiếp theo ➔</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="reading-section" id="page-3">
+        <h2 class="section-header">C. DAILY HABITS – Healthy Routines (8 Collocations)</h2>
+        <p>
+            Maintaining a healthy lifestyle also 
+            <span class="blank-group">
+                <span class="vi-hint">16. bao gồm việc phát triển</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="involves developing" placeholder="...">
+                <span class="tooltip">Đáp án: <b>involves developing</b></span>
+            </span> 
+            <span class="blank-group">
+                <span class="vi-hint">17. thói quen tích cực hàng ngày</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="positive daily habits" placeholder="...">
+                <span class="tooltip">Đáp án: <b>positive daily habits</b></span>
+            </span>. 
+            When people 
+            <span class="blank-group">
+                <span class="vi-hint">18. theo thời khóa biểu hàng ngày đều đặn</span>
+                <input type="text" class="blank-input" style="width: 200px;" data-answer="follow a regular daily routine" placeholder="...">
+                <span class="tooltip">Đáp án: <b>follow a regular daily routine</b></span>
+            </span>, 
+            their bodies 
+            <span class="blank-group">
+                <span class="vi-hint">19. có đủ thời gian để phục hồi</span>
+                <input type="text" class="blank-input" style="width: 210px;" data-answer="have enough time to recover" placeholder="...">
+                <span class="tooltip">Đáp án: <b>have enough time to recover</b></span>
+            </span>, 
+            while they can also 
+            <span class="blank-group">
+                <span class="vi-hint">20. quản lý căng thẳng hàng ngày hiệu quả</span>
+                <input type="text" class="blank-input" style="width: 270px;" data-answer="manage everyday stress more effectively" data-alt="manage everyday stress effectively" placeholder="...">
+                <span class="tooltip">Đáp án: <b>manage everyday stress more effectively</b></span>
+            </span>. 
+            For example, students who 
+            <span class="blank-group">
+                <span class="vi-hint">21. đi ngủ đúng giờ / đều đặn</span>
+                <input type="text" class="blank-input" style="width: 220px;" data-answer="go to bed at a consistent time" placeholder="...">
+                <span class="tooltip">Đáp án: <b>go to bed at a consistent time</b></span>
+            </span> 
+            and get enough sleep can 
+            <span class="blank-group">
+                <span class="vi-hint">22. cảm thấy tỉnh táo hơn</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="feel more refreshed" placeholder="...">
+                <span class="tooltip">Đáp án: <b>feel more refreshed</b></span>
+            </span> 
+            and concentrate better in class. Therefore, developing positive daily habits can 
+            <span class="blank-group">
+                <span class="vi-hint">23. hỗ trợ sức khỏe cảm xúc</span>
+                <input type="text" class="blank-input" style="width: 200px;" data-answer="support emotional well-being" placeholder="...">
+                <span class="tooltip">Đáp án: <b>support emotional well-being</b></span>
+            </span>.
+        </p>
+        <div class="footer-controls">
+            <button class="action-btn" onclick="switchPage(2)">⬅ Trang trước</button>
+            <button class="action-btn" onclick="switchPage(4)">Trang tiếp theo ➔</button>
+        </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="reading-section" id="page-4">
+        <h2 class="section-header">D. TECHNOLOGY – Healthy Technology Use (7 Collocations)</h2>
+        <p>
+            One effective way to maintain a healthy lifestyle is to 
+            <span class="blank-group">
+                <span class="vi-hint">24. giới hạn thời gian dùng màn hình</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="limit screen time" placeholder="...">
+                <span class="tooltip">Đáp án: <b>limit screen time</b></span>
+            </span>, 
+            especially when people 
+            <span class="blank-group">
+                <span class="vi-hint">25. dành nhiều giờ sử dụng</span>
+                <input type="text" class="blank-input" style="width: 170px;" data-answer="spend many hours using" placeholder="...">
+                <span class="tooltip">Đáp án: <b>spend many hours using</b></span>
+            </span> 
+            phones or computers. Because spending too much time on screens can 
+            <span class="blank-group">
+                <span class="vi-hint">26. ảnh hưởng đến thói quen hàng ngày</span>
+                <input type="text" class="blank-input" style="width: 200px;" data-answer="affect people’s daily routines" data-alt="affect daily routines" placeholder="...">
+                <span class="tooltip">Đáp án: <b>affect people's daily routines</b></span>
+            </span>, 
+            limiting screen time can help them 
+            <span class="blank-group">
+                <span class="vi-hint">27. nhận thức rõ hơn về sức khỏe</span>
+                <input type="text" class="blank-input" style="width: 220px;" data-answer="become more aware of their health" placeholder="...">
+                <span class="tooltip">Đáp án: <b>become more aware of their health</b></span>
+            </span> 
+            and 
+            <span class="blank-group">
+                <span class="vi-hint">28. đưa ra các lựa chọn lành mạnh hơn</span>
+                <input type="text" class="blank-input" style="width: 170px;" data-answer="make healthier choices" placeholder="...">
+                <span class="tooltip">Đáp án: <b>make healthier choices</b></span>
+            </span>. 
+            For example, people who spend less time looking at screens can 
+            <span class="blank-group">
+                <span class="vi-hint">29. nghỉ ngơi nhiều hơn</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="take more breaks" placeholder="...">
+                <span class="tooltip">Đáp án: <b>take more breaks</b></span>
+            </span>, 
+            do physical activities, or 
+            <span class="blank-group">
+                <span class="vi-hint">30. dành thời gian cho gia đình và bạn bè</span>
+                <input type="text" class="blank-input" style="width: 250px;" data-answer="spend time with family and friends" placeholder="...">
+                <span class="tooltip">Đáp án: <b>spend time with family and friends</b></span>
+            </span>. 
+            If screen time is limited appropriately, people can have more time for activities that support their physical and mental health.
+        </p>
+        <div class="footer-controls">
+            <button class="action-btn" onclick="switchPage(3)">⬅ Trang trước</button>
+            <button class="action-btn" style="background: linear-gradient(135deg, #e74c3c, #c0392b);" onclick="resetAll()">Làm lại từ đầu 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        const inputs = document.querySelectorAll('.blank-input');
+        const totalCountElement = document.getElementById('total-count');
+        const correctCountElement = document.getElementById('correct-count');
+        const progressPercentElement = document.getElementById('progress-percent');
+        const progressBar = document.getElementById('progress-bar');
+
+        const totalInputs = inputs.length;
+        totalCountElement.textContent = totalInputs;
+
+        function normalizeText(text) {
+            return text.toLowerCase()
+                       .trim()
+                       .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()’']/g, "")
+                       .replace(/\s+/g, " ");
+        }
+
+        // Bấm Enter để kiểm tra
+        inputs.forEach(input => {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    checkAnswer(this);
+                    updateProgress();
+                }
+            });
+        });
+
+        function checkAnswer(input) {
+            const group = input.parentElement;
+            const userVal = normalizeText(input.value);
+            const correctVal = normalizeText(input.getAttribute('data-answer'));
+            const altVal = input.getAttribute('data-alt') ? normalizeText(input.getAttribute('data-alt')) : null;
+
+            if (userVal === "") {
+                input.classList.remove('correct', 'incorrect');
+                group.classList.remove('checked');
+                return;
+            }
+
+            // Kích hoạt hover xem tooltip bằng class 'checked'
+            group.classList.add('checked');
+
+            if (userVal === correctVal || (altVal && userVal === altVal)) {
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+            } else {
+                input.classList.remove('correct');
+                input.classList.add('incorrect');
+            }
+        }
+
+        function updateProgress() {
+            let correctCount = 0;
+            inputs.forEach(input => {
+                if (input.classList.contains('correct')) {
+                    correctCount++;
+                }
+            });
+
+            correctCountElement.textContent = correctCount;
+            const percentage = Math.round((correctCount / totalInputs) * 100);
+            progressPercentElement.textContent = percentage + '%';
+            progressBar.style.width = percentage + '%';
+        }
+
+        function switchPage(pageNumber) {
+            document.querySelectorAll('.reading-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`page-${pageNumber}`).classList.add('active');
+            document.querySelectorAll('.tab-btn')[pageNumber - 1].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetAll() {
+            if (confirm("Bạn có chắc chắn muốn làm lại toàn bộ bài tập?")) {
+                inputs.forEach(input => {
+                    input.value = "";
+                    input.classList.remove('correct', 'incorrect');
+                    input.parentElement.classList.remove('checked');
+                });
+                updateProgress();
+                switchPage(1);
+            }
+        }
+    </script>
+</body>
+</html>
