@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Diet Matters - Interactive Reading Practice</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+            height: 100vh;
+            overflow: hidden;
+        }
+        header {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 12px 24px;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .container {
+            display: flex;
+            height: calc(100vh - 52px);
+        }
+        
+        /* CỘT BÊN TRÁI: BÀI ĐỌC */
+        .passage-panel {
+            flex: 1;
+            padding: 28px;
+            overflow-y: auto;
+            border-right: 2px solid #cbd5e1;
+            background-color: #ffffff;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+        .passage-panel h2 {
+            color: #1e3a8a;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        .passage-panel h3 {
+            color: #2563eb;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-size: 1.15rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 4px;
+        }
+        .passage-panel p {
+            margin-bottom: 14px;
+            text-align: justify;
+        }
+
+        /* HIGHLIGHT DẪN CHỨNG */
+        .highlight {
+            background-color: #fef08a;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border-left: 4px solid #eab308;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* CỘT BÊN PHẢI: BÀI TẬP */
+        .questions-panel {
+            flex: 1;
+            padding: 28px;
+            overflow-y: auto;
+            background-color: #f8fafc;
+        }
+        .exercise-section {
+            background: #ffffff;
+            padding: 22px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .exercise-title {
+            background-color: #334155;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 6px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .instruction {
+            font-style: italic;
+            color: #475569;
+            margin-bottom: 18px;
+            font-size: 0.92rem;
+            background-color: #f1f5f9;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .question-item {
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        .question-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+
+        /* BẢNG LỰA CHỌN PHẦN 2 (A - G) */
+        .headings-box {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+        .headings-box ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* TƯƠNG TÁC INPUT/SELECT/CHECKBOX */
+        .options-group label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #2563eb;
+        }
+        select {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            background-color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+        }
+        select:focus {
+            border-color: #2563eb;
+        }
+        button.btn-submit {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: background 0.2s;
+            margin-top: 6px;
+        }
+        button.btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* PHẢN HỒI KẾT QUẢ */
+        .feedback {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+        .feedback.correct {
+            background-color: #dcfce7;
+            color: #14532d;
+            border: 1px solid #86efac;
+        }
+        .feedback.incorrect {
+            background-color: #fee2e2;
+            color: #7f1d1d;
+            border: 1px solid #fca5a5;
+        }
+        .explanation {
+            margin-top: 6px;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+    <header>Unit 8 - Reading Practice: Our Diet Matters</header>
+
+    <div class="container">
+        <!-- BÊN TRÁI: VĂN BẢN BÀI ĐỌC -->
+        <div class="passage-panel" id="passagePanel">
+            <h2>Our Diet Matters</h2>
+            
+            <h3 id="sec-1">Section I</h3>
+            <p>
+                <span id="evidence-q9">The average person swallows about half a ton of food a year – not counting drink – and though the body is remarkably efficient at extracting just what it needs from this huge mixture, it can only cope up to a point.</span>
+            </p>
+            <p>
+                If you go on eating too much of some things and not enough of others, you’ll eventually get out of condition and your health will suffer.
+            </p>
+            <p>
+                So think before you start eating. It may look good. It may taste good. Fine! But how much good is it really doing you?
+            </p>
+
+            <h3 id="sec-2">Section II</h3>
+            <p>
+                <span id="evidence-q10">What you eat and the way it affects your body depend very much on the kind of person you are.</span> For one thing, <span id="evidence-q1">the genes you <span id="word-1">inherit</span> from your parents can determine how your body-chemistry (metabolism) copes with particular foods.</span> The tendency to put on weight rather easily, for example, often runs in families – which means that they have to take particular care.
+            </p>
+            <p>
+                And your parents may shape your future in another way. <span id="evidence-q2">Your <span id="word-2">upbringing</span> shapes some basic attitudes to food</span> – like whether you have a sweet tooth, <span id="word-3"><span id="evidence-nibble">nibble</span></span> between meals, take big mouthfuls or eat chips with everything.
+            </p>
+            <p>
+                And there is your lifestyle. How much you spend on food (time as well as money), how much exercise you get – these can <span id="word-4"><span id="evidence-alter">alter</span></span> the balance between food and fitness.
+            </p>
+            <p>
+                And finally, both your age and your sex may affect this balance. <span id="evidence-q15">For example, you are more likely to put on weight as you get older, especially if you are a woman.</span>
+            </p>
+            <p>
+                So, everybody’s different and the important thing is to know yourself.
+            </p>
+
+            <h3 id="sec-3">Section III</h3>
+            <p>
+                <span id="evidence-q11"><span id="evidence-q18">If you are eating a fairly varied diet, it is just about impossible to go short of proteins, vitamins or minerals.</span> It is likely, too, that you have more than enough fats and carbohydrates.</span>
+            </p>
+            <p>
+                <span id="evidence-q16c">Take proteins for instance. On average, we eat about twice as much protein as we need.</span>
+            </p>
+            <p>
+                <span id="evidence-q18b">Vitamin pills are not likely to help either. A varied diet with plenty of fresh fruit, vegetables and cereals along with some fish, eggs, meat and dairy products will contain more than enough vitamins. Unless you have some special medical reason, it is a waste of time and money to take vitamin pills.</span>
+            </p>
+            <p>
+                As for minerals, there is no shortage in the average diet and it is useless to have more than you need.
+            </p>
+
+            <h3 id="sec-4">Section IV</h3>
+            <p>
+                Just about everything you eat contains energy – measured as calories; the higher the number of calories, the more energy. But don’t make the mistake of thinking that eating extra energy-rich foods will make you more energetic. <span id="evidence-q12"><span id="evidence-q16d">The amount of energy in your daily diet should exactly balance the energy your body-machine burns up. <span id="evidence-q14a">If you eat more than you use, the extra energy is stored as body fat.</span> And this is the big problem.</span></span>
+            </p>
+
+            <h3 id="sec-5">Section V</h3>
+            <p>
+                Over hundreds of thousands of years, man’s food came mainly from plants.
+            </p>
+            <p>
+                He ate cereals (like wheat), pulses (like beans and peas), vegetables, fruit and nuts. So our <span id="word-5"><span id="evidence-ancestors">ancestors</span></span> were used to eating the sort of food that contains a lot of fibre.
+            </p>
+            <p>
+                <span id="evidence-q17">In comparison with our ancestors, the sort of food we eat today contains very little fibre.</span> Our main foods are meat, eggs and dairy products, which contain no fibre at all.
+            </p>
+            <p>
+                Lack of fibre seems to be connected with various <span id="word-6"><span id="evidence-disorders">disorders</span></span> of the <span id="word-7"><span id="evidence-digestive">digestive</span></span> system. Some experts also believe that lack of fibre may even lead to heart disease.
+            </p>
+            <p>
+                If you are worried about your weight, eating more fibre may actually help you to <span id="word-8"><span id="evidence-slim">slim</span></span>! Food with plenty of fibre like potatoes or bread can be satisfying without giving you too many calories.
+            </p>
+        </div>
+
+        <!-- BÊN PHẢI: BÀI TẬP & TƯƠNG TÁC -->
+        <div class="questions-panel">
+            
+            <!-- PHẦN 1: WORD USE (NHẬP TỪ) -->
+            <div class="exercise-section">
+                <span class="exercise-title">Exercise 1: Word Use</span>
+                <p class="instruction">Tìm các từ trong Section II và Section V của bài đọc ứng với các định nghĩa dưới đây và nhập từ tiếng Anh tương ứng.</p>
+
+                <p style="font-weight: bold; margin-bottom: 8px;">Section II</p>
+
+                <!-- Q1 -->
+                <div class="question-item">
+                    <p class="question-text">1. to receive from one's parents or grandparents</p>
+                    <input type="text" id="ans-q1" placeholder="Nhập từ tiếng Anh...">
+                    <br>
+                    <button class="btn-submit" onclick="checkQ1()">Nộp câu 1</button>
+                    <div id="fb-q1" class="feedback"></div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="question-item">
+                    <p class="question-text">2. training and caring for a child</p>
+                    <input type="text" id="ans-q2" placeholder="Nhập từ tiếng Anh...">
+                    <br>
+                    <button class="btn-submit" onclick="checkQ2()">Nộp câu 2</button>
+                    <div id="fb-q2" class="feedback"></div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="question-item">
+                    <p class="question-text">3. to eat (something) with small bites</p>
+                    <input type="text" id="ans-q3" placeholder="Nhập từ tiếng Anh...">
+                    <br>
+                    <button class="btn-submit" onclick="checkQ3()">Nộp câu 3</button>
+                    <div id="fb-q3" class="feedback"></div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="question-item">
+                    <p class="question-text">4. to (cause to) become different</p>
+                    <input type="text" id="ans-q4" placeholder="Nhập từ tiếng Anh...">
+                    <br>
+                    <button class="btn-submit" onclick="checkQ4()">Nộp câu 4</button>
+                    <div id="fb-q4" class="feedback"></div>
+                </div>
+
+                <p style="font-weight: bold; margin-top: 15px; margin-bottom: 8px;">Section V</p>
+
+                <!-- Q5 -->
+                <div class="question-item">
+                    <p class="question-text">5. a person from whom someone is descended</p>
+                    <input type="text" id="ans-q5" placeholder="Nhập từ tiếng Anh...">
+                    <br>
+                    <button class="btn-submit" onclick="checkQ5()">Nộp câu 5</button>
+                    <div id="fb-q5" class="feedback"></div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="question-item">
+                    <p class="question-text">6. lack of order; confusion / illness</p>
+                    <input type="text" id="ans-q6" placeholder="Nhập từ tiếng Anh...">
+                    <br>
+                    <button class="btn-submit" onclick="checkQ6()">Nộp câu 6</button>
+                    <div id="fb-q6" class="feedback"></div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="question-item">
+                    <p class="question-text">7. connected with digesting food</p>
+                    <input type="text" id="ans-q7" placeholder="Nhập từ tiếng Anh...">
+                    <br>
+                    <button class="btn-submit" onclick="checkQ7()">Nộp câu 7</button>
+                    <div id="fb-q7" class="feedback"></div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="question-item">
+                    <p class="question-text">8. attractively thin; not fat</p>
+                    <input type="text" id="ans-q8" placeholder="Nhập từ tiếng Anh...">
+                    <br>
+                    <button class="btn-submit" onclick="checkQ8()">Nộp câu 8</button>
+                    <div id="fb-q8" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- PHẦN 2: MATCHING THE HEADINGS (A - G) -->
+            <div class="exercise-section">
+                <span class="exercise-title">Exercise 2: Matching the Headings</span>
+                <p class="instruction">Chọn tiêu đề phù hợp nhất (A-G) cho mỗi đoạn (Section I-V). Lưu ý có nhiều tiêu đề hơn số đoạn.</p>
+
+                <div class="headings-box">
+                    <strong>List of Headings (A - G):</strong>
+                    <ul>
+                        <li><b>A.</b> Extra energy makes us fat.</li>
+                        <li><b>B.</b> Eating more fibre is important.</li>
+                        <li><b>C.</b> It is better to change the bad eating habits.</li>
+                        <li><b>D.</b> A bad diet is harmful.</li>
+                        <li><b>E.</b> People differ from each other.</li>
+                        <li><b>F.</b> Enough proteins, vitamins and minerals are provided in a good diet.</li>
+                        <li><b>G.</b> We do not need vitamin pills.</li>
+                    </ul>
+                </div>
+
+                <!-- Q9 -->
+                <div class="question-item">
+                    <p class="question-text">9. Section I</p>
+                    <select id="ans-q9">
+                        <option value="">-- Chọn tiêu đề (A - G) --</option>
+                        <option value="A">A. Extra energy makes us fat.</option>
+                        <option value="B">B. Eating more fibre is important.</option>
+                        <option value="C">C. It is better to change the bad eating habits.</option>
+                        <option value="D">D. A bad diet is harmful.</option>
+                        <option value="E">E. People differ from each other.</option>
+                        <option value="F">F. Enough proteins, vitamins and minerals are provided in a good diet.</option>
+                        <option value="G">G. We do not need vitamin pills.</option>
+                    </select>
+                    <br>
+                    <button class="btn-submit" onclick="checkQ9()">Nộp câu 9</button>
+                    <div id="fb-q9" class="feedback"></div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="question-item">
+                    <p class="question-text">10. Section II</p>
+                    <select id="ans-q10">
+                        <option value="">-- Chọn tiêu đề (A - G) --</option>
+                        <option value="A">A. Extra energy makes us fat.</option>
+                        <option value="B">B. Eating more fibre is important.</option>
+                        <option value="C">C. It is better to change the bad eating habits.</option>
+                        <option value="D">D. A bad diet is harmful.</option>
+                        <option value="E">E. People differ from each other.</option>
+                        <option value="F">F. Enough proteins, vitamins and minerals are provided in a good diet.</option>
+                        <option value="G">G. We do not need vitamin pills.</option>
+                    </select>
+                    <br>
+                    <button class="btn-submit" onclick="checkQ10()">Nộp câu 10</button>
+                    <div id="fb-q10" class="feedback"></div>
+                </div>
+
+                <!-- Q11 -->
+                <div class="question-item">
+                    <p class="question-text">11. Section III</p>
+                    <select id="ans-q11">
+                        <option value="">-- Chọn tiêu đề (A - G) --</option>
+                        <option value="A">A. Extra energy makes us fat.</option>
+                        <option value="B">B. Eating more fibre is important.</option>
+                        <option value="C">C. It is better to change the bad eating habits.</option>
+                        <option value="D">D. A bad diet is harmful.</option>
+                        <option value="E">E. People differ from each other.</option>
+                        <option value="F">F. Enough proteins, vitamins and minerals are provided in a good diet.</option>
+                        <option value="G">G. We do not need vitamin pills.</option>
+                    </select>
+                    <br>
+                    <button class="btn-submit" onclick="checkQ11()">Nộp câu 11</button>
+                    <div id="fb-q11" class="feedback"></div>
+                </div>
+
+                <!-- Q12 -->
+                <div class="question-item">
+                    <p class="question-text">12. Section IV</p>
+                    <select id="ans-q12">
+                        <option value="">-- Chọn tiêu đề (A - G) --</option>
+                        <option value="A">A. Extra energy makes us fat.</option>
+                        <option value="B">B. Eating more fibre is important.</option>
+                        <option value="C">C. It is better to change the bad eating habits.</option>
+                        <option value="D">D. A bad diet is harmful.</option>
+                        <option value="E">E. People differ from each other.</option>
+                        <option value="F">F. Enough proteins, vitamins and minerals are provided in a good diet.</option>
+                        <option value="G">G. We do not need vitamin pills.</option>
+                    </select>
+                    <br>
+                    <button class="btn-submit" onclick="checkQ12()">Nộp câu 12</button>
+                    <div id="fb-q12" class="feedback"></div>
+                </div>
+
+                <!-- Q13 -->
+                <div class="question-item">
+                    <p class="question-text">13. Section V</p>
+                    <select id="ans-q13">
+                        <option value="">-- Chọn tiêu đề (A - G) --</option>
+                        <option value="A">A. Extra energy makes us fat.</option>
+                        <option value="B">B. Eating more fibre is important.</option>
+                        <option value="C">C. It is better to change the bad eating habits.</option>
+                        <option value="D">D. A bad diet is harmful.</option>
+                        <option value="E">E. People differ from each other.</option>
+                        <option value="F">F. Enough proteins, vitamins and minerals are provided in a good diet.</option>
+                        <option value="G">G. We do not need vitamin pills.</option>
+                    </select>
+                    <br>
+                    <button class="btn-submit" onclick="checkQ13()">Nộp câu 13</button>
+                    <div id="fb-q13" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- PHẦN 3: MULTIPLE-CHOICE QUESTIONS -->
+            <div class="exercise-section">
+                <span class="exercise-title">Exercise 3: Multiple-Choice Questions</span>
+                <p class="instruction">Tham khảo bài đọc để chọn câu trả lời đúng cho từng câu hỏi.</p>
+
+                <!-- Q14: Multi-select (CHỌN 3 ĐÁP ÁN) -->
+                <div class="question-item">
+                    <p class="question-text">14. According to the passage, which THREE of the following factors could affect your body system?</p>
+                    <div class="options-group">
+                        <label><input type="checkbox" name="q14" value="A"> A. Genes</label>
+                        <label><input type="checkbox" name="q14" value="B"> B. Vitamin pills</label>
+                        <label><input type="checkbox" name="q14" value="C"> C. Physical exercises</label>
+                        <label><input type="checkbox" name="q14" value="D"> D. Excessive worries</label>
+                        <label><input type="checkbox" name="q14" value="E"> E. Attitudes to food</label>
+                    </div>
+                    <button class="btn-submit" onclick="checkQ14()">Nộp câu 14</button>
+                    <div id="fb-q14" class="feedback"></div>
+                </div>
+
+                <!-- Q15 -->
+                <div class="question-item">
+                    <p class="question-text">15. Generally speaking, which one of the following four puts on weight comparatively easier?</p>
+                    <div class="options-group">
+                        <label><input type="radio" name="q15" value="A"> A. A male aged 35</label>
+                        <label><input type="radio" name="q15" value="B"> B. A female aged 35</label>
+                        <label><input type="radio" name="q15" value="C"> C. A male aged 45</label>
+                        <label><input type="radio" name="q15" value="D"> D. A female aged 45</label>
+                    </div>
+                    <button class="btn-submit" onclick="checkQ15()">Nộp câu 15</button>
+                    <div id="fb-q15" class="feedback"></div>
+                </div>
+
+                <!-- Q16 -->
+                <div class="question-item">
+                    <p class="question-text">16. Which of the following statements is NOT true?</p>
+                    <div class="options-group">
+                        <label><input type="radio" name="q16" value="A"> A. A person is likely to put on weight if his father is overweight.</label>
+                        <label><input type="radio" name="q16" value="B"> B. Eating habits could be shaped by one's parents.</label>
+                        <label><input type="radio" name="q16" value="C"> C. Generally speaking, we eat more proteins than our bodies need.</label>
+                        <label><input type="radio" name="q16" value="D"> D. The amount of energy in your diet should be higher than the energy your body-machine burns up.</label>
+                    </div>
+                    <button class="btn-submit" onclick="checkQ16()">Nộp câu 16</button>
+                    <div id="fb-q16" class="feedback"></div>
+                </div>
+
+                <!-- Q17 -->
+                <div class="question-item">
+                    <p class="question-text">17. Compared with that of our ancestors, our diet tends to lack</p>
+                    <div class="options-group">
+                        <label><input type="radio" name="q17" value="A"> A. vitamins.</label>
+                        <label><input type="radio" name="q17" value="B"> B. fibre.</label>
+                        <label><input type="radio" name="q17" value="C"> C. minerals.</label>
+                        <label><input type="radio" name="q17" value="D"> D. calories.</label>
+                    </div>
+                    <button class="btn-submit" onclick="checkQ17()">Nộp câu 17</button>
+                    <div id="fb-q17" class="feedback"></div>
+                </div>
+
+                <!-- Q18 -->
+                <div class="question-item">
+                    <p class="question-text">18. If your daily diet is a rather varied one, it is almost impossible that</p>
+                    <div class="options-group">
+                        <label><input type="radio" name="q18" value="A"> A. your body store extra body fat.</label>
+                        <label><input type="radio" name="q18" value="B"> B. your body need vitamin pills as supplement.</label>
+                        <label><input type="radio" name="q18" value="C"> C. your body take in more carbohydrate than it can use.</label>
+                        <label><input type="radio" name="q18" value="D"> D. your body need to take in more fibre.</label>
+                    </div>
+                    <button class="btn-submit" onclick="checkQ18()">Nộp câu 18</button>
+                    <div id="fb-q18" class="feedback"></div>
+                </div>
+
+                <!-- Q19 -->
+                <div class="question-item">
+                    <p class="question-text">19. Which word can best describe the main purpose of the passage?</p>
+                    <div class="options-group">
+                        <label><input type="radio" name="q19" value="A"> A. Informative</label>
+                        <label><input type="radio" name="q19" value="B"> B. Argumentative</label>
+                        <label><input type="radio" name="q19" value="C"> C. Descriptive</label>
+                        <label><input type="radio" name="q19" value="D"> D. Persuasive</label>
+                    </div>
+                    <button class="btn-submit" onclick="checkQ19()">Nộp câu 19</button>
+                    <div id="fb-q19" class="feedback"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Hàm hiển thị phản hồi và tự động scroll & highlight bài đọc
+        function handleFeedback(fbId, isCorrect, correctAnsText, explanationText, evidenceId) {
+            const fb = document.getElementById(fbId);
+            fb.style.display = "block";
+            
+            if (isCorrect) {
+                fb.className = "feedback correct";
+                fb.innerHTML = `<strong>Chính xác!</strong><div class="explanation">${explanationText}</div>`;
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerHTML = `<strong>Chưa chính xác.</strong> Đáp án đúng: <b>${correctAnsText}</b><div class="explanation">${explanationText}</div>`;
+            }
+
+            // Xóa highlight cũ
+            document.querySelectorAll('.highlight').forEach(el => {
+                el.classList.remove('highlight');
+            });
+
+            // Thêm highlight mới và tự động cuộn bên trái
+            if (evidenceId) {
+                const ev = document.getElementById(evidenceId);
+                if (ev) {
+                    ev.classList.add('highlight');
+                    ev.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        // --- PHẦN 1: WORD USE (NHẬP TỪ) ---
+        function checkQ1() {
+            const val = document.getElementById('ans-q1').value.trim().toLowerCase();
+            const isCorrect = (val === 'inherit');
+            handleFeedback('fb-q1', isCorrect, 'inherit', 'Từ "inherit" có nghĩa là nhận di truyền từ cha mẹ/ông bà.', 'word-1');
+        }
+
+        function checkQ2() {
+            const val = document.getElementById('ans-q2').value.trim().toLowerCase();
+            const isCorrect = (val === 'upbringing');
+            handleFeedback('fb-q2', isCorrect, 'upbringing', 'Từ "upbringing" chỉ sự nuôi dưỡng và chăm sóc một đứa trẻ.', 'word-2');
+        }
+
+        function checkQ3() {
+            const val = document.getElementById('ans-q3').value.trim().toLowerCase();
+            const isCorrect = (val === 'nibble');
+            handleFeedback('fb-q3', isCorrect, 'nibble', 'Từ "nibble" có nghĩa là gặm/nhấm từng chút nhỏ.', 'word-3');
+        }
+
+        function checkQ4() {
+            const val = document.getElementById('ans-q4').value.trim().toLowerCase();
+            const isCorrect = (val === 'alter');
+            handleFeedback('fb-q4', isCorrect, 'alter', 'Từ "alter" có nghĩa là thay đổi / làm cho khác đi.', 'word-4');
+        }
+
+        function checkQ5() {
+            const val = document.getElementById('ans-q5').value.trim().toLowerCase();
+            const isCorrect = (val === 'ancestors' || val === 'ancestor');
+            handleFeedback('fb-q5', isCorrect, 'ancestors', 'Từ "ancestors" chỉ tổ tiên, thế hệ trước mà ta kế thừa.', 'word-5');
+        }
+
+        function checkQ6() {
+            const val = document.getElementById('ans-q6').value.trim().toLowerCase();
+            const isCorrect = (val === 'disorders' || val === 'disorder');
+            handleFeedback('fb-q6', isCorrect, 'disorders', 'Từ "disorders" chỉ sự rối loạn/bệnh tật hệ thống.', 'word-6');
+        }
+
+        function checkQ7() {
+            const val = document.getElementById('ans-q7').value.trim().toLowerCase();
+            const isCorrect = (val === 'digestive');
+            handleFeedback('fb-q7', isCorrect, 'digestive', 'Từ "digestive" liên quan đến việc tiêu hóa thức ăn.', 'word-7');
+        }
+
+        function checkQ8() {
+            const val = document.getElementById('ans-q8').value.trim().toLowerCase();
+            const isCorrect = (val === 'slim');
+            handleFeedback('fb-q8', isCorrect, 'slim', 'Từ "slim" có nghĩa là thon gọn, mảnh mai.', 'word-8');
+        }
+
+        // --- PHẦN 2: MATCHING THE HEADINGS (A - G) ---
+        function checkQ9() {
+            const val = document.getElementById('ans-q9').value;
+            const isCorrect = (val === 'D');
+            handleFeedback('fb-q9', isCorrect, 'D. A bad diet is harmful.', 'Section I cảnh báo việc ăn uống không đủ hoặc không đúng chất sẽ khiến cơ thể giảm sút và sức khỏe bị ảnh hưởng.', 'sec-1');
+        }
+
+        function checkQ10() {
+            const val = document.getElementById('ans-q10').value;
+            const isCorrect = (val === 'E');
+            handleFeedback('fb-q10', isCorrect, 'E. People differ from each other.', 'Section II phân tích các yếu tố di truyền, lối sống, độ tuổi và giới tính làm cho mỗi người có thể trạng hoàn toàn khác nhau.', 'sec-2');
+        }
+
+        function checkQ11() {
+            const val = document.getElementById('ans-q11').value;
+            const isCorrect = (val === 'F');
+            handleFeedback('fb-q11', isCorrect, 'F. Enough proteins, vitamins and minerals are provided in a good diet.', 'Section III giải thích một chế độ ăn đa dạng đã cung cấp đầy đủ đạm, vitamin và khoáng chất cần thiết.', 'sec-3');
+        }
+
+        function checkQ12() {
+            const val = document.getElementById('ans-q12').value;
+            const isCorrect = (val === 'A');
+            handleFeedback('fb-q12', isCorrect, 'A. Extra energy makes us fat.', 'Section IV nhấn mạnh nếu nạp năng lượng dư thừa so với mức tiêu thụ, năng lượng đó sẽ tích tụ thành mỡ cơ thể.', 'sec-4');
+        }
+
+        function checkQ13() {
+            const val = document.getElementById('ans-q13').value;
+            const isCorrect = (val === 'B');
+            handleFeedback('fb-q13', isCorrect, 'B. Eating more fibre is important.', 'Section V phân tích vai trò quan trọng của chất xơ đối với hệ tiêu hóa, phòng bệnh tim và hỗ trợ giảm cân.', 'sec-5');
+        }
+
+        // --- PHẦN 3: MULTIPLE-CHOICE QUESTIONS ---
+        function checkQ14() {
+            const checked = Array.from(document.querySelectorAll('input[name="q14"]:checked')).map(el => el.value);
+            const isCorrect = (checked.length === 3 && checked.includes('A') && checked.includes('C') && checked.includes('E'));
+            handleFeedback('fb-q14', isCorrect, 'A, C, E', 'Dẫn chứng ở Section II: Gen (Genes - A), tập thể dục (Exercise - C) và thái độ với thức ăn (Attitudes to food - E) ảnh hưởng trực tiếp đến cơ thể.', 'sec-2');
+        }
+
+        function checkQ15() {
+            const val = document.querySelector('input[name="q15"]:checked')?.value;
+            const isCorrect = (val === 'D');
+            handleFeedback('fb-q15', isCorrect, 'D. A female aged 45', 'Dẫn chứng ở Section II: "...you are more likely to put on weight as you get older, especially if you are a woman" (Tuổi tác càng cao và là nữ giới thì dễ tăng cân hơn).', 'evidence-q15');
+        }
+
+        function checkQ16() {
+            const val = document.querySelector('input[name="q16"]:checked')?.value;
+            const isCorrect = (val === 'D');
+            handleFeedback('fb-q16', isCorrect, 'D. The amount of energy in your diet should be higher than the energy your body-machine burns up.', 'Phát biểu D sai vì bài viết nêu lượng năng lượng nạp vào nên BẰNG (exactly balance) năng lượng cơ thể đốt cháy.', 'evidence-q16d');
+        }
+
+        function checkQ17() {
+            const val = document.querySelector('input[name="q17"]:checked')?.value;
+            const isCorrect = (val === 'B');
+            handleFeedback('fb-q17', isCorrect, 'B. fibre.', 'Dẫn chứng ở Section V: "...the sort of food we eat today contains very little fibre" (Chế độ ăn ngày nay chứa rất ít chất xơ so với tổ tiên).', 'evidence-q17');
+        }
+
+        function checkQ18() {
+            const val = document.querySelector('input[name="q18"]:checked')?.value;
+            const isCorrect = (val === 'B');
+            handleFeedback('fb-q18', isCorrect, 'B. your body need vitamin pills as supplement.', 'Dẫn chứng ở Section III: Một chế độ ăn đa dạng chứa nhiều hơn mức cần thiết về vitamin nên không cần uống thêm viên vitamin bổ sung.', 'evidence-q18b');
+        }
+
+        function checkQ19() {
+            const val = document.querySelector('input[name="q19"]:checked')?.value;
+            const isCorrect = (val === 'A');
+            handleFeedback('fb-q19', isCorrect, 'A. Informative', 'Bài viết cung cấp các thông tin khoa học và thực tế về chế độ ăn uống, dinh dưỡng và cơ thể con người.', 'sec-1');
+        }
+    </script>
+</body>
+</html>
