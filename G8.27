@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài Tập Dịch Câu Anh - Việt (20 Câu)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen pb-20">
+
+  <!-- Header -->
+  <header class="bg-teal-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="p-2 bg-teal-600 rounded-lg">
+          <i class="fa-solid fa-file-pen text-2xl"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold">Bài Tập Dịch Câu (20 Câu)</h1>
+          <p class="text-xs text-teal-200">Thì Hiện Tại Đơn, Tiếp Diễn & So Sánh Hơn</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2 bg-teal-800/80 px-3 py-1.5 rounded-full text-sm font-semibold">
+        <i class="fa-solid fa-trophy text-amber-300"></i>
+        <span id="scoreText">0 / 20</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-4xl mx-auto px-4 mt-6">
+
+    <!-- Tracking Dashboard -->
+    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 mb-6">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Tiến độ làm bài (Tracking)</span>
+          <div class="text-lg font-extrabold text-slate-800" id="progressPercentText">0% Hoàn thành</div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-teal-600 text-white">Tất cả (20)</button>
+          <button onclick="setFilter('affirmative')" id="filter-affirmative" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-100 text-slate-600 hover:bg-slate-200">Khẳng định (15)</button>
+          <button onclick="setFilter('negative')" id="filter-negative" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-100 text-slate-600 hover:bg-slate-200">Phủ định (5)</button>
+        </div>
+      </div>
+
+      <!-- Progress Bar Track -->
+      <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+        <div id="progressBar" class="bg-teal-600 h-full w-0 transition-all duration-500 rounded-full"></div>
+      </div>
+    </div>
+
+    <!-- Questions List -->
+    <div id="questionsContainer" class="space-y-4"></div>
+
+    <!-- Submit All Floating Bar -->
+    <div class="fixed bottom-4 left-0 right-0 px-4 z-40">
+      <div class="max-w-4xl mx-auto bg-slate-900/90 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl flex items-center justify-between border border-slate-700">
+        <div class="flex items-center space-x-3">
+          <i class="fa-solid fa-chart-line text-teal-400 text-xl"></i>
+          <div>
+            <p class="text-xs text-slate-300">Đã điền</p>
+            <p class="font-bold text-sm" id="answeredCountText">0 / 20 câu</p>
+          </div>
+        </div>
+        <div class="flex space-x-2">
+          <button onclick="checkAll()" class="bg-teal-500 hover:bg-teal-600 active:scale-95 text-white font-bold px-5 py-2.5 rounded-xl transition flex items-center space-x-2 shadow-lg shadow-teal-500/30">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Nộp & Kiểm tra tất cả</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const questions = [
+      // A. KHẢNG ĐỊNH (15 câu)
+      {
+        id: 1,
+        type: 'affirmative',
+        vietnamese: '1. Nông dân cày ruộng vào buổi sáng.',
+        english: ['Farmers plough the field in the morning.', 'Farmers plow the fields in the morning.', 'Farmers plough fields in the morning.', 'Farmers plow the field in the morning.'],
+        hintKey: 'farmers / plough (plow) / field / in the morning',
+        grammar: 'Dùng động từ số nhiều <b>Farmers plough</b> (hoặc <i>plow</i>) ở Thì Hiện tại đơn.'
+      },
+      {
+        id: 2,
+        type: 'affirmative',
+        vietnamese: '2. Họ bắt cá ở con sông này.',
+        english: ['They catch fish in this river.', 'They catch fish on this river.'],
+        hintKey: 'they / catch / fish / in this river',
+        grammar: 'Cụm từ <b>catch fish</b> (bắt cá). "Fish" dạng số nhiều vẫn giữ nguyên không thêm -s.'
+      },
+      {
+        id: 3,
+        type: 'affirmative',
+        vietnamese: '3. Nông dân phơi lúa dưới ánh nắng mặt trời.',
+        english: ['Farmers dry rice in the sun.', 'Farmers dry rice under the sun.', 'Farmers are drying rice in the sun.'],
+        hintKey: 'farmers / dry / rice / in the sun',
+        grammar: 'Cụm từ <b>dry rice in the sun</b> (phơi lúa dưới ánh nắng).'
+      },
+      {
+        id: 4,
+        type: 'affirmative',
+        vietnamese: '4. Tôi cho lợn ăn mỗi ngày.',
+        english: ['I feed the pigs every day.', 'I feed pigs every day.', 'I feed the pig every day.'],
+        hintKey: 'I / feed / pigs / every day',
+        grammar: 'Cụm từ <b>feed the pigs</b> (cho lợn ăn). "Every day" viết rời khi làm trạng ngữ.'
+      },
+      {
+        id: 5,
+        type: 'affirmative',
+        vietnamese: '5. Họ vắt sữa bò vào mỗi buổi sáng.',
+        english: ['They milk cows every morning.', 'They milk the cows every morning.'],
+        hintKey: 'they / milk / cows / every morning',
+        grammar: 'Động từ <b>milk</b> đóng vai trò là động từ mang nghĩa "vắt sữa".'
+      },
+      {
+        id: 6,
+        type: 'affirmative',
+        vietnamese: '6. Người dân ở đây rất hiếu khách.',
+        english: ['The people here are very hospitable.', 'People here are very hospitable.'],
+        hintKey: 'people here / are / hospitable',
+        grammar: 'Tính từ <b>hospitable</b> (hiếu khách). Chủ ngữ "People" là danh từ số nhiều đi với <b>are</b>.'
+      },
+      {
+        id: 7,
+        type: 'affirmative',
+        vietnamese: '7. Anh ấy rất hào phóng với mọi người.',
+        english: ['He is very generous to everyone.', 'He is very generous with everyone.'],
+        hintKey: 'generous / to everyone (with everyone)',
+        grammar: 'Tính từ <b>generous</b> đi với giới từ <b>to</b> hoặc <b>with</b>.'
+      },
+      {
+        id: 8,
+        type: 'affirmative',
+        vietnamese: '8. Thành phố này đang phát triển nhanh chóng.',
+        english: ['This city is developing rapidly.', 'This city is growing fast.', 'This city is developing quickly.'],
+        hintKey: 'this city / is developing / rapidly (quickly)',
+        grammar: 'Dùng Thì Hiện tại tiếp diễn <b>is developing</b> để diễn tả xu hướng đang diễn ra.'
+      },
+      {
+        id: 9,
+        type: 'affirmative',
+        vietnamese: '9. Nhà máy có nhiều công nhân.',
+        english: ['The factory has many workers.', 'The factory has a lot of workers.'],
+        hintKey: 'factory / has / many workers',
+        grammar: 'Chủ ngữ số ít <i>The factory</i> đi với <b>has</b>.'
+      },
+      {
+        id: 10,
+        type: 'affirmative',
+        vietnamese: '10. Vùng nông thôn có những khu vực rộng lớn.',
+        english: ['The countryside has vast areas.', 'The countryside has large areas.', 'The countryside has vast open spaces.'],
+        hintKey: 'countryside / has / vast (large) areas',
+        grammar: 'Tính từ <b>vast / large</b> (rộng lớn) bổ nghĩa cho danh từ <b>areas</b>.'
+      },
+      {
+        id: 11,
+        type: 'affirmative',
+        vietnamese: '11. Nơi này nổi tiếng vì phong cảnh đẹp.',
+        english: ['This place is famous for its beautiful scenery.', 'This place is famous for beautiful scenery.'],
+        hintKey: 'famous for / beautiful scenery',
+        grammar: 'Cấu trúc <b>be famous for + N</b> (nổi tiếng về cái gì).'
+      },
+      {
+        id: 12,
+        type: 'affirmative',
+        vietnamese: '12. Tôi cần một bản đồ để tìm đường.',
+        english: ['I need a map to find the way.', 'I need a map to find my way.'],
+        hintKey: 'need a map / to find the way',
+        grammar: 'Cấu trúc chỉ mục đích: <b>to + V-bare</b> (to find the way).'
+      },
+      {
+        id: 13,
+        type: 'affirmative',
+        vietnamese: '13. Học sinh học chăm chỉ hơn trước kỳ thi.',
+        english: ['Students study harder before the exam.', 'The students study harder before exams.'],
+        hintKey: 'study / harder / before the exam',
+        grammar: 'So sánh hơn của trạng từ ngắn <i>hard</i> &rarr; <b>harder</b>.'
+      },
+      {
+        id: 14,
+        type: 'affirmative',
+        vietnamese: '14. Cô ấy nói tiếng Anh trôi chảy hơn bây giờ.',
+        english: ['She speaks English more fluently now.', 'She speaks English more fluently than before.'],
+        hintKey: 'speaks English / more fluently / now',
+        grammar: 'So sánh hơn của trạng từ dài <i>fluently</i> &rarr; <b>more fluently</b>.'
+      },
+      {
+        id: 15,
+        type: 'affirmative',
+        vietnamese: '15. Nông dân gặt lúa vào mùa thu hoạch.',
+        english: ['Farmers harvest rice in the harvest season.', 'Farmers harvest rice during the harvest.'],
+        hintKey: 'farmers / harvest rice / in the harvest season',
+        grammar: 'Động từ <b>harvest</b> (gặt, thu hoạch).'
+      },
+
+      // B. PHỦ ĐỊNH (5 câu)
+      {
+        id: 16,
+        type: 'negative',
+        vietnamese: '1. Tôi không bắt cá ở con sông này.',
+        english: ['I do not catch fish in this river.', "I don't catch fish in this river."],
+        hintKey: 'do not / catch fish / in this river',
+        grammar: 'Phủ định Thì Hiện tại đơn với chủ ngữ <i>I</i>: <b>do not (don\'t) + V-bare</b>.'
+      },
+      {
+        id: 17,
+        type: 'negative',
+        vietnamese: '2. Họ không cho lợn ăn vào buổi tối.',
+        english: ['They do not feed the pigs in the evening.', "They don't feed pigs in the evening.", "They don't feed the pigs in the evening."],
+        hintKey: 'do not / feed / pigs / in the evening',
+        grammar: 'Phủ định chủ ngữ <i>They</i>: dùng <b>do not (don\'t)</b>.'
+      },
+      {
+        id: 18,
+        type: 'negative',
+        vietnamese: '3. Người dân ở thành phố này không thân thiện.',
+        english: ['People in this city are not friendly.', "People in this city aren't friendly.", 'The people in this city are not friendly.'],
+        hintKey: 'people in this city / are not / friendly',
+        grammar: 'Phủ định của động từ To Be số nhiều: <b>are not (aren\'t) + friendly</b>.'
+      },
+      {
+        id: 19,
+        type: 'negative',
+        vietnamese: '4. Anh ấy không làm việc chăm chỉ hơn trước kỳ thi.',
+        english: ['He does not work harder before the exam.', "He doesn't work harder before the exam."],
+        hintKey: 'does not / work harder / before the exam',
+        grammar: 'Phủ định chủ ngữ <i>He</i>: dùng <b>does not (doesn\'t) + V-bare (work)</b>.'
+      },
+      {
+        id: 20,
+        type: 'negative',
+        vietnamese: '5. Nông dân không gặt lúa vào mùa đông.',
+        english: ['Farmers do not harvest rice in winter.', "Farmers don't harvest rice in winter.", "Farmers don't harvest rice in the winter."],
+        hintKey: 'farmers / do not / harvest rice / in winter',
+        grammar: 'Phủ định chủ ngữ số nhiều <i>Farmers</i>: dùng <b>do not (don\'t) + harvest</b>.'
+      }
+    ];
+
+    let userAnswers = {};
+    let checkedState = {};
+    let currentFilter = 'all';
+
+    function normalizeString(str) {
+      return str
+        .toLowerCase()
+        .replace(/[.,?!]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      container.innerHTML = '';
+
+      const filtered = questions.filter(q => {
+        if (currentFilter === 'affirmative') return q.type === 'affirmative';
+        if (currentFilter === 'negative') return q.type === 'negative';
+        return true;
+      });
+
+      filtered.forEach(q => {
+        const isChecked = checkedState[q.id];
+        const userAns = userAnswers[q.id] || '';
+        
+        let isCorrect = false;
+        if (isChecked) {
+          const normUser = normalizeString(userAns);
+          isCorrect = q.english.some(target => normalizeString(target) === normUser);
+        }
+
+        const card = document.createElement('div');
+        card.className = `bg-white p-5 rounded-2xl shadow-sm border transition-all duration-200 ${
+          isChecked 
+            ? (isCorrect ? 'border-emerald-300 bg-emerald-50/30' : 'border-rose-300 bg-rose-50/30')
+            : 'border-slate-200 hover:border-slate-300'
+        }`;
+
+        const badgeBg = q.type === 'affirmative' ? 'bg-teal-100 text-teal-800' : 'bg-amber-100 text-amber-800';
+        const badgeLabel = q.type === 'affirmative' ? 'Khẳng định (+)' : 'Phủ định (-)';
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-md ${badgeBg}">
+                ${badgeLabel}
+              </span>
+            </div>
+            <span class="text-xs font-bold text-slate-400">Câu #${q.id}</span>
+          </div>
+
+          <!-- Vietnamese Prompt -->
+          <div class="mb-3">
+            <p class="text-slate-800 font-bold text-base sm:text-lg">${q.vietnamese}</p>
+          </div>
+
+          <!-- Input Area -->
+          <div class="space-y-2">
+            <div class="relative">
+              <input 
+                type="text" 
+                id="input-${q.id}"
+                value="${userAns}"
+                oninput="onInputChange(${q.id}, this.value)"
+                placeholder="Nhập câu dịch tiếng Anh..." 
+                class="w-full px-4 py-3 rounded-xl border ${
+                  isChecked 
+                    ? (isCorrect ? 'border-emerald-500 bg-white text-emerald-900 font-medium' : 'border-rose-500 bg-white text-rose-900 font-medium')
+                    : 'border-slate-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200'
+                } outline-none transition text-sm sm:text-base pr-10"
+              />
+              ${isChecked ? `
+                <div class="absolute right-3 top-3.5 text-lg">
+                  ${isCorrect ? '<i class="fa-solid fa-circle-check text-emerald-500"></i>' : '<i class="fa-solid fa-circle-xmark text-rose-500"></i>'}
+                </div>
+              ` : ''}
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center justify-between pt-1">
+              <button onclick="toggleHint(${q.id})" class="text-xs font-semibold text-teal-600 hover:text-teal-800 flex items-center space-x-1">
+                <i class="fa-regular fa-lightbulb"></i>
+                <span>Gợi ý từ vựng</span>
+              </button>
+              <button onclick="checkSingle(${q.id})" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition active:scale-95">
+                Kiểm tra câu này
+              </button>
+            </div>
+
+            <!-- Hint Box -->
+            <div id="hint-${q.id}" class="hidden mt-2 p-2.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900">
+              <i class="fa-solid fa-key text-amber-600 mr-1"></i> <b>Từ chìa khóa:</b> <code class="bg-amber-100 px-1 py-0.5 rounded">${q.hintKey}</code>
+            </div>
+
+            <!-- Feedback & Explanation Box -->
+            ${isChecked ? `
+              <div class="mt-3 p-3.5 rounded-xl text-xs sm:text-sm ${isCorrect ? 'bg-emerald-100/70 text-emerald-900 border border-emerald-200' : 'bg-rose-100/70 text-rose-900 border border-rose-200'} space-y-1.5">
+                <div class="font-bold flex items-center space-x-1.5">
+                  <i class="${isCorrect ? 'fa-solid fa-check' : 'fa-solid fa-xmark'}"></i>
+                  <span>${isCorrect ? 'Chính xác!' : 'Chưa chính xác.'}</span>
+                </div>
+                <div>
+                  <span class="font-semibold text-slate-700">Đáp án chuẩn:</span> 
+                  <span class="font-bold underline">${q.english[0]}</span>${q.english.length > 1 ? `<span class="text-xs text-slate-500 block mt-0.5">(Hoặc: ${q.english.slice(1).join(' / ')})</span>` : ''}
+                </div>
+                <div class="text-xs text-slate-600 pt-1 border-t border-slate-200/60 mt-1">
+                  <i class="fa-solid fa-graduation-cap text-teal-600 mr-1"></i> ${q.grammar}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      updateStats();
+    }
+
+    function onInputChange(id, val) {
+      userAnswers[id] = val;
+      if (checkedState[id]) {
+        checkedState[id] = false;
+      }
+      updateStats();
+    }
+
+    function toggleHint(id) {
+      const hintBox = document.getElementById(`hint-${id}`);
+      if (hintBox) {
+        hintBox.classList.toggle('hidden');
+      }
+    }
+
+    function checkSingle(id) {
+      checkedState[id] = true;
+      renderQuestions();
+    }
+
+    function checkAll() {
+      questions.forEach(q => {
+        checkedState[q.id] = true;
+      });
+      renderQuestions();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.className = 'filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-100 text-slate-600 hover:bg-slate-200';
+      });
+      document.getElementById(`filter-${filter}`).className = 'filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-teal-600 text-white';
+      renderQuestions();
+    }
+
+    function updateStats() {
+      const answeredCount = Object.keys(userAnswers).filter(k => userAnswers[k] && userAnswers[k].trim() !== '').length;
+      document.getElementById('answeredCountText').innerText = `${answeredCount} / ${questions.length} câu`;
+
+      let correctCount = 0;
+      Object.keys(checkedState).forEach(id => {
+        if (checkedState[id]) {
+          const q = questions.find(item => item.id == id);
+          const normUser = normalizeString(userAnswers[id] || '');
+          if (q && q.english.some(target => normalizeString(target) === normUser)) {
+            correctCount++;
+          }
+        }
+      });
+
+      document.getElementById('scoreText').innerText = `${correctCount} / ${questions.length}`;
+
+      const percent = Math.round((answeredCount / questions.length) * 100);
+      document.getElementById('progressBar').style.width = `${percent}%`;
+      document.getElementById('progressPercentText').innerText = `${percent}% Hoàn thành`;
+    }
+
+    // Initial render
+    renderQuestions();
+  </script>
+</body>
+</html>
