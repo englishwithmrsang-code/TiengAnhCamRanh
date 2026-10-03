@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Practice - Lesson 2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 40px;
+        }
+
+        /* Top Score Board (Sticky) */
+        .score-tracker-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #2c3e50;
+            color: #ffffff;
+            padding: 12px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .score-tracker-title {
+            font-size: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .score-badge {
+            background-color: #34495e;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 15px;
+            border: 1px solid #455a64;
+        }
+
+        .score-value {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .percentage-value {
+            color: #f1c40f;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #2980b9;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        /* Custom Audio Player Controls */
+        .audio-player {
+            background: #eef2f7;
+            border-radius: 8px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #dcdfe6;
+        }
+
+        .play-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .play-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .timeline-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #cbd5e1;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .timeline::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+        }
+
+        .time-display {
+            font-size: 13px;
+            color: #64748b;
+            font-family: monospace;
+            white-space: nowrap;
+        }
+
+        /* Exercise Styles */
+        .instruction {
+            font-style: italic;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+
+        .question-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .question-list li {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        /* Input Styles & Inline Feedback */
+        .input-wrapper {
+            display: inline-block;
+            margin: 2px 0;
+        }
+
+        input[type="text"] {
+            padding: 5px 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 130px;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .correct {
+            border-color: #2ecc71 !important;
+            background-color: #e8f8f5 !important;
+        }
+
+        .incorrect {
+            border-color: #e74c3c !important;
+            background-color: #fadbd8 !important;
+        }
+
+        .correct-answer-hint {
+            color: #d35400;
+            font-weight: 600;
+            font-size: 13px;
+            margin-left: 6px;
+            display: inline-block;
+        }
+
+        /* Toggle Button */
+        .toggle-btn {
+            background-color: #8e44ad;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+
+        .toggle-btn:hover {
+            background-color: #71368a;
+        }
+
+        /* Hidden Transcript Area */
+        .transcript-section {
+            display: none;
+            margin-top: 15px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .transcript-box {
+            font-size: 15px;
+            line-height: 2.1;
+        }
+
+        .action-btn {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 9px 16px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.2s;
+        }
+
+        .action-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .result {
+            margin-top: 12px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .feedback-correct {
+            color: #27ae60;
+        }
+
+        .feedback-incorrect {
+            color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Global Score Bar Header -->
+<div class="score-tracker-bar">
+    <div class="score-tracker-title">Total Progress (Lesson 2)</div>
+    <div class="score-badge">
+        Correct Answers: <span id="global-correct" class="score-value">0</span> / <span id="global-total">45</span>
+        (<span id="global-percentage" class="percentage-value">0%</span>)
+    </div>
+</div>
+
+<div class="container">
+    <h1>Listening Practice - Lesson 2</h1>
+
+    <!-- ================= PART 1 ================= -->
+    <div class="card">
+         Han2>Part 1: Meeting Mrs Hill's Husband</h2>
+
+        <!-- Audio Player Controls -->
+        <div class="audio-player">
+            <audio id="audio1" src="listening-for-numbers-and-missing-words-4.mp3"></audio>
+            <button class="play-btn" onclick="togglePlay('audio1', this)">▶</button>
+            <div class="timeline-container">
+                <input type="range" class="timeline" id="time1" value="0" min="0" step="0.1" oninput="seekAudio('audio1', this.value)">
+            </div>
+            <div class="time-display" id="clock1">00:00 / 00:00</div>
+        </div>
+
+        <p class="instruction">Listen and write 1–2 words or numbers for each answer.</p>
+        
+        <!-- Main Exercise -->
+        <div id="ex1-main">
+            <ul class="question-list">
+                <li><strong>1.</strong> Year met: <strong>1947</strong> <em>(Example)</em></li>
+                <li><strong>2.</strong> Month met: <span class="input-wrapper"><input type="text" data-answer="november" data-display="November"></span></li>
+                <li><strong>3.</strong> Husband's name: <span class="input-wrapper"><input type="text" data-answer="william" data-display="William"></span></li>
+                <li><strong>4.</strong> Where they met: <span class="input-wrapper"><input type="text" data-answer="at school|their school|school|at their school" data-display="at their school"></span></li>
+                <li><strong>5.</strong> Age when they met: <span class="input-wrapper"><input type="text" data-answer="11|eleven" data-display="11"></span></li>
+                <li><strong>6.</strong> Favorite hobby: <span class="input-wrapper"><input type="text" data-answer="fishing" data-display="fishing"></span></li>
+            </ul>
+            <button class="action-btn" onclick="checkAnswers('ex1-main', 'ex1-main-result')">Submit Part 1</button>
+            <div class="result" id="ex1-main-result"></div>
+        </div>
+
+        <!-- Toggle Button for Transcript -->
+        <button class="toggle-btn" onclick="toggleSection('transcript1')">▼ Show Transcript Exercise (10 gaps)</button>
+
+        <!-- Transcript Exercise -->
+        <div id="transcript1" class="transcript-section">
+            <p class="instruction">Listen again and fill in the 10 missing words in the transcript below:</p>
+            <div id="ex1-transcript-box" class="transcript-box">
+                GIRL: When did you meet your husband, Mrs Hill?<br>
+                WOMAN: It was in 1947, so that’s <span class="input-wrapper"><input type="text" data-answer="fifty|50" data-display="fifty"></span> years ago.<br>
+                GIRL: Fifty years is a long time.<br>
+                WOMAN: Yes!<br><br>
+
+                GIRL: Did you meet in the summer?<br>
+                WOMAN: No, it was in the <span class="input-wrapper"><input type="text" data-answer="autumn" data-display="autumn"></span>, in November.<br>
+                GIRL: Oh – was the weather OK?<br>
+                WOMAN: Yes, it was a <span class="input-wrapper"><input type="text" data-answer="beautiful" data-display="beautiful"></span> sunny day.<br>
+                GIRL: Good. What’s his first name?<br>
+                WOMAN: It’s William, that’s W-I-L-L-I-A-M.<br>
+                GIRL: OK. Where did you meet him? Do you <span class="input-wrapper"><input type="text" data-answer="remember" data-display="remember"></span>?<br>
+                WOMAN: Yes, I do. We met at our school.<br>
+                GIRL: Oh! So you were very <span class="input-wrapper"><input type="text" data-answer="young" data-display="young"></span> when you met.<br>
+                WOMAN: Yes, we were only eleven years old. But we weren’t <span class="input-wrapper"><input type="text" data-answer="friends" data-display="friends"></span> at the beginning.<br>
+                GIRL: Why not?<br>
+                WOMAN: Why not? Well, we didn’t like doing the same things. Then, when we were older, we had the same favourite <span class="input-wrapper"><input type="text" data-answer="hobby" data-display="hobby"></span>, and we were more friendly after that.<br>
+                GIRL: What was your favourite hobby?<br>
+                WOMAN: We liked going <span class="input-wrapper"><input type="text" data-answer="fishing" data-display="fishing"></span> in the <span class="input-wrapper"><input type="text" data-answer="lake" data-display="lake"></span> near our village.<br>
+                GIRL: That’s nice. Do you still go fishing together?<br>
+                WOMAN: Yes, we go a lot in the <span class="input-wrapper"><input type="text" data-answer="summer" data-display="summer"></span>.
+            </div>
+            <button class="action-btn" onclick="checkAnswers('ex1-transcript-box', 'ex1-transcript-result')">Submit Transcript Part 1</button>
+            <div class="result" id="ex1-transcript-result"></div>
+        </div>
+    </div>
+
+    <!-- ================= PART 2 ================= -->
+    <div class="card">
+        <h2>Part 2: School Holiday Plan</h2>
+
+        <!-- Audio Player Controls -->
+        <div class="audio-player">
+            <audio id="audio2" src="listening-for-numbers-and-missing-words-5.mp3"></audio>
+            <button class="play-btn" onclick="togglePlay('audio2', this)">▶</button>
+            <div class="timeline-container">
+                <input type="range" class="timeline" id="time2" value="0" min="0" step="0.1" oninput="seekAudio('audio2', this.value)">
+            </div>
+            <div class="time-display" id="clock2">00:00 / 00:00</div>
+        </div>
+
+        <p class="instruction">Listen and write 1–2 words or numbers for each answer.</p>
+        
+        <!-- Main Exercise -->
+        <div id="ex2-main">
+            <ul class="question-list">
+                <li><strong>1.</strong> Leaving time: <strong>half past six</strong> <em>(Example)</em></li>
+                <li><strong>2.</strong> Tuesday activity: visit <span class="input-wrapper"><input type="text" data-answer="a castle|castle|the castle" data-display="a castle"></span></li>
+                <li><strong>3.</strong> Wednesday activity: go <span class="input-wrapper"><input type="text" data-answer="sledging|on a sledge|by sledge" data-display="sledging"></span></li>
+                <li><strong>4.</strong> Thursday activity: visit <span class="input-wrapper"><input type="text" data-answer="a museum|museum|the museum" data-display="a museum"></span></li>
+                <li><strong>5.</strong> Friday sport: play <span class="input-wrapper"><input type="text" data-answer="volleyball" data-display="volleyball"></span></li>
+                <li><strong>6.</strong> Saturday activity: buy <span class="input-wrapper"><input type="text" data-answer="presents|gifts|some presents|some gifts" data-display="presents"></span></li>
+            </ul>
+            <button class="action-btn" onclick="checkAnswers('ex2-main', 'ex2-main-result')">Submit Part 2</button>
+            <div class="result" id="ex2-main-result"></div>
+        </div>
+
+        <!-- Toggle Button for Transcript -->
+        <button class="toggle-btn" onclick="toggleSection('transcript2')">▼ Show Transcript Exercise (10 gaps)</button>
+
+        <!-- Transcript Exercise -->
+        <div id="transcript2" class="transcript-section">
+            <p class="instruction">Listen again and fill in the 10 missing words in the transcript below:</p>
+            <div id="ex2-transcript-box" class="transcript-box">
+                WOMAN: Good morning, everyone. I’m going to tell you about our school <span class="input-wrapper"><input type="text" data-answer="holiday" data-display="holiday"></span>.<br>
+                BOY: When are we going, Miss?<br>
+                WOMAN: Well, we leave school on Monday morning, the twenty-first, very <span class="input-wrapper"><input type="text" data-answer="early" data-display="early"></span>, at half past six. So please don’t be late.<br><br>
+
+                WOMAN: We’re going to do a lot of <span class="input-wrapper"><input type="text" data-answer="interesting" data-display="interesting"></span> things on holiday.<br>
+                BOY: What are we going to do first?<br>
+                WOMAN: Well, on Tuesday, we’re going to visit a <span class="input-wrapper"><input type="text" data-answer="castle" data-display="castle"></span>.<br>
+                BOY: Oh, that sounds good. Does anyone still live there?<br>
+                WOMAN: No, not now. It’s very old. Yes, and on Wednesday, if there’s enough <span class="input-wrapper"><input type="text" data-answer="snow" data-display="snow"></span>, we’re going to go sledging in the hills.<br>
+                BOY: Excellent! I love sledging!<br>
+                WOMAN: Thursday will be a <span class="input-wrapper"><input type="text" data-answer="quiet" data-display="quiet"></span> day. There’s a museum which we’re going to. I’m sure you’ll all like it.<br>
+                BOY: Boring. Why can’t we go to the <span class="input-wrapper"><input type="text" data-answer="cinema" data-display="cinema"></span>?<br>
+                WOMAN: Now, let me see. Friday, ah yes, on Friday, more <span class="input-wrapper"><input type="text" data-answer="sport" data-display="sport"></span>.<br>
+                BOY: What are we going to do? Is it football?<br>
+                WOMAN: No, we’re going to play volleyball.<br>
+                BOY: Oh, I like that!<br>
+                WOMAN: And last, on Saturday, we’re going to go to the <span class="input-wrapper"><input type="text" data-answer="shops" data-display="shops"></span>, and you can all buy some <span class="input-wrapper"><input type="text" data-answer="presents|gifts" data-display="presents"></span> to take home.
+            </div>
+            <button class="action-btn" onclick="checkAnswers('ex2-transcript-box', 'ex2-transcript-result')">Submit Transcript Part 2</button>
+            <div class="result" id="ex2-transcript-result"></div>
+        </div>
+    </div>
+
+    <!-- ================= PART 3 ================= -->
+    <div class="card">
+        <h2>Part 3: Sue's Job & Work Routine</h2>
+
+        <!-- Audio Player Controls -->
+        <div class="audio-player">
+            <audio id="audio3" src="listening-for-numbers-and-missing-words-6.mp3"></audio>
+            <button class="play-btn" onclick="togglePlay('audio3', this)">▶</button>
+            <div class="timeline-container">
+                <input type="range" class="timeline" id="time3" value="0" min="0" step="0.1" oninput="seekAudio('audio3', this.value)">
+            </div>
+            <div class="time-display" id="clock3">00:00 / 00:00</div>
+        </div>
+
+        <p class="instruction">Listen and write 1–2 words or numbers for each answer.</p>
+        
+        <!-- Main Exercise -->
+        <div id="ex3-main">
+            <ul class="question-list">
+                <li><strong>1.</strong> Surname: <strong>Clark</strong> <em>(Example)</em></li>
+                <li><strong>2.</strong> Job: <span class="input-wrapper"><input type="text" data-answer="artist|an artist" data-display="artist"></span></li>
+                <li><strong>3.</strong> Preferred material: <span class="input-wrapper"><input type="text" data-answer="wood" data-display="wood"></span></li>
+                <li><strong>4.</strong> Starts work at: <span class="input-wrapper"><input type="text" data-answer="7 o'clock|7|seven|7:00" data-display="7 o'clock"></span></li>
+                <li><strong>5.</strong> Workplace: <span class="input-wrapper"><input type="text" data-answer="in the basement|basement|the basement" data-display="in the basement"></span></li>
+                <li><strong>6.</strong> Favourite creation: <span class="input-wrapper"><input type="text" data-answer="a music box|music box" data-display="a music box"></span></li>
+            </ul>
+            <button class="action-btn" onclick="checkAnswers('ex3-main', 'ex3-main-result')">Submit Part 3</button>
+            <div class="result" id="ex3-main-result"></div>
+        </div>
+
+        <!-- Toggle Button for Transcript -->
+        <button class="toggle-btn" onclick="toggleSection('transcript3')">▼ Show Transcript Exercise (10 gaps)</button>
+
+        <!-- Transcript Exercise -->
+        <div id="transcript3" class="transcript-section">
+            <p class="instruction">Listen again and fill in the 10 missing words in the transcript below:</p>
+            <div id="ex3-transcript-box" class="transcript-box">
+                MAN: Hello, Sue. I’m a <span class="input-wrapper"><input type="text" data-answer="journalist" data-display="journalist"></span> – I’m going to do a programme about jobs. Can I ask you some questions, please?<br>
+                WOMAN: Yes, of course.<br>
+                MAN: What’s your surname?<br>
+                WOMAN: Clark.<br>
+                MAN: Is that C-L-A-R-K?<br>
+                WOMAN: That’s right.<br><br>
+
+                MAN: And what do you do, Sue? What’s your job?<br>
+                WOMAN: I’m an artist.<br>
+                MAN: Do you <span class="input-wrapper"><input type="text" data-answer="paint" data-display="paint"></span> pictures?<br>
+                WOMAN: No, I’m not that kind of artist. I <span class="input-wrapper"><input type="text" data-answer="make" data-display="make"></span> things.<br>
+                MAN: Oh, I see. So if you don’t paint, what do you make things with?<br>
+                WOMAN: Sometimes I use <span class="input-wrapper"><input type="text" data-answer="metal" data-display="metal"></span>, but I prefer making things with wood.<br>
+                MAN: I see, mmm … Now, can you tell me about your day, Sue? Do you start work early?<br>
+                WOMAN: Yes, I do. I work from seven o’clock in the morning until <span class="input-wrapper"><input type="text" data-answer="midday" data-display="midday"></span>.<br>
+                MAN: So you have to get up early then! And where do you like to work?<br>
+                WOMAN: I do all my work in the basement. It’s nice and <span class="input-wrapper"><input type="text" data-answer="quiet" data-display="quiet"></span> there.<br>
+                MAN: Did you make these things here? They’re <span class="input-wrapper"><input type="text" data-answer="lovely" data-display="lovely"></span>.<br>
+                WOMAN: Yes … and this is my <span class="input-wrapper"><input type="text" data-answer="favourite|favorite" data-display="favourite"></span>.<br>
+                MAN: Oh … a music box!<br>
+                WOMAN: Yes, and if you turn the <span class="input-wrapper"><input type="text" data-answer="key" data-display="key"></span>, it plays a <span class="input-wrapper"><input type="text" data-answer="song" data-display="song"></span>!
+            </div>
+            <button class="action-btn" onclick="checkAnswers('ex3-transcript-box', 'ex3-transcript-result')">Submit Transcript Part 3</button>
+            <div class="result" id="ex3-transcript-result"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- Audio Player Logic ---
+    function formatTime(seconds) {
+        let mins = Math.floor(seconds / 60);
+        let secs = Math.floor(seconds % 60);
+        if (mins < 10) mins = '0' + mins;
+        if (secs < 10) secs = '0' + secs;
+        return `${mins}:${secs}`;
+    }
+
+    function togglePlay(audioId, btn) {
+        const audio = document.getElementById(audioId);
+        
+        document.querySelectorAll('audio').forEach(a => {
+            if (a.id !== audioId) {
+                a.pause();
+                const otherBtn = a.parentElement.querySelector('.play-btn');
+                if (otherBtn) otherBtn.innerText = '▶';
+            }
+        });
+
+        if (audio.paused) {
+            audio.play();
+            btn.innerText = '❚❚';
+        } else {
+            audio.pause();
+            btn.innerText = '▶';
+        }
+    }
+
+    function seekAudio(audioId, value) {
+        const audio = document.getElementById(audioId);
+        audio.currentTime = value;
+    }
+
+    document.querySelectorAll('audio').forEach((audio, index) => {
+        const idNum = index + 1;
+        const timeline = document.getElementById(`time${idNum}`);
+        const clock = document.getElementById(`clock${idNum}`);
+
+        audio.addEventListener('loadedmetadata', () => {
+            timeline.max = audio.duration;
+            clock.innerText = `00:00 / ${formatTime(audio.duration)}`;
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            timeline.value = audio.currentTime;
+            const current = formatTime(audio.currentTime);
+            const total = isNaN(audio.duration) ? '00:00' : formatTime(audio.duration);
+            clock.innerText = `${current} / ${total}`;
+        });
+
+        audio.addEventListener('ended', () => {
+            const btn = audio.parentElement.querySelector('.play-btn');
+            if (btn) btn.innerText = '▶';
+            timeline.value = 0;
+        });
+    });
+
+    // --- Toggle Section ---
+    function toggleSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        const btn = section.previousElementSibling;
+        
+        if (section.style.display === "block") {
+            section.style.display = "none";
+            btn.innerText = btn.innerText.replace('▲ Hide', '▼ Show');
+        } else {
+            section.style.display = "block";
+            btn.innerText = btn.innerText.replace('▼ Show', '▲ Hide');
+        }
+    }
+
+    // --- Global Score Update ---
+    function updateGlobalScore() {
+        const allInputs = document.querySelectorAll('input[type="text"]');
+        let globalCorrect = 0;
+        let totalCount = allInputs.length;
+
+        allInputs.forEach(input => {
+            if (input.classList.contains('correct')) {
+                globalCorrect++;
+            }
+        });
+
+        const percentage = totalCount > 0 ? Math.round((globalCorrect / totalCount) * 100) : 0;
+        document.getElementById('global-correct').innerText = globalCorrect;
+        document.getElementById('global-total').innerText = totalCount;
+        document.getElementById('global-percentage').innerText = `${percentage}%`;
+    }
+
+    // --- Check Answers and Show Answers Directly ---
+    function checkAnswers(containerId, resultId) {
+        const container = document.getElementById(containerId);
+        const inputs = container.querySelectorAll('input[type="text"]');
+        let correctCount = 0;
+        let totalCount = inputs.length;
+
+        inputs.forEach(input => {
+            const userAnswer = input.value.trim().toLowerCase();
+            const validAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
+            const displayAnswer = input.getAttribute('data-display');
+            const wrapper = input.parentElement;
+
+            // Clear previous hint if exists
+            const oldHint = wrapper.querySelector('.correct-answer-hint');
+            if (oldHint) {
+                oldHint.remove();
+            }
+
+            if (userAnswer !== "" && validAnswers.includes(userAnswer)) {
+                input.className = 'correct';
+                correctCount++;
+            } else {
+                input.className = 'incorrect';
+                // Show Answer right next to input
+                const hint = document.createElement('span');
+                hint.className = 'correct-answer-hint';
+                hint.innerText = `(${displayAnswer})`;
+                wrapper.appendChild(hint);
+            }
+        });
+
+        const resultDiv = document.getElementById(resultId);
+        if (correctCount === totalCount) {
+            resultDiv.className = 'result feedback-correct';
+            resultDiv.innerText = `Perfect! Score: ${correctCount}/${totalCount}.`;
+        } else {
+            resultDiv.className = 'result feedback-incorrect';
+            resultDiv.innerText = `Score: ${correctCount}/${totalCount}. Check the correct answers displayed in red.`;
+        }
+
+        // Update Global Score
+        updateGlobalScore();
+    }
+
+    // Initialize Total Count on page load
+    window.onload = function() {
+        const totalInputs = document.querySelectorAll('input[type="text"]').length;
+        document.getElementById('global-total').innerText = totalInputs;
+    };
+</script>
+
+</body>
+</html>
