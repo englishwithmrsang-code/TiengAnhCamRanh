@@ -26,7 +26,7 @@
                         <i class="fa-solid fa-graduation-cap text-yellow-300"></i>
                         Luyện Dịch Câu Bị Động
                     </h1>
-                    <p class="text-indigo-100 text-sm mt-1">Luyện dịch Tiếng Việt sang Tiếng Anh (Chủ động & Bị động)</p>
+                    <p class="text-indigo-100 text-sm mt-1">Hiện đáp án tự động ➔ Chép bài/Nhập lại ➔ Cập nhật tiến độ</p>
                 </div>
                 <button onclick="toggleVerbListModal()" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 shadow-sm">
                     <i class="fa-solid fa-book-open text-yellow-300"></i>
@@ -40,19 +40,19 @@
 
         <!-- Sidebar / Settings -->
         <aside class="md:col-span-1 space-y-6">
-            <!-- Thống kê -->
+            <!-- Thống kê tiến độ -->
             <div class="bg-white rounded-2xl p-5 border border-slate-200/80 custom-shadow">
                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-chart-simple text-indigo-500"></i> Tiến độ học tập
+                    <i class="fa-solid fa-chart-simple text-indigo-500"></i> Tiến Độ Bài Làm
                 </h2>
                 <div class="grid grid-cols-2 gap-3 text-center">
                     <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-xl">
-                        <div class="text-2xl font-bold text-indigo-600" id="stat-score">0</div>
-                        <div class="text-xs text-indigo-500 font-medium mt-1">Điểm số</div>
+                        <div class="text-2xl font-bold text-indigo-600" id="stat-completed">0</div>
+                        <div class="text-xs text-indigo-500 font-medium mt-1">Đã Hoàn Thành</div>
                     </div>
                     <div class="bg-orange-50 border border-orange-100 p-3 rounded-xl">
                         <div class="text-2xl font-bold text-orange-600" id="stat-streak">0 🔥</div>
-                        <div class="text-xs text-orange-500 font-medium mt-1">Chuỗi đúng</div>
+                        <div class="text-xs text-orange-500 font-medium mt-1">Chuỗi Liên Tục</div>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                 <div class="space-y-2">
                     <label class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200 transition">
                         <input type="radio" name="tense-filter" value="ALL" checked onchange="changeTenseFilter('ALL')" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
-                        <span class="text-sm font-medium text-slate-700">Tất cả các thì (Random)</span>
+                        <span class="text-sm font-medium text-slate-700">Tất cả các thì (Xáo trộn)</span>
                     </label>
                     <label class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200 transition">
                         <input type="radio" name="tense-filter" value="PRESENT" onchange="changeTenseFilter('PRESENT')" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
@@ -92,17 +92,17 @@
                         <span id="badge-tense" class="text-xs px-3 py-1 rounded-full font-semibold uppercase bg-indigo-100 text-indigo-700 tracking-wide">
                             Present Simple
                         </span>
-                        <span class="text-xs text-slate-400 font-medium">Nhấn <kbd class="px-1.5 py-0.5 bg-slate-200 text-slate-700 rounded text-[10px] font-mono">Enter</kbd> để kiểm tra</span>
+                        <span class="text-xs text-slate-500 font-medium">Nhấn <kbd class="px-2 py-0.5 bg-slate-200 text-slate-800 rounded font-mono font-bold">Enter</kbd> để xem đáp án</span>
                     </div>
 
                     <div>
-                        <div class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Đề bài (Tiếng Việt Chủ Động):</div>
+                        <div class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Đề bài (Câu Tiếng Việt):</div>
                         <div id="display-vi-sentence" class="text-xl sm:text-2xl font-bold text-indigo-950">
                             ...
                         </div>
                     </div>
 
-                    <!-- Gợi ý từ vựng theo cấu trúc người dùng yêu cầu -->
+                    <!-- Gợi ý từ vựng theo yêu cầu -->
                     <div id="display-hint-box" class="bg-amber-50/90 border border-amber-200/80 rounded-lg p-3 text-sm text-amber-900 flex items-start gap-2">
                         <i class="fa-solid fa-lightbulb text-amber-500 mt-0.5"></i>
                         <div>
@@ -112,57 +112,68 @@
                     </div>
                 </div>
 
-                <!-- Form Nhập Bài Làm -->
-                <form id="practice-form" onsubmit="handleCheck(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
-                            1. Dịch sang Tiếng Anh (Chủ động - Active):
-                        </label>
-                        <input type="text" id="input-active-en" autocomplete="off" placeholder="Nhập câu tiếng Anh chủ động..." 
-                            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-base font-medium">
-                    </div>
+                <!-- BƯỚC 1: Nút nhấn Enter để hiện đáp án -->
+                <div id="step-reveal" class="space-y-4">
+                    <button onclick="revealAnswers()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 px-6 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-key text-yellow-300"></i> Nhấn Enter Hoặc Bấm Vào Đây Để Xem Đáp Án Dịch
+                    </button>
+                </div>
 
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
-                            2. Dịch sang Tiếng Anh (Bị động - Passive):
-                        </label>
-                        <input type="text" id="input-passive-en" autocomplete="off" placeholder="Nhập câu tiếng Anh bị động..." 
-                            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-base font-medium">
-                    </div>
-
-                    <div class="flex gap-3 pt-2">
-                        <button type="submit" id="btn-check" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-check"></i> Kiểm Tra Đáp Án
+                <!-- BƯỚC 2: Thẻ hiển thị đáp án chuẩn & Giải thích -->
+                <div id="answer-reveal-card" class="hidden rounded-xl p-5 border border-indigo-200 bg-indigo-50/50 space-y-4 transition-all">
+                    <div class="font-bold text-indigo-900 text-base flex items-center justify-between">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-indigo-600"></i> Đáp Án Dịch Chuẩn Tiếng Anh:
+                        </span>
+                        <button onclick="autoFillAnswers()" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg transition font-medium flex items-center gap-1.5">
+                            <i class="fa-solid fa-copy"></i> Tự Động Điền Bài Để Học
                         </button>
-                        <button type="button" id="btn-next" onclick="nextQuestion()" class="hidden flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition items-center justify-center gap-2">
-                            Câu Tiếp Theo <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                        <div class="bg-white rounded-lg p-3 border border-indigo-100 shadow-sm space-y-1">
+                            <div class="text-xs text-indigo-500 font-bold uppercase tracking-wider">1. Câu Chủ Động (Active):</div>
+                            <div id="target-active-en" class="font-bold text-indigo-950 text-base"></div>
+                        </div>
+                        <div class="bg-white rounded-lg p-3 border border-emerald-100 shadow-sm space-y-1">
+                            <div class="text-xs text-emerald-600 font-bold uppercase tracking-wider">2. Câu Bị Động (Passive):</div>
+                            <div id="target-passive-en" class="font-bold text-emerald-950 text-base"></div>
+                        </div>
+                    </div>
+
+                    <!-- Giải thích ngữ pháp -->
+                    <div class="pt-2 border-t border-indigo-100">
+                        <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-info text-indigo-500"></i> Cấu trúc ngữ pháp & Động từ:
+                        </div>
+                        <div id="grammar-explanation" class="text-sm text-slate-700 leading-relaxed bg-white/70 p-3 rounded-lg border border-slate-200/60"></div>
+                    </div>
+                </div>
+
+                <!-- FORM Học sinh chép bài và nộp lại -->
+                <form id="submission-form" onsubmit="handleFinalSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                            1. Học sinh chép lại câu Chủ động (Active):
+                        </label>
+                        <input type="text" id="input-active-en" autocomplete="off" placeholder="Nhập lại câu tiếng Anh chủ động ở trên..." 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-base font-medium bg-white">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                            2. Học sinh chép lại câu Bị động (Passive):
+                        </label>
+                        <input type="text" id="input-passive-en" autocomplete="off" placeholder="Nhập lại câu tiếng Anh bị động ở trên..." 
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-base font-medium bg-white">
+                    </div>
+
+                    <div id="submit-action-area" class="pt-2">
+                        <button type="submit" id="btn-submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 px-6 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Nộp Bài & Cập Nhật Tiến Độ
                         </button>
                     </div>
                 </form>
-
-                <div id="feedback-card" class="hidden rounded-xl p-5 border space-y-4 transition-all">
-                    <div id="feedback-title" class="font-bold text-lg flex items-center gap-2"></div>
-
-                    <!-- Correct Answers -->
-                    <div class="space-y-3 text-sm">
-                        <div class="bg-white/70 rounded-lg p-3 border border-slate-200/80">
-                            <div class="text-xs text-slate-500 font-semibold mb-0.5">DẠNG CHỦ ĐỘNG (ACTIVE CHUẨN):</div>
-                            <div id="correct-active-en" class="font-bold text-indigo-900 text-base"></div>
-                        </div>
-                        <div class="bg-white/70 rounded-lg p-3 border border-slate-200/80">
-                            <div class="text-xs text-slate-500 font-semibold mb-0.5">DẠNG BỊ ĐỘNG (PASSIVE CHUẨN):</div>
-                            <div id="correct-passive-en" class="font-bold text-emerald-900 text-base"></div>
-                        </div>
-                    </div>
-
-                    <!-- Explanation -->
-                    <div class="pt-2 border-t border-slate-200/60">
-                        <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1.5">
-                            <i class="fa-solid fa-circle-info text-indigo-500"></i> Giải thích ngữ pháp & Động từ:
-                        </div>
-                        <div id="grammar-explanation" class="text-sm text-slate-700 leading-relaxed"></div>
-                    </div>
-                </div>
 
             </div>
         </section>
@@ -219,11 +230,11 @@
             { v1: "eat", v2: "ate", v3: "eaten", meaning: "ăn" },
             { v1: "feel", v2: "felt", v3: "felt", meaning: "cảm thấy" },
             { v1: "find", v2: "found", v3: "found", meaning: "tìm thấy" },
-            { v1: "fly", v2: "flew", v3: "flown", meaning: "thả / bay / điều khiển" },
+            { v1: "fly", v2: "flew", v3: "flown", meaning: "thả / bay" },
             { v1: "forget", v2: "forgot", v3: "forgotten", meaning: "quên" }
         ];
 
-        // Ngân hàng câu hỏi chỉ chứa đề bài Tiếng Việt + Gợi ý từ + Đáp án chuẩn Tiếng Anh
+        // Ngân hàng câu hỏi
         const questionBank = [
             // BREAK
             {
@@ -294,14 +305,6 @@
                 activeEn: ["She bought a car"],
                 passiveEn: ["A car was bought", "A car was bought by her"]
             },
-            {
-                verb: "buy",
-                tense: "FUTURE",
-                viSentence: "Cô ấy sẽ mua một chiếc xe hơi.",
-                hint: "will buy: sẽ mua  -  will be bought: sẽ được mua",
-                activeEn: ["She will buy a car"],
-                passiveEn: ["A car will be bought"]
-            },
 
             // CATCH
             {
@@ -311,14 +314,6 @@
                 hint: "caught: đã bắt  -  was caught: đã bị bắt",
                 activeEn: ["The police caught the thief"],
                 passiveEn: ["The thief was caught", "The thief was caught by the police"]
-            },
-            {
-                verb: "catch",
-                tense: "FUTURE",
-                viSentence: "Cảnh sát sẽ bắt tên trộm.",
-                hint: "will catch: sẽ bắt  -  will be caught: sẽ bị bắt",
-                activeEn: ["The police will catch the thief"],
-                passiveEn: ["The thief will be caught"]
             },
 
             // EAT
@@ -330,14 +325,6 @@
                 activeEn: ["The dog eats the apple"],
                 passiveEn: ["The apple is eaten", "The apple is eaten by the dog"]
             },
-            {
-                verb: "eat",
-                tense: "PAST",
-                viSentence: "Con chó đã ăn quả táo.",
-                hint: "ate: đã ăn  -  was eaten: đã bị ăn",
-                activeEn: ["The dog ate the apple"],
-                passiveEn: ["The apple was eaten", "The apple was eaten by the dog"]
-            },
 
             // DRINK
             {
@@ -347,16 +334,6 @@
                 hint: "drink: uống  -  is drunk: được uống",
                 activeEn: ["She drinks milk"],
                 passiveEn: ["Milk is drunk", "Milk is drunk by her"]
-            },
-
-            // BRING
-            {
-                verb: "bring",
-                tense: "PAST",
-                viSentence: "John đã mang thức ăn.",
-                hint: "brought: đã mang  -  was brought: đã được mang",
-                activeEn: ["John brought food"],
-                passiveEn: ["Food was brought", "Food was brought by John"]
             },
 
             // FIND
@@ -379,16 +356,6 @@
                 passiveEn: ["The password was forgotten", "The password was forgotten by him"]
             },
 
-            // CHOOSE
-            {
-                verb: "choose",
-                tense: "PRESENT",
-                viSentence: "Chúng tôi chọn ứng viên tốt nhất.",
-                hint: "choose: lựa chọn  -  is chosen: được lựa chọn",
-                activeEn: ["We choose the best candidate"],
-                passiveEn: ["The best candidate is chosen", "The best candidate is chosen by us"]
-            },
-
             // DO
             {
                 verb: "do",
@@ -397,44 +364,14 @@
                 hint: "will do: sẽ làm  -  will be done: sẽ được làm",
                 activeEn: ["They will do homework", "They will do the homework"],
                 passiveEn: ["Homework will be done", "The homework will be done"]
-            },
-
-            // DRAW
-            {
-                verb: "draw",
-                tense: "PAST",
-                viSentence: "Cô ấy đã vẽ một bức tranh.",
-                hint: "drew: đã vẽ  -  was drawn: đã được vẽ",
-                activeEn: ["She drew a picture"],
-                passiveEn: ["A picture was drawn", "A picture was drawn by her"]
-            },
-
-            // DRIVE
-            {
-                verb: "drive",
-                tense: "PRESENT",
-                viSentence: "Anh ấy lái chiếc xe bus.",
-                hint: "drive: lái xe  -  is driven: được lái",
-                activeEn: ["He drives the bus"],
-                passiveEn: ["The bus is driven", "The bus is driven by him"]
-            },
-
-            // FLY
-            {
-                verb: "fly",
-                tense: "FUTURE",
-                viSentence: "Họ sẽ thả chiếc diều.",
-                hint: "will fly: sẽ thả  -  will be flown: sẽ được thả",
-                activeEn: ["They will fly the kite"],
-                passiveEn: ["The kite will be flown"]
             }
         ];
 
-        let currentScore = 0;
-        let currentStreak = 0;
+        let completedCount = 0;
+        let streakCount = 0;
         let currentTenseFilter = "ALL";
         let currentQuestion = null;
-        let isSubmitted = false;
+        let isRevealed = false;
 
         function renderVerbTable() {
             const tbody = document.getElementById("verb-table-body");
@@ -463,14 +400,14 @@
 
         function changeTenseFilter(filter) {
             currentTenseFilter = filter;
-            nextQuestion();
+            loadQuestion();
         }
 
         function loadQuestion() {
-            isSubmitted = false;
+            isRevealed = false;
             currentQuestion = getRandomQuestion();
 
-            // Badge Thì
+            // Setup Badge
             const tenseBadge = document.getElementById("badge-tense");
             if (currentQuestion.tense === "PRESENT") {
                 tenseBadge.textContent = "Hiện tại đơn (Present Simple)";
@@ -483,31 +420,20 @@
                 tenseBadge.className = "text-xs px-3 py-1 rounded-full font-semibold uppercase bg-amber-100 text-amber-800 tracking-wide";
             }
 
-            // Hiển thị câu tiếng Việt & Gợi ý
+            // Hiển thị đề bài & gợi ý
             document.getElementById("display-vi-sentence").textContent = currentQuestion.viSentence;
             document.getElementById("hint-text").textContent = currentQuestion.hint;
 
-            // Clear inputs
+            // Clear Target Answers & Hide Card
+            document.getElementById("target-active-en").textContent = "";
+            document.getElementById("target-passive-en").textContent = "";
+            document.getElementById("answer-reveal-card").classList.add("hidden");
+            document.getElementById("step-reveal").classList.remove("hidden");
+
+            // Reset inputs
             document.getElementById("input-active-en").value = "";
             document.getElementById("input-passive-en").value = "";
-            document.getElementById("input-active-en").disabled = false;
-            document.getElementById("input-passive-en").disabled = false;
-
-            // Hide Feedback
-            document.getElementById("feedback-card").className = "hidden rounded-xl p-5 border space-y-4 transition-all";
-            document.getElementById("btn-check").classList.remove("hidden");
-            document.getElementById("btn-next").classList.add("hidden");
-            document.getElementById("btn-next").classList.remove("flex");
-
-            // Focus input đầu tiên
             document.getElementById("input-active-en").focus();
-        }
-
-        function normalizeText(text) {
-            return text.trim()
-                .toLowerCase()
-                .replace(/[.,?!]/g, '')
-                .replace(/\s+/g, ' ');
         }
 
         function getGrammarExplanation(q) {
@@ -528,19 +454,49 @@
             }
         }
 
-        function handleCheck(e) {
+        // Nhấn Enter để hiện đáp án ngay lập tức
+        function revealAnswers() {
+            isRevealed = true;
+            document.getElementById("target-active-en").textContent = currentQuestion.activeEn[0];
+            document.getElementById("target-passive-en").textContent = currentQuestion.passiveEn[0];
+            document.getElementById("grammar-explanation").innerHTML = getGrammarExplanation(currentQuestion);
+
+            document.getElementById("answer-reveal-card").classList.remove("hidden");
+            document.getElementById("step-reveal").classList.add("hidden");
+            document.getElementById("input-active-en").focus();
+        }
+
+        // Tự động điền đáp án chuẩn vào input cho học sinh
+        function autoFillAnswers() {
+            if (!isRevealed) revealAnswers();
+            document.getElementById("input-active-en").value = currentQuestion.activeEn[0];
+            document.getElementById("input-passive-en").value = currentQuestion.passiveEn[0];
+            document.getElementById("input-active-en").focus();
+        }
+
+        function normalizeText(text) {
+            return text.trim()
+                .toLowerCase()
+                .replace(/[.,?!]/g, '')
+                .replace(/\s+/g, ' ');
+        }
+
+        // Học sinh chép bài / điền câu và nộp lại để tính tiến độ
+        function handleFinalSubmit(e) {
             e.preventDefault();
-            if (isSubmitted) return;
+
+            if (!isRevealed) {
+                revealAnswers();
+                return;
+            }
 
             const userActive = document.getElementById("input-active-en").value;
             const userPassive = document.getElementById("input-passive-en").value;
 
             if (!userActive.trim() || !userPassive.trim()) {
-                alert("Vui lòng nhập đầy đủ cả hai câu dịch Tiếng Anh (Chủ động và Bị động)!");
+                alert("Vui lòng chép lại/nhập đủ cả 2 câu dịch trước khi nộp bài!");
                 return;
             }
-
-            isSubmitted = true;
 
             const normUserActive = normalizeText(userActive);
             const normUserPassive = normalizeText(userPassive);
@@ -548,46 +504,33 @@
             const isActiveCorrect = currentQuestion.activeEn.some(ans => normalizeText(ans) === normUserActive);
             const isPassiveCorrect = currentQuestion.passiveEn.some(ans => normalizeText(ans) === normUserPassive);
 
-            const isAllCorrect = isActiveCorrect && isPassiveCorrect;
-
-            if (isAllCorrect) {
-                currentScore += 10;
-                currentStreak += 1;
+            if (isActiveCorrect && isPassiveCorrect) {
+                completedCount += 1;
+                streakCount += 1;
             } else {
-                currentStreak = 0;
+                completedCount += 1;
+                streakCount = 0;
             }
 
-            document.getElementById("stat-score").textContent = currentScore;
-            document.getElementById("stat-streak").textContent = `${currentStreak} 🔥`;
+            document.getElementById("stat-completed").textContent = completedCount;
+            document.getElementById("stat-streak").textContent = `${streakCount} 🔥`;
 
-            const feedbackCard = document.getElementById("feedback-card");
-            const feedbackTitle = document.getElementById("feedback-title");
-            
-            feedbackCard.classList.remove("hidden");
-
-            if (isAllCorrect) {
-                feedbackCard.className = "rounded-xl p-5 border border-emerald-200 bg-emerald-50/90 text-emerald-900 space-y-4 transition-all";
-                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-xl"></i> Tuyệt vời! Bạn dịch chính xác cả 2 câu!`;
-            } else {
-                feedbackCard.className = "rounded-xl p-5 border border-rose-200 bg-rose-50/90 text-rose-900 space-y-4 transition-all";
-                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-xl"></i> Chưa chính xác hoàn toàn! Hãy đối chiếu với đáp án chuẩn bên dưới.`;
-            }
-
-            document.getElementById("correct-active-en").textContent = currentQuestion.activeEn[0];
-            document.getElementById("correct-passive-en").textContent = currentQuestion.passiveEn[0];
-            document.getElementById("grammar-explanation").innerHTML = getGrammarExplanation(currentQuestion);
-
-            document.getElementById("input-active-en").disabled = true;
-            document.getElementById("input-passive-en").disabled = true;
-            document.getElementById("btn-check").classList.add("hidden");
-            document.getElementById("btn-next").classList.remove("hidden");
-            document.getElementById("btn-next").classList.add("flex");
-            document.getElementById("btn-next").focus();
-        }
-
-        function nextQuestion() {
+            // Chuyển sang câu tiếp theo
             loadQuestion();
         }
+
+        // Bắt sự kiện bàn phím Enter global để xử lý mượt mà
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                const modal = document.getElementById("verb-modal");
+                if (!modal.classList.contains("hidden")) return;
+
+                if (!isRevealed) {
+                    e.preventDefault();
+                    revealAnswers();
+                }
+            }
+        });
 
         window.onload = function() {
             renderVerbTable();
