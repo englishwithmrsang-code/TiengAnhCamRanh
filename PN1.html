@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc Nghiệm Tiếng Anh</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --primary-color: #3182ce;
+            --correct-color: #38a169;
+            --correct-bg: #c6f6d5;
+            --wrong-color: #e53e3e;
+            --wrong-bg: #fed7d7;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            padding-top: 140px; /* Nhường chỗ cho header cố định */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Top Header cố định để theo dõi tiến độ */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 15px 20px;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-correct { color: var(--correct-color); }
+        .stat-wrong { color: var(--wrong-color); }
+
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        /* Modal tổng kết */
+        .summary-card {
+            background-color: #ebf8ff;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            display: none;
+        }
+
+        .summary-card.show {
+            display: block;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .question-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-btn {
+            background-color: #edf2f7;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            background-color: #e2e8f0;
+            border-color: #cbd5e0;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        /* Trạng thái đáp án */
+        .option-btn.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-color);
+            color: #22543d;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong-color);
+            color: #742a2a;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            background-color: #f7fafc;
+            border-left: 4px solid var(--primary-color);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sticky-header">
+    <div class="header-content">
+        <div class="stats-bar">
+            <div class="stat-item">Tiến độ: <span id="answered-count">0</span>/60 câu (<span id="progress-percent">0%</span>)</div>
+            <div class="stat-item">
+                <span class="stat-correct">✓ Đúng: <span id="correct-count">0</span></span> | 
+                <span class="stat-wrong">✗ Sai: <span id="wrong-count">0</span></span>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="summary-card" class="summary-card">
+        <h2>🎉 Hoàn thành bài trắc nghiệm!</h2>
+        <p>Số câu đúng: <strong id="final-correct">0</strong> / 60 (<span id="final-accuracy">0%</span>)</p>
+    </div>
+
+    <div id="quiz-container"></div>
+</div>
+
+<script>
+const quizData = [
+    { id: 1, q: "To lose weight, he decided to ___ ___ on sugar.", options: ["cut off", "cut down", "cut up", "cut out"], correct: 2, exp: "<b>cut down on</b>: cắt giảm bớt tiêu thụ." },
+    { id: 2, q: "She completely ___ ___ fast food from her diet.", options: ["cut back", "cut down", "cut out", "cut off"], correct: 3, exp: "<b>cut out</b>: cắt bỏ hoàn toàn khỏi chế độ ăn." },
+    { id: 3, q: "The factory had to ___ ___ production because of low demand.", options: ["cut back", "cut up", "cut out", "cut off"], correct: 1, exp: "<b>cut back (on)</b>: cắt giảm sản xuất/chi tiêu." },
+    { id: 4, q: "The storm ___ ___ electricity in the whole area.", options: ["cut up", "cut down", "cut back", "cut off"], correct: 4, exp: "<b>cut off</b>: ngắt, cắt nguồn cung cấp (điện, nước)." },
+    { id: 5, q: "Please ___ ___ the vegetables before adding them to the soup.", options: ["cut out", "cut up", "cut back", "cut down"], correct: 2, exp: "<b>cut up</b>: thái nhỏ, cắt nhỏ." },
+    { id: 6, q: "A ___ majority of people believe that fresh food is healthier.", options: ["tiny", "moderate", "significant", "vast"], correct: 4, exp: "<b>vast majority</b>: đại đa số (cụm từ cố định đi với nhau)." },
+    { id: 7, q: "Only a ___ fraction of the population follows a completely organic diet.", options: ["vast", "significant", "tiny", "overwhelming"], correct: 3, exp: "<b>tiny fraction</b>: một phần rất nhỏ." },
+    { id: 8, q: "A ___ proportion of students eat breakfast every day.", options: ["significant", "tiny", "vast", "moderate"], correct: 1, exp: "<b>significant proportion</b>: một tỷ lệ đáng kể." },
+    { id: 9, q: "There is ___ evidence that regular exercise improves health.", options: ["tiny", "overwhelming", "moderate", "significant"], correct: 2, exp: "<b>overwhelming evidence</b>: bằng chứng áp đảo/rất rõ ràng." },
+    { id: 10, q: "Which word shows the smallest size or amount?", options: ["vast", "significant", "moderate", "tiny"], correct: 4, exp: "<b>tiny</b> nghĩa là rất nhỏ (nhỏ nhất trong các từ)." },
+    { id: 11, q: "Which word means “between or among”?", options: ["pro-", "en-", "inter-", "in-"], correct: 3, exp: "Tiền tố <b>inter-</b> có nghĩa là 'giữa' hoặc 'qua lại giữa các bên'." },
+    { id: 12, q: "People from different countries can ___ with each other online.", options: ["intervene", "interact", "interrupt", "interpret"], correct: 2, exp: "<b>interact</b>: tương tác, giao lưu với nhau." },
+    { id: 13, q: "The teacher asked the students not to ___ during the presentation.", options: ["interlink", "interpret", "interrupt", "interact"], correct: 3, exp: "<b>interrupt</b>: ngắt lời, làm gián đoạn." },
+    { id: 14, q: "The festival attracts many ___ visitors.", options: ["international", "invisible", "ineffective", "inaccurate"], correct: 1, exp: "<b>international</b>: thuộc về quốc tế." },
+    { id: 15, q: "Scientists need to ___ the results carefully.", options: ["interact", "intervene", "interpret", "interrupt"], correct: 3, exp: "<b>interpret</b>: giải thích, diễn giải (kết quả)." },
+    { id: 16, q: "The government may need to ___ to protect endangered animals.", options: ["intervene", "interact", "interlink", "interpret"], correct: 1, exp: "<b>intervene</b>: can thiệp (để giải quyết vấn đề)." },
+    { id: 17, q: "Bird migration is an important natural ___.", options: ["migrate", "migration", "migrating", "migrated"], correct: 2, exp: "Sau tính từ 'natural' cần một danh từ: <b>migration</b> (sự di cư)." },
+    { id: 18, q: "Birds need physical ___ to survive in changing environments.", options: ["adapt", "adaptation", "adaptable", "adapting"], correct: 2, exp: "Sau tính từ 'physical' cần danh từ: <b>adaptation</b> (sự thích nghi)." },
+    { id: 19, q: "There is considerable ___ in the size and colour of bird species.", options: ["vary", "variation", "various", "varied"], correct: 2, exp: "Sau tính từ 'considerable' cần danh từ: <b>variation</b> (sự biến đổi/đa dạng)." },
+    { id: 20, q: "Good ___ helps birds communicate with each other.", options: ["communicate", "communication", "communicative", "communicating"], correct: 2, exp: "Đứng làm chủ ngữ cần danh từ: <b>communication</b> (sự giao tiếp)." },
+    { id: 21, q: "The verb “migrate” changes into which noun?", options: ["migration", "adaptation", "variation", "observation"], correct: 1, exp: "Động từ 'migrate' biến đổi thành danh từ <b>migration</b>." },
+    { id: 22, q: "The verb “adapt” changes into which noun?", options: ["imitation", "migration", "adaptation", "communication"], correct: 3, exp: "Động từ 'adapt' biến đổi thành danh từ <b>adaptation</b>." },
+    { id: 23, q: "The verb “vary” changes into which noun?", options: ["variation", "observation", "adaptation", "imitation"], correct: 1, exp: "Động từ 'vary' biến đổi thành danh từ <b>variation</b>." },
+    { id: 24, q: "The verb “communicate” changes into which noun?", options: ["migration", "communication", "variation", "observation"], correct: 2, exp: "Động từ 'communicate' biến đổi thành danh từ <b>communication</b>." },
+    { id: 25, q: "The long ___ was recorded in the history book.", options: ["debate", "debated", "debating", "debates"], correct: 1, exp: "Sau tính từ 'long' cần danh từ số ít (do có mạo từ 'The ... was'): <b>debate</b>." },
+    { id: 26, q: "They ___ the issue for several hours.", options: ["debate", "debated", "record", "rule"], correct: 2, exp: "Hành động đã xảy ra trong quá khứ nên dùng động từ quá khứ: <b>debated</b>." },
+    { id: 27, q: "The scientist kept a detailed ___ of the animal's behaviour.", options: ["record", "recorded", "recording", "records"], correct: 1, exp: "Sau tính từ 'detailed' cần danh từ số ít (do có mạo từ 'a'): <b>record</b> (bản ghi chép)." },
+    { id: 28, q: "The researcher will ___ the temperature every hour.", options: ["record", "debate", "place", "surface"], correct: 1, exp: "Sau trợ động từ 'will' cần động từ nguyên thể: <b>record</b> (ghi lại)." },
+    { id: 29, q: "The judge made an important ___ during the competition.", options: ["judge", "judgment", "judging", "judged"], correct: 2, exp: "Cụm từ <i>make a judgment</i>: đưa ra phán quyết/quyết định." },
+    { id: 30, q: "The team will ___ the final performance tomorrow.", options: ["record", "judge", "command", "rule"], correct: 2, exp: "<b>judge</b> (động từ): đánh giá, chấm điểm." },
+    { id: 31, q: "The museum displayed an example of ___ treatment of ancient people.", options: ["cruel", "cruelly", "cruelty", "crueler"], correct: 1, exp: "Bổ nghĩa cho danh từ 'treatment' cần tính từ <b>cruel</b> (tàn nhẫn)." },
+    { id: 32, q: "Ötzi's story shows the ___ fate of a man who lived thousands of years ago.", options: ["cruel treatment", "cruel fate", "cruel punishment", "cruel irony"], correct: 2, exp: "<b>cruel fate</b>: số phận nghiệt ái/tàn khốc." },
+    { id: 33, q: "The discovery of Ötzi was a ___ irony of history.", options: ["cruel fate", "cruel trick", "cruel irony", "cruel treatment"], correct: 3, exp: "<b>cruel irony</b>: sự trớ trêu tàn nhẫn của lịch sử." },
+    { id: 34, q: "The government wants to ___ traditional crafts among young people.", options: ["protect", "promote", "prolong", "provide"], correct: 2, exp: "<b>promote</b>: quảng bá, thúc đẩy sự phát triển." },
+    { id: 35, q: "Museums can ___ traditional culture for future generations.", options: ["promote", "protect", "propose", "process"], correct: 2, exp: "<b>protect</b>: bảo vệ văn hóa truyền thống." },
+    { id: 36, q: "The project will ___ the use of traditional materials.", options: ["promote", "progress", "propose", "provide"], correct: 1, exp: "<b>promote</b>: khuyến khích, thúc đẩy sử dụng." },
+    { id: 37, q: "The new technology can ___ researchers to study ancient objects safely.", options: ["enhance", "ensure", "enable", "encourage"], correct: 3, exp: "Cấu trúc <b>enable somebody to do something</b>: cho phép ai làm gì." },
+    { id: 38, q: "Better protection can help ancient traditions ___.", options: ["enlarge", "endure", "enforce", "enhance"], correct: 2, exp: "<b>endure</b>: kéo dài, tồn tại lâu bền." },
+    { id: 39, q: "The government wants to ___ the law more strictly.", options: ["ensure", "encourage", "enforce", "enable"], correct: 3, exp: "<b>enforce the law</b>: thực thi luật pháp." },
+    { id: 40, q: "The museum plans to ___ the exhibition next year.", options: ["enlarge", "endure", "enable", "ensure"], correct: 1, exp: "<b>enlarge</b>: mở rộng (quy mô triển lãm)." },
+    { id: 41, q: "The archaeologists discovered a new ancient ___.", options: ["site", "shift", "shelter", "surface"], correct: 1, exp: "<b>ancient site</b>: di tích/địa điểm cổ đại." },
+    { id: 42, q: "The workers built a temporary ___ near the excavation area.", options: ["exhibit", "shelter", "surface", "record"], correct: 2, exp: "<b>shelter</b>: chỗ trú ẩn, lán trại tạm thời." },
+    { id: 43, q: "The museum will ___ several ancient tools.", options: ["exhibit", "surface", "wonder", "command"], correct: 1, exp: "<b>exhibit</b>: trưng bày." },
+    { id: 44, q: "The scientists carefully examined the ___.", options: ["sand", "surface", "debate", "rule"], correct: 2, exp: "<b>surface</b>: bề mặt của vật thể." },
+    { id: 45, q: "Visitors must ___ access to protected archaeological sites.", options: ["gain", "limit", "provide", "have"], correct: 1, exp: "Cụm từ <b>gain access to</b>: có được/được phép truy cập vào." },
+    { id: 46, q: "Researchers need to ___ access to the ancient site before beginning their study.", options: ["gain", "restrict", "limit", "provide"], correct: 1, exp: "Cụm từ <b>gain access to</b>: có quyền truy cập." },
+    { id: 47, q: "Museums should ___ access to historical information for students.", options: ["restrict", "provide", "limit", "gain"], correct: 2, exp: "<b>provide access to</b>: cung cấp quyền truy cập/tiếp cận." },
+    { id: 48, q: "Tourists should not have unlimited ___ to fragile archaeological sites.", options: ["effect", "access", "response", "impact"], correct: 2, exp: "Cụm từ <b>have access to</b>: có sự tiếp cận." },
+    { id: 49, q: "Climate change can have a ___ impact on coral reefs.", options: ["negative", "inaccurate", "invisible", "ineffective"], correct: 1, exp: "<b>negative impact</b>: tác động tiêu cực." },
+    { id: 50, q: "Pollution may have a ___ effect on marine ecosystems.", options: ["negative", "significant", "vast", "moderate"], correct: 1, exp: "<b>negative effect</b>: ảnh hưởng tiêu cực." },
+    { id: 51, q: "A negative ___ can make people less willing to protect the environment.", options: ["response", "attitude", "result", "effect"], correct: 2, exp: "<b>negative attitude</b>: thái độ tiêu cực." },
+    { id: 52, q: "Which phrase is more academic than “bad effect”?", options: ["tiny effect", "negative effect", "cruel effect", "invisible effect"], correct: 2, exp: "<b>negative effect</b> mang tính học thuật hơn cụm từ 'bad effect'." },
+    { id: 53, q: "“Correct” becomes “___” with the prefix in-.", options: ["inaccurate", "incorrect", "inactive", "invisible"], correct: 2, exp: "Tiền tố <i>in-</i> + correct = <b>incorrect</b> (không đúng)." },
+    { id: 54, q: "“Visible” becomes “___” with the prefix in-.", options: ["ineffective", "inaccurate", "invisible", "insecure"], correct: 3, exp: "Tiền tố <i>in-</i> + visible = <b>invisible</b> (vô hình/không nhìn thấy)." },
+    { id: 55, q: "“Accurate” becomes “___” with the prefix in-.", options: ["incorrect", "inaccurate", "inactive", "inevitable"], correct: 2, exp: "Tiền tố <i>in-</i> + accurate = <b>inaccurate</b> (không chính xác)." },
+    { id: 56, q: "“Active” becomes “___” with the prefix in-.", options: ["inactive", "invisible", "insecure", "ineffective"], correct: 1, exp: "Tiền tố <i>in-</i> + active = <b>inactive</b> (không hoạt động)." },
+    { id: 57, q: "“Effective” becomes “___” with the prefix in-.", options: ["inevitable", "insecure", "ineffective", "inaccurate"], correct: 3, exp: "Tiền tố <i>in-</i> + effective = <b>ineffective</b> (không hiệu quả)." },
+    { id: 58, q: "Some sharks are almost ___ in deep water.", options: ["inaccurate", "invisible", "ineffective", "inactive"], correct: 2, exp: "<b>invisible</b>: gần như vô hình/không nhìn thấy được dưới nước sâu." },
+    { id: 59, q: "An ___ description of sharks can lead to misunderstandings.", options: ["inactive", "invisible", "inaccurate", "inevitable"], correct: 3, exp: "<b>inaccurate description</b>: sự mô tả không chính xác." },
+    { id: 60, q: "Plastic pollution can make marine conservation efforts ___.", options: ["insecure", "ineffective", "incorrect", "invisible"], correct: 2, exp: "<b>ineffective</b>: làm cho các nỗ lực trở nên không có hiệu quả." }
+];
+
+let correctCount = 0;
+let wrongCount = 0;
+let answeredCount = 0;
+const totalQuestions = quizData.length;
+
+function renderQuiz() {
+    const container = document.getElementById('quiz-container');
+    
+    quizData.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `q-${item.id}`;
+
+        const title = document.createElement('div');
+        title.className = 'question-title';
+        title.innerHTML = `Câu ${item.id}: ${item.q}`;
+        card.appendChild(title);
+
+        const optionsGrid = document.createElement('div');
+        optionsGrid.className = 'options-grid';
+
+        item.options.forEach((opt, optIndex) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = `${String.fromCharCode(65 + optIndex)}. ${opt}`;
+            btn.onclick = () => checkAnswer(item.id, optIndex + 1, item.correct);
+            optionsGrid.appendChild(btn);
+        });
+
+        card.appendChild(optionsGrid);
+
+        const exp = document.createElement('div');
+        exp.className = 'explanation';
+        exp.id = `exp-${item.id}`;
+        card.appendChild(exp);
+
+        container.appendChild(card);
+    });
+}
+
+function checkAnswer(questionId, selectedOption, correctOption) {
+    const card = document.getElementById(`q-${questionId}`);
+    const buttons = card.querySelectorAll('.option-btn');
+    const expDiv = document.getElementById(`exp-${questionId}`);
+
+    const isCorrect = selectedOption === correctOption;
+
+    if (isCorrect) {
+        correctCount++;
+    } else {
+        wrongCount++;
+    }
+    answeredCount++;
+
+    // Vô hiệu hóa tất cả các nút trong câu hỏi hiện tại
+    buttons.forEach((btn, index) => {
+        btn.disabled = true;
+        const optionNum = index + 1;
+        if (optionNum === correctOption) {
+            btn.classList.add('correct');
+        } else if (optionNum === selectedOption) {
+            btn.classList.add('wrong');
+        }
+    });
+
+    // Cập nhật giao diện giải thích
+    const itemData = quizData.find(q => q.id === questionId);
+    expDiv.innerHTML = `
+        <strong>${isCorrect ? '✅ Chính xác!' : '❌ Chưa đúng!'}</strong><br>
+        <strong>Đáp án đúng:</strong> Option ${correctOption} (${itemData.options[correctOption - 1]})<br>
+        <strong>Giải thích:</strong> ${itemData.exp}
+    `;
+    expDiv.classList.add('show');
+
+    // Cập nhật thanh điểm & tiến độ
+    updateStats();
+}
+
+function updateStats() {
+    document.getElementById('correct-count').innerText = correctCount;
+    document.getElementById('wrong-count').innerText = wrongCount;
+    document.getElementById('answered-count').innerText = answeredCount;
+
+    const percent = Math.round((answeredCount / totalQuestions) * 100);
+    document.getElementById('progress-percent').innerText = `${percent}%`;
+    document.getElementById('progress-bar').style.width = `${percent}%`;
+
+    // Khi trả lời hết 60 câu
+    if (answeredCount === totalQuestions) {
+        const accuracy = Math.round((correctCount / totalQuestions) * 100);
+        document.getElementById('final-correct').innerText = correctCount;
+        document.getElementById('final-accuracy').innerText = `${accuracy}%`;
+        document.getElementById('summary-card').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+// Khởi chạy
+window.onload = renderQuiz;
+</script>
+
+</body>
+</html>
