@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luyện Tập Dịch: Câu So Sánh Hơn (Comparative Sentences)</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --success: #16a34a;
+      --error: #dc2626;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 { font-size: 1.8rem; color: var(--primary); margin-bottom: 8px; }
+    p.subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* Dashboard tracking */
+    .dashboard {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .progress-bar-bg {
+      flex: 1;
+      height: 10px;
+      background: var(--border);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .stats {
+      display: flex;
+      gap: 16px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .stat-item span { color: var(--primary); }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      transition: border-color 0.2s;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .question-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .hint-box {
+      background-color: #f1f5f9;
+      border-left: 3px solid var(--primary);
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 14px;
+    }
+
+    .hint-box strong { color: var(--text); }
+
+    .input-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    button {
+      padding: 10px 18px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover { background: var(--primary-hover); }
+
+    button.btn-reset {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+    button.btn-reset:hover { background: #cbd5e1; }
+
+    /* Results section */
+    .result-section {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+      font-size: 0.9rem;
+    }
+
+    .result-section.correct {
+      background-color: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+    }
+
+    .result-section.incorrect {
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+
+    .explanation {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Luyện Tập So Sánh Hơn Trong Tiếng Anh</h1>
+    <p class="subtitle">Nhập câu dịch tiếng Anh tương ứng. Nhấn Enter hoặc bấm "Kiểm tra" để nhận phản hồi.</p>
+  </header>
+
+  <div class="dashboard">
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <div class="stats">
+      <div class="stat-item">Đã làm: <span id="stat-completed">0</span>/20</div>
+      <div class="stat-item">Đúng: <span id="stat-correct">0</span></div>
+    </div>
+  </div>
+
+  <div id="quiz-container"></div>
+</div>
+
+<script>
+const questions = [
+  {
+    id: 1,
+    vi: "Một chiếc ô tô nhanh hơn một chiếc xe đạp.",
+    hints: "Từ gợi ý: car, fast, bicycle",
+    correctAnswers: [
+      "A car is faster than a bicycle.",
+      "A car is faster than a bike."
+    ],
+    explanation: "Dùng tính từ ngắn 'fast' + 'er' + 'than'."
+  },
+  {
+    id: 2,
+    vi: "Nhà tôi lớn hơn nhà bạn.",
+    hints: "Từ gợi ý: house / home, big, your house / yours",
+    correctAnswers: [
+      "My house is bigger than your house.",
+      "My house is bigger than yours.",
+      "My home is bigger than yours.",
+      "My home is bigger than your home."
+    ],
+    explanation: "Tính từ ngắn 'big' gấp đôi phụ âm cuối trước khi thêm '-er' -> 'bigger'."
+  },
+  {
+    id: 3,
+    vi: "Hôm nay nóng hơn hôm qua.",
+    hints: "Từ gợi ý: today, hot, yesterday",
+    correctAnswers: [
+      "Today is hotter than yesterday.",
+      "It is hotter today than yesterday."
+    ],
+    explanation: "Tính từ 'hot' gấp đôi chữ 't' -> 'hotter'."
+  },
+  {
+    id: 4,
+    vi: "Bài kiểm tra này dễ hơn bài trước.",
+    hints: "Từ gợi ý: test / exam, easy, previous one / last one",
+    correctAnswers: [
+      "This test is easier than the last one.",
+      "This exam is easier than the last one.",
+      "This test is easier than the previous test.",
+      "This test is easier than the previous one."
+    ],
+    explanation: "Tính từ 2 âm tiết kết thúc bằng 'y' ('easy') đổi 'y' thành 'i' rồi thêm '-er' -> 'easier'."
+  },
+  {
+    id: 5,
+    vi: "Tiếng Anh thú vị hơn Toán đối với tôi.",
+    hints: "Từ gợi ý: English, interesting, Math / Mathematics, to me / for me",
+    correctAnswers: [
+      "English is more interesting than Math to me.",
+      "English is more interesting than Math for me.",
+      "English is more interesting than Mathematics to me.",
+      "English is more interesting to me than Math."
+    ],
+    explanation: "Tính từ dài 'interesting' sử dụng 'more' + tính từ + 'than'."
+  },
+  {
+    id: 6,
+    vi: "Máy tính mới đắt hơn máy tính cũ.",
+    hints: "Từ gợi ý: new computer, expensive, old computer / old one",
+    correctAnswers: [
+      "The new computer is more expensive than the old computer.",
+      "The new computer is more expensive than the old one.",
+      "A new computer is more expensive than an old one."
+    ],
+    explanation: "'Expensive' là tính từ dài (3 âm tiết) -> thêm 'more' phía trước."
+  },
+  {
+    id: 7,
+    vi: "Bài tập này khó hơn bài trước.",
+    hints: "Từ gợi ý: exercise / assignment, difficult / hard, previous one / last one",
+    correctAnswers: [
+      "This exercise is more difficult than the last one.",
+      "This exercise is harder than the last one.",
+      "This assignment is more difficult than the previous one.",
+      "This exercise is more difficult than the previous one."
+    ],
+    explanation: "'Difficult' dùng 'more difficult'; 'Hard' là tính từ ngắn dùng 'harder'."
+  },
+  {
+    id: 8,
+    vi: "Anh ấy nói tiếng Anh trôi chảy hơn tôi.",
+    hints: "Từ gợi ý: speak English, fluently, me / I do",
+    correctAnswers: [
+      "He speaks English more fluently than me.",
+      "He speaks English more fluently than I do.",
+      "He speaks English more fluently than I."
+    ],
+    explanation: "So sánh hơn của trạng từ 'fluently' -> 'more fluently'."
+  },
+  {
+    id: 9,
+    vi: "Bố tôi lái xe cẩn thận hơn mẹ tôi.",
+    hints: "Từ gợi ý: my father, drive, carefully, my mother / my mom",
+    correctAnswers: [
+      "My father drives more carefully than my mother.",
+      "My dad drives more carefully than my mom.",
+      "My father drives more carefully than my mom."
+    ],
+    explanation: "Trạng từ 'carefully' dùng 'more carefully'."
+  },
+  {
+    id: 10,
+    vi: "Cô ấy làm việc hiệu quả hơn đồng nghiệp của mình.",
+    hints: "Từ gợi ý: work, efficiently / effectively, colleague / coworker",
+    correctAnswers: [
+      "She works more efficiently than her colleagues.",
+      "She works more efficiently than her coworker.",
+      "She works more effectively than her colleagues.",
+      "She works more efficiently than her colleague."
+    ],
+    explanation: "Trạng từ 'efficiently' hoặc 'effectively' đi kèm với 'more'."
+  },
+  {
+    id: 11,
+    vi: "Chiếc điện thoại này tốt hơn chiếc cũ của tôi.",
+    hints: "Từ gợi ý: phone, good -> better, my old one",
+    correctAnswers: [
+      "This phone is better than my old one.",
+      "This phone is better than my old phone."
+    ],
+    explanation: "'Good' là tính từ bất quy tắc -> dạng so sánh hơn là 'better'."
+  },
+  {
+    id: 12,
+    vi: "Kết quả của anh ấy tệ hơn kết quả của tôi.",
+    hints: "Từ gợi ý: result, bad -> worse, my result / mine",
+    correctAnswers: [
+      "His result is worse than my result.",
+      "His result is worse than mine.",
+      "His results are worse than mine."
+    ],
+    explanation: "'Bad' là tính từ bất quy tắc -> dạng so sánh hơn là 'worse'."
+  },
+  {
+    id: 13,
+    vi: "Cô ấy có nhiều tiền hơn chị gái mình.",
+    hints: "Từ gợi ý: have, money, much / many -> more, sister",
+    correctAnswers: [
+      "She has more money than her sister.",
+      "She has more money than her older sister."
+    ],
+    explanation: "So sánh hơn của danh từ không đếm được 'money' dùng 'more + [danh từ] + than'."
+  },
+  {
+    id: 14,
+    vi: "Năm nay chúng tôi có ít thời gian rảnh hơn.",
+    hints: "Từ gợi ý: this year, free time, little -> less",
+    correctAnswers: [
+      "This year we have less free time.",
+      "We have less free time this year.",
+      "We have less free time this year than last year."
+    ],
+    explanation: "Thời gian không đếm được -> dùng 'less' (dạng so sánh hơn của 'little')."
+  },
+  {
+    id: 15,
+    vi: "Có ít học sinh hơn trong lớp này so với năm ngoái.",
+    hints: "Từ gợi ý: there are, students, few -> fewer, in this class, last year",
+    correctAnswers: [
+      "There are fewer students in this class than last year.",
+      "There are fewer students in this class compared to last year."
+    ],
+    explanation: "Học sinh (students) là danh từ đếm được số nhiều -> dùng 'fewer' (dạng so sánh hơn của 'few')."
+  },
+  {
+    id: 16,
+    vi: "Trường tôi xa nhà tôi hơn trường của bạn.",
+    hints: "Từ gợi ý: my school, far -> farther / further, my house, your school / yours",
+    correctAnswers: [
+      "My school is farther from my house than yours.",
+      "My school is farther from my house than your school.",
+      "My school is further from my home than yours.",
+      "My school is farther than your school from my home."
+    ],
+    explanation: "'Far' dạng so sánh hơn khoảng cách địa lý là 'farther' hoặc 'further'."
+  },
+  {
+    id: 17,
+    vi: "Anh trai tôi chạy nhanh hơn tôi.",
+    hints: "Từ gợi ý: my brother, run, fast, me / I do",
+    correctAnswers: [
+      "My brother runs faster than me.",
+      "My brother runs faster than I do.",
+      "My older brother runs faster than me."
+    ],
+    explanation: "'Fast' vừa là tính từ vừa là trạng từ -> dạng so sánh hơn là 'faster'."
+  },
+  {
+    id: 18,
+    vi: "Giáo viên giải thích bài học rõ ràng hơn hôm qua.",
+    hints: "Từ gợi ý: teacher, explain, lesson, clearly, yesterday",
+    correctAnswers: [
+      "The teacher explained the lesson more clearly than yesterday.",
+      "The teacher explains the lesson more clearly than yesterday."
+    ],
+    explanation: "Trạng từ 'clearly' dùng 'more clearly'."
+  },
+  {
+    id: 19,
+    vi: "Vận động viên đó thi đấu tốt hơn mùa giải trước.",
+    hints: "Từ gợi ý: athlete / player, compete / play, well -> better, last season",
+    correctAnswers: [
+      "That athlete played better than last season.",
+      "That athlete competed better than last season.",
+      "That athlete performed better than last season."
+    ],
+    explanation: "Trạng từ 'well' có dạng so sánh hơn bất quy tắc là 'better'."
+  },
+  {
+    id: 20,
+    vi: "Em trai tôi cư xử tệ hơn hôm qua.",
+    hints: "Từ gợi ý: my younger brother, behave, badly -> worse, yesterday",
+    correctAnswers: [
+      "My younger brother behaved worse than yesterday.",
+      "My brother behaved worse than yesterday.",
+      "My younger brother behaves worse than yesterday."
+    ],
+    explanation: "Trạng từ 'badly' đổi thành 'worse' trong so sánh hơn."
+  }
+];
+
+// State tracking
+const userState = {};
+
+function normalizeText(str) {
+  return str.toLowerCase()
+    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function renderQuiz() {
+  const container = document.getElementById("quiz-container");
+  container.innerHTML = "";
+
+  questions.forEach((q, index) => {
+    userState[q.id] = userState[q.id] || { status: 'unanswered', inputVal: '' };
+
+    const card = document.createElement("div");
+    card.className = "card";
+    card.id = `card-${q.id}`;
+
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="question-title">Câu ${index + 1}: ${q.vi}</div>
+      </div>
+      <div class="hint-box">💡 <strong>Gợi ý:</strong> ${q.hints}</div>
+      <div class="input-group">
+        <input type="text" id="input-${q.id}" placeholder="Nhập câu dịch tiếng Anh..." 
+               value="${userState[q.id].inputVal}" 
+               onkeydown="handleKeyDown(event, ${q.id})">
+        <button id="btn-check-${q.id}" onclick="checkAnswer(${q.id})">Kiểm tra</button>
+        <button id="btn-reset-${q.id}" class="btn-reset" style="display:none;" onclick="resetQuestion(${q.id})">Nhập lại</button>
+      </div>
+      <div class="result-section" id="result-${q.id}">
+        <div id="status-${q.id}"></div>
+        <div class="explanation" id="exp-${q.id}"></div>
+      </div>
+    `;
+
+    container.appendChild(card);
+    if (userState[q.id].status !== 'unanswered') {
+      applyStateToUI(q.id);
+    }
+  });
+}
+
+function checkAnswer(id) {
+  const q = questions.find(item => item.id === id);
+  const inputEl = document.getElementById(`input-${id}`);
+  const userText = inputEl.value;
+  
+  if (!userText.trim()) return;
+
+  const normalizedUser = normalizeText(userText);
+  const isCorrect = q.correctAnswers.some(ans => normalizeText(ans) === normalizedUser);
+
+  userState[id] = {
+    status: isCorrect ? 'correct' : 'incorrect',
+    inputVal: userText
+  };
+
+  applyStateToUI(id);
+  updateDashboard();
+}
+
+function applyStateToUI(id) {
+  const q = questions.find(item => item.id === id);
+  const state = userState[id];
+  const resultEl = document.getElementById(`result-${id}`);
+  const statusEl = document.getElementById(`status-${id}`);
+  const expEl = document.getElementById(`exp-${id}`);
+  const btnCheck = document.getElementById(`btn-check-${id}`);
+  const btnReset = document.getElementById(`btn-reset-${id}`);
+  const inputEl = document.getElementById(`input-${id}`);
+
+  resultEl.style.display = "block";
+  btnReset.style.display = "inline-block";
+
+  if (state.status === 'correct') {
+    resultEl.className = "result-section correct";
+    statusEl.innerHTML = "<strong>✓ Chính xác!</strong>";
+    expEl.innerHTML = `<b>Đáp án mẫu:</b> ${q.correctAnswers[0]}<br><b>Giải thích:</b> ${q.explanation}`;
+  } else {
+    resultEl.className = "result-section incorrect";
+    statusEl.innerHTML = "<strong>✕ Chưa chính xác.</strong>";
+    expEl.innerHTML = `<b>Đáp án gợi ý:</b> ${q.correctAnswers[0]}<br><b>Giải thích:</b> ${q.explanation}`;
+  }
+}
+
+function resetQuestion(id) {
+  userState[id] = { status: 'unanswered', inputVal: '' };
+  
+  document.getElementById(`input-${id}`).value = "";
+  document.getElementById(`result-${id}`).style.display = "none";
+  document.getElementById(`btn-reset-${id}`).style.display = "none";
+  document.getElementById(`input-${id}`).focus();
+  
+  updateDashboard();
+}
+
+function handleKeyDown(event, id) {
+  if (event.key === "Enter") {
+    checkAnswer(id);
+  }
+}
+
+function updateDashboard() {
+  const total = questions.length;
+  let completed = 0;
+  let correct = 0;
+
+  Object.values(userState).forEach(st => {
+    if (st.status !== 'unanswered') {
+      completed++;
+      if (st.status === 'correct') correct++;
+    }
+  });
+
+  document.getElementById("stat-completed").innerText = completed;
+  document.getElementById("stat-correct").innerText = correct;
+  
+  const percentage = (completed / total) * 100;
+  document.getElementById("progress-fill").style.width = `${percentage}%`;
+}
+
+// Khởi chạy ứng dụng
+renderQuiz();
+</script>
+</body>
+</html>
