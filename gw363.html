@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Writing - Interactive Exercises 7 to 12</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        /* Activity 7 Hint Styles */
+        .vi-hint {
+            display: inline-flex;
+            align-items: center;
+            background-color: #f1f5f9;
+            color: #475569;
+            border: 1px dashed #94a3b8;
+            padding: 2px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            margin: 2px 0;
+        }
+        
+        .vi-hint:hover {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            border-color: #64748b;
+        }
+        
+        .en-revealed {
+            display: inline-flex;
+            align-items: center;
+            background-color: #dcfce7;
+            color: #15803d;
+            border: 1px solid #86efac;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin: 2px 0;
+        }
+
+        /* Activity 8 Toggle Modes */
+        .act8-step-0 .underlined-part {
+            border-bottom: 2px solid transparent;
+        }
+        
+        .act8-step-1 .underlined-part {
+            border-bottom: 2px dashed #3b82f6;
+            background-color: #eff6ff;
+            padding: 0 4px;
+            border-radius: 2px;
+        }
+
+        .act8-step-2 .underlined-part {
+            border-bottom: 2px solid #ef4444;
+            background-color: #fef2f2;
+            padding: 0 4px;
+            border-radius: 2px;
+            text-decoration: line-through;
+            color: #991b1b;
+        }
+
+        .correction-badge {
+            display: inline-block;
+            background-color: #10b981;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 6px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .correct-tag {
+            display: inline-block;
+            background-color: #06b6d4;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 6px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        /* Drag and Drop Zone Styles (Activity 10) */
+        .drop-zone {
+            display: inline-block;
+            min-width: 110px;
+            height: 32px;
+            border: 2px dashed #94a3b8;
+            background-color: #f8fafc;
+            border-radius: 6px;
+            vertical-align: middle;
+            margin: 0 4px;
+            text-align: center;
+            line-height: 28px;
+            transition: all 0.2s ease;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #6366f1;
+            background-color: #e0e7ff;
+        }
+
+        .drag-chip {
+            display: inline-block;
+            background-color: #4f46e5;
+            color: white;
+            font-weight: 600;
+            padding: 3px 12px;
+            border-radius: 6px;
+            cursor: grab;
+            user-select: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.15s ease;
+        }
+
+        .drag-chip:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+
+        /* Activity 11 Interactive Error Underlines */
+        .err-target {
+            padding: 2px 4px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .err-highlighted {
+            border-bottom: 2px dashed #ef4444;
+            background-color: #fef2f2;
+        }
+
+        .err-corrected {
+            background-color: #dcfce7;
+            color: #166534;
+            font-weight: 600;
+            border-bottom: 2px solid #22c55e;
+        }
+
+        /* Activity 12 Text Evidence Highlight */
+        .evidence-highlight {
+            background-color: #fef08a;
+            border-left: 4px solid #eab308;
+            padding-left: 6px;
+            transition: background-color 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-3px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+
+    <!-- MAIN CONTAINER -->
+    <div class="max-w-6xl mx-auto space-y-8">
+
+        <!-- HEADER & NAVIGATION TAB -->
+        <header class="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 text-white p-6 sm:p-8 rounded-2xl shadow-xl">
+            <div class="flex items-center space-x-3 mb-3">
+                <i class="fa-solid fa-graduation-cap text-3xl text-amber-300"></i>
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Great Writing Interactive Suite</h1>
+            </div>
+            <p class="text-indigo-100 text-sm sm:text-base max-w-3xl mb-6">
+                Thực hành ngữ pháp, liên từ, chỉnh sửa lỗi sai và phân tích bài viết Essay 6.2 tương tác trực quan.
+            </p>
+
+            <!-- Navigation Bar -->
+            <nav class="flex flex-wrap gap-2 bg-white/10 p-2 rounded-xl backdrop-blur-md">
+                <button id="btn-tab-act7-8" onclick="switchTab('act7-8')" class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all bg-indigo-600 text-white shadow-md">
+                    <i class="fa-solid fa-list-check mr-1.5"></i> Activity 7 & 8
+                </button>
+                <button id="btn-tab-act9" onclick="switchTab('act9')" class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">
+                    <i class="fa-solid fa-bullseye mr-1.5"></i> Activity 9 (Hook)
+                </button>
+                <button id="btn-tab-act10" onclick="switchTab('act10')" class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">
+                    <i class="fa-solid fa-arrows-spin mr-1.5"></i> Activity 10 (Connectors)
+                </button>
+                <button id="btn-tab-act11" onclick="switchTab('act11')" class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> Activity 11 (Editing)
+                </button>
+                <button id="btn-tab-act12" onclick="switchTab('act12')" class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">
+                    <i class="fa-solid fa-book-open mr-1.5"></i> Activity 12 (Analysis)
+                </button>
+            </nav>
+        </header>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 1: ACTIVITY 7 & ACTIVITY 8 -->
+        <!-- ========================================================================= -->
+        <div id="tab-act7-8" class="tab-content space-y-8">
+            
+            <!-- ACTIVITY 7 -->
+            <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 border-b border-slate-200 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Activity 7</span>
+                        <h2 class="text-xl font-bold text-slate-800 mt-1">Parallel Structure</h2>
+                        <p class="text-slate-500 text-sm mt-0.5">Click vào cụm tiếng Việt trong ngoặc để xem đáp án dịch tiếng Anh tương ứng.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="revealAllAct7()" class="px-3.5 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 font-medium text-sm rounded-lg transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-eye"></i> Hiện tất cả
+                        </button>
+                        <button onclick="resetAct7()" class="px-3.5 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium text-sm rounded-lg transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i> Làm lại
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-5 sm:p-8 space-y-5 text-base sm:text-lg leading-relaxed text-slate-700">
+                    <div class="p-4 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 flex gap-3">
+                        <span class="font-bold text-indigo-600 min-w-[24px]">1.</span>
+                        <div>
+                            To host a large sporting event such as the World Cup Final, a city needs to have good facilities, 
+                            <span class="vi-hint" data-en="good public transportation" onclick="toggleHint(this)">(giao thông công cộng tốt)</span>, and 
+                            <span class="vi-hint" data-en="many modern hotels" onclick="toggleHint(this)">(nhiều khách sạn hiện đại)</span>.
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 flex gap-3">
+                        <span class="font-bold text-indigo-600 min-w-[24px]">2.</span>
+                        <div>
+                            The best vacation spots provide a beautiful setting and 
+                            <span class="vi-hint" data-en="many fun recreational activities" onclick="toggleHint(this)">(nhiều hoạt động giải trí thú vị)</span>.
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 flex gap-3">
+                        <span class="font-bold text-indigo-600 min-w-[24px]">3.</span>
+                        <div>
+                            While coastal cities have to worry about rising sea levels and beach erosion, inland cities worry more about 
+                            <span class="vi-hint" data-en="prolonged heatwaves" onclick="toggleHint(this)">(nắng nóng kéo dài)</span> and 
+                            <span class="vi-hint" data-en="a lack of clean water" onclick="toggleHint(this)">(thiếu nguồn nước sạch)</span>.
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 flex gap-3">
+                        <span class="font-bold text-indigo-600 min-w-[24px]">4.</span>
+                        <div>
+                            In summer, temperatures rise, crops grow, and workers take vacations. In winter, 
+                            <span class="vi-hint" data-en="temperatures drop" onclick="toggleHint(this)">(nhiệt độ giảm xuống)</span>, 
+                            <span class="vi-hint" data-en="crops stop growing" onclick="toggleHint(this)">(cây cối ngừng phát triển)</span>, and 
+                            <span class="vi-hint" data-en="people stay indoors more" onclick="toggleHint(this)">(mọi người ở trong nhà nhiều hơn)</span>.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ACTIVITY 8 -->
+            <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 border-b border-slate-200 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Activity 8</span>
+                        <h2 class="text-xl font-bold text-slate-800 mt-1">Comparatives, Superlatives, and Parallel Structure</h2>
+                        <p class="text-slate-500 text-sm mt-0.5">Click vào <b>số thứ tự câu</b>: Lần 1 = Gạch chân | Lần 2 = Hiện sửa lỗi.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="revealAllAct8()" class="px-3.5 py-2 bg-purple-50 text-purple-600 hover:bg-purple-100 font-medium text-sm rounded-lg transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-check-double"></i> Xem toàn bộ sửa lỗi
+                        </button>
+                        <button onclick="resetAct8()" class="px-3.5 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium text-sm rounded-lg transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i> Làm lại
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-5 sm:p-8 space-y-6 text-base sm:text-lg leading-relaxed text-slate-700">
+                    <div id="act8-q1" class="act8-item act8-step-0 p-4 rounded-xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 transition-all flex items-start gap-3">
+                        <button onclick="cycleAct8(1)" class="num-btn min-w-[32px] h-[32px] bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg flex items-center justify-center shadow-sm">1</button>
+                        <div class="pt-0.5 flex-1">
+                            The most expensive items in this company's budget are employee salaries, communication costs, and <span class="underlined-part">spend money on office supplies</span>.<span class="correction-target"></span>
+                        </div>
+                    </div>
+                    <div id="act8-q2" class="act8-item act8-step-0 p-4 rounded-xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 transition-all flex items-start gap-3">
+                        <button onclick="cycleAct8(2)" class="num-btn min-w-[32px] h-[32px] bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg flex items-center justify-center shadow-sm">2</button>
+                        <div class="pt-0.5 flex-1">
+                            <span class="underlined-part">Without a doubt, Cairo gets more visitors per year than Sharm el Sheikh does.</span><span class="correction-target"></span>
+                        </div>
+                    </div>
+                    <div id="act8-q3" class="act8-item act8-step-0 p-4 rounded-xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 transition-all flex items-start gap-3">
+                        <button onclick="cycleAct8(3)" class="num-btn min-w-[32px] h-[32px] bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg flex items-center justify-center shadow-sm">3</button>
+                        <div class="pt-0.5 flex-1">
+                            The car was going as fast as the truck was, but the car had an accident because it turned the corner <span class="underlined-part">more sharply the truck</span>.<span class="correction-target"></span>
+                        </div>
+                    </div>
+                    <div id="act8-q4" class="act8-item act8-step-0 p-4 rounded-xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 transition-all flex items-start gap-3">
+                        <button onclick="cycleAct8(4)" class="num-btn min-w-[32px] h-[32px] bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg flex items-center justify-center shadow-sm">4</button>
+                        <div class="pt-0.5 flex-1">
+                            When someone travels to a new city for the first time, <span class="underlined-part">the importantest</span> things he or she needs are a clean place to stay and good food.<span class="correction-target"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 2: ACTIVITY 9 (CHOOSING A HOOK) -->
+        <!-- ========================================================================= -->
+        <div id="tab-act9" class="tab-content hidden space-y-8">
+            <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 border-b border-slate-200 p-5 sm:p-6">
+                    <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Activity 9</span>
+                    <h2 class="text-xl font-bold text-slate-800 mt-1">Choosing a Hook (Essay 6.2)</h2>
+                    <p class="text-slate-500 text-sm mt-0.5">Đọc đoạn văn mở đầu và chọn câu Hook (câu mở đầu thu hút) phù hợp nhất.</p>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-6">
+                    <!-- Vocabulary Box -->
+                    <div class="bg-indigo-50/70 border border-indigo-100 rounded-xl p-4 sm:p-5 text-sm">
+                        <h3 class="font-bold text-indigo-900 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-book"></i> WORDS TO KNOW (Essay 6.2)
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-slate-700">
+                            <div><b>accomplish:</b> (v) hoàn thành, đạt được</div>
+                            <div><b>procedure:</b> (n) quy trình, thủ tục</div>
+                            <div><b>freedom:</b> (n) sự tự do</div>
+                            <div><b>remarkably:</b> (adv) một cách đáng chú ý, rõ rệt</div>
+                            <div><b>motion:</b> (n) sự chuyển động</div>
+                            <div><b>spin:</b> (v) quay tròn</div>
+                        </div>
+                    </div>
+
+                    <!-- Paragraph Context -->
+                    <div class="bg-amber-50/50 border border-amber-200/60 rounded-xl p-5 text-slate-800 leading-relaxed text-lg">
+                        <div class="font-bold text-amber-800 mb-2">ESSAY 6.2: Flying a Model Plane vs. a Real Plane</div>
+                        <div id="act9-hook-placeholder" class="bg-amber-100 border-2 border-dashed border-amber-400 p-3 rounded-lg text-amber-900 font-semibold mb-3 text-center">
+                            [ Chọn câu Hook thích hợp dưới đây ]
+                        </div>
+                        <p>
+                            Many people dream of doing this, but flying is an expensive hobby. However, people who fly model planes can appreciate the wonder of flight. Using remote-controlled model planes, they can enjoy the <b>freedom</b> of taking off in a plane and soaring through the sky. In fact, the experience of flying a model airplane is <b>remarkably</b> similar to piloting a real plane.
+                        </p>
+                    </div>
+
+                    <!-- Options -->
+                    <div class="space-y-3">
+                        <p class="font-bold text-slate-800">Chọn câu mở đầu (Hook) tốt nhất:</p>
+                        
+                        <div onclick="selectHook('a')" id="hook-opt-a" class="p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-400 hover:bg-slate-50 transition-all flex items-start gap-3">
+                            <span class="font-bold bg-slate-200 text-slate-700 px-2.5 py-1 rounded-md">a</span>
+                            <div class="flex-1">
+                                <p class="text-slate-800 font-medium">Have you ever wondered what it would be like to pilot a plane?</p>
+                            </div>
+                        </div>
+
+                        <div onclick="selectHook('b')" id="hook-opt-b" class="p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-400 hover:bg-slate-50 transition-all flex items-start gap-3">
+                            <span class="font-bold bg-slate-200 text-slate-700 px-2.5 py-1 rounded-md">b</span>
+                            <div class="flex-1">
+                                <p class="text-slate-800 font-medium">Someone said, "Flying in an airplane is mostly boring, but sometimes frightening."</p>
+                            </div>
+                        </div>
+
+                        <div onclick="selectHook('c')" id="hook-opt-c" class="p-4 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-400 hover:bg-slate-50 transition-all flex items-start gap-3">
+                            <span class="font-bold bg-slate-200 text-slate-700 px-2.5 py-1 rounded-md">c</span>
+                            <div class="flex-1">
+                                <p class="text-slate-800 font-medium">There were many certified pilots in the United States last year.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Box -->
+                    <div id="act9-feedback" class="hidden p-5 rounded-xl border transition-all"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 3: ACTIVITY 10 (DRAG & DROP CONNECTORS) -->
+        <!-- ========================================================================= -->
+        <div id="tab-act10" class="tab-content hidden space-y-8">
+            <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 border-b border-slate-200 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <span class="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Activity 10</span>
+                        <h2 class="text-xl font-bold text-slate-800 mt-1">Using Connectors and Transitions</h2>
+                        <p class="text-slate-500 text-sm mt-0.5">Kéo các từ nối vào ô trống thích hợp trong đoạn văn Essay 6.2, sau đó nhấn "Nộp bài".</p>
+                    </div>
+                    <button onclick="checkAct10()" class="px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl shadow-md transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Nộp bài
+                    </button>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-6">
+                    <!-- Word Bank -->
+                    <div class="bg-slate-100 p-4 rounded-xl border border-slate-200">
+                        <p class="text-xs font-bold uppercase text-slate-500 tracking-wider mb-3">Ngân hàng từ (Word Bank):</p>
+                        <div id="act10-wordbank" class="flex flex-wrap gap-2.5">
+                            <span draggable="true" ondragstart="drag(event)" id="word-1" class="drag-chip">even though</span>
+                            <span draggable="true" ondragstart="drag(event)" id="word-2" class="drag-chip">both</span>
+                            <span draggable="true" ondragstart="drag(event)" id="word-3" class="drag-chip">for example</span>
+                            <span draggable="true" ondragstart="drag(event)" id="word-4" class="drag-chip">also</span>
+                            <span draggable="true" ondragstart="drag(event)" id="word-5" class="drag-chip">Another</span>
+                            <span draggable="true" ondragstart="drag(event)" id="word-6" class="drag-chip">instance</span>
+                            <span draggable="true" ondragstart="drag(event)" id="word-7" class="drag-chip">In addition</span>
+                            <span draggable="true" ondragstart="drag(event)" id="word-8" class="drag-chip">as</span>
+                        </div>
+                    </div>
+
+                    <!-- Paragraph Exercise -->
+                    <div class="space-y-6 text-slate-800 leading-relaxed text-lg bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <!-- Paragraph 2 -->
+                        <div class="p-3">
+                            <p class="font-bold text-slate-900 mb-2">Paragraph 2</p>
+                            <p>
+                                <sup>1</sup><span class="drop-zone" id="dz-1" ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="Even though"></span> people prepare their model airplanes for flight, they are aware that the procedures are the same as the pre-flight procedures that pilots follow. 
+                                <sup>2</sup><span class="drop-zone" id="dz-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="Both"></span> model planes and real planes require maintenance to be operated safely. 
+                                <sup>3</sup>For <span class="drop-zone" id="dz-3" ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="instance"></span>, they both need to be fueled before they can lift off. In a way, a model airplane enthusiast serves as the ground crew. The flyer must 
+                                <sup>4</sup><span class="drop-zone" id="dz-4" ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="also"></span> test the flight controls just as a real pilot checks the controls before takeoff.
+                            </p>
+                        </div>
+
+                        <!-- Paragraph 3 -->
+                        <div class="p-3 border-t border-slate-200">
+                            <p class="font-bold text-slate-900 mb-2">Paragraph 3</p>
+                            <p>
+                                <sup>5</sup><span class="drop-zone" id="dz-5" ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="Another"></span> similarity between the two airplanes is the physics involved in flying them. For 
+                                <sup>6</sup><span class="drop-zone" id="dz-6" ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="example"></span>, just like a real airplane, a model plane is powered by an engine that creates forward power. 
+                                <sup>7</sup><span class="drop-zone" id="dz-7" ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="In addition"></span>, both planes use ailerons and flaps to control their direction. Surprisingly, 
+                                <sup>8</sup>even <span class="drop-zone" id="dz-8" ondrop="drop(event)" ondragover="allowDrop(event)" data-answer="as"></span> a model plane is small, it flies remarkably well.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Result Notification -->
+                    <div id="act10-result" class="hidden p-4 rounded-xl font-medium"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 4: ACTIVITY 11 (EDITING FOR ERRORS) -->
+        <!-- ========================================================================= -->
+        <div id="tab-act11" class="tab-content hidden space-y-8">
+            <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 border-b border-slate-200 p-5 sm:p-6">
+                    <span class="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Activity 11</span>
+                    <h2 class="text-xl font-bold text-slate-800 mt-1">Editing for Errors (10 Errors)</h2>
+                    <p class="text-slate-500 text-sm mt-0.5">Click vào loại lỗi bên dưới để highlight các vị trí lỗi tương ứng trong đoạn văn. Click trực tiếp vào vị trí lỗi để sửa lỗi!</p>
+                </div>
+
+                <div class="p-6 sm:p-8 space-y-6">
+                    <!-- Error Category Filter Buttons -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="highlightErrCategory('article')" class="px-3.5 py-1.5 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 font-semibold text-xs rounded-lg">Article (1)</button>
+                        <button onclick="highlightErrCategory('parallel')" class="px-3.5 py-1.5 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 font-semibold text-xs rounded-lg">Parallel Structure (2)</button>
+                        <button onclick="highlightErrCategory('subject-verb')" class="px-3.5 py-1.5 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 font-semibold text-xs rounded-lg">Subject-Verb Agreement (2)</button>
+                        <button onclick="highlightErrCategory('verb-tense')" class="px-3.5 py-1.5 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 font-semibold text-xs rounded-lg">Verb Tense (2)</button>
+                        <button onclick="highlightErrCategory('word-form')" class="px-3.5 py-1.5 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 font-semibold text-xs rounded-lg">Word Form (2)</button>
+                        <button onclick="highlightErrCategory('fragment')" class="px-3.5 py-1.5 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 font-semibold text-xs rounded-lg">Fragment (1)</button>
+                        <button onclick="clearErrHighlights()" class="px-3.5 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 font-semibold text-xs rounded-lg ml-auto"><i class="fa-solid fa-eraser"></i> Bỏ highlight</button>
+                    </div>
+
+                    <!-- Paragraph Content with Clickable Error Targets -->
+                    <div class="space-y-4 leading-relaxed text-slate-800 text-lg bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <p>
+                            <b>4</b> Both types of planes have similar parts as well. Both have a throttle that controls the 
+                            <span id="err-1" class="err-target" data-cat="word-form" data-correct="speed" onclick="fixError('err-1')">speedy</span> 
+                            of the plane. Both 
+                            <span id="err-2" class="err-target" data-cat="verb-tense" data-correct="use" onclick="fixError('err-2')">are using</span> 
+                            a rudder on the vertical tail fin that steers 
+                            <span id="err-3" class="err-target" data-cat="article" data-correct="the plane" onclick="fixError('err-3')">plane</span> 
+                            left and right while in the air. In addition, real airplanes and model airplanes 
+                            <span id="err-4" class="err-target" data-cat="subject-verb" data-correct="use" onclick="fixError('err-4')">uses</span> 
+                            ailerons on the wings, allowing the planes to move to the left or to the right. In a real airplane, a foot pedal 
+                            <span id="err-5" class="err-target" data-cat="verb-tense" data-correct="steers" onclick="fixError('err-5')">steered</span> 
+                            the plane left and right while in the air and guides the plane left and right while it is sitting on the ground. Similarly, a remote-controlled switch 
+                            <span id="err-6" class="err-target" data-cat="subject-verb" data-correct="accomplishes" onclick="fixError('err-6')">accomplish</span> 
+                            the same left-right motion on a model airplane.
+                        </p>
+
+                        <p>
+                            <b>5</b> The average person is 
+                            <span id="err-7" class="err-target" data-cat="word-form" data-correct="surprised" onclick="fixError('err-7')">surprisingly</span> 
+                            to find that there are so many similarities between model airplanes and 
+                            <span id="err-8" class="err-target" data-cat="parallel" data-correct="real airplanes" onclick="fixError('err-8')">flying real airplanes</span>. 
+                            Just like a real plane, a model airplane requires pre-flight procedures, how it operates on the same principles of physics, and 
+                            <span id="err-9" class="err-target" data-cat="parallel" data-correct="has similar parts" onclick="fixError('err-9')">has similar parts and systems</span>. 
+                            <span id="err-10" class="err-target" data-cat="fragment" data-correct="Although it is not exactly the same as the original, a model airplane is quite close to it." onclick="fixError('err-10')">Although it is not exactly the same as the original. A model airplane is quite close to it.</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 5: ACTIVITY 12 (ANALYZING ESSAY 6.2 - SPLIT VIEW) -->
+        <!-- ========================================================================= -->
+        <div id="tab-act12" class="tab-content hidden space-y-8">
+            <section class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 border-b border-slate-200 p-5 sm:p-6">
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Activity 12</span>
+                    <h2 class="text-xl font-bold text-slate-800 mt-1">Analyzing Essay 6.2 (Split-View Reading)</h2>
+                    <p class="text-slate-500 text-sm mt-0.5">Click vào các câu hỏi bên phải để xem câu trả lời, giải thích và highlight dẫn chứng trực tiếp ở đoạn văn bên trái.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
+                    
+                    <!-- LEFT COLUMN: COMPLETE ESSAY TEXT -->
+                    <div class="p-6 sm:p-8 space-y-4 max-h-[700px] overflow-y-auto bg-slate-50/50">
+                        <h3 class="font-bold text-lg text-indigo-900 border-b pb-2">ESSAY 6.2: Flying a Model Plane vs. a Real Plane</h3>
+                        
+                        <div id="ev-p1" class="p-3 rounded-lg transition-all">
+                            <span class="font-bold text-xs uppercase text-slate-400 block mb-1">Paragraph 1 (Introduction)</span>
+                            <p class="text-sm leading-relaxed text-slate-700">
+                                Have you ever wondered what it would be like to pilot a plane? Many people dream of doing this, but flying is an expensive hobby. However, people who fly model planes can appreciate the wonder of flight. Using remote-controlled model planes, they can enjoy the freedom of taking off in a plane and soaring through the sky. <span id="ev-thesis" class="transition-all">In fact, the experience of flying a model airplane is remarkably similar to piloting a real plane.</span>
+                            </p>
+                        </div>
+
+                        <div id="ev-p2" class="p-3 rounded-lg transition-all">
+                            <span class="font-bold text-xs uppercase text-slate-400 block mb-1">Paragraph 2 (Body 1: Pre-flight & Controls)</span>
+                            <p class="text-sm leading-relaxed text-slate-700">
+                                <span id="ev-point1" class="transition-all">Even though people prepare their model airplanes for flight, they are aware that the procedures are the same as the pre-flight procedures that pilots follow. Both model planes and real planes require maintenance to be operated safely.</span>
+                            </p>
+                        </div>
+
+                        <div id="ev-p3" class="p-3 rounded-lg transition-all">
+                            <span class="font-bold text-xs uppercase text-slate-400 block mb-1">Paragraph 3 (Body 2: Physics)</span>
+                            <p class="text-sm leading-relaxed text-slate-700">
+                                <span id="ev-point2" class="transition-all">Another similarity between the two airplanes is the physics involved in flying them. For example, just like a real airplane, a model plane is powered by an engine that creates forward power.</span>
+                            </p>
+                        </div>
+
+                        <div id="ev-p4" class="p-3 rounded-lg transition-all">
+                            <span class="font-bold text-xs uppercase text-slate-400 block mb-1">Paragraph 4 (Body 3: Steering Parts)</span>
+                            <p class="text-sm leading-relaxed text-slate-700">
+                                <span id="ev-point3" class="transition-all">Both types of planes have similar parts as well. Both have a throttle that controls the speed of the plane, a rudder that steers, and ailerons on the wings.</span>
+                            </p>
+                        </div>
+
+                        <div id="ev-p5" class="p-3 rounded-lg transition-all">
+                            <span class="font-bold text-xs uppercase text-slate-400 block mb-1">Paragraph 5 (Conclusion)</span>
+                            <p class="text-sm leading-relaxed text-slate-700">
+                                The average person is surprised to find that there are so many similarities between model airplanes and real airplanes. <span id="ev-restated" class="transition-all">Just like a real plane, a model airplane requires pre-flight procedures, operates on the same principles of physics, and has similar parts and systems.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: INTERACTIVE QUESTIONS -->
+                    <div class="p-6 sm:p-8 space-y-4 bg-white">
+                        <h3 class="font-bold text-lg text-slate-800 border-b pb-2">Analysis Questions</h3>
+
+                        <!-- Q1 -->
+                        <div onclick="revealAct12Q(1)" class="p-4 rounded-xl border border-slate-200 hover:border-indigo-400 cursor-pointer transition-all space-y-2">
+                            <p class="font-semibold text-slate-800 text-sm">1. What is the writer's purpose in this essay?</p>
+                            <div id="act12-ans-1" class="hidden text-xs text-indigo-900 bg-indigo-50 p-3 rounded-lg space-y-1">
+                                <p class="font-bold">Đáp án:</p>
+                                <p>The purpose of this essay is to compare flying a model plane with piloting a real plane and show how similar they are.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div onclick="revealAct12Q(2)" class="p-4 rounded-xl border border-slate-200 hover:border-indigo-400 cursor-pointer transition-all space-y-2">
+                            <p class="font-semibold text-slate-800 text-sm">2. What are the points of comparison in this essay?</p>
+                            <div id="act12-ans-2" class="hidden text-xs text-indigo-900 bg-indigo-50 p-3 rounded-lg space-y-1">
+                                <p class="font-bold">Đáp án:</p>
+                                <p>The points of comparison are: (1) pre-flight procedures and maintenance, (2) physics of flying, and (3) control parts/systems (throttle, rudder, ailerons).</p>
+                            </div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div onclick="revealAct12Q(3)" class="p-4 rounded-xl border border-slate-200 hover:border-indigo-400 cursor-pointer transition-all space-y-2">
+                            <p class="font-semibold text-slate-800 text-sm">3. What method of organization does the writer use?</p>
+                            <div id="act12-ans-3" class="hidden text-xs text-indigo-900 bg-indigo-50 p-3 rounded-lg space-y-1">
+                                <p class="font-bold">Đáp án:</p>
+                                <p>Point-by-point method. (Mỗi đoạn thân bài so sánh một điểm chung giữa máy bay mô hình và máy bay thật).</p>
+                            </div>
+                        </div>
+
+                        <!-- Q4 -->
+                        <div onclick="revealAct12Q(4)" class="p-4 rounded-xl border border-slate-200 hover:border-indigo-400 cursor-pointer transition-all space-y-2">
+                            <p class="font-semibold text-slate-800 text-sm">4. Thesis Statement & Restatement in Conclusion?</p>
+                            <div id="act12-ans-4" class="hidden text-xs text-indigo-900 bg-indigo-50 p-3 rounded-lg space-y-1">
+                                <p class="font-bold">Đáp án:</p>
+                                <p><b>Thesis Statement:</b> "In fact, the experience of flying a model airplane is remarkably similar to piloting a real plane."</p>
+                                <p><b>Restated Thesis:</b> "Just like a real plane, a model airplane requires pre-flight procedures, operates on the same principles of physics, and has similar parts and systems."</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="text-center text-slate-400 text-sm py-4">
+            Great Writing Series Interactive Practice • All activities combined in one place
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            
+            // Show target tab
+            const target = document.getElementById(`tab-${tabId}`);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+            // Update tab button active states
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+                btn.classList.add('bg-slate-100', 'text-slate-700', 'hover:bg-slate-200');
+            });
+
+            const activeBtn = document.getElementById(`btn-tab-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-100', 'text-slate-700', 'hover:bg-slate-200');
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+            }
+        }
+        window.switchTab = switchTab; // Explicitly attach to window object
+
+        function toggleHint(element) {
+            const enText = element.getAttribute('data-en');
+            const originalVi = element.getAttribute('data-vi') || element.innerText;
+
+            if (!element.getAttribute('data-vi')) {
+                element.setAttribute('data-vi', originalVi);
+            }
+
+            if (element.classList.contains('vi-hint')) {
+                element.className = 'en-revealed';
+                element.innerHTML = `<i class="fa-solid fa-check text-xs mr-1.5"></i>${enText}`;
+            } else {
+                element.className = 'vi-hint';
+                element.innerText = element.getAttribute('data-vi');
+            }
+        }
+
+        function revealAllAct7() {
+            document.querySelectorAll('.vi-hint').forEach(el => {
+                const enText = el.getAttribute('data-en');
+                if (!el.getAttribute('data-vi')) el.setAttribute('data-vi', el.innerText);
+                el.className = 'en-revealed';
+                el.innerHTML = `<i class="fa-solid fa-check text-xs mr-1.5"></i>${enText}`;
+            });
+        }
+
+        function resetAct7() {
+            document.querySelectorAll('.en-revealed').forEach(el => {
+                const viText = el.getAttribute('data-vi');
+                if (viText) {
+                    el.className = 'vi-hint';
+                    el.innerText = viText;
+                }
+            });
+        }
+
+        const act8Corrections = {
+            1: `<span class="correction-badge"><i class="fa-solid fa-arrow-right mr-1"></i>office supply expenses / office supplies</span>`,
+            2: `<span class="correct-tag"><i class="fa-solid fa-circle-check mr-1"></i>Đúng (No error)</span>`,
+            3: `<span class="correction-badge"><i class="fa-solid fa-arrow-right mr-1"></i>more sharply than the truck</span>`,
+            4: `<span class="correction-badge"><i class="fa-solid fa-arrow-right mr-1"></i>the most important</span>`
+        };
+
+        const act8States = { 1: 0, 2: 0, 3: 0, 4: 0 };
+
+        function cycleAct8(id) {
+            const currentState = act8States[id];
+            const nextState = (currentState + 1) % 3;
+            act8States[id] = nextState;
+
+            const itemElem = document.getElementById(`act8-q${id}`);
+            const target = itemElem.querySelector('.correction-target');
+
+            itemElem.className = `act8-item act8-step-${nextState} p-4 rounded-xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 transition-all flex items-start gap-3`;
+
+            if (nextState === 2) {
+                target.innerHTML = act8Corrections[id];
+            } else {
+                target.innerHTML = '';
+            }
+        }
+
+        function revealAllAct8() {
+            for (let i = 1; i <= 4; i++) {
+                act8States[i] = 2;
+                const itemElem = document.getElementById(`act8-q${i}`);
+                const target = itemElem.querySelector('.correction-target');
+                itemElem.className = `act8-item act8-step-2 p-4 rounded-xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 transition-all flex items-start gap-3`;
+                target.innerHTML = act8Corrections[i];
+            }
+        }
+
+        function resetAct8() {
+            for (let i = 1; i <= 4; i++) {
+                act8States[i] = 0;
+                const itemElem = document.getElementById(`act8-q${i}`);
+                const target = itemElem.querySelector('.correction-target');
+                itemElem.className = `act8-item act8-step-0 p-4 rounded-xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 transition-all flex items-start gap-3`;
+                target.innerHTML = '';
+            }
+        }
+
+        function selectHook(option) {
+            const placeholder = document.getElementById('act9-hook-placeholder');
+            const feedback = document.getElementById('act9-feedback');
+
+            ['a', 'b', 'c'].forEach(opt => {
+                const el = document.getElementById(`hook-opt-${opt}`);
+                el.classList.remove('border-indigo-600', 'bg-indigo-50', 'border-rose-500', 'bg-rose-50');
+            });
+
+            feedback.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-900', 'bg-rose-50', 'border-rose-200', 'text-rose-900');
+
+            if (option === 'a') {
+                document.getElementById('hook-opt-a').classList.add('border-indigo-600', 'bg-indigo-50');
+                placeholder.innerText = 'Have you ever wondered what it would be like to pilot a plane?';
+                placeholder.className = 'bg-emerald-100 border-2 border-emerald-500 p-3 rounded-lg text-emerald-900 font-bold mb-3 text-center';
+                
+                feedback.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
+                feedback.innerHTML = `<p class="font-bold"><i class="fa-solid fa-circle-check text-emerald-600 mr-2"></i>Chính xác!</p><p class="text-sm mt-1">Câu (a) là một câu hỏi mở thu hút người đọc và dẫn dắt trực tiếp đến chủ đề trải nghiệm lái máy bay.</p>`;
+            } else if (option === 'b') {
+                document.getElementById('hook-opt-b').classList.add('border-rose-500', 'bg-rose-50');
+                placeholder.innerText = '[ Chọn câu Hook khác ]';
+                placeholder.className = 'bg-rose-100 border-2 border-rose-400 p-3 rounded-lg text-rose-900 font-semibold mb-3 text-center';
+
+                feedback.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-900');
+                feedback.innerHTML = `<p class="font-bold"><i class="fa-solid fa-circle-xmark text-rose-600 mr-2"></i>Chưa chính xác!</p><p class="text-sm mt-1">Câu (b) mang ý tiêu cực ("mostly boring") không phù hợp với giọng văn nhiệt huyết của bài viết về thú vui lái máy bay mô hình.</p>`;
+            } else {
+                document.getElementById('hook-opt-c').classList.add('border-rose-500', 'bg-rose-50');
+                placeholder.innerText = '[ Chọn câu Hook khác ]';
+                placeholder.className = 'bg-rose-100 border-2 border-rose-400 p-3 rounded-lg text-rose-900 font-semibold mb-3 text-center';
+
+                feedback.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-900');
+                feedback.innerHTML = `<p class="font-bold"><i class="fa-solid fa-circle-xmark text-rose-600 mr-2"></i>Chưa chính xác!</p><p class="text-sm mt-1">Câu (c) đưa ra số liệu thống kê khô khan và không kết nối tốt với câu tiếp theo "Many people dream of doing this...".</p>`;
+            }
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+            ev.currentTarget.classList.add('drag-over');
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('drag-over');
+            const data = ev.dataTransfer.getData("text");
+            const draggedElement = document.getElementById(data);
+            
+            // Clear current content in drop zone
+            ev.currentTarget.innerHTML = '';
+            ev.currentTarget.appendChild(draggedElement);
+        }
+
+        function checkAct10() {
+            let correct = 0;
+            const total = 8;
+
+            for (let i = 1; i <= total; i++) {
+                const zone = document.getElementById(`dz-${i}`);
+                const expected = zone.getAttribute('data-answer').toLowerCase();
+                const child = zone.firstElementChild;
+
+                if (child && child.innerText.trim().toLowerCase() === expected) {
+                    zone.className = 'drop-zone border-2 border-emerald-500 bg-emerald-50';
+                    correct++;
+                } else {
+                    zone.className = 'drop-zone border-2 border-rose-500 bg-rose-50';
+                }
+            }
+
+            const res = document.getElementById('act10-result');
+            res.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-amber-100', 'text-amber-800');
+            
+            if (correct === total) {
+                res.classList.add('bg-emerald-100', 'text-emerald-800');
+                res.innerHTML = `<i class="fa-solid fa-trophy mr-2"></i> Xuất sắc! Bạn đã điền đúng toàn bộ ${correct}/${total} từ nối!`;
+            } else {
+                res.classList.add('bg-amber-100', 'text-amber-800');
+                res.innerHTML = `<i class="fa-solid fa-circle-info mr-2"></i> Bạn đã điền đúng ${correct}/${total} câu. Các ô màu đỏ là chưa chính xác.`;
+            }
+        }
+
+        function highlightErrCategory(category) {
+            clearErrHighlights();
+            document.querySelectorAll(`.err-target[data-cat="${category}"]`).forEach(el => {
+                if (!el.classList.contains('err-corrected')) {
+                    el.classList.add('err-highlighted');
+                }
+            });
+        }
+
+        function clearErrHighlights() {
+            document.querySelectorAll('.err-target').forEach(el => {
+                el.classList.remove('err-highlighted');
+            });
+        }
+
+        function fixError(id) {
+            const el = document.getElementById(id);
+            const correctText = el.getAttribute('data-correct');
+            el.classList.remove('err-highlighted');
+            el.classList.add('err-corrected');
+            el.innerText = correctText;
+        }
+
+        function revealAct12Q(qNum) {
+            const ansBox = document.getElementById(`act12-ans-${qNum}`);
+            const isHidden = ansBox.classList.contains('hidden');
+
+            // Reset previous highlights
+            ['ev-thesis', 'ev-point1', 'ev-point2', 'ev-point3', 'ev-restated'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('evidence-highlight');
+            });
+
+            if (isHidden) {
+                ansBox.classList.remove('hidden');
+
+                if (qNum === 1) {
+                    document.getElementById('ev-thesis').classList.add('evidence-highlight');
+                } else if (qNum === 2) {
+                    document.getElementById('ev-point1').classList.add('evidence-highlight');
+                    document.getElementById('ev-point2').classList.add('evidence-highlight');
+                    document.getElementById('ev-point3').classList.add('evidence-highlight');
+                } else if (qNum === 4) {
+                    document.getElementById('ev-thesis').classList.add('evidence-highlight');
+                    document.getElementById('ev-restated').classList.add('evidence-highlight');
+                }
+            } else {
+                ansBox.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
