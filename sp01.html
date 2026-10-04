@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Has Changed? - English Speaking Practice App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        step1: '#2563eb', // Blue
+                        step2: '#d97706', // Amber
+                        step3: '#059669', // Emerald
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar and smooth animations */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .phrase-highlight {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .phrase-step1 { background-color: #dbeafe; color: #1e40af; border-bottom: 2px solid #2563eb; }
+        .phrase-step1:hover { background-color: #bfdbfe; }
+        
+        .phrase-step2 { background-color: #fef3c7; color: #92400e; border-bottom: 2px solid #d97706; }
+        .phrase-step2:hover { background-color: #fde68a; }
+        
+        .phrase-step3 { background-color: #d1fae5; color: #065f46; border-bottom: 2px solid #059669; }
+        .phrase-step3:hover { background-color: #a7f3d0; }
+
+        .modal-animate {
+            animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md">
+                        <i class="fa-solid fa-[#fa-arrow-trend-up] fa-lg text-white"></i>
+                        <span class="font-bold text-xl tracking-tight">Δ</span>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-slate-900 leading-tight">Speaking Pro: "How ... Has Changed?"</h1>
+                        <p class="text-xs text-slate-500">IELTS & Everyday English Speaking Masterclass</p>
+                    </div>
+                </div>
+
+                <!-- Right Header Tools -->
+                <div class="flex items-center space-x-3">
+                    <!-- API Key Settings Button -->
+                    <button id="apiKeyBtn" onclick="openApiKeyModal()" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 transition shadow-sm">
+                        <i class="fa-solid fa-key text-amber-500"></i>
+                        <span id="apiKeyStatusText" class="hidden sm:inline">Gemini API Key</span>
+                        <span id="apiKeyBadge" class="w-2 h-2 rounded-full bg-slate-300"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="flex space-x-1 border-t border-slate-100 overflow-x-auto py-1 scrollbar-none">
+                <button onclick="switchTab('tab1')" id="nav-tab1" class="tab-btn active px-4 py-2.5 text-sm font-medium rounded-lg whitespace-nowrap transition flex items-center space-x-2 text-emerald-600 bg-emerald-50">
+                    <i class="fa-solid fa-[#fa-cubes] fa-lg"></i>
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Tab 1: Công thức & 12 Cấu trúc</span>
+                </button>
+                <button onclick="switchTab('tab2')" id="nav-tab2" class="tab-btn px-4 py-2.5 text-sm font-medium rounded-lg whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>Tab 2: 8 Bài mẫu tương tác</span>
+                </button>
+                <button onclick="switchTab('tab3')" id="nav-tab3" class="tab-btn px-4 py-2.5 text-sm font-medium rounded-lg whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+                    <i class="fa-solid fa-[#fa-wand-magic-sparkles] fa-wand-magic-sparkles"></i>
+                    <span>Tab 3: Khung tự áp dụng</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= TAB 1: FORMULA & 12 EXPRESSIONS ================= -->
+        <section id="tab1" class="tab-content space-y-6">
+            <!-- Header Intro Banner -->
+            <div class="bg-gradient-to-r from-emerald-800 to-teal-700 rounded-2xl p-6 text-white shadow-md">
+                <div class="max-w-3xl">
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/30 text-emerald-100 mb-3 uppercase tracking-wider">Structure Masterclass</span>
+                    <h2 class="text-2xl font-bold mb-2">Cấu trúc 3 Bước trả lời dạng "How ... has changed?"</h2>
+                    <p class="text-emerald-100 text-sm leading-relaxed">
+                        Để đạt điểm cao phần Speaking (IELTS Part 2/3 hoặc giao tiếp tự nhiên), hãy tuân theo chiến lược 3 bước chuẩn chỉnh bên dưới. Nhấp vào các từ/cụm từ nổi bật để xem các biến thể tự nhiên tương đương!
+                    </p>
+                </div>
+            </div>
+
+            <!-- 3 Steps Visual Breakdown -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- Step 1 Card -->
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-bold uppercase tracking-wider">Step 1</span>
+                        <i class="fa-solid fa-bullseye text-blue-500 text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Trả lời trực tiếp & Đối lập</h3>
+                    <p class="text-xs text-slate-600 mb-4">Khẳng định sự thay đổi tổng quan và so sánh ngắn Quá khứ vs Hiện tại.</p>
+                    <div class="p-3 bg-blue-50 rounded-lg text-xs font-mono text-blue-900">
+                        "In the past, [X] was common, but now [Y] has taken over..."
+                    </div>
+                </div>
+
+                <!-- Step 2 Card -->
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-md text-xs font-bold uppercase tracking-wider">Step 2</span>
+                        <i class="fa-solid fa-list-check text-amber-500 text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Điểm khác biệt chi tiết</h3>
+                    <p class="text-xs text-slate-600 mb-4">Mô tả cụ thể khía cạnh thay đổi (công nghệ, lối sống, thói quen...)</p>
+                    <div class="p-3 bg-amber-50 rounded-lg text-xs font-mono text-amber-900">
+                        "The most notable difference is... People used to..., whereas today..."
+                    </div>
+                </div>
+
+                <!-- Step 3 Card -->
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-md text-xs font-bold uppercase tracking-wider">Step 3</span>
+                        <i class="fa-solid fa-chart-line text-emerald-500 text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2">Đánh giá & Tác động</h3>
+                    <p class="text-xs text-slate-600 mb-4">Nêu cảm nhận cá nhân hoặc tác động tích cực / tiêu cực của sự thay đổi.</p>
+                    <div class="p-3 bg-emerald-50 rounded-lg text-xs font-mono text-emerald-900">
+                        "Overall, this shift has made life much more convenient, although..."
+                    </div>
+                </div>
+            </div>
+
+            <!-- 12 Extended Expression Cards Matrix -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
+                <div class="border-b border-slate-100 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">12 Cấu trúc mở rộng theo 3 bước (Core Framework)</h3>
+                        <p class="text-xs text-slate-500">Các mẫu câu chuẩn giúp nâng băng điểm và tự tin diễn đạt</p>
+                    </div>
+                    <span class="text-xs font-medium bg-slate-100 text-slate-700 px-3 py-1 rounded-full">Click bất kỳ cấu trúc để tập đọc</span>
+                </div>
+
+                <!-- Formula Table / Grid -->
+                <div id="structuresContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: 8 INTERACTIVE SAMPLE ANSWERS ================= -->
+        <section id="tab2" class="tab-content hidden space-y-6">
+            <!-- Topic Selection Grid -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-sm">
+                <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Chọn 1 trong 8 chủ đề thực tế:</h3>
+                <div id="topicsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <!-- Topic Buttons populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Active Topic Details Card -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <!-- Topic Bar -->
+                <div class="bg-slate-900 text-white p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div id="topicIcon" class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+                        <div>
+                            <span id="topicCategory" class="text-xs text-emerald-400 font-semibold uppercase tracking-wider">Topic 1</span>
+                            <h2 id="topicTitle" class="text-xl font-bold">Hometown (Quê hương)</h2>
+                        </div>
+                    </div>
+
+                    <!-- Audio Control Buttons -->
+                    <div class="flex items-center space-x-2">
+                        <button id="playAudioBtn" onclick="toggleAudio()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm transition flex items-center space-x-2 shadow-md">
+                            <i id="playAudioIcon" class="fa-solid fa-play"></i>
+                            <span id="playAudioText">Nghe mẫu câu</span>
+                        </button>
+                        <span id="engineBadge" class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded-md border border-slate-700">Native TTS</span>
+                    </div>
+                </div>
+
+                <!-- Topic Contrast Summary Pill -->
+                <div class="bg-slate-50 border-b border-slate-200 p-4 px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-600">
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold text-slate-700">Quá khứ:</span>
+                        <span id="topicPast" class="bg-red-50 text-red-700 px-2.5 py-1 rounded border border-red-100">fewer high-rises / open fields</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-slate-400 hidden sm:block"></i>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold text-slate-700">Hiện tại:</span>
+                        <span id="topicPresent" class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded border border-emerald-100">apartment complexes & 24/7 convenience stores</span>
+                    </div>
+                </div>
+
+                <!-- Main Script Display -->
+                <div class="p-6 space-y-6">
+                    <!-- Instruction note -->
+                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800 flex items-center space-x-2">
+                        <i class="fa-solid fa-lightbulb text-amber-600 text-sm"></i>
+                        <span><strong>Mẹo:</strong> Nhấp vào các từ/cụm từ highlight <span class="phrase-highlight phrase-step1">màu xanh</span>, <span class="phrase-highlight phrase-step2">màu vàng</span>, hoặc <span class="phrase-highlight phrase-step3">màu lục</span> để xem ngay 12 mẫu câu diễn đạt tương đương!</span>
+                    </div>
+
+                    <!-- Interactive Paragraph View -->
+                    <div class="space-y-4">
+                        <h3 class="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2 flex items-center justify-between">
+                            <span>Bài mẫu Tiếng Anh (Interactive Script)</span>
+                            <span class="text-xs font-normal text-slate-500">Nhấp cụm từ highlight để xem 12 biến thể</span>
+                        </h3>
+                        
+                        <div id="interactiveScript" class="text-base sm:text-lg text-slate-700 leading-relaxed space-y-4">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Vietnamese Translation Toggle -->
+                    <div class="pt-4 border-t border-slate-100">
+                        <button onclick="toggleTranslation()" class="text-xs font-semibold text-slate-600 hover:text-emerald-600 flex items-center space-x-2 focus:outline-none">
+                            <i id="transChevron" class="fa-solid fa-chevron-right text-slate-400"></i>
+                            <span>Xem Dịch Tiếng Việt Chi Tiết</span>
+                        </button>
+                        <div id="translationBox" class="hidden mt-3 p-4 bg-slate-50 rounded-xl text-sm text-slate-600 leading-relaxed border border-slate-200">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: TEMPLATE BUILDER & SELF PRACTICE ================= -->
+        <section id="tab3" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">Khung Tự Áp Dụng (Speaking Practice Builder)</h2>
+                    <p class="text-xs text-slate-500">Điền các thông tin của riêng bạn theo cấu trúc 3 bước chuẩn để tạo câu trả lời hoàn chỉnh.</p>
+                </div>
+
+                <!-- Interactive Form -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center space-x-2">
+                            <i class="fa-solid fa-[#fa-pen-to-square] text-emerald-600"></i>
+                            <span>Nhập thông tin câu trả lời</span>
+                        </h3>
+
+                        <!-- Topic Subject -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Chủ đề (Topic / Subject)</label>
+                            <input type="text" id="builderTopic" value="My hometown" placeholder="E.g., Shopping habits, Transportation in my city..." class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        </div>
+
+                        <!-- Step 1 choice -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Step 1 Structure (Khẳng định sự thay đổi)</label>
+                            <select id="builderStep1" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                <option value="Over the past few years, [TOPIC] has undergone a dramatic transformation.">Over the past few years, [TOPIC] has undergone a dramatic transformation.</option>
+                                <option value="There has been a massive shift in how [TOPIC] functions compared to the past.">There has been a massive shift in how [TOPIC] functions compared to the past.</option>
+                                <option value="[TOPIC] looks completely different today than it did a decade ago.">[TOPIC] looks completely different today than it did a decade ago.</option>
+                            </select>
+                        </div>
+
+                        <!-- Past state -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Quá khứ (In the past...)</label>
+                            <input type="text" id="builderPast" value="people mainly relied on small local markets and cash payments" placeholder="E.g., used to write letters and talk on landlines" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        </div>
+
+                        <!-- Present state -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Hiện tại (Nowadays...)</label>
+                            <input type="text" id="builderPresent" value="everyone shops online via smartphone apps and pays with QR codes" placeholder="E.g., almost everyone uses instant video calls" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        </div>
+
+                        <!-- Step 2 detail -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Step 2 Detail (Chi tiết điểm nổi bật)</label>
+                            <input type="text" id="builderDetail" value="The main driver behind this is the rapid rise of mobile technology and high-speed internet." placeholder="Explain why or give specific examples..." class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        </div>
+
+                        <!-- Step 3 conclusion -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Step 3 Conclusion (Tác động / Cảm nhận)</label>
+                            <select id="builderStep3" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                <option value="All in all, I believe this change has made our daily lives much more convenient and efficient.">All in all, I believe this change has made our daily lives much more convenient and efficient.</option>
+                                <option value="On the whole, while it brings great modern convenience, some traditional charm has been lost.">On the whole, while it brings great modern convenience, some traditional charm has been lost.</option>
+                                <option value="Overall, it is a very positive trend that reflects our modern fast-paced society.">Overall, it is a very positive trend that reflects our modern fast-paced society.</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Generated Preview Box -->
+                    <div class="flex flex-col justify-between bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                                <h3 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
+                                    <i class="fa-solid fa-eye text-blue-600"></i>
+                                    <span>Xem trước bài nói cá nhân</span>
+                                </h3>
+                                <button onclick="copyGeneratedText()" class="text-xs text-emerald-600 hover:text-emerald-700 font-semibold flex items-center space-x-1">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span>Sao chép</span>
+                                </button>
+                            </div>
+
+                            <div id="generatedPreview" class="p-4 bg-slate-50 rounded-xl text-slate-800 text-sm leading-relaxed border border-slate-200 min-h-[220px]">
+                                <!-- Dynamically generated text -->
+                            </div>
+                        </div>
+
+                        <!-- Practice Audio Player Controls -->
+                        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-xs text-slate-500">Luyện đọc bài vừa tạo:</span>
+                            <button onclick="playCustomGeneratedSpeech()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg flex items-center space-x-2 transition shadow">
+                                <i class="fa-solid fa-volume-high"></i>
+                                <span>Phát âm bài tự tạo</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 12 SIMILAR EXPRESSIONS POPUP MODAL -->
+    <div id="expressionsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl modal-animate border border-slate-100 space-y-5 max-h-[90vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-start border-b border-slate-100 pb-3">
+                <div>
+                    <span id="modalStepTag" class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded text-white bg-blue-600">Step 1 Expression</span>
+                    <h3 id="modalOriginalPhrase" class="text-lg font-bold text-slate-900 mt-1">"has undergone a dramatic transformation"</h3>
+                </div>
+                <button onclick="closeExpressionsModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-slate-500">Dưới đây là <strong>12 mẫu câu tự nhiên tương đương</strong> cùng nhóm chức năng giúp bạn linh hoạt biến đổi từ vựng trong bài nói:</p>
+
+            <!-- 12 Expressions Scrollable List -->
+            <div id="modalExpressionsList" class="flex-grow overflow-y-auto space-y-2 pr-1">
+                <!-- Dynamically filled with 12 items -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="pt-3 border-t border-slate-100 flex justify-end">
+                <button onclick="closeExpressionsModal()" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-semibold hover:bg-slate-900 transition">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GEMINI API KEY CONFIG MODAL -->
+    <div id="apiKeyModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl modal-animate border border-slate-100 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-slate-900 flex items-center space-x-2">
+                    <i class="fa-solid fa-key text-amber-500"></i>
+                    <span>Cấu hình Gemini API Key</span>
+                </h3>
+                <button onclick="closeApiKeyModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <p class="text-xs text-slate-600 leading-relaxed">
+                Nhập Gemini API Key của bạn để trải nghiệm giọng đọc AI siêu tự nhiên với mô hình <code class="bg-slate-100 px-1 py-0.5 rounded text-amber-700">gemini-2.5-flash-preview-tts</code>.
+                Nếu không nhập, ứng dụng sẽ tự động chuyển sang Web Speech API mặc định trên thiết bị.
+            </p>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">API Key</label>
+                <input type="password" id="apiKeyInput" placeholder="AIzaSy..." class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            </div>
+
+            <div class="flex space-x-2 pt-2">
+                <button onclick="saveApiKey()" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold transition">Lưu API Key</button>
+                <button onclick="clearApiKey()" class="px-3 py-2 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">Xóa Key</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ================= APPLICATION DATA =================
+
+        // 12 Extended Structures Data for Tab 1 Matrix & Modal lookup
+        const STRUCTURE_GROUPS = {
+            step1: {
+                title: "Step 1: Trực tiếp & Đối lập",
+                color: "bg-blue-600",
+                badgeClass: "phrase-step1",
+                items: [
+                    { en: "Over the past decade, [Topic] has undergone a dramatic transformation.", vi: "Trong thập kỷ qua, [Chủ đề] đã trải qua sự thay đổi đáng kinh ngạc." },
+                    { en: "There has been a massive shift in how people approach [Topic].", vi: "Đã có một sự dịch chuyển khổng lồ trong cách mọi người tiếp cận [Chủ đề]." },
+                    { en: "In the past, [A] was standard, whereas nowadays [B] is the norm.", vi: "Trước đây [A] là chuẩn mực, trong khi ngày nay [B] là điều phổ biến." },
+                    { en: "[Topic] looks completely different today compared to a few years ago.", vi: "[Chủ đề] ngày nay trông hoàn toàn khác so với vài năm trước." },
+                    { en: "The way we experience [Topic] has changed beyond recognition.", vi: "Cách chúng ta trải nghiệm [Chủ đề] đã thay đổi đến mức khó nhận ra." },
+                    { en: "Back in the day, [A] dominated, but now [B] has taken over.", vi: "Hồi đó [A] chiếm ưu thế, nhưng giờ đây [B] đã tiếp quản." },
+                    { en: "Unquestionably, [Topic] has evolved significantly over recent years.", vi: "Khong thể phủ nhận [Chủ đề] đã tiến hóa đáng kể trong những năm gần đây." },
+                    { en: "Compared to my childhood, [Topic] is now vastly modernized.", vi: "So với thời thơ ấu của tôi, [Chủ đề] giờ đây đã hiện đại hóa rất nhiều." },
+                    { en: "We have witnessed a fundamental change in [Topic].", vi: "Chúng ta đã chứng kiến sự thay đổi căn bản trong [Chủ đề]." },
+                    { en: "[Topic] used to be simple, but it has become far more high-tech.", vi: "[Chủ đề] từng rất đơn giản, nhưng nay đã trở nên công nghệ cao hơn rất nhiều." },
+                    { en: "Nowadays, [Topic] is a world away from what it was decades ago.", vi: "Ngày nay [Chủ đề] khác một trời một vực so với nhiều thập kỷ trước." },
+                    { en: "The evolution of [Topic] has been nothing short of remarkable.", vi: "Sự phát triển của [Chủ đề] thực sự vô cùng đáng chú ý." }
+                ]
+            },
+            step2: {
+                title: "Step 2: Chi tiết điểm khác biệt",
+                color: "bg-amber-600",
+                badgeClass: "phrase-step2",
+                items: [
+                    { en: "The most noticeable difference is the widespread adoption of [B].", vi: "Khác biệt dễ nhận thấy nhất là sự áp dụng rộng rãi của [B]." },
+                    { en: "People used to rely on [A], whereas today they prefer [B].", vi: "Mọi người từng phụ thuộc vào [A], trong khi ngày nay họ thích [B] hơn." },
+                    { en: "Instead of [A], most people now find themselves using [B] daily.", vi: "Thay vì [A], hầu hết mọi người giờ thấy mình dùng [B] hàng ngày." },
+                    { en: "This change is mostly driven by advancements in smart technology.", vi: "Sự thay đổi này phần lớn do sự tiến bộ của công nghệ thông minh." },
+                    { en: "While [A] required a lot of manual effort, [B] offers instant access.", vi: "Trong khi [A] tốn nhiều sức thủ công, [B] mang lại sự truy cập tức thì." },
+                    { en: "Where there used to be [A], you now see [B] everywhere.", vi: "Nơi từng có [A], giờ đây bạn thấy [B] ở khắp mọi nơi." },
+                    { en: "In terms of daily routine, [B] has replaced traditional habits.", vi: "Về thói quen hàng ngày, [B] đã thay thế các thói quen truyền thống." },
+                    { en: "Another key aspect is how fast and convenient [B] has become.", vi: "Một khía cạnh then chốt khác là [B] đã trở nên nhanh và tiện như thế nào." },
+                    { en: "Previously, options were quite limited, but now we are spoiled for choice.", vi: "Trước đây các lựa chọn khá hạn chế, nhưng giờ chúng ta tha hồ lựa chọn." },
+                    { en: "The transition from [A] to [B] happened almost seamlessly.", vi: "Sự chuyển đổi từ [A] sang [B] diễn ra gần như liền mạch." },
+                    { en: "Mainstream adoption of [B] has completely reshaped our lifestyle.", vi: "Việc sử dụng phổ biến [B] đã định hình lại hoàn toàn lối sống của chúng ta." },
+                    { en: "It’s rare to see [A] these days as almost everyone has switched to [B].", vi: "Hiếm khi thấy [A] dạo này vì hầu như ai cũng chuyển sang [B]." }
+                ]
+            },
+            step3: {
+                title: "Step 3: Đánh giá & Tác động",
+                color: "bg-emerald-600",
+                badgeClass: "phrase-step3",
+                items: [
+                    { en: "All in all, this shift has made our daily lives far more convenient.", vi: "Tóm lại, sự chuyển dịch này làm cuộc sống hàng ngày tiện lợi hơn nhiều." },
+                    { en: "Overall, I consider this a very positive and welcome development.", vi: "Nhìn chung, tôi coi đây là một sự phát triển rất tích cực và hoan nghênh." },
+                    { en: "On the whole, while it brings great ease, some traditional charm is lost.", vi: "Nói chung, dù mang lại sự tiện nghi lớn, một vài nét quyến rũ truyền thống đã mất đi." },
+                    { en: "In summary, it reflects the fast-paced nature of modern living.", vi: "Tóm lại, nó phản ánh bản chất nhịp sống nhanh của thời hiện đại." },
+                    { en: "Personally, I feel this transformation has both pros and cons.", vi: "Cá nhân tôi thấy sự thay đổi này có cả ưu lẫn nhược điểm." },
+                    { en: "Looking back, it’s hard to imagine going back to the old way.", vi: "Nhìn lại, thật khó để hình dung quay trở lại cách làm cũ." },
+                    { en: "Ultimately, technology has played a huge role in improving efficiency.", vi: "Cuối cùng, công nghệ đã đóng vai trò lớn trong việc nâng cao hiệu suất." },
+                    { en: "This change has undoubtedly created a more connected society.", vi: "Sự thay đổi này chắc chắn đã tạo ra một xã hội kết nối hơn." },
+                    { en: "Even though I miss the past, the current modern setup is undeniable better.", vi: "Dù tôi nhớ quá khứ, sự sắp xếp hiện đại hiện tại rõ ràng tốt hơn." },
+                    { en: "To put it simply, life has become much faster and more accessible.", vi: "Nói một cách đơn giản, cuộc sống đã trở nên nhanh hơn và dễ tiếp cận hơn." },
+                    { en: "This evolution highlights how quickly human habits can adapt.", vi: "Sự phát triển này nổi bật cách thói quen con người thích nghi nhanh chóng." },
+                    { en: "It is definitely a step forward in terms of comfort and speed.", vi: "Đây chắc chắn là một bước tiến về mặt thoải mái và tốc độ." }
+                ]
+            }
+        };
+
+        // 8 Realistic Topics Data
+        const TOPICS = [
+            {
+                id: 1,
+                title: "Hometown",
+                titleVi: "Quê hương",
+                icon: "fa-house-chimney",
+                past: "Fewer high-rises / Open fields",
+                present: "Apartment complexes & 24/7 convenience stores",
+                scriptStep1: "Over the past few years, my hometown has undergone a dramatic transformation.",
+                scriptStep2: "In the past, there were fewer high-rises and plenty of open fields, whereas today, modern apartment complexes and 24/7 convenience stores are springing up everywhere.",
+                scriptStep3: "All in all, this shift has made our daily lives far more convenient.",
+                fullText: "Over the past few years, my hometown has undergone a dramatic transformation. In the past, there were fewer high-rises and plenty of open fields, whereas today, modern apartment complexes and 24/7 convenience stores are springing up everywhere. All in all, this shift has made our daily lives far more convenient.",
+                translation: "Trong vài năm qua, quê hương tôi đã trải qua sự thay đổi đáng kinh ngạc. Trước đây, nơi đây có ít nhà cao tầng và nhiều cánh đồng trống, trong khi ngày nay, các chung cư hiện đại và cửa hàng tiện lợi 24/7 mọc lên khắp nơi. Tóm lại, sự chuyển dịch này làm cho cuộc sống hàng ngày của chúng tôi tiện lợi hơn rất nhiều."
+            },
+            {
+                id: 2,
+                title: "Restaurants",
+                titleVi: "Nhà hàng & Ăn uống",
+                icon: "fa-utensils",
+                past: "Street stalls / Cash payments",
+                present: "International food, QR codes & food apps",
+                scriptStep1: "There has been a massive shift in how people dine out nowadays.",
+                scriptStep2: "Previously, people mostly ate at local street stalls and paid with cash, but now international cuisine, QR code payments, and delivery apps like GrabFood are everywhere.",
+                scriptStep3: "Overall, I consider this a very positive and welcome development.",
+                fullText: "There has been a massive shift in how people dine out nowadays. Previously, people mostly ate at local street stalls and paid with cash, but now international cuisine, QR code payments, and delivery apps like GrabFood are everywhere. Overall, I consider this a very positive and welcome development.",
+                translation: "Đã có một sự thay đổi lớn trong cách mọi người đi ăn ngoài ngày nay. Trước đây, mọi người chủ yếu ăn ở các quán lề đường và trả bằng tiền mặt, nhưng giờ đây ẩm thực quốc tế, thanh toán mã QR và ứng dụng giao đồ ăn như GrabFood có ở khắp mọi nơi. Nhìn chung, tôi coi đây là một sự phát triển rất tích cực."
+            },
+            {
+                id: 3,
+                title: "Shopping",
+                titleVi: "Mua sắm",
+                icon: "fa-bag-shopping",
+                past: "Wet markets / Local shops",
+                present: "Online shopping on Shopee & TikTok Shop",
+                scriptStep1: "Shopping habits look completely different today compared to a decade ago.",
+                scriptStep2: "Instead of visiting traditional wet markets or small local shops, most people now find themselves buying clothes and groceries online via Shopee or TikTok Shop.",
+                scriptStep3: "To put it simply, life has become much faster and more accessible.",
+                fullText: "Shopping habits look completely different today compared to a decade ago. Instead of visiting traditional wet markets or small local shops, most people now find themselves buying clothes and groceries online via Shopee or TikTok Shop. To put it simply, life has become much faster and more accessible.",
+                translation: "Thói quen mua sắm ngày nay trông hoàn toàn khác so with một thập kỷ trước. Thay vì đi các chợ truyền thống hay cửa hàng nhỏ lẻ, hầu hết mọi người giờ đây thấy mình mua quần áo và tạp hóa online qua Shopee hoặc TikTok Shop. Nói một cách đơn giản, cuộc sống đã trở nên nhanh chóng và dễ dàng hơn."
+            },
+            {
+                id: 4,
+                title: "Transportation",
+                titleVi: "Giao thông",
+                icon: "fa-bus",
+                past: "Bicycles & motorbikes / Quiet streets",
+                present: "Private cars, heavy traffic & electric buses",
+                scriptStep1: "The way people travel around my city has changed beyond recognition.",
+                scriptStep2: "Back in the day, simple bicycles and motorbikes dominated quiet streets, but now private cars, heavy traffic, and modern electric buses are everywhere.",
+                scriptStep3: "On the whole, while it brings great ease, some traditional charm is lost.",
+                fullText: "The way people travel around my city has changed beyond recognition. Back in the day, simple bicycles and motorbikes dominated quiet streets, but now private cars, heavy traffic, and modern electric buses are everywhere. On the whole, while it brings great ease, some traditional charm is lost.",
+                translation: "Cách mọi người di chuyển quanh thành phố của tôi đã thay đổi đến mức khó nhận ra. Hồi đó, xe đạp và xe máy đơn sơ chiếm ưu thế trên những con phố yên tĩnh, nhưng giờ đây xe ô tô cá nhân, kẹt xe và xe buýt điện hiện đại có ở khắp mọi nơi. Nói chung, dù mang lại sự tiện nghi, một vài nét giản dị ngày xưa đã mất đi."
+            },
+            {
+                id: 5,
+                title: "Education",
+                titleVi: "Giáo dục",
+                icon: "fa-graduation-cap",
+                past: "Blackboards & paper notebooks",
+                present: "Smart TVs, Google Classroom & laptops",
+                scriptStep1: "Unquestionably, education has evolved significantly over recent years.",
+                scriptStep2: "While classrooms used to rely solely on blackboards and paper notebooks, today smart TVs, Google Classroom, and laptops are widely integrated into lessons.",
+                scriptStep3: "Ultimately, technology has played a huge role in improving efficiency.",
+                fullText: "Unquestionably, education has evolved significantly over recent years. While classrooms used to rely solely on blackboards and paper notebooks, today smart TVs, Google Classroom, and laptops are widely integrated into lessons. Ultimately, technology has played a huge role in improving efficiency.",
+                translation: "Không thể phủ nhận giáo dục đã phát triển đáng kể trong những năm gần đây. Trong khi các lớp học từng phụ thuộc hoàn toàn vào bảng đen và tập giấy, ngày nay tivi thông minh, Google Classroom và máy tính xách tay được tích hợp rộng rãi vào tiết học. Cuối cùng, công nghệ đã đóng vai trò rất lớn trong việc nâng cao hiệu quả."
+            },
+            {
+                id: 6,
+                title: "Communication",
+                titleVi: "Giao tiếp",
+                icon: "fa-comments",
+                past: "Landlines / SMS / In-person",
+                present: "Zalo, Messenger video calls & instant chats",
+                scriptStep1: "The way we keep in touch with friends and family has shifted remarkably.",
+                scriptStep2: "People used to rely on landline phones or basic SMS, whereas today almost everyone prefers instant Zalo messages or Messenger video calls.",
+                scriptStep3: "This change has undoubtedly created a more connected society.",
+                fullText: "The way we keep in touch with friends and family has shifted remarkably. People used to rely on landline phones or basic SMS, whereas today almost everyone prefers instant Zalo messages or Messenger video calls. This change has undoubtedly created a more connected society.",
+                translation: "Cách chúng ta giữ liên lạc với bạn bè và gia đình đã dịch chuyển đáng kể. Mọi người từng phụ thuộc vào điện thoại bàn hoặc tin nhắn SMS cơ bản, trong khi ngày nay hầu như ai cũng thích tin nhắn Zalo tức thì hoặc gọi video Messenger. Sự thay đổi này chắc chắn đã tạo ra một xã hội kết nối tốt hơn."
+            },
+            {
+                id: 7,
+                title: "Neighbourhood",
+                titleVi: "Xóm giềng & Lối sống",
+                icon: "fa-people-roof",
+                past: "Neighbours gathering & playing outside",
+                present: "Private lifestyle & mini-marts on every corner",
+                scriptStep1: "Neighbourhood life is a world away from what it was when I was a child.",
+                scriptStep2: "Where there used to be neighbours chatting outside every evening, you now see a more private lifestyle with mini-marts around every corner.",
+                scriptStep3: "Personally, I feel this transformation has both pros and cons.",
+                fullText: "Neighbourhood life is a world away from what it was when I was a child. Where there used to be neighbours chatting outside every evening, you now see a more private lifestyle with mini-marts around every corner. Personally, I feel this transformation has both pros and cons.",
+                translation: "Cuộc sống xóm giềng ngày nay khác một trời một vực so với thời tôi còn nhỏ. Nơi từng có hàng xóm trò chuyện ngoài trời mỗi tối, giờ đây bạn thấy một lối sống riêng tư hơn cùng các siêu thị mini xuất hiện ở mọi góc phố. Cá nhân tôi thấy sự thay đổi này có cả mặt tốt lẫn chưa tốt."
+            },
+            {
+                id: 8,
+                title: "Free Time",
+                titleVi: "Thời gian rảnh",
+                icon: "fa-gamepad",
+                past: "TV with family & comic books",
+                present: "Scrolling TikTok/Reels, Netflix & mobile games",
+                scriptStep1: "How people spend their leisure time has undergone a major shift.",
+                scriptStep2: "In the past, gathering around the family TV or reading comic books was standard, whereas nowadays scrolling TikTok, watching Netflix, and mobile gaming are the norm.",
+                scriptStep3: "In summary, it reflects the fast-paced nature of modern living.",
+                fullText: "How people spend their leisure time has undergone a major shift. In the past, gathering around the family TV or reading comic books was standard, whereas nowadays scrolling TikTok, watching Netflix, and mobile gaming are the norm. In summary, it reflects the fast-paced nature of modern living.",
+                translation: "Cách mọi người dành thời gian rảnh rỗi đã trải qua sự chuyển dịch lớn. Trước đây, việc quây quần bên tivi gia đình hoặc đọc truyện tranh là điều phổ biến, trong khi ngày nay lướt TikTok, xem Netflix và chơi game trên điện thoại lại là chuẩn mực. Tóm lại, nó phản ánh bản chất nhịp sống nhanh của thời hiện đại."
+            }
+        ];
+
+        // Global State
+        let activeTab = 'tab1';
+        let activeTopicId = 1;
+        let isPlayingAudio = false;
+        let currentUtterance = null;
+        let currentAudioElement = null;
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            initTab1Structures();
+            initTopicsGrid();
+            selectTopic(1);
+            checkApiKeyBadge();
+            setupBuilderListeners();
+            updateBuilderPreview();
+        });
+
+        // Switch Active Tab
+        function switchTab(tabId) {
+            activeTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-emerald-600', 'bg-emerald-50');
+                btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+            });
+
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+            activeBtn.classList.add('text-emerald-600', 'bg-emerald-50');
+
+            // Stop audio if tab changes
+            stopAudio();
+        }
+
+        // Render Tab 1 Structures
+        function initTab1Structures() {
+            const container = document.getElementById('structuresContainer');
+            container.innerHTML = '';
+
+            ['step1', 'step2', 'step3'].forEach((stepKey, index) => {
+                const group = STRUCTURE_GROUPS[stepKey];
+                
+                group.items.forEach((item, idx) => {
+                    const card = document.createElement('div');
+                    card.className = "p-3.5 rounded-xl border border-slate-200 bg-white hover:border-slate-300 shadow-sm hover:shadow transition flex flex-col justify-between group cursor-pointer";
+                    card.onclick = () => speakSingleText(item.en);
+                    
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded text-white ${group.color}">
+                                    Step ${index+1} - #${idx+1}
+                                </span>
+                                <i class="fa-solid fa-volume-high text-slate-300 group-hover:text-emerald-600 text-xs transition"></i>
+                            </div>
+                            <p class="text-xs font-semibold text-slate-800 leading-snug mb-1">${item.en}</p>
+                        </div>
+                        <p class="text-[11px] text-slate-500 italic border-t border-slate-100 pt-1.5 mt-2">${item.vi}</p>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+        }
+
+        // Render Topics Grid Buttons in Tab 2
+        function initTopicsGrid() {
+            const grid = document.getElementById('topicsGrid');
+            grid.innerHTML = '';
+
+            TOPICS.forEach(topic => {
+                const btn = document.createElement('button');
+                btn.id = `topic-btn-${topic.id}`;
+                btn.onclick = () => selectTopic(topic.id);
+                btn.className = `p-3 rounded-xl border text-left transition flex flex-col justify-between space-y-2 ${
+                    topic.id === activeTopicId 
+                    ? 'border-emerald-500 bg-emerald-50/50 ring-2 ring-emerald-500/20' 
+                    : 'border-slate-200 bg-white hover:border-slate-300'
+                }`;
+
+                btn.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Topic 0${topic.id}</span>
+                        <i class="fa-solid ${topic.icon} ${topic.id === activeTopicId ? 'text-emerald-600' : 'text-slate-400'} text-xs"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-xs text-slate-900">${topic.title}</div>
+                        <div class="text-[10px] text-slate-500 truncate">${topic.titleVi}</div>
+                    </div>
+                `;
+                grid.appendChild(btn);
+            });
+        }
+
+        // Select Active Topic in Tab 2
+        function selectTopic(id) {
+            stopAudio();
+            activeTopicId = id;
+            const topic = TOPICS.find(t => t.id === id);
+
+            // Update Topic Buttons Highlight
+            TOPICS.forEach(t => {
+                const b = document.getElementById(`topic-btn-${t.id}`);
+                if (b) {
+                    if (t.id === id) {
+                        b.className = 'p-3 rounded-xl border text-left transition flex flex-col justify-between space-y-2 border-emerald-500 bg-emerald-50/50 ring-2 ring-emerald-500/20';
+                    } else {
+                        b.className = 'p-3 rounded-xl border text-left transition flex flex-col justify-between space-y-2 border-slate-200 bg-white hover:border-slate-300';
+                    }
+                }
+            });
+
+            // Update Topic Header Details
+            document.getElementById('topicCategory').innerText = `Topic 0${topic.id}`;
+            document.getElementById('topicTitle').innerText = `${topic.title} (${topic.titleVi})`;
+            document.getElementById('topicPast').innerText = topic.past;
+            document.getElementById('topicPresent').innerText = topic.present;
+            document.getElementById('topicIcon').innerHTML = `<i class="fa-solid ${topic.icon}"></i>`;
+
+            // Build Interactive Paragraph
+            const scriptContainer = document.getElementById('interactiveScript');
+            scriptContainer.innerHTML = `
+                <p>
+                    <span class="phrase-highlight phrase-step1" onclick="openExpressionsModal('step1', '${escapeJsStr(topic.scriptStep1)}')">${topic.scriptStep1}</span>
+                    <span class="phrase-highlight phrase-step2" onclick="openExpressionsModal('step2', '${escapeJsStr(topic.scriptStep2)}')">${topic.scriptStep2}</span>
+                    <span class="phrase-highlight phrase-step3" onclick="openExpressionsModal('step3', '${escapeJsStr(topic.scriptStep3)}')">${topic.scriptStep3}</span>
+                </p>
+            `;
+
+            // Translation Box
+            document.getElementById('translationBox').innerText = topic.translation;
+        }
+
+        function escapeJsStr(str) {
+            return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
+
+        function toggleTranslation() {
+            const box = document.getElementById('translationBox');
+            const chevron = document.getElementById('transChevron');
+            if (box.classList.contains('hidden')) {
+                box.classList.remove('hidden');
+                chevron.classList.replace('fa-chevron-right', 'fa-chevron-down');
+            } else {
+                box.classList.add('hidden');
+                chevron.classList.replace('fa-chevron-down', 'fa-chevron-right');
+            }
+        }
+
+        // 12 Similar Expressions Modal Popup Logic
+        function openExpressionsModal(stepKey, clickedPhrase) {
+            const modal = document.getElementById('expressionsModal');
+            const group = STRUCTURE_GROUPS[stepKey];
+
+            document.getElementById('modalStepTag').innerText = group.title;
+            document.getElementById('modalStepTag').className = `text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded text-white ${group.color}`;
+            document.getElementById('modalOriginalPhrase').innerText = `"${clickedPhrase}"`;
+
+            const listContainer = document.getElementById('modalExpressionsList');
+            listContainer.innerHTML = '';
+
+            group.items.forEach((item, index) => {
+                const el = document.createElement('div');
+                el.className = 'p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200 hover:border-emerald-300 rounded-xl transition cursor-pointer flex justify-between items-center group';
+                el.onclick = () => speakSingleText(item.en);
+
+                el.innerHTML = `
+                    <div class="space-y-0.5 pr-2">
+                        <div class="text-xs font-bold text-slate-800 flex items-center space-x-2">
+                            <span class="text-[10px] bg-slate-200 text-slate-700 px-1.5 py-0.2 rounded font-mono">${index + 1}</span>
+                            <span>${item.en}</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 italic pl-5">${item.vi}</div>
+                    </div>
+                    <button class="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 group-hover:text-emerald-600 group-hover:border-emerald-300 transition shadow-sm">
+                        <i class="fa-solid fa-volume-high text-xs"></i>
+                    </button>
+                `;
+                listContainer.appendChild(el);
+            });
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeExpressionsModal() {
+            document.getElementById('expressionsModal').classList.add('hidden');
+        }
+
+        // API Key Management
+        function getSavedApiKey() {
+            return localStorage.getItem('gemini_api_key') || '';
+        }
+
+        function checkApiKeyBadge() {
+            const key = getSavedApiKey();
+            const badge = document.getElementById('apiKeyBadge');
+            const engineBadge = document.getElementById('engineBadge');
+            
+            if (key) {
+                badge.className = 'w-2 h-2 rounded-full bg-emerald-500';
+                if(engineBadge) engineBadge.innerText = 'Gemini AI Audio';
+            } else {
+                badge.className = 'w-2 h-2 rounded-full bg-slate-300';
+                if(engineBadge) engineBadge.innerText = 'Native TTS';
+            }
+        }
+
+        function openApiKeyModal() {
+            document.getElementById('apiKeyInput').value = getSavedApiKey();
+            document.getElementById('apiKeyModal').classList.remove('hidden');
+        }
+
+        function closeApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.add('hidden');
+        }
+
+        function saveApiKey() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (key) {
+                localStorage.setItem('gemini_api_key', key);
+            } else {
+                localStorage.removeItem('gemini_api_key');
+            }
+            checkApiKeyBadge();
+            closeApiKeyModal();
+        }
+
+        function clearApiKey() {
+            localStorage.removeItem('gemini_api_key');
+            document.getElementById('apiKeyInput').value = '';
+            checkApiKeyBadge();
+            closeApiKeyModal();
+        }
+
+        // Dual Engine Audio Player Logic
+        async function toggleAudio() {
+            if (isPlayingAudio) {
+                stopAudio();
+            } else {
+                const topic = TOPICS.find(t => t.id === activeTopicId);
+                if (topic) {
+                    await playSpeech(topic.fullText);
+                }
+            }
+        }
+
+        function updateAudioState(playing) {
+            isPlayingAudio = playing;
+            const btnText = document.getElementById('playAudioText');
+            const btnIcon = document.getElementById('playAudioIcon');
+            const btn = document.getElementById('playAudioBtn');
+
+            if (playing) {
+                btnText.innerText = 'Dừng đọc';
+                btnIcon.className = 'fa-solid fa-stop';
+                btn.className = 'px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-medium text-sm transition flex items-center space-x-2 shadow-md';
+            } else {
+                btnText.innerText = 'Nghe mẫu câu';
+                btnIcon.className = 'fa-solid fa-play';
+                btn.className = 'px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm transition flex items-center space-x-2 shadow-md';
+            }
+        }
+
+        function stopAudio() {
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                currentAudioElement = null;
+            }
+            updateAudioState(false);
+        }
+
+        async function speakSingleText(text) {
+            stopAudio();
+            await playSpeech(text, false);
+        }
+
+        async function playSpeech(text, updateMainBtn = true) {
+            const apiKey = getSavedApiKey();
+
+            if (updateMainBtn) updateAudioState(true);
+
+            if (apiKey) {
+                try {
+                    const success = await playGeminiTTS(text, apiKey);
+                    if (!success) {
+                        playWebSpeech(text, updateMainBtn);
+                    }
+                } catch (e) {
+                    console.warn("Gemini TTS failed, falling back to WebSpeech", e);
+                    playWebSpeech(text, updateMainBtn);
+                }
+            } else {
+                playWebSpeech(text, updateMainBtn);
+            }
+        }
+
+        // Gemini 2.5 Flash Preview TTS API Call
+        async function playGeminiTTS(text, apiKey) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{
+                    parts: [{ text: `Read naturally in clear English for an ESL student: ${text}` }]
+                }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: "Kore" } // Bright natural voice
+                        }
+                    }
+                }
+            };
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) return false;
+
+            const result = await response.json();
+            const part = result?.candidates?.[0]?.content?.parts?.[0];
+            const audioData = part?.inlineData?.data;
+            const mimeType = part?.inlineData?.mimeType;
+
+            if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 24000;
+                
+                const pcm16Data = base64ToArrayBuffer(audioData);
+                const wavBlob = pcmToWav(new Int16Array(pcm16Data), sampleRate);
+                const audioUrl = URL.createObjectURL(wavBlob);
+
+                currentAudioElement = new Audio(audioUrl);
+                currentAudioElement.onended = () => stopAudio();
+                currentAudioElement.play();
+                return true;
+            }
+            return false;
+        }
+
+        // Fallback Web Speech API
+        function playWebSpeech(text, updateMainBtn = true) {
+            if (!('speechSynthesis' in window)) {
+                alert('Trình duyệt không hỗ trợ tổng hợp giọng nói Web Speech.');
+                if (updateMainBtn) updateAudioState(false);
+                return;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9; // Slightly slower for clear English practice
+
+            utterance.onend = () => {
+                if (updateMainBtn) updateAudioState(false);
+            };
+            utterance.onerror = () => {
+                if (updateMainBtn) updateAudioState(false);
+            };
+
+            currentUtterance = utterance;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Helper: Base64 to ArrayBuffer
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // Helper: Convert PCM16 Int16Array to WAV Blob
+        function pcmToWav(pcmData, sampleRate) {
+            const numChannels = 1;
+            const bytesPerSample = 2;
+            const blockAlign = numChannels * bytesPerSample;
+            const byteRate = sampleRate * blockAlign;
+            const dataSize = pcmData.length * bytesPerSample;
+            const buffer = new ArrayBuffer(44 + dataSize);
+            const view = new DataView(buffer);
+
+            /* RIFF identifier */
+            writeString(view, 0, 'RIFF');
+            /* RIFF chunk length */
+            view.setUint32(4, 36 + dataSize, true);
+            /* RIFF type */
+            writeString(view, 8, 'WAVE');
+            /* format chunk identifier */
+            writeString(view, 12, 'fmt ');
+            /* format chunk length */
+            view.setUint32(16, 16, true);
+            /* sample format (raw PCM) */
+            view.setUint16(20, 1, true);
+            /* channel count */
+            view.setUint16(22, numChannels, true);
+            /* sample rate */
+            view.setUint32(24, sampleRate, true);
+            /* byte rate (sample rate * block align) */
+            view.setUint32(28, byteRate, true);
+            /* block align (channel count * bytes per sample) */
+            view.setUint16(32, blockAlign, true);
+            /* bits per sample */
+            view.setUint16(34, 16, true);
+            /* data chunk identifier */
+            writeString(view, 36, 'data');
+            /* data chunk length */
+            view.setUint32(40, dataSize, true);
+
+            /* Write PCM audio samples */
+            for (let i = 0; i < pcmData.length; i++) {
+                view.setInt16(44 + i * 2, pcmData[i], true);
+            }
+
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        // Tab 3 Builder Live Generator
+        function setupBuilderListeners() {
+            const inputs = ['builderTopic', 'builderStep1', 'builderPast', 'builderPresent', 'builderDetail', 'builderStep3'];
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', updateBuilderPreview);
+                    el.addEventListener('change', updateBuilderPreview);
+                }
+            });
+        }
+
+        function updateBuilderPreview() {
+            const topic = document.getElementById('builderTopic').value.trim() || 'My topic';
+            let step1Pattern = document.getElementById('builderStep1').value;
+            const past = document.getElementById('builderPast').value.trim() || 'something was different';
+            const present = document.getElementById('builderPresent').value.trim() || 'something new happens';
+            const detail = document.getElementById('builderDetail').value.trim() || 'This detail explains why.';
+            const step3 = document.getElementById('builderStep3').value;
+
+            // Replace [TOPIC] placeholder
+            const step1Filled = step1Pattern.replace(/\[TOPIC\]/g, topic);
+
+            const previewContainer = document.getElementById('generatedPreview');
+            previewContainer.innerHTML = `
+                <p>
+                    <span class="text-blue-700 font-medium">${step1Filled}</span> 
+                    <span class="text-slate-800">In the past, ${past}, whereas nowadays, ${present}.</span> 
+                    <span class="text-amber-800">${detail}</span> 
+                    <span class="text-emerald-800 font-medium">${step3}</span>
+                </p>
+            `;
+        }
+
+        function getGeneratedPlainText() {
+            const container = document.getElementById('generatedPreview');
+            return container ? container.innerText : '';
+        }
+
+        function copyGeneratedText() {
+            const text = getGeneratedPlainText();
+            if (!text) return;
+
+            // Copy to clipboard fallback for iframe context
+            const tempElem = document.createElement('textarea');
+            tempElem.value = text;
+            document.body.appendChild(tempElem);
+            tempElem.select();
+            try {
+                document.execCommand('copy');
+                alert('Đã sao chép bài nói mẫu vào bộ nhớ tạm!');
+            } catch (err) {
+                console.error('Copy failed', err);
+            }
+            document.body.removeChild(tempElem);
+        }
+
+        async function playCustomGeneratedSpeech() {
+            const text = getGeneratedPlainText();
+            if (text) {
+                await speakSingleText(text);
+            }
+        }
+    </script>
+</body>
+</html>
