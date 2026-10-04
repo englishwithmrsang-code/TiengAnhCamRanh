@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wonders of Egypt - Reading Comprehension</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        egypt: {
+                            gold: '#D4AF37',
+                            sand: '#F7F4EB',
+                            sandDark: '#E8E1CE',
+                            brown: '#8C6239',
+                            dark: '#2C221E',
+                            accent: '#C05A46'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F3F4F6;
+            color: #2C221E;
+        }
+        
+        .evidence-highlight {
+            transition: all 0.5s ease;
+            background-color: transparent;
+            border-radius: 0.25rem;
+            padding: 0 0.25rem;
+        }
+
+        .evidence-highlight.active-highlight {
+            background-color: #FEF08A; /* yellow-200 */
+            border-bottom: 2px solid #EAB308; /* yellow-500 */
+            box-shadow: 0 0 12px rgba(234, 179, 8, 0.4);
+            animation: pulseHighlight 2s infinite alternate;
+        }
+
+        @keyframes pulseHighlight {
+            0% { background-color: #FEF08A; }
+            100% { background-color: #FDE047; }
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F1F1;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col font-sans overflow-hidden bg-slate-100">
+
+    <header class="bg-egypt-dark text-white px-6 py-3 shadow-md flex justify-between items-center z-10 shrink-0">
+        <div class="flex items-center space-x-3">
+            <span class="bg-egypt-gold text-egypt-dark text-xs font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider">IELTS Reading</span>
+            <h1 class="text-xl font-serif font-bold text-egypt-sand">Wonders of Egypt</h1>
+        </div>
+        <div class="flex items-center space-x-4 text-xs md:text-sm">
+            <div class="bg-amber-950/60 border border-egypt-gold/30 px-3 py-1.5 rounded-lg flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+                <span class="text-egypt-sand">Interactive Practice Mode</span>
+            </div>
+            <button onclick="resetAll()" class="hover:bg-amber-900/50 text-slate-300 hover:text-white px-3 py-1.5 rounded-lg border border-slate-700 transition">
+                Làm lại từ đầu
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 flex flex-col md:flex-row overflow-hidden p-3 md:p-4 gap-4">
+
+        <!-- LEFT PANE: Reading Passage -->
+        <section class="w-full md:w-1/2 bg-white rounded-2xl shadow-sm border border-slate-200/80 flex flex-col overflow-hidden">
+            <!-- Left Pane Header -->
+            <div class="bg-egypt-sand px-6 py-3.5 border-b border-egypt-sandDark flex justify-between items-center">
+                <h2 class="font-serif font-bold text-egypt-brown text-lg flex items-center gap-2">
+                    <svg class="w-5 h-5 text-egypt-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    Reading Passage
+                </h2>
+                <span class="text-xs font-semibold text-slate-500 bg-white/80 px-2.5 py-1 rounded-full border border-slate-200">Đoạn A - D</span>
+            </div>
+
+            <!-- Left Pane Body / Article Content -->
+            <div id="reading-content" class="p-6 overflow-y-auto space-y-6 text-slate-700 leading-relaxed text-sm md:text-base">
+                
+                <!-- Title inside passage -->
+                <div class="text-center pb-4 border-b border-slate-100">
+                    <h2 class="text-2xl md:text-3xl font-serif font-extrabold text-egypt-dark tracking-wide">WONDERS <span class="text-egypt-gold">OF EGYPT</span></h2>
+                </div>
+
+                <!-- Paragraph A -->
+                <div class="relative pl-6 border-l-2 border-egypt-gold/40">
+                    <span class="absolute -left-3 top-0 bg-egypt-sand text-egypt-brown font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-sm border border-egypt-sandDark">A</span>
+                    <p>
+                        Many people today think of the pyramids of Giza as the defining <span class="font-bold text-egypt-accent">icon</span> of ancient Egyptian culture. But who actually built them? For years, we did not know for sure. Now, however, archeologists have discovered an ancient city near the pyramids. Close by, there is a cemetery where the pyramid builders were buried. From studying these places, 
+                        <span id="ev-partA-1" class="evidence-highlight">archeologists can now <span class="font-bold text-egypt-accent">confirm</span> that the pyramids were not built by slaves or foreigners (or space aliens!). <span class="font-bold text-egypt-accent">Ordinary</span> Egyptians built them.</span>
+                    </p>
+                </div>
+
+                <!-- Paragraph B -->
+                <div class="relative pl-6 border-l-2 border-egypt-gold/40">
+                    <span class="absolute -left-3 top-0 bg-egypt-sand text-egypt-brown font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-sm border border-egypt-sandDark">B</span>
+                    <p>
+                        <span id="ev-partB-1" class="evidence-highlight">It took about 80 years to build the pyramids.</span> 
+                        Archeologists believe that about 20,000–30,000 people were <span class="font-bold text-egypt-accent">involved</span> in the construction. The workers had different <span class="font-bold text-egypt-accent">roles</span>. Some dug up the rock, <span id="ev-partB-2" class="evidence-highlight">some moved it, and some shaped it into <span class="font-bold text-egypt-accent">blocks</span>.</span> 
+                        <span id="ev-partB-3" class="evidence-highlight">People also worked on different teams, each with its own name.</span> 
+                        Workers often <span class="font-bold text-egypt-accent">competed</span> to see whose team could do a job faster.
+                    </p>
+                </div>
+
+                <!-- Paragraph C -->
+                <div class="relative pl-6 border-l-2 border-egypt-gold/40">
+                    <span class="absolute -left-3 top-0 bg-egypt-sand text-egypt-brown font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-sm border border-egypt-sandDark">C</span>
+                    <p>
+                        <span id="ev-partA-2" class="evidence-highlight">Life for these workers was hard. "We can see that in their skeletons," says Azza Mohamed Sarry El-Din, a scientist studying bones found in the cemetery. <span class="font-bold text-egypt-accent">According to</span> her research, the bones show signs of arthritis.</span> This probably developed from carrying heavy things for a long time. Archeologists have also found many female skeletons in the ancient city and cemetery. 
+                        <span id="ev-partA-3" class="evidence-highlight">The damage to their bones is similar to that of the men. In fact, <span id="ev-partB-4" class="evidence-highlight">their lives may have been even tougher: Male workers generally lived to age 40–45, but women to only 30–35.</span></span> However, workers usually had enough food, and they also received medical care if they got sick or hurt.
+                    </p>
+                </div>
+
+                <!-- Paragraph D -->
+                <div class="relative pl-6 border-l-2 border-egypt-gold/40">
+                    <span class="absolute -left-3 top-0 bg-egypt-sand text-egypt-brown font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-sm border border-egypt-sandDark">D</span>
+                    <p>
+                        The <span class="font-bold text-egypt-accent">task</span> was challenging, but <span id="ev-partA-4" class="evidence-highlight">laborers</span> were <span class="font-bold text-egypt-accent">proud</span> of their work. On a wall in Khufu's Great Pyramid, for example, a group of workers wrote <em>Friends of Khufu</em>. <span id="ev-partA-5" class="evidence-highlight">"It's because they were not just building the tomb of their king," says Egyptian archeologist Zahi Hawass. "They were building Egypt. It was a national project, and everyone was a participant."</span>
+                    </p>
+                </div>
+
+                <!-- Footnotes Box -->
+                <div class="mt-8 p-4 bg-egypt-sand/50 rounded-xl border border-egypt-sandDark/60 text-xs text-slate-600 space-y-1.5">
+                    <p><strong>1. slave:</strong> a person who is legally owned by someone else and has to work for that person.</p>
+                    <p><strong>2. arthritis:</strong> a medical condition that causes joints in the body to hurt.</p>
+                    <p><strong>3. participant:</strong> a person who joins a certain activity.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- RIGHT PANE: Questions & Interaction -->
+        <section class="w-full md:w-1/2 bg-white rounded-2xl shadow-sm border border-slate-200/80 flex flex-col overflow-hidden">
+            
+            <!-- Tabs / Header -->
+            <div class="bg-slate-50 border-b border-slate-200 px-6 py-3 flex gap-2">
+                <button id="tab-a-btn" onclick="switchTab('A')" class="flex-1 py-2 px-4 rounded-xl font-semibold text-sm transition-all duration-200 bg-white text-egypt-brown shadow-sm border border-slate-200 flex justify-center items-center gap-2">
+                    <span>Phần A: Multiple Choice</span>
+                    <span id="badge-a" class="hidden w-2 h-2 rounded-full bg-emerald-500"></span>
+                </button>
+                <button id="tab-b-btn" onclick="switchTab('B')" class="flex-1 py-2 px-4 rounded-xl font-semibold text-sm transition-all duration-200 text-slate-600 hover:bg-white/50 flex justify-center items-center gap-2">
+                    <span>Phần B: True / False / NG</span>
+                    <span id="badge-b" class="hidden w-2 h-2 rounded-full bg-emerald-500"></span>
+                </button>
+            </div>
+
+            <!-- Question Forms Area -->
+            <div class="p-6 overflow-y-auto flex-1 space-y-6">
+
+                <!-- SECTION A QUESTIONS -->
+                <div id="section-A" class="space-y-6">
+                    <div class="bg-amber-50/80 border border-amber-200/80 p-3.5 rounded-xl text-amber-900 text-xs font-medium flex items-center gap-2">
+                        <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Choose the best answer for each question.
+                    </div>
+
+                    <!-- Question A1 -->
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80 space-y-3" id="q-a1-box">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="text-xs font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded">PURPOSE</span>
+                            <span class="text-xs font-semibold text-slate-400">Câu 1</span>
+                        </div>
+                        <p class="font-medium text-slate-800 text-sm">1. The main purpose of this reading is to describe ________.</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa1" value="a" class="accent-egypt-brown">
+                                <span>a. who the pyramid builders were and what they did</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa1" value="b" class="accent-egypt-brown">
+                                <span>b. what makes the pyramids of Giza special</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa1" value="c" class="accent-egypt-brown">
+                                <span>c. why Egyptian kings wanted to build pyramids</span>
+                            </label>
+                        </div>
+                        <div id="feedback-a1" class="hidden mt-3 p-3 rounded-lg text-xs leading-relaxed"></div>
+                    </div>
+
+                    <!-- Question A2 -->
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80 space-y-3" id="q-a2-box">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="text-xs font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded">GIST</span>
+                            <span class="text-xs font-semibold text-slate-400">Câu 2</span>
+                        </div>
+                        <p class="font-medium text-slate-800 text-sm">2. What is paragraph C mainly about?</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa2" value="a" class="accent-egypt-brown">
+                                <span>a. information on the lives of pyramid builders</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa2" value="b" class="accent-egypt-brown">
+                                <span>b. the benefits of being a male worker</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa2" value="c" class="accent-egypt-brown">
+                                <span>c. the roles of men and women in ancient Egyptian society</span>
+                            </label>
+                        </div>
+                        <div id="feedback-a2" class="hidden mt-3 p-3 rounded-lg text-xs leading-relaxed"></div>
+                    </div>
+
+                    <!-- Question A3 -->
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80 space-y-3" id="q-a3-box">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="text-xs font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded">REFERENCE</span>
+                            <span class="text-xs font-semibold text-slate-400">Câu 3</span>
+                        </div>
+                        <p class="font-medium text-slate-800 text-sm">3. Who does <em>their</em> refer to in paragraph C, line 6 (<em>In fact, their lives may...</em>)?</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa3" value="a" class="accent-egypt-brown">
+                                <span>a. archeologists</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa3" value="b" class="accent-egypt-brown">
+                                <span>b. male workers</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa3" value="c" class="accent-egypt-brown">
+                                <span>c. female workers</span>
+                            </label>
+                        </div>
+                        <div id="feedback-a3" class="hidden mt-3 p-3 rounded-lg text-xs leading-relaxed"></div>
+                    </div>
+
+                    <!-- Question A4 -->
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80 space-y-3" id="q-a4-box">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="text-xs font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded">VOCABULARY</span>
+                            <span class="text-xs font-semibold text-slate-400">Câu 4</span>
+                        </div>
+                        <p class="font-medium text-slate-800 text-sm">4. In paragraph D, what does the word <strong>laborers</strong> mean?</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa4" value="a" class="accent-egypt-brown">
+                                <span>a. kings</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa4" value="b" class="accent-egypt-brown">
+                                <span>b. workers</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa4" value="c" class="accent-egypt-brown">
+                                <span>c. women</span>
+                            </label>
+                        </div>
+                        <div id="feedback-a4" class="hidden mt-3 p-3 rounded-lg text-xs leading-relaxed"></div>
+                    </div>
+
+                    <!-- Question A5 -->
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80 space-y-3" id="q-a5-box">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="text-xs font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded">INFERENCE</span>
+                            <span class="text-xs font-semibold text-slate-400">Câu 5</span>
+                        </div>
+                        <p class="font-medium text-slate-800 text-sm">5. What can we infer about the people who wrote <em>Friends of Khufu</em> on a wall?</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa5" value="a" class="accent-egypt-brown">
+                                <span>a. They were looking for new friends.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa5" value="b" class="accent-egypt-brown">
+                                <span>b. They were pleased with their work.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition">
+                                <input type="radio" name="qa5" value="c" class="accent-egypt-brown">
+                                <span>c. They got into trouble for writing on the wall.</span>
+                            </label>
+                        </div>
+                        <div id="feedback-a5" class="hidden mt-3 p-3 rounded-lg text-xs leading-relaxed"></div>
+                    </div>
+
+                    <button onclick="submitSectionA()" class="w-full bg-egypt-brown hover:bg-amber-900 text-white font-bold py-3 px-6 rounded-xl shadow-md transition transform active:scale-95 flex items-center justify-center gap-2">
+                        <span>Nộp Đáp Án Phần A</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+
+                <!-- SECTION B QUESTIONS -->
+                <div id="section-B" class="hidden space-y-6">
+                    <div class="bg-amber-50/80 border border-amber-200/80 p-3.5 rounded-xl text-amber-900 text-xs font-medium flex items-center gap-2">
+                        <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Are the following statements <strong>T (True)</strong>, <strong>F (False)</strong>, or <strong>NG (Not Given)</strong>?
+                    </div>
+
+                    <!-- Question B1 -->
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80 space-y-3" id="q-b1-box">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="text-xs font-semibold text-slate-400">Câu 1</span>
+                        </div>
+                        <p class="font-medium text-slate-800 text-sm">1. It took more than a hundred years to complete construction of the pyramids.</p>
+                        <div class="grid grid-cols-3 gap-3 text-sm">
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb1" value="T" class="mr-2 accent-egypt-brown"> True
+                            </label>
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb1" value="F" class="mr-2 accent-egypt-brown"> False
+                            </label>
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb1" value="NG" class="mr-2 accent-egypt-brown"> Not Given
+                            </label>
+                        </div>
+                        <div id="feedback-b1" class="hidden mt-3 p-3 rounded-lg text-xs leading-relaxed"></div>
+                    </div>
+
+                    <!-- Question B2 -->
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80 space-y-3" id="q-b2-box">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="text-xs font-semibold text-slate-400">Câu 2</span>
+                        </div>
+                        <p class="font-medium text-slate-800 text-sm">2. The rocks were shaped into blocks mostly by women.</p>
+                        <div class="grid grid-cols-3 gap-3 text-sm">
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb2" value="T" class="mr-2 accent-egypt-brown"> True
+                            </label>
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb2" value="F" class="mr-2 accent-egypt-brown"> False
+                            </label>
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb2" value="NG" class="mr-2 accent-egypt-brown"> Not Given
+                            </label>
+                        </div>
+                        <div id="feedback-b2" class="hidden mt-3 p-3 rounded-lg text-xs leading-relaxed"></div>
+                    </div>
+
+                    <!-- Question B3 -->
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80 space-y-3" id="q-b3-box">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="text-xs font-semibold text-slate-400">Câu 3</span>
+                        </div>
+                        <p class="font-medium text-slate-800 text-sm">3. The pyramid builders worked in teams.</p>
+                        <div class="grid grid-cols-3 gap-3 text-sm">
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb3" value="T" class="mr-2 accent-egypt-brown"> True
+                            </label>
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb3" value="F" class="mr-2 accent-egypt-brown"> False
+                            </label>
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb3" value="NG" class="mr-2 accent-egypt-brown"> Not Given
+                            </label>
+                        </div>
+                        <div id="feedback-b3" class="hidden mt-3 p-3 rounded-lg text-xs leading-relaxed"></div>
+                    </div>
+
+                    <!-- Question B4 -->
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-200/80 space-y-3" id="q-b4-box">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="text-xs font-semibold text-slate-400">Câu 4</span>
+                        </div>
+                        <p class="font-medium text-slate-800 text-sm">4. Male workers generally lived longer than female workers.</p>
+                        <div class="grid grid-cols-3 gap-3 text-sm">
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb4" value="T" class="mr-2 accent-egypt-brown"> True
+                            </label>
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb4" value="F" class="mr-2 accent-egypt-brown"> False
+                            </label>
+                            <label class="flex justify-center items-center p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition font-medium">
+                                <input type="radio" name="qb4" value="NG" class="mr-2 accent-egypt-brown"> Not Given
+                            </label>
+                        </div>
+                        <div id="feedback-b4" class="hidden mt-3 p-3 rounded-lg text-xs leading-relaxed"></div>
+                    </div>
+
+                    <button onclick="submitSectionB()" class="w-full bg-egypt-brown hover:bg-amber-900 text-white font-bold py-3 px-6 rounded-xl shadow-md transition transform active:scale-95 flex items-center justify-center gap-2">
+                        <span>Nộp Đáp Án Phần B</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Data for Section A answers & evidence
+        const sectionAData = {
+            qa1: {
+                correct: 'a',
+                evidenceId: 'ev-partA-1',
+                explain: '<strong>Chính xác!</strong> Nội dung chính của toàn bộ bài đọc giới thiệu về việc ai là người đã thực sự xây dựng kim tự tháp (người Ai Cập bình thường) và công việc, cuộc sống của họ.'
+            },
+            qa2: {
+                correct: 'a',
+                evidenceId: 'ev-partA-2',
+                explain: '<strong>Chính xác!</strong> Đoạn C tập trung mô tả cuộc sống khắc nghiệt của thợ xây kim tự tháp qua bằng chứng xương khớp (bị viêm khớp, tuổi thọ ngắn).'
+            },
+            qa3: {
+                correct: 'c',
+                evidenceId: 'ev-partA-3',
+                explain: '<strong>Chính xác!</strong> Từ "their" ở câu này thay thế cho "female skeletons / women" được nhắc ở câu trước đó.'
+            },
+            qa4: {
+                correct: 'b',
+                evidenceId: 'ev-partA-4',
+                explain: '<strong>Chính xác!</strong> "Laborers" có nghĩa tương đương với "workers" (người lao động, thợ xây).'
+            },
+            qa5: {
+                correct: 'b',
+                evidenceId: 'ev-partA-5',
+                explain: '<strong>Chính xác!</strong> Họ tự hào về công trình vì họ đang "xây dựng Ai Cập", tham gia vào dự án quốc gia chứ không chỉ đơn thuần là làm thuê.'
+            }
+        };
+
+        // Data for Section B answers & evidence
+        const sectionBData = {
+            qb1: {
+                correct: 'F',
+                evidenceId: 'ev-partB-1',
+                explain: '<strong>Sai (False):</strong> Bài đọc ghi rõ "It took about 80 years to build the pyramids" (khoảng 80 năm, không phải hơn 100 năm).'
+            },
+            qb2: {
+                correct: 'NG',
+                evidenceId: 'ev-partB-2',
+                explain: '<strong>Chưa được đề cập (Not Given):</strong> Đoạn B chỉ nói "some moved it, and some shaped it into blocks" mà không hề đề cập việc việc này chủ yếu do phụ nữ làm.'
+            },
+            qb3: {
+                correct: 'T',
+                evidenceId: 'ev-partB-3',
+                explain: '<strong>Đúng (True):</strong> Trong bài đề cập "People also worked on different teams, each with its own name."'
+            },
+            qb4: {
+                correct: 'T',
+                evidenceId: 'ev-partB-4',
+                explain: '<strong>Đúng (True):</strong> Đoạn C nêu rõ: Nam giới sống khoảng 40–45 tuổi, trong khi phụ nữ chỉ sống 30–35 tuổi.'
+            }
+        };
+
+        // Tab Switching Logic
+        function switchTab(tab) {
+            const btnA = document.getElementById('tab-a-btn');
+            const btnB = document.getElementById('tab-b-btn');
+            const secA = document.getElementById('section-A');
+            const secB = document.getElementById('section-B');
+
+            if (tab === 'A') {
+                secA.classList.remove('hidden');
+                secB.classList.add('hidden');
+                btnA.className = "flex-1 py-2 px-4 rounded-xl font-semibold text-sm transition-all duration-200 bg-white text-egypt-brown shadow-sm border border-slate-200 flex justify-center items-center gap-2";
+                btnB.className = "flex-1 py-2 px-4 rounded-xl font-semibold text-sm transition-all duration-200 text-slate-600 hover:bg-white/50 flex justify-center items-center gap-2";
+            } else {
+                secB.classList.remove('hidden');
+                secA.classList.add('hidden');
+                btnB.className = "flex-1 py-2 px-4 rounded-xl font-semibold text-sm transition-all duration-200 bg-white text-egypt-brown shadow-sm border border-slate-200 flex justify-center items-center gap-2";
+                btnA.className = "flex-1 py-2 px-4 rounded-xl font-semibold text-sm transition-all duration-200 text-slate-600 hover:bg-white/50 flex justify-center items-center gap-2";
+            }
+        }
+
+        // Highlight & Scroll to Evidence in Left Pane
+        function highlightAndScroll(evidenceId) {
+            // Remove previous active highlights
+            document.querySelectorAll('.active-highlight').forEach(el => {
+                el.classList.remove('active-highlight');
+            });
+
+            if (!evidenceId) return;
+
+            const targetEl = document.getElementById(evidenceId);
+            if (targetEl) {
+                targetEl.classList.add('active-highlight');
+                
+                // Scroll into view inside left pane
+                targetEl.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        }
+
+        // Submit Logic Section A
+        function submitSectionA() {
+            let firstEvidenceId = null;
+
+            Object.keys(sectionAData).forEach(qKey => {
+                const data = sectionAData[qKey];
+                const selected = document.querySelector(`input[name="${qKey}"]:checked`);
+                const feedbackEl = document.getElementById(`feedback-${qKey.replace('q', '')}`);
+
+                feedbackEl.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-200', 'bg-rose-50', 'text-rose-800', 'border-rose-200');
+
+                if (!selected) {
+                    feedbackEl.className = "mt-3 p-3 rounded-lg text-xs leading-relaxed border bg-amber-50 text-amber-800 border-amber-200";
+                    feedbackEl.innerHTML = "⚠️ Vui lòng chọn đáp án cho câu này.";
+                } else if (selected.value === data.correct) {
+                    feedbackEl.className = "mt-3 p-3 rounded-lg text-xs leading-relaxed border bg-emerald-50 text-emerald-900 border-emerald-200 flex flex-col gap-1";
+                    feedbackEl.innerHTML = `<div><span class="font-bold text-emerald-600">✓ ĐÚNG:</span> ${data.explain}</div>`;
+                    if (!firstEvidenceId) firstEvidenceId = data.evidenceId;
+                } else {
+                    feedbackEl.className = "mt-3 p-3 rounded-lg text-xs leading-relaxed border bg-rose-50 text-rose-900 border-rose-200 flex flex-col gap-1";
+                    feedbackEl.innerHTML = `<div><span class="font-bold text-rose-600">✗ SAI:</span> Đáp án đúng là <strong>${data.correct.toUpperCase()}</strong>. ${data.explain}</div>`;
+                    if (!firstEvidenceId) firstEvidenceId = data.evidenceId;
+                }
+            });
+
+            document.getElementById('badge-a').classList.remove('hidden');
+
+            if (firstEvidenceId) {
+                highlightAndScroll(firstEvidenceId);
+            }
+        }
+
+        // Submit Logic Section B
+        function submitSectionB() {
+            let firstEvidenceId = null;
+
+            Object.keys(sectionBData).forEach(qKey => {
+                const data = sectionBData[qKey];
+                const selected = document.querySelector(`input[name="${qKey}"]:checked`);
+                const feedbackEl = document.getElementById(`feedback-${qKey.replace('q', '')}`);
+
+                feedbackEl.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-200', 'bg-rose-50', 'text-rose-800', 'border-rose-200');
+
+                if (!selected) {
+                    feedbackEl.className = "mt-3 p-3 rounded-lg text-xs leading-relaxed border bg-amber-50 text-amber-800 border-amber-200";
+                    feedbackEl.innerHTML = "⚠️ Vui lòng chọn True, False hoặc Not Given.";
+                } else if (selected.value === data.correct) {
+                    feedbackEl.className = "mt-3 p-3 rounded-lg text-xs leading-relaxed border bg-emerald-50 text-emerald-900 border-emerald-200 flex flex-col gap-1";
+                    feedbackEl.innerHTML = `<div><span class="font-bold text-emerald-600">✓ ĐÚNG:</span> ${data.explain}</div>`;
+                    if (!firstEvidenceId) firstEvidenceId = data.evidenceId;
+                } else {
+                    feedbackEl.className = "mt-3 p-3 rounded-lg text-xs leading-relaxed border bg-rose-50 text-rose-900 border-rose-200 flex flex-col gap-1";
+                    feedbackEl.innerHTML = `<div><span class="font-bold text-rose-600">✗ SAI:</span> Đáp án đúng là <strong>${data.correct}</strong>. ${data.explain}</div>`;
+                    if (!firstEvidenceId) firstEvidenceId = data.evidenceId;
+                }
+            });
+
+            document.getElementById('badge-b').classList.remove('hidden');
+
+            if (firstEvidenceId) {
+                highlightAndScroll(firstEvidenceId);
+            }
+        }
+
+        // Reset All Data
+        function resetAll() {
+            document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+            document.querySelectorAll('[id^="feedback-"]').forEach(el => {
+                el.classList.add('hidden');
+                el.innerHTML = '';
+            });
+            document.querySelectorAll('.active-highlight').forEach(el => el.classList.remove('active-highlight'));
+            document.getElementById('badge-a').classList.add('hidden');
+            document.getElementById('badge-b').classList.add('hidden');
+            switchTab('A');
+        }
+    </script>
+</body>
+</html>
