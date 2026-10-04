@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc Nghiệm Tiếng Anh - Phần 2</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --primary-color: #3182ce;
+            --correct-color: #38a169;
+            --correct-bg: #c6f6d5;
+            --wrong-color: #e53e3e;
+            --wrong-bg: #fed7d7;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            padding-top: 140px; /* Chỗ trống cho thanh Header cố định */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header tracking tiến độ cố định */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 15px 20px;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-correct { color: var(--correct-color); }
+        .stat-wrong { color: var(--wrong-color); }
+
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        /* Thẻ tổng kết kết quả */
+        .summary-card {
+            background-color: #ebf8ff;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            display: none;
+        }
+
+        .summary-card.show {
+            display: block;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .question-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-btn {
+            background-color: #edf2f7;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            background-color: #e2e8f0;
+            border-color: #cbd5e0;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        /* Trạng thái đáp án */
+        .option-btn.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-color);
+            color: #22543d;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong-color);
+            color: #742a2a;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            background-color: #f7fafc;
+            border-left: 4px solid var(--primary-color);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sticky-header">
+    <div class="header-content">
+        <div class="stats-bar">
+            <div class="stat-item">Tiến độ: <span id="answered-count">0</span>/<span id="total-count">55</span> câu (<span id="progress-percent">0%</span>)</div>
+            <div class="stat-item">
+                <span class="stat-correct">✓ Đúng: <span id="correct-count">0</span></span> | 
+                <span class="stat-wrong">✗ Sai: <span id="wrong-count">0</span></span>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="summary-card" class="summary-card">
+        <h2>🎉 Hoàn thành bài trắc nghiệm!</h2>
+        <p>Số câu đúng: <strong id="final-correct">0</strong> / <span id="final-total">55</span> (<span id="final-accuracy">0%</span>)</p>
+    </div>
+
+    <div id="quiz-container"></div>
+</div>
+
+<script>
+const quizDataPart1 = [
+    { id: 1, q: "The disease was so ______ that thousands of people died.", options: ["efficient", "deadly", "historic", "sugary"], correct: 2, exp: "<b>deadly</b>: gây chết người, chí mạng." },
+    { id: 2, q: "Farmers lost most of their ______ because of the drought.", options: ["species", "crops", "samples", "vaults"], correct: 2, exp: "<b>crops</b>: mùa màng, cây trồng." },
+    { id: 3, q: "Many poor countries ______ imported food during the crisis.", options: ["cut down on", "disappear", "depend on", "reintroduce"], correct: 3, exp: "<b>depend on</b>: phụ thuộc vào." },
+    { id: 4, q: "A severe ______ can leave millions of people without enough food.", options: ["marketplace", "famine", "variety", "ceremony"], correct: 2, exp: "<b>famine</b>: nạn đói." },
+    { id: 5, q: "Scientists are trying to protect endangered ______ from extinction.", options: ["facilities", "vaults", "species", "injuries"], correct: 3, exp: "<b>species</b>: loài (loài động/thực vật)." },
+    { id: 6, q: "The scientists hope to prevent the rare animal from becoming ______.", options: ["attached", "obvious", "efficient", "extinct"], correct: 4, exp: "<b>extinct</b>: tuyệt chủng." },
+    { id: 7, q: "The museum has a wide ______ of historical objects.", options: ["famine", "variety", "fracture", "addiction"], correct: 2, exp: "<b>a wide variety of</b>: sự đa dạng, nhiều loại khác nhau." },
+    { id: 8, q: "Several rare plants may ______ if their natural habitats are destroyed.", options: ["disappear", "recommend", "preserve", "interact"], correct: 1, exp: "<b>disappear</b>: biến mất." },
+    { id: 9, q: "The national park was created to ______ endangered animals.", options: ["rob", "strike", "murder", "preserve"], correct: 4, exp: "<b>preserve</b>: bảo tồn, giữ gìn." },
+    { id: 10, q: "The researchers stored the seeds in a ______ for future use.", options: ["crime scene", "marketplace", "seed bank", "coffin"], correct: 3, exp: "<b>seed bank</b>: ngân hàng hạt giống." },
+    { id: 11, q: "The archaeologists found a small ______ of ancient cloth.", options: ["continent", "culprit", "leader", "sample"], correct: 4, exp: "<b>sample</b>: mẫu, mẫu vật." },
+    { id: 12, q: "______ , the researchers believed the disease was caused by a virus.", options: ["Curiously", "Apparently", "Initially", "Cruelly"], correct: 3, exp: "<b>Initially</b>: ban đầu, lúc đầu." },
+    { id: 13, q: "The discovery was a ______ event in the country's history.", options: ["historic", "sugary", "vulnerable", "addictive"], correct: 1, exp: "<b>historic</b>: mang tính lịch sử, có ý nghĩa lịch sử." },
+    { id: 14, q: "The two countries agreed to ______ goods across the border.", options: ["recall", "trade", "examine", "chase"], correct: 2, exp: "<b>trade</b>: trao đổi, buôn bán hàng hóa." },
+    { id: 15, q: "The zoo plans to ______ the species into its natural habitat.", options: ["affect", "rob", "reintroduce", "strike"], correct: 3, exp: "<b>reintroduce</b>: tái thả/tái giới thiệu loài vào môi trường tự nhiên." },
+    { id: 16, q: "Eating too much sugary food can lead to ______.", options: ["variety", "species", "vault", "diabetes"], correct: 4, exp: "<b>diabetes</b>: bệnh tiểu đường." },
+    { id: 17, q: "Parents should encourage children to ______ sugary drinks.", options: ["depend on", "cut down on", "take control of", "trade"], correct: 2, exp: "<b>cut down on</b>: cắt giảm bớt." },
+    { id: 18, q: "Smoking can ______ a person's health in many ways.", options: ["sample", "affect", "preserve", "effect"], correct: 2, exp: "<b>affect</b> (động từ): ảnh hưởng, tác động đến." },
+    { id: 19, q: "One possible ______ of air pollution is lung disease.", options: ["seed", "affect", "vault", "effect"], correct: 4, exp: "<b>effect</b> (danh từ): hậu quả, tác động." },
+    { id: 20, q: "Doctors often ______ regular exercise for better health.", options: ["murder", "disappear", "strike", "recommend"], correct: 4, exp: "<b>recommend</b>: khuyên, đề xuất." }
+];
+
+const quizDataPart2 = [
+    { id: 1, q: "The city has several famous ______ that attract thousands of tourists.", options: ["monuments", "fossils", "rituals", "occupations"], correct: 1, exp: "<b>monuments</b>: đài kỷ niệm, di tích." },
+    { id: 2, q: "Traditional music is an example of ______.", options: ["cuisine", "intangible cultural heritage", "publicity", "conservation"], correct: 2, exp: "<b>intangible cultural heritage</b>: di sản văn hóa phi vật thể." },
+    { id: 3, q: "These two traditions ______ several important features.", options: ["promote", "examine", "have in common", "inspire"], correct: 3, exp: "<b>have in common</b>: có điểm chung." },
+    { id: 4, q: "The temple has great ______ for local people.", options: ["cultural value", "skeleton", "expedition", "reptile"], correct: 1, exp: "<b>cultural value</b>: giá trị văn hóa." },
+    { id: 5, q: "______ is an important traditional skill in this village.", options: ["identity", "craft-making", "remains", "seabed"], correct: 2, exp: "<b>craft-making</b>: nghề làm thủ công." },
+    { id: 6, q: "The country has a ______ range of cultural traditions.", options: ["remote", "enormous", "diverse", "prehistoric"], correct: 3, exp: "<b>diverse</b>: đa dạng." },
+    { id: 7, q: "Many young people learn ______ to improve their discipline.", options: ["martial arts", "cuisine", "publicity", "contribution"], correct: 1, exp: "<b>martial arts</b>: võ thuật." },
+    { id: 8, q: "Vietnamese ______ is famous for its variety of fresh ingredients.", options: ["ritual", "occupation", "cuisine", "fossil"], correct: 3, exp: "<b>cuisine</b>: ẩm thực." },
+    { id: 9, q: "The family's ______ impressed all the visitors.", options: ["generosity", "identity", "conservation", "expedition"], correct: 1, exp: "<b>generosity</b>: sự rộng lượng, hào phóng." },
+    { id: 10, q: "New rules were introduced to ______ the safety of the heritage site.", options: ["convince", "ensure", "respect", "uncover"], correct: 2, exp: "<b>ensure</b>: đảm bảo." },
+    { id: 11, q: "The festival received a lot of ______ on social media.", options: ["publicity", "skeleton", "cultural value", "remains"], correct: 1, exp: "<b>publicity</b>: sự truyền thông, sự chú ý của công chúng." },
+    { id: 12, q: "The evidence helped ______ the researchers that the fossil was genuine.", options: ["promote", "inspire", "convince", "examine"], correct: 3, exp: "<b>convince</b>: thuyết phục." },
+    { id: 13, q: "Visitors should ______ local customs and traditions.", options: ["respect", "uncover", "ensure", "have in common"], correct: 1, exp: "<b>respect</b>: tôn trọng." },
+    { id: 14, q: "The story continues to ______ young artists around the world.", options: ["examine", "inspire", "conserve", "occupy"], correct: 2, exp: "<b>inspire</b>: truyền cảm hứng." },
+    { id: 15, q: "The campaign aims to ______ traditional culture among young people.", options: ["promote", "convince", "uncover", "examine"], correct: 1, exp: "<b>promote</b>: quảng bá, thúc đẩy." },
+    { id: 16, q: "The ceremony is an important religious ______.", options: ["identity", "ritual", "occupation", "contribution"], correct: 2, exp: "<b>ritual</b>: nghi lễ, nghi thức." },
+    { id: 17, q: "Language is an important part of cultural ______.", options: ["publicity", "identity", "expedition", "fossil"], correct: 2, exp: "<b>cultural identity</b>: bản sắc văn hóa." },
+    { id: 18, q: "The ancient temple is now a protected ______.", options: ["heritage site", "seabed", "reptile", "skeleton"], correct: 1, exp: "<b>heritage site</b>: khu di sản." },
+    { id: 19, q: "Scientists discovered a dinosaur ______ in the rock.", options: ["remains", "fossil", "monument", "ritual"], correct: 2, exp: "<b>fossil</b>: hóa thạch." },
+    { id: 20, q: "The museum displays the complete dinosaur ______.", options: ["cuisine", "skeleton", "publicity", "expedition"], correct: 2, exp: "<b>skeleton</b>: bộ xương." },
+    { id: 21, q: "The discovery was an ______ achievement.", options: ["remote", "extraordinary", "intangible cultural heritage", "prehistoric"], correct: 2, exp: "<b>extraordinary</b>: phi thường, xuất sắc." },
+    { id: 22, q: "After years of borrowing money, the company was heavily ______.", options: ["in debt", "diverse", "uncovered", "enormous"], correct: 1, exp: "<b>in debt</b>: lâm vào cảnh nợ nần." },
+    { id: 23, q: "Fishing was the main ______ of people in the village.", options: ["occupation", "conservation", "identity", "publicity"], correct: 1, exp: "<b>occupation</b>: nghề nghiệp, công việc." },
+    { id: 24, q: "Archaeologists ______ an ancient tomb during the excavation.", options: ["inspired", "promoted", "uncovered", "respected"], correct: 3, exp: "<b>uncovered</b>: khai quật, phát hiện ra." },
+    { id: 25, q: "An ichthyosaur was a prehistoric marine ______.", options: ["monument", "reptile", "fossil", "ritual"], correct: 2, exp: "<b>reptile</b>: loài bò sát." },
+    { id: 26, q: "Scientists will ______ the fossil carefully.", options: ["examine", "convince", "ensure", "promote"], correct: 1, exp: "<b>examine</b>: kiểm tra, nghiên cứu tỉ mỉ." },
+    { id: 27, q: "Her research made an important ______ to the study of dinosaurs.", options: ["contribution", "occupation", "publicity", "cuisine"], correct: 1, exp: "<b>make a contribution to</b>: đóng góp cho." },
+    { id: 28, q: "The scientists went on an ______ to the remote island.", options: ["expedition", "identity", "skeleton", "heritage site"], correct: 1, exp: "<b>expedition</b>: cuộc thám hiểm." },
+    { id: 29, q: "The fossils were found in a ______ area far from the city.", options: ["enormous", "diverse", "remote", "extraordinary"], correct: 3, exp: "<b>remote</b>: xa xôi, hẻo lánh." },
+    { id: 30, q: "The museum contains many ______ animals and plants.", options: ["intangible cultural heritage", "prehistoric", "conservation", "in debt"], correct: 2, exp: "<b>prehistoric</b>: thuộc thời tiền sử." },
+    { id: 31, q: "Archaeologists found human ______ near the ancient cave.", options: ["remains", "cuisine", "monuments", "publicity"], correct: 1, exp: "<b>remains</b>: tàn tích, hài cốt." },
+    { id: 32, q: "The fossils were discovered on the ______.", options: ["seabed", "expedition", "occupation", "identity"], correct: 1, exp: "<b>seabed</b>: đáy biển." },
+    { id: 33, q: "The dinosaur was ______ in size compared with modern animals.", options: ["remote", "enormous", "diverse", "uncovered"], correct: 2, exp: "<b>enormous</b>: to lớn, khổng lồ." },
+    { id: 34, q: "Marine ______ is essential for protecting coral reefs.", options: ["conservation", "generosity", "ritual", "contribution"], correct: 1, exp: "<b>conservation</b>: sự bảo tồn." },
+    { id: 35, q: "Many famous ______ are protected by international organizations.", options: ["World Heritage sites", "martial arts", "fossils", "occupations"], correct: 1, exp: "<b>World Heritage sites</b>: các di sản thế giới." }
+];
+
+let correctCount = 0;
+let wrongCount = 0;
+let answeredCount = 0;
+const totalQuestions = quizDataPart1.length + quizDataPart2.length;
+
+function renderSection(titleText, data, offset) {
+    const container = document.getElementById('quiz-container');
+    
+    const sectionHeading = document.createElement('h2');
+    sectionHeading.className = 'section-title';
+    sectionHeading.innerText = titleText;
+    container.appendChild(sectionHeading);
+
+    data.forEach((item, index) => {
+        const globalId = offset + item.id;
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `q-${globalId}`;
+
+        const title = document.createElement('div');
+        title.className = 'question-title';
+        title.innerHTML = `Câu ${globalId}: ${item.q}`;
+        card.appendChild(title);
+
+        const optionsGrid = document.createElement('div');
+        optionsGrid.className = 'options-grid';
+
+        item.options.forEach((opt, optIndex) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = `${String.fromCharCode(65 + optIndex)}. ${opt}`;
+            btn.onclick = () => checkAnswer(globalId, optIndex + 1, item.correct, item.options, item.exp);
+            optionsGrid.appendChild(btn);
+        });
+
+        card.appendChild(optionsGrid);
+
+        const exp = document.createElement('div');
+        exp.className = 'explanation';
+        exp.id = `exp-${globalId}`;
+        card.appendChild(exp);
+
+        container.appendChild(card);
+    });
+}
+
+function checkAnswer(globalId, selectedOption, correctOption, options, expText) {
+    const card = document.getElementById(`q-${globalId}`);
+    const buttons = card.querySelectorAll('.option-btn');
+    const expDiv = document.getElementById(`exp-${globalId}`);
+
+    const isCorrect = selectedOption === correctOption;
+
+    if (isCorrect) {
+        correctCount++;
+    } else {
+        wrongCount++;
+    }
+    answeredCount++;
+
+    buttons.forEach((btn, index) => {
+        btn.disabled = true;
+        const optionNum = index + 1;
+        if (optionNum === correctOption) {
+            btn.classList.add('correct');
+        } else if (optionNum === selectedOption) {
+            btn.classList.add('wrong');
+        }
+    });
+
+    expDiv.innerHTML = `
+        <strong>${isCorrect ? '✅ Chính xác!' : '❌ Chưa đúng!'}</strong><br>
+        <strong>Đáp án đúng:</strong> Option ${correctOption} (${options[correctOption - 1]})<br>
+        <strong>Giải thích:</strong> ${expText}
+    `;
+    expDiv.classList.add('show');
+
+    updateStats();
+}
+
+function updateStats() {
+    document.getElementById('correct-count').innerText = correctCount;
+    document.getElementById('wrong-count').innerText = wrongCount;
+    document.getElementById('answered-count').innerText = answeredCount;
+
+    const percent = Math.round((answeredCount / totalQuestions) * 100);
+    document.getElementById('progress-percent').innerText = `${percent}%`;
+    document.getElementById('progress-bar').style.width = `${percent}%`;
+
+    if (answeredCount === totalQuestions) {
+        const accuracy = Math.round((correctCount / totalQuestions) * 100);
+        document.getElementById('final-correct').innerText = correctCount;
+        document.getElementById('final-total').innerText = totalQuestions;
+        document.getElementById('final-accuracy').innerText = `${accuracy}%`;
+        document.getElementById('summary-card').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+window.onload = () => {
+    document.getElementById('total-count').innerText = totalQuestions;
+    renderSection("Phần 1: Vocabulary Gap-Fill (20 câu)", quizDataPart1, 0);
+    renderSection("Phần 2: Quiz Gap-Fill – Chủ đề Văn hóa & Lịch sử (35 câu)", quizDataPart2, quizDataPart1.length);
+};
+</script>
+
+</body>
+</html>
