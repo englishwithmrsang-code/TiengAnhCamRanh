@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ Bài Học & Tài Liệu</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 30px 10px;
+            background: #007bff;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .section-title {
+            margin: 20px 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #007bff;
+            color: #007bff;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .btn-card {
+            display: block;
+            background: white;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            transition: all 0.2s ease;
+            border: 1px solid #e0e0e0;
+        }
+        .btn-card:hover {
+            background: #007bff;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0,123,255,0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Trung Tâm Bài Học & Tài Liệu</h1>
+        <p>Chọn bài học hoặc phần luyện tập bên dưới</p>
+    </header>
+
+    <!-- Nhóm 1: Các bài học Ngữ pháp / Từ vựng -->
+    <h2 class="section-title">📘 Ngữ Pháp & Bài Học</h2>
+    <div class="grid-container">
+        <a href="PN1.html" class="btn-card">Bài PN1</a>
+        <a href="PN2.html" class="btn-card">Bài PN2</a>
+        <a href="PN3.html" class="btn-card">Bài PN3</a>
+        <a href="QKHT.html" class="btn-card">Quá Khứ Hoàn Thành</a>
+        <a href="QKTD.html" class="btn-card">Quá Khứ Tiếp Diễn</a>
+        <a href="TL.html" class="btn-card">Tương Lai</a>
+    </div>
+
+    <!-- Nhóm 2: Các trang bài tập / Kiểm tra -->
+    <h2 class="section-title">📝 Bài Tập & Luyện Tập</h2>
+    <div class="grid-container">
+        <a href="Tr68.html" class="btn-card">Trang 68</a>
+        <a href="Tr72.html" class="btn-card">Trang 72</a>
+        <a href="Thidon.html" class="btn-card">Thì Đơn</a>
+        <a href="R8.2.html" class="btn-card">Bài R8.2</a>
+        <a href="G8.23.html" class="btn-card">Bài G8.23</a>
+        <a href="G8.27.html" class="btn-card">Bài G8.27</a>
+    </div>
+
+    <!-- Nhóm 3: Các phần khác -->
+    <h2 class="section-title">📌 Nội Dung Khác</h2>
+    <div class="grid-container">
+        <a href="bc.html" class="btn-card">Báo Cáo (bc)</a>
+        <a href="bd.html" class="btn-card">Bảng Điểm (bd)</a>
+        <a href="dk.html" class="btn-card">Đăng Ký (dk)</a>
+        <a href="kt.html" class="btn-card">Kiểm Tra (kt)</a>
+    </div>
+</div>
+
+</body>
+</html>
