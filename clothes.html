@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Dịch IELTS Speaking Part 3 - Clothes & Fashion</title>
+    <style>
+        :root {
+            /* Gam màu xanh biển / xanh ngọc chủ đạo */
+            --bg-color: #eef9f8;
+            --main-title-color: #00827b;
+            --card-bg: #ffffff;
+            --highlight-bg: #ccf2ee;
+            --highlight-text: #00605a;
+            --border-color: #9ee5df;
+            
+            --correct-bg: #e8f8f5;
+            --correct-border: #27ae60;
+            --correct-text: #1e8449;
+            
+            --wrong-bg: #fdf0ed;
+            --wrong-border: #d9381e;
+            --wrong-text: #b0230c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: #2c3e50;
+            margin: 0;
+            padding: 25px;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        /* Title block */
+        .main-title {
+            text-align: center;
+            color: var(--main-title-color);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        /* Instructions block */
+        .instructions-box {
+            background-color: #e2f5f3;
+            border-radius: 12px;
+            padding: 18px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid #b3e6e2;
+        }
+
+        .instructions-title {
+            font-weight: bold;
+            color: var(--main-title-color);
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .instructions-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .instructions-box li {
+            margin-bottom: 5px;
+            color: #333333;
+        }
+
+        /* Tabs Navigation Bar */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background-color: #ffffff;
+            color: var(--main-title-color);
+            border: 1.5px solid var(--border-color);
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--highlight-bg);
+        }
+
+        .tab-btn.active {
+            background-color: var(--main-title-color);
+            color: #ffffff;
+            border-color: var(--main-title-color);
+            box-shadow: 0 3px 8px rgba(0, 130, 123, 0.25);
+        }
+
+        /* Question & Version Content Panes */
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+            animation: fadeInPane 0.25s ease-in-out;
+        }
+
+        @keyframes fadeInPane {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 25px 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .question-title {
+            color: var(--main-title-color);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .version-block {
+            background-color: #f7fcff;
+            border: 1px solid #d8f1f0;
+            border-radius: 10px;
+            padding: 22px;
+            margin-bottom: 20px;
+        }
+
+        .version-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .version-tag {
+            display: inline-block;
+            background-color: var(--main-title-color);
+            color: white;
+            font-weight: bold;
+            font-size: 0.85rem;
+            padding: 3px 12px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+        }
+
+        .text-content {
+            font-size: 1.05rem;
+            color: #2c3e50;
+            line-height: 2.3;
+        }
+
+        /* Highlights */
+        .hl {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 3px 4px;
+            white-space: nowrap;
+        }
+
+        /* Input Wrapper for Tooltip positioning */
+        .input-wrapper {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 3px 4px;
+        }
+
+        input[type="text"] {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+            font-family: inherit;
+            background-color: #ffffff;
+            width: auto;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--main-title-color);
+            box-shadow: 0 0 5px rgba(0, 130, 123, 0.3);
+        }
+
+        /* Correct State */
+        input.correct {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-border) !important;
+            color: var(--correct-text) !important;
+            font-weight: bold;
+        }
+
+        /* Wrong State */
+        input.wrong {
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong-border) !important;
+            color: var(--wrong-text) !important;
+            font-weight: bold;
+        }
+
+        /* Answer Tooltip */
+        .tooltip-ans {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            background-color: #101e23;
+            color: #ffffff;
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 6px;
+            white-space: nowrap;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            pointer-events: none;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        .tooltip-ans::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #101e23 transparent transparent transparent;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, 4px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="main-title">Luyện Tập Dịch IELTS Speaking Part 3</div>
+
+    <div class="instructions-box">
+        <div class="instructions-title">💡 Hướng dẫn sử dụng:</div>
+        <ul>
+            <li>1. Chọn câu hỏi ở các <strong>Tab</strong> phía dưới để luyện tập từng câu. Mỗi câu hỏi gồm 2 Phiên bản.</li>
+            <li>2. Điền cụm từ tiếng Anh tương ứng với phần <span class="hl">(highlight xanh ngọc)</span> vào ô trống rồi bấm phím <strong>Enter</strong>.</li>
+            <li>3. Nếu đúng, ô chuyển màu xanh. Nếu sai, ô chuyển viền đỏ và <strong>hiển thị đáp án ngay phía trên</strong>.</li>
+        </ul>
+    </div>
+
+    <!-- Thanh chuyển Tab -->
+    <div class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab(event, 'q1')">Câu 1</button>
+        <button class="tab-btn" onclick="openTab(event, 'q2')">Câu 2</button>
+        <button class="tab-btn" onclick="openTab(event, 'q3')">Câu 3</button>
+        <button class="tab-btn" onclick="openTab(event, 'q4')">Câu 4</button>
+        <button class="tab-btn" onclick="openTab(event, 'q5')">Câu 5</button>
+        <button class="tab-btn" onclick="openTab(event, 'q6')">Câu 6</button>
+        <button class="tab-btn" onclick="openTab(event, 'q7')">Câu 7</button>
+    </div>
+
+    <!-- CÂU 1 -->
+    <div id="q1" class="tab-pane active">
+        <div class="question-card">
+            <div class="question-title">1. What factors do you think affect the clothes we choose to wear?</div>
+            
+            <div class="version-block">
+                <span class="version-tag">Version 1</span>
+                <div class="text-content">
+                    I think several factors <span class="hl">(ảnh hưởng đến quần áo)</span> <span class="input-wrapper"><input type="text" data-ans="influence the clothes" size="20"></span> people choose to wear. <span class="hl">(Sự thoải mái và tính tiện dụng)</span> <span class="input-wrapper"><input type="text" data-ans="Comfort and practicality" size="24"></span> are probably the most important because people want clothes that <span class="hl">(phù hợp với các hoạt động hàng ngày)</span> <span class="input-wrapper"><input type="text" data-ans="suit their daily activities" size="24"></span>. Personal style and personality also matter, as clothing is a way to <span class="hl">(bộc lộ bản thân)</span> <span class="input-wrapper"><input type="text" data-ans="express ourselves" size="18"></span>. In addition, weather, culture, workplace requirements, and fashion trends can <span class="hl">(ảnh hưởng đến lựa chọn của chúng ta)</span> <span class="input-wrapper"><input type="text" data-ans="influence our choices" size="20"></span>. Social media has also become <span class="hl">(ngày càng có ảnh hưởng)</span> <span class="input-wrapper"><input type="text" data-ans="increasingly influential" size="22"></span>, especially among young people. Overall, our clothing choices are <span class="hl">(được định hình bởi)</span> <span class="input-wrapper"><input type="text" data-ans="shaped by" size="12"></span> a combination of personal preferences and social influences.
+                </div>
+            </div>
+
+            <div class="version-block">
+                <span class="version-tag">Version 2</span>
+                <div class="text-content">
+                    There are many things that can affect people’s choice of clothing. <span class="hl">(Sự thoải mái, tính tiện dụng và sở thích cá nhân)</span> <span class="input-wrapper"><input type="text" data-ans="Comfort, practicality, and personal taste" size="38"></span> are usually the main considerations because people need clothes that <span class="hl">(phù hợp với lối sống của họ)</span> <span class="input-wrapper"><input type="text" data-ans="fit their lifestyle" size="18"></span>. At the same time, factors such as the weather, cultural background, workplace, and current trends can also <span class="hl">(đóng một vai trò)</span> <span class="input-wrapper"><input type="text" data-ans="play a role" size="12"></span>. For younger people, social media is particularly influential because they are <span class="hl">(liên tục tiếp xúc với)</span> <span class="input-wrapper"><input type="text" data-ans="constantly exposed to" size="20"></span> new styles online. So, I would say that clothing choices are influenced by both <span class="hl">(nhu cầu cá nhân và yếu tố bên ngoài)</span> <span class="input-wrapper"><input type="text" data-ans="individual needs and external factors" size="34"></span>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CÂU 2 -->
+    <div id="q2" class="tab-pane">
+        <div class="question-card">
+            <div class="question-title">2. Do you think the clothes we wear reflect our personality?</div>
+            
+            <div class="version-block">
+                <span class="version-tag">Version 1</span>
+                <div class="text-content">
+                    Yes, I think clothes can <span class="hl">(phản ánh những khía cạnh nhất định)</span> <span class="input-wrapper"><input type="text" data-ans="reflect certain aspects" size="22"></span> of our personality, although they do not completely define us. For example, people who prefer simple and practical clothes may <span class="hl">(coi trọng sự thoải mái)</span> <span class="input-wrapper"><input type="text" data-ans="value comfort" size="14"></span> and minimalism, while those who wear <span class="hl">(trang phục nổi bật hoặc nhiều màu sắc)</span> <span class="input-wrapper"><input type="text" data-ans="bold or colorful outfits" size="24"></span> may enjoy self-expression and creativity. However, clothing choices can also be influenced by factors such as budget, culture, or workplace requirements. So, clothes can <span class="hl">(cho chúng ta một vài manh mối)</span> <span class="input-wrapper"><input type="text" data-ans="give us some clues" size="18"></span> about a person, but we should not <span class="hl">(đánh giá ai đó hoàn toàn dựa trên)</span> <span class="input-wrapper"><input type="text" data-ans="judge someone entirely based on" size="30"></span> their appearance.
+                </div>
+            </div>
+
+            <div class="version-block">
+                <span class="version-tag">Version 2</span>
+                <div class="text-content">
+                    To some extent, yes. The way people dress can <span class="hl">(cho chúng ta biết một chút về)</span> <span class="input-wrapper"><input type="text" data-ans="give us an idea of" size="20"></span> their personality or preferences. For instance, someone who chooses simple clothes may prefer a practical and <span class="hl">(lối sống không phức tạp)</span> <span class="input-wrapper"><input type="text" data-ans="uncomplicated lifestyle" size="22"></span>, whereas a person who enjoys unusual or colorful outfits may be more interested in creativity and self-expression. However, I do not think clothing <span class="hl">(cung cấp một bức tranh toàn diện)</span> <span class="input-wrapper"><input type="text" data-ans="provides a complete picture" size="26"></span> of someone because their choices may be limited by money, culture, or <span class="hl">(kỳ vọng của xã hội)</span> <span class="input-wrapper"><input type="text" data-ans="social expectations" size="20"></span>. Therefore, appearance can provide clues, but it should not be used to judge someone's character.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CÂU 3 -->
+    <div id="q3" class="tab-pane">
+        <div class="question-card">
+            <div class="question-title">3. Do you think people’s choice of clothing is influenced more by fashion trends or personal comfort?</div>
+            
+            <div class="version-block">
+                <span class="version-tag">Version 1</span>
+                <div class="text-content">
+                    I think both factors <span class="hl">(đóng một vai trò)</span> <span class="input-wrapper"><input type="text" data-ans="play a role" size="12"></span>, but comfort is generally more important in everyday life. People usually want clothes that are practical, comfortable, and <span class="hl">(phù hợp với thói quen sinh hoạt)</span> <span class="input-wrapper"><input type="text" data-ans="suitable for their routine" size="24"></span>. However, fashion trends can still have a strong influence, particularly on younger people who use clothing to <span class="hl">(thể hiện bản sắc)</span> <span class="input-wrapper"><input type="text" data-ans="express their identity" size="20"></span>. Social media also makes trends spread much faster. I think many people try to <span class="hl">(cân bằng giữa)</span> <span class="input-wrapper"><input type="text" data-ans="strike a balance between" size="22"></span> looking fashionable and feeling comfortable. <span class="hl">(Cuối cùng/Rốt cuộc)</span> <span class="input-wrapper"><input type="text" data-ans="Ultimately" size="12"></span>, trends may influence what people like, but comfort often <span class="hl">(quyết định những gì họ thực sự mặc)</span> <span class="input-wrapper"><input type="text" data-ans="determines what they actually wear" size="32"></span>.
+                </div>
+            </div>
+
+            <div class="version-block">
+                <span class="version-tag">Version 2</span>
+                <div class="text-content">
+                    I would say <span class="hl">(sự thoải mái có xu hướng quan trọng hơn)</span> <span class="input-wrapper"><input type="text" data-ans="comfort tends to be more important" size="32"></span>, although fashion trends still have a <span class="hl">(ảnh hưởng đáng kể)</span> <span class="input-wrapper"><input type="text" data-ans="significant influence" size="20"></span>. Most people want to look good, but they also need clothes that are suitable for work, study, or everyday activities. Trends are especially powerful among young people because social media constantly <span class="hl">(giới thiệu cho họ những phong cách mới)</span> <span class="input-wrapper"><input type="text" data-ans="introduces them to new styles" size="30"></span>. As a result, people may choose fashionable clothes when they are going out, but they are more likely to <span class="hl">(ưu tiên sự thoải mái)</span> <span class="input-wrapper"><input type="text" data-ans="prioritize comfort" size="18"></span> in their daily lives. So, I think people generally try to <span class="hl">(kết hợp phong cách với tính tiện dụng)</span> <span class="input-wrapper"><input type="text" data-ans="combine style with practicality" size="30"></span>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CÂU 4 -->
+    <div id="q4" class="tab-pane">
+        <div class="question-card">
+            <div class="question-title">4. How do you think the clothes we wear influence our behavior and emotions?</div>
+            
+            <div class="version-block">
+                <span class="version-tag">Version 1</span>
+                <div class="text-content">
+                    I believe clothing can have a <span class="hl">(ảnh hưởng rõ rệt)</span> <span class="input-wrapper"><input type="text" data-ans="noticeable effect" size="18"></span> on both our emotions and behavior. Comfortable and <span class="hl">(quần áo vừa vặn)</span> <span class="input-wrapper"><input type="text" data-ans="well-fitting clothes" size="20"></span> can make people feel more confident and relaxed, while uncomfortable clothes may cause stress or <span class="hl">(ngượng ngùng/e đề)</span> <span class="input-wrapper"><input type="text" data-ans="self-consciousness" size="18"></span>. Formal clothing can also make people feel more serious and professional, whereas casual clothes usually <span class="hl">(tạo ra bầu không khí thư giãn hơn)</span> <span class="input-wrapper"><input type="text" data-ans="create a more relaxed atmosphere" size="30"></span>. Therefore, what we wear can influence not only how other people <span class="hl">(nhìn nhận/đánh giá chúng ta)</span> <span class="input-wrapper"><input type="text" data-ans="perceive us" size="14"></span>, but also how we feel and behave in different situations.
+                </div>
+            </div>
+
+            <div class="version-block">
+                <span class="version-tag">Version 2</span>
+                <div class="text-content">
+                    I think what people wear can affect <span class="hl">(cách họ cảm nhận và hành động)</span> <span class="input-wrapper"><input type="text" data-ans="the way they feel and act" size="24"></span>. When people wear comfortable clothes, they are <span class="hl">(có khả năng cảm thấy)</span> <span class="input-wrapper"><input type="text" data-ans="likely to feel" size="14"></span> more relaxed and confident. <span class="hl">(Trái lại)</span> <span class="input-wrapper"><input type="text" data-ans="In contrast" size="12"></span>, uncomfortable or unsuitable clothing can make them feel nervous or less confident. Clothing can also <span class="hl">(thay đổi thái độ của con người)</span> <span class="input-wrapper"><input type="text" data-ans="change people’s attitude" size="22"></span> in particular situations. For example, wearing formal clothes may <span class="hl">(khuyến khích ai đó cư xử)</span> <span class="input-wrapper"><input type="text" data-ans="encourage someone to behave" size="26"></span> more professionally, while casual clothes can make them feel more relaxed. Therefore, clothing can influence both <span class="hl">(tâm trạng và hành vi của chúng ta)</span> <span class="input-wrapper"><input type="text" data-ans="our mood and our behavior" size="26"></span>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CÂU 5 -->
+    <div id="q5" class="tab-pane">
+        <div class="question-card">
+            <div class="question-title">5. Why do people change the style of their clothes as they grow older?</div>
+            
+            <div class="version-block">
+                <span class="version-tag">Version 1</span>
+                <div class="text-content">
+                    People often change their clothing style because their <span class="hl">(các ưu tiên)</span> <span class="input-wrapper"><input type="text" data-ans="priorities" size="12"></span>, lifestyle, and personal preferences change over time. Younger people tend to follow trends and <span class="hl">(thử nghiệm các phong cách khác nhau)</span> <span class="input-wrapper"><input type="text" data-ans="experiment with different styles" size="30"></span>, partly because they want to express themselves or <span class="hl">(hòa nhập với bạn bè đồng lứa)</span> <span class="input-wrapper"><input type="text" data-ans="fit in with their peers" size="22"></span>. As people get older, they often become more interested in comfort, practicality, quality, and <span class="hl">(phong cách vượt thời gian)</span> <span class="input-wrapper"><input type="text" data-ans="timeless styles" size="16"></span>. Their clothes also need to suit their jobs and daily routines. Therefore, changes in clothing style often <span class="hl">(phản ánh sự trưởng thành cá nhân)</span> <span class="input-wrapper"><input type="text" data-ans="reflect personal growth" size="22"></span> and changes in lifestyle.
+                </div>
+            </div>
+
+            <div class="version-block">
+                <span class="version-tag">Version 2</span>
+                <div class="text-content">
+                    I think people’s clothing preferences <span class="hl">(thay đổi một cách tự nhiên)</span> <span class="input-wrapper"><input type="text" data-ans="naturally change" size="16"></span> as their lifestyle and priorities develop. When people are young, they may experiment with different outfits and follow popular trends because appearance and self-expression are important to them. As they become older, however, they may <span class="hl">(tập trung hơn vào)</span> <span class="input-wrapper"><input type="text" data-ans="focus more on" size="14"></span> comfort, quality, and practicality. Their <span class="hl">(trách nhiệm công việc)</span> <span class="input-wrapper"><input type="text" data-ans="professional responsibilities" size="26"></span> and daily routines can also influence what they wear. In other words, changes in fashion preferences often happen because people’s <span class="hl">(nhu cầu và hoàn cảnh thay đổi)</span> <span class="input-wrapper"><input type="text" data-ans="needs and circumstances change" size="28"></span> throughout life.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CÂU 6 -->
+    <div id="q6" class="tab-pane">
+        <div class="question-card">
+            <div class="question-title">6. In what ways has fashion changed in your country over the years?</div>
+            
+            <div class="version-block">
+                <span class="version-tag">Version 1</span>
+                <div class="text-content">
+                    Fashion has changed <span class="hl">(khá đáng kể)</span> <span class="input-wrapper"><input type="text" data-ans="quite significantly" size="18"></span> over the years. In the past, people tended to choose simple and traditional styles, while nowadays there is <span class="hl">(nhiều sự đa dạng hơn)</span> <span class="input-wrapper"><input type="text" data-ans="much more variety" size="18"></span>. Young people, in particular, are strongly influenced by international fashion trends and social media. Online shopping has also made it easier for people to <span class="hl">(tiếp cận các thương hiệu khác nhau)</span> <span class="input-wrapper"><input type="text" data-ans="access different brands" size="22"></span> and styles. At the same time, people today tend to <span class="hl">(coi trọng hơn)</span> <span class="input-wrapper"><input type="text" data-ans="place greater importance on" size="24"></span> personal expression and comfort. Overall, fashion has become more diverse, international, and influenced by technology.
+                </div>
+            </div>
+
+            <div class="version-block">
+                <span class="version-tag">Version 2</span>
+                <div class="text-content">
+                    Fashion in my country has become <span class="hl">(đa dạng và hiện đại hơn)</span> <span class="input-wrapper"><input type="text" data-ans="more diverse and modern" size="22"></span> compared with the past. People used to wear more traditional or <span class="hl">(phong cách bảo thủ/kín đáo)</span> <span class="input-wrapper"><input type="text" data-ans="conservative styles" size="18"></span>, whereas today they <span class="hl">(có khả năng tiếp cận)</span> <span class="input-wrapper"><input type="text" data-ans="have access to" size="14"></span> a much wider range of clothing. International trends have also become more popular, partly because of social media and online shopping. In addition, people now have more freedom to choose clothes based on their personal taste and lifestyle. So, I would say that fashion has gradually become more <span class="hl">(mang tính toàn cầu, đa dạng và cá nhân hóa)</span> <span class="input-wrapper"><input type="text" data-ans="global, varied, and individualistic" size="32"></span>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CÂU 7 -->
+    <div id="q7" class="tab-pane">
+        <div class="question-card">
+            <div class="question-title">7. In what ways do clothing choices differ between younger and older generations?</div>
+            
+            <div class="version-block">
+                <span class="version-tag">Version 1</span>
+                <div class="text-content">
+                    There are <span class="hl">(những sự khác biệt khá rõ ràng)</span> <span class="input-wrapper"><input type="text" data-ans="quite clear differences" size="22"></span> between younger and older generations. Younger people tend to be <span class="hl">(nhạy bén với xu hướng hơn)</span> <span class="input-wrapper"><input type="text" data-ans="more trend-conscious" size="20"></span> and are more willing to experiment with different styles, especially those they see on social media. Older people, on the other hand, often <span class="hl">(ưu tiên sự thoải mái)</span> <span class="input-wrapper"><input type="text" data-ans="prioritize comfort" size="18"></span>, practicality, and quality. They may also prefer more classic and <span class="hl">(thiết kế không bao giờ lỗi mốt)</span> <span class="input-wrapper"><input type="text" data-ans="timeless designs" size="16"></span>. However, <span class="hl">(điều này không phải lúc nào cũng đúng)</span> <span class="input-wrapper"><input type="text" data-ans="this is not always the case" size="24"></span> because individual personality and lifestyle also influence clothing choices. So, the main difference is probably the balance between following trends and prioritizing practicality.
+                </div>
+            </div>
+
+            <div class="version-block">
+                <span class="version-tag">Version 2</span>
+                <div class="text-content">
+                    I think the main difference is that younger people are generally more interested in trends, while older people often <span class="hl">(coi trọng tính tiện dụng và sự thoải mái)</span> <span class="input-wrapper"><input type="text" data-ans="value practicality and comfort" size="28"></span>. Young people are more likely to try new styles and copy fashion trends they see online. Older adults may prefer clothes that are comfortable, <span class="hl">(bền/sử dụng lâu dài)</span> <span class="input-wrapper"><input type="text" data-ans="durable" size="10"></span>, and <span class="hl">(phù hợp cho nhiều dịp khác nhau)</span> <span class="input-wrapper"><input type="text" data-ans="appropriate for different occasions" size="32"></span>. <span class="hl">(Dù nói thế/Dù vậy)</span> <span class="input-wrapper"><input type="text" data-ans="That said" size="10"></span>, the difference is not absolute because some older people also enjoy modern fashion, while some young people prefer simple clothes. <span class="hl">(Tóm lại/Xét cho cùng)</span> <span class="input-wrapper"><input type="text" data-ans="Ultimately" size="12"></span>, age, lifestyle, personality, and social environment all influence clothing choices.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Hàm chuyển Tab
+    function openTab(evt, tabId) {
+        // Mất class active trên tất cả tab content
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        tabPanes.forEach(pane => pane.classList.remove('active'));
+
+        // Mất class active trên tất cả các nút
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => btn.classList.remove('active'));
+
+        // Thêm class active cho tab hiện tại
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    // Xử lý kiểm tra đáp án khi nhấn Enter
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+        input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                
+                const expectedAnswer = this.dataset.ans.trim();
+                const userAnswer = this.value.trim();
+                const wrapper = this.parentElement;
+
+                // Xóa tooltip cũ nếu có
+                const oldTooltip = wrapper.querySelector('.tooltip-ans');
+                if (oldTooltip) {
+                    oldTooltip.remove();
+                }
+                
+                // Chuẩn hóa chuỗi so sánh
+                const cleanExpected = expectedAnswer.toLowerCase().replace(/[’']/g, "'");
+                const cleanUser = userAnswer.toLowerCase().replace(/[’']/g, "'");
+
+                if (cleanUser === cleanExpected) {
+                    this.classList.remove('wrong');
+                    this.classList.add('correct');
+                } else {
+                    this.classList.remove('correct');
+                    this.classList.add('wrong');
+
+                    // Tạo thẻ Tooltip hiển thị đáp án đúng trên đầu ô input
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'tooltip-ans';
+                    tooltip.innerText = `Đáp án: "${expectedAnswer}"`;
+                    wrapper.appendChild(tooltip);
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
