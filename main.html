@@ -1,110 +1,978 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Chủ Bài Học & Tài Liệu</title>
+    <title>englishwithmrsang - Tiếng Anh Cam Ranh</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 30px -5px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 10px 25px -5px rgba(79, 70, 229, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .gradient-text {
+            background: linear-gradient(135deg, #2563EB 0%, #4F46E5 50%, #7C3AED 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        body {
-            background-color: #f4f7f6;
-            color: #333;
-            padding: 20px;
+        /* Custom Flashcard Flip Effect */
+        .perspective-1000 {
+            perspective: 1000px;
         }
-        header {
-            text-align: center;
-            padding: 30px 10px;
-            background: #007bff;
-            color: white;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .transform-style-3d {
+            transform-style: preserve-3d;
         }
-        header h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
+        .backface-hidden {
+            backface-visibility: hidden;
         }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .section-title {
-            margin: 20px 0 10px 0;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #007bff;
-            color: #007bff;
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .btn-card {
-            display: block;
-            background: white;
-            padding: 15px 20px;
-            text-align: center;
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: bold;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-            transition: all 0.2s ease;
-            border: 1px solid #e0e0e0;
-        }
-        .btn-card:hover {
-            background: #007bff;
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 12px rgba(0,123,255,0.3);
+        .rotate-y-180 {
+            transform: rotateY(180deg);
         }
     </style>
 </head>
-<body>
+<body class="bg-[#F8FAFC] text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
 
-<div class="container">
-    <header>
-        <h1>Trung Tâm Bài Học & Tài Liệu</h1>
-        <p>Chọn bài học hoặc phần luyện tập bên dưới</p>
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2">
+            
+            <!-- Brand Logo -->
+            <a href="#" onclick="switchTab('home')" class="flex items-center gap-3 shrink-0 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center text-white font-extrabold text-xl shadow-md group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-base sm:text-xl text-slate-900 tracking-tight leading-none group-hover:text-indigo-600 transition-colors">
+                        englishwithmrsang
+                    </span>
+                    <span class="text-[11px] font-semibold text-indigo-600 tracking-wide mt-0.5">
+                        Tiếng Anh Cam Ranh
+                    </span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/60 overflow-x-auto text-xs font-semibold">
+                <button id="nav-home" onclick="switchTab('home')" class="nav-btn px-3 py-2 rounded-full transition-all text-slate-700 bg-white shadow-sm">Trang chủ</button>
+                <button id="nav-vocab" onclick="switchTab('vocab')" class="nav-btn px-3 py-2 rounded-full transition-all text-slate-600 hover:text-slate-900">Từ vựng</button>
+                <button id="nav-pron" onclick="switchTab('pron')" class="nav-btn px-3 py-2 rounded-full transition-all text-slate-600 hover:text-slate-900">Phát âm</button>
+                <button id="nav-grammar" onclick="switchTab('grammar')" class="nav-btn px-3 py-2 rounded-full transition-all text-slate-600 hover:text-slate-900">Ngữ pháp</button>
+                <button id="nav-reading" onclick="switchTab('reading')" class="nav-btn px-3 py-2 rounded-full transition-all text-slate-600 hover:text-slate-900">Đọc</button>
+                <button id="nav-listening" onclick="switchTab('listening')" class="nav-btn px-3 py-2 rounded-full transition-all text-slate-600 hover:text-slate-900">Nghe</button>
+                <button id="nav-speaking" onclick="switchTab('speaking')" class="nav-btn px-3 py-2 rounded-full transition-all text-slate-600 hover:text-slate-900">Nói</button>
+                <button id="nav-writing" onclick="switchTab('writing')" class="nav-btn px-3 py-2 rounded-full transition-all text-slate-600 hover:text-slate-900">Viết</button>
+                <button id="nav-ielts" onclick="switchTab('ielts')" class="nav-btn px-3 py-2 rounded-full transition-all text-slate-600 hover:text-slate-900">IELTS</button>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="hidden sm:flex items-center gap-2">
+                <button onclick="openLoginModal('login')" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-700 text-xs font-semibold hover:border-slate-300 hover:bg-slate-50 transition-all">
+                    Đăng nhập
+                </button>
+                <button onclick="openLoginModal('register')" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition-all">
+                    Đăng ký
+                </button>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors">
+                <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-6 space-y-2 text-sm font-medium">
+            <button onclick="switchTab('home'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl hover:bg-slate-50">Trang chủ</button>
+            <button onclick="switchTab('vocab'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl hover:bg-slate-50">Từ vựng (Vocabulary)</button>
+            <button onclick="switchTab('pron'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl hover:bg-slate-50">Phát âm (Pronunciation)</button>
+            <button onclick="switchTab('grammar'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl hover:bg-slate-50">Ngữ pháp (Grammar)</button>
+            <button onclick="switchTab('reading'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl hover:bg-slate-50">Kĩ năng Đọc (Reading)</button>
+            <button onclick="switchTab('listening'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl hover:bg-slate-50">Kĩ năng Nghe (Listening)</button>
+            <button onclick="switchTab('speaking'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl hover:bg-slate-50">Kĩ năng Nói (Speaking)</button>
+            <button onclick="switchTab('writing'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl hover:bg-slate-50">Kĩ năng Viết (Writing)</button>
+            <button onclick="switchTab('ielts'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl hover:bg-slate-50">Lộ trình IELTS</button>
+            <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                <button onclick="openLoginModal('login'); toggleMobileMenu()" class="w-full text-center py-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold">Đăng nhập</button>
+                <button onclick="openLoginModal('register'); toggleMobileMenu()" class="w-full text-center py-2.5 rounded-xl bg-slate-900 text-white font-semibold">Tạo tài khoản</button>
+            </div>
+        </div>
     </header>
 
-    <!-- Nhóm 1: Các bài học Ngữ pháp / Từ vựng -->
-    <h2 class="section-title">📘 Ngữ Pháp & Bài Học</h2>
-    <div class="grid-container">
-        <a href="PN1.html" class="btn-card">Bài PN1</a>
-        <a href="PN2.html" class="btn-card">Bài PN2</a>
-        <a href="PN3.html" class="btn-card">Bài PN3</a>
-        <a href="QKHT.html" class="btn-card">Quá Khứ Hoàn Thành</a>
-        <a href="QKTD.html" class="btn-card">Quá Khứ Tiếp Diễn</a>
-        <a href="TL.html" class="btn-card">Tương Lai</a>
+    <main class="flex-grow">
+
+        <!-- ==================== TAB 0: TRANG CHỦ (HOME) ==================== -->
+        <section id="view-home" class="tab-view block">
+            <!-- Hero Banner -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16 lg:pt-16 lg:pb-24">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs sm:text-sm font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
+                            Hệ Thống LMS Học Tiếng Anh Cam Ranh 2026
+                        </div>
+
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+                            Chinh Phục 7 Kỹ Năng Cùng <span class="gradient-text">Mr. Sang</span>
+                        </h1>
+
+                        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            Nền tảng tương tác toàn diện tích hợp Flashcard, Trắc nghiệm chấm tự động, Luyện nghe - nói - đọc - viết và lộ trình IELTS chuyên sâu cho học viên tại Cam Ranh.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                            <button onclick="switchTab('vocab')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-glow transition-all hover:-translate-y-0.5">
+                                Bắt đầu học ngay
+                            </button>
+                            <button onclick="switchTab('ielts')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-compass text-indigo-600"></i>
+                                Lộ trình IELTS Cam Ranh
+                            </button>
+                        </div>
+
+                        <!-- Stats Banner -->
+                        <div class="pt-8 border-t border-slate-200/60 flex items-center justify-center lg:justify-start gap-8">
+                            <div>
+                                <p class="text-2xl font-bold text-slate-900">7/7</p>
+                                <p class="text-xs text-slate-500 font-medium">Kỹ năng toàn diện</p>
+                            </div>
+                            <div class="h-8 w-px bg-slate-200"></div>
+                            <div>
+                                <p class="text-2xl font-bold text-slate-900">1,500+</p>
+                                <p class="text-xs text-slate-500 font-medium">Học viên Cam Ranh</p>
+                            </div>
+                            <div class="h-8 w-px bg-slate-200"></div>
+                            <div>
+                                <p class="text-2xl font-bold text-slate-900">100%</p>
+                                <p class="text-xs text-slate-500 font-medium">Chấm bài tự động</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual Feature Card -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-soft space-y-6">
+                            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-900 text-sm">Tiến độ hôm nay</h3>
+                                        <p class="text-xs text-slate-500">Luyện tập hàng ngày</p>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-1 rounded-md bg-emerald-50 text-emerald-600 text-xs font-bold">Hoạt động</span>
+                            </div>
+
+                            <!-- Interactive Dashboard Mini Modules -->
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div onclick="switchTab('vocab')" class="p-3 bg-slate-50 hover:bg-indigo-50/50 rounded-xl border border-slate-100 cursor-pointer transition-all">
+                                    <i class="fa-solid fa-clone text-indigo-600 mb-1"></i>
+                                    <p class="font-bold text-slate-800">10 Từ vựng</p>
+                                    <p class="text-[10px] text-slate-500">Hôm nay</p>
+                                </div>
+                                <div onclick="switchTab('grammar')" class="p-3 bg-slate-50 hover:bg-indigo-50/50 rounded-xl border border-slate-100 cursor-pointer transition-all">
+                                    <i class="fa-solid fa-spell-check text-blue-600 mb-1"></i>
+                                    <p class="font-bold text-slate-800">Thì HTHT</p>
+                                    <p class="text-[10px] text-slate-500">Đã hoàn thành</p>
+                                </div>
+                                <div onclick="switchTab('listening')" class="p-3 bg-slate-50 hover:bg-indigo-50/50 rounded-xl border border-slate-100 cursor-pointer transition-all">
+                                    <i class="fa-solid fa-headphones text-purple-600 mb-1"></i>
+                                    <p class="font-bold text-slate-800">Luyện Nghe #1</p>
+                                    <p class="text-[10px] text-slate-500">Audio 2 phút</p>
+                                </div>
+                                <div onclick="switchTab('writing')" class="p-3 bg-slate-50 hover:bg-indigo-50/50 rounded-xl border border-slate-100 cursor-pointer transition-all">
+                                    <i class="fa-solid fa-pen-nib text-emerald-600 mb-1"></i>
+                                    <p class="font-bold text-slate-800">Writing Task 2</p>
+                                    <p class="text-[10px] text-slate-500">Đang luyện tập</p>
+                                </div>
+                            </div>
+
+                            <button onclick="switchTab('vocab')" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all">
+                                Tiếp tục học bài gần nhất
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Quick Navigation Modules Bar -->
+            <div class="bg-white border-y border-slate-200/80 py-10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h3 class="text-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-8">Danh mục các kỹ năng học tập</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+                        <button onclick="switchTab('vocab')" class="p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 border border-slate-100 text-center transition-all group">
+                            <i class="fa-solid fa-book-open text-2xl text-indigo-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-bold text-slate-900 text-xs">Từ Vựng</p>
+                        </button>
+                        <button onclick="switchTab('pron')" class="p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 border border-slate-100 text-center transition-all group">
+                            <i class="fa-solid fa-microphone text-2xl text-blue-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-bold text-slate-900 text-xs">Phát Âm</p>
+                        </button>
+                        <button onclick="switchTab('grammar')" class="p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 border border-slate-100 text-center transition-all group">
+                            <i class="fa-solid fa-code-commit text-2xl text-purple-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-bold text-slate-900 text-xs">Ngữ Pháp</p>
+                        </button>
+                        <button onclick="switchTab('reading')" class="p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 border border-slate-100 text-center transition-all group">
+                            <i class="fa-solid fa-newspaper text-2xl text-emerald-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-bold text-slate-900 text-xs">Đọc hiểu</p>
+                        </button>
+                        <button onclick="switchTab('listening')" class="p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 border border-slate-100 text-center transition-all group">
+                            <i class="fa-solid fa-headphones-simple text-2xl text-amber-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-bold text-slate-900 text-xs">Nghe hiểu</p>
+                        </button>
+                        <button onclick="switchTab('speaking')" class="p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 border border-slate-100 text-center transition-all group">
+                            <i class="fa-solid fa-comments text-2xl text-rose-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-bold text-slate-900 text-xs">Luyện Nói</p>
+                        </button>
+                        <button onclick="switchTab('writing')" class="p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 border border-slate-100 text-center transition-all group col-span-2 sm:col-span-1">
+                            <i class="fa-solid fa-pen-ruler text-2xl text-cyan-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-bold text-slate-900 text-xs">Luyện Viết</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 1: TỪ VỰNG (VOCABULARY) ==================== -->
+        <section id="view-vocab" class="tab-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold uppercase">Vocabulary Flashcards</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Từ Vựng Chủ Đề: Environment & City Life</h2>
+                <p class="text-slate-600 text-sm">Nhấp vào thẻ để lật xem phiên âm, nghĩa tiếng Việt và ví dụ minh họa.</p>
+            </div>
+
+            <!-- Flashcard Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="perspective-1000 h-64 cursor-pointer" onclick="flipCard(this)">
+                    <div class="flashcard-inner relative w-full h-full duration-500 transform-style-3d bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-md">
+                        <!-- Front -->
+                        <div class="absolute inset-0 backface-hidden p-6 flex flex-col justify-between items-center text-center">
+                            <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-600 text-xs font-bold">IELTS Academic</span>
+                            <div class="space-y-1">
+                                <h3 class="text-2xl font-extrabold text-slate-900">Sustainable</h3>
+                                <p class="text-xs font-semibold text-slate-400">/səˈsteɪ.nə.bəl/ (adj)</p>
+                            </div>
+                            <p class="text-xs text-indigo-600 font-medium flex items-center gap-1">
+                                <i class="fa-solid fa-rotate"></i> Nhấp để xem nghĩa
+                            </p>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 p-6 flex flex-col justify-between bg-indigo-900 text-white rounded-3xl">
+                            <div>
+                                <span class="text-xs text-indigo-300 font-bold uppercase">Bền vững, không gây hại môi trường</span>
+                                <p class="text-xs text-slate-200 mt-3 leading-relaxed">
+                                    "We need to find more <b>sustainable</b> sources of energy in Cam Ranh."
+                                </p>
+                            </div>
+                            <p class="text-xs text-indigo-300 italic">Ví dụ thực tế trong IELTS Writing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="perspective-1000 h-64 cursor-pointer" onclick="flipCard(this)">
+                    <div class="flashcard-inner relative w-full h-full duration-500 transform-style-3d bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-md">
+                        <div class="absolute inset-0 backface-hidden p-6 flex flex-col justify-between items-center text-center">
+                            <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-600 text-xs font-bold">Topic: City Life</span>
+                            <div class="space-y-1">
+                                <h3 class="text-2xl font-extrabold text-slate-900">Infrastructure</h3>
+                                <p class="text-xs font-semibold text-slate-400">/ˈɪn.frəˌstrʌk.tʃər/ (n)</p>
+                            </div>
+                            <p class="text-xs text-indigo-600 font-medium flex items-center gap-1">
+                                <i class="fa-solid fa-rotate"></i> Nhấp để xem nghĩa
+                            </p>
+                        </div>
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 p-6 flex flex-col justify-between bg-slate-900 text-white rounded-3xl">
+                            <div>
+                                <span class="text-xs text-blue-300 font-bold uppercase">Hạ tầng cơ sở (Đường xá, cầu cống...)</span>
+                                <p class="text-xs text-slate-200 mt-3 leading-relaxed">
+                                    "The local government is investing in modern <b>infrastructure</b>."
+                                </p>
+                            </div>
+                            <p class="text-xs text-slate-400 italic">Cam Ranh Urban Development</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="perspective-1000 h-64 cursor-pointer" onclick="flipCard(this)">
+                    <div class="flashcard-inner relative w-full h-full duration-500 transform-style-3d bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-md">
+                        <div class="absolute inset-0 backface-hidden p-6 flex flex-col justify-between items-center text-center">
+                            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-600 text-xs font-bold">Advanced Vocab</span>
+                            <div class="space-y-1">
+                                <h3 class="text-2xl font-extrabold text-slate-900">Biodiversity</h3>
+                                <p class="text-xs font-semibold text-slate-400">/ˌbaɪ.əʊ.daɪˈvɜː.sə.ti/ (n)</p>
+                            </div>
+                            <p class="text-xs text-indigo-600 font-medium flex items-center gap-1">
+                                <i class="fa-solid fa-rotate"></i> Nhấp để xem nghĩa
+                            </p>
+                        </div>
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 p-6 flex flex-col justify-between bg-emerald-900 text-white rounded-3xl">
+                            <div>
+                                <span class="text-xs text-emerald-300 font-bold uppercase">Đa dạng sinh học</span>
+                                <p class="text-xs text-slate-200 mt-3 leading-relaxed">
+                                    "Cam Ranh Bay has rich marine <b>biodiversity</b> that needs protection."
+                                </p>
+                            </div>
+                            <p class="text-xs text-emerald-300 italic">IELTS Speaking Part 3 Topic</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: PHÁT ÂM (PRONUNCIATION) ==================== -->
+        <section id="view-pron" class="tab-view hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase">Phát Âm Chuẩn IPA</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Quy Tắc Phát Âm Đuôi "-ED" & "-S/ES"</h2>
+                <p class="text-slate-600 text-sm">Ghi nhớ mẹo thần thần thánh từ Mr. Sang và làm bài kiểm tra tức thì.</p>
+            </div>
+
+            <!-- Rules Summary Card -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+                    <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-bold text-xs">Phát âm /id/</span>
+                    <p class="text-xs font-bold text-slate-800">Tận cùng là âm /t/ hoặc /d/</p>
+                    <p class="text-xs text-slate-500">Mẹo nhớ: <i>"Tiền Đô"</i></p>
+                    <p class="text-xs font-semibold text-indigo-600">Ví dụ: wanted, decided</p>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+                    <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-700 font-bold text-xs">Phát âm /t/</span>
+                    <p class="text-xs font-bold text-slate-800">Tận cùng là các âm vô thanh (/p, k, f, s, ʃ, tʃ/)</p>
+                    <p class="text-xs text-slate-500">Mẹo nhớ: <i>"Thôi Khi Sang Phải Chờ Thuyền"</i></p>
+                    <p class="text-xs font-semibold text-blue-600">Ví dụ: stopped, looked, washed</p>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+                    <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-700 font-bold text-xs">Phát âm /d/</span>
+                    <p class="text-xs font-bold text-slate-800">Các trường hợp hữu thanh còn lại</p>
+                    <p class="text-xs text-slate-500">Bao gồm nguyên âm và phụ âm còn lại</p>
+                    <p class="text-xs font-semibold text-purple-600">Ví dụ: played, learned, lived</p>
+                </div>
+            </div>
+
+            <!-- Pronunciation Mini Quiz -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-soft space-y-6">
+                <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question text-indigo-600"></i> Bài tập phát âm đuôi -ED
+                </h3>
+                
+                <div id="pron-quiz" class="space-y-4 text-sm">
+                    <div class="p-4 bg-slate-50 rounded-2xl space-y-2">
+                        <p class="font-bold text-slate-800">1. Từ nào dưới đây có phần gạch chân đuôi "-ed" phát âm khác các từ còn lại?</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                            <button onclick="checkPron(this, false)" class="pron-opt p-3 bg-white rounded-xl border border-slate-200 font-semibold hover:bg-slate-100 text-left">A. walked (/t/)</button>
+                            <button onclick="checkPron(this, false)" class="pron-opt p-3 bg-white rounded-xl border border-slate-200 font-semibold hover:bg-slate-100 text-left">B. missed (/t/)</button>
+                            <button onclick="checkPron(this, true)" class="pron-opt p-3 bg-white rounded-xl border border-slate-200 font-semibold hover:bg-slate-100 text-left">C. landed (/id/)</button>
+                            <button onclick="checkPron(this, false)" class="pron-opt p-3 bg-white rounded-xl border border-slate-200 font-semibold hover:bg-slate-100 text-left">D. watched (/t/)</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="pron-feedback" class="hidden p-4 rounded-xl text-xs font-bold"></div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: NGỮ PHÁP (GRAMMAR) ==================== -->
+        <section id="view-grammar" class="tab-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-bold uppercase">Grammar Master</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Các Chuyên Đề Ngữ Pháp Trọng Tâm</h2>
+                <p class="text-slate-600 text-sm">Ôn tập lý thuyết cốt lõi và làm bài luyện tập chấm điểm trực tiếp.</p>
+            </div>
+
+            <!-- Grammar Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 font-bold text-xs flex items-center justify-center">01</span>
+                        <h3 class="font-bold text-slate-900 text-lg">Hiện Tại Hoàn Thành (Present Perfect)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Diễn tả hành động xảy ra trong quá khứ nhưng kéo dài đến hiện tại hoặc để lại kết quả. Dấu hiệu: <i>since, for, already, yet...</i>
+                        </p>
+                        <div class="p-3 bg-slate-50 rounded-xl text-[11px] text-slate-700 font-mono">
+                            S + have/has + V3/ed
+                        </div>
+                    </div>
+                    <button onclick="openGrammarModal('present-perfect')" class="w-full py-2.5 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors">Xem bài giảng đầy đủ</button>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <span class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 font-bold text-xs flex items-center justify-center">02</span>
+                        <h3 class="font-bold text-slate-900 text-lg">Câu Bị Động (Passive Voice)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Nhấn mạnh vào đối tượng chịu tác động của hành động. Công thức nền tảng trong mọi đề thi THPTQG & IELTS.
+                        </p>
+                        <div class="p-3 bg-slate-50 rounded-xl text-[11px] text-slate-700 font-mono">
+                            S + Be + V3/ed (+ by O)
+                        </div>
+                    </div>
+                    <button onclick="openGrammarModal('passive-voice')" class="w-full py-2.5 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors">Xem bài giảng đầy đủ</button>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <span class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 font-bold text-xs flex items-center justify-center">03</span>
+                        <h3 class="font-bold text-slate-900 text-lg">Mệnh Đề Quan Hệ (Relative Clause)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Nối câu bằng đại từ quan hệ Who, Whom, Which, That, Whose và quy tắc rút gọn mệnh đề dạng V-ing / V3/ed.
+                        </p>
+                        <div class="p-3 bg-slate-50 rounded-xl text-[11px] text-slate-700 font-mono">
+                            Who (người) / Which (vật)
+                        </div>
+                    </div>
+                    <button onclick="openGrammarModal('relative-clause')" class="w-full py-2.5 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors">Xem bài giảng đầy đủ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: ĐỌC (READING) ==================== -->
+        <section id="view-reading" class="tab-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 text-xs font-bold uppercase">Reading Passage</span>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">Luyện Đọc: The Growth of Tourism in Cam Ranh</h2>
+                </div>
+                <div class="text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg w-fit">
+                    Thời gian đọc gợi ý: <b>10 phút</b>
+                </div>
+            </div>
+
+            <!-- Split Screen UI Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Side: Article Text -->
+                <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm text-sm leading-relaxed text-slate-700 space-y-4 max-h-[600px] overflow-y-auto">
+                    <h3 class="font-bold text-slate-900 text-base">Cam Ranh Bay: A Rising Coastal Economic Hub</h3>
+                    <p>
+                        Cam Ranh, located in Khanh Hoa Province, is renowned for its deep-water harbor and pristine white-sand beaches. In recent years, the region has transformed from a quiet coastal area into a major international tourism and commercial transit center.
+                    </p>
+                    <p>
+                        The expansion of Cam Ranh International Airport has played a pivotal role in boosting foreign tourist arrivals. Infrastructure projects, including modern highways and luxury eco-resorts along Bai Dai beach, have significantly improved local employment opportunities for young residents.
+                    </p>
+                    <p>
+                        However, rapid development also brings environmental challenges. Sustainable tourism management is essential to safeguard the marine ecosystems of Cam Ranh Bay while maintaining long-term economic prosperity for future generations.
+                    </p>
+                </div>
+
+                <!-- Right Side: Interactive Questions -->
+                <div class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                    <h3 class="font-bold text-slate-900 text-sm border-b pb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-indigo-600"></i> Câu hỏi kiểm tra đọc hiểu
+                    </h3>
+
+                    <form id="reading-form" onsubmit="evaluateReading(event)" class="space-y-4 text-xs">
+                        <div class="space-y-2">
+                            <p class="font-bold text-slate-800">1. What has played a key role in bringing international tourists to Cam Ranh?</p>
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="rq1" value="A"> A. Deep-water harbor
+                            </label>
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="rq1" value="B"> B. The expansion of Cam Ranh International Airport
+                            </label>
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="rq1" value="C"> C. Agriculture projects
+                            </label>
+                        </div>
+
+                        <div class="space-y-2 pt-2">
+                            <p class="font-bold text-slate-800">2. According to the text, what is essential for protecting the bay?</p>
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="rq2" value="A"> A. Sustainable tourism management
+                            </label>
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="rq2" value="B"> B. Building more factories
+                            </label>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs transition-all shadow-sm">
+                            Nộp bài đọc & Kiểm tra
+                        </button>
+                    </form>
+
+                    <div id="reading-result" class="hidden p-4 rounded-xl text-xs font-bold"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TAB 5: NGHE (LISTENING) ==================== -->
+        <section id="view-listening" class="tab-view hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold uppercase">Audio Listening Comprehension</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Luyện Nghe: Conversation at Cam Ranh Station</h2>
+                <p class="text-slate-600 text-sm">Bấm phát audio bên dưới và hoàn thành bài điền từ còn thiếu.</p>
+            </div>
+
+            <!-- Custom Audio Player Deck -->
+            <div class="bg-slate-900 text-white p-6 sm:p-8 rounded-3xl shadow-lg space-y-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <button id="audio-play-btn" onclick="toggleAudio()" class="w-12 h-12 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center text-lg transition-all shadow-glow">
+                            <i class="fa-solid fa-play" id="play-icon"></i>
+                        </button>
+                        <div>
+                            <p class="font-bold text-sm">Audio Track #102: Directions in Cam Ranh</p>
+                            <p class="text-xs text-slate-400">Speaker: English Native Accents (UK/US)</p>
+                        </div>
+                    </div>
+                    <span class="text-xs font-mono text-slate-400">00:45 / 02:15</span>
+                </div>
+
+                <!-- Simulated Audio Bar -->
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div class="bg-indigo-500 h-full w-1/3"></div>
+                </div>
+            </div>
+
+            <!-- Listening Exercise Blank Fill -->
+            <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <h3 class="font-bold text-slate-900 text-sm">Điền từ còn thiếu vào ô trống dựa trên bài nghe:</h3>
+
+                <form id="listening-form" onsubmit="evaluateListening(event)" class="space-y-4 text-xs">
+                    <div class="p-4 bg-slate-50 rounded-2xl leading-loose space-y-3 text-slate-700">
+                        <p>
+                            A: Excuse me, could you tell me how to get to Cam Ranh 
+                            <input type="text" id="lq1" class="px-2 py-1 bg-white border border-slate-300 rounded text-center w-28 text-slate-900 font-bold focus:ring-2 focus:ring-indigo-500" placeholder="(1) ...">?
+                        </p>
+                        <p>
+                            B: Sure! Go straight ahead for about 200 meters, then turn 
+                            <input type="text" id="lq2" class="px-2 py-1 bg-white border border-slate-300 rounded text-center w-28 text-slate-900 font-bold focus:ring-2 focus:ring-indigo-500" placeholder="(2) ..."> at the traffic lights.
+                        </p>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs transition-all">
+                        Kiểm tra đáp án nghe
+                    </button>
+                </form>
+
+                <div id="listening-result" class="hidden p-4 rounded-xl text-xs font-bold"></div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 6: NÓI (SPEAKING) ==================== -->
+        <section id="view-speaking" class="tab-view hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="px-3 py-1 rounded-full bg-rose-50 text-rose-700 text-xs font-bold uppercase">IELTS Speaking Practice</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Thực Hành Luyện Nói Theo Chủ Đề</h2>
+                <p class="text-slate-600 text-sm">Đọc câu hỏi, tự ghi âm hoặc đối thoại và tham khảo gợi ý bài mẫu đạt Band 7.5+.</p>
+            </div>
+
+            <!-- Speaking Cards List -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Question Card 1 -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3">
+                        <span class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold text-xs">Speaking Part 1</span>
+                        <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-clock mr-1"></i>2 phút</span>
+                    </div>
+
+                    <h3 class="font-bold text-slate-900 text-base">"Describe your hometown Cam Ranh."</h3>
+                    <p class="text-xs text-slate-600">Gợi ý từ vựng nên dùng: <i>coastal town, stunning beaches, hospitality, seafood...</i></p>
+
+                    <!-- Accordion Sample Answer -->
+                    <div class="space-y-2">
+                        <button onclick="toggleSample('sample1')" class="text-xs text-indigo-600 font-bold flex items-center gap-1 hover:underline">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i> Xem câu trả lời mẫu (Sample Response)
+                        </button>
+                        <div id="sample1" class="hidden p-4 bg-slate-50 rounded-2xl text-xs text-slate-700 space-y-2 border border-slate-100">
+                            <p class="italic">"I was born and raised in Cam Ranh, a picturesque coastal city in central Vietnam. It's famous for its crystal-clear ocean waters and delicious seafood, especially lobsters..."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Card 2 -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3">
+                        <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-600 font-bold text-xs">Speaking Part 2</span>
+                        <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-clock mr-1"></i>3 phút</span>
+                    </div>
+
+                    <h3 class="font-bold text-slate-900 text-base">"Describe a course you enjoyed taking recently."</h3>
+                    <p class="text-xs text-slate-600">Gợi ý từ vựng nên dùng: <i>interactive lessons, Mr. Sang's guidance, boost confidence...</i></p>
+
+                    <div class="space-y-2">
+                        <button onclick="toggleSample('sample2')" class="text-xs text-indigo-600 font-bold flex items-center gap-1 hover:underline">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i> Xem câu trả lời mẫu (Sample Response)
+                        </button>
+                        <div id="sample2" class="hidden p-4 bg-slate-50 rounded-2xl text-xs text-slate-700 space-y-2 border border-slate-100">
+                            <p class="italic">"I'd like to talk about the English course at englishwithmrsang in Cam Ranh. The classes are well-structured, focusing on practical communication skills and exam strategies..."</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TAB 7: VIẾT (WRITING) ==================== -->
+        <section id="view-writing" class="tab-view hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="px-3 py-1 rounded-full bg-cyan-50 text-cyan-700 text-xs font-bold uppercase">Writing Workspace</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Luyện Viết IELTS Essay & Chấm Tự Động</h2>
+                <p class="text-slate-600 text-sm">Nhập bài viết của bạn vào khung để đếm từ và tự đánh giá theo 4 tiêu chí IELTS.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Topic & Editor Container -->
+                <div class="lg:col-span-8 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-1">
+                        <span class="px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 text-[10px] font-bold">Writing Task 2 Topic</span>
+                        <p class="text-xs font-bold text-slate-800">
+                            "Some people believe that learning English online is more effective than traditional classroom learning. To what extent do you agree or disagree?"
+                        </p>
+                    </div>
+
+                    <!-- Text Area with Live Word Counter -->
+                    <div class="space-y-2">
+                        <textarea id="writing-input" oninput="updateWordCount()" rows="10" placeholder="Write your response here (At least 250 words)..." class="w-full p-4 rounded-2xl border border-slate-200 text-xs text-slate-800 leading-relaxed focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                        
+                        <div class="flex items-center justify-between text-xs text-slate-500 font-semibold px-1">
+                            <span>Số từ hiện tại: <b id="word-count" class="text-indigo-600 font-bold">0</b> từ</span>
+                            <span>Mục tiêu: <b>250+ từ</b></span>
+                        </div>
+                    </div>
+
+                    <button onclick="submitWriting()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm">
+                        Nộp bài luận & Nhận phân tích
+                    </button>
+
+                    <div id="writing-feedback" class="hidden p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs leading-relaxed space-y-1"></div>
+                </div>
+
+                <!-- IELTS Assessment Criteria Sideboard -->
+                <div class="lg:col-span-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4 text-xs">
+                    <h3 class="font-bold text-slate-900 text-sm border-b pb-3">4 Tiêu chí chấm điểm IELTS Writing:</h3>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <p class="font-bold text-slate-800">1. Task Achievement (25%)</p>
+                            <p class="text-slate-500 text-[11px]">Trả lời đầy đủ các vế câu hỏi và đưa ra quan điểm rõ ràng.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">2. Coherence & Cohesion (25%)</p>
+                            <p class="text-slate-500 text-[11px]">Mạch lạc, chia đoạn hợp lý và sử dụng từ nối tự nhiên.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">3. Lexical Resource (25%)</p>
+                            <p class="text-slate-500 text-[11px]">Vốn từ phong phú, dùng đúng collocations và không lặp từ.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">4. Grammatical Range (25%)</p>
+                            <p class="text-slate-500 text-[11px]">Sử dụng linh hoạt câu đơn, câu phức và không sai chính tả.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TAB 8: IELTS CAM RANH ==================== -->
+        <section id="view-ielts" class="tab-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl space-y-6">
+                <span class="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-bold uppercase tracking-wider">
+                    Chương trình IELTS Cam Ranh 2026
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+                    Lộ Trình IELTS Chuẩn Đầu Ra Tại Cam Ranh
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
+                    Tập trung rèn luyện phương pháp làm bài chuyên sâu cùng Mr. Sang giúp học viên tiết kiệm 50% thời gian ôn luyện.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-xs font-semibold">
+                    <div class="p-4 bg-white/10 rounded-2xl backdrop-blur border border-white/10">
+                        <p class="text-indigo-400 font-bold text-base">IELTS Foundation</p>
+                        <p class="text-slate-300 mt-1">Mục tiêu: 4.0 - 5.0+</p>
+                    </div>
+                    <div class="p-4 bg-white/10 rounded-2xl backdrop-blur border border-white/10">
+                        <p class="text-blue-400 font-bold text-base">IELTS Intensive</p>
+                        <p class="text-slate-300 mt-1">Mục tiêu: 5.5 - 6.5+</p>
+                    </div>
+                    <div class="p-4 bg-white/10 rounded-2xl backdrop-blur border border-white/10">
+                        <p class="text-emerald-400 font-bold text-base">IELTS Advanced</p>
+                        <p class="text-slate-300 mt-1">Mục tiêu: 7.0 - 7.5+</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL: LOGIN / REGISTER -->
+    <div id="login-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl relative border border-slate-100">
+            <button onclick="closeLoginModal()" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="mb-6">
+                <h3 id="modal-title" class="text-2xl font-extrabold text-slate-900">Đăng Nhập Tài Khoản</h3>
+                <p id="modal-subtitle" class="text-xs text-slate-500 mt-1">Truy cập hệ thống học tập englishwithmrsang</p>
+            </div>
+
+            <form onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Email hoặc Tên đăng nhập</label>
+                    <input type="text" required placeholder="hocvien@camranh.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Mật khẩu</label>
+                    <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-all mt-2">
+                    Xác Nhận Đăng Nhập
+                </button>
+            </form>
+
+            <div class="mt-6 pt-4 border-t border-slate-100 text-center text-xs text-slate-600">
+                <span id="auth-toggle-text">Chưa có tài khoản?</span>
+                <button onclick="toggleAuthMode()" id="auth-toggle-btn" class="text-indigo-600 font-bold ml-1 hover:underline">Đăng ký ngay</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Nhóm 2: Các trang bài tập / Kiểm tra -->
-    <h2 class="section-title">📝 Bài Tập & Luyện Tập</h2>
-    <div class="grid-container">
-        <a href="Tr68.html" class="btn-card">Trang 68</a>
-        <a href="Tr72.html" class="btn-card">Trang 72</a>
-        <a href="Thidon.html" class="btn-card">Thì Đơn</a>
-        <a href="R8.2.html" class="btn-card">Bài R8.2</a>
-        <a href="G8.23.html" class="btn-card">Bài G8.23</a>
-        <a href="G8.27.html" class="btn-card">Bài G8.27</a>
+    <!-- MODAL: GRAMMAR DETAIL -->
+    <div id="grammar-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-2xl rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-slate-100 max-h-[85vh] overflow-y-auto space-y-4">
+            <button onclick="closeGrammarModal()" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="g-modal-title" class="text-xl font-bold text-slate-900">Bài giảng Ngữ Pháp</h3>
+            <div id="g-modal-body" class="text-xs text-slate-700 leading-relaxed space-y-3"></div>
+        </div>
     </div>
 
-    <!-- Nhóm 3: Các phần khác -->
-    <h2 class="section-title">📌 Nội Dung Khác</h2>
-    <div class="grid-container">
-        <a href="bc.html" class="btn-card">Báo Cáo (bc)</a>
-        <a href="bd.html" class="btn-card">Bảng Điểm (bd)</a>
-        <a href="dk.html" class="btn-card">Đăng Ký (dk)</a>
-        <a href="kt.html" class="btn-card">Kiểm Tra (kt)</a>
-    </div>
-</div>
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200/80 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-slate-800">englishwithmrsang</span>
+                <span>•</span>
+                <span>Tiếng Anh Cam Ranh © 2026</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#" class="hover:text-slate-800">Hotline: 090 123 4567</a>
+                <span>•</span>
+                <a href="#" class="hover:text-slate-800">Cam Ranh, Khánh Hòa</a>
+            </div>
+        </div>
+    </footer>
 
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // Tab Switcher Engine
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
+            
+            const activeView = document.getElementById(`view-${tabName}`);
+            if (activeView) activeView.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'shadow-sm', 'text-slate-700');
+                btn.classList.add('text-slate-600');
+            });
+
+            const activeBtn = document.getElementById(`nav-${tabName}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-white', 'shadow-sm', 'text-slate-700');
+                activeBtn.classList.remove('text-slate-600');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // Vocabulary Flashcard Flip Logic
+        function flipCard(cardElem) {
+            const inner = cardElem.querySelector('.flashcard-inner');
+            inner.classList.toggle('rotate-y-180');
+        }
+
+        // Pronunciation Quiz Check
+        function checkPron(btn, isCorrect) {
+            const feedback = document.getElementById('pron-feedback');
+            feedback.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'bg-rose-50', 'text-rose-800');
+            
+            if (isCorrect) {
+                feedback.classList.add('bg-emerald-50', 'text-emerald-800');
+                feedback.innerText = " Chính xác! 'Landed' được phát âm là /id/ do kết thúc bằng âm /d/. Các đáp án còn lại phát âm là /t/.";
+            } else {
+                feedback.classList.add('bg-rose-50', 'text-rose-800');
+                feedback.innerText = " Chưa đúng rồi! Hãy nhớ mẹo 'Tiền Đô': tận cùng /t, d/ thì đuôi -ed mới đọc là /id/ (Landed).";
+            }
+        }
+
+        // Grammar Modal Detail Content
+        const grammarData = {
+            'present-perfect': {
+                title: 'Thì Hiện Tại Hoàn Thành (Present Perfect)',
+                body: `<p><b>1. Công thức:</b><br>Khẳng định: S + have/has + V3/ed<br>Phủ định: S + have/has + not + V3/ed<br>Nghi vấn: Have/Has + S + V3/ed?</p><p><b>2. Cách dùng trọng tâm:</b><br>- Diễn tả hành động bắt đầu ở quá khứ và vẫn còn tiếp diễn ở hiện tại (Dùng với Since + mốc thời gian, For + khoảng thời gian).<br>- Diễn tả trải nghiệm (Ever, Never).</p>`
+            },
+            'passive-voice': {
+                title: 'Câu Bị Động (Passive Voice)',
+                body: `<p><b>Quy tắc chuyển đổi 3 bước:</b><br>1. Đưa Tân ngữ (O) lên làm Chủ ngữ mới (S).<br>2. Chia động từ <b>BE</b> theo đúng thì của câu gốc.<br>3. Biến đổi động từ chính về dạng <b>V3/ed</b>.</p>`
+            },
+            'relative-clause': {
+                title: 'Mệnh Đề Quan Hệ (Relative Clauses)',
+                body: `<p><b>Các đại từ quan hệ phổ biến:</b><br>- <b>WHO:</b> Thay thế từ chỉ người (làm Chủ ngữ).<br>- <b>WHOM:</b> Thay thế từ chỉ người (làm Tân ngữ).<br>- <b>WHICH:</b> Thay thế từ chỉ vật.<br>- <b>THAT:</b> Dùng thay thế cho Who/Which trong mệnh đề xác định.</p>`
+            }
+        };
+
+        function openGrammarModal(key) {
+            const data = grammarData[key];
+            if(data) {
+                document.getElementById('g-modal-title').innerText = data.title;
+                document.getElementById('g-modal-body').innerHTML = data.body;
+                document.getElementById('grammar-modal').classList.remove('hidden');
+            }
+        }
+
+        function closeGrammarModal() {
+            document.getElementById('grammar-modal').classList.add('hidden');
+        }
+
+        // Reading Form Evaluation
+        function evaluateReading(e) {
+            e.preventDefault();
+            const form = new FormData(e.target);
+            const q1 = form.get('rq1');
+            const q2 = form.get('rq2');
+            const result = document.getElementById('reading-result');
+
+            result.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'bg-amber-50', 'text-amber-800');
+
+            if (q1 === 'B' && q2 === 'A') {
+                result.classList.add('bg-emerald-50', 'text-emerald-800');
+                result.innerText = " Perfect! Bạn đạt 2/2 câu đúng trong bài đọc về Cam Ranh.";
+            } else {
+                result.classList.add('bg-amber-50', 'text-amber-800');
+                result.innerText = " Kết quả: Bạn trả lời đúng một phần. Đáp án chuẩn là 1-B và 2-A.";
+            }
+        }
+
+        // Listening Controls & Check
+        let isPlaying = false;
+        function toggleAudio() {
+            isPlaying = !isPlaying;
+            const icon = document.getElementById('play-icon');
+            if (isPlaying) {
+                icon.className = "fa-solid fa-pause";
+            } else {
+                icon.className = "fa-solid fa-play";
+            }
+        }
+
+        function evaluateListening(e) {
+            e.preventDefault();
+            const a1 = document.getElementById('lq1').value.trim().toLowerCase();
+            const a2 = document.getElementById('lq2').value.trim().toLowerCase();
+            const result = document.getElementById('listening-result');
+
+            result.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'bg-rose-50', 'text-rose-800');
+
+            if ((a1 === 'station' || a1 === 'airport') && (a2 === 'left' || a2 === 'right')) {
+                result.classList.add('bg-emerald-50', 'text-emerald-800');
+                result.innerText = " Xuất sắc! Khả năng nghe bắt từ khóa (Keywords) của bạn rất tốt.";
+            } else {
+                result.classList.add('bg-rose-50', 'text-rose-800');
+                result.innerText = " Gợi ý đáp án: (1) station / airport, (2) left / right. Bấm nghe lại audio nhé!";
+            }
+        }
+
+        // Speaking Sample Accordion
+        function toggleSample(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+
+        // Writing Counter & Submit
+        function updateWordCount() {
+            const text = document.getElementById('writing-input').value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            document.getElementById('word-count').innerText = words;
+        }
+
+        function submitWriting() {
+            const text = document.getElementById('writing-input').value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            const feedback = document.getElementById('writing-feedback');
+
+            feedback.classList.remove('hidden');
+            if (words < 50) {
+                feedback.innerText = " Bài viết của bạn còn quá ngắn (dưới 50 từ). Hãy mở rộng các ý để hoàn thành bài luận tối thiểu 250 từ.";
+            } else {
+                feedback.innerHTML = `<b> Đã nhận bài viết thành công!</b><br>• Tổng số từ: ${words} words.<br>• Phân tích sơ bộ: Bài viết có cấu trúc đoạn văn tốt. Mr. Sang sẽ gửi nhận xét chi tiết về Vocabulary & Grammar qua email của bạn trong 24h.`;
+            }
+        }
+
+        // Auth Modal Controls
+        let isLogin = true;
+        function openLoginModal(mode) {
+            isLogin = (mode === 'login');
+            updateAuthUI();
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').classList.add('hidden');
+        }
+
+        function toggleAuthMode() {
+            isLogin = !isLogin;
+            updateAuthUI();
+        }
+
+        function updateAuthUI() {
+            document.getElementById('modal-title').innerText = isLogin ? "Đăng Nhập Tài Khoản" : "Đăng Ký Học Viên Mới";
+            document.getElementById('modal-subtitle').innerText = isLogin ? "Truy cập hệ thống học tập englishwithmrsang" : "Tạo tài khoản học tiếng Anh Cam Ranh cùng Mr. Sang";
+            document.getElementById('auth-toggle-text').innerText = isLogin ? "Chưa có tài khoản?" : "Đã có tài khoản?";
+            document.getElementById('auth-toggle-btn').innerText = isLogin ? "Đăng ký ngay" : "Đăng nhập";
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            alert(isLogin ? 'Đăng nhập thành công! Chào mừng bạn quay lại hệ thống LMS.' : 'Đăng ký tài khoản thành công!');
+            closeLoginModal();
+        }
+    </script>
 </body>
 </html>
