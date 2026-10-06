@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Dịch So Sánh Tiếng Anh - Adjectives & Adverbs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .tab-btn.active {
+            border-bottom-color: #0284c7;
+            color: #0284c7;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen font-sans flex flex-col">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="p-2.5 bg-blue-600 text-white rounded-xl shadow-md">
+                    <i class="fa-solid fa-language text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900">Luyện Dịch Câu So Sánh Tiếng Anh</h1>
+                    <p class="text-xs text-slate-500">Bài tập tương tác - Tính từ & Trạng từ (Grammar Practice)</p>
+                </div>
+            </div>
+
+            <!-- Global Score Tracker -->
+            <div class="flex items-center gap-4 bg-slate-100 p-2 px-4 rounded-xl border border-slate-200 w-full md:w-auto justify-between md:justify-end">
+                <div class="text-center md:text-right">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Tiến độ chung</div>
+                    <div class="text-lg font-bold text-blue-600"><span id="overall-score">0</span> / <span id="total-questions">60</span> (<span id="overall-percentage">0</span>%)</div>
+                </div>
+                <button onclick="resetProgress()" title="Làm lại từ đầu" class="p-2 text-slate-400 hover:text-red-500 hover:bg-slate-200 rounded-lg transition-colors">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Tab Navigation -->
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex border-t border-slate-100">
+            <button id="tab1-btn" onclick="switchTab('tab1')" class="tab-btn active px-6 py-3 border-b-2 border-transparent text-sm font-medium text-slate-600 hover:text-blue-600 flex items-center space-x-2 transition-all">
+                <i class="fa-solid fa-font"></i>
+                <span>Tab 1: Tính từ (Adjectives)</span>
+                <span id="tab1-badge" class="ml-2 bg-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded-full">0/30</span>
+            </button>
+            <button id="tab2-btn" onclick="switchTab('tab2')" class="tab-btn px-6 py-3 border-b-2 border-transparent text-sm font-medium text-slate-600 hover:text-blue-600 flex items-center space-x-2 transition-all">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Tab 2: Trạng từ (Adverbs)</span>
+                <span id="tab2-badge" class="ml-2 bg-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded-full">0/30</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        
+        <!-- TAB 1: ADJECTIVES SECTION -->
+        <section id="tab1-content" class="space-y-6">
+            
+            <!-- Reference Table Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white flex items-center justify-between cursor-pointer" onclick="toggleAccordion('adj-grammar-body')">
+                    <div class="flex items-center space-x-2 font-semibold text-lg">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Bảng Công Thức So Sánh Hơn Của Tính Từ (Comparative Adjectives)</span>
+                    </div>
+                    <i id="adj-grammar-body-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                </div>
+                <div id="adj-grammar-body" class="p-5 text-sm space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-xl bg-blue-50 border border-blue-100">
+                            <h4 class="font-bold text-blue-900 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-pen"></i> Tính Từ Ngắn</h4>
+                            <p class="text-xs text-blue-700 mb-2">(1 âm tiết hoặc 2 âm tiết kết thúc bằng <strong>-y</strong>)</p>
+                            <div class="bg-white p-2.5 rounded-lg border border-blue-200 text-xs font-mono font-semibold text-slate-700 mb-2">
+                                S + be + adj-er + than + ...
+                            </div>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li>• tall ➔ <strong>taller</strong></li>
+                                <li>• happy ➔ <strong>happier</strong> (y ➔ ier)</li>
+                                <li>• hot ➔ <strong>hotter</strong> (gấp đôi phụ âm)</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-100">
+                            <h4 class="font-bold text-indigo-900 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-layer-group"></i> Tính Từ Dài</h4>
+                            <p class="text-xs text-indigo-700 mb-2">(Có từ 2 âm tiết trở lên)</p>
+                            <div class="bg-white p-2.5 rounded-lg border border-indigo-200 text-xs font-mono font-semibold text-slate-700 mb-2">
+                                S + be + more + adj + than + ...
+                            </div>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li>• beautiful ➔ <strong>more beautiful</strong></li>
+                                <li>• expensive ➔ <strong>more expensive</strong></li>
+                                <li>• difficult ➔ <strong>more difficult</strong></li>
+                            </ul>
+                        </div>
+                        <div class="p-4 rounded-xl bg-purple-50 border border-purple-100">
+                            <h4 class="font-bold text-purple-900 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-star"></i> Trường Hợp Đặc Biệt</h4>
+                            <p class="text-xs text-purple-700 mb-2">(Tính từ bất quy tắc)</p>
+                            <div class="bg-white p-2.5 rounded-lg border border-purple-200 text-xs font-mono font-semibold text-slate-700 mb-2">
+                                Học thuộc biến thể
+                            </div>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li>• good ➔ <strong>better</strong></li>
+                                <li>• bad ➔ <strong>worse</strong></li>
+                                <li>• far ➔ <strong>farther / further</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Progress Bar -->
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="w-full md:w-2/3">
+                    <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
+                        <span>Tiến độ Tab 1 (Tính từ)</span>
+                        <span id="tab1-progress-text">0 / 30 hoàn thành</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="tab1-progress-bar" class="bg-blue-600 h-2.5 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+                <button onclick="checkAllInTab('tab1')" class="w-full md:w-auto px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold transition-colors shadow-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-check-double"></i> Kiểm Tra Tất Cả Tab 1
+                </button>
+            </div>
+
+            <!-- Sentence Pairs Container -->
+            <div id="adj-questions-container" class="space-y-6"></div>
+        </section>
+
+        <section id="tab2-content" class="space-y-6 hidden">
+            
+            <!-- Reference Table Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-gradient-to-r from-emerald-600 to-teal-600 p-4 text-white flex items-center justify-between cursor-pointer" onclick="toggleAccordion('adv-grammar-body')">
+                    <div class="flex items-center space-x-2 font-semibold text-lg">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Bảng Công Thức So Sánh Hơn Của Trạng Từ (Comparative Adverbs)</span>
+                    </div>
+                    <i id="adv-grammar-body-icon" class="fa-solid fa-chevron-up transition-transform"></i>
+                </div>
+                <div id="adv-grammar-body" class="p-5 text-sm space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-100">
+                            <h4 class="font-bold text-emerald-900 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-bolt"></i> Trạng Từ Ngắn</h4>
+                            <p class="text-xs text-emerald-700 mb-2">(fast, hard, early, late, high...)</p>
+                            <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-xs font-mono font-semibold text-slate-700 mb-2">
+                                S + V + adv-er + than + ...
+                            </div>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li>• fast ➔ <strong>faster</strong></li>
+                                <li>• hard ➔ <strong>harder</strong></li>
+                                <li>• early ➔ <strong>earlier</strong> (y ➔ ier)</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 rounded-xl bg-teal-50 border border-teal-100">
+                            <h4 class="font-bold text-teal-900 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-sliders"></i> Trạng Từ Dài (-ly)</h4>
+                            <p class="text-xs text-teal-700 mb-2">(Trạng từ hình thành bằng đuôi -ly)</p>
+                            <div class="bg-white p-2.5 rounded-lg border border-teal-200 text-xs font-mono font-semibold text-slate-700 mb-2">
+                                S + V + more + adv + than + ...
+                            </div>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li>• carefully ➔ <strong>more carefully</strong></li>
+                                <li>• fluently ➔ <strong>more fluently</strong></li>
+                                <li>• slowly ➔ <strong>more slowly</strong></li>
+                            </ul>
+                        </div>
+                        <div class="p-4 rounded-xl bg-cyan-50 border border-cyan-100">
+                            <h4 class="font-bold text-cyan-900 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-star"></i> Trường Hợp Đặc Biệt</h4>
+                            <p class="text-xs text-cyan-700 mb-2">(Trạng từ bất quy tắc)</p>
+                            <div class="bg-white p-2.5 rounded-lg border border-cyan-200 text-xs font-mono font-semibold text-slate-700 mb-2">
+                                Học thuộc biến thể
+                            </div>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li>• well ➔ <strong>better</strong></li>
+                                <li>• badly ➔ <strong>worse</strong></li>
+                                <li>• far ➔ <strong>farther / further</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Progress Bar -->
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="w-full md:w-2/3">
+                    <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
+                        <span>Tiến độ Tab 2 (Trạng từ)</span>
+                        <span id="tab2-progress-text">0 / 30 hoàn thành</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="tab2-progress-bar" class="bg-emerald-600 h-2.5 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+                <button onclick="checkAllInTab('tab2')" class="w-full md:w-auto px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold transition-colors shadow-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-check-double"></i> Kiểm Tra Tất Cả Tab 2
+                </button>
+            </div>
+
+            <!-- Sentence Pairs Container -->
+            <div id="adv-questions-container" class="space-y-6"></div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4">
+            <p>Ứng dụng Luyện Tập Dịch Câu Tiếng Anh Tương Tác - Hỗ trợ tự học So Sánh Hơn của Tính Từ & Trạng Từ.</p>
+        </div>
+    </footer>
+
+    <script>
+        // -------------------------------------------------------------
+        // DATA SET: TAB 1 (15 PAIRS = 30 SENTENCES) - ADJECTIVES
+        // -------------------------------------------------------------
+        const adjData = [
+            {
+                pair: 1,
+                title: "Cặp 1: tall (cao) - Tính từ ngắn",
+                s1: { id: "adj_1_1", vi: "Ngôi nhà này thì cao.", answers: ["This house is tall", "This house is tall."] },
+                s2: { id: "adj_1_2", vi: "Ngôi nhà này cao hơn ngôi nhà đó.", answers: ["This house is taller than that house", "This house is taller than that one", "This house is taller than that house."] }
+            },
+            {
+                pair: 2,
+                title: "Cặp 2: wide (rộng) - Tính từ ngắn",
+                s1: { id: "adj_2_1", vi: "Con đường này thì rộng.", answers: ["This road is wide", "This street is wide", "This road is wide."] },
+                s2: { id: "adj_2_2", vi: "Con đường này rộng hơn con đường kia.", answers: ["This road is wider than that road", "This street is wider than that street", "This road is wider than that one", "This street is wider than that one."] }
+            },
+            {
+                pair: 3,
+                title: "Cặp 3: warm (ấm áp) - Tính từ ngắn",
+                s1: { id: "adj_3_1", vi: "Hôm nay thời tiết thật ấm áp.", answers: ["The weather is warm today", "Today the weather is warm", "It is warm today."] },
+                s2: { id: "adj_3_2", vi: "Hôm nay thời tiết ấm áp hơn hôm qua.", answers: ["The weather today is warmer than yesterday", "The weather is warmer today than yesterday", "Today the weather is warmer than yesterday."] }
+            },
+            {
+                pair: 4,
+                title: "Cặp 4: happy (vui vẻ) - Tính từ đuôi -y",
+                s1: { id: "adj_4_1", vi: "Em bé này rất vui vẻ.", answers: ["This baby is very happy", "This child is very happy."] },
+                s2: { id: "adj_4_2", vi: "Em bé này vui vẻ hơn anh trai của bé.", answers: ["This baby is happier than her brother", "This baby is happier than his brother", "This baby is happier than its brother."] }
+            },
+            {
+                pair: 5,
+                title: "Cặp 5: thick (dày) - Tính từ ngắn",
+                s1: { id: "adj_5_1", vi: "Cuốn sách này dày.", answers: ["This book is thick", "This book is thick."] },
+                s2: { id: "adj_5_2", vi: "Cuốn sách này dày hơn cuốn sách kia.", answers: ["This book is thicker than that book", "This book is thicker than that one."] }
+            },
+            {
+                pair: 6,
+                title: "Cặp 6: beautiful (đẹp) - Tính từ dài",
+                s1: { id: "adj_6_1", vi: "Bức tranh này rất đẹp.", answers: ["This picture is very beautiful", "This painting is very beautiful."] },
+                s2: { id: "adj_6_2", vi: "Bức tranh này đẹp hơn bức tranh kia.", answers: ["This picture is more beautiful than that picture", "This painting is more beautiful than that painting", "This picture is more beautiful than that one."] }
+            },
+            {
+                pair: 7,
+                title: "Cặp 7: expensive (đắt tiền) - Tính từ dài",
+                s1: { id: "adj_7_1", vi: "Chiếc xe hơi này đắt tiền.", answers: ["This car is expensive", "This car is expensive."] },
+                s2: { id: "adj_7_2", vi: "Chiếc xe hơi này đắt tiền hơn chiếc xe máy.", answers: ["This car is more expensive than the motorbike", "This car is more expensive than a motorbike", "This car is more expensive than the motorcycle."] }
+            },
+            {
+                pair: 8,
+                title: "Cặp 8: difficult (khó) - Tính từ dài",
+                s1: { id: "adj_8_1", vi: "Bài toán này rất khó.", answers: ["This math problem is very difficult", "This problem is very difficult", "This exercise is very difficult."] },
+                s2: { id: "adj_8_2", vi: "Bài toán này khó hơn bài toán trước.", answers: ["This math problem is more difficult than the previous one", "This problem is more difficult than the last problem", "This problem is more difficult than the previous problem."] }
+            },
+            {
+                pair: 9,
+                title: "Cặp 9: important (quan trọng) - Tính từ dài",
+                s1: { id: "adj_9_1", vi: "Công việc này rất quan trọng.", answers: ["This job is very important", "This work is very important."] },
+                s2: { id: "adj_9_2", vi: "Công việc này quan trọng hơn công việc kia.", answers: ["This job is more important than that job", "This job is more important than that one", "This work is more important than that work."] }
+            },
+            {
+                pair: 10,
+                title: "Cặp 10: dangerous (nguy hiểm) - Tính từ dài",
+                s1: { id: "adj_10_1", vi: "Thành phố này rất nguy hiểm.", answers: ["This city is very dangerous", "This city is very dangerous."] },
+                s2: { id: "adj_10_2", vi: "Thành phố này nguy hiểm hơn thị trấn của tôi.", answers: ["This city is more dangerous than my town", "This city is more dangerous than my hometown."] }
+            },
+            {
+                pair: 11,
+                title: "Cặp 11: good (tốt) - Tính từ đặc biệt",
+                s1: { id: "adj_11_1", vi: "Ý tưởng này rất tốt.", answers: ["This idea is very good", "This idea is good."] },
+                s2: { id: "adj_11_2", vi: "Ý tưởng này tốt hơn ý tưởng của tôi.", answers: ["This idea is better than my idea", "This idea is better than mine."] }
+            },
+            {
+                pair: 12,
+                title: "Cặp 12: bad (tệ) - Tính từ đặc biệt",
+                s1: { id: "adj_12_1", vi: "Tình huống này rất tệ.", answers: ["This situation is very bad", "This situation is bad."] },
+                s2: { id: "adj_12_2", vi: "Tình huống này tệ hơn tình huống tuần trước.", answers: ["This situation is worse than last week's situation", "This situation is worse than the situation last week", "This situation is worse than last week."] }
+            },
+            {
+                pair: 13,
+                title: "Cặp 13: far (xa) - Tính từ đặc biệt",
+                s1: { id: "adj_13_1", vi: "Trường học thì xa.", answers: ["The school is far", "School is far."] },
+                s2: { id: "adj_13_2", vi: "Trường học xa hơn bệnh viện.", answers: ["The school is farther than the hospital", "The school is further than the hospital."] }
+            },
+            {
+                pair: 14,
+                title: "Cặp 14: hot (nóng) - Tính từ ngắn nhân đôi phụ âm",
+                s1: { id: "adj_14_1", vi: "Căn phòng này rất nóng.", answers: ["This room is very hot", "This room is hot."] },
+                s2: { id: "adj_14_2", vi: "Căn phòng này nóng hơn căn phòng bên cạnh.", answers: ["This room is hotter than the room next door", "This room is hotter than the next room", "This room is hotter than the room beside it."] }
+            },
+            {
+                pair: 15,
+                title: "Cặp 15: interesting (thú vị) - Tính từ dài",
+                s1: { id: "adj_15_1", vi: "Bộ phim này rất thú vị.", answers: ["This movie is very interesting", "This film is very interesting."] },
+                s2: { id: "adj_15_2", vi: "Bộ phim này thú vị hơn cuốn sách.", answers: ["This movie is more interesting than the book", "This film is more interesting than the book."] }
+            }
+        ];
+
+        // -------------------------------------------------------------
+        // DATA SET: TAB 2 (15 PAIRS = 30 SENTENCES) - ADVERBS
+        // -------------------------------------------------------------
+        const advData = [
+            {
+                pair: 1,
+                title: "Cặp 1: fast (nhanh) - Trạng từ ngắn",
+                s1: { id: "adv_1_1", vi: "Anh ấy chạy rất nhanh.", answers: ["He runs very fast", "He runs fast."] },
+                s2: { id: "adv_1_2", vi: "Anh ấy chạy nhanh hơn bạn anh ấy.", answers: ["He runs faster than his friend", "He runs faster than his friends."] }
+            },
+            {
+                pair: 2,
+                title: "Cặp 2: hard (chăm chỉ) - Trạng từ ngắn",
+                s1: { id: "adv_2_1", vi: "Cô ấy làm việc chăm chỉ.", answers: ["She works hard", "She is working hard."] },
+                s2: { id: "adv_2_2", vi: "Cô ấy làm việc chăm chỉ hơn đồng nghiệp của mình.", answers: ["She works harder than her colleague", "She works harder than her colleagues", "She works harder than her coworkers."] }
+            },
+            {
+                pair: 3,
+                title: "Cặp 3: early (sớm) - Trạng từ ngắn",
+                s1: { id: "adv_3_1", vi: "Nam thức dậy sớm.", answers: ["Nam wakes up early", "Nam gets up early."] },
+                s2: { id: "adv_3_2", vi: "Nam thức dậy sớm hơn chị gái anh ấy.", answers: ["Nam wakes up earlier than his sister", "Nam gets up earlier than his sister."] }
+            },
+            {
+                pair: 4,
+                title: "Cặp 4: late (muộn) - Trạng từ ngắn",
+                s1: { id: "adv_4_1", vi: "Họ đến muộn.", answers: ["They arrived late", "They came late", "They arrive late."] },
+                s2: { id: "adv_4_2", vi: "Họ đến muộn hơn chúng tôi.", answers: ["They arrived later than us", "They came later than us", "They arrived later than we did."] }
+            },
+            {
+                pair: 5,
+                title: "Cặp 5: carefully (cẩn thận) - Trạng từ dài -ly",
+                s1: { id: "adv_5_1", vi: "Anh ấy lái xe cẩn thận.", answers: ["He drives carefully", "He drives very carefully."] },
+                s2: { id: "adv_5_2", vi: "Anh ấy lái xe cẩn thận hơn người bạn của anh ấy.", answers: ["He drives more carefully than his friend", "He drives more carefully than his friends."] }
+            },
+            {
+                pair: 6,
+                title: "Cặp 6: fluently (trôi chảy) - Trạng từ dài -ly",
+                s1: { id: "adv_6_1", vi: "Cô ấy nói tiếng Anh lưu loát.", answers: ["She speaks English fluently", "She speaks English very fluently."] },
+                s2: { id: "adv_6_2", vi: "Cô ấy nói tiếng Anh lưu loát hơn tôi.", answers: ["She speaks English more fluently than me", "She speaks English more fluently than I do."] }
+            },
+            {
+                pair: 7,
+                title: "Cặp 7: slowly (chậm chạp) - Trạng từ dài -ly",
+                s1: { id: "adv_7_1", vi: "Con rùa di chuyển chậm chạp.", answers: ["The turtle moves slowly", "The tortoise moves slowly."] },
+                s2: { id: "adv_7_2", vi: "Con rùa di chuyển chậm chạp hơn con thỏ.", answers: ["The turtle moves more slowly than the rabbit", "The tortoise moves more slowly than the hare", "The turtle moves more slowly than the hare."] }
+            },
+            {
+                pair: 8,
+                title: "Cặp 8: clearly (rõ ràng) - Trạng từ dài -ly",
+                s1: { id: "adv_8_1", vi: "Thầy giáo giải thích bài học rõ ràng.", answers: ["The teacher explains the lesson clearly", "The teacher explained the lesson clearly."] },
+                s2: { id: "adv_8_2", vi: "Thầy giáo giải thích bài học rõ ràng hơn cuốn sách.", answers: ["The teacher explains the lesson more clearly than the book", "The teacher explains the lesson more clearly than the textbook."] }
+            },
+            {
+                pair: 9,
+                title: "Cặp 9: quietly (yên lặng) - Trạng từ dài -ly",
+                s1: { id: "adv_9_1", vi: "Lớp học ngồi yên lặng.", answers: ["The class sits quietly", "The class sat quietly."] },
+                s2: { id: "adv_9_2", vi: "Học sinh ngồi yên lặng hơn thường ngày.", answers: ["Students sit more quietly than usual", "The students sit more quietly than usual", "The students sat more quietly than usual."] }
+            },
+            {
+                pair: 10,
+                title: "Cặp 10: efficiently (hiệu quả) - Trạng từ dài -ly",
+                s1: { id: "adv_10_1", vi: "Máy tính mới làm việc hiệu quả.", answers: ["The new computer works efficiently", "The new computer operates efficiently."] },
+                s2: { id: "adv_10_2", vi: "Máy tính mới làm việc hiệu quả hơn máy tính cũ.", answers: ["The new computer works more efficiently than the old computer", "The new computer works more efficiently than the old one."] }
+            },
+            {
+                pair: 11,
+                title: "Cặp 11: well (hay, tốt) - Trạng từ đặc biệt",
+                s1: { id: "adv_11_1", vi: "Cô ấy hát rất hay.", answers: ["She sings very well", "She sings well."] },
+                s2: { id: "adv_11_2", vi: "Cô ấy hát hay hơn ca sĩ đó.", answers: ["She sings better than that singer", "She sings better than that singer does."] }
+            },
+            {
+                pair: 12,
+                title: "Cặp 12: badly (dở, tệ) - Trạng từ đặc biệt",
+                s1: { id: "adv_12_1", vi: "Anh ấy chơi bóng đá dở.", answers: ["He plays football badly", "He plays soccer badly."] },
+                s2: { id: "adv_12_2", vi: "Anh ấy chơi bóng đá dở hơn anh trai anh ấy.", answers: ["He plays football worse than his brother", "He plays soccer worse than his brother."] }
+            },
+            {
+                pair: 13,
+                title: "Cặp 13: high (cao) - Trạng từ ngắn",
+                s1: { id: "adv_13_1", vi: "Con chim bay cao.", answers: ["The bird flies high", "The bird is flying high."] },
+                s2: { id: "adv_13_2", vi: "Con chim bay cao hơn chiếc máy bay ngẫu nhiên.", answers: ["The bird flies higher than the airplane", "The bird flies higher than the plane."] }
+            },
+            {
+                pair: 14,
+                title: "Cặp 14: politely (lịch sự) - Trạng từ dài -ly",
+                s1: { id: "adv_14_1", vi: "Cô ấy nói chuyện lịch sự.", answers: ["She speaks politely", "She talks politely."] },
+                s2: { id: "adv_14_2", vi: "Cô ấy nói chuyện lịch sự hơn em trai cô ấy.", answers: ["She speaks more politely than her brother", "She talks more politely than her brother."] }
+            },
+            {
+                pair: 15,
+                title: "Cặp 15: frequently (thường xuyên) - Trạng từ dài -ly",
+                s1: { id: "adv_15_1", vi: "Họ đi du lịch thường xuyên.", answers: ["They travel frequently", "They travel very frequently."] },
+                s2: { id: "adv_15_2", vi: "Họ đi du lịch thường xuyên hơn chúng tôi.", answers: ["They travel more frequently than us", "They travel more frequently than we do."] }
+            }
+        ];
+
+        // -------------------------------------------------------------
+        // APPLICATION STATE AND LOCAL STORAGE
+        // -------------------------------------------------------------
+        let userState = {};
+
+        function loadSavedProgress() {
+            const saved = localStorage.getItem('english_comparative_practice_v1');
+            if (saved) {
+                try {
+                    userState = JSON.parse(saved);
+                } catch (e) {
+                    userState = {};
+                }
+            }
+        }
+
+        function saveProgress() {
+            localStorage.setItem('english_comparative_practice_v1', JSON.stringify(userState));
+            updateHeaderAndProgressBars();
+        }
+
+        function resetProgress() {
+            if (confirm("Bạn có chắc chắn muốn xóa toàn bộ tiến độ làm bài và bắt đầu lại?")) {
+                userState = {};
+                localStorage.removeItem('english_comparative_practice_v1');
+                renderAllQuestions();
+                updateHeaderAndProgressBars();
+            }
+        }
+
+        // Helper string normalization for smart matching
+        function normalizeText(text) {
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "") // Remove punctuation
+                .replace(/\s+/g, " "); // Replace multiple spaces with single space
+        }
+
+        function isAnswerCorrect(userAns, acceptedAnswers) {
+            if (!userAns) return false;
+            const normUser = normalizeText(userAns);
+            return acceptedAnswers.some(ans => normalizeText(ans) === normUser);
+        }
+
+        function createQuestionHTML(qData, isComparative = false) {
+            const state = userState[qData.id] || { text: '', status: 'unanswered' };
+            const isChecked = state.status === 'correct' || state.status === 'incorrect';
+            const isCorrect = state.status === 'correct';
+
+            let statusBorder = 'border-slate-200';
+            let statusBg = 'bg-white';
+            
+            if (isChecked) {
+                statusBorder = isCorrect ? 'border-emerald-400 bg-emerald-50/30' : 'border-rose-400 bg-rose-50/30';
+            }
+
+            return `
+                <div class="p-4 rounded-xl border ${statusBorder} ${statusBg} transition-all space-y-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-bold px-2 py-1 rounded ${isComparative ? 'bg-indigo-100 text-indigo-700' : 'bg-slate-100 text-slate-700'}">
+                                ${isComparative ? 'Câu 2 (So sánh hơn)' : 'Câu 1 (Câu đơn)'}
+                            </span>
+                            <span class="text-sm font-semibold text-slate-800">${qData.vi}</span>
+                        </div>
+                        ${isChecked ? `
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1 w-fit ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                                <i class="fa-solid ${isCorrect ? 'fa-check' : 'fa-xmark'}"></i>
+                                ${isCorrect ? 'Chính xác!' : 'Chưa đúng'}
+                            </span>
+                        ` : ''}
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="text" 
+                            id="input_${qData.id}" 
+                            value="${state.text || ''}"
+                            placeholder="Nhập câu dịch tiếng Anh..." 
+                            onkeydown="if(event.key==='Enter') checkSingleQuestion('${qData.id}')"
+                            class="flex-grow px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        />
+                        <div class="flex gap-2">
+                            <button onclick="checkSingleQuestion('${qData.id}')" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg transition-colors shadow-sm whitespace-nowrap">
+                                Kiểm tra
+                            </button>
+                            <button onclick="toggleHint('${qData.id}')" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-medium rounded-lg transition-colors border border-slate-200" title="Xem gợi ý đáp án">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hint / Correct Answer Display -->
+                    <div id="hint_${qData.id}" class="hidden text-xs bg-amber-50 text-amber-900 p-3 rounded-lg border border-amber-200">
+                        <strong>Gợi ý đáp án chuẩn:</strong> ${qData.answers[0]}
+                        ${qData.answers.length > 1 ? `<br><span class="text-slate-500">Hoặc: ${qData.answers.slice(1).join(" / ")}</span>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPairCard(pairData, index) {
+            return `
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+                    <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+                        <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold">${index + 1}</span>
+                            ${pairData.title}
+                        </h3>
+                    </div>
+                    <div class="space-y-3">
+                        ${createQuestionHTML(pairData.s1, false)}
+                        ${createQuestionHTML(pairData.s2, true)}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAllQuestions() {
+            const adjContainer = document.getElementById('adj-questions-container');
+            const advContainer = document.getElementById('adv-questions-container');
+
+            adjContainer.innerHTML = adjData.map((pair, idx) => renderPairCard(pair, idx)).join('');
+            advContainer.innerHTML = advData.map((pair, idx) => renderPairCard(pair, idx)).join('');
+        }
+
+        function findQuestionDataById(id) {
+            for (let item of [...adjData, ...advData]) {
+                if (item.s1.id === id) return item.s1;
+                if (item.s2.id === id) return item.s2;
+            }
+            return null;
+        }
+
+        function checkSingleQuestion(id) {
+            const qData = findQuestionDataById(id);
+            if (!qData) return;
+
+            const inputElem = document.getElementById(`input_${id}`);
+            const userVal = inputElem ? inputElem.value : '';
+
+            const correct = isAnswerCorrect(userVal, qData.answers);
+
+            userState[id] = {
+                text: userVal,
+                status: correct ? 'correct' : 'incorrect'
+            };
+
+            saveProgress();
+            renderAllQuestions();
+        }
+
+        function toggleHint(id) {
+            const hintElem = document.getElementById(`hint_${id}`);
+            if (hintElem) {
+                hintElem.classList.toggle('hidden');
+            }
+        }
+
+        function checkAllInTab(tabName) {
+            const dataset = tabName === 'tab1' ? adjData : advData;
+            dataset.forEach(pair => {
+                [pair.s1, pair.s2].forEach(qData => {
+                    const inputElem = document.getElementById(`input_${qData.id}`);
+                    const userVal = inputElem ? inputElem.value : '';
+                    const correct = isAnswerCorrect(userVal, qData.answers);
+                    userState[qData.id] = {
+                        text: userVal,
+                        status: correct ? 'correct' : 'incorrect'
+                    };
+                });
+            });
+            saveProgress();
+            renderAllQuestions();
+        }
+
+        function updateHeaderAndProgressBars() {
+            let totalQuestions = 60; // 30 in Tab 1 + 30 in Tab 2
+            let correctCount = 0;
+            let tab1Correct = 0;
+            let tab2Correct = 0;
+
+            adjData.forEach(pair => {
+                if (userState[pair.s1.id]?.status === 'correct') { tab1Correct++; correctCount++; }
+                if (userState[pair.s2.id]?.status === 'correct') { tab1Correct++; correctCount++; }
+            });
+
+            advData.forEach(pair => {
+                if (userState[pair.s1.id]?.status === 'correct') { tab2Correct++; correctCount++; }
+                if (userState[pair.s2.id]?.status === 'correct') { tab2Correct++; correctCount++; }
+            });
+
+            // Update Header Stats
+            document.getElementById('overall-score').innerText = correctCount;
+            document.getElementById('total-questions').innerText = totalQuestions;
+            document.getElementById('overall-percentage').innerText = Math.round((correctCount / totalQuestions) * 100);
+
+            // Update Tab Badges
+            document.getElementById('tab1-badge').innerText = `${tab1Correct}/30`;
+            document.getElementById('tab2-badge').innerText = `${tab2Correct}/30`;
+
+            // Update Tab Progress Bars
+            document.getElementById('tab1-progress-text').innerText = `${tab1Correct} / 30 hoàn thành`;
+            document.getElementById('tab1-progress-bar').style.width = `${(tab1Correct / 30) * 100}%`;
+
+            document.getElementById('tab2-progress-text').innerText = `${tab2Correct} / 30 hoàn thành`;
+            document.getElementById('tab2-progress-bar').style.width = `${(tab2Correct / 30) * 100}%`;
+        }
+
+        function switchTab(tab) {
+            const tab1Btn = document.getElementById('tab1-btn');
+            const tab2Btn = document.getElementById('tab2-btn');
+            const tab1Content = document.getElementById('tab1-content');
+            const tab2Content = document.getElementById('tab2-content');
+
+            if (tab === 'tab1') {
+                tab1Btn.classList.add('active');
+                tab2Btn.classList.remove('active');
+                tab1Content.classList.remove('hidden');
+                tab2Content.classList.add('hidden');
+            } else {
+                tab2Btn.classList.add('active');
+                tab1Btn.classList.remove('active');
+                tab2Content.classList.remove('hidden');
+                tab1Content.classList.add('hidden');
+            }
+        }
+
+        function toggleAccordion(id) {
+            const body = document.getElementById(id);
+            const icon = document.getElementById(`${id}-icon`);
+            if (body.classList.contains('hidden')) {
+                body.classList.remove('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                body.classList.add('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        window.onload = function() {
+            loadSavedProgress();
+            renderAllQuestions();
+            updateHeaderAndProgressBars();
+        };
+    </script>
+</body>
+</html>
