@@ -46,11 +46,9 @@
   <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-blue-100 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Logo Brand -->
+      <!-- Logo Brand với Hình Ảnh Logo Tròn -->
       <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
-        <div class="w-11 h-11 rounded-2xl bg-blue-600 flex items-center justify-center shadow-md shadow-blue-200 text-white">
-          <i class="fa-solid fa-graduation-cap text-xl"></i>
-        </div>
+       <img src="https://englishwithmrsang-code.github.io/TiengAnhCamRanh/image(64).png" alt="English with Mr. Sang Logo" class="w-12 h-12 rounded-full object-contain border border-blue-200 shadow-sm">
         <div>
           <span class="text-xl font-extrabold text-slate-900 tracking-tight block leading-none">EnglishwithMrSang</span>
           <span class="text-[10px] font-extrabold text-blue-600 uppercase tracking-widest mt-1 block">Tiếng Anh Cam Ranh</span>
@@ -70,7 +68,7 @@
           <i class="fa-solid fa-trophy text-amber-500"></i> Top 30 Leaderboard
         </button>
         
-        <!-- BẢNG TRACKING RIÊNG - CHỈ HIỂN THỊ KHI ADMIN ĐĂNG NHẬP -->
+        <!-- BẢNG TRACKING RIÊNG - CHỈ ADMIN MỚI THẤY -->
         <button onclick="switchTab('admin')" id="nav-admin" class="admin-only hidden nav-btn text-rose-600 hover:text-rose-700 transition flex items-center gap-1.5">
           <i class="fa-solid fa-chart-line"></i> Admin Tracking
         </button>
@@ -122,7 +120,7 @@
           </h1>
 
           <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl">
-            Tự động đếm thời gian thực hiện từng bài tập, xếp hạng thi đua Top 30 và theo dõi tiến độ chi tiết của học viên.
+            Phân loại bài tập tương tác chuẩn theo Kỹ năng (Skills), chương trình phổ thông THCS - THPT, Lộ trình IELTS 6 giai đoạn & Các khóa IELTS Cấp tốc 1-1 chuyên sâu.
           </p>
 
           <div class="flex flex-wrap gap-3 pt-2">
@@ -164,7 +162,7 @@
           </div>
           <div>
             <h4 class="text-lg font-black text-slate-800">IELTS 6 Giai Đoạn</h4>
-            <p class="text-xs text-slate-500">Chuẩn từ Band 0 đến Band 6.5+ & Khóa Chuyên Sâu</p>
+            <p class="text-xs text-slate-500">Chuẩn từ Band 0 đến Band 6.5+ & Khóa Cấp Tốc 1-1</p>
           </div>
         </div>
       </div>
@@ -236,7 +234,7 @@
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-blue-100 pb-5">
         <div>
           <h2 class="text-3xl font-black text-slate-900">Danh Sách Bài Học Skill</h2>
-          <p class="text-slate-500 text-sm">Bấm "Vào Làm Bài Tập" để tự động bắt đầu tính thời gian làm bài cho bài học đó.</p>
+          <p class="text-slate-500 text-sm">Chọn phân môn bên dưới để làm bài tập tương tác ngay.</p>
         </div>
         <button onclick="openAddLessonModal('skill')" class="admin-only hidden px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-full transition shadow-md flex items-center gap-2">
           <i class="fa-solid fa-plus"></i> Thêm Bài Học Skill Mới (Admin)
@@ -300,12 +298,14 @@
       <div id="thpt-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2"></div>
     </div>
 
-    <!-- VIEW 5: IELTS -->
-    <div id="view-ielts" class="tab-view hidden space-y-10">
+    <!-- VIEW 5: LỘ TRÌNH IELTS 6 CẤP ĐỘ & IELTS CẤP TỐC 1-1 -->
+    <div id="view-ielts" class="tab-view hidden space-y-12">
+      
+      <!-- PHẦN 1: LỘ TRÌNH 6 CẤP ĐỘ -->
       <div class="space-y-6">
         <div class="flex flex-col sm:flex-row justify-between sm:items-end gap-4">
           <div>
-            <h2 class="text-3xl font-black text-slate-900 mb-1">Lộ Trình IELTS Chuẩn 6 Giai Đoạn</h2>
+            <h2 class="text-3xl font-black text-slate-900 mb-1">Lộ Trình IELTS Chuẩn 6 Cấp Độ</h2>
             <p class="text-slate-500 text-sm">Thiết kế bài bản giúp học viên nâng band điểm theo đúng mục tiêu.</p>
           </div>
           <a href="https://www.facebook.com/profile.php?id=61564829631018" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs rounded-full shadow-sm transition inline-flex items-center gap-2">
@@ -316,7 +316,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div class="bg-white p-6 rounded-3xl border border-blue-100 hover:shadow-md transition flex flex-col justify-between space-y-4">
             <div>
-              <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-extrabold rounded-full uppercase">Giai đoạn 1</span>
+              <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-extrabold rounded-full uppercase">Cấp độ 1</span>
               <h3 class="text-2xl font-black text-slate-800 mt-2">0 - 2.5</h3>
               <p class="text-xs text-slate-500 mt-2 leading-relaxed">Chuẩn hóa phát âm IPA, từ vựng nền tảng & ngữ pháp cơ bản.</p>
             </div>
@@ -327,7 +327,7 @@
 
           <div class="bg-white p-6 rounded-3xl border border-blue-100 hover:shadow-md transition flex flex-col justify-between space-y-4">
             <div>
-              <span class="px-3 py-1 bg-sky-50 text-sky-700 text-xs font-extrabold rounded-full uppercase">Giai đoạn 2</span>
+              <span class="px-3 py-1 bg-sky-50 text-sky-700 text-xs font-extrabold rounded-full uppercase">Cấp độ 2</span>
               <h3 class="text-2xl font-black text-slate-800 mt-2">2.5 - 3.5</h3>
               <p class="text-xs text-slate-500 mt-2 leading-relaxed">Mở rộng cấu trúc câu ghép, từ vựng theo chủ đề quen thuộc.</p>
             </div>
@@ -338,7 +338,7 @@
 
           <div class="bg-white p-6 rounded-3xl border border-blue-100 hover:shadow-md transition flex flex-col justify-between space-y-4">
             <div>
-              <span class="px-3 py-1 bg-teal-50 text-teal-700 text-xs font-extrabold rounded-full uppercase">Giai đoạn 3</span>
+              <span class="px-3 py-1 bg-teal-50 text-teal-700 text-xs font-extrabold rounded-full uppercase">Cấp độ 3</span>
               <h3 class="text-2xl font-black text-slate-800 mt-2">3.5 - 4.5</h3>
               <p class="text-xs text-slate-500 mt-2 leading-relaxed">Làm quen dạng đề IELTS Listening & Reading, nền tảng Viết câu.</p>
             </div>
@@ -349,7 +349,7 @@
 
           <div class="bg-white p-6 rounded-3xl border border-blue-100 hover:shadow-md transition flex flex-col justify-between space-y-4">
             <div>
-              <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-extrabold rounded-full uppercase">Giai đoạn 4</span>
+              <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-extrabold rounded-full uppercase">Cấp độ 4</span>
               <h3 class="text-2xl font-black text-slate-800 mt-2">4.5 - 5.5</h3>
               <p class="text-xs text-slate-500 mt-2 leading-relaxed">Rèn luyện chiến thuật làm bài IELTS Task 1, Task 2 & Speaking Part 1.</p>
             </div>
@@ -360,7 +360,7 @@
 
           <div class="bg-white p-6 rounded-3xl border border-blue-100 hover:shadow-md transition flex flex-col justify-between space-y-4">
             <div>
-              <span class="px-3 py-1 bg-cyan-50 text-cyan-700 text-xs font-extrabold rounded-full uppercase">Giai đoạn 5</span>
+              <span class="px-3 py-1 bg-cyan-50 text-cyan-700 text-xs font-extrabold rounded-full uppercase">Cấp độ 5</span>
               <h3 class="text-2xl font-black text-slate-800 mt-2">5.5 - 6.5</h3>
               <p class="text-xs text-slate-500 mt-2 leading-relaxed">Bứt phá kỹ năng Reading/Listening & phản xạ Speaking tự nhiên.</p>
             </div>
@@ -371,7 +371,7 @@
 
           <div class="bg-white p-6 rounded-3xl border border-blue-200 hover:shadow-md transition flex flex-col justify-between space-y-4">
             <div>
-              <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-extrabold rounded-full uppercase">Giai đoạn 6</span>
+              <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-extrabold rounded-full uppercase">Cấp độ 6</span>
               <h3 class="text-2xl font-black text-slate-800 mt-2">6.5 +</h3>
               <p class="text-xs text-slate-500 mt-2 leading-relaxed">Giải đề Cambridge thực chiến, bẫy nâng cao & tối ưu điểm số.</p>
             </div>
@@ -381,14 +381,77 @@
           </div>
         </div>
       </div>
+
+      <!-- PHẦN 2: MỤC IELTS CẤP TỐC 1-1 (MỚI BỔ SUNG) -->
+      <div class="space-y-6 pt-6 border-t border-blue-100">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-lg font-bold border border-rose-100">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <div>
+            <h2 class="text-2xl font-black text-slate-900">IELTS Cấp Tốc 1-1</h2>
+            <p class="text-slate-500 text-sm">Chương trình kèm riêng cá nhân hóa tốc hành bứt phá kỹ năng trọng tâm.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Khóa 1: Intensive Reading & Listening -->
+          <div class="bg-white p-6 rounded-3xl border border-rose-100 hover:shadow-md transition flex flex-col justify-between space-y-4 relative overflow-hidden">
+            <span class="absolute -right-7 top-4 bg-rose-500 text-white text-[9px] font-black uppercase px-8 py-1 rotate-45 shadow-xs">Cấp tốc 1-1</span>
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-book-open-reader"></i>
+              </div>
+              <h3 class="text-xl font-black text-slate-800">Intensive Reading & Listening</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Tập trung kỹ thuật Skimming, Scanning, Keyword Transformation & xử lý các bẫy đề thi Cambridge thực chiến.</p>
+            </div>
+            <a href="https://www.facebook.com/profile.php?id=61564829631018" target="_blank" rel="noopener noreferrer" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition text-center shadow-md shadow-blue-100 block">
+              Đăng Ký Khóa R&L 1-1
+            </a>
+          </div>
+
+          <!-- Khóa 2: Intensive Speaking -->
+          <div class="bg-white p-6 rounded-3xl border border-rose-100 hover:shadow-md transition flex flex-col justify-between space-y-4 relative overflow-hidden">
+            <span class="absolute -right-7 top-4 bg-rose-500 text-white text-[9px] font-black uppercase px-8 py-1 rotate-45 shadow-xs">Cấp tốc 1-1</span>
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-microphone-lines"></i>
+              </div>
+              <h3 class="text-xl font-black text-slate-800">Intensive Speaking</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Luyện phản xạ Part 1, 2, 3 trực tiếp 1-1 với Mr. Sang, sửa lỗi phát âm IPA, intonation & bổ sung ý tưởng câu trả lời C1-C2.</p>
+            </div>
+            <a href="https://www.facebook.com/profile.php?id=61564829631018" target="_blank" rel="noopener noreferrer" class="w-full py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition text-center shadow-md shadow-cyan-100 block">
+              Đăng Ký Speaking 1-1
+            </a>
+          </div>
+
+          <!-- Khóa 3: Intensive Listening -->
+          <div class="bg-white p-6 rounded-3xl border border-rose-100 hover:shadow-md transition flex flex-col justify-between space-y-4 relative overflow-hidden">
+            <span class="absolute -right-7 top-4 bg-rose-500 text-white text-[9px] font-black uppercase px-8 py-1 rotate-45 shadow-xs">Cấp tốc 1-1</span>
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-headphones-simple"></i>
+              </div>
+              <h3 class="text-xl font-black text-slate-800">Intensive Listening</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Chuyên sâu luyện phương pháp Dictation (Chép chính tả), bắt từ khóa chuẩn xác cho Part 3 & Part 4 và khắc phục bẫy nối âm nhanh.</p>
+            </div>
+            <a href="https://www.facebook.com/profile.php?id=61564829631018" target="_blank" rel="noopener noreferrer" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition text-center shadow-md shadow-indigo-100 block">
+              Đăng Ký Listening 1-1
+            </a>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
-    <!-- VIEW 6: ADMIN TRACKING (CHỈ ADMIN MỚI THẤY) -->
+    <!-- VIEW 6: ADMIN TRACKING (CHỈ ADMIN THẤY) -->
     <div id="view-admin" class="tab-view hidden space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-blue-100 pb-5">
         <div>
           <h2 class="text-3xl font-black text-slate-900">Bảng Theo Dõi Học Viên (Admin Only)</h2>
-          <p class="text-slate-500 text-sm">Theo dõi chi tiết thời lượng làm bài và danh sách bài tập từng học viên đã thực hiện.</p>
+          <p class="text-slate-500 text-sm">Theo dõi chi tiết số bài tập và lượt làm bài của từng học viên.</p>
         </div>
         <button onclick="clearTrackingData()" class="px-4 py-2 bg-rose-50 text-rose-600 border border-rose-200 text-xs font-bold rounded-full hover:bg-rose-100 transition">
           <i class="fa-solid fa-trash mr-1"></i> Xóa dữ liệu tracking
@@ -400,7 +463,6 @@
           <thead>
             <tr class="bg-slate-50 text-slate-700 text-xs uppercase font-extrabold border-b border-slate-200">
               <th class="p-4">Tài Khoản / Tên Học Viên</th>
-              <th class="p-4">Tổng Thời Lượng Làm Bài</th>
               <th class="p-4">Số Bài Tập Đã Hoàn Thành</th>
               <th class="p-4">Bài Tập Gần Nhất</th>
             </tr>
@@ -441,7 +503,7 @@
     </div>
   </footer>
 
-  <!-- MODAL 1: LEADERBOARD TOP 30 (CHI TIẾT THEO BÀI TẬP) -->
+  <!-- MODAL 1: LEADERBOARD TOP 30 -->
   <div id="modal-leaderboard" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative border border-blue-100 space-y-4">
       <button onclick="closeLeaderboardModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
@@ -452,7 +514,7 @@
         </div>
         <div>
           <h3 class="text-xl font-black text-slate-900">Bảng Xếp Hạng Top 30</h3>
-          <p class="text-xs text-slate-500">Sắp xếp theo Điểm cao nhất & Thời gian làm bài nhanh nhất</p>
+          <p class="text-xs text-slate-500">Thống kê học viên đạt điểm cao nhất hệ thống</p>
         </div>
       </div>
 
@@ -472,8 +534,7 @@
               <th class="py-2">Hạng</th>
               <th class="py-2">Học Viên</th>
               <th class="py-2">Tên Bài Tập</th>
-              <th class="py-2 text-center">Điểm</th>
-              <th class="py-2 text-right">Thời Gian</th>
+              <th class="py-2 text-center">Điểm Số</th>
             </tr>
           </thead>
           <tbody id="leaderboard-table-body" class="divide-y divide-slate-100 font-semibold">
@@ -484,33 +545,7 @@
     </div>
   </div>
 
-  <!-- MODAL 2: NỘP BÀI THI CHO BÀI TẬP CỤ THỂ -->
-  <div id="modal-submit-exam" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-blue-50 space-y-4">
-      <button onclick="closeSubmitExamModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
-      
-      <div class="text-center space-y-2">
-        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl mx-auto flex items-center justify-center text-xl">
-          <i class="fa-solid fa-circle-check"></i>
-        </div>
-        <h3 class="text-2xl font-black text-slate-900">Nộp Bài Tập</h3>
-        <p class="text-xs text-slate-600 font-bold" id="modal-lesson-title">Bài tập: -</p>
-        <p class="text-xs text-slate-500">Thời gian làm bài: <strong id="modal-result-time" class="text-blue-600 font-mono">00:00</strong></p>
-      </div>
-
-      <form onsubmit="confirmExamSubmit(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-extrabold text-slate-700 uppercase mb-1">Tên / Biệt danh hiển thị</label>
-          <input type="text" id="submit-student-name" placeholder="Nhập tên của bạn..." required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
-        </div>
-        <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition shadow-md shadow-emerald-200">
-          Gửi Kết Quả Lên Leaderboard
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL 3: ĐĂNG NHẬP / ĐĂNG KÝ -->
+  <!-- MODAL 2: ĐĂNG NHẬP / ĐĂNG KÝ -->
   <div id="modal-auth" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative border border-blue-50">
       <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
@@ -539,7 +574,7 @@
     </div>
   </div>
 
-  <!-- MODAL 4: THÊM BÀI HỌC (ADMIN ONLY) -->
+  <!-- MODAL 3: THÊM BÀI HỌC (ADMIN ONLY) -->
   <div id="modal-add-lesson" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative border border-blue-50">
       <button onclick="closeAddLessonModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
@@ -603,9 +638,6 @@
     let currentUser = localStorage.getItem('mrsang_current_user') || '';
     let currentCategoryFilters = { skill: 'Reading', thcs: 'Lớp 6', thpt: 'Lớp 10' };
 
-    // Biến cho Bộ đếm thời gian theo BÀI TẬP CỤ THỂ
-    let activeLessonTracking = null; // { id, title, startTime, timerInterval }
-
     window.onload = function() {
       updateRoleUI();
       renderAllLessons();
@@ -614,7 +646,6 @@
 
     // 2. CHUYỂN TAB & GIAO DIỆN
     function switchTab(tabId) {
-      // Bảo mật Frontend: Ngăn không cho người không phải Admin vào Tab Admin
       if (tabId === 'admin' && currentRole !== 'admin') {
         alert("Bạn không có quyền truy cập trang Quản trị Admin!");
         return;
@@ -697,7 +728,7 @@
         authBtn.onclick = openAuthModal;
       }
 
-      // CHỈ HIỂN THỊ NÚT ADMIN TRACKING KHI LÀ ADMIN
+      // CHỈ ADMIN MỚI NHÌN THẤY MỤC TRACKING
       if (currentRole === 'admin') {
         adminBtns.forEach(btn => btn.classList.remove('hidden'));
       } else {
@@ -705,99 +736,19 @@
       }
     }
 
-    // 4. BỘ ĐẾM THỜI GIAN THEO TỪNG BÀI TẬP CỤ THỂ
-    function startLesson(id, title, url) {
-      // Mở bài học sang tab mới
+    // 4. MỞ BÀI TẬP VÀ GHI NHẬN LƯỢT LÀM
+    function openLesson(title, url) {
+      if (currentUser) {
+        saveUserTrackingData(currentUser, title);
+      }
       if (url && url !== '#') {
         window.open(url, '_blank');
+      } else {
+        alert("Đang mở bài tập: " + title);
       }
-
-      // Khởi tạo tính giờ riêng cho bài tập này
-      if (activeLessonTracking && activeLessonTracking.timerInterval) {
-        clearInterval(activeLessonTracking.timerInterval);
-      }
-
-      activeLessonTracking = {
-        id: id,
-        title: title,
-        secondsElapsed: 0,
-        timerInterval: setInterval(() => {
-          activeLessonTracking.secondsElapsed++;
-          let el = document.getElementById(`timer-${id}`);
-          if (el) {
-            let m = Math.floor(activeLessonTracking.secondsElapsed / 60).toString().padStart(2, '0');
-            let s = (activeLessonTracking.secondsElapsed % 60).toString().padStart(2, '0');
-            el.innerText = `${m}:${s}`;
-          }
-        }, 1000)
-      };
-
-      // Cập nhật giao diện nút cho card bài học này
-      renderAllLessons();
     }
 
-    function finishLesson(id, title) {
-      if (!activeLessonTracking || activeLessonTracking.id !== id) return;
-
-      clearInterval(activeLessonTracking.timerInterval);
-
-      let m = Math.floor(activeLessonTracking.secondsElapsed / 60).toString().padStart(2, '0');
-      let s = (activeLessonTracking.secondsElapsed % 60).toString().padStart(2, '0');
-      let timeFormatted = `${m}:${s}`;
-
-      document.getElementById('modal-lesson-title').innerText = `Bài tập: ${title}`;
-      document.getElementById('modal-result-time').innerText = timeFormatted;
-
-      if (currentUser) {
-        document.getElementById('submit-student-name').value = currentUser;
-      }
-
-      document.getElementById('modal-submit-exam').classList.remove('hidden');
-    }
-
-    function closeSubmitExamModal() {
-      document.getElementById('modal-submit-exam').classList.add('hidden');
-    }
-
-    function confirmExamSubmit(e) {
-      e.preventDefault();
-      const studentName = document.getElementById('submit-student-name').value.trim();
-      const timeFormatted = document.getElementById('modal-result-time').innerText;
-      const seconds = activeLessonTracking.secondsElapsed;
-      const lessonTitle = activeLessonTracking.title;
-      const score = Math.floor(Math.random() * 3) + 8; // Giả lập điểm từ 8-10
-
-      // 1. Lưu kết quả lên Bảng xếp hạng Top 30
-      saveExamResult(studentName, lessonTitle, score, seconds, timeFormatted);
-
-      // 2. Lưu thông tin Tracking riêng cho học viên
-      saveUserTrackingData(studentName, lessonTitle, seconds);
-
-      // Reset bài tập đang làm
-      activeLessonTracking = null;
-      closeSubmitExamModal();
-      renderAllLessons();
-      openLeaderboardModal();
-    }
-
-    // 5. QUẢN LÝ LEADERBOARD (TOP 30 THEO BÀI TẬP)
-    function saveExamResult(name, lessonTitle, score, timeSeconds, timeFormatted) {
-      let leaderboard = JSON.parse(localStorage.getItem('mrsang_leaderboard')) || [
-        { name: "Nguyễn Văn Anh", lessonTitle: "IELTS Reading Passage 1", score: 10, timeSeconds: 42, timeFormatted: "00:42" },
-        { name: "Trần Thị Bích", lessonTitle: "IELTS Listening Part 1", score: 10, timeSeconds: 55, timeFormatted: "00:55" },
-        { name: "Lê Hoàng Minh", lessonTitle: "Writing Task 2", score: 9, timeSeconds: 38, timeFormatted: "00:38" }
-      ];
-
-      leaderboard.push({ name, lessonTitle, score, timeSeconds, timeFormatted });
-
-      // Sắp xếp: Điểm cao xếp trước -> Thời gian làm bài nhanh xếp trước
-      leaderboard.sort((a, b) => b.score - a.score || a.timeSeconds - b.timeSeconds);
-      leaderboard = leaderboard.slice(0, 30);
-
-      localStorage.setItem('mrsang_leaderboard', JSON.stringify(leaderboard));
-      renderLeaderboard();
-    }
-
+    // 5. QUẢN LÝ LEADERBOARD (TOP 30)
     function openLeaderboardModal() {
       renderLeaderboard();
       document.getElementById('modal-leaderboard').classList.remove('hidden');
@@ -808,11 +759,16 @@
     }
 
     function renderLeaderboard() {
-      let leaderboard = JSON.parse(localStorage.getItem('mrsang_leaderboard')) || [];
+      let leaderboard = JSON.parse(localStorage.getItem('mrsang_leaderboard')) || [
+        { name: "Nguyễn Văn Anh", lessonTitle: "IELTS Reading Passage 1", score: 10 },
+        { name: "Trần Thị Bích", lessonTitle: "IELTS Listening Part 1", score: 10 },
+        { name: "Lê Hoàng Minh", lessonTitle: "Writing Task 2", score: 9 }
+      ];
+
       const tbody = document.getElementById('leaderboard-table-body');
 
       if (leaderboard.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-slate-400">Chưa có kết quả làm bài nào.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-slate-400">Chưa có kết quả làm bài nào.</td></tr>`;
         return;
       }
 
@@ -822,9 +778,8 @@
           <tr class="hover:bg-slate-50">
             <td class="py-2.5 font-black"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full text-xs ${badgeColor}">${index + 1}</span></td>
             <td class="py-2.5 font-bold text-slate-800">${item.name}</td>
-            <td class="py-2.5 text-slate-500 font-medium">${item.lessonTitle || 'Bài kiểm tra'}</td>
+            <td class="py-2.5 text-slate-500 font-medium">${item.lessonTitle || 'Bài thực hành'}</td>
             <td class="py-2.5 text-center font-black text-blue-600">${item.score}/10</td>
-            <td class="py-2.5 text-right font-mono text-slate-600">${item.timeFormatted}</td>
           </tr>
         `;
       }).join('');
@@ -848,15 +803,14 @@
     }
 
     // 6. QUẢN LÝ TRACKING BÀI TẬP DÀNH CHO ADMIN
-    function saveUserTrackingData(username, lessonTitle, durationSeconds) {
+    function saveUserTrackingData(username, lessonTitle) {
       if (!username) return;
       let trackingData = JSON.parse(localStorage.getItem('mrsang_user_tracking')) || {};
 
       if (!trackingData[username]) {
-        trackingData[username] = { totalSeconds: 0, examsCount: 0, lastLesson: lessonTitle };
+        trackingData[username] = { examsCount: 0, lastLesson: lessonTitle };
       }
 
-      trackingData[username].totalSeconds += durationSeconds;
       trackingData[username].examsCount += 1;
       trackingData[username].lastLesson = lessonTitle;
 
@@ -869,21 +823,16 @@
       const keys = Object.keys(trackingData);
 
       if (keys.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Chưa có dữ liệu học viên làm bài.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-400">Chưa có dữ liệu học viên làm bài.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = keys.map(user => {
         let item = trackingData[user];
-        let mins = Math.floor(item.totalSeconds / 60);
-        let secs = item.totalSeconds % 60;
-        let timeStr = `${mins} phút ${secs} giây`;
-
         return `
           <tr class="hover:bg-slate-50">
             <td class="p-4 font-bold text-slate-800">${user}</td>
-            <td class="p-4 text-blue-600 font-black">${timeStr}</td>
-            <td class="p-4 font-bold text-slate-700">${item.examsCount} bài tập</td>
+            <td class="p-4 font-bold text-blue-600">${item.examsCount} bài tập</td>
             <td class="p-4 text-slate-500">${item.lastLesson || '-'}</td>
           </tr>
         `;
@@ -897,7 +846,7 @@
       }
     }
 
-    // 7. RENDER BÀI HỌC VÀ KHU VỰC BẮT ĐẦU/NỘP BÀI TẬP
+    // 7. RENDER BÀI HỌC CÁC MỤC
     function filterLessons(moduleType, subcat) {
       currentCategoryFilters[moduleType] = subcat;
       const container = document.getElementById(moduleType + '-tabs');
@@ -940,43 +889,26 @@
         return;
       }
 
-      targetContainer.innerHTML = filtered.map(item => {
-        const isCurrentActive = activeLessonTracking && activeLessonTracking.id === item.id;
-        
-        return `
-          <div class="bg-white p-6 rounded-3xl border ${isCurrentActive ? 'border-amber-400 ring-2 ring-amber-100' : 'border-blue-100'} soft-card-hover flex flex-col justify-between space-y-4">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="px-3 py-1 bg-blue-50 text-blue-700 text-[10px] font-extrabold rounded-full uppercase">${item.subcat}</span>
-                ${currentRole === 'admin' ? `
-                  <button onclick="deleteLesson('${moduleType}',${item.id})" class="text-rose-500 hover:text-rose-700 text-xs font-bold">
-                    <i class="fa-solid fa-trash"></i> Xóa
-                  </button>
-                ` : ''}
-              </div>
-              <h4 class="text-lg font-black text-slate-800 leading-snug">${item.title}</h4>
-              <p class="text-xs text-slate-500 mt-2 leading-relaxed">${item.desc || 'Nội dung thực hành tương tác.'}</p>
-            </div>
-
-            <!-- Khu vực tính giờ bài tập -->
-            <div class="pt-2 border-t border-slate-100 space-y-2">
-              ${isCurrentActive ? `
-                <div class="flex items-center justify-between bg-amber-50 px-3 py-2 rounded-xl border border-amber-200">
-                  <span class="text-xs font-bold text-amber-800 flex items-center gap-1.5"><i class="fa-solid fa-stopwatch animate-spin"></i> Đang tính giờ:</span>
-                  <span id="timer-${item.id}" class="font-mono text-sm font-black text-amber-600">00:00</span>
-                </div>
-                <button onclick="finishLesson(${item.id}, '${item.title}')" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-full transition text-center shadow-sm flex items-center justify-center gap-2">
-                  <i class="fa-solid fa-check-circle"></i> Nộp Bài & Tính Giờ
+      targetContainer.innerHTML = filtered.map(item => `
+        <div class="bg-white p-6 rounded-3xl border border-blue-100 soft-card-hover flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-3 py-1 bg-blue-50 text-blue-700 text-[10px] font-extrabold rounded-full uppercase">${item.subcat}</span>
+              ${currentRole === 'admin' ? `
+                <button onclick="deleteLesson('${moduleType}',${item.id})" class="text-rose-500 hover:text-rose-700 text-xs font-bold">
+                  <i class="fa-solid fa-trash"></i> Xóa
                 </button>
-              ` : `
-                <button onclick="startLesson(${item.id}, '${item.title}', '${item.url}')" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-full transition text-center shadow-sm flex items-center justify-center gap-2">
-                  <i class="fa-solid fa-play"></i> Vào Làm Bài Tập & Tính Giờ
-                </button>
-              `}
+              ` : ''}
             </div>
+            <h4 class="text-lg font-black text-slate-800 leading-snug">${item.title}</h4>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">${item.desc || 'Nội dung thực hành tương tác.'}</p>
           </div>
-        `;
-      }).join('');
+
+          <button onclick="openLesson('${item.title}', '${item.url}')" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-full transition text-center shadow-sm flex items-center justify-center gap-2">
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Vào Làm Bài Tập
+          </button>
+        </div>
+      `).join('');
     }
 
     function openAddLessonModal(moduleType) {
