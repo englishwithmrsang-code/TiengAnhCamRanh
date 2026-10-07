@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thì Quá Khứ Đơn - Luyện Tập Ngữ Pháp Tương Tác</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif !important;
+        }
+        body {
+            background-color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .nav-tab.active {
+            color: #0284c7;
+            border-bottom: 3px solid #0284c7;
+            background-color: #f0f9ff;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col antialiased">
+
+    <!-- Navigation Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-tr from-sky-600 to-indigo-600 text-white p-2.5 rounded-xl shadow-sm flex items-center justify-center">
+                    <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-800 leading-tight">Thì Quá Khứ Đơn (Past Simple)</h1>
+                    <p class="text-xs text-slate-500">Bảng công thức & Bài tập tương tác có đáp án chi tiết</p>
+                </div>
+            </div>
+            
+            <!-- Global Score Badge -->
+            <div class="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200">
+                <div class="text-xs text-slate-500 font-medium">Tổng tiến độ:</div>
+                <div id="global-score" class="text-sm font-bold text-sky-600">0 / 20 câu</div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="max-w-6xl mx-auto px-4 flex overflow-x-auto custom-scrollbar border-t border-slate-100">
+            <button onclick="switchMainTab('grammar')" id="main-tab-grammar" class="nav-tab active px-4 py-3 text-sm font-medium whitespace-nowrap text-slate-600 hover:text-sky-600 transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-book-open text-sky-500"></i> Lý Thuyết & Công Thức
+            </button>
+            <button onclick="switchMainTab(0)" id="main-tab-0" class="nav-tab px-4 py-3 text-sm font-medium whitespace-nowrap text-slate-600 hover:text-sky-600 transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-pen-to-square text-slate-400"></i> Bài 1: Chia động từ (10 câu)
+            </button>
+            <button onclick="switchMainTab(1)" id="main-tab-1" class="nav-tab px-4 py-3 text-sm font-medium whitespace-nowrap text-slate-600 hover:text-sky-600 transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-language text-slate-400"></i> Bài 2: Dịch Việt ➔ Anh (10 câu)
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full">
+
+        <!-- SECTION 1: GRAMMAR REFERENCE TABLE -->
+        <section id="grammar-section" class="space-y-6">
+            <div class="bg-gradient-to-r from-slate-800 via-sky-900 to-slate-800 rounded-2xl p-6 text-white shadow-sm border border-slate-700/50">
+                <h2 class="text-2xl font-bold flex items-center gap-2.5 mb-2">
+                    <i class="fa-solid fa-bookmark text-sky-400"></i> Bảng Công Thức Thì Quá Khứ Đơn
+                </h2>
+                <p class="text-slate-300 text-sm">
+                    Tóm tắt chi tiết Cách dùng, Dấu hiệu nhận biết và Cấu trúc chia động từ quy tắc, bất quy tắc & To Be.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+                <!-- I. Cách Dùng -->
+                <div>
+                    <h4 class="font-bold text-slate-800 text-base mb-3 flex items-center gap-2">
+                        <span class="bg-sky-100 text-sky-800 text-xs px-2.5 py-1 rounded-md font-bold">I</span> Cách Dùng
+                    </h4>
+                    <div class="p-3.5 bg-slate-50/80 rounded-xl border border-slate-200/80 text-sm">
+                        <span class="font-semibold text-sky-700">(1) Diễn tả hành động đã xảy ra và kết thúc hoàn toàn trong quá khứ:</span>
+                        <p class="text-slate-600 mt-1 italic">Ví dụ: I met her two weeks ago. (Tôi đã gặp cô ấy vào hai tuần trước.)</p>
+                    </div>
+                </div>
+
+                <!-- II. Dấu Hiệu -->
+                <div>
+                    <h4 class="font-bold text-slate-800 text-base mb-3 flex items-center gap-2">
+                        <span class="bg-sky-100 text-sky-800 text-xs px-2.5 py-1 rounded-md font-bold">II</span> Dấu Hiệu Nhận Biết
+                    </h4>
+                    <div class="p-3.5 bg-sky-50/50 rounded-xl border border-sky-100 text-sm">
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-600">
+                            <li><strong>yesterday</strong> (ngày hôm qua)</li>
+                            <li><strong>last night / Monday / week / month / year</strong></li>
+                            <li><strong>two hours ago / two weeks ago</strong> (cách đây...)</li>
+                            <li><strong>in + thời gian quá khứ</strong> (ví dụ: in 1990)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- III. Cấu Trúc -->
+                <div>
+                    <h4 class="font-bold text-slate-800 text-base mb-3 flex items-center gap-2">
+                        <span class="bg-sky-100 text-sky-800 text-xs px-2.5 py-1 rounded-md font-bold">III</span> Cấu Trúc
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/50">
+                            <h5 class="font-bold text-slate-800 border-b border-slate-200 pb-2.5 mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-person-running text-sky-600"></i> Động từ thường (Action Verbs)
+                            </h5>
+                            <div class="space-y-2 text-xs sm:text-sm">
+                                <p class="bg-white p-2.5 rounded-lg border border-slate-200/80"><span class="font-bold text-sky-700">(+) Khẳng định:</span> S + V2 / ed</p>
+                                <p class="bg-white p-2.5 rounded-lg border border-slate-200/80"><span class="font-bold text-slate-700">(-) Phủ định:</span> S + did not (didn't) + Vo</p>
+                                <div class="bg-white p-2.5 rounded-lg border border-slate-200/80">
+                                    <p><span class="font-bold text-indigo-600">(?) Nghi vấn:</span> Did + S + Vo?</p>
+                                    <p class="text-slate-500 text-xs mt-1">➔ Yes, S + did. | No, S + didn't.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/50">
+                            <h5 class="font-bold text-slate-800 border-b border-slate-200 pb-2.5 mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-link text-sky-600"></i> Động từ TO BE (was / were)
+                            </h5>
+                            <div class="space-y-2 text-xs sm:text-sm">
+                                <p class="bg-white p-2.5 rounded-lg border border-slate-200/80"><span class="font-bold text-sky-700">(+) Khẳng định:</span> S + was / were + ...</p>
+                                <p class="bg-white p-2.5 rounded-lg border border-slate-200/80"><span class="font-bold text-slate-700">(-) Phủ định:</span> S + was / were + not + ...</p>
+                                <div class="bg-white p-2.5 rounded-lg border border-slate-200/80">
+                                    <p><span class="font-bold text-indigo-600">(?) Nghi vấn:</span> Was / Were + S + ...?</p>
+                                    <p class="text-slate-500 text-xs mt-1">➔ Yes, S + was/were. | No, S + wasn't/weren't.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: EXERCISES CONTAINER -->
+        <section id="exercise-section" class="hidden space-y-6">
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex justify-between items-center mb-2">
+                    <span id="tab-title" class="text-base font-bold text-slate-800">Bài tập 1</span>
+                    <span id="tab-progress-text" class="text-xs font-semibold text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-100">0/10 câu làm đúng</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                    <div id="tab-progress-bar" class="bg-sky-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div id="questions-container" class="space-y-4"></div>
+
+            <div class="mt-8 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap justify-between items-center gap-4">
+                <button onclick="resetCurrentTab()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold hover:bg-slate-50 transition-all flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-rotate-right"></i> Làm lại bài này
+                </button>
+                <button onclick="checkAllInTab()" class="px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold shadow-sm transition-all flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-circle-check"></i> Kiểm tra tất cả câu trong phần này
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8 text-center text-xs text-slate-500">
+        <p>Ứng dụng Bài tập Tiếng Anh Tương tác dành cho Học sinh • Hỗ trợ tự học & Ôn luyện ngữ pháp</p>
+    </footer>
+
+    <script>
+        const exercisesData = [
+            {
+                title: "BÀI 1: CHIA ĐỘNG TỪ TRONG NGOẶC (QUÁ KHỨ ĐƠN)",
+                subtitle: "Chia động từ ở thì Quá khứ đơn.",
+                questions: [
+                    { id: "1_1", question: "1. They _______ (visit) their grandparents last weekend.", accepts: ["visited"], meaning: "Họ đã thăm ông bà của họ vào cuối tuần trước.", explanation: "Thì Quá khứ đơn với 'last weekend' -> 'visit' thêm '-ed'." },
+                    { id: "1_2", question: "2. Lan _______ (not go) to school yesterday because she was sick.", accepts: ["didn't go", "did not go"], meaning: "Lan đã không đi học ngày hôm qua vì bạn ấy bị bệnh.", explanation: "Dấu hiệu 'yesterday' -> dùng trợ động từ phủ định 'didn't' + V nguyên thể." },
+                    { id: "1_3", question: "3. She _______ (study) English two hours ago.", accepts: ["studied"], meaning: "Cô ấy đã học tiếng Anh 2 giờ trước.", explanation: "Dấu hiệu 'two hours ago' -> 'study' chuyển thành 'studied'." },
+                    { id: "1_4", question: "4. The students _______ (be) very excited yesterday.", accepts: ["were"], meaning: "Các học sinh đã rất hào hứng vào ngày hôm qua.", explanation: "Chủ ngữ 'The students' số nhiều + 'yesterday' -> dùng 'were'." },
+                    { id: "1_5", question: "5. I _______ (meet) my best friend at the park last Sunday.", accepts: ["met"], meaning: "Tôi đã gặp bạn thân ở công viên Chủ nhật tuần trước.", explanation: "Động từ bất quy tắc 'meet' chuyển thành 'met'." },
+                    { id: "1_6", question: "6. The teacher _______ (give) us homework yesterday.", accepts: ["gave"], meaning: "Giáo viên đã giao bài tập về nhà cho chúng tôi hôm qua.", explanation: "Động từ bất quy tắc 'give' chuyển thành 'gave'." },
+                    { id: "1_7", question: "7. We _______ (see) a beautiful rainbow yesterday.", accepts: ["saw"], meaning: "Chúng tôi đã nhìn thấy một cầu vồng đẹp ngày hôm qua.", explanation: "Động từ bất quy tắc 'see' chuyển thành 'saw'." },
+                    { id: "1_8", question: "8. _______ (you/buy) that new book last night?", accepts: ["Did you buy"], meaning: "Tối qua bạn có mua cuốn sách mới đó không?", explanation: "Câu hỏi quá khứ đơn -> Did + S + V nguyên thể?" },
+                    { id: "1_9", question: "9. He _______ (not watch) TV last night.", accepts: ["didn't watch", "did not watch"], meaning: "Tối qua anh ấy không xem TV.", explanation: "Phủ định quá khứ -> didn't + watch." },
+                    { id: "1_10", question: "10. Weather _______ (be) cold last winter.", accepts: ["was"], meaning: "Thời tiết đã rất lạnh vào mùa đông năm ngoái.", explanation: "Chủ ngữ 'Weather' số ít -> to be quá khứ là 'was'." }
+                ]
+            },
+            {
+                title: "BÀI 2: DỊCH CÂU VIỆT ➔ ANH (QUÁ KHỨ ĐƠN)",
+                subtitle: "Dịch các câu sau sang Tiếng Anh sử dụng thì Quá khứ đơn.",
+                questions: [
+                    { id: "2_1", question: "1. Tôi đã gặp cô ấy 2 ngày trước.", accepts: ["I met her two days ago.", "I met her 2 days ago."], meaning: "Tôi đã gặp cô ấy 2 ngày trước.", explanation: "I + met her + two days ago." },
+                    { id: "2_2", question: "2. Hôm qua họ đã không đi đến trường.", accepts: ["They did not go to school yesterday.", "They didn't go to school yesterday."], meaning: "Hôm qua họ đã không đi đến trường.", explanation: "They + didn't go to school + yesterday." },
+                    { id: "2_3", question: "3. Bạn đã làm gì tối qua?", accepts: ["What did you do last night?"], meaning: "Bạn đã làm gì tối qua?", explanation: "What + did + you + do + last night?" },
+                    { id: "2_4", question: "4. Nam đã mua một chiếc xe đạp mới tuần trước.", accepts: ["Nam bought a new bike last week.", "Nam bought a new bicycle last week."], meaning: "Nam đã mua một chiếc xe đạp mới tuần trước.", explanation: "Nam + bought + a new bike + last week." },
+                    { id: "2_5", question: "5. Chúng tôi đã rất vui vào ngày sinh nhật của anh ấy.", accepts: ["We were very happy on his birthday."], meaning: "Chúng tôi đã rất vui vào ngày sinh nhật của anh ấy.", explanation: "We + were + very happy..." },
+                    { id: "2_6", question: "6. Mẹ tôi đã nấu một bữa ăn ngon hôm qua.", accepts: ["My mother cooked a delicious meal yesterday.", "My mom cooked a good meal yesterday."], meaning: "Mẹ tôi đã nấu một bữa ăn ngon hôm qua.", explanation: "My mother + cooked + a delicious meal..." },
+                    { id: "2_7", question: "7. Anh ấy đã không ở nhà tối qua.", accepts: ["He was not at home last night.", "He wasn't at home last night."], meaning: "Anh ấy đã không ở nhà tối qua.", explanation: "He + wasn't + at home + last night." },
+                    { id: "2_8", question: "8. Bạn đã đi đâu vào mùa hè năm ngoái?", accepts: ["Where did you go last summer?"], meaning: "Bạn đã đi đâu vào mùa hè năm ngoái?", explanation: "Where + did + you + go + last summer?" },
+                    { id: "2_9", question: "9. Họ đã chiến thắng trận đấu tuần trước.", accepts: ["They won the match last week.", "They won the game last week."], meaning: "Họ đã chiến thắng trận đấu tuần trước.", explanation: "They + won + the match..." },
+                    { id: "2_10", question: "10. Cô ấy đã dạy tiếng Anh năm 2020.", accepts: ["She taught English in 2020."], meaning: "Cô ấy đã dạy tiếng Anh năm 2020.", explanation: "She + taught + English + in 2020." }
+                ]
+            }
+        ];
+
+        let currentTabIndex = 'grammar';
+        let userAnswers = {};
+
+        function initApp() {
+            switchMainTab('grammar');
+            updateGlobalScore();
+        }
+
+        function switchMainTab(index) {
+            currentTabIndex = index;
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            
+            const grammarSec = document.getElementById('grammar-section');
+            const exerciseSec = document.getElementById('exercise-section');
+
+            if (index === 'grammar') {
+                document.getElementById('main-tab-grammar').classList.add('active');
+                grammarSec.classList.remove('hidden');
+                exerciseSec.classList.add('hidden');
+            } else {
+                document.getElementById(`main-tab-${index}`).classList.add('active');
+                grammarSec.classList.add('hidden');
+                exerciseSec.classList.remove('hidden');
+                renderExerciseTab(index);
+            }
+        }
+
+        function renderExerciseTab(tabIdx) {
+            const data = exercisesData[tabIdx];
+            document.getElementById('tab-title').textContent = data.title;
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            data.questions.forEach(q => {
+                const savedAns = userAnswers[q.id] || { text: '', checked: false, isCorrect: false };
+                const qCard = document.createElement('div');
+                qCard.className = "bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3";
+                qCard.innerHTML = `
+                    <div class="font-medium text-slate-800 text-base">${q.question}</div>
+                    <div class="flex flex-wrap sm:flex-nowrap gap-2 items-center">
+                        <input type="text" id="input-${q.id}" value="${savedAns.text}" oninput="onInputText('${q.id}')" placeholder="Nhập đáp án..." class="w-full sm:w-auto flex-1 px-4 py-2 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 border-slate-300">
+                        <button onclick="checkSingleQuestion('${q.id}')" class="px-4 py-2 bg-slate-100 hover:bg-sky-50 hover:text-sky-600 text-slate-700 text-sm font-medium rounded-xl transition-colors border border-slate-200">Kiểm tra</button>
+                    </div>
+                    <div id="feedback-${q.id}" class="${savedAns.checked ? '' : 'hidden'} text-xs p-3.5 rounded-xl space-y-1"></div>
+                `;
+                container.appendChild(qCard);
+                if (savedAns.checked) renderFeedback(q.id, savedAns.isCorrect);
+            });
+            updateTabProgress();
+        }
+
+        function onInputText(qId) {
+            const inputVal = document.getElementById(`input-${qId}`).value;
+            if (!userAnswers[qId]) userAnswers[qId] = {};
+            userAnswers[qId].text = inputVal;
+            userAnswers[qId].checked = false;
+            document.getElementById(`feedback-${qId}`).classList.add('hidden');
+            updateTabProgress();
+            updateGlobalScore();
+        }
+
+        function checkSingleQuestion(qId) {
+            const qObj = findQuestionById(qId);
+            const userVal = (document.getElementById(`input-${qId}`).value || '').trim();
+            const cleanUser = userVal.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ");
+            const isCorrect = qObj.accepts.some(acc => acc.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ") === cleanUser);
+
+            userAnswers[qId] = { text: userVal, checked: true, isCorrect: isCorrect };
+            renderFeedback(qId, isCorrect);
+            updateTabProgress();
+            updateGlobalScore();
+        }
+
+        function renderFeedback(qId, isCorrect) {
+            const qObj = findQuestionById(qId);
+            const fbDiv = document.getElementById(`feedback-${qId}`);
+            fbDiv.classList.remove('hidden');
+            if (isCorrect) {
+                fbDiv.className = "text-xs p-3.5 rounded-xl bg-sky-50/70 text-slate-800 border border-sky-200/80 space-y-1";
+                fbDiv.innerHTML = `<div><i class="fa-solid fa-circle-check text-sky-600"></i> <strong class="text-sky-900">Chính xác!</strong></div><div><strong>Dịch nghĩa:</strong> ${qObj.meaning}</div><div><strong>Giải thích:</strong> ${qObj.explanation}</div>`;
+            } else {
+                fbDiv.className = "text-xs p-3.5 rounded-xl bg-slate-100 text-slate-800 border border-slate-300 space-y-1";
+                fbDiv.innerHTML = `<div><i class="fa-solid fa-circle-xmark text-slate-500"></i> <strong class="text-slate-900">Chưa chính xác.</strong> Đáp án đúng: <span class="font-bold text-sky-700 underline">${qObj.accepts.join(' / ')}</span></div><div><strong>Dịch nghĩa:</strong> ${qObj.meaning}</div><div><strong>Giải thích:</strong> ${qObj.explanation}</div>`;
+            }
+        }
+
+        function findQuestionById(qId) {
+            for (let t of exercisesData) {
+                let found = t.questions.find(q => q.id === qId);
+                if (found) return found;
+            }
+            return null;
+        }
+
+        function checkAllInTab() {
+            if (currentTabIndex === 'grammar') return;
+            exercisesData[currentTabIndex].questions.forEach(q => checkSingleQuestion(q.id));
+        }
+
+        function resetCurrentTab() {
+            if (currentTabIndex === 'grammar') return;
+            exercisesData[currentTabIndex].questions.forEach(q => {
+                delete userAnswers[q.id];
+            });
+            renderExerciseTab(currentTabIndex);
+            updateGlobalScore();
+        }
+
+        function updateTabProgress() {
+            if (currentTabIndex === 'grammar') return;
+            const questions = exercisesData[currentTabIndex].questions;
+            let correctCount = questions.filter(q => userAnswers[q.id] && userAnswers[q.id].checked && userAnswers[q.id].isCorrect).length;
+            const total = questions.length;
+            const pct = Math.round((correctCount / total) * 100);
+
+            document.getElementById('tab-progress-text').textContent = `${correctCount}/${total} câu làm đúng`;
+            document.getElementById('tab-progress-bar').style.width = `${pct}%`;
+        }
+
+        function updateGlobalScore() {
+            let totalCorrect = 0;
+            let totalQuestions = 0;
+            exercisesData.forEach(t => {
+                t.questions.forEach(q => {
+                    totalQuestions++;
+                    if (userAnswers[q.id] && userAnswers[q.id].checked && userAnswers[q.id].isCorrect) {
+                        totalCorrect++;
+                    }
+                });
+            });
+            document.getElementById('global-score').textContent = `${totalCorrect} / ${totalQuestions} câu`;
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>
