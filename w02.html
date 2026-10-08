@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Dịch Collocations & Cụm Từ Chìa Khóa: Urban Issues</title>
+    <style>
+        :root {
+            --primary-blue: #1e88e5;
+            --dark-blue: #0d47a1;
+            --light-blue-bg: #e3f2fd;
+            --vi-bg: #e1f5fe;             /* Highlight Tiếng Việt */
+            --vi-text: #0277bd;           /* Chữ Tiếng Việt */
+            --vi-border: #81d4fa;         /* Viền pastel */
+            --success-color: #2ecc71;
+            --error-color: #e74c3c;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: #2c3e50;
+            line-height: 2.3;
+            padding: 20px;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* Progress Tracker */
+        .tracker-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 18px 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.08);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            border: 1px solid #bbdefb;
+        }
+
+        .tracker-info {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+        }
+
+        .progress-bar-bg {
+            background-color: var(--light-blue-bg);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #42a5f5, var(--success-color));
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease-in-out;
+        }
+
+        /* Navigation Tabs */
+        .page-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: #ffffff;
+            color: #546e7a;
+            border: 1.5px solid #b0bec5;
+            padding: 9px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            font-size: 14px;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #1e88e5, #1565c0);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 10px rgba(21, 101, 192, 0.3);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: var(--light-blue-bg);
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        /* Reading Section */
+        .reading-section {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            font-size: 16px;
+            border: 1px solid #e3f2fd;
+        }
+
+        .reading-section.active {
+            display: block;
+        }
+
+        .section-header {
+            color: var(--dark-blue);
+            border-bottom: 2px solid var(--light-blue-bg);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* Blank Group Inline */
+        .blank-group {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            margin: 0 4px;
+            vertical-align: baseline;
+            white-space: nowrap;
+        }
+
+        .vi-hint {
+            background-color: var(--vi-bg);
+            border: 1px solid var(--vi-border);
+            color: var(--vi-text);
+            padding: 2px 8px;
+            border-radius: 6px 0 0 6px;
+            font-size: 13.5px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .blank-input {
+            border: 1px solid var(--vi-border);
+            border-left: none;
+            background-color: #f8fafc;
+            padding: 3px 10px;
+            font-size: 14.5px;
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: center;
+            border-radius: 0 6px 6px 0;
+            outline: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .blank-input:focus {
+            border-color: var(--primary-blue);
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(30, 136, 229, 0.3);
+        }
+
+        .blank-input.correct {
+            border-color: var(--success-color);
+            background-color: #e8f8f5;
+            color: #117a65;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--error-color);
+            background-color: #fadbd8;
+            color: #78281f;
+        }
+
+        /* Tooltip đáp án */
+        .tooltip {
+            display: none;
+            width: max-content;
+            background-color: #263238;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            font-weight: normal;
+            line-height: 1.4;
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #263238 transparent transparent transparent;
+        }
+
+        .blank-group.checked:hover .tooltip {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Footer Controls */
+        .footer-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #1e88e5, #1565c0);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+        }
+
+        .instructions {
+            font-size: 14px;
+            color: #37474f;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            background-color: var(--light-blue-bg);
+            padding: 12px 18px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        /* Mindmap Styles */
+        .mindmap-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .mindmap-core {
+            text-align: center;
+            background: linear-gradient(135deg, #0d47a1, #1976d2);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2);
+        }
+
+        .branches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .branch-card {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .branch-header {
+            background-color: #e3f2fd;
+            color: var(--dark-blue);
+            padding: 12px 16px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .branch-header:hover {
+            background-color: #bbdefb;
+        }
+
+        .branch-content {
+            display: none;
+            padding: 15px;
+            background-color: white;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .branch-card.active {
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.15);
+        }
+
+        .branch-card.active .branch-content {
+            display: block;
+        }
+
+        .branch-card.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s ease;
+            font-size: 12px;
+        }
+
+        .mindmap-section-title {
+            font-weight: bold;
+            color: var(--primary-blue);
+            font-size: 13.5px;
+            margin-top: 8px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .mindmap-list {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #334155;
+        }
+
+        .mindmap-list li strong {
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Luyện Tập Dịch Collocations & Cụm Từ Chìa Khóa: Urban Issues</h1>
+
+    <!-- Progress Tracker -->
+    <div class="tracker-card">
+        <div class="tracker-info">
+            <span>Tiến độ hoàn thành: <span id="progress-percent">0%</span></span>
+            <span>Đã đúng: <span id="correct-count">0</span> / <span id="total-count">0</span> cụm từ</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="page-nav">
+        <button class="tab-btn active" onclick="switchPage(1)">Trang 1: Traffic</button>
+        <button class="tab-btn" onclick="switchPage(2)">Trang 2: Pollution</button>
+        <button class="tab-btn" onclick="switchPage(3)">Trang 3: Health</button>
+        <button class="tab-btn" onclick="switchPage(4)">Trang 4: Environment</button>
+        <button class="tab-btn" onclick="switchPage(5)">Trang 5: City Life</button>
+        <button class="tab-btn" style="border-color: var(--primary-blue); color: var(--primary-blue);" onclick="switchPage(6)">🧠 Mindmap Recap</button>
+    </div>
+
+    <div class="instructions">
+        💡 <strong>Hướng dẫn:</strong> Nhìn vào <span style="background-color: var(--vi-bg); color: var(--vi-text); padding: 2px 8px; border-radius: 4px; font-weight: bold;">Cụm Tiếng Việt Highlight</span> để dịch sang Tiếng Anh. Bấm <strong>Enter</strong> để kiểm tra kết quả. <em>Rê chuột vào ô đã kiểm tra để xem đáp án chuẩn.</em>
+    </div>
+
+    <!-- PAGE 1: TRAFFIC -->
+    <div class="reading-section active" id="page-1">
+        <h2 class="section-header">🚗 Model Paragraph 1: Traffic</h2>
+        <p>
+            <span class="blank-group">
+                <span class="vi-hint">1. Một trong những vấn đề nghiêm trọng nhất</span>
+                <input type="text" class="blank-input" style="width: 240px;" data-answer="one of the most serious problems" placeholder="...">
+                <span class="tooltip">Đáp án: <b>one of the most serious problems</b></span>
+            </span>
+            <span class="blank-group">
+                <span class="vi-hint">2. ở các thành phố lớn ngày nay</span>
+                <input type="text" class="blank-input" style="width: 170px;" data-answer="in big cities today" placeholder="...">
+                <span class="tooltip">Đáp án: <b>in big cities today</b></span>
+            </span>
+            is
+            <span class="blank-group">
+                <span class="vi-hint">3. giao thông đông đúc / tắc nghẽn</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="heavy traffic" placeholder="...">
+                <span class="tooltip">Đáp án: <b>heavy traffic</b></span>
+            </span>,
+            which
+            <span class="blank-group">
+                <span class="vi-hint">4. ảnh hưởng đến cuộc sống hàng ngày của</span>
+                <input type="text" class="blank-input" style="width: 210px;" data-answer="affects the daily life of" placeholder="...">
+                <span class="tooltip">Đáp án: <b>affects the daily life of</b></span>
+            </span>
+            millions of people.
+            <span class="blank-group">
+                <span class="vi-hint">5. Điều này chủ yếu là vì</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="this is mainly because" placeholder="...">
+                <span class="tooltip">Đáp án: <b>this is mainly because</b></span>
+            </span>
+            too many people
+            <span class="blank-group">
+                <span class="vi-hint">6. lái xe ô tô cá nhân</span>
+                <input type="text" class="blank-input" style="width: 150px;" data-answer="drive private cars" placeholder="...">
+                <span class="tooltip">Đáp án: <b>drive private cars</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">7. phương tiện giao thông công cộng</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="public transport" placeholder="...">
+                <span class="tooltip">Đáp án: <b>public transport</b></span>
+            </span>
+            is still limited.
+            <span class="blank-group">
+                <span class="vi-hint">8. Hơn nữa</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="moreover" placeholder="...">
+                <span class="tooltip">Đáp án: <b>moreover</b></span>
+            </span>,
+            many roads are
+            <span class="blank-group">
+                <span class="vi-hint">9. quá hẹp cho</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="too narrow for" placeholder="...">
+                <span class="tooltip">Đáp án: <b>too narrow for</b></span>
+            </span>
+            the
+            <span class="blank-group">
+                <span class="vi-hint">10. số lượng xe máy ngày càng tăng</span>
+                <input type="text" class="blank-input" style="width: 230px;" data-answer="growing number of motorbikes" placeholder="...">
+                <span class="tooltip">Đáp án: <b>growing number of motorbikes</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">11. Kết quả là</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="as a result" placeholder="...">
+                <span class="tooltip">Đáp án: <b>as a result</b></span>
+            </span>,
+            workers
+            <span class="blank-group">
+                <span class="vi-hint">12. lãng phí nhiều giờ trên đường</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="waste hours on the road" placeholder="...">
+                <span class="tooltip">Đáp án: <b>waste hours on the road</b></span>
+            </span>
+            and often
+            <span class="blank-group">
+                <span class="vi-hint">13. đến làm muộn</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="arrive late at work" placeholder="...">
+                <span class="tooltip">Đáp án: <b>arrive late at work</b></span>
+            </span>.
+            For example, in Ho Chi Minh City, many people
+            <span class="blank-group">
+                <span class="vi-hint">14. dành hơn 2 giờ một ngày</span>
+                <input type="text" class="blank-input" style="width: 210px;" data-answer="spend more than two hours a day" placeholder="...">
+                <span class="tooltip">Đáp án: <b>spend more than two hours a day</b></span>
+            </span>
+            in
+            <span class="blank-group">
+                <span class="vi-hint">15. sự tắc nghẽn giao thông</span>
+                <input type="text" class="blank-input" style="width: 120px;" data-answer="traffic jams" placeholder="...">
+                <span class="tooltip">Đáp án: <b>traffic jams</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">16. Vì vậy / Do đó</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="therefore" placeholder="...">
+                <span class="tooltip">Đáp án: <b>therefore</b></span>
+            </span>,
+            the government
+            <span class="blank-group">
+                <span class="vi-hint">17. nên xây dựng nhiều tuyến tàu điện ngầm hơn</span>
+                <input type="text" class="blank-input" style="width: 230px;" data-answer="should build more metro lines" placeholder="...">
+                <span class="tooltip">Đáp án: <b>should build more metro lines</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">18. khuyến khích mọi người đi lại bằng xe buýt</span>
+                <input type="text" class="blank-input" style="width: 250px;" data-answer="encourage people to travel by bus" placeholder="...">
+                <span class="tooltip">Đáp án: <b>encourage people to travel by bus</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">19. Tóm lại</span>
+                <input type="text" class="blank-input" style="width: 120px;" data-answer="in conclusion" placeholder="...">
+                <span class="tooltip">Đáp án: <b>in conclusion</b></span>
+            </span>,
+            better public transport can
+            <span class="blank-group">
+                <span class="vi-hint">20. làm cho đường phố thành phố an toàn hơn, sạch hơn và bớt đông đúc hơn</span>
+                <input type="text" class="blank-input" style="width: 320px;" data-answer="make city streets safer, cleaner and less crowded" data-alt="make city streets safer cleaner and less crowded" placeholder="...">
+                <span class="tooltip">Đáp án: <b>make city streets safer, cleaner and less crowded</b></span>
+            </span>.
+        </p>
+        <div class="footer-controls">
+            <span></span>
+            <button class="action-btn" onclick="switchPage(2)">Trang tiếp theo ➔</button>
+        </div>
+    </div>
+
+    <!-- PAGE 2: POLLUTION -->
+    <div class="reading-section" id="page-2">
+        <h2 class="section-header">🏭 Model Paragraph 2: Pollution</h2>
+        <p>
+            <span class="blank-group">
+                <span class="vi-hint">21. Một vấn đề lớn khác ở</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="another major problem in" placeholder="...">
+                <span class="tooltip">Đáp án: <b>another major problem in</b></span>
+            </span>
+            <span class="blank-group">
+                <span class="vi-hint">22. các thành phố hiện đại</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="modern cities" placeholder="...">
+                <span class="tooltip">Đáp án: <b>modern cities</b></span>
+            </span>
+            is
+            <span class="blank-group">
+                <span class="vi-hint">23. ô nhiễm không khí</span>
+                <input type="text" class="blank-input" style="width: 120px;" data-answer="air pollution" placeholder="...">
+                <span class="tooltip">Đáp án: <b>air pollution</b></span>
+            </span>,
+            which has
+            <span class="blank-group">
+                <span class="vi-hint">24. trở thành mối lo ngại nghiêm trọng đối với</span>
+                <input type="text" class="blank-input" style="width: 230px;" data-answer="become a serious concern for" placeholder="...">
+                <span class="tooltip">Đáp án: <b>become a serious concern for</b></span>
+            </span>
+            many residents.
+            <span class="blank-group">
+                <span class="vi-hint">25. Nó chủ yếu được gây ra bởi</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="it is mainly caused by" placeholder="...">
+                <span class="tooltip">Đáp án: <b>it is mainly caused by</b></span>
+            </span>
+            <span class="blank-group">
+                <span class="vi-hint">26. khói từ các phương tiện giao thông</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="smoke from vehicles" placeholder="...">
+                <span class="tooltip">Đáp án: <b>smoke from vehicles</b></span>
+            </span>,
+            factories and
+            <span class="blank-group">
+                <span class="vi-hint">27. công trường xây dựng</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="construction sites" placeholder="...">
+                <span class="tooltip">Đáp án: <b>construction sites</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">28. Vì điều này</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="because of this" placeholder="...">
+                <span class="tooltip">Đáp án: <b>because of this</b></span>
+            </span>,
+            people often
+            <span class="blank-group">
+                <span class="vi-hint">29. chịu đựng / bị ho</span>
+                <input type="text" class="blank-input" style="width: 150px;" data-answer="suffer from coughing" placeholder="...">
+                <span class="tooltip">Đáp án: <b>suffer from coughing</b></span>
+            </span>,
+            <span class="blank-group">
+                <span class="vi-hint">30. các vấn đề về hô hấp</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="breathing problems" placeholder="...">
+                <span class="tooltip">Đáp án: <b>breathing problems</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">31. nhiễm trùng mắt</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="eye infections" placeholder="...">
+                <span class="tooltip">Đáp án: <b>eye infections</b></span>
+            </span>.
+            For example, on
+            <span class="blank-group">
+                <span class="vi-hint">32. những ngày bị ô nhiễm nặng</span>
+                <input type="text" class="blank-input" style="width: 170px;" data-answer="very polluted days" placeholder="...">
+                <span class="tooltip">Đáp án: <b>very polluted days</b></span>
+            </span>
+            in Hanoi, many children
+            <span class="blank-group">
+                <span class="vi-hint">33. phải ở nhà</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="have to stay at home" placeholder="...">
+                <span class="tooltip">Đáp án: <b>have to stay at home</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">34. Một giải pháp khả thi là</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="one possible solution is to" placeholder="...">
+                <span class="tooltip">Đáp án: <b>one possible solution is to</b></span>
+            </span>
+            <span class="blank-group">
+                <span class="vi-hint">35. hạn chế xe cũ</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="limit old vehicles" placeholder="...">
+                <span class="tooltip">Đáp án: <b>limit old vehicles</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">36. trồng thêm cây dọc theo các con đường</span>
+                <input type="text" class="blank-input" style="width: 240px;" data-answer="plant more trees along the streets" placeholder="...">
+                <span class="tooltip">Đáp án: <b>plant more trees along the streets</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">37. Thêm vào đó</span>
+                <input type="text" class="blank-input" style="width: 120px;" data-answer="in addition" placeholder="...">
+                <span class="tooltip">Đáp án: <b>in addition</b></span>
+            </span>,
+            people
+            <span class="blank-group">
+                <span class="vi-hint">38. nên sử dụng xe đạp điện</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="should use electric bikes" placeholder="...">
+                <span class="tooltip">Đáp án: <b>should use electric bikes</b></span>
+            </span>
+            or public transport
+            <span class="blank-group">
+                <span class="vi-hint">39. bất cứ khi nào họ có thể</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="whenever they can" placeholder="...">
+                <span class="tooltip">Đáp án: <b>whenever they can</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">40. Tóm lại</span>
+                <input type="text" class="blank-input" style="width: 120px;" data-answer="in conclusion" placeholder="...">
+                <span class="tooltip">Đáp án: <b>in conclusion</b></span>
+            </span>,
+            <span class="blank-group">
+                <span class="vi-hint">41. không khí sạch hơn</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="cleaner air" placeholder="...">
+                <span class="tooltip">Đáp án: <b>cleaner air</b></span>
+            </span>
+            will help
+            <span class="blank-group">
+                <span class="vi-hint">42. cư dân thành phố sống lâu hơn và thoải mái hơn</span>
+                <input type="text" class="blank-input" style="width: 320px;" data-answer="city residents live longer and more comfortably" placeholder="...">
+                <span class="tooltip">Đáp án: <b>city residents live longer and more comfortably</b></span>
+            </span>.
+        </p>
+        <div class="footer-controls">
+            <button class="action-btn" onclick="switchPage(1)">⬅ Trang trước</button>
+            <button class="action-btn" onclick="switchPage(3)">Trang tiếp theo ➔</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3: HEALTH -->
+    <div class="reading-section" id="page-3">
+        <h2 class="section-header">❤️ Model Paragraph 3: Health</h2>
+        <p>
+            <span class="blank-group">
+                <span class="vi-hint">43. Sống ở một thành phố lớn</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="living in a big city" placeholder="...">
+                <span class="tooltip">Đáp án: <b>living in a big city</b></span>
+            </span>
+            <span class="blank-group">
+                <span class="vi-hint">44. cũng có thể có hại cho</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="can also be harmful to" placeholder="...">
+                <span class="tooltip">Đáp án: <b>can also be harmful to</b></span>
+            </span>
+            people's
+            <span class="blank-group">
+                <span class="vi-hint">45. sức khỏe thể chất và tinh thần</span>
+                <input type="text" class="blank-input" style="width: 210px;" data-answer="physical and mental health" placeholder="...">
+                <span class="tooltip">Đáp án: <b>physical and mental health</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">46. Điều này là do</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="this is because" placeholder="...">
+                <span class="tooltip">Đáp án: <b>this is because</b></span>
+            </span>
+            many
+            <span class="blank-group">
+                <span class="vi-hint">47. cư dân thành phố</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="city dwellers" placeholder="...">
+                <span class="tooltip">Đáp án: <b>city dwellers</b></span>
+            </span>
+            <span class="blank-group">
+                <span class="vi-hint">48. làm việc nhiều giờ</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="work long hours" placeholder="...">
+                <span class="tooltip">Đáp án: <b>work long hours</b></span>
+            </span>,
+            <span class="blank-group">
+                <span class="vi-hint">49. ngồi cả ngày</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="sit all day" placeholder="...">
+                <span class="tooltip">Đáp án: <b>sit all day</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">50. có ít thời gian để tập thể dục</span>
+                <input type="text" class="blank-input" style="width: 200px;" data-answer="have little time to exercise" placeholder="...">
+                <span class="tooltip">Đáp án: <b>have little time to exercise</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">51. Kết quả là</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="as a result" placeholder="...">
+                <span class="tooltip">Đáp án: <b>as a result</b></span>
+            </span>,
+            they often
+            <span class="blank-group">
+                <span class="vi-hint">52. cảm thấy căng thẳng, mệt mỏi</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="feel stressed, tired" data-alt="feel stressed tired" placeholder="...">
+                <span class="tooltip">Đáp án: <b>feel stressed, tired</b></span>
+            </span>
+            and sometimes
+            <span class="blank-group">
+                <span class="vi-hint">53. trở nên thừa cân</span>
+                <input type="text" class="blank-input" style="width: 150px;" data-answer="become overweight" placeholder="...">
+                <span class="tooltip">Đáp án: <b>become overweight</b></span>
+            </span>.
+            For example, many
+            <span class="blank-group">
+                <span class="vi-hint">54. nhân viên văn phòng</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="office workers" placeholder="...">
+                <span class="tooltip">Đáp án: <b>office workers</b></span>
+            </span>
+            <span class="blank-group">
+                <span class="vi-hint">55. ăn đồ ăn nhanh tại bàn làm việc</span>
+                <input type="text" class="blank-input" style="width: 200px;" data-answer="eat fast food at their desks" placeholder="...">
+                <span class="tooltip">Đáp án: <b>eat fast food at their desks</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">56. ngủ ít hơn 6 tiếng một đêm</span>
+                <input type="text" class="blank-input" style="width: 230px;" data-answer="sleep less than six hours a night" placeholder="...">
+                <span class="tooltip">Đáp án: <b>sleep less than six hours a night</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">57. Vì vậy</span>
+                <input type="text" class="blank-input" style="width: 100px;" data-answer="therefore" placeholder="...">
+                <span class="tooltip">Đáp án: <b>therefore</b></span>
+            </span>,
+            companies
+            <span class="blank-group">
+                <span class="vi-hint">58. nên cung cấp giờ làm việc linh hoạt</span>
+                <input type="text" class="blank-input" style="width: 230px;" data-answer="should offer flexible working hours" placeholder="...">
+                <span class="tooltip">Đáp án: <b>should offer flexible working hours</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">59. khuyến khích nhân viên chơi thể thao</span>
+                <input type="text" class="blank-input" style="width: 240px;" data-answer="encourage employees to do sports" placeholder="...">
+                <span class="tooltip">Đáp án: <b>encourage employees to do sports</b></span>
+            </span>.
+            Cities
+            <span class="blank-group">
+                <span class="vi-hint">60. cũng có thể xây dựng nhiều công viên hơn</span>
+                <input type="text" class="blank-input" style="width: 230px;" data-answer="could also build more parks" placeholder="...">
+                <span class="tooltip">Đáp án: <b>could also build more parks</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">61. làn đường dành cho xe đạp</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="cycling lanes" placeholder="...">
+                <span class="tooltip">Đáp án: <b>cycling lanes</b></span>
+            </span>
+            so that people can
+            <span class="blank-group">
+                <span class="vi-hint">62. thư giãn sau giờ làm việc</span>
+                <input type="text" class="blank-input" style="width: 150px;" data-answer="relax after work" placeholder="...">
+                <span class="tooltip">Đáp án: <b>relax after work</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">63. Tóm lại</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="to sum up" placeholder="...">
+                <span class="tooltip">Đáp án: <b>to sum up</b></span>
+            </span>,
+            a
+            <span class="blank-group">
+                <span class="vi-hint">64. lối sống lành mạnh</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="healthy lifestyle" placeholder="...">
+                <span class="tooltip">Đáp án: <b>healthy lifestyle</b></span>
+            </span>
+            is possible in the city if people and
+            <span class="blank-group">
+                <span class="vi-hint">65. chính quyền hợp tác cùng nhau</span>
+                <input type="text" class="blank-input" style="width: 210px;" data-answer="authorities work together" placeholder="...">
+                <span class="tooltip">Đáp án: <b>authorities work together</b></span>
+            </span>.
+        </p>
+        <div class="footer-controls">
+            <button class="action-btn" onclick="switchPage(2)">⬅ Trang trước</button>
+            <button class="action-btn" onclick="switchPage(4)">Trang tiếp theo ➔</button>
+        </div>
+    </div>
+
+    <!-- PAGE 4: ENVIRONMENT -->
+    <div class="reading-section" id="page-4">
+        <h2 class="section-header">🌳 Model Paragraph 4: Environment</h2>
+        <p>
+            <span class="blank-group">
+                <span class="vi-hint">66. Tăng trưởng đô thị</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="urban growth" placeholder="...">
+                <span class="tooltip">Đáp án: <b>urban growth</b></span>
+            </span>
+            is also
+            <span class="blank-group">
+                <span class="vi-hint">67. đặt áp lực lớn lên</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="putting great pressure on" placeholder="...">
+                <span class="tooltip">Đáp án: <b>putting great pressure on</b></span>
+            </span>
+            the
+            <span class="blank-group">
+                <span class="vi-hint">68. môi trường tự nhiên</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="natural environment" placeholder="...">
+                <span class="tooltip">Đáp án: <b>natural environment</b></span>
+            </span>,
+            and rubbish is
+            <span class="blank-group">
+                <span class="vi-hint">69. một trong những mối lo ngại lớn nhất</span>
+                <input type="text" class="blank-input" style="width: 240px;" data-answer="one of the biggest concerns" placeholder="...">
+                <span class="tooltip">Đáp án: <b>one of the biggest concerns</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">70. Điều này phần lớn là do</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="this is largely due to" placeholder="...">
+                <span class="tooltip">Đáp án: <b>this is largely due to</b></span>
+            </span>
+            the
+            <span class="blank-group">
+                <span class="vi-hint">71. lượng rác thải nhựa khổng lồ</span>
+                <input type="text" class="blank-input" style="width: 200px;" data-answer="huge amount of plastic waste" placeholder="...">
+                <span class="tooltip">Đáp án: <b>huge amount of plastic waste</b></span>
+            </span>
+            that cities produce every day.
+            <span class="blank-group">
+                <span class="vi-hint">72. Hậu quả là</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="as a consequence" placeholder="...">
+                <span class="tooltip">Đáp án: <b>as a consequence</b></span>
+            </span>,
+            rivers and
+            <span class="blank-group">
+                <span class="vi-hint">73. các kênh rạch trở nên bẩn</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="canals become dirty" placeholder="...">
+                <span class="tooltip">Đáp án: <b>canals become dirty</b></span>
+            </span>
+            and many fish and animals die.
+            For instance,
+            <span class="blank-group">
+                <span class="vi-hint">74. túi nilon</span>
+                <input type="text" class="blank-input" style="width: 120px;" data-answer="plastic bags" placeholder="...">
+                <span class="tooltip">Đáp án: <b>plastic bags</b></span>
+            </span>
+            often
+            <span class="blank-group">
+                <span class="vi-hint">75. làm tắc cống</span>
+                <input type="text" class="blank-input" style="width: 120px;" data-answer="block drains" placeholder="...">
+                <span class="tooltip">Đáp án: <b>block drains</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">76. gây ngập lụt sau mưa lớn</span>
+                <input type="text" class="blank-input" style="width: 220px;" data-answer="cause flooding after heavy rain" placeholder="...">
+                <span class="tooltip">Đáp án: <b>cause flooding after heavy rain</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">77. Một giải pháp hiệu quả là</span>
+                <input type="text" class="blank-input" style="width: 190px;" data-answer="one effective solution is to" placeholder="...">
+                <span class="tooltip">Đáp án: <b>one effective solution is to</b></span>
+            </span>
+            <span class="blank-group">
+                <span class="vi-hint">78. dạy mọi người phân loại rác</span>
+                <input type="text" class="blank-input" style="width: 190px;" data-answer="teach people to sort rubbish" placeholder="...">
+                <span class="tooltip">Đáp án: <b>teach people to sort rubbish</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">79. tái chế tại nhà và trường học</span>
+                <input type="text" class="blank-input" style="width: 230px;" data-answer="recycle at home and at school" placeholder="...">
+                <span class="tooltip">Đáp án: <b>recycle at home and at school</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">80. Bên cạnh đó</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="besides" placeholder="...">
+                <span class="tooltip">Đáp án: <b>besides</b></span>
+            </span>,
+            the government
+            <span class="blank-group">
+                <span class="vi-hint">81. nên cấm túi nilon dùng 1 lần</span>
+                <input type="text" class="blank-input" style="width: 230px;" data-answer="should ban single-use plastic bags" placeholder="...">
+                <span class="tooltip">Đáp án: <b>should ban single-use plastic bags</b></span>
+            </span>
+            in shops and markets.
+            <span class="blank-group">
+                <span class="vi-hint">82. Tóm lại</span>
+                <input type="text" class="blank-input" style="width: 120px;" data-answer="in conclusion" placeholder="...">
+                <span class="tooltip">Đáp án: <b>in conclusion</b></span>
+            </span>,
+            <span class="blank-group">
+                <span class="vi-hint">83. bảo vệ thiên nhiên</span>
+                <input type="text" class="blank-input" style="width: 140px;" data-answer="protecting nature" placeholder="...">
+                <span class="tooltip">Đáp án: <b>protecting nature</b></span>
+            </span>
+            starts with
+            <span class="blank-group">
+                <span class="vi-hint">84. những hành động nhỏ hàng ngày</span>
+                <input type="text" class="blank-input" style="width: 190px;" data-answer="small daily actions" placeholder="...">
+                <span class="tooltip">Đáp án: <b>small daily actions</b></span>
+            </span>
+            in every household.
+        </p>
+        <div class="footer-controls">
+            <button class="action-btn" onclick="switchPage(3)">⬅ Trang trước</button>
+            <button class="action-btn" onclick="switchPage(5)">Trang tiếp theo ➔</button>
+        </div>
+    </div>
+
+    <!-- PAGE 5: CITY LIFE -->
+    <div class="reading-section" id="page-5">
+        <h2 class="section-header">🏙️ Model Paragraph 5: City Life</h2>
+        <p>
+            Finally,
+            <span class="blank-group">
+                <span class="vi-hint">85. bản thân cuộc sống thành thị</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="city life itself" placeholder="...">
+                <span class="tooltip">Đáp án: <b>city life itself</b></span>
+            </span>
+            brings many difficulties,
+            <span class="blank-group">
+                <span class="vi-hint">86. chẳng hạn như</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="such as" placeholder="...">
+                <span class="tooltip">Đáp án: <b>such as</b></span>
+            </span>
+            <span class="blank-group">
+                <span class="vi-hint">87. chi phí sinh hoạt cao</span>
+                <input type="text" class="blank-input" style="width: 150px;" data-answer="high living costs" placeholder="...">
+                <span class="tooltip">Đáp án: <b>high living costs</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">88. sự quá tải dân số</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="overcrowding" placeholder="...">
+                <span class="tooltip">Đáp án: <b>overcrowding</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">89. Những vấn đề này phát sinh từ</span>
+                <input type="text" class="blank-input" style="width: 200px;" data-answer="these problems arise from" placeholder="...">
+                <span class="tooltip">Đáp án: <b>these problems arise from</b></span>
+            </span>
+            the fact that so many people
+            <span class="blank-group">
+                <span class="vi-hint">90. chuyển đến các thành phố</span>
+                <input type="text" class="blank-input" style="width: 160px;" data-answer="move to cities" placeholder="...">
+                <span class="tooltip">Đáp án: <b>move to cities</b></span>
+            </span>
+            to
+            <span class="blank-group">
+                <span class="vi-hint">91. tìm công việc và trường học tốt hơn</span>
+                <input type="text" class="blank-input" style="width: 230px;" data-answer="find better jobs and schools" placeholder="...">
+                <span class="tooltip">Đáp án: <b>find better jobs and schools</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">92. Kết quả là</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="as a result" placeholder="...">
+                <span class="tooltip">Đáp án: <b>as a result</b></span>
+            </span>,
+            <span class="blank-group">
+                <span class="vi-hint">93. tiền thuê nhà trở nên đắt đỏ</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="rent becomes expensive" placeholder="...">
+                <span class="tooltip">Đáp án: <b>rent becomes expensive</b></span>
+            </span>
+            and many families
+            <span class="blank-group">
+                <span class="vi-hint">94. phải sống trong</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="have to live in" placeholder="...">
+                <span class="tooltip">Đáp án: <b>have to live in</b></span>
+            </span>
+            <span class="blank-group">
+                <span class="vi-hint">95. những căn hộ nhỏ, chật chội</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="small, crowded flats" data-alt="small crowded flats" placeholder="...">
+                <span class="tooltip">Đáp án: <b>small, crowded flats</b></span>
+            </span>.
+            For example, a
+            <span class="blank-group">
+                <span class="vi-hint">96. lao động trẻ</span>
+                <input type="text" class="blank-input" style="width: 130px;" data-answer="young worker" placeholder="...">
+                <span class="tooltip">Đáp án: <b>young worker</b></span>
+            </span>
+            in a large city may
+            <span class="blank-group">
+                <span class="vi-hint">97. dành một nửa lương cho nhà ở</span>
+                <input type="text" class="blank-input" style="width: 230px;" data-answer="spend half of his salary on housing" placeholder="...">
+                <span class="tooltip">Đáp án: <b>spend half of his salary on housing</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">98. Để giải quyết điều này</span>
+                <input type="text" class="blank-input" style="width: 150px;" data-answer="to solve this" placeholder="...">
+                <span class="tooltip">Đáp án: <b>to solve this</b></span>
+            </span>,
+            local governments
+            <span class="blank-group">
+                <span class="vi-hint">99. có thể xây dựng nhà ở giá rẻ</span>
+                <input type="text" class="blank-input" style="width: 200px;" data-answer="could build affordable housing" placeholder="...">
+                <span class="tooltip">Đáp án: <b>could build affordable housing</b></span>
+            </span>
+            and
+            <span class="blank-group">
+                <span class="vi-hint">100. tạo thêm việc làm ở các thị trấn nhỏ hơn</span>
+                <input type="text" class="blank-input" style="width: 270px;" data-answer="create more jobs in smaller towns" placeholder="...">
+                <span class="tooltip">Đáp án: <b>create more jobs in smaller towns</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">101. Hơn nữa</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="moreover" placeholder="...">
+                <span class="tooltip">Đáp án: <b>moreover</b></span>
+            </span>,
+            new rules
+            <span class="blank-group">
+                <span class="vi-hint">102. nên giới hạn tiếng ồn từ công trình xây dựng và giao thông ban đêm</span>
+                <input type="text" class="blank-input" style="width: 380px;" data-answer="should limit noise from construction and traffic at night" placeholder="...">
+                <span class="tooltip">Đáp án: <b>should limit noise from construction and traffic at night</b></span>
+            </span>.
+            <span class="blank-group">
+                <span class="vi-hint">103. Tóm lại</span>
+                <input type="text" class="blank-input" style="width: 110px;" data-answer="to sum up" placeholder="...">
+                <span class="tooltip">Đáp án: <b>to sum up</b></span>
+            </span>,
+            cities will become better places to live
+            <span class="blank-group">
+                <span class="vi-hint">104. nếu mọi người cùng hợp tác</span>
+                <input type="text" class="blank-input" style="width: 180px;" data-answer="if everyone cooperates" placeholder="...">
+                <span class="tooltip">Đáp án: <b>if everyone cooperates</b></span>
+            </span>.
+        </p>
+        <div class="footer-controls">
+            <button class="action-btn" onclick="switchPage(4)">⬅ Trang trước</button>
+            <button class="action-btn" onclick="switchPage(6)">🧠 Xem Mindmap Recap ➔</button>
+        </div>
+    </div>
+
+    <!-- PAGE 6: MINDMAP RECAP -->
+    <div class="reading-section" id="page-6">
+        <h2 class="section-header">🧠 Mindmap Recap: Tổng Hợp Các Chủ Đề & Ý Tưởng Đô Thị</h2>
+        <p style="font-size: 14.5px; color: #546e7a; margin-bottom: 15px;">
+            📌 <em>Nhấp chuột vào từng <strong>Branch (Nhánh)</strong> bên dưới để xem tóm tắt Nguyên nhân (Causes), Hậu quả (Effects), Giải pháp (Solutions) và Từ nối (Cohesive Devices) theo từng chủ đề!</em>
+        </p>
+
+        <div class="mindmap-container">
+            <div class="mindmap-core">🏙️ URBAN PROBLEMS & SOLUTIONS</div>
+
+            <div class="branches-grid">
+                <!-- Branch 1 -->
+                <div class="branch-card" onclick="toggleBranch(this)">
+                    <div class="branch-header">
+                        <span>🚗 1. TRAFFIC JAMS (Giao thông)</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="branch-content">
+                        <div class="mindmap-section-title">⚠️ Causes & Effects</div>
+                        <ul class="mindmap-list">
+                            <li><strong>Too many private cars:</strong> Nhiều xe cá nhân</li>
+                            <li><strong>Limited public transport:</strong> Giao thông công cộng hạn chế</li>
+                            <li><strong>Narrow roads:</strong> Đường sá quá hẹp</li>
+                            <li><strong>Effects:</strong> Waste hours on the road, arrive late at work</li>
+                        </ul>
+                        <div class="mindmap-section-title">💡 Solutions</div>
+                        <ul class="mindmap-list">
+                            <li>Build more <strong>metro lines</strong></li>
+                            <li>Encourage travel by <strong>bus</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Branch 2 -->
+                <div class="branch-card" onclick="toggleBranch(this)">
+                    <div class="branch-header">
+                        <span>🏭 2. AIR POLLUTION (Ô nhiễm)</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="branch-content">
+                        <div class="mindmap-section-title">⚠️ Causes & Effects</div>
+                        <ul class="mindmap-list">
+                            <li><strong>Sources:</strong> Smoke from vehicles, factories & construction sites</li>
+                            <li><strong>Health risks:</strong> Coughing, breathing problems, eye infections</li>
+                        </ul>
+                        <div class="mindmap-section-title">💡 Solutions</div>
+                        <ul class="mindmap-list">
+                            <li>Limit <strong>old vehicles</strong></li>
+                            <li>Plant more <strong>trees</strong> along streets</li>
+                            <li>Use <strong>electric bikes</strong> & public transport</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Branch 3 -->
+                <div class="branch-card" onclick="toggleBranch(this)">
+                    <div class="branch-header">
+                        <span>❤️ 3. HEALTH & LIFESTYLE (Sức khỏe)</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="branch-content">
+                        <div class="mindmap-section-title">⚠️ Causes & Effects</div>
+                        <ul class="mindmap-list">
+                            <li>Work long hours, sit all day, eat <strong>fast food</strong></li>
+                            <li>Lack of exercise, sleep <strong>less than 6 hours</strong></li>
+                            <li><strong>Effects:</strong> Feel stressed, tired, become overweight</li>
+                        </ul>
+                        <div class="mindmap-section-title">💡 Solutions</div>
+                        <ul class="mindmap-list">
+                            <li>Offer <strong>flexible working hours</strong></li>
+                            <li>Build more <strong>parks & cycling lanes</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Branch 4 -->
+                <div class="branch-card" onclick="toggleBranch(this)">
+                    <div class="branch-header">
+                        <span>🌳 4. ENVIRONMENT & WASTE (Môi trường)</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="branch-content">
+                        <div class="mindmap-section-title">⚠️ Causes & Effects</div>
+                        <ul class="mindmap-list">
+                            <li>Huge amount of <strong>plastic waste</strong></li>
+                            <li>Dirty rivers/canals, plastic bags <strong>block drains</strong></li>
+                            <li>Causes <strong>flooding</strong> after heavy rain</li>
+                        </ul>
+                        <div class="mindmap-section-title">💡 Solutions</div>
+                        <ul class="mindmap-list">
+                            <li>Teach people to <strong>sort rubbish & recycle</strong></li>
+                            <li>Ban <strong>single-use plastic bags</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Branch 5 -->
+                <div class="branch-card" onclick="toggleBranch(this)">
+                    <div class="branch-header">
+                        <span>🏙️ 5. CITY LIFE & HOUSING (Đời sống)</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="branch-content">
+                        <div class="mindmap-section-title">⚠️ Causes & Effects</div>
+                        <ul class="mindmap-list">
+                            <li>Mass migration for <strong>better jobs & schools</strong></li>
+                            <li><strong>High living costs</strong> & overcrowding</li>
+                            <li>Expensive rent, live in <strong>small, crowded flats</strong></li>
+                        </ul>
+                        <div class="mindmap-section-title">💡 Solutions</div>
+                        <ul class="mindmap-list">
+                            <li>Build <strong>affordable housing</strong></li>
+                            <li>Create jobs in <strong>smaller towns</strong></li>
+                            <li>Limit <strong>night noise</strong> from construction</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Branch 6 -->
+                <div class="branch-card" onclick="toggleBranch(this)">
+                    <div class="branch-header">
+                        <span>🔗 6. ESSENTIAL LINKING WORDS (Từ nối)</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="branch-content">
+                        <div class="mindmap-section-title">📌 Cấu trúc nối bài quan trọng</div>
+                        <ul class="mindmap-list">
+                            <li><strong>Reason:</strong> This is mainly because / This is largely due to / Arise from the fact that</li>
+                            <li><strong>Result:</strong> As a result / As a consequence / Therefore</li>
+                            <li><strong>Solution:</strong> One effective solution is to / Should / Could</li>
+                            <li><strong>Conclusion:</strong> In conclusion / To sum up</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-controls">
+            <button class="action-btn" onclick="switchPage(5)">⬅ Trang trước</button>
+            <button class="action-btn" style="background: linear-gradient(135deg, #e74c3c, #c0392b);" onclick="resetAll()">Làm lại từ đầu 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        const inputs = document.querySelectorAll('.blank-input');
+        const totalCountElement = document.getElementById('total-count');
+        const correctCountElement = document.getElementById('correct-count');
+        const progressPercentElement = document.getElementById('progress-percent');
+        const progressBar = document.getElementById('progress-bar');
+
+        const totalInputs = inputs.length;
+        totalCountElement.textContent = totalInputs;
+
+        function normalizeText(text) {
+            return text.toLowerCase()
+                       .trim()
+                       .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()’']/g, "")
+                       .replace(/\s+/g, " ");
+        }
+
+        // Bấm Enter để kiểm tra
+        inputs.forEach(input => {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    checkAnswer(this);
+                    updateProgress();
+                }
+            });
+        });
+
+        function checkAnswer(input) {
+            const group = input.parentElement;
+            const userVal = normalizeText(input.value);
+            const correctVal = normalizeText(input.getAttribute('data-answer'));
+            const altVal = input.getAttribute('data-alt') ? normalizeText(input.getAttribute('data-alt')) : null;
+
+            if (userVal === "") {
+                input.classList.remove('correct', 'incorrect');
+                group.classList.remove('checked');
+                return;
+            }
+
+            // Kích hoạt hover xem tooltip bằng class 'checked'
+            group.classList.add('checked');
+
+            if (userVal === correctVal || (altVal && userVal === altVal)) {
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+            } else {
+                input.classList.remove('correct');
+                input.classList.add('incorrect');
+            }
+        }
+
+        function updateProgress() {
+            let correctCount = 0;
+            inputs.forEach(input => {
+                if (input.classList.contains('correct')) {
+                    correctCount++;
+                }
+            });
+
+            correctCountElement.textContent = correctCount;
+            const percentage = Math.round((correctCount / totalInputs) * 100);
+            progressPercentElement.textContent = percentage + '%';
+            progressBar.style.width = percentage + '%';
+        }
+
+        function switchPage(pageNumber) {
+            document.querySelectorAll('.reading-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`page-${pageNumber}`).classList.add('active');
+            document.querySelectorAll('.tab-btn')[pageNumber - 1].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleBranch(cardElement) {
+            cardElement.classList.toggle('active');
+        }
+
+        function resetAll() {
+            if (confirm("Bạn có chắc chắn muốn làm lại toàn bộ bài tập?")) {
+                inputs.forEach(input => {
+                    input.value = "";
+                    input.classList.remove('correct', 'incorrect');
+                    input.parentElement.classList.remove('checked');
+                });
+                updateProgress();
+                switchPage(1);
+            }
+        }
+    </script>
+</body>
+</html>
