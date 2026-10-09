@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luyện Nghe Điền Từ - Octopuses 101 - Mr. Sang English Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body {
+      margin: 0;
+      background-color: #f8fafc;
+      color: #1e293b;
+      padding-bottom: 40px;
+    }
+    
+    /* Header Branding */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.05);
+    }
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-bottom: 2px;
+    }
+    .brand-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #2563eb;
+      border-radius: 50%;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    header h1 span { color: #2563eb; }
+
+    /* Sticky Audio Control Bar */
+    .audio-sticky-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      border-bottom: 1px solid #cbd5e1;
+      padding: 0.6rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    audio {
+      width: 100%;
+      max-width: 550px;
+      height: 36px;
+      outline: none;
+    }
+
+    .progress-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 4px 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #1e40af;
+      white-space: nowrap;
+    }
+    .progress-box span { color: #2563eb; font-size: 1rem; font-weight: 700; }
+
+    /* Main Container */
+    .container {
+      max-width: 860px;
+      margin: 1.2rem auto;
+      padding: 0 1rem;
+    }
+
+    .top-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      background: #ffffff;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Buttons */
+    .btn {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.45rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    .btn:hover { background-color: #1d4ed8; }
+    .btn-outline {
+      background-color: #ffffff;
+      border: 1px solid #2563eb;
+      color: #2563eb;
+    }
+    .btn-outline:hover { background-color: #eff6ff; }
+    .btn-sm {
+      padding: 0.25rem 0.65rem;
+      font-size: 0.78rem;
+      border-radius: 12px;
+    }
+
+    /* Sentence Card (Đã tắt hiệu ứng đổi màu/khung sáng khi active) */
+    .sentence-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.6rem;
+      transition: all 0.2s ease;
+    }
+    .sentence-card:hover { border-color: #93c5fd; }
+
+    .sentence-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+    .sentence-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    .sentence-body {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #0f172a;
+    }
+
+    /* Ô điền từ Input */
+    input.blank {
+      border: none;
+      border-bottom: 2px solid #94a3b8;
+      background: #f8fafc;
+      padding: 2px 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 3px;
+      outline: none;
+      transition: all 0.2s;
+      margin: 0 2px;
+    }
+    input.blank:focus {
+      border-bottom-color: #2563eb;
+      background: #eff6ff;
+    }
+    input.blank.correct {
+      border-bottom-color: #16a34a !important;
+      background-color: #dcfce7 !important;
+      color: #15803d;
+    }
+    input.blank.wrong {
+      border-bottom-color: #dc2626 !important;
+      background-color: #fee2e2 !important;
+      color: #b91c1c;
+    }
+
+    .vi-text {
+      color: #475569;
+      font-size: 0.88rem;
+      margin-top: 0.4rem;
+      padding-top: 0.4rem;
+      border-top: 1px dashed #e2e8f0;
+      display: none;
+    }
+    .vi-text.show { display: block; }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+    }
+    .card-actions-left {
+      display: flex;
+      gap: 6px;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 4px;
+      display: none;
+    }
+    .status-badge.correct { display: inline-block; background: #dcfce7; color: #15803d; }
+    .status-badge.wrong { display: inline-block; background: #fee2e2; color: #b91c1c; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div>
+      <div class="brand-tag">Hệ Thống Luyện Tập Tiếng Anh Trực Quan</div>
+      <h1>Nền Tảng Tương Tác <span>cùng Mr. Sang</span></h1>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="toggleAllTranslations()">🌐 Ẩn/Hiện Tất Cả Dịch</button>
+  </header>
+
+  <!-- Sticky Audio Control Bar -->
+  <div class="audio-sticky-bar">
+    <audio id="player" controls preload="auto">
+      <!-- Đường dẫn file nghe Octopuses 101 -->
+      <source src="Octopuses 101 - Nat Geo Wild.mp3" type="audio/mpeg">
+      Trình duyệt không hỗ trợ phát audio.
+    </audio>
+    <div class="progress-box">
+      Hoàn thành: <span id="completed-count">0</span>/23 câu
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="top-tools">
+      <span style="color: #64748b; font-size: 0.82rem;">💡 Nhấp vào câu để nghe. Nhập đáp án và kiểm tra tiến độ.</span>
+      <div style="display:flex; gap:6px;">
+        <button class="btn btn-outline btn-sm" onclick="checkAllAnswers()">Nộp Tất Cả</button>
+        <button class="btn btn-sm" id="btn-toggle-all-answers" onclick="toggleAllAnswers()">Hiện Tất Cả Đáp Án</button>
+      </div>
+    </div>
+
+    <div id="transcript">
+      <!-- 1 -->
+      <div class="sentence-card" id="card-1" data-start="4.8">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 01</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(4.8)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Octopuses have elaborate <input type="text" class="blank" data-answer="cardiovascular" style="width: 130px;"> and nervous systems.
+        </div>
+        <div class="vi-text">Bạch tuộc có hệ tim mạch và hệ thần kinh rất phức tạp.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-1')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-1')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-1')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="sentence-card" id="card-2" data-start="10.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 02</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(10.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Their cardiovascular system includes three <input type="text" class="blank" data-answer="hearts" style="width: 70px;">.
+        </div>
+        <div class="vi-text">Hệ tuần hoàn của chúng bao gồm ba trái tim.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-2')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-2')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-2')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="sentence-card" id="card-3" data-start="13.2">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 03</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(13.2)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Two pump blood to the <input type="text" class="blank" data-answer="gills" style="width: 50px;">, and a third moves blood throughout the rest of the body.
+        </div>
+        <div class="vi-text">Hai trái tim bơm máu đến mang, và trái tim thứ ba vận chuyển máu đến toàn bộ phần còn lại của cơ thể.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-3')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-3')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-3')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="sentence-card" id="card-4" data-start="20.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 04</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(20.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Unlike human blood, octopus blood is <input type="text" class="blank" data-answer="copper-based" style="width: 120px;">, which makes it appear blue.
+        </div>
+        <div class="vi-text">Khác với máu người, máu bạch tuộc chứa gốc đồng, khiến nó có màu xanh lam.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-4')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-4')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-4')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="sentence-card" id="card-5" data-start="28.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 05</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(28.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          The octopus nervous system includes a brain, but two-thirds of the octopus's <input type="text" class="blank" data-answer="neurons" style="width: 80px;"> are found throughout its body, especially in its arms.
+        </div>
+        <div class="vi-text">Hệ thần kinh bạch tuộc gồm một bộ não, nhưng hai phần ba số tế bào thần kinh nằm rải rác khắp cơ thể, đặc biệt là ở các tua.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-5')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-5')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-5')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="sentence-card" id="card-6" data-start="39.8">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 06</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(39.8)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          This means the arms have significant local <input type="text" class="blank" data-answer="control" style="width: 70px;"> and sensory capabilities.
+        </div>
+        <div class="vi-text">Điều này có nghĩa là các tua có khả năng điều khiển độc lập và cảm nhận linh hoạt.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-6')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-6')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-6')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="sentence-card" id="card-7" data-start="45.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 07</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(45.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They may even still reach or <input type="text" class="blank" data-answer="grasp" style="width: 60px;"> after they are severed, and their suckers are able to sense chemicals.
+        </div>
+        <div class="vi-text">Chúng thậm chí vẫn có thể vươn ra hoặc nắm lấy sau khi bị đứt rời, và các giác hút có thể cảm nhận hóa chất.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-7')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-7')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-7')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="sentence-card" id="card-8" data-start="58.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 08</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(58.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Octopuses are <input type="text" class="blank" data-answer="intelligent" style="width: 100px;">.
+        </div>
+        <div class="vi-text">Bạch tuộc là sinh vật rất thông minh.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-8')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-8')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-8')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="sentence-card" id="card-9" data-start="60.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 09</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(60.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Some scientists believe octopus intellect can be found in their ability to use <input type="text" class="blank" data-answer="tools" style="width: 60px;"> and exhibit foresight.
+        </div>
+        <div class="vi-text">Một số nhà khoa học tin rằng trí thông minh của bạch tuộc nằm ở khả năng sử dụng công cụ và thể hiện sự tính toán.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-9')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-9')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-9')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="sentence-card" id="card-10" data-start="68.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 10</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(68.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          To retain complex <input type="text" class="blank" data-answer="memories" style="width: 90px;"> which helps them navigate mazes and solve puzzles.
+        </div>
+        <div class="vi-text">Khả năng lưu giữ trí nhớ phức tạp giúp chúng di chuyển qua mê cung và giải các câu đố.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-10')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-10')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-10')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="sentence-card" id="card-11" data-start="75.2">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 11</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(75.2)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Octopuses have also been shown to <input type="text" class="blank" data-answer="play" style="width: 50px;">, an activity considered a sign of intelligence.
+        </div>
+        <div class="vi-text">Bạch tuộc cũng đã được chứng minh là biết chơi đùa, một hoạt động được xem là dấu hiệu của trí thông minh.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-11')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-11')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-11')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="sentence-card" id="card-12" data-start="83.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 12</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(83.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Most octopus species only live between <input type="text" class="blank" data-answer="one" style="width: 45px;"> and two years.
+        </div>
+        <div class="vi-text">Hầu hết các loài bạch tuộc chỉ sống từ một đến hai năm.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-12')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-12')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-12')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <div class="sentence-card" id="card-13" data-start="88.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 13</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(88.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Much of this short lifespan has to do with the octopus's <input type="text" class="blank" data-answer="reproductive" style="width: 110px;"> process.
+        </div>
+        <div class="vi-text">Phần lớn tuổi thọ ngắn ngủi này liên quan đến quá trình sinh sản của bạch tuộc.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-13')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-13')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-13')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 14 -->
+      <div class="sentence-card" id="card-14" data-start="94.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 14</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(94.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          When octopuses mate, males may be <input type="text" class="blank" data-answer="strangled" style="width: 90px;"> and eaten by females.
+        </div>
+        <div class="vi-text">Khi giao phối, con đực có thể bị con mái siết chết và ăn thịt.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-14')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-14')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-14')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 15 -->
+      <div class="sentence-card" id="card-15" data-start="106.8">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 15</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(106.8)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          While females survive the mating process, they die after <input type="text" class="blank" data-answer="laying" style="width: 60px;"> their eggs.
+        </div>
+        <div class="vi-text">Mặc dù con mái sống sót sau quá trình giao phối, chúng sẽ chết sau khi đẻ trứng.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-15')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-15')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-15')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 16 -->
+      <div class="sentence-card" id="card-16" data-start="121.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 16</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(121.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Octopus <input type="text" class="blank" data-answer="ink" style="width: 45px;"> is deadly, even for the octopus.
+        </div>
+        <div class="vi-text">Mực của bạch tuộc rất nguy hiểm, ngay cả đối với chính nó.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-16')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-16')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-16')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <div class="sentence-card" id="card-17" data-start="126.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 17</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(126.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          The ink is a seemingly innocent mixture of <input type="text" class="blank" data-answer="mucus" style="width: 65px;"> and melanin.
+        </div>
+        <div class="vi-text">Mực là một hỗn hợp tưởng chừng vô hại gồm chất nhầy và melanin.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-17')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-17')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-17')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 18 -->
+      <div class="sentence-card" id="card-18" data-start="138.8">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 18</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(138.8)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Octopuses may use their ink to distract, confuse, and <input type="text" class="blank" data-answer="paralyze" style="width: 80px;"> their predators.
+        </div>
+        <div class="vi-text">Bạch tuộc có thể dùng mực để làm xao nhãng, gây hoang mang và làm tê liệt kẻ săn mồi.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-18')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-18')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-18')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 19 -->
+      <div class="sentence-card" id="card-19" data-start="152.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 19</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(152.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Octopuses are masters of mimicry and <input type="text" class="blank" data-answer="camouflage" style="width: 100px;">.
+        </div>
+        <div class="vi-text">Bạch tuộc là bậc thầy về bắt chước và ngụy trang.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-19')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-19')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-19')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 20 -->
+      <div class="sentence-card" id="card-20" data-start="156.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 20</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(156.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They can trigger cells just underneath the surface of their skin to change <input type="text" class="blank" data-answer="color" style="width: 55px;">.
+        </div>
+        <div class="vi-text">Chúng có thể kích hoạt các tế bào nằm ngay dưới bề mặt da để thay đổi màu sắc.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-20')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-20')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-20')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 21 -->
+      <div class="sentence-card" id="card-21" data-start="162.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 21</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(162.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          The cells, called <input type="text" class="blank" data-answer="chromatophores" style="width: 130px;">, contain sacs of pigment that can turn various shades.
+        </div>
+        <div class="vi-text">Các tế bào này được gọi là chromatophores, chứa các túi sắc tố có thể đổi thành nhiều màu sắc.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-21')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-21')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-21')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 22 -->
+      <div class="sentence-card" id="card-22" data-start="170.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 22</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(170.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Some octopuses can also imitate <input type="text" class="blank" data-answer="textures" style="width: 75px;"> to match textured environments.
+        </div>
+        <div class="vi-text">Một số loài bạch tuộc cũng có thể bắt chước bề mặt để hòa nhập với môi trường xung quanh.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-22')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-22')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-22')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 23 -->
+      <div class="sentence-card" id="card-23" data-start="188.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 23</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(188.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Their wily mimicry makes octopuses <input type="text" class="blank" data-answer="captivating" style="width: 90px;"> creatures of the deep.
+        </div>
+        <div class="vi-text">Khả năng bắt chước tài tình khiến bạch tuộc trở thành sinh vật đầy quyến rũ dưới đại dương sâu thẳm.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-23')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-23')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-23')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const player = document.getElementById('player');
+    const cards = document.querySelectorAll('.sentence-card');
+    const completedCountSpan = document.getElementById('completed-count');
+    let completedCards = new Set();
+    let allAnswersShown = false;
+
+    // Phát audio tại mốc thời gian không gây hiệu ứng đổi màu câu
+    function playAudio(startTime) {
+      player.currentTime = startTime;
+      const playPromise = player.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    }
+
+    // Toggle Dịch từng câu
+    function toggleTranslation(cardId) {
+      const card = document.getElementById(cardId);
+      const viText = card.querySelector('.vi-text');
+      viText.classList.toggle('show');
+    }
+
+    // Toggle Dịch tất cả
+    function toggleAllTranslations() {
+      const viTexts = document.querySelectorAll('.vi-text');
+      const anyHidden = Array.from(viTexts).some(el => !el.classList.contains('show'));
+      viTexts.forEach(el => {
+        if (anyHidden) el.classList.add('show');
+        else el.classList.remove('show');
+      });
+    }
+
+    // Toggle Đáp án từng câu (Hiện / Tắt)
+    function toggleAnswer(cardId) {
+      const card = document.getElementById(cardId);
+      const inputs = card.querySelectorAll('input.blank');
+      const btn = card.querySelector('.btn-ans-toggle');
+      const badge = card.querySelector('.status-badge');
+
+      let isShowing = btn.getAttribute('data-showing') === 'true';
+
+      if (!isShowing) {
+        inputs.forEach(input => {
+          input.setAttribute('data-user-val', input.value);
+          input.value = input.getAttribute('data-answer');
+          input.classList.remove('wrong');
+          input.classList.add('correct');
+        });
+        btn.textContent = '🙈 Tắt đáp án';
+        btn.setAttribute('data-showing', 'true');
+        badge.textContent = "✓ Đáp án";
+        badge.classList.remove('wrong');
+        badge.classList.add('correct');
+        completedCards.add(cardId);
+      } else {
+        inputs.forEach(input => {
+          const oldVal = input.getAttribute('data-user-val') || '';
+          input.value = oldVal;
+          input.classList.remove('correct', 'wrong');
+        });
+        btn.textContent = '💡 Hiện đáp án';
+        btn.setAttribute('data-showing', 'false');
+        badge.style.display = 'none';
+        completedCards.delete(cardId);
+      }
+      updateProgress();
+    }
+
+    // Toggle Đáp án Tất Cả
+    function toggleAllAnswers() {
+      const mainBtn = document.getElementById('btn-toggle-all-answers');
+      allAnswersShown = !allAnswersShown;
+
+      cards.forEach(card => {
+        const btn = card.querySelector('.btn-ans-toggle');
+        const isShowing = btn.getAttribute('data-showing') === 'true';
+        if ((allAnswersShown && !isShowing) || (!allAnswersShown && isShowing)) {
+          toggleAnswer(card.id);
+        }
+      });
+
+      if (allAnswersShown) {
+        mainBtn.textContent = 'Tắt Tất Cả Đáp Án';
+      } else {
+        mainBtn.textContent = 'Hiện Tất Cả Đáp Án';
+      }
+    }
+
+    // Nộp câu
+    function checkSentence(cardId) {
+      const card = document.getElementById(cardId);
+      const inputs = card.querySelectorAll('input.blank');
+      const badge = card.querySelector('.status-badge');
+      let allCorrect = true;
+      let hasValue = false;
+
+      inputs.forEach(input => {
+        const userAns = input.value.trim().toLowerCase();
+        const correctAns = input.getAttribute('data-answer').toLowerCase();
+        if (userAns !== "") hasValue = true;
+
+        if (userAns === correctAns) {
+          input.classList.remove('wrong');
+          input.classList.add('correct');
+        } else {
+          input.classList.remove('correct');
+          input.classList.add('wrong');
+          allCorrect = false;
+        }
+      });
+
+      if (hasValue) {
+        badge.classList.remove('correct', 'wrong');
+        if (allCorrect) {
+          badge.textContent = "✓ Đúng";
+          badge.classList.add('correct');
+          completedCards.add(cardId);
+        } else {
+          badge.textContent = "✗ Sai";
+          badge.classList.add('wrong');
+        }
+        updateProgress();
+      }
+    }
+
+    function updateProgress() {
+      completedCountSpan.textContent = completedCards.size;
+    }
+
+    function checkAllAnswers() {
+      cards.forEach(card => checkSentence(card.id));
+    }
+  </script>
+</body>
+</html>
