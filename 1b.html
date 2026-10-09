@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Luyện Nghe Điền Từ - Octopuses 101 - Mr. Sang English Platform</title>
+  <title>Luyện Nghe Điền Từ - Octopuses 101</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -14,7 +14,6 @@
       padding-bottom: 40px;
     }
     
-    /* Header Branding */
     header {
       background: #ffffff;
       border-bottom: 1px solid #e2e8f0;
@@ -51,7 +50,6 @@
     }
     header h1 span { color: #2563eb; }
 
-    /* Sticky Audio Control Bar */
     .audio-sticky-bar {
       position: sticky;
       top: 0;
@@ -84,7 +82,6 @@
     }
     .progress-box span { color: #2563eb; font-size: 1rem; font-weight: 700; }
 
-    /* Main Container */
     .container {
       max-width: 860px;
       margin: 1.2rem auto;
@@ -102,7 +99,6 @@
       border: 1px solid #e2e8f0;
     }
 
-    /* Buttons */
     .btn {
       background-color: #2563eb;
       color: white;
@@ -127,7 +123,6 @@
       border-radius: 12px;
     }
 
-    /* Sentence Card (Đã tắt hiệu ứng đổi màu/khung sáng khi active) */
     .sentence-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -159,7 +154,6 @@
       color: #0f172a;
     }
 
-    /* Ô điền từ Input */
     input.blank {
       border: none;
       border-bottom: 2px solid #94a3b8;
@@ -222,24 +216,21 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header>
     <div>
-      <div class="brand-tag">Hệ Thống Luyện Tập Tiếng Anh Trực Quan</div>
-      <h1>Nền Tảng Tương Tác <span>cùng Mr. Sang</span></h1>
+      <div class="brand-tag">Học tiếng Anh cùng Mr.Sang</div>
+      <h1>Luyện Nghe Điền Từ <span>- Octopuses 101</span></h1>
     </div>
     <button class="btn btn-outline btn-sm" onclick="toggleAllTranslations()">🌐 Ẩn/Hiện Tất Cả Dịch</button>
   </header>
 
-  <!-- Sticky Audio Control Bar -->
   <div class="audio-sticky-bar">
     <audio id="player" controls preload="auto">
-      <!-- Đường dẫn file nghe Octopuses 101 -->
-      <source src="Octopuses 101 - Nat Geo Wild.mp3" type="audio/mpeg">
+      <source src="https://raw.githubusercontent.com/englishwithmrsang-code/TiengAnhCamRanh/main/Octopuses%20101%20-%20Nat%20Geo%20Wild.mp3" type="audio/mpeg">
       Trình duyệt không hỗ trợ phát audio.
     </audio>
     <div class="progress-box">
-      Hoàn thành: <span id="completed-count">0</span>/23 câu
+      Hoàn thành: <span id="completed-count">0</span>/20 câu (30 từ)
     </div>
   </div>
 
@@ -260,9 +251,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(4.8)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Octopuses have elaborate <input type="text" class="blank" data-answer="cardiovascular" style="width: 130px;"> and nervous systems.
+          Octopuses have <input type="text" class="blank" data-answer="special" style="width: 75px;"> cardiovascular and nervous <input type="text" class="blank" data-answer="systems" style="width: 80px;">.
         </div>
-        <div class="vi-text">Bạch tuộc có hệ tim mạch và hệ thần kinh rất phức tạp.</div>
+        <div class="vi-text">Bạch tuộc có hệ tim mạch và hệ thần kinh rất đặc biệt.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-1')">Nộp câu</button>
@@ -280,7 +271,7 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(10.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Their cardiovascular system includes three <input type="text" class="blank" data-answer="hearts" style="width: 70px;">.
+          Their cardiovascular system includes <input type="text" class="blank" data-answer="three" style="width: 60px;"> hearts.
         </div>
         <div class="vi-text">Hệ tuần hoàn của chúng bao gồm ba trái tim.</div>
         <div class="card-actions">
@@ -300,9 +291,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(13.2)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Two pump blood to the <input type="text" class="blank" data-answer="gills" style="width: 50px;">, and a third moves blood throughout the rest of the body.
+          Two pump <input type="text" class="blank" data-answer="blood" style="width: 60px;"> to the gills, and a third moves blood to the rest of the <input type="text" class="blank" data-answer="body" style="width: 55px;">.
         </div>
-        <div class="vi-text">Hai trái tim bơm máu đến mang, và trái tim thứ ba vận chuyển máu đến toàn bộ phần còn lại của cơ thể.</div>
+        <div class="vi-text">Hai tim bơm máu đến mang, và trái tim thứ ba vận chuyển máu đến phần còn lại của cơ thể.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-3')">Nộp câu</button>
@@ -320,7 +311,7 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(20.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Unlike human blood, octopus blood is <input type="text" class="blank" data-answer="copper-based" style="width: 120px;">, which makes it appear blue.
+          Unlike human blood, octopus blood is copper-based, which makes it appear <input type="text" class="blank" data-answer="blue" style="width: 55px;">.
         </div>
         <div class="vi-text">Khác với máu người, máu bạch tuộc chứa gốc đồng, khiến nó có màu xanh lam.</div>
         <div class="card-actions">
@@ -340,9 +331,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(28.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          The octopus nervous system includes a brain, but two-thirds of the octopus's <input type="text" class="blank" data-answer="neurons" style="width: 80px;"> are found throughout its body, especially in its arms.
+          The octopus nervous system includes a <input type="text" class="blank" data-answer="brain" style="width: 60px;">, but most neurons are found in its <input type="text" class="blank" data-answer="arms" style="width: 55px;">.
         </div>
-        <div class="vi-text">Hệ thần kinh bạch tuộc gồm một bộ não, nhưng hai phần ba số tế bào thần kinh nằm rải rác khắp cơ thể, đặc biệt là ở các tua.</div>
+        <div class="vi-text">Hệ thần kinh bạch tuộc gồm một bộ não, nhưng hầu hết tế bào thần kinh nằm ở các tua.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-5')">Nộp câu</button>
@@ -360,9 +351,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(39.8)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          This means the arms have significant local <input type="text" class="blank" data-answer="control" style="width: 70px;"> and sensory capabilities.
+          This means the arms have <input type="text" class="blank" data-answer="local" style="width: 55px;"> control and sensory <input type="text" class="blank" data-answer="capabilities" style="width: 105px;">.
         </div>
-        <div class="vi-text">Điều này có nghĩa là các tua có khả năng điều khiển độc lập và cảm nhận linh hoạt.</div>
+        <div class="vi-text">Điều này có nghĩa là các tua có khả năng tự điều khiển độc lập và cảm nhận linh hoạt.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-6')">Nộp câu</button>
@@ -380,9 +371,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(45.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          They may even still reach or <input type="text" class="blank" data-answer="grasp" style="width: 60px;"> after they are severed, and their suckers are able to sense chemicals.
+          In other words, they can smell or <input type="text" class="blank" data-answer="taste" style="width: 55px;"> using their suckers.
         </div>
-        <div class="vi-text">Chúng thậm chí vẫn có thể vươn ra hoặc nắm lấy sau khi bị đứt rời, và các giác hút có thể cảm nhận hóa chất.</div>
+        <div class="vi-text">Nói cách khác, chúng có thể ngửi hoặc nếm bằng cách sử dụng các giác hút.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-7')">Nộp câu</button>
@@ -400,9 +391,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(58.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Octopuses are <input type="text" class="blank" data-answer="intelligent" style="width: 100px;">.
+          Octopuses are <input type="text" class="blank" data-answer="smart" style="width: 60px;"> animals.
         </div>
-        <div class="vi-text">Bạch tuộc là sinh vật rất thông minh.</div>
+        <div class="vi-text">Bạch tuộc là loài động vật rất thông minh.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-8')">Nộp câu</button>
@@ -420,9 +411,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(60.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Some scientists believe octopus intellect can be found in their ability to use <input type="text" class="blank" data-answer="tools" style="width: 60px;"> and exhibit foresight.
+          Some <input type="text" class="blank" data-answer="scientists" style="width: 85px;"> believe octopus intellect is seen in their ability to use <input type="text" class="blank" data-answer="tools" style="width: 55px;">.
         </div>
-        <div class="vi-text">Một số nhà khoa học tin rằng trí thông minh của bạch tuộc nằm ở khả năng sử dụng công cụ và thể hiện sự tính toán.</div>
+        <div class="vi-text">Một số nhà khoa học tin rằng trí thông minh của bạch tuộc thể hiện ở khả năng biết sử dụng công cụ.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-9')">Nộp câu</button>
@@ -440,9 +431,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(68.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          To retain complex <input type="text" class="blank" data-answer="memories" style="width: 90px;"> which helps them navigate mazes and solve puzzles.
+          They can keep <input type="text" class="blank" data-answer="complex" style="width: 75px;"> memories which helps them solve <input type="text" class="blank" data-answer="puzzles" style="width: 70px;">.
         </div>
-        <div class="vi-text">Khả năng lưu giữ trí nhớ phức tạp giúp chúng di chuyển qua mê cung và giải các câu đố.</div>
+        <div class="vi-text">Chúng có thể lưu giữ những ký ức phức tạp giúp chúng giải các câu đố.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-10')">Nộp câu</button>
@@ -460,9 +451,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(75.2)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Octopuses have also been shown to <input type="text" class="blank" data-answer="play" style="width: 50px;">, an activity considered a sign of intelligence.
+          Octopuses have also been shown to <input type="text" class="blank" data-answer="play" style="width: 50px;"> with objects.
         </div>
-        <div class="vi-text">Bạch tuộc cũng đã được chứng minh là biết chơi đùa, một hoạt động được xem là dấu hiệu của trí thông minh.</div>
+        <div class="vi-text">Bạch tuộc cũng đã được chứng minh là biết chơi đùa với các đồ vật.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-11')">Nộp câu</button>
@@ -480,7 +471,7 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(83.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Most octopus species only live between <input type="text" class="blank" data-answer="one" style="width: 45px;"> and two years.
+          Most octopus species only live between one and two <input type="text" class="blank" data-answer="years" style="width: 55px;">.
         </div>
         <div class="vi-text">Hầu hết các loài bạch tuộc chỉ sống từ một đến hai năm.</div>
         <div class="card-actions">
@@ -500,9 +491,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(88.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Much of this short lifespan has to do with the octopus's <input type="text" class="blank" data-answer="reproductive" style="width: 110px;"> process.
+          Much of this short <input type="text" class="blank" data-answer="life" style="width: 45px;"> has to do with their reproductive <input type="text" class="blank" data-answer="process" style="width: 70px;">.
         </div>
-        <div class="vi-text">Phần lớn tuổi thọ ngắn ngủi này liên quan đến quá trình sinh sản của bạch tuộc.</div>
+        <div class="vi-text">Phần lớn vòng đời ngắn ngủi này liên quan đến quá trình sinh sản của chúng.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-13')">Nộp câu</button>
@@ -520,9 +511,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(94.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          When octopuses mate, males may be <input type="text" class="blank" data-answer="strangled" style="width: 90px;"> and eaten by females.
+          Male octopuses are often <input type="text" class="blank" data-answer="smaller" style="width: 70px;"> than females.
         </div>
-        <div class="vi-text">Khi giao phối, con đực có thể bị con mái siết chết và ăn thịt.</div>
+        <div class="vi-text">Con bạch tuộc đực thường nhỏ hơn con mái.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-14')">Nộp câu</button>
@@ -540,9 +531,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(106.8)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          While females survive the mating process, they die after <input type="text" class="blank" data-answer="laying" style="width: 60px;"> their eggs.
+          Females guard their <input type="text" class="blank" data-answer="eggs" style="width: 50px;"> for up to eight weeks without eating.
         </div>
-        <div class="vi-text">Mặc dù con mái sống sót sau quá trình giao phối, chúng sẽ chết sau khi đẻ trứng.</div>
+        <div class="vi-text">Con mái bảo vệ trứng của chúng trong tối đa tám tuần mà không ăn uống.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-15')">Nộp câu</button>
@@ -560,7 +551,7 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(121.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Octopus <input type="text" class="blank" data-answer="ink" style="width: 45px;"> is deadly, even for the octopus.
+          Octopus <input type="text" class="blank" data-answer="ink" style="width: 45px;"> is dangerous, even for the octopus itself.
         </div>
         <div class="vi-text">Mực của bạch tuộc rất nguy hiểm, ngay cả đối với chính nó.</div>
         <div class="card-actions">
@@ -580,9 +571,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(126.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          The ink is a seemingly innocent mixture of <input type="text" class="blank" data-answer="mucus" style="width: 65px;"> and melanin.
+          It can impair a predator's sight, taste, and <input type="text" class="blank" data-answer="smell" style="width: 55px;">.
         </div>
-        <div class="vi-text">Mực là một hỗn hợp tưởng chừng vô hại gồm chất nhầy và melanin.</div>
+        <div class="vi-text">Nó có thể làm suy giảm thị giác, vị giác và khứu giác của kẻ săn mồi.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-17')">Nộp câu</button>
@@ -600,9 +591,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(138.8)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Octopuses may use their ink to distract, confuse, and <input type="text" class="blank" data-answer="paralyze" style="width: 80px;"> their predators.
+          The ink mixture can even block a fish's gills in the <input type="text" class="blank" data-answer="water" style="width: 55px;">.
         </div>
-        <div class="vi-text">Bạch tuộc có thể dùng mực để làm xao nhãng, gây hoang mang và làm tê liệt kẻ săn mồi.</div>
+        <div class="vi-text">Hỗn hợp mực thậm chí có thể làm tắc mang cá ở dưới nước.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-18')">Nộp câu</button>
@@ -620,9 +611,9 @@
           <button class="btn btn-outline btn-sm" onclick="playAudio(152.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Octopuses are masters of mimicry and <input type="text" class="blank" data-answer="camouflage" style="width: 100px;">.
+          Octopuses can change <input type="text" class="blank" data-answer="color" style="width: 55px;"> under their <input type="text" class="blank" data-answer="skin" style="width: 45px;"> to hide.
         </div>
-        <div class="vi-text">Bạch tuộc là bậc thầy về bắt chước và ngụy trang.</div>
+        <div class="vi-text">Bạch tuộc có thể thay đổi màu sắc dưới da của chúng để ẩn nấp.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-19')">Nộp câu</button>
@@ -634,80 +625,20 @@
       </div>
 
       <!-- 20 -->
-      <div class="sentence-card" id="card-20" data-start="156.5">
+      <div class="sentence-card" id="card-20" data-start="188.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 20</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(156.5)">▶ Nghe câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(188.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          They can trigger cells just underneath the surface of their skin to change <input type="text" class="blank" data-answer="color" style="width: 55px;">.
+          All these features make octopuses <input type="text" class="blank" data-answer="amazing" style="width: 80px;"> creatures of the deep <input type="text" class="blank" data-answer="sea" style="width: 45px;">.
         </div>
-        <div class="vi-text">Chúng có thể kích hoạt các tế bào nằm ngay dưới bề mặt da để thay đổi màu sắc.</div>
+        <div class="vi-text">Tất cả những đặc điểm này khiến bạch tuộc trở thành những sinh vật tuyệt vời của biển sâu.</div>
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-20')">Nộp câu</button>
             <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-20')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-20')">🌐 Dịch</button>
-          </div>
-          <span class="status-badge"></span>
-        </div>
-      </div>
-
-      <!-- 21 -->
-      <div class="sentence-card" id="card-21" data-start="162.0">
-        <div class="sentence-header">
-          <span class="sentence-num">CÂU 21</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(162.0)">▶ Nghe câu này</button>
-        </div>
-        <div class="sentence-body">
-          The cells, called <input type="text" class="blank" data-answer="chromatophores" style="width: 130px;">, contain sacs of pigment that can turn various shades.
-        </div>
-        <div class="vi-text">Các tế bào này được gọi là chromatophores, chứa các túi sắc tố có thể đổi thành nhiều màu sắc.</div>
-        <div class="card-actions">
-          <div class="card-actions-left">
-            <button class="btn btn-sm" onclick="checkSentence('card-21')">Nộp câu</button>
-            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-21')">💡 Hiện đáp án</button>
-            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-21')">🌐 Dịch</button>
-          </div>
-          <span class="status-badge"></span>
-        </div>
-      </div>
-
-      <!-- 22 -->
-      <div class="sentence-card" id="card-22" data-start="170.0">
-        <div class="sentence-header">
-          <span class="sentence-num">CÂU 22</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(170.0)">▶ Nghe câu này</button>
-        </div>
-        <div class="sentence-body">
-          Some octopuses can also imitate <input type="text" class="blank" data-answer="textures" style="width: 75px;"> to match textured environments.
-        </div>
-        <div class="vi-text">Một số loài bạch tuộc cũng có thể bắt chước bề mặt để hòa nhập với môi trường xung quanh.</div>
-        <div class="card-actions">
-          <div class="card-actions-left">
-            <button class="btn btn-sm" onclick="checkSentence('card-22')">Nộp câu</button>
-            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-22')">💡 Hiện đáp án</button>
-            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-22')">🌐 Dịch</button>
-          </div>
-          <span class="status-badge"></span>
-        </div>
-      </div>
-
-      <!-- 23 -->
-      <div class="sentence-card" id="card-23" data-start="188.0">
-        <div class="sentence-header">
-          <span class="sentence-num">CÂU 23</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(188.0)">▶ Nghe câu này</button>
-        </div>
-        <div class="sentence-body">
-          Their wily mimicry makes octopuses <input type="text" class="blank" data-answer="captivating" style="width: 90px;"> creatures of the deep.
-        </div>
-        <div class="vi-text">Khả năng bắt chước tài tình khiến bạch tuộc trở thành sinh vật đầy quyến rũ dưới đại dương sâu thẳm.</div>
-        <div class="card-actions">
-          <div class="card-actions-left">
-            <button class="btn btn-sm" onclick="checkSentence('card-23')">Nộp câu</button>
-            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-23')">💡 Hiện đáp án</button>
-            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-23')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
         </div>
@@ -723,7 +654,6 @@
     let completedCards = new Set();
     let allAnswersShown = false;
 
-    // Phát audio tại mốc thời gian không gây hiệu ứng đổi màu câu
     function playAudio(startTime) {
       player.currentTime = startTime;
       const playPromise = player.play();
@@ -732,14 +662,12 @@
       }
     }
 
-    // Toggle Dịch từng câu
     function toggleTranslation(cardId) {
       const card = document.getElementById(cardId);
       const viText = card.querySelector('.vi-text');
       viText.classList.toggle('show');
     }
 
-    // Toggle Dịch tất cả
     function toggleAllTranslations() {
       const viTexts = document.querySelectorAll('.vi-text');
       const anyHidden = Array.from(viTexts).some(el => !el.classList.contains('show'));
@@ -749,7 +677,6 @@
       });
     }
 
-    // Toggle Đáp án từng câu (Hiện / Tắt)
     function toggleAnswer(cardId) {
       const card = document.getElementById(cardId);
       const inputs = card.querySelectorAll('input.blank');
@@ -785,7 +712,6 @@
       updateProgress();
     }
 
-    // Toggle Đáp án Tất Cả
     function toggleAllAnswers() {
       const mainBtn = document.getElementById('btn-toggle-all-answers');
       allAnswersShown = !allAnswersShown;
@@ -805,7 +731,6 @@
       }
     }
 
-    // Nộp câu
     function checkSentence(cardId) {
       const card = document.getElementById(cardId);
       const inputs = card.querySelectorAll('input.blank');
