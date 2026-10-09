@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EnglishwithMrSang - Tiếng Anh Cam Ranh</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      font-family: 'Inter', 'Plus Jakarta Sans', sans-serif; 
+      background-color: #f4f8fc;
+      color: #334155;
+    }
+    .soft-blue-hero {
+      background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 50%, #eff6ff 100%);
+      border: 1px solid #bfdbfe;
+    }
+    .soft-card-hover {
+      transition: all 0.25s ease-in-out;
+    }
+    .soft-card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased" id="top">
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="bg-blue-50 text-slate-700 border-b border-blue-100 py-2.5 px-4 text-xs font-semibold">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3">
+      <div class="flex items-center gap-6">
+        <span><i class="fa-solid fa-phone text-blue-600 mr-1.5"></i> Hotline: <strong class="text-slate-900">0399649763</strong></span>
+      </div>
+      <div>
+        <a href="https://www.facebook.com/profile.php?id=61564829631018" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-900 font-bold transition inline-flex items-center gap-1.5">
+          <i class="fa-brands fa-facebook text-blue-600"></i> Theo dõi Facebook &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER NAVIGATION BAR -->
+  <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-blue-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo Brand với Hình Ảnh Logo Tròn -->
+      <!-- Logo Brand với Hình Ảnh Logo Tròn -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+        <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-blue-200 shadow-sm flex items-center justify-center shrink-0">
+          <img src="image(64).png" alt="English with Mr. Sang Logo" class="w-full h-full object-cover scale-[1.65]">
+        </div>
+        <div>
+          <span class="text-xl font-extrabold text-slate-900 tracking-tight block leading-none">EnglishwithMrSang</span>
+          <span class="text-[10px] font-extrabold text-blue-600 uppercase tracking-widest mt-1 block">Tiếng Anh Cam Ranh</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-bold text-slate-600">
+        <button onclick="switchTab('home')" id="nav-home" class="nav-btn text-blue-600 font-extrabold">Trang Chủ</button>
+        <button onclick="switchTab('skills')" id="nav-skills" class="nav-btn hover:text-blue-600 transition">Skill (Kỹ Năng)</button>
+        <button onclick="switchTab('thcs')" id="nav-thcs" class="nav-btn hover:text-blue-600 transition">Khối THCS</button>
+        <button onclick="switchTab('thpt')" id="nav-thpt" class="nav-btn hover:text-blue-600 transition">Khối THPT & LTĐH</button>
+        <button onclick="switchTab('ielts')" id="nav-ielts" class="nav-btn hover:text-blue-600 transition">Lộ Trình IELTS</button>
+        <button onclick="switchTab('classes')" id="nav-classes" class="nav-btn hover:text-blue-600 transition">Lớp học</button>
+        
+        <!-- Quick Buttons -->
+        <button onclick="openLeaderboardModal()" class="px-3.5 py-1.5 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-full font-extrabold border border-amber-200 transition flex items-center gap-1.5 text-xs">
+          <i class="fa-solid fa-trophy text-amber-500"></i> Top 30 Leaderboard
+        </button>
+        
+        <!-- BẢNG TRACKING RIÊNG - CHỈ ADMIN MỚI THẤY -->
+        <button onclick="switchTab('admin')" id="nav-admin" class="admin-only hidden nav-btn text-rose-600 hover:text-rose-700 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-chart-line"></i> Admin Tracking
+        </button>
+      </nav>
+
+      <!-- Right Action / Login -->
+      <div class="hidden sm:flex items-center gap-3">
+        <div id="user-status-badge" class="hidden px-3.5 py-1 bg-blue-50 text-blue-700 text-xs font-extrabold rounded-full border border-blue-200">
+          <!-- Hiển thị quyền hiện tại -->
+        </div>
+        <button id="btn-auth-action" onclick="openAuthModal()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-full transition shadow-md shadow-blue-100 flex items-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập / Đăng ký
+        </button>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button onclick="toggleMobileMenu()" class="lg:hidden text-slate-700 text-2xl p-2">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-blue-50 bg-white px-4 py-4 space-y-3 text-sm font-bold">
+      <button onclick="switchTab('home')" class="block w-full text-left py-1 text-blue-600">Trang Chủ</button>
+      <button onclick="switchTab('skills')" class="block w-full text-left py-1">Skill (Kỹ Năng)</button>
+      <button onclick="switchTab('thcs')" class="block w-full text-left py-1">Khối THCS</button>
+      <button onclick="switchTab('thpt')" class="block w-full text-left py-1">Khối THPT & LTĐH</button>
+      <button onclick="switchTab('ielts')" class="block w-full text-left py-1">Lộ Trình IELTS</button>
+      <button onclick="switchTab('classes')" class="block w-full text-left py-1">Lớp học</button>
+      <button onclick="openLeaderboardModal()" class="block w-full text-left py-1 text-amber-600">Top 30 Leaderboard</button>
+      <button onclick="switchTab('admin')" id="mobile-nav-admin" class="admin-only hidden block w-full text-left py-1 text-rose-600">Admin Tracking</button>
+      <button onclick="openAuthModal()" class="w-full mt-2 py-2.5 bg-blue-600 text-white font-bold rounded-full text-center">Đăng nhập / Đăng ký</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- VIEW 1: TRANG CHỦ -->
+    <div id="view-home" class="tab-view space-y-10">
+      <div class="soft-blue-hero rounded-3xl p-8 sm:p-12 shadow-sm relative overflow-hidden">
+        <div class="max-w-4xl space-y-5 relative z-10">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-blue-200 text-blue-800 text-xs font-bold shadow-xs">
+            <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+            Hệ Thống Luyện Tập Tiếng Anh Trực Quan
+          </div>
+
+          <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight whitespace-nowrap overflow-x-auto py-1">
+            Nền Tảng Tương Tác <span class="text-blue-600">cùng Mr. Sang</span>
+          </h1>
+
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl">
+            Phân loại bài tập tương tác chuẩn theo Kỹ năng (Skills), chương trình phổ thông THCS - THPT, Lộ trình IELTS 6 giai đoạn & Các khóa IELTS Cấp tốc 1-1 chuyên sâu.
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <button onclick="switchTab('skills')" class="px-7 py-3 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md shadow-blue-200 transition">
+              Rèn Luyện Skills Ngay
+            </button>
+            <button onclick="openLeaderboardModal()" class="px-7 py-3 bg-white hover:bg-amber-50 text-amber-700 border border-amber-200 font-extrabold text-xs uppercase tracking-wider rounded-full transition shadow-xs flex items-center gap-2">
+              <i class="fa-solid fa-trophy text-amber-500"></i> Xem Bảng Xếp Hạng
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- THỐNG KÊ TỔNG QUAN -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-blue-100 soft-card-hover flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <div>
+            <h4 class="text-lg font-black text-slate-800">6 Kỹ Năng</h4>
+            <p class="text-xs text-slate-500">Reading, Listening, Writing, Speaking, Grammar, Vocab</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-blue-100 soft-card-hover flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl font-bold">
+            <i class="fa-solid fa-school"></i>
+          </div>
+          <div>
+            <h4 class="text-lg font-black text-slate-800">THCS & THPT</h4>
+            <p class="text-xs text-slate-500">Bám sát chương trình học & Luyện thi đại học</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-blue-100 soft-card-hover flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl font-bold">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div>
+            <h4 class="text-lg font-black text-slate-800">IELTS 6 Giai Đoạn</h4>
+            <p class="text-xs text-slate-500">Chuẩn từ Band 0 đến Band 6.5+ & Khóa Cấp Tốc 1-1</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHUYÊN MỤC KỸ NĂNG -->
+      <div class="space-y-5">
+        <div class="flex justify-between items-end">
+          <div>
+            <h2 class="text-2xl font-black text-slate-900">Kỹ Năng Trọng Tâm</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Chọn kỹ năng cần rèn luyện để vào bài tập tương tác ngay.</p>
+          </div>
+          <button onclick="switchTab('skills')" class="text-xs font-extrabold text-blue-600 hover:underline">Xem tất cả &rarr;</button>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div onclick="openSkillCategory('Reading')" class="p-5 bg-white rounded-2xl border border-blue-100 hover:border-blue-300 soft-card-hover text-center cursor-pointer group">
+            <div class="w-11 h-11 mx-auto rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-2.5">
+              <i class="fa-solid fa-newspaper"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm">Reading</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">Đọc hiểu</p>
+          </div>
+
+          <div onclick="openSkillCategory('Listening')" class="p-5 bg-white rounded-2xl border border-blue-100 hover:border-blue-300 soft-card-hover text-center cursor-pointer group">
+            <div class="w-11 h-11 mx-auto rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-lg mb-2.5">
+              <i class="fa-solid fa-headphones"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm">Listening</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">Luyện nghe</p>
+          </div>
+
+          <div onclick="openSkillCategory('Writing')" class="p-5 bg-white rounded-2xl border border-blue-100 hover:border-blue-300 soft-card-hover text-center cursor-pointer group">
+            <div class="w-11 h-11 mx-auto rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-lg mb-2.5">
+              <i class="fa-solid fa-pen-nib"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm">Writing</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">Luyện viết</p>
+          </div>
+
+          <div onclick="openSkillCategory('Speaking')" class="p-5 bg-white rounded-2xl border border-blue-100 hover:border-blue-300 soft-card-hover text-center cursor-pointer group">
+            <div class="w-11 h-11 mx-auto rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg mb-2.5">
+              <i class="fa-solid fa-comments"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm">Speaking</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">Phản xạ nói</p>
+          </div>
+
+          <div onclick="openSkillCategory('Grammar')" class="p-5 bg-white rounded-2xl border border-blue-100 hover:border-blue-300 soft-card-hover text-center cursor-pointer group">
+            <div class="w-11 h-11 mx-auto rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg mb-2.5">
+              <i class="fa-solid fa-spell-check"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm">Grammar</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">Ngữ pháp</p>
+          </div>
+
+          <div onclick="openSkillCategory('Vocabulary')" class="p-5 bg-white rounded-2xl border border-blue-100 hover:border-blue-300 soft-card-hover text-center cursor-pointer group">
+            <div class="w-11 h-11 mx-auto rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-lg mb-2.5">
+              <i class="fa-solid fa-book-open"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm">Vocabulary</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">Từ vựng</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: SKILLS -->
+    <div id="view-skills" class="tab-view hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-blue-100 pb-5">
+        <div>
+          <h2 class="text-3xl font-black text-slate-900">Danh Sách Bài Học Skill</h2>
+          <p class="text-slate-500 text-sm">Chọn phân môn bên dưới để làm bài tập tương tác ngay.</p>
+        </div>
+        <button onclick="openAddLessonModal('skill')" class="lesson-create hidden px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-full transition shadow-md flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i> Thêm Bài Học Skill Mới (Admin)
+        </button>
+      </div>
+
+      <div class="flex flex-wrap gap-2" id="skill-tabs">
+        <button onclick="filterLessons('skill', 'Reading')" class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-blue-600 text-white shadow-sm">Reading</button>
+        <button onclick="filterLessons('skill', 'Listening')" class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Listening</button>
+        <button onclick="filterLessons('skill', 'Writing')" class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Writing</button>
+        <button onclick="filterLessons('skill', 'Speaking')" class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Speaking</button>
+        <button onclick="filterLessons('skill', 'Grammar')" class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Grammar</button>
+        <button onclick="filterLessons('skill', 'Vocabulary')" class="skill-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Vocabulary</button>
+      </div>
+
+      <div id="skill-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2"></div>
+    </div>
+
+    <!-- VIEW 3: THCS -->
+    <div id="view-thcs" class="tab-view hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-blue-100 pb-5">
+        <div>
+          <h2 class="text-3xl font-black text-slate-900">Lộ Trình Tiếng Anh THCS</h2>
+          <p class="text-slate-500 text-sm">Chương trình Lớp 6, Lớp 7, Lớp 8, Lớp 9 & Thi Lớp 10.</p>
+        </div>
+        <button onclick="openAddLessonModal('thcs')" class="lesson-create hidden px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-full transition shadow-md flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i> Thêm Bài Học THCS (Admin)
+        </button>
+      </div>
+
+      <div class="flex flex-wrap gap-2" id="thcs-tabs">
+        <button onclick="filterLessons('thcs', 'Lớp 6')" class="thcs-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-blue-600 text-white shadow-sm">Lớp 6</button>
+        <button onclick="filterLessons('thcs', 'Lớp 7')" class="thcs-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Lớp 7</button>
+        <button onclick="filterLessons('thcs', 'Lớp 8')" class="thcs-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Lớp 8</button>
+        <button onclick="filterLessons('thcs', 'Lớp 9')" class="thcs-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Lớp 9</button>
+        <button onclick="filterLessons('thcs', 'Thi lớp 10')" class="thcs-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Thi Lớp 10</button>
+      </div>
+
+      <div id="thcs-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2"></div>
+    </div>
+
+    <!-- VIEW 4: THPT -->
+    <div id="view-thpt" class="tab-view hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-blue-100 pb-5">
+        <div>
+          <h2 class="text-3xl font-black text-slate-900">Lộ Trình Tiếng Anh THPT & LTĐH</h2>
+          <p class="text-slate-500 text-sm">Chương trình Lớp 10, Lớp 11, Lớp 12 & Luyện Thi Đại Học.</p>
+        </div>
+        <button onclick="openAddLessonModal('thpt')" class="lesson-create hidden px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-full transition shadow-md flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i> Thêm Bài Học THPT (Admin)
+        </button>
+      </div>
+
+      <div class="flex flex-wrap gap-2" id="thpt-tabs">
+        <button onclick="filterLessons('thpt', 'Lớp 10')" class="thpt-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-blue-600 text-white shadow-sm">Lớp 10</button>
+        <button onclick="filterLessons('thpt', 'Lớp 11')" class="thpt-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Lớp 11</button>
+        <button onclick="filterLessons('thpt', 'Lớp 12')" class="thpt-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">Lớp 12</button>
+        <button onclick="filterLessons('thpt', 'LTĐH')" class="thpt-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100">LTĐH</button>
+      </div>
+
+      <div id="thpt-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2"></div>
+    </div>
+
+    <!-- VIEW 5: LỘ TRÌNH IELTS 6 CẤP ĐỘ & IELTS CẤP TỐC 1-1 -->
+    <div id="view-ielts" class="tab-view hidden space-y-12">
+      
+      <!-- PHẦN 1: LỘ TRÌNH 6 CẤP ĐỘ -->
+      <div class="space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-end gap-4">
+          <div>
+            <h2 class="text-3xl font-black text-slate-900 mb-1">Lộ Trình IELTS Chuẩn 6 Cấp Độ</h2>
+            <p class="text-slate-500 text-sm">Thiết kế bài bản giúp học viên nâng band điểm theo đúng mục tiêu.</p>
+          </div>
+          <a href="https://m.me/EnglishwithMrSang.TiengAnhCamRanh" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs rounded-full shadow-sm transition inline-flex items-center gap-2">
+            <i class="fa-brands fa-facebook-messenger text-sm"></i> Tư Vấn Lộ Trình Ngay
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-3xl border border-blue-100 hover:shadow-md transition flex flex-col justify-between space-y-4">
+            <div>
+              <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-extrabold rounded-full uppercase">Cấp độ 1</span>
+              <h3 class="text-2xl font-black text-slate-800 mt-2">0 - 2.5</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Chuẩn hóa phát âm IPA, từ vựng nền tảng & ngữ pháp cơ bản.</p>
+            </div>
+            <button onclick="alert('Đang mở bài học Band 0 - 2.5')" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-full transition text-center block shadow-sm">
+              Học Ngay Band 0 - 2.5
+            </button>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl border border-blue-100 hover:shadow-md transition flex flex-col justify-between space-y-4">
+            <div>
+              <span class="px-3 py-1 bg-sky-50 text-sky-700 text-xs font-extrabold rounded-full uppercase">Cấp độ 2</span>
+              <h3 class="text-2xl font-black text-slate-800 mt-2">2.5 - 3.5</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Mở rộng cấu trúc câu ghép, từ vựng theo chủ đề quen thuộc.</p>
+            </div>
+            <button onclick="alert('Đang mở bài học Band 2.5 - 3.5')" class="w-full py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-full transition text-center block shadow-sm">
+              Học Ngay Band 2.5 - 3.5
+            </button>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl border border-blue-100 hover:shadow-md transition flex flex-col justify-between space-y-4">
+            <div>
+              <span class="px-3 py-1 bg-teal-50 text-teal-700 text-xs font-extrabold rounded-full uppercase">Cấp độ 3</span>
+              <h3 class="text-2xl font-black text-slate-800 mt-2">3.5 - 4.5</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Làm quen dạng đề IELTS Listening & Reading, nền tảng Viết câu.</p>
+            </div>
+            <button onclick="alert('Đang mở bài học Band 3.5 - 4.5')" class="w-full py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-full transition text-center block shadow-sm">
+              Học Ngay Band 3.5 - 4.5
+            </button>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl border border-blue-100 hover:shadow-md transition flex flex-col justify-between space-y-4">
+            <div>
+              <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-extrabold rounded-full uppercase">Cấp độ 4</span>
+              <h3 class="text-2xl font-black text-slate-800 mt-2">4.5 - 5.5</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Rèn luyện chiến thuật làm bài IELTS Task 1, Task 2 & Speaking Part 1.</p>
+            </div>
+            <button onclick="alert('Đang mở bài học Band 4.5 - 5.5')" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-full transition text-center block shadow-sm">
+              Học Ngay Band 4.5 - 5.5
+            </button>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl border border-blue-100 hover:shadow-md transition flex flex-col justify-between space-y-4">
+            <div>
+              <span class="px-3 py-1 bg-cyan-50 text-cyan-700 text-xs font-extrabold rounded-full uppercase">Cấp độ 5</span>
+              <h3 class="text-2xl font-black text-slate-800 mt-2">5.5 - 6.5</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Bứt phá kỹ năng Reading/Listening & phản xạ Speaking tự nhiên.</p>
+            </div>
+            <button onclick="alert('Đang mở bài học Band 5.5 - 6.5')" class="w-full py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-xs rounded-full transition text-center block shadow-sm">
+              Học Ngay Band 5.5 - 6.5
+            </button>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl border border-blue-200 hover:shadow-md transition flex flex-col justify-between space-y-4">
+            <div>
+              <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-extrabold rounded-full uppercase">Cấp độ 6</span>
+              <h3 class="text-2xl font-black text-slate-800 mt-2">6.5 +</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Giải đề Cambridge thực chiến, bẫy nâng cao & tối ưu điểm số.</p>
+            </div>
+            <button onclick="alert('Đang mở bài học Band 6.5+')" class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs rounded-full transition text-center block shadow-sm">
+              Học Ngay Band 6.5+
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4 border-t border-blue-100 pt-6">
+        <div class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="text-2xl font-black text-slate-900">Bài tập trong 6 lộ trình IELTS</h3><p class="text-sm text-slate-500">Bài tập do admin đăng sẽ hiển thị theo từng cấp độ.</p></div>
+        <button onclick="openAddLessonModal('ielts')" class="lesson-create hidden px-5 py-2.5 bg-blue-600 text-white font-bold text-xs rounded-full"><i class="fa-solid fa-plus mr-1"></i> Thêm bài IELTS</button></div>
+        <div class="flex flex-wrap gap-2" id="ielts-tabs">
+          <button onclick="filterLessons('ielts','Cấp độ 1: 0 - 2.5')" class="ielts-tab-btn px-4 py-2 rounded-full text-xs font-bold bg-blue-600 text-white">Cấp độ 1: 0 - 2.5</button>
+          <button onclick="filterLessons('ielts','Cấp độ 2: 2.5 - 3.5')" class="ielts-tab-btn px-4 py-2 rounded-full text-xs font-bold bg-white border">Cấp độ 2: 2.5 - 3.5</button>
+          <button onclick="filterLessons('ielts','Cấp độ 3: 3.5 - 4.5')" class="ielts-tab-btn px-4 py-2 rounded-full text-xs font-bold bg-white border">Cấp độ 3: 3.5 - 4.5</button>
+          <button onclick="filterLessons('ielts','Cấp độ 4: 4.5 - 5.5')" class="ielts-tab-btn px-4 py-2 rounded-full text-xs font-bold bg-white border">Cấp độ 4: 4.5 - 5.5</button>
+          <button onclick="filterLessons('ielts','Cấp độ 5: 5.5 - 6.5')" class="ielts-tab-btn px-4 py-2 rounded-full text-xs font-bold bg-white border">Cấp độ 5: 5.5 - 6.5</button>
+          <button onclick="filterLessons('ielts','Cấp độ 6: 6.5+')" class="ielts-tab-btn px-4 py-2 rounded-full text-xs font-bold bg-white border">Cấp độ 6: 6.5+</button>
+        </div>
+        <div id="ielts-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+
+      <!-- PHẦN 2: MỤC IELTS CẤP TỐC 1-1 (MỚI BỔ SUNG) -->
+      <div class="space-y-6 pt-6 border-t border-blue-100">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-lg font-bold border border-rose-100">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <div>
+            <h2 class="text-2xl font-black text-slate-900">IELTS Cấp Tốc 1-1</h2>
+            <p class="text-slate-500 text-sm">Chương trình kèm riêng cá nhân hóa tốc hành bứt phá kỹ năng trọng tâm.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Khóa 1: Intensive Reading & Listening -->
+          <div class="bg-white p-6 rounded-3xl border border-rose-100 hover:shadow-md transition flex flex-col justify-between space-y-4 relative overflow-hidden">
+            <span class="absolute -right-7 top-4 bg-rose-500 text-white text-[9px] font-black uppercase px-8 py-1 rotate-45 shadow-xs">Cấp tốc 1-1</span>
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-book-open-reader"></i>
+              </div>
+              <h3 class="text-xl font-black text-slate-800">Intensive Reading & Listening</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Tập trung kỹ thuật Skimming, Scanning, Keyword Transformation & xử lý các bẫy đề thi Cambridge thực chiến.</p>
+            </div>
+            <a href="https://m.me/EnglishwithMrSang.TiengAnhCamRanh" target="_blank" rel="noopener noreferrer" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition text-center shadow-md shadow-blue-100 block">
+              Đăng Ký Khóa R&L 1-1
+            </a>
+          </div>
+
+          <!-- Khóa 2: Intensive Speaking -->
+          <div class="bg-white p-6 rounded-3xl border border-rose-100 hover:shadow-md transition flex flex-col justify-between space-y-4 relative overflow-hidden">
+            <span class="absolute -right-7 top-4 bg-rose-500 text-white text-[9px] font-black uppercase px-8 py-1 rotate-45 shadow-xs">Cấp tốc 1-1</span>
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-microphone-lines"></i>
+              </div>
+              <h3 class="text-xl font-black text-slate-800">Intensive Speaking</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Luyện phản xạ Part 1, 2, 3 trực tiếp 1-1 với Mr. Sang, sửa lỗi phát âm IPA, intonation & bổ sung ý tưởng câu trả lời C1-C2.</p>
+            </div>
+            <a href="https://m.me/EnglishwithMrSang.TiengAnhCamRanh" target="_blank" rel="noopener noreferrer" class="w-full py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition text-center shadow-md shadow-cyan-100 block">
+              Đăng Ký Speaking 1-1
+            </a>
+          </div>
+
+         <!-- Khóa 3: Intensive Writing -->
+          <div class="bg-white p-6 rounded-3xl border border-rose-100 hover:shadow-md transition flex flex-col justify-between space-y-4 relative overflow-hidden">
+            <span class="absolute -right-7 top-4 bg-rose-500 text-white text-[9px] font-black uppercase px-8 py-1 rotate-45 shadow-xs">Cấp tốc 1-1</span>
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-pen-nib"></i>
+              </div>
+              <h3 class="text-xl font-black text-slate-800">Intensive Writing</h3>
+              <p class="text-xs text-slate-500 mt-2 leading-relaxed">Sửa bài chi tiết Task 1 & Task 2 trực tiếp 1-1, tối ưu cấu trúc bài viết, nâng cấp từ vựng Academic và ngữ pháp ăn điểm Band 7.0+.</p>
+            </div>
+            <a href="https://m.me/EnglishwithMrSang.TiengAnhCamRanh" target="_blank" rel="noopener noreferrer" class="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition text-center shadow-md shadow-teal-100 block">
+              Đăng Ký Writing 1-1
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VIEW LỚP HỌC: GIÁO VIÊN / HỌC VIÊN / ADMIN -->
+    <div id="view-classes" class="tab-view hidden space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-blue-100 pb-5">
+        <div><h2 class="text-3xl font-black text-slate-900">Lớp học & Bài tập</h2><p class="text-sm text-slate-500 mt-1">Học liệu, bài tập có hạn nộp, trạng thái hoàn thành và điểm số.</p></div>
+        <button id="btn-create-class" onclick="createClass()" class="hidden px-5 py-2.5 bg-blue-600 text-white rounded-full text-xs font-bold"><i class="fa-solid fa-plus mr-1"></i> Tạo lớp học</button>
+      </div>
+      <div id="classes-notice" class="p-4 bg-blue-50 border border-blue-100 rounded-2xl text-sm text-blue-800">Đăng nhập bằng tài khoản học viên hoặc giáo viên để xem lớp học được phân quyền.</div>
+      <div id="classes-container" class="grid grid-cols-1 lg:grid-cols-2 gap-5"></div>
+    </div>
+
+    <!-- VIEW 6: ADMIN TRACKING (CHỈ ADMIN THẤY) -->
+    <div id="view-admin" class="tab-view hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-blue-100 pb-5">
+        <div>
+          <h2 class="text-3xl font-black text-slate-900">Bảng Theo Dõi Học Viên (Admin Only)</h2>
+          <p class="text-slate-500 text-sm">Theo dõi chi tiết số bài tập và lượt làm bài của từng học viên.</p>
+        </div>
+        <button onclick="clearTrackingData()" class="px-4 py-2 bg-rose-50 text-rose-600 border border-rose-200 text-xs font-bold rounded-full hover:bg-rose-100 transition">
+          <i class="fa-solid fa-trash mr-1"></i> Xóa dữ liệu tracking
+        </button>
+      </div>
+
+      <div class="bg-white p-6 rounded-3xl border border-blue-100 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div><h3 class="text-xl font-black text-slate-800">Quản lý học viên / tài khoản khách</h3>
+          <p class="text-xs text-slate-500 mt-1">Tạo tài khoản bằng số điện thoại, xem/đổi mật khẩu do admin cấp.</p></div>
+          <button onclick="openStudentModal()" class="px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-bold"><i class="fa-solid fa-user-plus mr-1"></i> Tạo tài khoản</button>
+        </div>
+        <div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="bg-slate-50">
+          <th class="p-3">Tên học viên</th><th class="p-3">Số điện thoại / Tài khoản</th><th class="p-3">Mật khẩu hiện tại</th><th class="p-3">Thao tác</th>
+        </tr></thead><tbody id="admin-students-table" class="divide-y divide-slate-100"></tbody></table></div>
+      </div>
+      <div class="bg-white rounded-3xl border border-blue-100 overflow-hidden shadow-sm">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 text-slate-700 text-xs uppercase font-extrabold border-b border-slate-200">
+              <th class="p-4">Tài Khoản / Tên Học Viên</th>
+              <th class="p-4">Số Bài Tập Đã Hoàn Thành</th>
+              <th class="p-4">Bài Tập Gần Nhất</th>\n              <th class="p-4">Thời gian truy cập</th><th class="p-4">Hôm nay</th><th class="p-4">7 ngày</th><th class="p-4">30 ngày</th>
+            </tr>
+          </thead>
+          <tbody id="admin-tracking-table" class="text-xs font-semibold text-slate-600 divide-y divide-slate-100">
+            <!-- Render động bằng JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-blue-100 py-8 mt-16 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+      <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-2 font-extrabold text-slate-800 text-sm">
+          <i class="fa-solid fa-graduation-cap text-blue-600"></i> EnglishwithMrSang
+        </div>
+
+        <div class="flex flex-wrap gap-6 font-semibold text-slate-600">
+          <a href="#top" onclick="switchTab('home')" class="hover:text-blue-600 transition">Trang Chủ</a>
+          <a href="#top" onclick="switchTab('skills')" class="hover:text-blue-600 transition">Kỹ Năng</a>
+          <a href="#top" onclick="switchTab('thcs')" class="hover:text-blue-600 transition">Khối THCS</a>
+          <a href="#top" onclick="switchTab('thpt')" class="hover:text-blue-600 transition">Khối THPT</a>
+          <a href="#top" onclick="switchTab('ielts')" class="hover:text-blue-600 transition">Lộ Trình IELTS</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-3 pt-1 text-slate-500">
+        <p>© 2026 EnglishwithMrSang • Tiếng Anh Cam Ranh. All rights reserved.</p>
+        <div class="flex items-center gap-6 font-medium">
+          <span>Hotline: <strong class="text-slate-700">0399640763</strong></span>
+          <a href="https://www.facebook.com/profile.php?id=61564829631018" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-bold hover:underline">Facebook Fanpage</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL 1: LEADERBOARD TOP 30 -->
+  <div id="modal-leaderboard" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative border border-blue-100 space-y-4">
+      <button onclick="closeLeaderboardModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+      
+      <div class="flex items-center gap-3 border-b pb-3">
+        <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl shadow-xs">
+          <i class="fa-solid fa-trophy"></i>
+        </div>
+        <div>
+          <h3 class="text-xl font-black text-slate-900">Bảng Xếp Hạng Top 30</h3>
+          <p class="text-xs text-slate-500">Thống kê học viên đạt điểm cao nhất hệ thống</p>
+        </div>
+      </div>
+
+      <!-- Khung Tra Cứu Tên -->
+      <div class="flex gap-2 bg-slate-50 p-2.5 rounded-2xl border border-slate-200">
+        <input type="text" id="search-student-name" placeholder="Nhập tên của bạn để xem thứ hạng..." class="flex-1 px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold outline-none focus:ring-2 focus:ring-blue-500">
+        <button onclick="searchRank()" class="px-5 py-2 bg-blue-600 text-white font-extrabold text-xs rounded-xl hover:bg-blue-700 transition">Tra cứu</button>
+      </div>
+
+      <div id="search-result-box" class="hidden p-3 bg-amber-50 text-amber-900 border border-amber-200 rounded-xl text-xs font-bold text-center"></div>
+
+      <!-- Bảng Danh Sách Top 30 -->
+      <div class="max-h-80 overflow-y-auto space-y-2 pr-1">
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="text-slate-400 font-extrabold uppercase border-b pb-2">
+              <th class="py-2">Hạng</th>
+              <th class="py-2">Học Viên</th>
+              <th class="py-2">Tên Bài Tập</th>
+              <th class="py-2 text-center">Điểm Số</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-table-body" class="divide-y divide-slate-100 font-semibold">
+            <!-- JS Render -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: ĐĂNG NHẬP / ĐĂNG KÝ -->
+  <div id="modal-auth" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative border border-blue-50">
+      <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+      
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl mx-auto flex items-center justify-center text-xl mb-3">
+          <i class="fa-solid fa-user-lock"></i>
+        </div>
+        <h3 class="text-2xl font-black text-slate-900">Đăng Nhập Tài Khoản</h3>
+        <p class="text-xs text-slate-500 mt-1">Dành cho Học viên tham gia bài học hoặc Admin quản lý</p>
+      </div>
+
+      <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-extrabold text-slate-700 uppercase mb-1">Tài Khoản / Email</label>
+          <input type="text" id="auth-username" placeholder="Nhập tên tài khoản" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-slate-700 uppercase mb-1">Mật Khẩu</label>
+          <input type="password" id="auth-password" placeholder="Nhập mật khẩu" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition shadow-md shadow-blue-200">
+          Xác Nhận Đăng Nhập
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: THÊM BÀI HỌC (ADMIN ONLY) -->
+  <div id="modal-add-lesson" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative border border-blue-50">
+      <button onclick="closeAddLessonModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+      
+      <div class="mb-6">
+        <h3 class="text-2xl font-black text-slate-900">Thêm Bài Học Mới</h3>
+        <p class="text-xs text-slate-500 mt-1">Nội dung sẽ được cập nhật trực tiếp vào hệ thống</p>
+      </div>
+
+      <form onsubmit="handleAddLessonSubmit(event)" class="space-y-4">
+        <input type="hidden" id="lesson-module-type">
+        <div>
+          <label class="block text-xs font-extrabold text-slate-700 uppercase mb-1">Tên / Tiêu đề Bài Học</label>
+          <input type="text" id="lesson-title" placeholder="Ví dụ: Luyện tập Thì Hiện Tại Đơn" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-slate-700 uppercase mb-1">Phân Phân Môn / Lớp</label>
+          <select id="lesson-subcat" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-slate-700 uppercase mb-1">Đường Dẫn URL Liên Kết</label>
+          <input type="url" id="lesson-url" placeholder="https://..." required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-slate-700 uppercase mb-1">Quyền truy cập</label>
+          <select id="lesson-visibility" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold bg-white">
+            <option value="public">Public – mọi người đều xem được</option>
+            <option value="limited">Limited – chỉ tài khoản đăng nhập</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-slate-700 uppercase mb-1">Mô Tả Ngắn</label>
+          <textarea id="lesson-desc" rows="2" placeholder="Ghi chú thêm về nội dung bài học..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition shadow-md shadow-blue-200">
+          Lưu Bài Học Vừa Tạo
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL TẠO / SỬA TÀI KHOẢN HỌC VIÊN -->
+  <div id="modal-student" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative">
+      <button onclick="closeStudentModal()" class="absolute top-4 right-5 text-xl">&times;</button>
+      <h3 class="text-2xl font-black mb-5" id="student-modal-title">Tạo tài khoản học viên</h3>
+      <form onsubmit="saveStudent(event)" class="space-y-4">
+        <input type="hidden" id="student-edit-username">
+        <label class="block text-xs font-bold">Họ và tên<input id="student-name" required class="mt-1 w-full p-3 border rounded-xl"></label>
+        <label class="block text-xs font-bold">Tên tài khoản (có thể là số bất kỳ)<input id="student-phone" required inputmode="text" class="mt-1 w-full p-3 border rounded-xl"></label>
+        <label class="block text-xs font-bold">Loại tài khoản<select id="student-account-role" class="mt-1 w-full p-3 border rounded-xl"><option value="student">Học viên / Khách theo lớp</option><option value="teacher">Giáo viên</option></select></label>
+        <label class="block text-xs font-bold">Lớp được phân vào (chỉ học viên; nhập mã lớp nếu cần)<input id="student-class" placeholder="Để trống nếu chưa phân lớp" class="mt-1 w-full p-3 border rounded-xl"></label>
+        <label class="block text-xs font-bold">Mật khẩu do admin cấp<input id="student-password" required minlength="6" class="mt-1 w-full p-3 border rounded-xl"></label>
+        <button class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl" type="submit">Lưu tài khoản</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPT HỆ THỐNG -->
+  <script>
+    // 1. DỮ LIỆU BAN ĐẦU
+    const defaultData = {
+      skill: [
+        { id: 1, title: 'IELTS Reading Passage 1: Climate Change', subcat: 'Reading', url: 'https://example.com/reading1', desc: 'Bài đọc chủ đề Biến đổi khí hậu & Từ vựng B2-C1' },
+        { id: 2, title: 'IELTS Listening Part 1: Hotel Reservation', subcat: 'Listening', url: 'https://example.com/listening1', desc: 'Luyện nghe điền từ tên riêng và số điện thoại' },
+        { id: 3, title: 'Writing Task 2: Essay Structure', subcat: 'Writing', url: 'https://example.com/writing1', desc: 'Hướng dẫn cấu trúc 4 đoạn cho dạng Agree / Disagree' },
+        { id: 4, title: 'Grammar: Present Perfect vs Past Simple', subcat: 'Grammar', url: 'https://example.com/grammar1', desc: 'Phân biệt Quá khứ đơn và Hiện tại hoàn thành' }
+      ],
+      thcs: [
+        { id: 101, title: 'Unit 1: My New School - Vocabulary', subcat: 'Lớp 6', url: 'https://example.com/thcs1', desc: 'Từ vựng và ngữ pháp trọng tâm Bài 1 Tiếng Anh 6' },
+        { id: 102, title: 'Đề Thi Tuyển Sinh Vào Lớp 10 Năm 2025', subcat: 'Thi lớp 10', url: 'https://example.com/thcs2', desc: 'Đề thi chính thức có lời giải chi tiết' }
+      ],
+      thpt: [
+        { id: 201, title: 'Unit 1: Life Stories - Reading Comprehension', subcat: 'Lớp 10', url: 'https://example.com/thpt1', desc: 'Bài đọc mở rộng và từ vựng chủ đề Câu chuyện cuộc sống' },
+        { id: 202, title: 'Bộ 500 Câu Trắc Nghiệm Ngữ Pháp Luyện Thi Đại Học', subcat: 'LTĐH', url: 'https://example.com/thpt2', desc: 'Tổng hợp các câu hỏi ngữ pháp hay gặp trong đề THPTQG' }
+      ],
+      ielts: []
+    };
+
+    if (!localStorage.getItem('mrsang_lessons')) {
+      localStorage.setItem('mrsang_lessons', JSON.stringify(defaultData));
+    }
+
+    let currentRole = localStorage.getItem('mrsang_user_role') || 'guest';
+    let currentUser = localStorage.getItem('mrsang_current_user') || '';
+    let currentCategoryFilters = { skill: 'Reading', thcs: 'Lớp 6', thpt: 'Lớp 10', ielts: 'Cấp độ 1: 0 - 2.5' };
+    let sessionStartedAt = Date.now();
+    let guestLoginRequired = false;
+    let guestLoginTimer = null;
+
+    window.onload = function() {
+      const saved = JSON.parse(localStorage.getItem('mrsang_lessons') || '{}');
+      ['skill','thcs','thpt','ielts'].forEach(k => { if (!saved[k]) saved[k] = []; });
+      localStorage.setItem('mrsang_lessons', JSON.stringify(saved));
+      updateRoleUI();
+      renderAllLessons();
+      renderClasses();
+      renderLeaderboard();
+      if (currentRole === 'admin') renderAdminTracking();
+      startGuestLoginTimer();
+    };
+
+    // 2. CHUYỂN TAB & GIAO DIỆN
+    function switchTab(tabId) {
+      if (tabId === 'classes' && currentRole === 'guest') {
+        alert('Bạn cần đăng nhập để xem lớp học, kho bài tập và học liệu được phân công.');
+        openAuthModal();
+        return;
+      }
+      if (tabId === 'admin' && currentRole !== 'admin') {
+        alert("Bạn không có quyền truy cập trang Quản trị Admin!");
+        return;
+      }
+
+      document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('text-blue-600', 'font-extrabold'));
+
+      const targetView = document.getElementById('view-' + tabId);
+      if (targetView) targetView.classList.remove('hidden');
+
+      const activeNav = document.getElementById('nav-' + tabId);
+      if (activeNav) activeNav.classList.add('text-blue-600', 'font-extrabold');
+
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu) mobileMenu.classList.add('hidden');
+
+      if (tabId === 'admin') renderAdminTracking();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    function openSkillCategory(subcatName) {
+      switchTab('skills');
+      filterLessons('skill', subcatName);
+    }
+
+    // 3. ĐĂNG NHẬP / PHÂN QUYỀN
+    function openAuthModal() { document.getElementById('modal-auth').classList.remove('hidden'); }
+    function closeAuthModal() {
+      if (guestLoginRequired && currentRole === 'guest') {
+        alert('Để tiếp tục sử dụng website, vui lòng đăng nhập bằng tài khoản được cấp.');
+        return;
+      }
+      document.getElementById('modal-auth').classList.add('hidden');
+    }
+    function startGuestLoginTimer() {
+      if (guestLoginTimer) clearTimeout(guestLoginTimer);
+      if (currentRole !== 'guest') { guestLoginRequired = false; return; }
+      guestLoginTimer = setTimeout(() => {
+        if (currentRole !== 'guest') return;
+        guestLoginRequired = true;
+        const modal = document.getElementById('modal-auth');
+        modal.classList.remove('hidden');
+        const closeBtn = modal.querySelector('button[onclick="closeAuthModal()"]');
+        if (closeBtn) closeBtn.classList.add('hidden');
+        let note = document.getElementById('guest-login-required-note');
+        if (!note) {
+          note = document.createElement('p');
+          note.id = 'guest-login-required-note';
+          note.className = 'text-xs text-rose-600 font-bold text-center mb-4';
+          const form = modal.querySelector('form');
+          form.parentNode.insertBefore(note, form);
+        }
+        note.textContent = 'Bạn đã xem thử 1 phút. Vui lòng đăng nhập để tiếp tục sử dụng website.';
+      }, 60000);
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const user = document.getElementById('auth-username').value.trim();
+      const pass = document.getElementById('auth-password').value;
+      const students = JSON.parse(localStorage.getItem('mrsang_students') || '{}');
+      if (user.toLowerCase() === 'admin' && pass === 'admin123') {
+        currentRole = 'admin'; currentUser = 'Admin';
+      } else if (students[user] && students[user].password === pass) {
+        currentRole = students[user].role || 'student'; currentUser = user;
+      } else {
+        alert('Tài khoản hoặc mật khẩu không đúng. Tài khoản học viên cần được admin cấp.');
+        return;
+      }
+      localStorage.setItem('mrsang_user_role', currentRole);
+      localStorage.setItem('mrsang_current_user', currentUser);
+      guestLoginRequired = false;
+      if (guestLoginTimer) clearTimeout(guestLoginTimer);
+      const authClose = document.querySelector('#modal-auth button[onclick="closeAuthModal()"]');
+      if (authClose) authClose.classList.remove('hidden');
+      const guestNote = document.getElementById('guest-login-required-note'); if (guestNote) guestNote.remove();
+      sessionStartedAt = Date.now();
+      updateRoleUI(); closeAuthModal(); renderAllLessons();
+      renderClasses(); alert('Đăng nhập thành công: ' + (students[user] ? (students[user].name || user) : currentUser));
+    }
+
+    function logout() {
+      recordSessionDuration();
+      currentRole = 'guest';
+      currentUser = '';
+      localStorage.removeItem('mrsang_user_role');
+      localStorage.removeItem('mrsang_current_user');
+      updateRoleUI(); renderAllLessons(); renderClasses();
+      startGuestLoginTimer();
+      switchTab('home');
+      alert('Đã đăng xuất.');
+    }
+
+    function updateRoleUI() {
+      const badge = document.getElementById('user-status-badge');
+      const authBtn = document.getElementById('btn-auth-action');
+      const adminBtns = document.querySelectorAll('.admin-only');
+
+      if (currentUser) {
+        badge.innerText = `${currentUser} (${currentRole.toUpperCase()})`;
+        badge.classList.remove('hidden');
+        authBtn.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> Đăng xuất';
+        authBtn.onclick = logout;
+      } else {
+        badge.classList.add('hidden');
+        authBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Đăng nhập / Đăng ký';
+        authBtn.onclick = openAuthModal;
+      }
+
+      // CHỈ ADMIN MỚI NHÌN THẤY MỤC TRACKING
+      if (currentRole === 'admin') adminBtns.forEach(btn => btn.classList.remove('hidden'));
+      else adminBtns.forEach(btn => btn.classList.add('hidden'));
+      document.querySelectorAll('.lesson-create').forEach(btn => btn.classList.toggle('hidden', !['teacher','admin'].includes(currentRole)));
+      const createClassBtn = document.getElementById('btn-create-class');
+      if (createClassBtn) createClassBtn.classList.toggle('hidden', !['teacher','admin'].includes(currentRole));
+      renderClasses();
+    }
+
+    // 4. MỞ BÀI TẬP VÀ GHI NHẬN LƯỢT LÀM
+    function openLesson(title, url, moduleType, lessonId) {
+      const data = JSON.parse(localStorage.getItem('mrsang_lessons')) || defaultData;
+      const item = (data[moduleType] || []).find(x => String(x.id) === String(lessonId));
+      if (item && item.visibility === 'limited' && currentRole !== 'admin') {
+        const allowed = currentRole === 'teacher' ? item.createdBy === currentUser :
+          currentRole === 'student' && !!item.classId && getClasses().some(c => String(c.id) === String(item.classId) && (c.members || []).includes(currentUser) && (c.teacher === item.createdBy || !item.createdBy));
+        if (!allowed) { alert('Học liệu này không thuộc quyền truy cập của tài khoản hiện tại.'); return; }
+      }
+      if (currentRole === 'student' || currentRole === 'admin') {
+        saveUserTrackingData(currentUser, title, lessonId);
+      }
+      if (url && url !== '#') window.open(url, '_blank', 'noopener');
+      else alert("Đang mở bài tập: " + title);
+    }
+
+    function recordSessionDuration() {
+      if (currentRole !== 'student' || !currentUser) return;
+      const elapsed = Math.max(0, Math.floor((Date.now() - sessionStartedAt) / 1000));
+      if (!elapsed) return;
+      const all = JSON.parse(localStorage.getItem('mrsang_user_tracking') || '{}');
+      const item = all[currentUser] || { examsCount: 0, lastLesson: '', history: [], sessions: [] };
+      item.sessions = item.sessions || [];
+      item.sessions.push({ at: new Date(sessionStartedAt).toISOString(), seconds: elapsed });
+      all[currentUser] = item;
+      localStorage.setItem('mrsang_user_tracking', JSON.stringify(all));
+      sessionStartedAt = Date.now();
+    }
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') recordSessionDuration(); });
+    window.addEventListener('beforeunload', recordSessionDuration);
+
+    // 5. QUẢN LÝ LEADERBOARD (TOP 30)
+    function openLeaderboardModal() {
+      renderLeaderboard();
+      document.getElementById('modal-leaderboard').classList.remove('hidden');
+    }
+
+    function closeLeaderboardModal() {
+      document.getElementById('modal-leaderboard').classList.add('hidden');
+    }
+
+    function renderLeaderboard() {
+      let leaderboard = JSON.parse(localStorage.getItem('mrsang_leaderboard')) || [
+        { name: "Nguyễn Văn Anh", lessonTitle: "IELTS Reading Passage 1", score: 10 },
+        { name: "Trần Thị Bích", lessonTitle: "IELTS Listening Part 1", score: 10 },
+        { name: "Lê Hoàng Minh", lessonTitle: "Writing Task 2", score: 9 }
+      ];
+
+      const tbody = document.getElementById('leaderboard-table-body');
+
+      if (leaderboard.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-slate-400">Chưa có kết quả làm bài nào.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = leaderboard.map((item, index) => {
+        let badgeColor = index === 0 ? 'bg-amber-100 text-amber-700' : index === 1 ? 'bg-slate-200 text-slate-700' : index === 2 ? 'bg-amber-800/10 text-amber-800' : 'text-slate-500';
+        return `
+          <tr class="hover:bg-slate-50">
+            <td class="py-2.5 font-black"><span class="w-6 h-6 inline-flex items-center justify-center rounded-full text-xs ${badgeColor}">${index + 1}</span></td>
+            <td class="py-2.5 font-bold text-slate-800">${item.name}</td>
+            <td class="py-2.5 text-slate-500 font-medium">${item.lessonTitle || 'Bài thực hành'}</td>
+            <td class="py-2.5 text-center font-black text-blue-600">${item.score}/10</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function searchRank() {
+      const query = document.getElementById('search-student-name').value.trim().toLowerCase();
+      const resBox = document.getElementById('search-result-box');
+
+      if (!query) return;
+
+      let leaderboard = JSON.parse(localStorage.getItem('mrsang_leaderboard')) || [];
+      let index = leaderboard.findIndex(item => item.name.toLowerCase().includes(query));
+
+      resBox.classList.remove('hidden');
+      if (index !== -1) {
+        resBox.innerHTML = `🏆 Học viên <strong>${leaderboard[index].name}</strong> nằm ở vị trí <span class="text-blue-600 font-black text-sm">#${index + 1}</span> trong Top 30!`;
+      } else {
+        resBox.innerHTML = `❌ Không tìm thấy tên "${query}" trong Bảng xếp hạng Top 30.`;
+      }
+    }
+
+    // 6. QUẢN LÝ TRACKING BÀI TẬP DÀNH CHO ADMIN
+    function saveUserTrackingData(username, lessonTitle, lessonId) {
+      if (!username || currentRole === 'guest') return;
+      const all = JSON.parse(localStorage.getItem('mrsang_user_tracking') || '{}');
+      const item = all[username] || { examsCount: 0, lastLesson: '', history: [], sessions: [] };
+      item.examsCount = (item.examsCount || 0) + 1;
+      item.lastLesson = lessonTitle;
+      item.history = item.history || [];
+      item.history.push({ title: lessonTitle, lessonId: lessonId || null, at: new Date().toISOString() });
+      all[username] = item;
+      localStorage.setItem('mrsang_user_tracking', JSON.stringify(all));
+    }
+    function durationFor(item, days) {
+      const cutoff = Date.now() - days * 86400000;
+      return ((item.sessions || []).filter(x => new Date(x.at).getTime() >= cutoff)
+        .reduce((sum, x) => sum + (x.seconds || 0), 0));
+    }
+    function fmtDuration(sec) {
+      sec = Math.max(0, sec || 0);
+      const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60);
+      return h ? `${h} giờ ${m} phút` : `${m} phút`;
+    }
+    function renderAdminTracking() {
+      const all = JSON.parse(localStorage.getItem('mrsang_user_tracking') || '{}');
+      const students = JSON.parse(localStorage.getItem('mrsang_students') || '{}');
+      const tbody = document.getElementById('admin-tracking-table');
+      const keys = [...new Set([...Object.keys(all), ...Object.keys(students)])];
+      tbody.innerHTML = keys.length ? keys.map(user => {
+        const item = all[user] || { examsCount: 0, lastLesson: '-', sessions: [] };
+        const st = students[user] || {};
+        return `<tr class="hover:bg-slate-50">
+          <td class="p-4 font-bold text-slate-800">${st.name || user}<div class="text-slate-400 font-normal">${user}</div></td>
+          <td class="p-4 font-bold text-blue-600">${item.examsCount || 0} bài</td>
+          <td class="p-4 text-slate-500">${item.lastLesson || '-'}</td>
+          <td class="p-4">${(item.sessions || []).length ? new Date(item.sessions[item.sessions.length-1].at).toLocaleString('vi-VN') : 'Chưa ghi nhận'}</td>
+          <td class="p-4">${fmtDuration(durationFor(item,1))}</td><td class="p-4">${fmtDuration(durationFor(item,7))}</td><td class="p-4">${fmtDuration(durationFor(item,30))}</td>
+        </tr>`;
+      }).join('') : '<tr><td colspan="7" class="p-4 text-center text-slate-400">Chưa có dữ liệu học viên.</td></tr>';
+      renderStudents();
+    }
+    function clearTrackingData() {
+      if (confirm("Bạn có chắc chắn muốn xóa toàn bộ dữ liệu tracking học viên?")) {
+        localStorage.removeItem('mrsang_user_tracking'); renderAdminTracking();
+      }
+    }
+    function openStudentModal(username) {
+      if (currentRole !== 'admin') return alert('Chỉ admin mới có quyền quản lý tài khoản.');
+      const st = username ? (JSON.parse(localStorage.getItem('mrsang_students') || '{}')[username] || {}) : {};
+      document.getElementById('student-modal-title').innerText = username ? 'Chỉnh sửa tài khoản học viên' : 'Tạo tài khoản học viên';
+      document.getElementById('student-edit-username').value = username || '';
+      document.getElementById('student-name').value = st.name || '';
+      document.getElementById('student-phone').value = username || '';
+      document.getElementById('student-phone').disabled = !!username;
+      document.getElementById('student-password').value = st.password || '';
+      document.getElementById('student-account-role').value = st.role || 'student';
+      document.getElementById('student-class').value = (st.classes || []).join(', ');
+      document.getElementById('modal-student').classList.remove('hidden');
+    }
+    function closeStudentModal() { document.getElementById('modal-student').classList.add('hidden'); }
+    function saveStudent(e) {
+      e.preventDefault(); if (currentRole !== 'admin') return;
+      const oldUser = document.getElementById('student-edit-username').value;
+      const name = document.getElementById('student-name').value.trim();
+      const phone = document.getElementById('student-phone').value.trim();
+      const password = document.getElementById('student-password').value;
+      const role = document.getElementById('student-account-role').value;
+      const classesInput = document.getElementById('student-class').value.trim();
+      const students = JSON.parse(localStorage.getItem('mrsang_students') || '{}');
+      if (!phone) return alert('Vui lòng nhập tên tài khoản.');
+      if (!oldUser && students[phone]) return alert('Số điện thoại này đã được sử dụng.');
+      students[oldUser || phone] = { ...(students[oldUser || phone] || {}), name, phone, password, role, classes: classesInput ? classesInput.split(',').map(x => x.trim()).filter(Boolean) : [] };
+      { const allClasses = getClasses(); allClasses.forEach(c => { c.members = (c.members || []).filter(u => u !== (oldUser || phone)); }); if (classesInput) { classesInput.split(',').map(x=>x.trim()).filter(Boolean).forEach(cid => { const c = allClasses.find(x => String(x.id) === cid || x.name.toLowerCase() === cid.toLowerCase()); if (c && role === 'student') { c.members = c.members || []; if (!c.members.includes(oldUser || phone)) c.members.push(oldUser || phone); } }); saveClasses(allClasses); } else saveClasses(allClasses); }
+      localStorage.setItem('mrsang_students', JSON.stringify(students));
+      closeStudentModal(); renderStudents(); renderAdminTracking(); renderClasses();
+    }
+    function renderStudents() {
+      const tbody = document.getElementById('admin-students-table'); if (!tbody) return;
+      const students = JSON.parse(localStorage.getItem('mrsang_students') || '{}');
+      const keys = Object.keys(students);
+      tbody.innerHTML = keys.length ? keys.map(user => `<tr>
+        <td class="p-3 font-bold">${students[user].name}</td><td class="p-3">${user}<div class="text-slate-400">${students[user].role || 'student'}</div></td>
+        <td class="p-3">${students[user].password}</td>
+        <td class="p-3 whitespace-nowrap"><button onclick="openStudentModal('${user}')" class="text-blue-600 font-bold mr-3">Đổi thông tin/mật khẩu</button>
+        <button onclick="deleteStudent('${user}')" class="text-rose-600 font-bold">Xóa</button></td></tr>`).join('') :
+        '<tr><td colspan="4" class="p-4 text-center text-slate-400">Chưa có tài khoản học viên.</td></tr>';
+    }
+    function deleteStudent(user) {
+      if (currentRole !== 'admin' || !confirm('Xóa tài khoản ' + user + '?')) return;
+      const students = JSON.parse(localStorage.getItem('mrsang_students') || '{}'); delete students[user];
+      localStorage.setItem('mrsang_students', JSON.stringify(students)); renderStudents();
+    }
+
+    // 7. RENDER BÀI HỌC CÁC MỤC
+    function filterLessons(moduleType, subcat) {
+      currentCategoryFilters[moduleType] = subcat;
+      const container = document.getElementById(moduleType + '-tabs');
+      if (container) {
+        const btns = container.querySelectorAll('.' + moduleType + '-tab-btn');
+        btns.forEach(btn => {
+          if (btn.innerText.trim() === subcat) {
+            btn.className = moduleType + '-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-blue-600 text-white shadow-sm';
+          } else {
+            btn.className = moduleType + '-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition bg-white text-slate-600 hover:bg-blue-50 border border-blue-100';
+          }
+        });
+      }
+      renderLessonsByModule(moduleType);
+    }
+
+    function renderAllLessons() {
+      renderLessonsByModule('skill');
+      renderLessonsByModule('thcs');
+      renderLessonsByModule('thpt');
+      renderLessonsByModule('ielts');
+    }
+
+    function renderLessonsByModule(moduleType) {
+      const data = JSON.parse(localStorage.getItem('mrsang_lessons')) || defaultData;
+      const moduleList = data[moduleType] || [];
+      const currentSubcat = currentCategoryFilters[moduleType];
+      const targetContainer = document.getElementById(moduleType + '-list');
+
+      if (!targetContainer) return;
+
+      const filtered = moduleList.filter(item => {
+        if (item.subcat !== currentSubcat) return false;
+        if (currentRole === 'admin') return true;
+        if (item.visibility !== 'limited') return true; // Public materials are visible to everyone.
+        if (currentRole === 'guest') return false;
+        if (currentRole === 'teacher') return item.createdBy === currentUser;
+        if (currentRole === 'student') {
+          return !!item.classId && getClasses().some(c => String(c.id) === String(item.classId) &&
+            (c.members || []).includes(currentUser) && (c.teacher === item.createdBy || !item.createdBy));
+        }
+        return false;
+      });
+
+      if (filtered.length === 0) {
+        targetContainer.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-400 bg-white rounded-3xl border border-dashed border-slate-200">
+            <i class="fa-regular fa-folder-open text-3xl mb-2"></i>
+            <p class="text-xs font-semibold">Chưa có bài học nào trong mục <strong>${currentSubcat}</strong>.</p>
+          </div>
+        `;
+        return;
+      }
+
+      targetContainer.innerHTML = filtered.map(item => `
+        <div class="bg-white p-6 rounded-3xl border border-blue-100 soft-card-hover flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-3 py-1 bg-blue-50 text-blue-700 text-[10px] font-extrabold rounded-full uppercase">${item.subcat}</span>
+              <span class="px-2 py-1 ${item.visibility === 'limited' ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700'} text-[10px] rounded-full">${item.visibility === 'limited' ? 'LIMITED' : 'PUBLIC'}</span>
+              ${(currentRole === 'admin' || (currentRole === 'teacher' && item.createdBy === currentUser)) ? `<div class="flex gap-2"><button onclick="editLesson('${moduleType}',${item.id})" class="text-blue-600 text-xs font-bold">Sửa</button><button onclick="deleteLesson('${moduleType}',${item.id})" class="text-rose-500 text-xs font-bold">Xóa</button></div>` : ''}
+            </div>
+            <h4 class="text-lg font-black text-slate-800 leading-snug">${item.title}</h4>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">${item.desc || 'Nội dung thực hành tương tác.'}</p>
+            ${currentRole === 'admin' ? `<p class="text-[10px] text-slate-400 mt-2">Người tạo: ${item.createdBy || 'Admin / dữ liệu cũ'}</p>` : ''}
+          </div>
+
+          <button onclick="openLesson('${item.title.replace(/'/g, "\\'")}', '${item.url}', '${moduleType}', ${item.id})" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-full transition text-center shadow-sm flex items-center justify-center gap-2">
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Vào Làm Bài Tập
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function openAddLessonModal(moduleType) {
+      if (!['admin','teacher'].includes(currentRole)) return alert('Chỉ giáo viên hoặc admin mới được tạo học liệu.');
+      document.getElementById('lesson-module-type').value = moduleType;
+      const subcatSelect = document.getElementById('lesson-subcat');
+      subcatSelect.innerHTML = '';
+
+      let options = [];
+      if (moduleType === 'skill') options = ['Reading', 'Listening', 'Writing', 'Speaking', 'Grammar', 'Vocabulary'];
+      else if (moduleType === 'thcs') options = ['Lớp 6', 'Lớp 7', 'Lớp 8', 'Lớp 9', 'Thi lớp 10'];
+      else if (moduleType === 'thpt') options = ['Lớp 10', 'Lớp 11', 'Lớp 12', 'LTĐH'];
+      else if (moduleType === 'ielts') options = ['Cấp độ 1: 0 - 2.5', 'Cấp độ 2: 2.5 - 3.5', 'Cấp độ 3: 3.5 - 4.5', 'Cấp độ 4: 4.5 - 5.5', 'Cấp độ 5: 5.5 - 6.5', 'Cấp độ 6: 6.5+'];
+
+      options.forEach(opt => {
+        subcatSelect.innerHTML += `<option value="${opt}">${opt}</option>`;
+      });
+
+      document.getElementById('modal-add-lesson').classList.remove('hidden');
+    }
+
+    function closeAddLessonModal() {
+      document.getElementById('modal-add-lesson').classList.add('hidden');
+    }
+
+    function handleAddLessonSubmit(e) {
+      e.preventDefault();
+      const moduleType = document.getElementById('lesson-module-type').value;
+      const title = document.getElementById('lesson-title').value.trim();
+      const subcat = document.getElementById('lesson-subcat').value;
+      const url = document.getElementById('lesson-url').value.trim();
+      const desc = document.getElementById('lesson-desc').value.trim();
+      const visibility = document.getElementById('lesson-visibility').value;
+
+      const data = JSON.parse(localStorage.getItem('mrsang_lessons')) || defaultData;
+      const newLesson = { id: Date.now(), title, subcat, url, desc, visibility, createdBy: currentRole === 'admin' ? 'Admin' : currentUser };
+
+      if (!data[moduleType]) data[moduleType] = [];
+      data[moduleType].push(newLesson);
+
+      localStorage.setItem('mrsang_lessons', JSON.stringify(data));
+      filterLessons(moduleType, subcat);
+      closeAddLessonModal();
+
+      document.getElementById('lesson-title').value = '';
+      document.getElementById('lesson-url').value = '';
+      document.getElementById('lesson-desc').value = '';
+      document.getElementById('lesson-visibility').value = 'public';
+      alert('Đã thêm bài học thành công!');
+    }
+
+    // 8. LỚP HỌC, HỌC LIỆU RIÊNG, BÀI TẬP VÀ CHẤM ĐIỂM
+    function getClasses() { return JSON.parse(localStorage.getItem('mrsang_classes') || '[]'); }
+    function saveClasses(classes) { localStorage.setItem('mrsang_classes', JSON.stringify(classes)); }
+    function escapeHtml(value) { return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+    function createClass() {
+      if (!['teacher','admin'].includes(currentRole)) return alert('Chỉ giáo viên hoặc admin mới được tạo lớp.');
+      const name = prompt('Tên lớp học:'); if (!name || !name.trim()) return;
+      const classes = getClasses(); const id = Date.now();
+      classes.push({id, name:name.trim(), teacher:currentRole === 'admin' ? 'Admin' : currentUser, members:[], materials:[], homework:[]});
+      saveClasses(classes); renderClasses(); alert('Đã tạo lớp. Mã lớp: ' + id);
+    }
+    function canManageClass(c) { return currentRole === 'admin' || (currentRole === 'teacher' && c.teacher === currentUser); }
+    function renderClasses() {
+      const container = document.getElementById('classes-container'); if (!container) return;
+      const classes = getClasses();
+      const visible = currentRole === 'admin' ? classes : currentRole === 'teacher' ? classes.filter(c=>c.teacher===currentUser) : currentRole === 'student' ? classes.filter(c=>(c.members||[]).includes(currentUser)) : [];
+      const notice = document.getElementById('classes-notice');
+      if (notice) notice.textContent = currentRole === 'guest' ? 'Bạn đang xem với tư cách khách chưa đăng nhập. Hãy đăng nhập để xem lớp được phân công; các học liệu Public vẫn có thể truy cập ở những mục học liệu chung.' : currentRole === 'admin' ? 'Admin có thể xem mọi lớp, xem giáo viên tạo lớp và quản lý toàn bộ học liệu.' : currentRole === 'teacher' ? 'Bạn chỉ quản lý lớp do mình tạo. Có thể thêm học viên, học liệu, bài tập và chấm bài.' : 'Bạn chỉ thấy lớp được phân công cho tài khoản này, không thể xem hoạt động riêng của lớp giáo viên khác.';
+      if (!visible.length) { container.innerHTML = '<div class="col-span-full p-8 text-center bg-white rounded-2xl border border-dashed text-slate-400">Chưa có lớp học được phân quyền.</div>'; return; }
+      const students = JSON.parse(localStorage.getItem('mrsang_students') || '{}');
+      container.innerHTML = visible.map(c => {
+        const manage = canManageClass(c);
+        const members = (c.members||[]).map(u=>`<span class="inline-block bg-slate-100 rounded-full px-2 py-1 mr-1 mb-1 text-[10px]">${escapeHtml(students[u]?.name || u)}</span>`).join('') || '<span class="text-slate-400">Chưa có học viên</span>';
+        const materials = (c.materials||[]).map(m=>`<div class="p-3 rounded-xl bg-blue-50/70 border border-blue-100 mt-2"><div class="font-bold text-sm">${escapeHtml(m.title)}</div><div class="text-[10px] text-slate-500">Người tạo: ${escapeHtml(c.teacher)}</div><div class="flex gap-3 mt-2"><a class="text-blue-700 text-xs font-bold underline" href="${escapeHtml(m.url)}" target="_blank" rel="noopener">Mở học liệu</a>${manage?`<button onclick="editClassItem(${c.id},'material',${m.id})" class="text-xs text-blue-600 font-bold">Sửa</button><button onclick="deleteClassItem(${c.id},'material',${m.id})" class="text-xs text-rose-600 font-bold">Xóa</button>`:''}</div></div>`).join('') || '<p class="text-xs text-slate-400 mt-2">Chưa có học liệu.</p>';
+        const homework = (c.homework||[]).map(h=>{const sub=(h.submissions||{})[currentUser]; const done=!!sub?.completed; const status=currentRole==='student'?(done?`Đã hoàn thành • ${new Date(sub.completedAt).toLocaleString('vi-VN')} • Điểm: ${sub.grade ?? 'Chưa chấm'}`:'Chưa hoàn thành'):''; const subRows=manage?(c.members||[]).map(u=>{const x=(h.submissions||{})[u]||{};return `<div class="flex flex-wrap items-center justify-between gap-2 text-xs border-t py-2"><span>${escapeHtml(students[u]?.name||u)} — ${x.completed?'Đã hoàn thành':'Chưa hoàn thành'} ${x.completedAt?'('+new Date(x.completedAt).toLocaleString('vi-VN')+')':''} — Điểm: ${x.grade??'—'}</span><button onclick="gradeHomework(${c.id},${h.id},'${String(u).replace(/'/g,"\\'")}')" class="text-blue-700 font-bold">Chấm / sửa điểm</button></div>`}).join('') : '';return `<div class="p-3 rounded-xl border border-amber-100 bg-amber-50/60 mt-2"><div class="font-bold text-sm">${escapeHtml(h.title)}</div><div class="text-xs text-slate-500 mt-1">Hạn nộp: ${h.due?new Date(h.due).toLocaleString('vi-VN'):'Chưa đặt hạn'}</div><a class="text-blue-700 text-xs underline font-bold inline-block mt-2" href="${escapeHtml(h.url)}" target="_blank" rel="noopener">Mở bài tập</a>${currentRole==='student'?`<div class="mt-2 text-xs ${done?'text-emerald-700':'text-slate-600'}">${status}</div><button onclick="completeHomework(${c.id},${h.id})" class="mt-2 px-3 py-1.5 rounded-full text-xs font-bold ${done?'bg-emerald-100 text-emerald-800':'bg-blue-600 text-white'}">${done?'Đã đánh dấu hoàn thành':'Đánh dấu hoàn thành'}</button>`:''}${subRows?`<div class="mt-3">${subRows}</div>`:''}${manage?`<div class="flex gap-3 mt-2"><button onclick="editClassItem(${c.id},'homework',${h.id})" class="text-xs text-blue-600 font-bold">Sửa</button><button onclick="deleteClassItem(${c.id},'homework',${h.id})" class="text-xs text-rose-600 font-bold">Xóa</button></div>`:''}</div>`}).join('') || '<p class="text-xs text-slate-400 mt-2">Chưa có bài tập.</p>';
+        return `<article class="bg-white rounded-3xl border border-blue-100 p-5 shadow-sm"><div class="flex justify-between gap-3"><div><h3 class="text-xl font-black">${escapeHtml(c.name)}</h3><p class="text-xs text-slate-500 mt-1">Giáo viên: ${escapeHtml(c.teacher)} • Mã lớp: ${c.id}</p></div>${manage?`<button onclick="deleteClass(${c.id})" class="text-rose-600 text-xs font-bold">Xóa lớp</button>`:''}</div><div class="mt-4"><h4 class="font-extrabold text-sm">Học viên</h4><div class="mt-2">${members}</div>${manage?`<div class="flex flex-wrap gap-2 mt-2"><button onclick="addStudentToClass(${c.id})" class="px-3 py-2 bg-blue-50 text-blue-700 rounded-full text-xs font-bold">Thêm học viên</button><button onclick="removeStudentFromClass(${c.id})" class="px-3 py-2 bg-rose-50 text-rose-700 rounded-full text-xs font-bold">Loại học viên</button><button onclick="addClassItem(${c.id},'material')" class="px-3 py-2 bg-teal-50 text-teal-700 rounded-full text-xs font-bold">+ Học liệu</button><button onclick="addClassItem(${c.id},'homework')" class="px-3 py-2 bg-amber-50 text-amber-700 rounded-full text-xs font-bold">+ Bài tập</button></div>`:''}</div><div class="mt-5"><h4 class="font-extrabold text-sm">Học liệu</h4>${materials}</div><div class="mt-5"><h4 class="font-extrabold text-sm">Bài tập về nhà & kết quả</h4>${homework}</div></article>`;
+      }).join('');
+    }
+    function addStudentToClass(id) { const c=getClasses().find(x=>x.id===id); if(!c||!canManageClass(c)) return; const user=prompt('Nhập chính xác tên tài khoản học viên đã được admin tạo:'); if(!user) return; const students=JSON.parse(localStorage.getItem('mrsang_students')||'{}'); if(!students[user] || (students[user].role||'student')!=='student') return alert('Không tìm thấy tài khoản học viên. Hãy tạo tài khoản học viên trước.'); c.members=c.members||[]; if(!c.members.includes(user)) c.members.push(user); students[user].classes=students[user].classes||[]; if(!students[user].classes.includes(String(id))) students[user].classes.push(String(id)); localStorage.setItem('mrsang_students',JSON.stringify(students)); saveClasses(getClasses().map(x=>x.id===id?c:x)); renderClasses(); }
+    function removeStudentFromClass(id) { const c=getClasses().find(x=>x.id===id); if(!c||!canManageClass(c)) return; const user=prompt('Nhập tài khoản cần loại khỏi lớp:'); if(!user) return; c.members=(c.members||[]).filter(x=>x!==user); saveClasses(getClasses().map(x=>x.id===id?c:x)); const students=JSON.parse(localStorage.getItem('mrsang_students')||'{}'); if(students[user]) students[user].classes=(students[user].classes||[]).filter(x=>x!==String(id)); localStorage.setItem('mrsang_students',JSON.stringify(students)); renderClasses(); }
+    function addClassItem(id,type) { const c=getClasses().find(x=>x.id===id); if(!c||!canManageClass(c)) return; const title=prompt(type==='material'?'Tên học liệu:':'Tên bài tập về nhà:'); if(!title) return; const url=prompt('Đường dẫn URL https://...'); if(!url) return; let due=''; if(type==='homework'){ due=prompt('Hạn nộp (YYYY-MM-DDTHH:mm), để trống nếu không có:')||''; if(due && isNaN(new Date(due).getTime())) return alert('Định dạng hạn nộp không hợp lệ.'); } const item={id:Date.now(),title:title.trim(),url:url.trim(),createdBy:currentUser}; if(type==='homework'){item.due=due;item.submissions={};} c[type==='material'?'materials':'homework'].push(item); saveClasses(getClasses().map(x=>x.id===id?c:x)); renderClasses(); }
+    function editClassItem(id,type,itemId) { const c=getClasses().find(x=>x.id===id); if(!c||!canManageClass(c)) return; const key=type==='material'?'materials':'homework'; const item=c[key].find(x=>x.id===itemId); if(!item)return; const title=prompt('Tên:',item.title); if(!title)return; const url=prompt('URL:',item.url); if(!url)return; item.title=title;item.url=url; if(type==='homework'){const due=prompt('Hạn nộp YYYY-MM-DDTHH:mm (để trống nếu không hạn):',item.due||''); if(due && isNaN(new Date(due).getTime()))return alert('Hạn nộp không hợp lệ.');item.due=due;} saveClasses(getClasses().map(x=>x.id===id?c:x));renderClasses(); }
+    function deleteClassItem(id,type,itemId) { const c=getClasses().find(x=>x.id===id); if(!c||!canManageClass(c)||!confirm('Xóa mục này?'))return; const key=type==='material'?'materials':'homework';c[key]=c[key].filter(x=>x.id!==itemId);saveClasses(getClasses().map(x=>x.id===id?c:x));renderClasses(); }
+    function completeHomework(classId, homeworkId) { if(currentRole!=='student')return; const c=getClasses().find(x=>x.id===classId); if(!c||(c.members||[]).indexOf(currentUser)<0)return; const h=(c.homework||[]).find(x=>x.id===homeworkId);if(!h)return;h.submissions=h.submissions||{};h.submissions[currentUser]={...(h.submissions[currentUser]||{}),completed:true,completedAt:new Date().toISOString()};saveClasses(getClasses().map(x=>x.id===classId?c:x));saveUserTrackingData(currentUser,h.title,homeworkId);renderClasses(); }
+    function gradeHomework(classId, homeworkId, user) { const c=getClasses().find(x=>x.id===classId); if(!c||!canManageClass(c))return; const h=(c.homework||[]).find(x=>x.id===homeworkId);if(!h)return; const current=(h.submissions||{})[user]?.grade ?? '';const score=prompt('Nhập điểm hoặc nhận xét cho '+user+':',current);if(score===null)return;h.submissions=h.submissions||{};h.submissions[user]={...(h.submissions[user]||{}),grade:score,gradedBy:currentUser,gradedAt:new Date().toISOString()};saveClasses(getClasses().map(x=>x.id===classId?c:x));renderClasses(); }
+    function deleteClass(id) { const c=getClasses().find(x=>x.id===id);if(!c||!canManageClass(c)||!confirm('Xóa lớp học này và nội dung bên trong?'))return;saveClasses(getClasses().filter(x=>x.id!==id));renderClasses(); }
+    function editLesson(moduleType,id) { const data=JSON.parse(localStorage.getItem('mrsang_lessons'))||defaultData; const item=(data[moduleType]||[]).find(x=>x.id===id); if(!item)return; if(!(currentRole==='admin'||(currentRole==='teacher'&&item.createdBy===currentUser)))return alert('Bạn chỉ được sửa học liệu do mình tạo.');const title=prompt('Tên học liệu:',item.title);if(!title)return;const url=prompt('URL:',item.url);if(!url)return;item.title=title;item.url=url;item.desc=prompt('Mô tả:',item.desc||'')||'';saveLessonsData(data);renderLessonsByModule(moduleType); }
+    function saveLessonsData(data) { localStorage.setItem('mrsang_lessons',JSON.stringify(data)); }
+
+    function deleteLesson(moduleType, id) {
+      const existing = ((JSON.parse(localStorage.getItem('mrsang_lessons')) || defaultData)[moduleType] || []).find(x => x.id === id);
+      if (!(currentRole === 'admin' || (currentRole === 'teacher' && existing && existing.createdBy === currentUser))) return alert('Bạn chỉ có thể xóa học liệu do chính mình tạo.');
+      if (!confirm('Bạn có chắc chắn muốn xóa bài học này khỏi hệ thống?')) return;
+
+      const data = JSON.parse(localStorage.getItem('mrsang_lessons')) || defaultData;
+      data[moduleType] = data[moduleType].filter(item => item.id !== id);
+
+      localStorage.setItem('mrsang_lessons', JSON.stringify(data));
+      renderLessonsByModule(moduleType);
+    }
+  </script>
+
+  <!-- NÚT NỔI TƯ VẤN / ĐĂNG KÝ: mở hộp thư Messenger của Fanpage -->
+  <a href="https://m.me/EnglishwithMrSang.TiengAnhCamRanh" target="_blank" rel="noopener noreferrer" aria-label="Nhắn tin tư vấn lộ trình và đăng ký khóa học" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100] flex items-center gap-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 sm:px-5 sm:py-3.5 shadow-xl shadow-blue-900/25 border-2 border-white transition-all duration-200 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-blue-300 max-w-[calc(100vw-2rem)]">
+    <i class="fa-brands fa-facebook-messenger text-2xl" aria-hidden="true"></i>
+    <span class="text-xs sm:text-sm font-extrabold leading-tight">Tư vấn lộ trình<br class="sm:hidden"> &amp; đăng ký khóa học</span>
+  </a>
+
+</body>
+</html>
