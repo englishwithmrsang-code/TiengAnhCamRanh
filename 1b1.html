@@ -14,7 +14,7 @@
       padding-bottom: 40px;
     }
     
-    /* Header Mr. Sang */
+    /* Header Branding */
     header {
       background: #ffffff;
       border-bottom: 1px solid #e2e8f0;
@@ -72,7 +72,6 @@
       outline: none;
     }
 
-    /* Progress Tracker Widget */
     .progress-box {
       background: #eff6ff;
       border: 1px solid #bfdbfe;
@@ -115,24 +114,20 @@
       font-size: 0.85rem;
       transition: all 0.2s ease;
     }
-    .btn:hover {
-      background-color: #1d4ed8;
-    }
+    .btn:hover { background-color: #1d4ed8; }
     .btn-outline {
       background-color: #ffffff;
       border: 1px solid #2563eb;
       color: #2563eb;
     }
-    .btn-outline:hover {
-      background-color: #eff6ff;
-    }
+    .btn-outline:hover { background-color: #eff6ff; }
     .btn-sm {
       padding: 0.25rem 0.65rem;
       font-size: 0.78rem;
       border-radius: 12px;
     }
 
-    /* Card Item cho từng câu - Giãn cách vừa phải */
+    /* Sentence Card */
     .sentence-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -141,10 +136,7 @@
       margin-bottom: 0.6rem;
       transition: all 0.2s ease;
     }
-    .sentence-card:hover {
-      border-color: #93c5fd;
-    }
-    /* Highlight đồng bộ Audio */
+    .sentence-card:hover { border-color: #93c5fd; }
     .sentence-card.active {
       border-color: #2563eb;
       background-color: #eff6ff;
@@ -201,14 +193,13 @@
       color: #b91c1c;
     }
 
-    /* Bản dịch & Action Bar */
     .vi-text {
       color: #475569;
       font-size: 0.88rem;
       margin-top: 0.4rem;
       padding-top: 0.4rem;
       border-top: 1px dashed #e2e8f0;
-      display: none; /* Mặc định ẩn dịch */
+      display: none;
     }
     .vi-text.show { display: block; }
 
@@ -245,10 +236,10 @@
     <button class="btn btn-outline btn-sm" onclick="toggleAllTranslations()">🌐 Ẩn/Hiện Tất Cả Dịch</button>
   </header>
 
-  <!-- Sticky Audio Control -->
+  <!-- Sticky Audio Control Bar -->
   <div class="audio-sticky-bar">
     <audio id="player" controls>
-      <source src="National Geographic Reading Explorer 1 Unit 1 A Chameleon's Colors_2.mp3" type="audio/mpeg">
+      <source src="National Geographic Reading Explorer 1 Unit 1 A Chameleon's Colors.mp3" type="audio/mpeg">
       Trình duyệt không hỗ trợ phát audio.
     </audio>
     <div class="progress-box">
@@ -258,10 +249,10 @@
 
   <div class="container">
     <div class="top-tools">
-      <span style="color: #64748b; font-size: 0.82rem;">💡 Nhấp vào câu để phát audio tương ứng. Nhập từ & bấm <b>Nộp câu</b>.</span>
+      <span style="color: #64748b; font-size: 0.82rem;">💡 Nhấp vào câu để nghe. Nhập đáp án và kiểm tra tiến độ.</span>
       <div style="display:flex; gap:6px;">
         <button class="btn btn-outline btn-sm" onclick="checkAllAnswers()">Nộp Tất Cả</button>
-        <button class="btn btn-sm" onclick="showAllAnswers()">Hiện Đáp Án</button>
+        <button class="btn btn-sm" id="btn-toggle-all-answers" onclick="toggleAllAnswers()">Hiện Tất Cả Đáp Án</button>
       </div>
     </div>
 
@@ -279,6 +270,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-1')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-1')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-1')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -298,6 +290,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-2')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-2')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-2')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -317,6 +310,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-3')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-3')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-3')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -336,6 +330,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-4')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-4')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-4')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -355,6 +350,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-5')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-5')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-5')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -374,6 +370,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-6')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-6')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-6')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -393,6 +390,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-7')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-7')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-7')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -412,6 +410,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-8')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-8')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-8')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -431,6 +430,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-9')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-9')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-9')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -450,6 +450,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-10')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-10')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-10')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -469,6 +470,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-11')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-11')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-11')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -488,6 +490,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-12')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-12')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-12')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -507,6 +510,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-13')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-13')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-13')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -526,6 +530,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-14')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-14')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-14')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -545,6 +550,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-15')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-15')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-15')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -564,6 +570,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-16')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-16')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-16')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -583,6 +590,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-17')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-17')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-17')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -602,6 +610,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-18')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-18')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-18')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -621,6 +630,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-19')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-19')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-19')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -640,6 +650,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-20')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-20')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-20')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -659,6 +670,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-21')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-21')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-21')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -678,6 +690,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-22')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-22')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-22')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -697,6 +710,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-23')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-23')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-23')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -716,6 +730,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-24')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-24')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-24')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -735,6 +750,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-25')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-25')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-25')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -754,6 +770,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-26')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-26')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-26')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -773,6 +790,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-27')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-27')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-27')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -792,6 +810,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-28')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-28')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-28')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -811,6 +830,7 @@
         <div class="card-actions">
           <div class="card-actions-left">
             <button class="btn btn-sm" onclick="checkSentence('card-29')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-29')">💡 Hiện đáp án</button>
             <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-29')">🌐 Dịch</button>
           </div>
           <span class="status-badge"></span>
@@ -826,6 +846,7 @@
     const completedCountSpan = document.getElementById('completed-count');
     let completedCards = new Set();
     let currentActiveCard = null;
+    let allAnswersShown = false;
 
     // Phát audio tại mốc thời gian
     function playAudio(startTime) {
@@ -833,7 +854,7 @@
       player.play();
     }
 
-    // Đồng bộ Audio với giao diện chính xác
+    // Đồng bộ Audio với từng câu
     player.addEventListener('timeupdate', () => {
       const currentTime = player.currentTime;
       cards.forEach(card => {
@@ -845,21 +866,20 @@
             if (currentActiveCard) currentActiveCard.classList.remove('active');
             card.classList.add('active');
             currentActiveCard = card;
-            // Cuộn mượt nhẹ
             card.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
         }
       });
     });
 
-    // Toggle Ẩn/Hiện dịch từng câu
+    // Toggle Dịch từng câu
     function toggleTranslation(cardId) {
       const card = document.getElementById(cardId);
       const viText = card.querySelector('.vi-text');
       viText.classList.toggle('show');
     }
 
-    // Toggle Ẩn/Hiện dịch tất cả
+    // Toggle Dịch tất cả
     function toggleAllTranslations() {
       const viTexts = document.querySelectorAll('.vi-text');
       const anyHidden = Array.from(viTexts).some(el => !el.classList.contains('show'));
@@ -869,7 +889,63 @@
       });
     }
 
-    // Kiểm tra / Nộp từng câu
+    // Toggle Đáp án từng câu (Hiện / Tắt)
+    function toggleAnswer(cardId) {
+      const card = document.getElementById(cardId);
+      const inputs = card.querySelectorAll('input.blank');
+      const btn = card.querySelector('.btn-ans-toggle');
+      const badge = card.querySelector('.status-badge');
+
+      let isShowing = btn.getAttribute('data-showing') === 'true';
+
+      if (!isShowing) {
+        inputs.forEach(input => {
+          input.setAttribute('data-user-val', input.value); // Lưu lại bài học sinh làm
+          input.value = input.getAttribute('data-answer');
+          input.classList.remove('wrong');
+          input.classList.add('correct');
+        });
+        btn.textContent = '🙈 Tắt đáp án';
+        btn.setAttribute('data-showing', 'true');
+        badge.textContent = "✓ Đáp án";
+        badge.classList.remove('wrong');
+        badge.classList.add('correct');
+        completedCards.add(cardId);
+      } else {
+        inputs.forEach(input => {
+          const oldVal = input.getAttribute('data-user-val') || '';
+          input.value = oldVal;
+          input.classList.remove('correct', 'wrong');
+        });
+        btn.textContent = '💡 Hiện đáp án';
+        btn.setAttribute('data-showing', 'false');
+        badge.style.display = 'none';
+        completedCards.delete(cardId);
+      }
+      updateProgress();
+    }
+
+    // Toggle Đáp án Tất Cả (Hiện / Tắt)
+    function toggleAllAnswers() {
+      const mainBtn = document.getElementById('btn-toggle-all-answers');
+      allAnswersShown = !allAnswersShown;
+
+      cards.forEach(card => {
+        const btn = card.querySelector('.btn-ans-toggle');
+        const isShowing = btn.getAttribute('data-showing') === 'true';
+        if ((allAnswersShown && !isShowing) || (!allAnswersShown && isShowing)) {
+          toggleAnswer(card.id);
+        }
+      });
+
+      if (allAnswersShown) {
+        mainBtn.textContent = 'Tắt Tất Cả Đáp Án';
+      } else {
+        mainBtn.textContent = 'Hiện Tất Cả Đáp Án';
+      }
+    }
+
+    // Nộp câu
     function checkSentence(cardId) {
       const card = document.getElementById(cardId);
       const inputs = card.querySelectorAll('input.blank');
@@ -906,32 +982,12 @@
       }
     }
 
-    // Cập nhật tiến độ
     function updateProgress() {
       completedCountSpan.textContent = completedCards.size;
     }
 
-    // Kiểm tra tất cả
     function checkAllAnswers() {
       cards.forEach(card => checkSentence(card.id));
-    }
-
-    // Hiện tất cả đáp án
-    function showAllAnswers() {
-      cards.forEach(card => {
-        const inputs = card.querySelectorAll('input.blank');
-        const badge = card.querySelector('.status-badge');
-        inputs.forEach(input => {
-          input.value = input.getAttribute('data-answer');
-          input.classList.remove('wrong');
-          input.classList.add('correct');
-        });
-        badge.textContent = "✓ Đáp án";
-        badge.classList.remove('wrong');
-        badge.classList.add('correct');
-        completedCards.add(card.id);
-      });
-      updateProgress();
     }
   </script>
 </body>
