@@ -127,7 +127,7 @@
       border-radius: 12px;
     }
 
-    /* Sentence Card */
+    /* Sentence Card - Đã bỏ hiệu ứng Active Highlight */
     .sentence-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -137,11 +137,6 @@
       transition: all 0.2s ease;
     }
     .sentence-card:hover { border-color: #93c5fd; }
-    .sentence-card.active {
-      border-color: #2563eb;
-      background-color: #eff6ff;
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-    }
 
     .sentence-header {
       display: flex;
@@ -243,7 +238,7 @@
       Trình duyệt không hỗ trợ phát audio.
     </audio>
     <div class="progress-box">
-      Hoàn thành: <span id="completed-count">0</span>/29 câu
+      Hoàn thành: <span id="completed-count">0</span>/22 câu
     </div>
   </div>
 
@@ -258,7 +253,7 @@
 
     <div id="transcript">
       <!-- 1 -->
-      <div class="sentence-card" id="card-1" data-start="0.0" data-end="7.0">
+      <div class="sentence-card" id="card-1">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 01</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(0.0)">▶ Nghe câu này</button>
@@ -278,7 +273,7 @@
       </div>
 
       <!-- 2 -->
-      <div class="sentence-card" id="card-2" data-start="7.1" data-end="14.8">
+      <div class="sentence-card" id="card-2">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 02</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(7.1)">▶ Nghe câu này</button>
@@ -298,7 +293,7 @@
       </div>
 
       <!-- 3 -->
-      <div class="sentence-card" id="card-3" data-start="14.9" data-end="21.0">
+      <div class="sentence-card" id="card-3">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 03</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(14.9)">▶ Nghe câu này</button>
@@ -318,7 +313,7 @@
       </div>
 
       <!-- 4 -->
-      <div class="sentence-card" id="card-4" data-start="21.1" data-end="29.0">
+      <div class="sentence-card" id="card-4">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 04</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(21.1)">▶ Nghe câu này</button>
@@ -338,7 +333,7 @@
       </div>
 
       <!-- 5 -->
-      <div class="sentence-card" id="card-5" data-start="29.1" data-end="38.5">
+      <div class="sentence-card" id="card-5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 05</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(29.1)">▶ Nghe câu này</button>
@@ -358,7 +353,7 @@
       </div>
 
       <!-- 6 -->
-      <div class="sentence-card" id="card-6" data-start="38.6" data-end="47.0">
+      <div class="sentence-card" id="card-6">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 06</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(38.6)">▶ Nghe câu này</button>
@@ -378,7 +373,7 @@
       </div>
 
       <!-- 7 -->
-      <div class="sentence-card" id="card-7" data-start="47.1" data-end="54.2">
+      <div class="sentence-card" id="card-7">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 07</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(47.1)">▶ Nghe câu này</button>
@@ -398,7 +393,7 @@
       </div>
 
       <!-- 8 -->
-      <div class="sentence-card" id="card-8" data-start="54.3" data-end="62.5">
+      <div class="sentence-card" id="card-8">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 08</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(54.3)">▶ Nghe câu này</button>
@@ -418,7 +413,7 @@
       </div>
 
       <!-- 9 -->
-      <div class="sentence-card" id="card-9" data-start="62.6" data-end="71.0">
+      <div class="sentence-card" id="card-9">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 09</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(62.6)">▶ Nghe câu này</button>
@@ -438,7 +433,7 @@
       </div>
 
       <!-- 10 -->
-      <div class="sentence-card" id="card-10" data-start="71.1" data-end="80.5">
+      <div class="sentence-card" id="card-10">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 10</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(71.1)">▶ Nghe câu này</button>
@@ -458,7 +453,7 @@
       </div>
 
       <!-- 11 -->
-      <div class="sentence-card" id="card-11" data-start="80.6" data-end="93.0">
+      <div class="sentence-card" id="card-11">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 11</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(80.6)">▶ Nghe câu này</button>
@@ -478,7 +473,7 @@
       </div>
 
       <!-- 12 -->
-      <div class="sentence-card" id="card-12" data-start="93.1" data-end="100.5">
+      <div class="sentence-card" id="card-12">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 12</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(93.1)">▶ Nghe câu này</button>
@@ -498,7 +493,7 @@
       </div>
 
       <!-- 13 -->
-      <div class="sentence-card" id="card-13" data-start="100.6" data-end="110.0">
+      <div class="sentence-card" id="card-13">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 13</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(100.6)">▶ Nghe câu này</button>
@@ -518,7 +513,7 @@
       </div>
 
       <!-- 14 -->
-      <div class="sentence-card" id="card-14" data-start="110.1" data-end="116.5">
+      <div class="sentence-card" id="card-14">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 14</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(110.1)">▶ Nghe câu này</button>
@@ -538,7 +533,7 @@
       </div>
 
       <!-- 15 -->
-      <div class="sentence-card" id="card-15" data-start="116.6" data-end="125.0">
+      <div class="sentence-card" id="card-15">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 15</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(116.6)">▶ Nghe câu này</button>
@@ -558,7 +553,7 @@
       </div>
 
       <!-- 16 -->
-      <div class="sentence-card" id="card-16" data-start="125.1" data-end="132.8">
+      <div class="sentence-card" id="card-16">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 16</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(125.1)">▶ Nghe câu này</button>
@@ -578,7 +573,7 @@
       </div>
 
       <!-- 17 -->
-      <div class="sentence-card" id="card-17" data-start="132.9" data-end="138.8">
+      <div class="sentence-card" id="card-17">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 17</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(132.9)">▶ Nghe câu này</button>
@@ -598,7 +593,7 @@
       </div>
 
       <!-- 18 -->
-      <div class="sentence-card" id="card-18" data-start="138.9" data-end="147.2">
+      <div class="sentence-card" id="card-18">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 18</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(138.9)">▶ Nghe câu này</button>
@@ -618,7 +613,7 @@
       </div>
 
       <!-- 19 -->
-      <div class="sentence-card" id="card-19" data-start="147.3" data-end="156.0">
+      <div class="sentence-card" id="card-19">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 19</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(147.3)">▶ Nghe câu này</button>
@@ -638,7 +633,7 @@
       </div>
 
       <!-- 20 -->
-      <div class="sentence-card" id="card-20" data-start="156.1" data-end="159.2">
+      <div class="sentence-card" id="card-20">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 20</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(156.1)">▶ Nghe câu này</button>
@@ -658,7 +653,7 @@
       </div>
 
       <!-- 21 -->
-      <div class="sentence-card" id="card-21" data-start="159.3" data-end="169.0">
+      <div class="sentence-card" id="card-21">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 21</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(159.3)">▶ Nghe câu này</button>
@@ -678,7 +673,7 @@
       </div>
 
       <!-- 22 -->
-      <div class="sentence-card" id="card-22" data-start="169.1" data-end="174.5">
+      <div class="sentence-card" id="card-22">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 22</span>
           <button class="btn btn-outline btn-sm" onclick="playAudio(169.1)">▶ Nghe câu này</button>
@@ -697,158 +692,16 @@
         </div>
       </div>
 
-      <!-- 23 -->
-      <div class="sentence-card" id="card-23" data-start="174.6" data-end="179.8">
-        <div class="sentence-header">
-          <span class="sentence-num">CÂU 23</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(174.6)">▶ Nghe câu này</button>
-        </div>
-        <div class="sentence-body">
-          But like many other animals, they're in <input type="text" class="blank" data-answer="trouble" style="width: 75px;">.
-        </div>
-        <div class="vi-text">Nhưng giống như nhiều loài động vật khác, chúng đang gặp nguy hiểm.</div>
-        <div class="card-actions">
-          <div class="card-actions-left">
-            <button class="btn btn-sm" onclick="checkSentence('card-23')">Nộp câu</button>
-            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-23')">💡 Hiện đáp án</button>
-            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-23')">🌐 Dịch</button>
-          </div>
-          <span class="status-badge"></span>
-        </div>
-      </div>
-
-      <!-- 24 -->
-      <div class="sentence-card" id="card-24" data-start="179.9" data-end="185.0">
-        <div class="sentence-header">
-          <span class="sentence-num">CÂU 24</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(179.9)">▶ Nghe câu này</button>
-        </div>
-        <div class="sentence-body">
-          Many species of chameleons are <input type="text" class="blank" data-answer="endangered" style="width: 95px;">.
-        </div>
-        <div class="vi-text">Nhiều loài tắc kè hoa đang đứng trước nguy cơ tuyệt chủng.</div>
-        <div class="card-actions">
-          <div class="card-actions-left">
-            <button class="btn btn-sm" onclick="checkSentence('card-24')">Nộp câu</button>
-            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-24')">💡 Hiện đáp án</button>
-            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-24')">🌐 Dịch</button>
-          </div>
-          <span class="status-badge"></span>
-        </div>
-      </div>
-
-      <!-- 25 -->
-      <div class="sentence-card" id="card-25" data-start="185.1" data-end="194.5">
-        <div class="sentence-header">
-          <span class="sentence-num">CÂU 25</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(185.1)">▶ Nghe câu này</button>
-        </div>
-        <div class="sentence-body">
-          This is because the forests and other areas where they live are <input type="text" class="blank" data-answer="disappearing" style="width: 105px;">.
-        </div>
-        <div class="vi-text">Điều này là do các khu rừng và khu vực khác nơi chúng sống đang biến mất.</div>
-        <div class="card-actions">
-          <div class="card-actions-left">
-            <button class="btn btn-sm" onclick="checkSentence('card-25')">Nộp câu</button>
-            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-25')">💡 Hiện đáp án</button>
-            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-25')">🌐 Dịch</button>
-          </div>
-          <span class="status-badge"></span>
-        </div>
-      </div>
-
-      <!-- 26 -->
-      <div class="sentence-card" id="card-26" data-start="194.6" data-end="200.0">
-        <div class="sentence-header">
-          <span class="sentence-num">CÂU 26</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(194.6)">▶ Nghe câu này</button>
-        </div>
-        <div class="sentence-body">
-          Or are being <input type="text" class="blank" data-answer="changed" style="width: 75px;"> by people.
-        </div>
-        <div class="vi-text">Hoặc đang bị con người thay đổi.</div>
-        <div class="card-actions">
-          <div class="card-actions-left">
-            <button class="btn btn-sm" onclick="checkSentence('card-26')">Nộp câu</button>
-            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-26')">💡 Hiện đáp án</button>
-            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-26')">🌐 Dịch</button>
-          </div>
-          <span class="status-badge"></span>
-        </div>
-      </div>
-
-      <!-- 27 -->
-      <div class="sentence-card" id="card-27" data-start="200.1" data-end="207.8">
-        <div class="sentence-header">
-          <span class="sentence-num">CÂU 27</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(200.1)">▶ Nghe câu này</button>
-        </div>
-        <div class="sentence-body">
-          And when the area is changed too much, it becomes <input type="text" class="blank" data-answer="hard" style="width: 50px;"> for chameleons to live there.
-        </div>
-        <div class="vi-text">Và khi khu vực này bị thay đổi quá nhiều, tắc kè rất khó sống ở đó.</div>
-        <div class="card-actions">
-          <div class="card-actions-left">
-            <button class="btn btn-sm" onclick="checkSentence('card-27')">Nộp câu</button>
-            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-27')">💡 Hiện đáp án</button>
-            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-27')">🌐 Dịch</button>
-          </div>
-          <span class="status-badge"></span>
-        </div>
-      </div>
-
-      <!-- 28 -->
-      <div class="sentence-card" id="card-28" data-start="207.9" data-end="215.2">
-        <div class="sentence-header">
-          <span class="sentence-num">CÂU 28</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(207.9)">▶ Nghe câu này</button>
-        </div>
-        <div class="sentence-body">
-          Scientists are working to <input type="text" class="blank" data-answer="help" style="width: 55px;"> endangered chameleon species.
-        </div>
-        <div class="vi-text">Các nhà khoa học đang nỗ lực giúp đỡ các loài tắc kè hoa đang bị đe dọa.</div>
-        <div class="card-actions">
-          <div class="card-actions-left">
-            <button class="btn btn-sm" onclick="checkSentence('card-28')">Nộp câu</button>
-            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-28')">💡 Hiện đáp án</button>
-            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-28')">🌐 Dịch</button>
-          </div>
-          <span class="status-badge"></span>
-        </div>
-      </div>
-
-      <!-- 29 -->
-      <div class="sentence-card" id="card-29" data-start="215.3" data-end="224.0">
-        <div class="sentence-header">
-          <span class="sentence-num">CÂU 29</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(215.3)">▶ Nghe câu này</button>
-        </div>
-        <div class="sentence-body">
-          By learning as <input type="text" class="blank" data-answer="much" style="width: 55px;"> as they can about these colorful creatures.
-        </div>
-        <div class="vi-text">Bằng cách tìm hiểu nhiều nhất có thể về những sinh vật đầy màu sắc này.</div>
-        <div class="card-actions">
-          <div class="card-actions-left">
-            <button class="btn btn-sm" onclick="checkSentence('card-29')">Nộp câu</button>
-            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-29')">💡 Hiện đáp án</button>
-            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-29')">🌐 Dịch</button>
-          </div>
-          <span class="status-badge"></span>
-        </div>
-      </div>
-
     </div>
   </div>
 
   <script>
     const player = document.getElementById('player');
-    const cards = document.querySelectorAll('.sentence-card');
     const completedCountSpan = document.getElementById('completed-count');
     let completedCards = new Set();
-    let currentActiveCard = null;
     let allAnswersShown = false;
 
-    // Phát audio linh hoạt loại bỏ delay
+    // Hàm phát audio đơn giản, không áp dụng hiệu ứng active highlight
     function playAudio(startTime) {
       player.currentTime = startTime;
       const playPromise = player.play();
@@ -857,32 +710,12 @@
       }
     }
 
-    // Đồng bộ Audio chính xác theo thời gian bài đọc
-    player.addEventListener('timeupdate', () => {
-      const currentTime = player.currentTime;
-      cards.forEach(card => {
-        const start = parseFloat(card.getAttribute('data-start'));
-        const end = parseFloat(card.getAttribute('data-end'));
-        
-        if (currentTime >= start && currentTime < end) {
-          if (currentActiveCard !== card) {
-            if (currentActiveCard) currentActiveCard.classList.remove('active');
-            card.classList.add('active');
-            currentActiveCard = card;
-            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }
-      });
-    });
-
-    // Toggle Dịch từng câu
     function toggleTranslation(cardId) {
       const card = document.getElementById(cardId);
       const viText = card.querySelector('.vi-text');
       viText.classList.toggle('show');
     }
 
-    // Toggle Dịch tất cả
     function toggleAllTranslations() {
       const viTexts = document.querySelectorAll('.vi-text');
       const anyHidden = Array.from(viTexts).some(el => !el.classList.contains('show'));
@@ -892,7 +725,6 @@
       });
     }
 
-    // Toggle Đáp án từng câu (Hiện / Tắt)
     function toggleAnswer(cardId) {
       const card = document.getElementById(cardId);
       const inputs = card.querySelectorAll('input.blank');
@@ -928,10 +760,10 @@
       updateProgress();
     }
 
-    // Toggle Đáp án Tất Cả
     function toggleAllAnswers() {
       const mainBtn = document.getElementById('btn-toggle-all-answers');
       allAnswersShown = !allAnswersShown;
+      const cards = document.querySelectorAll('.sentence-card');
 
       cards.forEach(card => {
         const btn = card.querySelector('.btn-ans-toggle');
@@ -948,7 +780,6 @@
       }
     }
 
-    // Nộp câu
     function checkSentence(cardId) {
       const card = document.getElementById(cardId);
       const inputs = card.querySelectorAll('input.blank');
@@ -990,6 +821,7 @@
     }
 
     function checkAllAnswers() {
+      const cards = document.querySelectorAll('.sentence-card');
       cards.forEach(card => checkSentence(card.id));
     }
   </script>
