@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luyện Nghe Điền Từ - Mr. Sang English Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body {
+      margin: 0;
+      background-color: #f8fafc;
+      color: #1e293b;
+      padding-bottom: 40px;
+    }
+    
+    /* Header Mr. Sang */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.05);
+    }
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-bottom: 2px;
+    }
+    .brand-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #2563eb;
+      border-radius: 50%;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    header h1 span { color: #2563eb; }
+
+    /* Sticky Audio Control Bar */
+    .audio-sticky-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      border-bottom: 1px solid #cbd5e1;
+      padding: 0.6rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    audio {
+      width: 100%;
+      max-width: 550px;
+      height: 36px;
+      outline: none;
+    }
+
+    /* Progress Tracker Widget */
+    .progress-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 4px 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #1e40af;
+      white-space: nowrap;
+    }
+    .progress-box span { color: #2563eb; font-size: 1rem; font-weight: 700; }
+
+    /* Main Container */
+    .container {
+      max-width: 860px;
+      margin: 1.2rem auto;
+      padding: 0 1rem;
+    }
+
+    .top-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      background: #ffffff;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Buttons */
+    .btn {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.45rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    .btn:hover {
+      background-color: #1d4ed8;
+    }
+    .btn-outline {
+      background-color: #ffffff;
+      border: 1px solid #2563eb;
+      color: #2563eb;
+    }
+    .btn-outline:hover {
+      background-color: #eff6ff;
+    }
+    .btn-sm {
+      padding: 0.25rem 0.65rem;
+      font-size: 0.78rem;
+      border-radius: 12px;
+    }
+
+    /* Card Item cho từng câu - Giãn cách vừa phải */
+    .sentence-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.6rem;
+      transition: all 0.2s ease;
+    }
+    .sentence-card:hover {
+      border-color: #93c5fd;
+    }
+    /* Highlight đồng bộ Audio */
+    .sentence-card.active {
+      border-color: #2563eb;
+      background-color: #eff6ff;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+
+    .sentence-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+    .sentence-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    .sentence-body {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #0f172a;
+    }
+
+    /* Ô điền từ Input */
+    input.blank {
+      border: none;
+      border-bottom: 2px solid #94a3b8;
+      background: #f8fafc;
+      padding: 2px 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 3px;
+      outline: none;
+      transition: all 0.2s;
+      margin: 0 2px;
+    }
+    input.blank:focus {
+      border-bottom-color: #2563eb;
+      background: #eff6ff;
+    }
+    input.blank.correct {
+      border-bottom-color: #16a34a !important;
+      background-color: #dcfce7 !important;
+      color: #15803d;
+    }
+    input.blank.wrong {
+      border-bottom-color: #dc2626 !important;
+      background-color: #fee2e2 !important;
+      color: #b91c1c;
+    }
+
+    /* Bản dịch & Action Bar */
+    .vi-text {
+      color: #475569;
+      font-size: 0.88rem;
+      margin-top: 0.4rem;
+      padding-top: 0.4rem;
+      border-top: 1px dashed #e2e8f0;
+      display: none; /* Mặc định ẩn dịch */
+    }
+    .vi-text.show { display: block; }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+    }
+    .card-actions-left {
+      display: flex;
+      gap: 6px;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 4px;
+      display: none;
+    }
+    .status-badge.correct { display: inline-block; background: #dcfce7; color: #15803d; }
+    .status-badge.wrong { display: inline-block; background: #fee2e2; color: #b91c1c; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div>
+      <div class="brand-tag">Hệ Thống Luyện Tập Tiếng Anh Trực Quan</div>
+      <h1>Nền Tảng Tương Tác <span>cùng Mr. Sang</span></h1>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="toggleAllTranslations()">🌐 Ẩn/Hiện Tất Cả Dịch</button>
+  </header>
+
+  <!-- Sticky Audio Control -->
+  <div class="audio-sticky-bar">
+    <audio id="player" controls>
+      <source src="National Geographic Reading Explorer 1 Unit 1 A Chameleon's Colors_2.mp3" type="audio/mpeg">
+      Trình duyệt không hỗ trợ phát audio.
+    </audio>
+    <div class="progress-box">
+      Hoàn thành: <span id="completed-count">0</span>/29 câu
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="top-tools">
+      <span style="color: #64748b; font-size: 0.82rem;">💡 Nhấp vào câu để phát audio tương ứng. Nhập từ & bấm <b>Nộp câu</b>.</span>
+      <div style="display:flex; gap:6px;">
+        <button class="btn btn-outline btn-sm" onclick="checkAllAnswers()">Nộp Tất Cả</button>
+        <button class="btn btn-sm" onclick="showAllAnswers()">Hiện Đáp Án</button>
+      </div>
+    </div>
+
+    <div id="transcript">
+      <!-- 1 -->
+      <div class="sentence-card" id="card-1" data-start="0.0" data-end="5.8">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 01</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(0.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          There are 202 <input type="text" class="blank" data-answer="species" style="width: 80px;"> of chameleon in the world that <input type="text" class="blank" data-answer="scientists" style="width: 90px;"> know about.
+        </div>
+        <div class="vi-text">Có 202 loài tắc kè hoa trên thế giới mà các nhà khoa học biết tới.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-1')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-1')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="sentence-card" id="card-2" data-start="5.8" data-end="12.2">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 02</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(5.8)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          42% of these <input type="text" class="blank" data-answer="different" style="width: 85px;"> types of chameleons <input type="text" class="blank" data-answer="live" style="width: 50px;"> in Madagascar.
+        </div>
+        <div class="vi-text">42% trong số các loại tắc kè hoa khác nhau này sống ở Madagascar.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-2')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-2')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="sentence-card" id="card-3" data-start="12.2" data-end="18.1">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 03</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(12.2)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          These <input type="text" class="blank" data-answer="creatures" style="width: 85px;"> are famous for their <input type="text" class="blank" data-answer="ability" style="width: 70px;"> to change color.
+        </div>
+        <div class="vi-text">Những sinh vật này nổi tiếng với khả năng thay đổi màu sắc.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-3')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-3')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="sentence-card" id="card-4" data-start="18.1" data-end="25.2">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 04</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(18.1)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          For a long <input type="text" class="blank" data-answer="time" style="width: 50px;">, scientists thought chameleons changed color to <input type="text" class="blank" data-answer="hide" style="width: 50px;"> from other animals.
+        </div>
+        <div class="vi-text">Trong một thời gian dài, các nhà khoa học nghĩ rằng tắc kè đổi màu để trốn các loài động vật khác.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-4')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-4')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="sentence-card" id="card-5" data-start="25.2" data-end="33.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 05</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(25.2)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          But now they know that the <input type="text" class="blank" data-answer="main" style="width: 60px;"> reason chameleons change color is to <input type="text" class="blank" data-answer="communicate" style="width: 110px;"> with each other.
+        </div>
+        <div class="vi-text">Nhưng giờ họ biết lý do chính tắc kè hoa đổi màu là để giao tiếp với nhau.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-5')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-5')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="sentence-card" id="card-6" data-start="33.0" data-end="40.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 06</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(33.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Chameleons can change color to <input type="text" class="blank" data-answer="attract" style="width: 75px;"> other chameleons or to <input type="text" class="blank" data-answer="warn" style="width: 60px;"> them to go away.
+        </div>
+        <div class="vi-text">Tắc kè hoa có thể đổi màu để thu hút những con khác hoặc cảnh báo chúng đi đi.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-6')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-6')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="sentence-card" id="card-7" data-start="40.0" data-end="46.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 07</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(40.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They can use their colors to <input type="text" class="blank" data-answer="show" style="width: 55px;"> that they are angry or <input type="text" class="blank" data-answer="scared" style="width: 70px;">.
+        </div>
+        <div class="vi-text">Chúng có thể dùng màu sắc để thể hiện rằng chúng đang tức giận hoặc sợ hãi.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-7')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-7')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="sentence-card" id="card-8" data-start="46.5" data-end="53.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 08</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(46.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Sometimes, their colors also change <input type="text" class="blank" data-answer="because" style="width: 80px;"> of changes in the <input type="text" class="blank" data-answer="temperature" style="width: 100px;">.
+        </div>
+        <div class="vi-text">Thỉnh thoảng, màu sắc của chúng cũng thay đổi do sự thay đổi của nhiệt độ.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-8')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-8')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="sentence-card" id="card-9" data-start="53.5" data-end="60.2">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 09</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(53.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          So, if chameleons don't change colors to hide from <input type="text" class="blank" data-answer="predators" style="width: 90px;">, how do they stay <input type="text" class="blank" data-answer="safe" style="width: 50px;">?
+        </div>
+        <div class="vi-text">Vậy nếu tắc kè không đổi màu để trốn kẻ săn mồi, làm sao chúng giữ an toàn?</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-9')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-9')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="sentence-card" id="card-10" data-start="60.2" data-end="68.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 10</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(60.2)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          It turns out that chameleons stay safe by <input type="text" class="blank" data-answer="moving" style="width: 75px;"> back and forth in a <input type="text" class="blank" data-answer="strange" style="width: 75px;"> way.
+        </div>
+        <div class="vi-text">Hóa ra tắc kè hoa giữ an toàn bằng cách di chuyển qua lại một cách kỳ lạ.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-10')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-10')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="sentence-card" id="card-11" data-start="68.0" data-end="78.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 11</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(68.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          By following this <input type="text" class="blank" data-answer="odd" style="width: 45px;"> system of movements, the chameleon looks less like a moving animal and more like a <input type="text" class="blank" data-answer="leaf" style="width: 55px;"> being blown by the wind.
+        </div>
+        <div class="vi-text">Bằng cách tuân theo hệ thống chuyển động kỳ lạ này, tắc kè trông ít giống động vật di chuyển hơn và giống chiếc lá bị gió thổi hơn.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-11')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-11')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="sentence-card" id="card-12" data-start="78.5" data-end="84.8">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 12</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(78.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          A chameleon's <input type="text" class="blank" data-answer="tongue" style="width: 75px;"> is very long and moves very <input type="text" class="blank" data-answer="fast" style="width: 50px;">.
+        </div>
+        <div class="vi-text">Lưỡi của tắc kè hoa rất dài và chuyển động rất nhanh.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-12')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-12')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <div class="sentence-card" id="card-13" data-start="84.8" data-end="93.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 13</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(84.8)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          To catch food, a chameleon <input type="text" class="blank" data-answer="hides" style="width: 60px;"> in the trees until an <input type="text" class="blank" data-answer="insect" style="width: 65px;"> walks by.
+        </div>
+        <div class="vi-text">Để bắt thức ăn, tắc kè ẩn nấp trên cây cho đến khi một con côn trùng đi qua.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-13')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-13')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 14 -->
+      <div class="sentence-card" id="card-14" data-start="93.0" data-end="98.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 14</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(93.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Then, it <input type="text" class="blank" data-answer="shoots" style="width: 65px;"> out its tongue to catch the insect.
+        </div>
+        <div class="vi-text">Sau đó, nó phóng lưỡi ra để bắt lấy côn trùng.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-14')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-14')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 15 -->
+      <div class="sentence-card" id="card-15" data-start="98.5" data-end="106.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 15</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(98.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          A chameleon can catch insects as <input type="text" class="blank" data-answer="far" style="width: 45px;"> away as two times its body <input type="text" class="blank" data-answer="length" style="width: 65px;">.
+        </div>
+        <div class="vi-text">Tắc kè hoa có thể bắt côn trùng ở khoảng cách xa gấp đôi chiều dài cơ thể.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-15')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-15')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 16 -->
+      <div class="sentence-card" id="card-16" data-start="106.0" data-end="113.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 16</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(106.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          A chameleon's tongue is made of <input type="text" class="blank" data-answer="bone" style="width: 55px;"> and <input type="text" class="blank" data-answer="muscles" style="width: 75px;">.
+        </div>
+        <div class="vi-text">Lưỡi của tắc kè được cấu tạo từ xương và cơ bắp.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-16')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-16')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <div class="sentence-card" id="card-17" data-start="113.0" data-end="118.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 17</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(113.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          And the end of its tongue is very <input type="text" class="blank" data-answer="sticky" style="width: 65px;">.
+        </div>
+        <div class="vi-text">Và phần đầu lưỡi của nó rất dính.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-17')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-17')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 18 -->
+      <div class="sentence-card" id="card-18" data-start="118.0" data-end="126.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 18</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(118.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          The muscles at the back of the tongue <input type="text" class="blank" data-answer="prepare" style="width: 75px;"> the sticky parts to shoot out.
+        </div>
+        <div class="vi-text">Các cơ ở phía sau lưỡi chuẩn bị cho phần dính phóng ra.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-18')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-18')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 19 -->
+      <div class="sentence-card" id="card-19" data-start="126.0" data-end="135.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 19</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(126.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Just like how a person pulls back the <input type="text" class="blank" data-answer="string" style="width: 65px;"> of a bow to get ready to shoot an <input type="text" class="blank" data-answer="arrow" style="width: 65px;">.
+        </div>
+        <div class="vi-text">Giống như cách một người kéo dây cung để chuẩn bị bắn một mũi tên.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-19')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-19')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 20 -->
+      <div class="sentence-card" id="card-20" data-start="135.0" data-end="138.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 20</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(135.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Then, they let <input type="text" class="blank" data-answer="go" style="width: 45px;">.
+        </div>
+        <div class="vi-text">Sau đó, họ thả ra.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-20')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-20')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 21 -->
+      <div class="sentence-card" id="card-21" data-start="138.0" data-end="147.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 21</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(138.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          The tongue shoots forward at a great <input type="text" class="blank" data-answer="speed" style="width: 65px;">, and the insect is caught in the blink of an eye.
+        </div>
+        <div class="vi-text">Lưỡi phóng về phía trước với tốc độ cực nhanh, và côn trùng bị bắt trong chớp mắt.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-21')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-21')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 22 -->
+      <div class="sentence-card" id="card-22" data-start="147.0" data-end="152.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 22</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(147.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Chameleons are <input type="text" class="blank" data-answer="amazing" style="width: 80px;"> creatures.
+        </div>
+        <div class="vi-text">Tắc kè hoa là những sinh vật tuyệt vời.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-22')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-22')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 23 -->
+      <div class="sentence-card" id="card-23" data-start="152.0" data-end="157.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 23</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(152.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          But like many other animals, they're in <input type="text" class="blank" data-answer="trouble" style="width: 75px;">.
+        </div>
+        <div class="vi-text">Nhưng giống như nhiều loài động vật khác, chúng đang gặp nguy hiểm.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-23')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-23')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 24 -->
+      <div class="sentence-card" id="card-24" data-start="157.0" data-end="162.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 24</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(157.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Many species of chameleons are <input type="text" class="blank" data-answer="endangered" style="width: 95px;">.
+        </div>
+        <div class="vi-text">Nhiều loài tắc kè hoa đang đứng trước nguy cơ tuyệt chủng.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-24')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-24')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 25 -->
+      <div class="sentence-card" id="card-25" data-start="162.0" data-end="171.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 25</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(162.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          This is because the forests and other areas where they live are <input type="text" class="blank" data-answer="disappearing" style="width: 105px;">.
+        </div>
+        <div class="vi-text">Điều này là do các khu rừng và khu vực khác nơi chúng sống đang biến mất.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-25')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-25')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 26 -->
+      <div class="sentence-card" id="card-26" data-start="171.0" data-end="176.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 26</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(171.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Or are being <input type="text" class="blank" data-answer="changed" style="width: 75px;"> by people.
+        </div>
+        <div class="vi-text">Hoặc đang bị con người thay đổi.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-26')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-26')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 27 -->
+      <div class="sentence-card" id="card-27" data-start="176.0" data-end="183.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 27</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(176.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          And when the area is changed too much, it becomes <input type="text" class="blank" data-answer="hard" style="width: 50px;"> for chameleons to live there.
+        </div>
+        <div class="vi-text">Và khi khu vực này bị thay đổi quá nhiều, tắc kè rất khó sống ở đó.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-27')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-27')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 28 -->
+      <div class="sentence-card" id="card-28" data-start="183.0" data-end="190.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 28</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(183.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Scientists are working to <input type="text" class="blank" data-answer="help" style="width: 55px;"> endangered chameleon species.
+        </div>
+        <div class="vi-text">Các nhà khoa học đang nỗ lực giúp đỡ các loài tắc kè hoa đang bị đe dọa.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-28')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-28')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 29 -->
+      <div class="sentence-card" id="card-29" data-start="190.0" data-end="198.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 29</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(190.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          By learning as <input type="text" class="blank" data-answer="much" style="width: 55px;"> as they can about these colorful creatures.
+        </div>
+        <div class="vi-text">Bằng cách tìm hiểu nhiều nhất có thể về những sinh vật đầy màu sắc này.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-29')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-29')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const player = document.getElementById('player');
+    const cards = document.querySelectorAll('.sentence-card');
+    const completedCountSpan = document.getElementById('completed-count');
+    let completedCards = new Set();
+    let currentActiveCard = null;
+
+    // Phát audio tại mốc thời gian
+    function playAudio(startTime) {
+      player.currentTime = startTime;
+      player.play();
+    }
+
+    // Đồng bộ Audio với giao diện chính xác
+    player.addEventListener('timeupdate', () => {
+      const currentTime = player.currentTime;
+      cards.forEach(card => {
+        const start = parseFloat(card.getAttribute('data-start'));
+        const end = parseFloat(card.getAttribute('data-end'));
+        
+        if (currentTime >= start && currentTime < end) {
+          if (currentActiveCard !== card) {
+            if (currentActiveCard) currentActiveCard.classList.remove('active');
+            card.classList.add('active');
+            currentActiveCard = card;
+            // Cuộn mượt nhẹ
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      });
+    });
+
+    // Toggle Ẩn/Hiện dịch từng câu
+    function toggleTranslation(cardId) {
+      const card = document.getElementById(cardId);
+      const viText = card.querySelector('.vi-text');
+      viText.classList.toggle('show');
+    }
+
+    // Toggle Ẩn/Hiện dịch tất cả
+    function toggleAllTranslations() {
+      const viTexts = document.querySelectorAll('.vi-text');
+      const anyHidden = Array.from(viTexts).some(el => !el.classList.contains('show'));
+      viTexts.forEach(el => {
+        if (anyHidden) el.classList.add('show');
+        else el.classList.remove('show');
+      });
+    }
+
+    // Kiểm tra / Nộp từng câu
+    function checkSentence(cardId) {
+      const card = document.getElementById(cardId);
+      const inputs = card.querySelectorAll('input.blank');
+      const badge = card.querySelector('.status-badge');
+      let allCorrect = true;
+      let hasValue = false;
+
+      inputs.forEach(input => {
+        const userAns = input.value.trim().toLowerCase();
+        const correctAns = input.getAttribute('data-answer').toLowerCase();
+        if (userAns !== "") hasValue = true;
+
+        if (userAns === correctAns) {
+          input.classList.remove('wrong');
+          input.classList.add('correct');
+        } else {
+          input.classList.remove('correct');
+          input.classList.add('wrong');
+          allCorrect = false;
+        }
+      });
+
+      if (hasValue) {
+        badge.classList.remove('correct', 'wrong');
+        if (allCorrect) {
+          badge.textContent = "✓ Đúng";
+          badge.classList.add('correct');
+          completedCards.add(cardId);
+        } else {
+          badge.textContent = "✗ Sai";
+          badge.classList.add('wrong');
+        }
+        updateProgress();
+      }
+    }
+
+    // Cập nhật tiến độ
+    function updateProgress() {
+      completedCountSpan.textContent = completedCards.size;
+    }
+
+    // Kiểm tra tất cả
+    function checkAllAnswers() {
+      cards.forEach(card => checkSentence(card.id));
+    }
+
+    // Hiện tất cả đáp án
+    function showAllAnswers() {
+      cards.forEach(card => {
+        const inputs = card.querySelectorAll('input.blank');
+        const badge = card.querySelector('.status-badge');
+        inputs.forEach(input => {
+          input.value = input.getAttribute('data-answer');
+          input.classList.remove('wrong');
+          input.classList.add('correct');
+        });
+        badge.textContent = "✓ Đáp án";
+        badge.classList.remove('wrong');
+        badge.classList.add('correct');
+        completedCards.add(card.id);
+      });
+      updateProgress();
+    }
+  </script>
+</body>
+</html>
