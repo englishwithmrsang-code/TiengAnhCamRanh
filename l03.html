@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening Practice - Fill in the Gaps</title>
+    <title>Listening Practice - Fill in the Gaps (A2 Level)</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -99,7 +99,7 @@
             padding-bottom: 12px;
         }
 
-        /* Thanh nghe tự động trôi theo màn hình khi học sinh học đến bài đó */
+        /* Thanh nghe tự động trôi theo màn hình riêng cho từng bài */
         .audio-player-wrapper {
             position: sticky;
             top: 70px;
@@ -278,7 +278,7 @@
 
         .transcript-box {
             font-size: 15px;
-            line-height: 2.1;
+            line-height: 2.3;
         }
 
         .action-btn {
@@ -313,7 +313,7 @@
 <div class="score-tracker-bar">
     <div class="score-tracker-title">Total Progress</div>
     <div class="score-badge">
-        Correct Answers: <span id="global-correct" class="score-value">0</span> / <span id="global-total">36</span>
+        Correct Answers: <span id="global-correct" class="score-value">0</span> / <span id="global-total">45</span>
         (<span id="global-percentage" class="percentage-value">0%</span>)
     </div>
 </div>
@@ -325,7 +325,6 @@
     <div class="card">
         <h2>Listening 1: Katy’s Holidays</h2>
 
-        <!-- Thanh nghe dính theo màn hình riêng cho Bài 1 -->
         <div class="audio-player-wrapper">
             <div class="audio-player">
                 <audio id="audio1" src="listening-for-numbers-and-missing-words-7.mp3"></audio>
@@ -339,7 +338,6 @@
 
         <p class="instruction">Listen and write 1–2 words or numbers for each answer.</p>
         
-        <!-- Main Exercise -->
         <div id="ex1-main">
             <ul class="question-list">
                 <li><strong>Example:</strong> Needs new: <span class="input-wrapper"><input type="text" data-answer="clothes" data-display="clothes"></span></li>
@@ -353,33 +351,25 @@
             <div class="result" id="ex1-main-result"></div>
         </div>
 
-        <!-- Toggle Button for Transcript -->
         <button class="toggle-btn" onclick="toggleSection('transcript1')">▼ Show Transcript Exercise (10 gaps)</button>
 
-        <!-- Transcript Exercise -->
         <div id="transcript1" class="transcript-section">
-            <p class="instruction">Listen again and fill in the 10 missing words in the transcript below:</p>
+            <p class="instruction">Listen again and fill in the 10 missing words (A2 Level):</p>
             <div id="ex1-transcript-box" class="transcript-box">
-                GIRL: When did you meet your husband, Mrs Hill?<br>
-                WOMAN: It was in 1947, so that’s <span class="input-wrapper"><input type="text" data-answer="fifty|50" data-display="fifty"></span> years ago.<br>
-                GIRL: Fifty years is a long time.<br>
-                WOMAN: Yes!<br><br>
-                GIRL: Did you meet in the summer?<br>
-                WOMAN: No, it was in the <span class="input-wrapper"><input type="text" data-answer="autumn|fall" data-display="autumn"></span>, in November.<br>
-                GIRL: Oh – was the weather OK?<br>
-                WOMAN: Yes, it was a <span class="input-wrapper"><input type="text" data-answer="lovely" data-display="lovely"></span> sunny day.<br>
-                GIRL: Good. What’s his first name?<br>
-                WOMAN: It’s William, that’s W-I-L-L-I-A-M.<br>
-                GIRL: OK. Where did you meet him? Do you <span class="input-wrapper"><input type="text" data-answer="remember" data-display="remember"></span>?<br>
-                WOMAN: Yes, I do. We met at our school.<br>
-                GIRL: Oh! So you were very <span class="input-wrapper"><input type="text" data-answer="young" data-display="young"></span> when you met.<br>
-                WOMAN: Yes, we were only eleven years old. But we weren’t <span class="input-wrapper"><input type="text" data-answer="friends" data-display="friends"></span> at the beginning.<br>
-                GIRL: Why not?<br>
-                WOMAN: Well, we didn’t like doing the same things. Then, when we were older, we had the same favourite <span class="input-wrapper"><input type="text" data-answer="hobby" data-display="hobby"></span>, and we were more friendly after that.<br>
-                GIRL: What was your favourite hobby?<br>
-                WOMAN: We liked going <span class="input-wrapper"><input type="text" data-answer="fishing" data-display="fishing"></span> in the <span class="input-wrapper"><input type="text" data-answer="river" data-display="river"></span> near our village.<br>
-                GIRL: That’s nice. Do you still go fishing together?<br>
-                WOMAN: Yes, we go a lot in the <span class="input-wrapper"><input type="text" data-answer="summer" data-display="summer"></span>.
+                MAN: OK, children, today is the last day of school. I want to <span class="input-wrapper"><input type="text" data-answer="ask" data-display="ask"></span> you some questions about the holidays. Katy, what are you going to do?<br>
+                GIRL: Well, first we’re going to go shopping. I need a lot of new <span class="input-wrapper"><input type="text" data-answer="clothes" data-display="clothes"></span> for my holiday!<br><br>
+                MAN: Where are you going for your holiday?<br>
+                GIRL: We’re going to a beautiful <span class="input-wrapper"><input type="text" data-answer="island" data-display="island"></span>. We go there every year. It’s <span class="input-wrapper"><input type="text" data-answer="hot" data-display="hot"></span>, and there are banana trees everywhere.<br>
+                MAN: How are you going to get there? By boat?<br>
+                GIRL: No, it’s too far. We’re going by <span class="input-wrapper"><input type="text" data-answer="plane" data-display="plane"></span>.<br>
+                MAN: Well, that will be quicker. Are you going with your mum and dad?<br>
+                GIRL: No, I’m going with my <span class="input-wrapper"><input type="text" data-answer="cousins" data-display="cousins"></span>.<br>
+                MAN: What are you going to do on the island?<br>
+                GIRL: Well, <span class="input-wrapper"><input type="text" data-answer="swim" data-display="swim"></span>, and I want to play a lot of <span class="input-wrapper"><input type="text" data-answer="volleyball" data-display="volleyball"></span>.<br>
+                MAN: And are you going to <span class="input-wrapper"><input type="text" data-answer="take" data-display="take"></span> any homework with you?<br>
+                GIRL: Oh, yes! Geography, of course!<br>
+                MAN: Excellent, Katy! <span class="input-wrapper"><input type="text" data-answer="enjoy" data-display="enjoy"></span> your holiday!<br>
+                GIRL: Thank <span class="input-wrapper"><input type="text" data-answer="you" data-display="you"></span>.
             </div>
             <button class="action-btn" onclick="checkAnswers('ex1-transcript-box', 'ex1-transcript-result')">Submit Transcript Part 1</button>
             <div class="result" id="ex1-transcript-result"></div>
@@ -390,7 +380,6 @@
     <div class="card">
         <h2>Listening 2: A Famous Actress</h2>
 
-        <!-- Thanh nghe dính theo màn hình riêng cho Bài 2 -->
         <div class="audio-player-wrapper">
             <div class="audio-player">
                 <audio id="audio2" src="listening-for-numbers-and-missing-words-8.mp3"></audio>
@@ -404,7 +393,6 @@
 
         <p class="instruction">Listen and write 1–2 words or numbers for each answer.</p>
         
-        <!-- Main Exercise -->
         <div id="ex2-main">
             <ul class="question-list">
                 <li><strong>Example:</strong> Name: Betty <span class="input-wrapper"><input type="text" data-answer="fountain" data-display="Fountain"></span></li>
@@ -418,26 +406,30 @@
             <div class="result" id="ex2-main-result"></div>
         </div>
 
-        <!-- Toggle Button for Transcript -->
         <button class="toggle-btn" onclick="toggleSection('transcript2')">▼ Show Transcript Exercise (10 gaps)</button>
 
-        <!-- Transcript Exercise -->
         <div id="transcript2" class="transcript-section">
-            <p class="instruction">Listen again and fill in the 10 missing words in the transcript below:</p>
+            <p class="instruction">Listen again and fill in the 10 missing words (A2 Level):</p>
             <div id="ex2-transcript-box" class="transcript-box">
-                WOMAN: Hello, young man. Do you want to ask me some <span class="input-wrapper"><input type="text" data-answer="questions" data-display="questions"></span>?<br>
-                BOY: Yes, I’ve got to write some things about you for my <span class="input-wrapper"><input type="text" data-answer="homework" data-display="homework"></span>.<br>
+                WOMAN: Hello, young man. Do you want to <span class="input-wrapper"><input type="text" data-answer="ask" data-display="ask"></span> me some questions?<br>
+                BOY: Yes, I’ve got to <span class="input-wrapper"><input type="text" data-answer="write" data-display="write"></span> some things about you for my homework.<br>
                 WOMAN: Well?<br>
-                BOY: When I see you on TV, everyone just calls you <span class="input-wrapper"><input type="text" data-answer="betty" data-display="Betty"></span>. Do you have another <span class="input-wrapper"><input type="text" data-answer="name" data-display="name"></span>?<br>
-                WOMAN: Yes, it’s Betty Fountain. That’s F-O-U-N-T-A-I-N.<br>
+                BOY: When I see you on TV, everyone just calls you Betty. Do you have another <span class="input-wrapper"><input type="text" data-answer="name" data-display="name"></span>?<br>
+                WOMAN: Yes, it’s Betty Fountain. That’s F-O-U-N-T-A-I-N.<br><br>
                 BOY: Right, now I know. But I don’t know how <span class="input-wrapper"><input type="text" data-answer="old" data-display="old"></span> you are.<br>
                 WOMAN: You guess.<br>
                 BOY: Mmmm. Forty-three?<br>
                 WOMAN: No! Fifty-seven.<br>
                 BOY: But you look so <span class="input-wrapper"><input type="text" data-answer="young" data-display="young"></span>!<br>
-                WOMAN: Well, I try to <span class="input-wrapper"><input type="text" data-answer="eat" data-display="eat"></span> the right things.<br>
+                WOMAN: Well, I try to eat the right things.<br>
                 BOY: Like what?<br>
-                WOMAN: I usually eat salad, rice and <span class="input-wrapper"><input type="text" data-answer="fish" data-display="fish"></span>.
+                WOMAN: I usually <span class="input-wrapper"><input type="text" data-answer="eat" data-display="eat"></span> salad, <span class="input-wrapper"><input type="text" data-answer="rice" data-display="rice"></span> and <span class="input-wrapper"><input type="text" data-answer="fish" data-display="fish"></span>.<br>
+                BOY: Mmm. Do you live in a <span class="input-wrapper"><input type="text" data-answer="big" data-display="big"></span> house near the beach, like all the other actors and singers?<br>
+                WOMAN: No, I have a flat in the city and a little <span class="input-wrapper"><input type="text" data-answer="house" data-display="house"></span> in a village.<br>
+                BOY: Oh. What do you do in your holidays?<br>
+                WOMAN: We love <span class="input-wrapper"><input type="text" data-answer="sports" data-display="sports"></span>, so in winter we go skiing and in the summer we go climbing.<br>
+                BOY: Who do you go with?<br>
+                WOMAN: I always go on holiday with my husband.
             </div>
             <button class="action-btn" onclick="checkAnswers('ex2-transcript-box', 'ex2-transcript-result')">Submit Transcript Part 2</button>
             <div class="result" id="ex2-transcript-result"></div>
@@ -448,7 +440,6 @@
     <div class="card">
         <h2>Listening 3: Mr Powers' Job</h2>
 
-        <!-- Thanh nghe dính theo màn hình riêng cho Bài 3 -->
         <div class="audio-player-wrapper">
             <div class="audio-player">
                 <audio id="audio3" src="listening-for-numbers-and-missing-words-9.mp3"></audio>
@@ -462,7 +453,6 @@
 
         <p class="instruction">Listen and write 1–2 words or numbers for each answer.</p>
         
-        <!-- Main Exercise -->
         <div id="ex3-main">
             <ul class="question-list">
                 <li><strong>Example:</strong> Name: <span class="input-wrapper"><input type="text" data-answer="mr powers" data-display="Mr Powers"></span></li>
@@ -476,25 +466,32 @@
             <div class="result" id="ex3-main-result"></div>
         </div>
 
-        <!-- Toggle Button for Transcript -->
         <button class="toggle-btn" onclick="toggleSection('transcript3')">▼ Show Transcript Exercise (10 gaps)</button>
 
-        <!-- Transcript Exercise -->
         <div id="transcript3" class="transcript-section">
-            <p class="instruction">Listen again and fill in the 10 missing words in the transcript below:</p>
+            <p class="instruction">Listen again and fill in the 10 missing words (A2 Level):</p>
             <div id="ex3-transcript-box" class="transcript-box">
-                GIRL: Hello. Can I ask you some <span class="input-wrapper"><input type="text" data-answer="questions" data-display="questions"></span> about your job? It’s for my English <span class="input-wrapper"><input type="text" data-answer="homework" data-display="homework"></span>.<br>
+                GIRL: Hello. Can I ask you some questions about your <span class="input-wrapper"><input type="text" data-answer="job" data-display="job"></span>? It’s for my English homework.<br>
                 MAN: Yes, of course you can.<br>
-                GIRL: Thank you. First, what’s your <span class="input-wrapper"><input type="text" data-answer="surname" data-display="surname"></span>?<br>
+                GIRL: Thank you. First, what’s your surname?<br>
                 MAN: It’s Powers.<br>
                 GIRL: Is that P-O-W-E-R-S?<br>
-                MAN: That’s <span class="input-wrapper"><input type="text" data-answer="right" data-display="right"></span>.<br>
-                GIRL: And what do you do, Mr Powers? What’s your <span class="input-wrapper"><input type="text" data-answer="job" data-display="job"></span>?<br>
-                MAN: I’m an engineer.<br>
-                GIRL: Oh. Do you like your job?<br>
+                MAN: That’s right.<br><br>
+                GIRL: And what do you do, Mr Powers? What’s your job?<br>
+                MAN: I’m an <span class="input-wrapper"><input type="text" data-answer="engineer" data-display="engineer"></span>.<br>
+                GIRL: Oh. Do you <span class="input-wrapper"><input type="text" data-answer="like" data-display="like"></span> your job?<br>
                 MAN: Yes. It’s very <span class="input-wrapper"><input type="text" data-answer="interesting" data-display="interesting"></span>.<br>
-                GIRL: Where do you work?<br>
-                MAN: At London <span class="input-wrapper"><input type="text" data-answer="airport" data-display="Airport"></span>.
+                GIRL: Where do you <span class="input-wrapper"><input type="text" data-answer="work" data-display="work"></span>?<br>
+                MAN: At London Airport.<br>
+                GIRL: That’s a very <span class="input-wrapper"><input type="text" data-answer="big" data-display="big"></span> place, isn’t it?<br>
+                MAN: Yes, a plane arrives there every minute.<br>
+                GIRL: And how do you get to work every day? Do you go by <span class="input-wrapper"><input type="text" data-answer="car" data-display="car"></span>?<br>
+                MAN: Oh, no, it’s too far. I <span class="input-wrapper"><input type="text" data-answer="take" data-display="take"></span> the train every morning.<br>
+                GIRL: Do you have to start work very <span class="input-wrapper"><input type="text" data-answer="early" data-display="early"></span>?<br>
+                MAN: Well, usually I start work at half past eight, but on Saturdays, I begin at half past six. I’m always <span class="input-wrapper"><input type="text" data-answer="tired" data-display="tired"></span> after that, but I don’t have to work on Sundays or Mondays.<br>
+                GIRL: Right. My last question. What do you like doing when you’re not working? I mean, do you <span class="input-wrapper"><input type="text" data-answer="play" data-display="play"></span> a sport, like football or tennis …?<br>
+                MAN: Well, I prefer golf. That’s my favourite sport, but I’m not very good at it.<br>
+                GIRL: Thank you, Mr Powers. That’s everything.
             </div>
             <button class="action-btn" onclick="checkAnswers('ex3-transcript-box', 'ex3-transcript-result')">Submit Transcript Part 3</button>
             <div class="result" id="ex3-transcript-result"></div>
@@ -606,7 +603,6 @@
             const displayAnswer = input.getAttribute('data-display');
             const wrapper = input.parentElement;
 
-            // Clear previous hint if exists
             const existingHint = wrapper.querySelector('.correct-answer-hint');
             if (existingHint) existingHint.remove();
 
@@ -620,7 +616,7 @@
                 let isCorrect = validAnswers.some(ans => userAnswer === ans.trim());
                 if (isCorrect) {
                     input.className = "correct";
-                    input.value = displayAnswer; // Auto format to standard display
+                    input.value = displayAnswer; 
                     correctCount++;
                 } else {
                     input.className = "incorrect";
