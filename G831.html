@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Tiếng Anh: Trắc Nghiệm & Dịch Câu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .section-desc {
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        .vietnamese-text {
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .hint {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            background-color: #f8f9fa;
+            padding: 6px 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db;
+        }
+        .feedback {
+            margin-top: 8px;
+            font-size: 0.95em;
+            font-weight: bold;
+        }
+        .correct {
+            color: #27ae60;
+        }
+        .incorrect {
+            color: #e74c3c;
+        }
+        .correct-answer {
+            color: #2980b9;
+            font-weight: normal;
+            font-style: italic;
+        }
+        /* Style cho phần trắc nghiệm */
+        .mc-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .mc-btn {
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1em;
+            transition: all 0.2s;
+        }
+        .mc-btn:hover:not(:disabled) {
+            background-color: #e2e6ea;
+            border-color: #b1b7bc;
+        }
+        .mc-btn.correct-choice {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724 !important;
+        }
+        .mc-btn.incorrect-choice {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24 !important;
+        }
+        .mc-explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background: #eef2f7;
+            border-radius: 5px;
+            font-size: 0.95em;
+            display: none;
+        }
+        .score-board {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f8f5;
+            color: #16a085;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Luyện Tập Tiếng Anh Học Sinh</h1>
+    <p style="text-align: center; color: #555;">Hệ thống bài tập trắc nghiệm liên từ và luyện dịch câu ghép.</p>
+    <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px;">
+
+    <!-- PHẦN 1: TRẮC NGHIỆM LIÊN TỪ -->
+    <h2>Phần 1: Trắc nghiệm liên từ (And, But, Or, So)</h2>
+    <p class="section-desc">Chọn liên từ phù hợp nhất để hoàn thành câu dưới đây.</p>
+    <div id="mc-container"></div>
+    <div id="mc-score" class="score-board" style="background: #eef9ff; color: #2980b9;">Trắc nghiệm hoàn thành: 0 / 10 câu</div>
+
+    <!-- PHẦN 2: DỊCH CÂU GHÉP -->
+    <h2>Phần 2: Luyện tập dịch câu ghép sang tiếng Anh</h2>
+    <p class="section-desc">Nhập câu trả lời bằng tiếng Anh và nhấn <b>Enter</b> để kiểm tra kết quả.</p>
+    <div id="quiz-container"></div>
+    <div id="score" class="score-board">Dịch câu hoàn thành: 0 / 25 câu</div>
+</div>
+
+<script>
+// DỮ LIỆU PHẦN 1: TRẮC NGHIỆM
+const mcData = [
+    {
+        q: "The midterm test is really stressful, ______ we must stay calm.",
+        options: ["and", "but", "or", "so"],
+        correct: "so",
+        translation: "Bài kiểm tra giữa kỳ thật sự căng thẳng, vì vậy chúng ta phải giữ bình tĩnh.",
+        explanation: "Dùng 'so' để chỉ kết quả/hệ quả từ vế trước (vì căng thẳng nên phải giữ bình tĩnh)."
+    },
+    {
+        q: "You can join the arts club, ______ you can choose the sports club.",
+        options: ["and", "but", "or", "so"],
+        correct: "or",
+        translation: "Bạn có thể tham gia câu lạc bộ nghệ thuật, hoặc bạn có thể chọn câu lạc bộ thể thao.",
+        explanation: "Dùng 'or' để đưa ra sự lựa chọn giữa hai phương án."
+    },
+    {
+        q: "We want to prepare well for the exam, ______ we study hard.",
+        options: ["and", "but", "or", "so"],
+        correct: "so",
+        translation: "Chúng tôi muốn chuẩn bị tốt cho kỳ thi, vì vậy chúng tôi học tập chăm chỉ.",
+        explanation: "Dùng 'so' để nêu kết quả của hành động chuẩn bị."
+    },
+    {
+        q: "He is a member of the chess club, ______ he loves playing board games.",
+        options: ["and", "but", "or", "so"],
+        correct: "and",
+        translation: "Cậu ấy là thành viên của câu lạc bộ cờ vua, và cậu ấy rất thích chơi trò chơi bàn cờ.",
+        explanation: "Dùng 'and' để bổ sung thông tin đồng điệu."
+    },
+    {
+        q: "The schoolwork is heavy, ______ I feel very tired this weekend.",
+        options: ["and", "but", "or", "so"],
+        correct: "so",
+        translation: "Bài tập ở trường rất nặng, vì vậy tôi cảm thấy rất mệt vào cuối tuần này.",
+        explanation: "Dùng 'so' chỉ nguyên nhân - kết quả."
+    },
+    {
+        q: "She wants to write an essay, ______ she has no time.",
+        options: ["and", "but", "or", "so"],
+        correct: "but",
+        translation: "Cô ấy muốn viết một bài luận, nhưng cô ấy không có thời gian.",
+        explanation: "Dùng 'but' để diễn tả ý đối lập (muốn viết nhưng lại không có thời gian)."
+    },
+    {
+        q: "You can discuss offline, ______ you can share on the class forum.",
+        options: ["and", "but", "or", "so"],
+        correct: "or",
+        translation: "Bạn có thể thảo luận trực tiếp, hoặc bạn có thể chia sẻ trên diễn đàn lớp.",
+        explanation: "Dùng 'or' để diễn tả hai hình thức lựa chọn thay thế."
+    },
+    {
+        q: "The coach gives us useful advice, ______ we listen carefully.",
+        options: ["and", "but", "or", "so"],
+        correct: "so",
+        translation: "Huấn luyện viên đưa ra lời khuyên hữu ích, vì vậy chúng tôi lắng nghe cẩn thận.",
+        explanation: "Dùng 'so' để chỉ kết quả của việc nghe lời khuyên."
+    },
+    {
+        q: "I know the exam is difficult, ______ I will try my best.",
+        options: ["and", "but", "or", "so"],
+        correct: "but",
+        translation: "Tôi biết kỳ thi rất khó, nhưng tôi sẽ cố gắng hết sức.",
+        explanation: "Dùng 'but' để nối hai vế có ý nghĩa trái ngược nhau (khó nhưng vẫn cố gắng)."
+    },
+    {
+        q: "We have a new group chat, ______ it is very user-friendly.",
+        options: ["and", "but", "or", "so"],
+        correct: "and",
+        translation: "Chúng ta có một đoạn chat nhóm mới, và nó rất dễ sử dụng.",
+        explanation: "Dùng 'and' để liệt kê thêm đặc điểm tốt của nhóm chat."
+    }
+];
+
+// DỮ LIỆU PHẦN 2: DỊCH CÂU
+const quizData = [
+    {
+        vi: "Bài kiểm tra giữa kỳ thật sự căng thẳng, nhưng chúng ta nên giữ bình tĩnh.",
+        hint: "Gợi ý: midterm test, really, stressful, but, stay calm",
+        en: "The midterm test is really stressful, but we should stay calm."
+    },
+    {
+        vi: "Hãy thảo luận những vấn đề này, vì cha mẹ và bạn bè có thể giúp đỡ.",
+        hint: "Gợi ý: Let's, discuss, these problems, because, parents, friend",
+        en: "Let's discuss these problems, because parents and friends can help."
+    },
+    {
+        vi: "Kỳ thi có thể cho nhiều áp lực, nhưng bạn phải làm việc chăm chỉ.",
+        hint: "Gợi ý: exam, may, give, a lot of, pressure, but, work hard",
+        en: "The exam may give a lot of pressure, but you must work hard."
+    },
+    {
+        vi: "Tôi biết rằng kỳ thi đang đến, và tôi cần chuẩn bị cho nó.",
+        hint: "Gợi ý: know, that, exam, and, prepare, for",
+        en: "I know that the exam is coming, and I need to prepare for it."
+    },
+    {
+        vi: "Chúng ta có một diễn đàn lớp mới, và nó rất dễ sử dụng.",
+        hint: "Gợi ý: have, new, class forum, and, user-friendly",
+        en: "We have a new class forum, and it is very user-friendly."
+    },
+    {
+        vi: "Tôi muốn tham gia câu lạc bộ cờ vua, nhưng tôi không thể tìm thấy phòng của họ.",
+        hint: "Gợi ý: join, chess club, but, cannot, find",
+        en: "I want to join the chess club, but I cannot find their room."
+    },
+    {
+        vi: "Năm nay có nhiều câu lạc bộ, và chúng mang lại cảm giác vui vẻ.",
+        hint: "Gợi ý: this year, there are, clubs, and, enjoyable",
+        en: "This year there are many clubs, and they are enjoyable."
+    },
+    {
+        vi: "Nhân tiện, đây là một nhóm mới, và bạn có thể chọn hoạt động của mình.",
+        hint: "Gợi ý: by the way, new, group, and, choose, activities",
+        en: "By the way, this is a new group, and you can choose your activities."
+    },
+    {
+        vi: "Họ sẽ cung cấp nhiều loại sách, vì vậy nó phù hợp với các sở thích khác nhau.",
+        hint: "Gợi ý: provide, a variety of, so, suit, different, interest",
+        en: "They will provide a variety of books, so it suits different interests."
+    },
+    {
+        vi: "Sẽ có một cuộc thi, và như thường lệ tất cả học sinh sẽ tham gia.",
+        hint: "Gợi ý: there will be, competition, and, as usual, all, student, join",
+        en: "There will be a competition, and as usual all students will join."
+    },
+    {
+        vi: "Tôi hy vọng bạn hoàn thành bài luận, vì thầy giáo sẽ nói về nó.",
+        hint: "Gợi ý: hope, finish, essay, because, tell",
+        en: "I hope you finish the essay, because the teacher will tell us about it."
+    },
+    {
+        vi: "Chúng tôi phải đối mặt với các vấn đề khác nhau, nhưng chúng tôi giữ bình tĩnh.",
+        hint: "Gợi ý: face, different, problems, but, stay calm",
+        en: "We face different problems, but we stay calm."
+    },
+    {
+        vi: "Hãy thảo luận trực tiếp, hoặc chúng ta có thể chia sẻ trên diễn đàn.",
+        hint: "Gợi ý: discuss, offline, or, share, forum",
+        en: "Let's discuss offline, or we can share on the forum."
+    },
+    {
+        vi: "Tôi thích câu lạc bộ mỹ thuật và thủ công, và tôi muốn làm một chiếc thiệp chúc mừng.",
+        hint: "Gợi ý: arts and crafts club, and, make, greeting card",
+        en: "I like the arts and crafts club, and I want to make a greeting card."
+    },
+    {
+        vi: "Cô ấy là một thành viên sáng tạo, và cô ấy viết những câu chuyện tuyệt vời.",
+        hint: "Gợi ý: member, creative, and, write, great, stories",
+        en: "She is a creative member, and she writes great stories."
+    },
+    {
+        vi: "Tôi cảm thấy rất tốt, vì tôi đã hoàn thành bài tập ở trường.",
+        hint: "Gợi ý: feel, very well, because, finish, schoolwork",
+        en: "I feel very well, because I finished my schoolwork."
+    },
+    {
+        vi: "Bởi vì bài tập ở trường, tôi không thể tham gia câu lạc bộ thể thao cuối tuần này.",
+        hint: "Gợi ý: because of, schoolwork, cannot, join, sports club, this weekend",
+        en: "Because of schoolwork, I cannot join the sports club this weekend."
+    },
+    {
+        vi: "Huấn luyện viên bảo chúng tôi uống nhiều nước, trong suốt các buổi luyện tập.",
+        hint: "Gợi ý: coach, tell, drink, plenty of, water, during, practice sessions",
+        en: "The coach tells us to drink plenty of water during practice sessions."
+    },
+    {
+        vi: "Chuyện gì đang xảy ra vậy, và bạn có nghe thấy âm thanh đó không?",
+        hint: "Gợi ý: what's going on, and, hear, that",
+        en: "What's going on, and do you hear that?"
+    },
+    {
+        vi: "Tôi quyết định sử dụng ứng dụng này, vì nó rất dễ sử dụng.",
+        hint: "Gợi ý: decide, use, because, user-friendly",
+        en: "I decide to use this app, because it is user-friendly."
+    },
+    {
+        vi: "Người lãnh đạo sẽ giúp chúng ta, vì vậy chúng ta có thể chuẩn bị tốt.",
+        hint: "Gợi ý: leader, will, help, us, so, prepare, well",
+        en: "The leader will help us, so we can prepare well."
+    },
+    {
+        vi: "Còn việc tham gia câu lạc bộ ngôn ngữ thì sao, và chúng ta có thể viết bài luận cùng nhau?",
+        hint: "Gợi ý: how about, join, language club, and, write, essay",
+        en: "How about joining the language club, and we can write essays together?"
+    },
+    {
+        vi: "Chúng tôi đề cập đến các loại hoạt động khác nhau, nhưng họ không quan tâm.",
+        hint: "Gợi ý: mention, different, types of, activities, but, not interest",
+        en: "We mention different types of activities, but they are not interested."
+    },
+    {
+        vi: "Tôi nghe nói rằng cuộc thi sẽ tuyệt vời, vì vậy hãy cùng tham gia.",
+        hint: "Gợi ý: hear, that, competition, will, great, so, let's, join",
+        en: "I hear that the competition will be great, so let's join."
+    },
+    {
+        vi: "Năm nay chúng tôi làm việc chăm chỉ, vì vậy chúng tôi hy vọng có kết quả tốt.",
+        hint: "Gợi ý: this year, work hard, so, hope, good results",
+        en: "This year we work hard, so we hope for good results."
+    }
+];
+
+// RENDER PHẦN 1 (TRẮC NGHIỆM)
+function renderMC() {
+    const container = document.getElementById('mc-container');
+    mcData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        let optionsHTML = '';
+        item.options.forEach(opt => {
+            optionsHTML += `<button class="mc-btn" onclick="checkMC(${index}, '${opt}', this)">${opt}</button>`;
+        });
+
+        card.innerHTML = `
+            <div class="question-number">Câu hỏi ${index + 1} / 10</div>
+            <div class="vietnamese-text">${item.q}</div>
+            <div class="mc-options" id="mc-options-${index}">${optionsHTML}</div>
+            <div class="mc-explanation" id="mc-exp-${index}"></div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function checkMC(qIndex, selectedOpt, btnElement) {
+    const item = mcData[qIndex];
+    const parentContainer = document.getElementById(`mc-options-${qIndex}`);
+    const buttons = parentContainer.getElementsByClassName('mc-btn');
+    const expDiv = document.getElementById(`mc-exp-${qIndex}`);
+
+    // Vô hiệu hóa toàn bộ nút sau khi chọn
+    for (let btn of buttons) {
+        btn.disabled = true;
+        if (btn.innerText === item.correct) {
+            btn.classList.add('correct-choice');
+        }
+    }
+
+    if (selectedOpt === item.correct) {
+        btnElement.classList.add('correct-choice');
+        expDiv.innerHTML = `<b class="correct">✓ Chính xác!</b><br><b>Bản dịch:</b> ${item.translation}<br><b>Giải thích:</b> ${item.explanation}`;
+    } else {
+        btnElement.classList.add('incorrect-choice');
+        expDiv.innerHTML = `<b class="incorrect">✗ Chưa chính xác.</b><br><b>Bản dịch:</b> ${item.translation}<br><b>Giải thích:</b> ${item.explanation}`;
+    }
+    expDiv.style.display = 'block';
+    updateMCScore();
+}
+
+function updateMCScore() {
+    let count = 0;
+    mcData.forEach((item, index) => {
+        const expDiv = document.getElementById(`mc-exp-${index}`);
+        if (expDiv.style.display === 'block' && expDiv.innerHTML.includes('Chính xác!')) {
+            count++;
+        }
+    });
+    // Đếm tổng số câu đã làm
+    let answered = 0;
+    mcData.forEach((item, index) => {
+        const expDiv = document.getElementById(`mc-exp-${index}`);
+        if (expDiv.style.display === 'block') answered++;
+    });
+    document.getElementById('mc-score').innerText = `Trắc nghiệm chính xác: ${count} / 10 câu (Đã làm: ${answered}/10)`;
+}
+
+// RENDER PHẦN 2 (DỊCH CÂU)
+function renderQuiz() {
+    const container = document.getElementById('quiz-container');
+    quizData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <div class="question-number">Câu ${index + 1} / 25</div>
+            <div class="vietnamese-text">${item.vi}</div>
+            <div class="hint">${item.hint}</div>
+            <input type="text" id="input-${index}" placeholder="Nhập câu tiếng Anh..." onkeydown="handleKeyPress(event, ${index})">
+            <div class="feedback" id="feedback-${index}"></div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function normalizeText(text) {
+    return text
+        .toLowerCase()
+        .replace(/[.,/#!$%^&*;:{}=\-_`~()?'"]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function checkAnswer(index) {
+    const inputEl = document.getElementById(`input-${index}`);
+    const feedbackEl = document.getElementById(`feedback-${index}`);
+    const userAns = normalizeText(inputEl.value);
+    const correctAns = normalizeText(quizData[index].en);
+
+    if (userAns === "") return;
+
+    if (userAns === correctAns) {
+        feedbackEl.className = "feedback correct";
+        feedbackEl.innerHTML = "✓ Chính xác!";
+    } else {
+        feedbackEl.className = "feedback incorrect";
+        feedbackEl.innerHTML = `✗ Chưa chính xác. <br><span class="correct-answer">Đáp án gợi ý: ${quizData[index].en}</span>`;
+    }
+    updateScore();
+}
+
+function handleKeyPress(event, index) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        checkAnswer(index);
+    }
+}
+
+function updateScore() {
+    let count = 0;
+    quizData.forEach((item, index) => {
+        const feedbackEl = document.getElementById(`feedback-${index}`);
+        if (feedbackEl.classList.contains('correct')) {
+            count++;
+        }
+    });
+    document.getElementById('score').innerText = `Dịch câu chính xác: ${count} / 25 câu`;
+}
+
+window.onload = function() {
+    renderMC();
+    renderQuiz();
+};
+</script>
+
+</body>
+</html>
