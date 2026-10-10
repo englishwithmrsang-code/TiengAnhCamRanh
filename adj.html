@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kéo Thả Từ Vựng: Tính Từ & Trạng Từ (50 Từ)</title>
+  <title>Bài Tập Kéo Thả Cố Định: Tính Từ & Trạng Từ (50 Từ)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #334155; }
-    .draggable-word { cursor: grab; user-select: none; transition: all 0.2s ease; }
+    .draggable-word { cursor: grab; user-select: none; transition: background-color 0.15s ease, border-color 0.15s ease; }
     .draggable-word:active { cursor: grabbing; }
-    .drop-zone { min-height: 240px; transition: background-color 0.2s ease; }
+    .drop-zone { min-height: 220px; transition: background-color 0.2s ease; }
     .drop-zone.drag-over { background-color: #eff6ff; border-color: #3b82f6; }
   </style>
 </head>
@@ -23,8 +23,8 @@
       <div class="flex items-center gap-3">
         <div class="w-9 h-9 rounded-xl bg-blue-600 text-white font-black flex items-center justify-center text-sm">DD</div>
         <div>
-          <span class="text-sm font-extrabold text-slate-900 tracking-tight block">Bài Tập Kéo Thả (Drag & Drop)</span>
-          <span class="text-[10px] text-slate-500 font-bold uppercase block">Phân loại: Tính từ & Trạng từ (50 từ)</span>
+          <span class="text-sm font-extrabold text-slate-900 tracking-tight block">Phân Loại Từ Vựng Cố Định</span>
+          <span class="text-[10px] text-slate-500 font-bold uppercase block">Tính từ & Trạng từ thể cách (50 từ)</span>
         </div>
       </div>
       <div class="text-xs font-bold bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full border border-blue-100">
@@ -38,29 +38,29 @@
     
     <!-- HƯỚNG DẪN & QUY TẮC -->
     <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
-      <h1 class="text-lg sm:text-xl font-black text-slate-900">Phân Loại Tính Từ & Trạng Từ</h1>
+      <h1 class="text-lg sm:text-xl font-black text-slate-900">Bài Tập Kéo Thả Từ Vựng</h1>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
         <div class="p-3 bg-blue-50/60 border border-blue-100 rounded-xl space-y-1">
           <strong class="text-blue-700 block font-extrabold"><i class="fa-solid fa-book mr-1"></i> Nhóm Tính Từ (Adjectives):</strong>
-          <p class="text-slate-600">Chỉ tính chất người/vật (Đứng sau tobe hoặc đứng trước danh từ).</p>
+          <p class="text-slate-600">Chỉ tính chất người/vật (Đứng sau tobe hoặc trước danh từ).</p>
         </div>
         <div class="p-3 bg-amber-50/60 border border-amber-100 rounded-xl space-y-1">
           <strong class="text-amber-700 block font-extrabold"><i class="fa-solid fa-bolt mr-1"></i> Nhóm Trạng Từ (Adverbs):</strong>
-          <p class="text-slate-600">Chỉ tính chất hành động/thể cách (Thường cấu tạo bằng Tính từ + <code class="bg-amber-100 px-1 rounded font-bold">-ly</code>).</p>
+          <p class="text-slate-600">Chỉ tính chất hành động (Tính từ + <code class="bg-amber-100 px-1 rounded font-bold">-ly</code>).</p>
         </div>
       </div>
     </div>
 
-    <!-- KHU VỰC CHỨA TỪ (WORD POOL) -->
+    <!-- KHU VỰC KHO TỪ VỰNG CỐ ĐỊNH -->
     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
       <div class="flex justify-between items-center">
-        <h3 class="font-black text-xs uppercase tracking-wider text-slate-500">Kho từ vựng (Kéo từ xuống đúng nhóm bên dưới):</h3>
+        <h3 class="font-black text-xs uppercase tracking-wider text-slate-500">Kho từ vựng cố định (Kéo từ xuống đúng nhóm):</h3>
         <button onclick="resetGame()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs rounded-xl transition">
           <i class="fa-solid fa-rotate-right mr-1"></i> Làm lại từ đầu
         </button>
       </div>
       <div id="word-pool" class="flex flex-wrap gap-2.5 min-h-[160px] p-4 bg-slate-50 rounded-xl border border-dashed border-slate-300">
-        <!-- Render từ động bằng JS -->
+        <!-- Render từ cố định bằng JS -->
       </div>
     </div>
 
@@ -93,10 +93,10 @@
 
   <!-- FOOTER -->
   <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-400">
-    <p>© 2026 • Bài tập tương tác kéo thả từ vựng tiếng Anh.</p>
+    <p>© 2026 • Bài tập tương tác kéo thả từ vựng cố định.</p>
   </footer>
 
-  <!-- SCRIPT KÉO THẢ (DRAG AND DROP) -->
+  <!-- SCRIPT KÉO THẢ CỐ ĐỊNH -->
   <script>
     const allWords = [
       // Tính từ (Adjectives)
