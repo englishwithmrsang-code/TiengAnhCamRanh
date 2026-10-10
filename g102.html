@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English with Mr. Sang - Bài Tập Đọc Hiểu & Trắc Nghiệm</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .highlight-keyword {
+            background-color: #fef08a; /* Yellow highlight */
+            font-weight: 600;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        .option-btn {
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans flex flex-col h-screen overflow-hidden">
+
+    <!-- Header -->
+    <header class="bg-indigo-700 text-white shadow-md py-3 px-6 flex justify-between items-center z-10">
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-graduation-cap text-2xl"></i>
+            <span class="text-xl font-bold">Học tiếng Anh với Mr. Sang</span>
+        </div>
+        <div class="flex items-center space-x-4 text-sm font-medium">
+            <span><i class="fa-solid fa-phone mr-1"></i> Hotline: 0399640763</span>
+            <span class="bg-indigo-600 px-3 py-1 rounded-full"><i class="fa-solid fa-user-tie mr-1"></i> IELTS Portal</span>
+        </div>
+    </header>
+
+    <!-- Tab Navigation Bar -->
+    <nav class="bg-white border-b border-slate-200 flex px-6 space-x-4 shadow-sm">
+        <button onclick="switchTab(1)" id="btn-tab-1" class="tab-btn py-3 px-5 border-b-2 border-indigo-600 text-indigo-600 font-semibold text-sm transition-all focus:outline-none">
+            <i class="fa-solid fa-book-open mr-2"></i> Bài Đọc 1 (Cloze Test)
+        </button>
+        <button onclick="switchTab(2)" id="btn-tab-2" class="tab-btn py-3 px-5 border-b-2 border-transparent text-slate-600 hover:text-indigo-600 font-semibold text-sm transition-all focus:outline-none">
+            <i class="fa-solid fa-book-open mr-2"></i> Bài Đọc 2 (Reading Comprehension)
+        </button>
+        <button onclick="switchTab(3)" id="btn-tab-3" class="tab-btn py-3 px-5 border-b-2 border-transparent text-slate-600 hover:text-indigo-600 font-semibold text-sm transition-all focus:outline-none">
+            <i class="fa-solid fa-book-open mr-2"></i> Bài Đọc 3 & Câu Hỏi Khác
+        </button>
+    </nav>
+
+    <!-- Main Split Screen Content -->
+    <main class="flex flex-1 overflow-hidden">
+        
+        <!-- ================= TAB 1 ================= -->
+        <div id="content-tab-1" class="tab-content flex w-full h-full">
+            <!-- Left Pane: Reading Passage -->
+            <div class="w-1/2 p-6 overflow-y-auto border-r border-slate-200 bg-white">
+                <h2 class="text-lg font-bold text-indigo-700 mb-4 flex items-center"><i class="fa-solid fa-file-lines mr-2"></i> Reading Passage 1</h2>
+                <p class="text-xs text-slate-400 mb-4">Source: https://www.greenhive.io/blog/green-living</p>
+                <div class="space-y-4 text-justify leading-relaxed text-slate-700">
+                    <p><strong>Read the following passage and mark the letter A, B, C, or D to indicate the correct word or phrase that best fits each of the numbered blanks.</strong></p>
+                    <p>The world is experiencing the negative impacts of climate change, largely due to our reliance <span id="p1-q29" class="transition-colors duration-300 font-semibold text-indigo-600">(29)</span> fossil fuels and unsustainable habits. Green living offers a path to reduce these effects by adopting a more sustainable lifestyle <span id="p1-q30" class="transition-colors duration-300 font-semibold text-indigo-600">(30)</span> is a necessary practice to ensure the health of our planet and future generations.</p>
+                    <p>As you walkthrough the rooms of your home or visit your local market, you may notice <span id="p1-q31" class="transition-colors duration-300 font-semibold text-indigo-600">(31)</span> increasing number of eco-friendly <span id="p1-q32" class="transition-colors duration-300 font-semibold text-indigo-600">(32)</span> to traditional products and practices. From planting your own food in your yard to discovering the benefits of electric cars, there are a variety of ways for you to have a greener, more sustainable way of living.</p>
+                    <p>Starting green living begins with becoming aware of your consumption habits, from the food you eat to the clothes you wear, and <span id="p1-q33" class="transition-colors duration-300 font-semibold text-indigo-600">(33)</span> a conscious effort to reduce waste and choose eco-friendly options.</p>
+                    <p>Joining a community of individuals who share the same interests can provide inspiration, support, and practical tips for making sustainable choices.</p>
+                </div>
+            </div>
+            <!-- Right Pane: Questions & Explanations -->
+            <div class="w-1/2 p-6 overflow-y-auto bg-slate-50 space-y-6">
+                <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-list-check mr-2"></i> Questions & Answer Explanations</h2>
+                
+                <!-- Question 29 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q29">
+                    <p class="font-semibold text-slate-800 mb-2">Question 29:</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <button onclick="checkAnswer('q29', 'A', 'B', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="A">A. in</button>
+                        <button onclick="checkAnswer('q29', 'B', 'B', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="B">B. on</button>
+                        <button onclick="checkAnswer('q29', 'C', 'B', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="C">C. from</button>
+                        <button onclick="checkAnswer('q29', 'D', 'B', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="D">D. at</button>
+                    </div>
+                    <div id="ans-q29" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: B. on</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Ta có cấu trúc cụm từ: <em>reliance on something</em> (sự phụ thuộc vào cái gì).</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Thế giới đang trải qua những tác động tiêu cực của biến đổi khí hậu, phần lớn là do sự phụ thuộc của chúng ta vào nhiên liệu hóa thạch và các thói quen không bền vững.</p>
+                    </div>
+                </div>
+
+                <!-- Question 30 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q30">
+                    <p class="font-semibold text-slate-800 mb-2">Question 30:</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <button onclick="checkAnswer('q30', 'A', 'C', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="A">A. when</button>
+                        <button onclick="checkAnswer('q30', 'B', 'C', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="B">B. who</button>
+                        <button onclick="checkAnswer('q30', 'C', 'C', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="C">C. which</button>
+                        <button onclick="checkAnswer('q30', 'D', 'C', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="D">D. whom</button>
+                    </div>
+                    <div id="ans-q30" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: C. which</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Đại từ quan hệ <em>which</em> thay thế cho danh từ chỉ vật đứng trước ("lifestyle") và làm chủ ngữ cho động từ "is".</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Lối sống xanh mang đến con đường giảm thiểu các tác động này bằng cách áp dụng lối sống bền vững hơn — điều mà là một thực tiễn cần thiết để đảm bảo sức khỏe...</p>
+                    </div>
+                </div>
+
+                <!-- Question 31 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q31">
+                    <p class="font-semibold text-slate-800 mb-2">Question 31:</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <button onclick="checkAnswer('q31', 'A', 'A', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="A">A. an</button>
+                        <button onclick="checkAnswer('q31', 'B', 'A', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="B">B. the</button>
+                        <button onclick="checkAnswer('q31', 'C', 'A', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="C">C. a</button>
+                        <button onclick="checkAnswer('q31', 'D', 'A', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="D">D. zero article</button>
+                    </div>
+                    <div id="ans-q31" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: A. an</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Cấu trúc <em>an increasing number of + danh từ đếm được số nhiều</em> (ngày càng nhiều...). Vì từ "increasing" bắt đầu bằng nguyên âm /ɪ/ nên dùng mạo từ "an".</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Bạn có thể nhận thấy ngày càng có nhiều sản phẩm và thực tiễn thân thiện với môi trường...</p>
+                    </div>
+                </div>
+
+                <!-- Question 32 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q32">
+                    <p class="font-semibold text-slate-800 mb-2">Question 32:</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <button onclick="checkAnswer('q32', 'A', 'D', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="A">A. living</button>
+                        <button onclick="checkAnswer('q32', 'B', 'D', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="B">B. energy</button>
+                        <button onclick="checkAnswer('q32', 'C', 'D', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="C">C. supplies</button>
+                        <button onclick="checkAnswer('q32', 'D', 'D', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="D">D. alternatives</button>
+                    </div>
+                    <div id="ans-q32" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: D. alternatives</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Cụm từ <em>eco-friendly alternatives to traditional products</em> (các giải pháp thay thế thân thiện với môi trường cho các sản phẩm truyền thống).</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> ...ngày càng có nhiều sự thay thế thân thiện với môi trường đối với các sản phẩm và phương pháp truyền thống.</p>
+                    </div>
+                </div>
+
+                <!-- Question 33 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q33">
+                    <p class="font-semibold text-slate-800 mb-2">Question 33:</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <button onclick="checkAnswer('q33', 'A', 'C', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="A">A. getting</button>
+                        <button onclick="checkAnswer('q33', 'B', 'C', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="B">B. taking</button>
+                        <button onclick="checkAnswer('q33', 'C', 'C', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="C">C. making</button>
+                        <button onclick="checkAnswer('q33', 'D', 'C', [])" class="option-btn text-left p-2 rounded border border-slate-200 hover:bg-slate-100" data-opt="D">D. doing</button>
+                    </div>
+                    <div id="ans-q33" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: C. making</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Cố định cụm từ: <em>make an effort</em> (nỗ lực làm gì).</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> ...và nỗ lực có ý thức để giảm thiểu rác thải và lựa chọn các phương án thân thiện với môi trường.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= TAB 2 ================= -->
+        <div id="content-tab-2" class="tab-content hidden flex w-full h-full">
+            <!-- Left Pane: Reading Passage -->
+            <div class="w-1/2 p-6 overflow-y-auto border-r border-slate-200 bg-white">
+                <h2 class="text-lg font-bold text-indigo-700 mb-4 flex items-center"><i class="fa-solid fa-file-lines mr-2"></i> Reading Passage 2</h2>
+                <p class="text-xs text-slate-400 mb-4">Adapted from: https://planetrenewed.com/why-is-green-living-so-important-we-find-out</p>
+                <div class="space-y-4 text-justify leading-relaxed text-slate-700">
+                    <p>Many people go through life only thinking about their own well-being and that of those around them. In reality, the well-being of the environment is just as important in certain ways. Without a healthy and sustainable environment, their own health and ability to leave behind a sustainable planet to those who live after them is negatively affected. Therefore, two main environmental benefits can be realised with greener living.</p>
+                    
+                    <p>Firstly, people can <span id="kw-34-37-1">conserve natural resources</span>. The natural resources that man has been enjoying are beginning to disappear. Due to population growth, it is estimated that the use of natural resources has more than tripled since 1970. At that rate, it is not difficult to see how these same resources will eventually become <span id="kw-35" class="transition-all duration-300">depleted</span>. It is important to conserve those precious resources so that others after this generation can enjoy the same quality of living on this planet.</p>
+                    
+                    <p>Secondly, people can reduce the harmful effects of climate change. Primarily due to human's reliance on fossil fuels over the years, climate change is a real concern. People continue to release carbon dioxide into the atmosphere, further polluting the air. <span id="kw-36" class="transition-all duration-300">This</span> is leading to dramatic changes in temperatures that need to be stopped. Greener living aims to do exactly that. For every person who makes an effort to reduce his or her carbon footprint in the world, climate change can begin to become less of a concern over time.</p>
+                </div>
+            </div>
+            <!-- Right Pane: Questions & Interactive Answers -->
+            <div class="w-1/2 p-6 overflow-y-auto bg-slate-50 space-y-6">
+                <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-list-check mr-2"></i> Questions & Keyword Highlights</h2>
+
+                <!-- Question 34 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q34">
+                    <p class="font-semibold text-slate-800 mb-2">Question 34: Which of the following can be the best title for the passage?</p>
+                    <div class="space-y-1 text-sm mb-3">
+                        <button onclick="checkAnswer('q34', 'A', 'B', ['kw-34-37-1'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="A">A. Natural Resources</button>
+                        <button onclick="checkAnswer('q34', 'B', 'B', ['kw-34-37-1'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="B">B. The Benefits of Green Living</button>
+                        <button onclick="checkAnswer('q34', 'C', 'B', ['kw-34-37-1'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="C">C. The Effects of Climate Change</button>
+                        <button onclick="checkAnswer('q34', 'D', 'B', ['kw-34-37-1'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="D">D. A Healthy Environment</button>
+                    </div>
+                    <div id="ans-q34" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: B. The Benefits of Green Living</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Đoạn 1 nêu rõ "two main environmental benefits can be realised with greener living", và các đoạn sau lần lượt phân tích từng lợi ích. Do đó tiêu đề phù hợp nhất là Lợi ích của lối sống xanh.</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Đâu là tiêu đề phù hợp nhất cho đoạn văn? - Các lợi ích của lối sống xanh.</p>
+                    </div>
+                </div>
+
+                <!-- Question 35 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q35">
+                    <p class="font-semibold text-slate-800 mb-2">Question 35: The word “depleted” in paragraph 2 is CLOSEST in meaning to _____.</p>
+                    <div class="space-y-1 text-sm mb-3">
+                        <button onclick="checkAnswer('q35', 'A', 'A', ['kw-35'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="A">A. run out</button>
+                        <button onclick="checkAnswer('q35', 'B', 'A', ['kw-35'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="B">B. picked up</button>
+                        <button onclick="checkAnswer('q35', 'C', 'A', ['kw-35'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="C">C. filled in</button>
+                        <button onclick="checkAnswer('q35', 'D', 'A', ['kw-35'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="D">D. searched for</button>
+                    </div>
+                    <div id="ans-q35" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: A. run out (cạn kiệt)</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> "Depleted" mang nghĩa cạn kiệt, đồng nghĩa với "run out". Các từ khác: picked up (nhặt lên/phục hồi), filled in (điền vào), searched for (tìm kiếm).</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Từ "depleted" (cạn kiệt) ở đoạn 2 gần nghĩa nhất với: cạn kiệt / hết.</p>
+                    </div>
+                </div>
+
+                <!-- Question 36 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q36">
+                    <p class="font-semibold text-slate-800 mb-2">Question 36: The word “This” in paragraph 3 refers to _____.</p>
+                    <div class="space-y-1 text-sm mb-3">
+                        <button onclick="checkAnswer('q36', 'A', 'A', ['kw-36'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="A">A. the activity of releasing carbon dioxide and causing air pollution</button>
+                        <button onclick="checkAnswer('q36', 'B', 'A', ['kw-36'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="B">B. the harmful effect of climate change</button>
+                        <button onclick="checkAnswer('q36', 'C', 'A', ['kw-36'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="C">C. the reliance on fossil fuels</button>
+                        <button onclick="checkAnswer('q36', 'D', 'A', ['kw-36'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="D">D. green living</button>
+                    </div>
+                    <div id="ans-q36" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: A. the activity of releasing carbon dioxide and causing air pollution</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Câu trước nêu: "People continue to release carbon dioxide into the atmosphere, further polluting the air. This is leading to..." -> "This" quy chiếu về việc thải khí CO2 và làm ô nhiễm không khí.</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Từ "This" ở đoạn 3 chỉ việc thải khí carbon dioxide và gây ô nhiễm không khí.</p>
+                    </div>
+                </div>
+
+                <!-- Question 37 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q37">
+                    <p class="font-semibold text-slate-800 mb-2">Question 37: According to paragraph 2, natural resources _____.</p>
+                    <div class="space-y-1 text-sm mb-3">
+                        <button onclick="checkAnswer('q37', 'A', 'C', ['kw-34-37-1'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="A">A. are not precious to human on Earth</button>
+                        <button onclick="checkAnswer('q37', 'B', 'C', ['kw-34-37-1'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="B">B. are hard to be conserved</button>
+                        <button onclick="checkAnswer('q37', 'C', 'C', ['kw-34-37-1'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="C">C. has been used more and more since 1970</button>
+                        <button onclick="checkAnswer('q37', 'D', 'C', ['kw-34-37-1'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="D">D. can not disappear</button>
+                    </div>
+                    <div id="ans-q37" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: C. has been used more and more since 1970</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Dựa vào đoạn 2: "it is estimated that the use of natural resources has more than tripled since 1970" (được sử dụng ngày càng nhiều hơn kể từ năm 1970).</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Theo đoạn 2, tài nguyên thiên nhiên đã được sử dụng ngày càng nhiều kể từ năm 1970.</p>
+                    </div>
+                </div>
+
+                <!-- Question 38 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q38">
+                    <p class="font-semibold text-slate-800 mb-2">Question 38: Which of the following is NOT TRUE according to the passage?</p>
+                    <div class="space-y-1 text-sm mb-3">
+                        <button onclick="checkAnswer('q38', 'A', 'D', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="A">A. The well-being of the environment is as important as that of each person</button>
+                        <button onclick="checkAnswer('q38', 'B', 'D', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="B">B. Climate change is a problem because of the reliance on fossil fuels</button>
+                        <button onclick="checkAnswer('q38', 'C', 'D', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="C">C. Carbon dioxide contributes to air pollution</button>
+                        <button onclick="checkAnswer('q38', 'D', 'D', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="D">D. Climate change can only be stopped by actions of governments</button>
+                    </div>
+                    <div id="ans-q38" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: D. Climate change can only be stopped by actions of governments</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Bài đọc đề cập đến việc mỗi cá nhân nỗ lực giảm dấu chân carbon ("For every person who makes an effort..."), không có thông tin nói rằng biến đổi khí hậu *chỉ* có thể dừng lại bởi hành động của chính phủ.</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Phát biểu nào sau đây KHÔNG ĐÚNG theo đoạn văn? - Biến đổi khí hậu chỉ có thể bị ngăn chặn bởi hành động của các chính phủ.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= TAB 3 ================= -->
+        <div id="content-tab-3" class="tab-content hidden flex w-full h-full">
+            <!-- Left Pane: Reading Passage -->
+            <div class="w-1/2 p-6 overflow-y-auto border-r border-slate-200 bg-white">
+                <h2 class="text-lg font-bold text-indigo-700 mb-4 flex items-center"><i class="fa-solid fa-file-lines mr-2"></i> Reading Passage 3</h2>
+                <p class="text-xs text-slate-400 mb-4">Adapted from: https://www.greenjournal.co.uk/2021/03/how-green-living-is-so-important-in-our-lives/</p>
+                <div class="space-y-4 text-justify leading-relaxed text-slate-700">
+                    <p>In a statistical report released by WHO, around 13 million deaths happen each year due to environmental issues. To make it worse, multiple diseases are a result of surviving in a low-quality environment. Lung diseases, asthma, stroke, issues in the heart are some of the examples. Green living such as making environment-friendly and sustainable food choices, energy conservation can help reduce pollution to some extent.</p>
+                    
+                    <p>Firstly, the consumption of healthier foods can contribute to reducing pollution. People can start by consuming eco-friendly foods by buying from local farmers, buying organic and seasonal foods, etc. <span id="kw-41" class="transition-all duration-300">They</span> are made of fewer pesticides that go into human bodies. Too much exposure to pesticides harms the natural hormones present in the human body and as a result, people face many health issues like lack of immunity, hormonal changes and also cancer.</p>
+                    
+                    <p>Secondly, through energy conservation, people are saving both natural resources as well as money. The light bulbs and other electrical appliances that are available in the market produce 2.3 billion tons of carbon dioxide, which pollutes the air <span id="kw-40" class="transition-all duration-300">severely</span>. Today there are LED bulbs available in the market that are eco-friendly and also save energy. Using such energy-efficient appliances reduces up to 30% of the annual electricity bill.</p>
+                </div>
+            </div>
+            <!-- Right Pane: Questions & Interactive Answers -->
+            <div class="w-1/2 p-6 overflow-y-auto bg-slate-50 space-y-6">
+                <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-list-check mr-2"></i> Questions & Keyword Highlights</h2>
+
+                <!-- Question 39 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q39">
+                    <p class="font-semibold text-slate-800 mb-2">Question 39: What is the main idea of the passage?</p>
+                    <div class="space-y-1 text-sm mb-3">
+                        <button onclick="checkAnswer('q39', 'A', 'B', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="A">A. The effects of environment</button>
+                        <button onclick="checkAnswer('q39', 'B', 'B', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="B">B. The benefits of green living</button>
+                        <button onclick="checkAnswer('q39', 'C', 'B', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="C">C. The consumption of healthier foods</button>
+                        <button onclick="checkAnswer('q39', 'D', 'B', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="D">D. Low-quality environment and diseases</button>
+                    </div>
+                    <div id="ans-q39" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: B. The benefits of green living</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Bài viết đề cập đến việc sống xanh (lựa chọn thực phẩm thân thiện môi trường, tiết kiệm năng lượng) giúp giảm ô nhiễm và mang lại lợi ích sức khỏe.</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Ý chính của đoạn văn là gì? - Lợi ích của lối sống xanh.</p>
+                    </div>
+                </div>
+
+                <!-- Question 40 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q40">
+                    <p class="font-semibold text-slate-800 mb-2">Question 40: The word “severely” in paragraph 3 is CLOSEST in meaning to _____.</p>
+                    <div class="space-y-1 text-sm mb-3">
+                        <button onclick="checkAnswer('q40', 'A', 'A', ['kw-40'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="A">A. seriously</button>
+                        <button onclick="checkAnswer('q40', 'B', 'A', ['kw-40'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="B">B. trivially</button>
+                        <button onclick="checkAnswer('q40', 'C', 'A', ['kw-40'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="C">C. moderately</button>
+                        <button onclick="checkAnswer('q40', 'D', 'A', ['kw-40'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="D">D. personally</button>
+                    </div>
+                    <div id="ans-q40" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: A. seriously (trầm trọng, nghiêm trọng)</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> "Severely" = nghiêm trọng, đồng nghĩa với "seriously".</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Từ "severely" ở đoạn 3 gần nghĩa nhất với: một cách nghiêm trọng.</p>
+                    </div>
+                </div>
+
+                <!-- Question 41 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q41">
+                    <p class="font-semibold text-slate-800 mb-2">Question 41: The word “They” in paragraph 2 refers to _____.</p>
+                    <div class="space-y-1 text-sm mb-3">
+                        <button onclick="checkAnswer('q41', 'A', 'C', ['kw-41'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="A">A. local farmers</button>
+                        <button onclick="checkAnswer('q41', 'B', 'C', ['kw-41'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="B">B. people</button>
+                        <button onclick="checkAnswer('q41', 'C', 'C', ['kw-41'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="C">C. eco-friendly foods</button>
+                        <button onclick="checkAnswer('q41', 'D', 'C', ['kw-41'])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="D">D. health issues</button>
+                    </div>
+                    <div id="ans-q41" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: C. eco-friendly foods</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Câu trước: "...consuming eco-friendly foods by buying from local farmers... They are made of fewer pesticides..." -> "They" thay thế cho "eco-friendly foods".</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Từ "They" ở đoạn 2 chỉ thực phẩm thân thiện với môi trường.</p>
+                    </div>
+                </div>
+
+                <!-- Question 42 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q42">
+                    <p class="font-semibold text-slate-800 mb-2">Question 42: According to paragraph 1, which disease cannot be caused by environmental issues?</p>
+                    <div class="space-y-1 text-sm mb-3">
+                        <button onclick="checkAnswer('q42', 'A', 'B', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="A">A. asthma</button>
+                        <button onclick="checkAnswer('q42', 'B', 'B', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="B">B. fevers</button>
+                        <button onclick="checkAnswer('q42', 'C', 'B', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="C">C. heart diseases</button>
+                        <button onclick="checkAnswer('q42', 'D', 'B', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="D">D. lung diseases</button>
+                    </div>
+                    <div id="ans-q42" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: B. fevers</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Đoạn 1 liệt kê các bệnh: "Lung diseases, asthma, stroke, issues in the heart", không nhắc đến "fevers" (sốt).</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Theo đoạn 1, căn bệnh nào không do vấn đề môi trường gây ra? - Sốt (fevers).</p>
+                    </div>
+                </div>
+
+                <!-- Question 43 -->
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200" data-qid="q43">
+                    <p class="font-semibold text-slate-800 mb-2">Question 43: According to paragraph 2, why should people buy eco-friendly foods?</p>
+                    <div class="space-y-1 text-sm mb-3">
+                        <button onclick="checkAnswer('q43', 'A', 'A', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="A">A. because they contain fewer pesticides.</button>
+                        <button onclick="checkAnswer('q43', 'B', 'A', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="B">B. because they are cheaper.</button>
+                        <button onclick="checkAnswer('q43', 'C', 'A', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="C">C. because they can encourage hormonal changes.</button>
+                        <button onclick="checkAnswer('q43', 'D', 'A', [])" class="option-btn w-full text-left p-2 rounded border border-slate-200 hover:bg-slate-100 block" data-opt="D">D. because they can cure cancer.</button>
+                    </div>
+                    <div id="ans-q43" class="hidden mt-3 pt-3 border-t border-slate-100 text-sm space-y-2">
+                        <p class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Đáp án đúng: A. because they contain fewer pesticides.</p>
+                        <p class="text-slate-600"><strong>Giải thích:</strong> Dựa vào đoạn 2: "They are made of fewer pesticides that go into human bodies."</p>
+                        <p class="text-slate-500 italic"><strong>Dịch nghĩa:</strong> Vì chúng chứa ít thuốc trừ sâu hơn.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function switchTab(tabNumber) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            // Remove active states from buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-indigo-600', 'text-indigo-600');
+                btn.classList.add('border-transparent', 'text-slate-600');
+            });
+
+            // Show target tab content
+            document.getElementById('content-tab-' + tabNumber).classList.remove('hidden');
+            // Activate target button
+            const activeBtn = document.getElementById('btn-tab-' + tabNumber);
+            activeBtn.classList.remove('border-transparent', 'text-slate-600');
+            activeBtn.classList.add('border-indigo-600', 'text-indigo-600');
+        }
+
+        // Handle checking answers when clicking A, B, C, D
+        function checkAnswer(questionId, selectedOpt, correctOpt, keywordIds) {
+            const container = document.querySelector(`[data-qid="${questionId}"]`);
+            const buttons = container.querySelectorAll('.option-btn');
+            const ansDiv = document.getElementById('ans-' + questionId);
+
+            // Reset styling on all options of this question
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-emerald-100', 'border-emerald-500', 'text-emerald-800', 'bg-rose-100', 'border-rose-400', 'text-rose-800');
+                btn.classList.add('border-slate-200', 'hover:bg-slate-100');
+            });
+
+            // Find clicked button
+            const clickedBtn = container.querySelector(`[data-opt="${selectedOpt}"]`);
+
+            if (selectedOpt === correctOpt) {
+                // Correct choice
+                clickedBtn.classList.remove('border-slate-200', 'hover:bg-slate-100');
+                clickedBtn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800', 'font-semibold');
+
+                // Show explanation
+                ansDiv.classList.remove('hidden');
+
+                // Highlight keywords if any
+                keywordIds.forEach(id => {
+                    const kwEl = document.getElementById(id);
+                    if (kwEl) {
+                        kwEl.classList.add('highlight-keyword');
+                    }
+                });
+            } else {
+                // Incorrect choice
+                clickedBtn.classList.remove('border-slate-200', 'hover:bg-slate-100');
+                clickedBtn.classList.add('bg-rose-100', 'border-rose-400', 'text-rose-800');
+            }
+        }
+    </script>
+</body>
+</html>
