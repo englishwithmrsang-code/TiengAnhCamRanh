@@ -86,7 +86,7 @@
             background: var(--card-bg);
             border-radius: 16px;
             padding: 28px;
-            margin-bottom: 24px;
+            margin-bottom: 30px;
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
@@ -99,6 +99,18 @@
             padding-bottom: 12px;
         }
 
+        /* Thanh nghe tự động trôi theo màn hình khi học sinh học đến bài đó */
+        .audio-player-wrapper {
+            position: sticky;
+            top: 70px;
+            z-index: 900;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            padding: 10px 0;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
         /* Custom Audio Player Controls */
         .audio-player {
             background: var(--primary-light);
@@ -107,8 +119,8 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 20px;
             border: 1px solid #dbeafe;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
         }
 
         .play-btn {
@@ -301,7 +313,7 @@
 <div class="score-tracker-bar">
     <div class="score-tracker-title">Total Progress</div>
     <div class="score-badge">
-        Correct Answers: <span id="global-correct" class="score-value">0</span> / <span id="global-total">33</span>
+        Correct Answers: <span id="global-correct" class="score-value">0</span> / <span id="global-total">36</span>
         (<span id="global-percentage" class="percentage-value">0%</span>)
     </div>
 </div>
@@ -313,14 +325,16 @@
     <div class="card">
         <h2>Listening 1: Katy’s Holidays</h2>
 
-        <!-- Audio Player Controls -->
-        <div class="audio-player">
-            <audio id="audio1" src="listening-for-numbers-and-missing-words-7.mp3"></audio>
-            <button class="play-btn" onclick="togglePlay('audio1', this)">▶</button>
-            <div class="timeline-container">
-                <input type="range" class="timeline" id="time1" value="0" min="0" step="0.1" oninput="seekAudio('audio1', this.value)">
+        <!-- Thanh nghe dính theo màn hình riêng cho Bài 1 -->
+        <div class="audio-player-wrapper">
+            <div class="audio-player">
+                <audio id="audio1" src="listening-for-numbers-and-missing-words-7.mp3"></audio>
+                <button class="play-btn" onclick="togglePlay('audio1', this)">▶</button>
+                <div class="timeline-container">
+                    <input type="range" class="timeline" id="time1" value="0" min="0" step="0.1" oninput="seekAudio('audio1', this.value)">
+                </div>
+                <div class="time-display" id="clock1">00:00 / 00:00</div>
             </div>
-            <div class="time-display" id="clock1">00:00 / 00:00</div>
         </div>
 
         <p class="instruction">Listen and write 1–2 words or numbers for each answer.</p>
@@ -328,7 +342,7 @@
         <!-- Main Exercise -->
         <div id="ex1-main">
             <ul class="question-list">
-                <li>Needs new: <strong>clothes</strong> <em>(Example)</em></li>
+                <li><strong>Example:</strong> Needs new: <span class="input-wrapper"><input type="text" data-answer="clothes" data-display="clothes"></span></li>
                 <li><strong>1.</strong> Where? <span class="input-wrapper"><input type="text" data-answer="island|an island|a beautiful island|on a beautiful island" data-display="a beautiful island"></span></li>
                 <li><strong>2.</strong> Get there: <span class="input-wrapper"><input type="text" data-answer="plane|by plane" data-display="by plane"></span></li>
                 <li><strong>3.</strong> Who with: <span class="input-wrapper"><input type="text" data-answer="cousins|her cousins" data-display="her cousins"></span></li>
@@ -376,14 +390,16 @@
     <div class="card">
         <h2>Listening 2: A Famous Actress</h2>
 
-        <!-- Audio Player Controls -->
-        <div class="audio-player">
-            <audio id="audio2" src="listening-for-numbers-and-missing-words-8.mp3"></audio>
-            <button class="play-btn" onclick="togglePlay('audio2', this)">▶</button>
-            <div class="timeline-container">
-                <input type="range" class="timeline" id="time2" value="0" min="0" step="0.1" oninput="seekAudio('audio2', this.value)">
+        <!-- Thanh nghe dính theo màn hình riêng cho Bài 2 -->
+        <div class="audio-player-wrapper">
+            <div class="audio-player">
+                <audio id="audio2" src="listening-for-numbers-and-missing-words-8.mp3"></audio>
+                <button class="play-btn" onclick="togglePlay('audio2', this)">▶</button>
+                <div class="timeline-container">
+                    <input type="range" class="timeline" id="time2" value="0" min="0" step="0.1" oninput="seekAudio('audio2', this.value)">
+                </div>
+                <div class="time-display" id="clock2">00:00 / 00:00</div>
             </div>
-            <div class="time-display" id="clock2">00:00 / 00:00</div>
         </div>
 
         <p class="instruction">Listen and write 1–2 words or numbers for each answer.</p>
@@ -391,7 +407,7 @@
         <!-- Main Exercise -->
         <div id="ex2-main">
             <ul class="question-list">
-                <li>Name: Betty <strong>Fountain</strong> <em>(Example)</em></li>
+                <li><strong>Example:</strong> Name: Betty <span class="input-wrapper"><input type="text" data-answer="fountain" data-display="Fountain"></span></li>
                 <li><strong>1.</strong> How old? <span class="input-wrapper"><input type="text" data-answer="57|fifty-seven" data-display="57"></span></li>
                 <li><strong>2.</strong> Food: Salad, <span class="input-wrapper"><input type="text" data-answer="rice" data-display="rice"></span> and fish</li>
                 <li>Homes: flat in city, house in a <span class="input-wrapper"><input type="text" data-answer="village" data-display="village"></span></li>
@@ -432,14 +448,16 @@
     <div class="card">
         <h2>Listening 3: Mr Powers' Job</h2>
 
-        <!-- Audio Player Controls -->
-        <div class="audio-player">
-            <audio id="audio3" src="listening-for-numbers-and-missing-words-9.mp3"></audio>
-            <button class="play-btn" onclick="togglePlay('audio3', this)">▶</button>
-            <div class="timeline-container">
-                <input type="range" class="timeline" id="time3" value="0" min="0" step="0.1" oninput="seekAudio('audio3', this.value)">
+        <!-- Thanh nghe dính theo màn hình riêng cho Bài 3 -->
+        <div class="audio-player-wrapper">
+            <div class="audio-player">
+                <audio id="audio3" src="listening-for-numbers-and-missing-words-9.mp3"></audio>
+                <button class="play-btn" onclick="togglePlay('audio3', this)">▶</button>
+                <div class="timeline-container">
+                    <input type="range" class="timeline" id="time3" value="0" min="0" step="0.1" oninput="seekAudio('audio3', this.value)">
+                </div>
+                <div class="time-display" id="clock3">00:00 / 00:00</div>
             </div>
-            <div class="time-display" id="clock3">00:00 / 00:00</div>
         </div>
 
         <p class="instruction">Listen and write 1–2 words or numbers for each answer.</p>
@@ -447,7 +465,7 @@
         <!-- Main Exercise -->
         <div id="ex3-main">
             <ul class="question-list">
-                <li>Name: <strong>Mr Powers</strong> <em>(Example)</em></li>
+                <li><strong>Example:</strong> Name: <span class="input-wrapper"><input type="text" data-answer="mr powers" data-display="Mr Powers"></span></li>
                 <li><strong>1.</strong> Job: <span class="input-wrapper"><input type="text" data-answer="engineer" data-display="engineer"></span></li>
                 <li><strong>2.</strong> Works at: <span class="input-wrapper"><input type="text" data-answer="london" data-display="London"></span> Airport</li>
                 <li><strong>3.</strong> How he goes to work: <span class="input-wrapper"><input type="text" data-answer="train|by train" data-display="by train"></span></li>
