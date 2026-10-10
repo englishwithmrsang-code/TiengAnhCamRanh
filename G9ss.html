@@ -3,74 +3,120 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bài Tập Trắc Nghiệm So Sánh Hơn (50 Câu) - EnglishwithMrSang</title>
+  <title>Luyện Tập So Sánh Hơn (Trắc Nghiệm & Dịch Câu)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #f4f8fc; color: #334155; }
-    .paper-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #334155; }
+    .paper-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased">
 
-  <!-- TOP HEADER -->
+  <!-- HEADER & NAVIGATION TABS -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
-    <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+    <div class="max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-black flex items-center justify-center">S</div>
+        <div class="w-9 h-9 rounded-xl bg-blue-600 text-white font-black flex items-center justify-center text-sm">EN</div>
         <div>
-          <span class="text-sm font-extrabold text-slate-900 tracking-tight block">EnglishwithMrSang</span>
-          <span class="text-[10px] text-blue-600 font-bold uppercase block">Ngữ Pháp Tiếng Anh • So Sánh Hơn</span>
+          <span class="text-sm font-extrabold text-slate-900 tracking-tight block">Hệ Thống Luyện Tập Ngữ Pháp</span>
+          <span class="text-[10px] text-slate-500 font-bold uppercase block">Chủ đề: So Sánh Hơn (Comparative)</span>
         </div>
       </div>
-      <div class="text-xs font-bold text-slate-600">
-        Hotline: <span class="text-blue-600">0399640763</span>
-      </div>
+
+      <!-- Tab Buttons -->
+      <nav class="flex gap-2">
+        <button onclick="switchTab(1)" id="tab-btn-1" class="px-4 py-2 rounded-xl text-xs font-bold transition bg-blue-600 text-white shadow-sm">
+          Tab 1: Trắc Nghiệm (50 Câu)
+        </button>
+        <button onclick="switchTab(2)" id="tab-btn-2" class="px-4 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-600 border border-slate-200 hover:bg-slate-50">
+          Tab 2: Bài Tập Dịch (40 Câu)
+        </button>
+      </nav>
     </div>
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 space-y-6">
+  <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-8 space-y-6">
     
-    <!-- BANNER TIÊU ĐỀ -->
-    <div class="paper-card p-6 sm:p-8 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
-      <h1 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2">50 Câu Trắc Nghiệm: So Sánh Hơn (Tính từ/Trạng từ ngắn & dài)</h1>
-      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-        Chọn đáp án đúng (A hoặc B) cho mỗi câu dưới đây. Sau khi chọn, hệ thống sẽ hiển thị kết quả đúng/sai kèm theo lời giải thích chi tiết và bản dịch tiếng Việt giúp bạn nắm chắc quy tắc ngữ pháp.
-      </p>
-      <div class="mt-4 flex flex-wrap gap-4 text-xs font-bold text-slate-700">
-        <span class="px-3 py-1 bg-white rounded-full border shadow-2xs"><i class="fa-solid fa-list-check text-blue-600 mr-1"></i> Tổng số: 50 câu</span>
-        <span class="px-3 py-1 bg-white rounded-full border shadow-2xs"><i class="fa-solid fa-star text-amber-500 mr-1"></i> Hình thức: 2 đáp án (A/B)</span>
+    <!-- TAB 1: TRẮC NGHIỆM 50 CÂU -->
+    <div id="tab-content-1" class="space-y-6">
+      <div class="paper-card p-6 bg-white border-slate-200 space-y-2">
+        <div class="flex justify-between items-center">
+          <h1 class="text-xl font-black text-slate-900">Trắc Nghiệm So Sánh Hơn</h1>
+          <span class="text-xs font-bold bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-100">
+            Đã làm: <span id="answered-count">0</span>/50 câu
+          </span>
+        </div>
+        <p class="text-xs text-slate-500">Click vào đáp án A hoặc B để xem kết quả, lời giải thích và bản dịch tiếng Việt ngay lập tức.</p>
       </div>
+      <div id="quiz-container" class="space-y-4"></div>
     </div>
 
-    <!-- DANH SÁCH 50 CÂU HỎI -->
-    <div id="quiz-container" class="space-y-4">
-      <!-- Render bằng JavaScript -->
-    </div>
+    <!-- TAB 2: BÀI TẬP DỊCH 40 CÂU -->
+    <div id="tab-content-2" class="space-y-6 hidden">
+      <div class="paper-card p-6 bg-white border-slate-200 space-y-2">
+        <div class="flex justify-between items-center">
+          <h1 class="text-xl font-black text-slate-900">Bài Tập Dịch Tiếng Việt sang Tiếng Anh</h1>
+          <span class="text-xs font-bold bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-100">
+            Đã hoàn thành: <span id="translated-count">0</span>/40 câu
+          </span>
+        </div>
+        <p class="text-xs text-slate-500">Nhập cụm từ tiếng Anh tương ứng và nhấn <strong>Enter</strong> để kiểm tra kết quả.</p>
+      </div>
 
-    <!-- NÚT NỘP BÀI / TỔNG KẾT -->
-    <div class="paper-card p-6 text-center space-y-3 bg-white">
-      <button onclick="submitQuiz()" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm rounded-2xl shadow-md transition">
-        <i class="fa-solid fa-square-check mr-2"></i> Xem Kết Quả & Điểm Số
-      </button>
-      <div id="score-result" class="text-sm font-black text-slate-800 hidden"></div>
+      <!-- Phần 1: Ngắn -->
+      <div class="space-y-4">
+        <div class="border-b pb-2 flex items-center justify-between">
+          <h2 class="font-black text-sm text-slate-800"><i class="fa-solid fa-bolt text-blue-600 mr-2"></i> Phần 1: 20 Câu Tính từ / Trạng từ Ngắn</h2>
+        </div>
+        <div id="short-trans-container" class="space-y-4"></div>
+      </div>
+
+      <!-- Phần 2: Dài -->
+      <div class="space-y-4 pt-4">
+        <div class="border-b pb-2 flex items-center justify-between">
+          <h2 class="font-black text-sm text-slate-800"><i class="fa-solid fa-star text-amber-500 mr-2"></i> Phần 2: 20 Câu Tính từ / Trạng từ Dài</h2>
+        </div>
+        <div id="long-trans-container" class="space-y-4"></div>
+      </div>
     </div>
 
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500">
-    <p>© 2026 EnglishwithMrSang • Tiếng Anh Cam Ranh. All rights reserved.</p>
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-400">
+    <p>© 2026 • Hệ thống trắc nghiệm & luyện dịch tiếng Anh tương tác.</p>
   </footer>
 
-  <!-- SCRIPT XỬ LÝ 50 CÂU HỎI TRẮC NGHIỆM -->
+  <!-- SCRIPTS -->
   <script>
-    // Dữ liệu 50 câu hỏi so sánh hơn (Tính từ/Trạng từ ngắn và dài)
+    // Chuyển đổi qua lại giữa Tab 1 và Tab 2
+    function switchTab(tabNum) {
+      const content1 = document.getElementById('tab-content-1');
+      const content2 = document.getElementById('tab-content-2');
+      const btn1 = document.getElementById('tab-btn-1');
+      const btn2 = document.getElementById('tab-btn-2');
+
+      if (tabNum === 1) {
+        content1.classList.remove('hidden');
+        content2.classList.add('hidden');
+        btn1.className = "px-4 py-2 rounded-xl text-xs font-bold transition bg-blue-600 text-white shadow-sm";
+        btn2.className = "px-4 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-600 border border-slate-200 hover:bg-slate-50";
+      } else {
+        content2.classList.remove('hidden');
+        content1.classList.add('hidden');
+        btn2.className = "px-4 py-2 rounded-xl text-xs font-bold transition bg-blue-600 text-white shadow-sm";
+        btn1.className = "px-4 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-600 border border-slate-200 hover:bg-slate-50";
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Dữ liệu 50 câu trắc nghiệm
     const questionsData = [
-      { q: "1. My house is ________ than yours.", a: "bigger", b: "more big", correct: "a", explain: "Big là tính từ ngắn (1 âm tiết, nguyên âm + phụ âm), gấp đôi phụ âm cuối và thêm -er.", trans: "Nhà của tôi lớn hơn nhà của bạn." },
-      { q: "2. This chair is ________ than that one.", a: "more comfortable", b: "comfortabler", correct: "a", explain: "Comfortable là tính từ dài (trên 2 âm tiết), dùng 'more' trước tính từ.", trans: "Chiếc ghế này thoải mái hơn chiếc ghế kia." },
+      { q: "1. My house is ________ than yours.", a: "bigger", b: "more big", correct: "a", explain: "Big là tính từ ngắn (1 âm tiết, kết thúc bằng nguyên âm + phụ âm), ta gấp đôi phụ âm cuối và thêm -er.", trans: "Nhà của tôi lớn hơn nhà của bạn." },
+      { q: "2. This chair is ________ than that one.", a: "more comfortable", b: "comfortabler", correct: "a", explain: "Comfortable là tính từ dài (trên 2 âm tiết), ta dùng 'more' trước tính từ.", trans: "Chiếc ghế này thoải mái hơn chiếc ghế kia." },
       { q: "3. John runs ________ than his brother.", a: "faster", b: "more fast", correct: "a", explain: "Fast là trạng từ ngắn, dạng so sánh hơn thêm -er thành faster.", trans: "John chạy nhanh hơn anh trai của anh ấy." },
       { q: "4. Today is ________ than yesterday.", a: "hotter", b: "more hot", correct: "a", explain: "Hot là tính từ ngắn, gấp đôi 't' và thêm -er thành hotter.", trans: "Hôm nay trời nóng hơn ngày hôm qua." },
       { q: "5. English is ________ than mathematics for me.", a: "more difficult", b: "difficulter", correct: "a", explain: "Difficult là tính từ dài, dùng 'more' ở dạng so sánh hơn.", trans: "Tiếng Anh đối với tôi khó hơn toán học." },
@@ -105,7 +151,7 @@
       { q: "34. Physics is ________ than chemistry for most students.", a: "more difficult", b: "difficulter", correct: "a", explain: "Difficult là tính từ dài, dùng 'more'.", trans: "Vật lý khó hơn hóa học đối với hầu hết học sinh." },
       { q: "35. A turtle moves ________ than a rabbit.", a: "slower", b: "more slow", correct: "a", explain: "Slow là trạng từ ngắn, dạng so sánh hơn là slower.", trans: "Con rùa di chuyển chậm hơn con thỏ." },
       { q: "36. This river is ________ than the local one.", a: "wider", b: "more wide", correct: "a", explain: "Wide kết thúc bằng 'e', chỉ cần thêm 'r' thành wider.", trans: "Con sông này rộng hơn con sông ở địa phương." },
-      { q: "37. He feels ________ today than he did yesterday.", a: "happier", b: "more happy", correct: "a", explain: "Happy kết thúc bằng 'y', đổi 'y' thành 'i' + er thành happier.", trans: "Hôm nay anh ấy cảm thấy vui vẻ hơn hôm qua." },
+      { q: "37. He feels ________ than he did yesterday.", a: "happier", b: "more happy", correct: "a", explain: "Happy kết thúc bằng 'y', đổi 'y' thành 'i' + er thành happier.", trans: "Hôm nay anh ấy cảm thấy vui vẻ hơn hôm qua." },
       { q: "38. China has a ________ population than Japan.", a: "larger", b: "more large", correct: "a", explain: "Large là tính từ ngắn kết thúc bằng 'e', thêm 'r' thành larger.", trans: "Trung Quốc có dân số lớn hơn Nhật Bản." },
       { q: "39. This laptop is ________ than my old desktop.", a: "thinner", b: "more thin", correct: "a", explain: "Thin là tính từ ngắn, gấp đôi 'n' và thêm -er thành thinner.", trans: "Chiếc máy tính xách tay này mỏng hơn chiếc máy tính để bàn cũ của tôi." },
       { q: "40. Could you speak ________, please?", a: "slower", b: "more slowly", correct: "b", explain: "Slowly là trạng từ dài (có đuôi -ly), dùng 'more slowly'.", trans: "Bạn có thể nói chậm hơn được không?" },
@@ -121,18 +167,69 @@
       { q: "50. She sings ________ than all the other contestants.", a: "better", b: "more well", correct: "a", explain: "Well là trạng từ bất quy tắc, dạng so sánh hơn là better.", trans: "Cô ấy hát hay hơn tất cả các thí sinh khác." }
     ];
 
+    // Dữ liệu 40 câu bài tập dịch
+    const shortTransData = [
+      { id: 1, prompt: "dễ dàng hơn", answer: "easier than", hint: "easy -> easier than" },
+      { id: 2, prompt: "lớn hơn", answer: "bigger than", hint: "big -> bigger than" },
+      { id: 3, prompt: "nhanh hơn (trạng từ)", answer: "faster than", hint: "fast -> faster than" },
+      { id: 4, prompt: "nóng hơn", answer: "hotter than", hint: "hot -> hotter than" },
+      { id: 5, prompt: "cao hơn", answer: "higher than", hint: "high -> higher than" },
+      { id: 6, prompt: "nặng hơn", answer: "heavier than", hint: "heavy -> heavier than" },
+      { id: 7, prompt: "bận rộn hơn", answer: "busier than", hint: "busy -> busier than" },
+      { id: 8, prompt: "tốt hơn (tính từ/trạng từ)", answer: "better than", hint: "good/well -> better than" },
+      { id: 9, prompt: "tệ hơn", answer: "worse than", hint: "bad/badly -> worse than" },
+      { id: 10, prompt: "lớn tuổi / già hơn", answer: "older than", hint: "old -> older than" },
+      { id: 11, prompt: "nhỏ hơn / rộng hơn (diện tích)", answer: "larger than", hint: "large -> larger than" },
+      { id: 12, prompt: "khó hơn (vật lý/bài tập)", answer: "harder than", hint: "hard -> harder than" },
+      { id: 13, prompt: "chăm chỉ hơn", answer: "harder than", hint: "hard -> harder than" },
+      { id: 14, prompt: "vui vẻ hơn", answer: "happier than", hint: "happy -> happier than" },
+      { id: 15, prompt: "mỏng hơn", answer: "thinner than", hint: "thin -> thinner than" },
+      { id: 16, prompt: "sạch sẽ hơn", answer: "cleaner than", hint: "clean -> cleaner than" },
+      { id: 17, prompt: "khỏe mạnh hơn / mạnh mẽ hơn", answer: "stronger than", hint: "strong -> stronger than" },
+      { id: 18, prompt: "ấm hơn", answer: "warmer than", hint: "warm -> warmer than" },
+      { id: 19, prompt: "rõ ràng hơn / sắc nét hơn", answer: "clearer than", hint: "clear -> clearer than" },
+      { id: 20, prompt: "hẹp hơn", answer: "narrower than", hint: "narrow -> narrower than" }
+    ];
+
+    const longTransData = [
+      { id: 21, prompt: "thoải mái hơn", answer: "more comfortable than", hint: "comfortable -> more comfortable than" },
+      { id: 22, prompt: "khó khăn hơn", answer: "more difficult than", hint: "difficult -> more difficult than" },
+      { id: 23, prompt: "ngọt ngào hơn (trạng từ)", answer: "more sweetly than", hint: "sweetly -> more sweetly than" },
+      { id: 24, prompt: "trôi chảy hơn (trạng từ)", answer: "more fluently than", hint: "fluently -> more fluently than" },
+      { id: 25, prompt: "đắt tiền hơn", answer: "more expensive than", hint: "expensive -> more expensive than" },
+      { id: 26, prompt: "thú vị hơn", answer: "more interesting than", hint: "interesting -> more interesting than" },
+      { id: 27, prompt: "uyển chuyển hơn (trạng từ)", answer: "more gracefully than", hint: "gracefully -> more gracefully than" },
+      { id: 28, prompt: "nguy hiểm hơn", answer: "more dangerous than", hint: "dangerous -> more dangerous than" },
+      { id: 29, prompt: "quan trọng hơn", answer: "more important than", hint: "important -> more important than" },
+      { id: 30, prompt: "chậm hơn (trạng từ)", answer: "more slowly than", hint: "slowly -> more slowly than" },
+      { id: 31, prompt: "sang trọng hơn", answer: "more luxurious than", hint: "luxurious -> more luxurious than" },
+      { id: 32, prompt: "thông minh hơn (trạng từ)", answer: "more intelligently than", hint: "intelligently -> more intelligently than" },
+      { id: 33, prompt: "cẩn thận hơn", answer: "more careful than", hint: "careful -> more careful than" },
+      { id: 34, prompt: "hữu ích hơn", answer: "more useful than", hint: "useful -> more useful than" },
+      { id: 35, prompt: "nổi tiếng hơn", answer: "more famous than", hint: "famous -> more famous than" },
+      { id: 36, prompt: "hiện đại hơn", answer: "more modern than", hint: "modern -> more modern than" },
+      { id: 37, prompt: "thần kỳ hơn / kỳ diệu hơn", answer: "more wonderful than", hint: "wonderful -> more wonderful than" },
+      { id: 38, prompt: "hấp dẫn hơn / thu hút hơn", answer: "more attractive than", hint: "attractive -> more attractive than" },
+      { id: 39, prompt: "thực tế hơn", answer: "more practical than", hint: "practical -> more practical than" },
+      { id: 40, prompt: "sáng tạo hơn", answer: "more creative than", hint: "creative -> more creative than" }
+    ];
+
+    let answeredQuizSet = new Set();
+    let completedTransSet = new Set();
+
+    // Render Tab 1 (Trắc nghiệm)
     function renderQuiz() {
       const container = document.getElementById('quiz-container');
       container.innerHTML = questionsData.map((item, index) => `
         <div class="paper-card p-5 sm:p-6 space-y-3" id="q-box-${index}">
-          <div class="font-extrabold text-sm sm:text-base text-slate-900">${item.q}</div>
+          <div class="font-bold text-sm sm:text-base text-slate-900">${item.q}</div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
             <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-blue-50/50 cursor-pointer transition text-xs sm:text-sm font-semibold">
-              <input type="radio" name="question-${index}" value="a" class="w-4 h-4 text-blue-600">
+              <input type="radio" name="question-${index}" value="a" onclick="checkQuizAnswer(${index}, 'a')" class="w-4 h-4 text-blue-600">
               <span>A. ${item.a}</span>
             </label>
             <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-blue-50/50 cursor-pointer transition text-xs sm:text-sm font-semibold">
-              <input type="radio" name="question-${index}" value="b" class="w-4 h-4 text-blue-600">
+              <input type="radio" name="question-${index}" value="b" onclick="checkQuizAnswer(${index}, 'b')" class="w-4 h-4 text-blue-600">
               <span>B. ${item.b}</span>
             </label>
           </div>
@@ -141,34 +238,92 @@
       `).join('');
     }
 
-    function submitQuiz() {
-      let score = 0;
-      questionsData.forEach((item, index) => {
-        const selected = document.querySelector(`input[name="question-${index}"]:checked`);
-        const box = document.getElementById(`q-box-${index}`);
-        const expBox = document.getElementById(`explanation-${index}`);
-        expBox.classList.remove('hidden');
+    function checkQuizAnswer(index, chosen) {
+      const item = questionsData[index];
+      const box = document.getElementById(`q-box-${index}`);
+      const expBox = document.getElementById(`explanation-${index}`);
+      
+      if (!answeredQuizSet.has(index)) {
+        answeredQuizSet.add(index);
+        document.getElementById('answered-count').innerText = answeredQuizSet.size;
+      }
 
-        if (selected && selected.value === item.correct) {
-          score++;
-          box.className = "paper-card p-5 sm:p-6 space-y-3 border-emerald-300 bg-emerald-50/2ersonal";
-          expBox.className = "mt-3 p-4 rounded-xl text-xs space-y-1.5 bg-emerald-50 border-emerald-200 text-emerald-900";
-          expBox.innerHTML = `<div><strong class="text-emerald-700">Chính xác!</strong> ${item.explain}</div><div class="text-slate-600 italic">Bản dịch: ${item.trans}</div>`;
-        } else {
-          box.className = "paper-card p-5 sm:p-6 space-y-3 border-rose-300 bg-rose-50/20";
-          expBox.className = "mt-3 p-4 rounded-xl text-xs space-y-1.5 bg-rose-50 border-rose-200 text-rose-900";
-          const correctText = item.correct === 'a' ? 'A. ' + item.a : 'B. ' + item.b;
-          expBox.innerHTML = `<div><strong class="text-rose-700">Chưa chính xác.</strong> Đáp án đúng là: <strong>${correctText}</strong>. ${item.explain}</div><div class="text-slate-600 italic">Bản dịch: ${item.trans}</div>`;
-        }
-      });
+      expBox.classList.remove('hidden');
+      const radios = document.querySelectorAll(`input[name="question-${index}"]`);
+      radios.forEach(r => r.disabled = true);
 
-      const resultDiv = document.getElementById('score-result');
-      resultDiv.classList.remove('hidden');
-      resultDiv.innerHTML = `🎉 Bạn đã hoàn thành bài tập! Số câu trả đúng: <strong class="text-blue-600 text-base">${score} / 50</strong> câu.`;
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      if (chosen === item.correct) {
+        box.className = "paper-card p-5 sm:p-6 space-y-3 border-emerald-300 bg-emerald-50/10";
+        expBox.className = "mt-3 p-4 rounded-xl text-xs space-y-1.5 bg-emerald-50 border-emerald-200 text-emerald-900";
+        expBox.innerHTML = `<div><strong class="text-emerald-700">Chính xác!</strong> ${item.explain}</div><div class="text-slate-600 italic">Bản dịch: ${item.trans}</div>`;
+      } else {
+        box.className = "paper-card p-5 sm:p-6 space-y-3 border-rose-300 bg-rose-50/10";
+        expBox.className = "mt-3 p-4 rounded-xl text-xs space-y-1.5 bg-rose-50 border-rose-200 text-rose-900";
+        const correctText = item.correct === 'a' ? 'A. ' + item.a : 'B. ' + item.b;
+        expBox.innerHTML = `<div><strong class="text-rose-700">Chưa chính xác.</strong> Đáp án đúng là: <strong>${correctText}</strong>. ${item.explain}</div><div class="text-slate-600 italic">Bản dịch: ${item.trans}</div>`;
+      }
     }
 
-    window.onload = renderQuiz;
+    // Render Tab 2 (Dịch câu)
+    function renderTransSection(data, containerId, prefixId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = data.map((item, idx) => `
+        <div class="paper-card p-4 sm:p-5 space-y-2.5" id="box-${prefixId}-${idx}">
+          <div class="text-xs sm:text-sm font-bold text-slate-800">
+            Câu ${item.id}: Điền tiếng Anh cho từ <span class="text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">"${item.prompt}"</span>
+          </div>
+          <div class="flex gap-2 items-center">
+            <input type="text" id="input-${prefixId}-${idx}" placeholder="Nhập tiếng Anh (ví dụ: easier than)..." 
+              onkeydown="handleTransKey(event, '${prefixId}', ${idx})"
+              class="flex-1 px-3.5 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm outline-none focus:ring-2 focus:ring-blue-500 font-semibold">
+            <button onclick="checkTransAnswer('${prefixId}', ${idx})" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl transition">Kiểm tra</button>
+          </div>
+          <div id="feedback-${prefixId}-${idx}" class="hidden text-xs font-semibold p-2.5 rounded-lg"></div>
+        </div>
+      `).join('');
+    }
+
+    function handleTransKey(e, prefix, idx) {
+      if (e.key === 'Enter') {
+        checkTransAnswer(prefix, idx);
+      }
+    }
+
+    function checkTransAnswer(prefix, idx) {
+      const dataList = prefix === 'short' ? shortTransData : longTransData;
+      const item = dataList[idx];
+      const inputElem = document.getElementById(`input-${prefix}-${idx}`);
+      const boxElem = document.getElementById(`box-${prefix}-${idx}`);
+      const feedbackElem = document.getElementById(`feedback-${prefix}-${idx}`);
+      
+      const userVal = inputElem.value.trim().toLowerCase();
+      const correctVal = item.answer.toLowerCase();
+
+      feedbackElem.classList.remove('hidden');
+      const globalKey = `${prefix}-${idx}`;
+
+      if (userVal === correctVal) {
+        boxElem.className = "paper-card p-4 sm:p-5 space-y-2.5 border-emerald-300 bg-emerald-50/10";
+        feedbackElem.className = "text-xs font-bold p-2.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200";
+        feedbackElem.innerHTML = `<i class="fa-solid fa-check mr-1 text-emerald-600"></i> Chính xác! Đáp án đúng: <strong>${item.answer}</strong>`;
+        inputElem.disabled = true;
+
+        if (!completedTransSet.has(globalKey)) {
+          completedTransSet.add(globalKey);
+          document.getElementById('translated-count').innerText = completedTransSet.size;
+        }
+      } else {
+        boxElem.className = "paper-card p-4 sm:p-5 space-y-2.5 border-rose-300 bg-rose-50/10";
+        feedbackElem.className = "text-xs font-bold p-2.5 rounded-lg bg-rose-50 text-rose-800 border border-rose-200";
+        feedbackElem.innerHTML = `<i class="fa-solid fa-xmark mr-1 text-rose-600"></i> Chưa chính xác. Gợi ý: <em>${item.hint}</em>. Đáp án chuẩn: <strong>${item.answer}</strong>`;
+      }
+    }
+
+    window.onload = function() {
+      renderQuiz();
+      renderTransSection(shortTransData, 'short-trans-container', 'short');
+      renderTransSection(longTransData, 'long-trans-container', 'long');
+    };
   </script>
 
 </body>
