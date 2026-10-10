@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài Tập Trắc Nghiệm So Sánh Hơn (50 Câu) - EnglishwithMrSang</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #f4f8fc; color: #334155; }
+    .paper-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+  <!-- TOP HEADER -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-black flex items-center justify-center">S</div>
+        <div>
+          <span class="text-sm font-extrabold text-slate-900 tracking-tight block">EnglishwithMrSang</span>
+          <span class="text-[10px] text-blue-600 font-bold uppercase block">Ngữ Pháp Tiếng Anh • So Sánh Hơn</span>
+        </div>
+      </div>
+      <div class="text-xs font-bold text-slate-600">
+        Hotline: <span class="text-blue-600">0399640763</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 space-y-6">
+    
+    <!-- BANNER TIÊU ĐỀ -->
+    <div class="paper-card p-6 sm:p-8 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+      <h1 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2">50 Câu Trắc Nghiệm: So Sánh Hơn (Tính từ/Trạng từ ngắn & dài)</h1>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+        Chọn đáp án đúng (A hoặc B) cho mỗi câu dưới đây. Sau khi chọn, hệ thống sẽ hiển thị kết quả đúng/sai kèm theo lời giải thích chi tiết và bản dịch tiếng Việt giúp bạn nắm chắc quy tắc ngữ pháp.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-4 text-xs font-bold text-slate-700">
+        <span class="px-3 py-1 bg-white rounded-full border shadow-2xs"><i class="fa-solid fa-list-check text-blue-600 mr-1"></i> Tổng số: 50 câu</span>
+        <span class="px-3 py-1 bg-white rounded-full border shadow-2xs"><i class="fa-solid fa-star text-amber-500 mr-1"></i> Hình thức: 2 đáp án (A/B)</span>
+      </div>
+    </div>
+
+    <!-- DANH SÁCH 50 CÂU HỎI -->
+    <div id="quiz-container" class="space-y-4">
+      <!-- Render bằng JavaScript -->
+    </div>
+
+    <!-- NÚT NỘP BÀI / TỔNG KẾT -->
+    <div class="paper-card p-6 text-center space-y-3 bg-white">
+      <button onclick="submitQuiz()" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm rounded-2xl shadow-md transition">
+        <i class="fa-solid fa-square-check mr-2"></i> Xem Kết Quả & Điểm Số
+      </button>
+      <div id="score-result" class="text-sm font-black text-slate-800 hidden"></div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500">
+    <p>© 2026 EnglishwithMrSang • Tiếng Anh Cam Ranh. All rights reserved.</p>
+  </footer>
+
+  <!-- SCRIPT XỬ LÝ 50 CÂU HỎI TRẮC NGHIỆM -->
+  <script>
+    // Dữ liệu 50 câu hỏi so sánh hơn (Tính từ/Trạng từ ngắn và dài)
+    const questionsData = [
+      { q: "1. My house is ________ than yours.", a: "bigger", b: "more big", correct: "a", explain: "Big là tính từ ngắn (1 âm tiết, nguyên âm + phụ âm), gấp đôi phụ âm cuối và thêm -er.", trans: "Nhà của tôi lớn hơn nhà của bạn." },
+      { q: "2. This chair is ________ than that one.", a: "more comfortable", b: "comfortabler", correct: "a", explain: "Comfortable là tính từ dài (trên 2 âm tiết), dùng 'more' trước tính từ.", trans: "Chiếc ghế này thoải mái hơn chiếc ghế kia." },
+      { q: "3. John runs ________ than his brother.", a: "faster", b: "more fast", correct: "a", explain: "Fast là trạng từ ngắn, dạng so sánh hơn thêm -er thành faster.", trans: "John chạy nhanh hơn anh trai của anh ấy." },
+      { q: "4. Today is ________ than yesterday.", a: "hotter", b: "more hot", correct: "a", explain: "Hot là tính từ ngắn, gấp đôi 't' và thêm -er thành hotter.", trans: "Hôm nay trời nóng hơn ngày hôm qua." },
+      { q: "5. English is ________ than mathematics for me.", a: "more difficult", b: "difficulter", correct: "a", explain: "Difficult là tính từ dài, dùng 'more' ở dạng so sánh hơn.", trans: "Tiếng Anh đối với tôi khó hơn toán học." },
+      { q: "6. She sings ________ than her friend.", a: "more sweetly", b: "sweetlier", correct: "a", explain: "Sweetly là trạng từ có tận cùng là -ly, dùng 'more' ở dạng so sánh hơn.", trans: "Cô ấy hát ngọt ngào hơn bạn của cô ấy." },
+      { q: "7. Russia is ________ than Canada in area.", a: "larger", b: "more large", correct: "a", explain: "Large kết thúc bằng 'e', chỉ cần thêm '-r' thành larger.", trans: "Nga lớn hơn Canada về diện tích." },
+      { q: "8. Physics is ________ than history.", a: "harder", b: "more hard", correct: "a", explain: "Hard là tính từ ngắn, dạng so sánh hơn là harder.", trans: "Môn Vật lý khó hơn môn Lịch sử." },
+      { q: "9. This car is ________ than the old one.", a: "more expensive", b: "expensiver", correct: "a", explain: "Expensive là tính từ dài, dùng 'more' trước tính từ.", trans: "Chiếc xe này đắt tiền hơn chiếc xe cũ." },
+      { q: "10. He speaks English ________ than me.", a: "fluently", b: "more fluently", correct: "b", explain: "Fluently là trạng từ dài (có đuôi -ly), dùng 'more fluently'.", trans: "Anh ấy nói tiếng Anh trôi chảy hơn tôi." },
+      { q: "11. Mount Everest is ________ than any other mountain.", a: "higher", b: "more high", correct: "a", explain: "High là tính từ ngắn, thêm -er thành higher.", trans: "Núi Everest cao hơn bất kỳ ngọn núi nào khác." },
+      { q: "12. This test is ________ than the previous one.", a: "easier", b: "more easy", correct: "a", explain: "Easy kết thúc bằng 'y', đổi 'y' thành 'i' rồi thêm -er thành easier.", trans: "Bài kiểm tra này dễ hơn bài trước." },
+      { q: "13. A diamond is ________ than glass.", a: "harder", b: "more hard", correct: "a", explain: "Hard là tính từ ngắn, dạng so sánh hơn là harder.", trans: "Kim cương cứng hơn thủy tinh." },
+      { q: "14. My bag is ________ than yours.", a: "heavier", b: "more heavy", correct: "a", explain: "Heavy kết thúc bằng 'y', đổi 'y' thành 'i' rồi thêm -er.", trans: "Túi của tôi nặng hơn túi của bạn." },
+      { q: "15. Life in the city is ________ than life in the countryside.", a: "more busy", b: "busier", correct: "b", explain: "Busy kết thúc bằng 'y', đổi 'y' thành 'i' rồi thêm -er thành busier.", trans: "Cuộc sống ở thành phố bận rộn hơn cuộc sống ở nông thôn." },
+      { q: "16. This book is ________ than that one.", a: "more interesting", b: "interestinger", correct: "a", explain: "Interesting là tính từ dài, dùng 'more' phía trước.", trans: "Cuốn sách này thú vị hơn cuốn kia." },
+      { q: "17. Planes fly ________ than birds.", a: "higher", b: "more high", correct: "a", explain: "High là trạng từ ngắn, dạng so sánh hơn là higher.", trans: "Máy bay bay cao hơn chim." },
+      { q: "18. She dances ________ than her sister.", a: "more gracefully", b: "gracefullyer", correct: "a", explain: "Gracefully là trạng từ dài, dùng 'more' ở dạng so sánh hơn.", trans: "Cô ấy múa uyển chuyển hơn em gái của cô ấy." },
+      { q: "19. Gold is ________ than silver.", a: "heavier", b: "more heavy", correct: "a", explain: "Heavy là tính từ ngắn kết thúc bằng 'y', đổi 'y' thành 'i' + er.", trans: "Vàng nặng hơn bạc." },
+      { q: "20. The weather today is ________ than it was yesterday.", a: "better", b: "gooder", correct: "a", explain: "Good là tính từ bất quy tắc, dạng so sánh hơn là better.", trans: "Thời tiết hôm nay tốt hơn hôm qua." },
+      { q: "21. His health is ________ than last month.", a: "worse", b: "badder", correct: "a", explain: "Bad là tính từ bất quy tắc, dạng so sánh hơn là worse.", trans: "Sức khỏe của anh ấy tệ hơn tháng trước." },
+      { q: "22. She is ________ than me at cooking.", a: "cleverer", b: "more clever", correct: "a", explain: "Clever có thể dùng dạng cleverer hoặc more clever (thông dụng là cleverer).", trans: "Cô ấy nấu ăn khéo léo hơn tôi." },
+      { q: "23. Iron is ________ than wood.", a: "heavier", b: "more heavy", correct: "a", explain: "Heavy đổi 'y' thành 'i' + er thành heavier.", trans: "Sắt nặng hơn gỗ." },
+      { q: "24. My grandfather is ________ than my father.", a: "older", b: "more old", correct: "a", explain: "Old là tính từ ngắn, dạng so sánh hơn là older.", trans: "Ông của tôi lớn tuổi hơn bố của tôi." },
+      { q: "25. This exercise is ________ than the last one.", a: "simpler", b: "more simple", correct: "a", explain: "Simple kết thúc bằng 'e', thêm '-r' thành simpler.", trans: "Bài tập này đơn giản hơn bài trước." },
+      { q: "26. Nam works ________ than Hung.", a: "harder", b: "more hard", correct: "a", explain: "Hard là trạng từ ngắn, dạng so sánh hơn là harder.", trans: "Nam làm việc chăm chỉ hơn Hưng." },
+      { q: "27. A sports car is ________ than a truck.", a: "faster", b: "more fast", correct: "a", explain: "Fast là tính từ ngắn, dạng so sánh hơn là faster.", trans: "Xe thể thao chạy nhanh hơn xe tải." },
+      { q: "28. Mary looks ________ with her new hairstyle.", a: "prettier", b: "more pretty", correct: "a", explain: "Pretty kết thúc bằng 'y', đổi 'y' thành 'i' + er thành prettier.", trans: "Mary trông xinh xắn hơn với kiểu tóc mới." },
+      { q: "29. Driving a car is ________ than riding a bike.", a: "more dangerous", b: "dangerouser", correct: "a", explain: "Dangerous là tính từ dài, dùng 'more' ở dạng so sánh hơn.", trans: "Lái ô tô nguy hiểm hơn đi xe đạp." },
+      { q: "30. She arrived ________ than expected.", a: "earlier", b: "more early", correct: "a", explain: "Early tận cùng bằng 'y', đổi 'y' thành 'i' + er thành earlier.", trans: "Cô ấy đến sớm hơn dự kiến." },
+      { q: "31. Our team played ________ than the opponents.", a: "better", b: "weller", correct: "a", explain: "Well là trạng từ bất quy tắc, dạng so sánh hơn là better.", trans: "Đội chúng tôi thi đấu tốt hơn đối thủ." },
+      { q: "32. This swimming pool is ________ than that one.", a: "shallower", b: "more shallow", correct: "a", explain: "Shallow là tính từ ngắn kết thúc bằng -ow, thêm -er thành shallower.", trans: "Hồ bơi này nông hơn hồ bơi kia." },
+      { q: "33. Health is ________ than money.", a: "more important", b: "importanter", correct: "a", explain: "Important là tính từ dài, dùng 'more' phía trước.", trans: "Sức khỏe quan trọng hơn tiền bạc." },
+      { q: "34. Physics is ________ than chemistry for most students.", a: "more difficult", b: "difficulter", correct: "a", explain: "Difficult là tính từ dài, dùng 'more'.", trans: "Vật lý khó hơn hóa học đối với hầu hết học sinh." },
+      { q: "35. A turtle moves ________ than a rabbit.", a: "slower", b: "more slow", correct: "a", explain: "Slow là trạng từ ngắn, dạng so sánh hơn là slower.", trans: "Con rùa di chuyển chậm hơn con thỏ." },
+      { q: "36. This river is ________ than the local one.", a: "wider", b: "more wide", correct: "a", explain: "Wide kết thúc bằng 'e', chỉ cần thêm 'r' thành wider.", trans: "Con sông này rộng hơn con sông ở địa phương." },
+      { q: "37. He feels ________ today than he did yesterday.", a: "happier", b: "more happy", correct: "a", explain: "Happy kết thúc bằng 'y', đổi 'y' thành 'i' + er thành happier.", trans: "Hôm nay anh ấy cảm thấy vui vẻ hơn hôm qua." },
+      { q: "38. China has a ________ population than Japan.", a: "larger", b: "more large", correct: "a", explain: "Large là tính từ ngắn kết thúc bằng 'e', thêm 'r' thành larger.", trans: "Trung Quốc có dân số lớn hơn Nhật Bản." },
+      { q: "39. This laptop is ________ than my old desktop.", a: "thinner", b: "more thin", correct: "a", explain: "Thin là tính từ ngắn, gấp đôi 'n' và thêm -er thành thinner.", trans: "Chiếc máy tính xách tay này mỏng hơn chiếc máy tính để bàn cũ của tôi." },
+      { q: "40. Could you speak ________, please?", a: "slower", b: "more slowly", correct: "b", explain: "Slowly là trạng từ dài (có đuôi -ly), dùng 'more slowly'.", trans: "Bạn có thể nói chậm hơn được không?" },
+      { q: "41. The blue shirt looks ________ than the red one.", a: "cleaner", b: "more clean", correct: "a", explain: "Clean là tính từ ngắn, thêm -er thành cleaner.", trans: "Chiếc áo sơ mi màu xanh trông sạch sẽ hơn chiếc màu đỏ." },
+      { q: "42. Lions are ________ than house cats.", a: "stronger", b: "more strong", correct: "a", explain: "Strong là tính từ ngắn, thêm -er thành stronger.", trans: "Sư tử khỏe hơn mèo nhà." },
+      { q: "43. This hotel is ________ than the one we stayed in last year.", a: "more luxurious", b: "luxuriouser", correct: "a", explain: "Luxurious là tính từ dài, dùng 'more' ở dạng so sánh hơn.", trans: "Khách sạn này sang trọng hơn khách sạn chúng ta ở năm ngoái." },
+      { q: "44. She solved the math problem ________ than anyone else.", a: "faster", b: "more fast", correct: "a", explain: "Fast là trạng từ ngắn, dạng so sánh hơn là faster.", trans: "Cô ấy giải bài toán nhanh hơn bất kỳ ai khác." },
+      { q: "45. The weather in the south is ________ than in the north.", a: "warmer", b: "more warm", correct: "a", explain: "Warm là tính từ ngắn, thêm -er thành warmer.", trans: "Thời tiết ở miền Nam ấm hơn ở miền Bắc." },
+      { q: "46. My new smartphone takes ________ photos than the old one.", a: "clearer", b: "more clear", correct: "a", explain: "Clear là tính từ ngắn, thêm -er thành clearer.", trans: "Điện thoại thông minh mới của tôi chụp ảnh sắc nét hơn cái cũ." },
+      { q: "47. Learning a foreign language requires ________ time than expected.", a: "more", b: "mucher", correct: "a", explain: "More là dạng so sánh hơn của many/much.", trans: "Học một ngoại ngữ đòi hỏi nhiều thời gian hơn dự kiến." },
+      { q: "48. He answered the questions ________ than the rest of the class.", a: "more intelligently", b: "intelligentlyer", correct: "a", explain: "Intelligently là trạng từ dài, dùng 'more' phía trước.", trans: "Anh ấy trả lời các câu hỏi thông minh hơn phần còn lại của lớp." },
+      { q: "49. This road is ________ than the highway.", a: "narrower", b: "more narrow", correct: "a", explain: "Narrow là tính từ ngắn tận cùng bằng -ow, thêm -er thành narrower.", trans: "Con đường này hẹp hơn đường cao tốc." },
+      { q: "50. She sings ________ than all the other contestants.", a: "better", b: "more well", correct: "a", explain: "Well là trạng từ bất quy tắc, dạng so sánh hơn là better.", trans: "Cô ấy hát hay hơn tất cả các thí sinh khác." }
+    ];
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = questionsData.map((item, index) => `
+        <div class="paper-card p-5 sm:p-6 space-y-3" id="q-box-${index}">
+          <div class="font-extrabold text-sm sm:text-base text-slate-900">${item.q}</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-blue-50/50 cursor-pointer transition text-xs sm:text-sm font-semibold">
+              <input type="radio" name="question-${index}" value="a" class="w-4 h-4 text-blue-600">
+              <span>A. ${item.a}</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-blue-50/50 cursor-pointer transition text-xs sm:text-sm font-semibold">
+              <input type="radio" name="question-${index}" value="b" class="w-4 h-4 text-blue-600">
+              <span>B. ${item.b}</span>
+            </label>
+          </div>
+          <div id="explanation-${index}" class="hidden mt-3 p-4 rounded-xl text-xs space-y-1.5 border"></div>
+        </div>
+      `).join('');
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      questionsData.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+        const box = document.getElementById(`q-box-${index}`);
+        const expBox = document.getElementById(`explanation-${index}`);
+        expBox.classList.remove('hidden');
+
+        if (selected && selected.value === item.correct) {
+          score++;
+          box.className = "paper-card p-5 sm:p-6 space-y-3 border-emerald-300 bg-emerald-50/2ersonal";
+          expBox.className = "mt-3 p-4 rounded-xl text-xs space-y-1.5 bg-emerald-50 border-emerald-200 text-emerald-900";
+          expBox.innerHTML = `<div><strong class="text-emerald-700">Chính xác!</strong> ${item.explain}</div><div class="text-slate-600 italic">Bản dịch: ${item.trans}</div>`;
+        } else {
+          box.className = "paper-card p-5 sm:p-6 space-y-3 border-rose-300 bg-rose-50/20";
+          expBox.className = "mt-3 p-4 rounded-xl text-xs space-y-1.5 bg-rose-50 border-rose-200 text-rose-900";
+          const correctText = item.correct === 'a' ? 'A. ' + item.a : 'B. ' + item.b;
+          expBox.innerHTML = `<div><strong class="text-rose-700">Chưa chính xác.</strong> Đáp án đúng là: <strong>${correctText}</strong>. ${item.explain}</div><div class="text-slate-600 italic">Bản dịch: ${item.trans}</div>`;
+        }
+      });
+
+      const resultDiv = document.getElementById('score-result');
+      resultDiv.classList.remove('hidden');
+      resultDiv.innerHTML = `🎉 Bạn đã hoàn thành bài tập! Số câu trả đúng: <strong class="text-blue-600 text-base">${score} / 50</strong> câu.`;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    window.onload = renderQuiz;
+  </script>
+
+</body>
+</html>
