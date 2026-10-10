@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening Practice - Fill in the Gaps</title>
+    <title>Listening Practice - Fill in the Gaps (A2 Level)</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -41,11 +41,6 @@
             justify-content: space-between;
             align-items: center;
             font-weight: 600;
-        }
-
-        .score-tracker-title {
-            font-size: 16px;
-            letter-spacing: 0.3px;
         }
 
         .score-badge {
@@ -111,7 +106,6 @@
             border-bottom: 1px dashed var(--border-color);
         }
 
-        /* Custom Audio Player Controls */
         .audio-player {
             background: var(--primary-light);
             border-radius: 12px;
@@ -171,11 +165,6 @@
             border-radius: 50%;
             background: var(--primary);
             cursor: pointer;
-            transition: transform 0.1s;
-        }
-
-        .timeline::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
         }
 
         .time-display {
@@ -185,7 +174,6 @@
             white-space: nowrap;
         }
 
-        /* Exercise Styles */
         .instruction {
             font-style: italic;
             color: var(--text-muted);
@@ -199,23 +187,29 @@
         }
 
         .question-list li {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
-        /* Input Styles & Inline Feedback */
         .input-wrapper {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             margin: 2px 0;
         }
 
         input[type="text"] {
-            padding: 6px 10px;
-            border: 1px solid var(--border-color);
+            padding: 5px 10px;
+            border: 1.5px solid var(--border-color);
             border-radius: 6px;
             font-size: 14px;
             width: 130px;
             background-color: #f8fafc;
+            font-weight: 500;
             transition: all 0.2s ease;
         }
 
@@ -242,11 +236,8 @@
             color: var(--error);
             font-weight: 600;
             font-size: 13px;
-            margin-left: 6px;
-            display: inline-block;
         }
 
-        /* Toggle Button */
         .toggle-btn {
             background-color: #e2e8f0;
             color: var(--text-main);
@@ -266,7 +257,6 @@
             background-color: #cbd5e1;
         }
 
-        /* Hidden Transcript Area */
         .transcript-section {
             display: none;
             margin-top: 15px;
@@ -278,7 +268,7 @@
 
         .transcript-box {
             font-size: 15px;
-            line-height: 2.1;
+            line-height: 2.2;
         }
 
         .action-btn {
@@ -313,7 +303,7 @@
 <div class="score-tracker-bar">
     <div class="score-tracker-title">Total Progress</div>
     <div class="score-badge">
-        Correct Answers: <span id="global-correct" class="score-value">0</span> / <span id="global-total">36</span>
+        Correct Answers: <span id="global-correct" class="score-value">0</span> / <span id="global-total">45</span>
         (<span id="global-percentage" class="percentage-value">0%</span>)
     </div>
 </div>
@@ -336,52 +326,40 @@
             </div>
         </div>
 
-        <p class="instruction">Listen and write. There is one example[cite: 7].</p>
+        <p class="instruction">Listen and write. There is one example.</p>
         
         <div id="ex1-main">
             <ul class="question-list">
-                <li><strong>Example:</strong> Name: <span class="input-wrapper"><input type="text" data-answer="ben perry" data-display="Ben Perry"></span>[cite: 7]</li>
-                <li><strong>1.</strong> Birthday month: <span class="input-wrapper"><input type="text" data-answer="november" data-display="November"></span></li>
-                <li><strong>2.</strong> Favourite month: <span class="input-wrapper"><input type="text" data-answer="may" data-display="May"></span></li>
-                <li><strong>3.</strong> Worst month: <span class="input-wrapper"><input type="text" data-answer="february" data-display="February"></span></li>
-                <li><strong>4.</strong> Holiday time: <span class="input-wrapper"><input type="text" data-answer="autumn" data-display="Autumn"></span></li>
-                <li><strong>5.</strong> Holiday place: <span class="input-wrapper"><input type="text" data-answer="cumbline" data-display="Cumbline"></span></li>
+                <li><span>Name:</span> <span class="input-wrapper"><input type="text" data-answer="ben perry" data-display="Ben Perry"></span> <em>(Example)</em></li>
+                <li><span>1. Birthday month:</span> <span class="input-wrapper"><input type="text" data-answer="november" data-display="November"></span></li>
+                <li><span>2. Favourite month:</span> <span class="input-wrapper"><input type="text" data-answer="may" data-display="May"></span></li>
+                <li><span>3. Worst month:</span> <span class="input-wrapper"><input type="text" data-answer="february" data-display="February"></span></li>
+                <li><span>4. Holiday time:</span> <span class="input-wrapper"><input type="text" data-answer="autumn" data-display="Autumn"></span></li>
+                <li><span>5. Holiday place:</span> <span class="input-wrapper"><input type="text" data-answer="cumbline" data-display="Cumbline"></span></li>
             </ul>
             <button class="action-btn" onclick="checkAnswers('ex1-main', 'ex1-main-result')">Submit Part 1</button>
             <div class="result" id="ex1-main-result"></div>
         </div>
 
-        <button class="toggle-btn" onclick="toggleSection('transcript1')">▼ Show Answer & Audioscript</button>
+        <button class="toggle-btn" onclick="toggleSection('transcript1')">▼ Show Transcript Gap-fill Exercise (10 gaps)</button>
 
         <div id="transcript1" class="transcript-section">
-            <p class="instruction">Audioscript:</p>
-            <div class="transcript-box">
-                WOMAN: Oh, hello. I work for a children’s magazine and I’m writing something about children and the different times of the year. Would you like to answer some questions for me?[cite: 7]<br>
-                BOY: Well, yes, if I can.[cite: 7]<br>
-                WOMAN: Thank you. OK, first, can you give me your name, please?[cite: 7]<br>
-                BOY: Yes, of course. It’s Ben – Ben Perry. And that’s P-E double R-Y.[cite: 7]<br>
-                WOMAN: Right. Thank you, Ben. Now, when’s your birthday? I mean, which month?[cite: 8]<br>
-                BOY: My birthday? Why?[cite: 8]<br>
-                WOMAN: It’s interesting. People usually like their birthday month.[cite: 8]<br>
-                BOY: Do they? Well, I don’t like mine very much. It’s November.[cite: 8]<br>
-                WOMAN: Oh, right. Let me write that here. Now perhaps you can tell me the month you like best.[cite: 8]<br>
-                BOY: Which is your favourite month? Mmmm … I prefer May, I think.[cite: 8]<br>
-                WOMAN: Yes, it’s lovely then. It’s warm and sunny and we often go swimming.[cite: 8]<br>
-                BOY: Okay, fine.[cite: 8]<br>
-                WOMAN: Now, which month is the worst? What about January?[cite: 8]<br>
-                BOY: Well, I don’t like it very much. But the month I hate is February.[cite: 8]<br>
-                WOMAN: It’s always cold and it rains a lot so we can't play outside very often.[cite: 8]<br>
-                BOY: But in some countries it's warm and sunny then, you know.[cite: 8]<br>
-                WOMAN: Yes, I know. But not here.[cite: 8]<br>
-                BOY: Now, do you usually have a holiday in the summer, Ben?[cite: 8]<br>
-                WOMAN: No, all my friends do, but my dad has to work then. So we have our holiday later in the autumn.[cite: 8]<br>
-                BOY: Oh, I see.[cite: 8]<br>
-                WOMAN: And where do you go?[cite: 8]<br>
-                BOY: We always go to the same place. It’s called Cumbline.[cite: 8]<br>
-                WOMAN: Oh. Can you spell that for me, please?[cite: 8]<br>
-                BOY: Yes, it’s C-U-M-B-L-I-N-E. It’s a lovely place with lakes and a forest.[cite: 8]<br>
-                WOMAN: Well, thank you, Ben. That’s all.[cite: 8]
+            <p class="instruction">Listen again and fill in the 10 missing words (A2 Level):</p>
+            <div id="ex1-transcript-box" class="transcript-box">
+                WOMAN: Oh, hello. I work for a children’s <span class="input-wrapper"><input type="text" data-answer="magazine" data-display="magazine"></span> and I’m writing something about children and the different times of the year. Would you like to answer some questions for me?<br>
+                BOY: Well, yes, if I can.<br>
+                WOMAN: Thank you. OK, first, can you give me your <span class="input-wrapper"><input type="text" data-answer="name" data-display="name"></span>, please?<br>
+                BOY: Yes, of course. It’s Ben – Ben Perry. And that’s P-E double R-Y.<br>
+                WOMAN: Right. Thank you, Ben. Now, when’s your <span class="input-wrapper"><input type="text" data-answer="birthday" data-display="birthday"></span>? I mean, which <span class="input-wrapper"><input type="text" data-answer="month" data-display="month"></span>?<br>
+                BOY: My birthday? <span class="input-wrapper"><input type="text" data-answer="why" data-display="Why"></span>?<br>
+                WOMAN: It’s <span class="input-wrapper"><input type="text" data-answer="interesting" data-display="interesting"></span>. People usually like their birthday month.<br>
+                BOY: Do they? Well, I don’t like <span class="input-wrapper"><input type="text" data-answer="mine" data-display="mine"></span> very much. It’s November.<br>
+                WOMAN: Oh, right. Let me write that here. Now perhaps you can tell me the month you <span class="input-wrapper"><input type="text" data-answer="prefer" data-display="prefer"></span>.<br>
+                BOY: Which is your favourite month? Mmmm … I prefer May, I think.<br>
+                WOMAN: Yes, it’s <span class="input-wrapper"><input type="text" data-answer="lovely" data-display="lovely"></span> then. It’s warm and sunny and we often go swimming.
             </div>
+            <button class="action-btn" onclick="checkAnswers('ex1-transcript-box', 'ex1-transcript-result')">Submit Transcript Part 1</button>
+            <div class="result" id="ex1-transcript-result"></div>
         </div>
     </div>
 
@@ -400,43 +378,38 @@
             </div>
         </div>
 
-        <p class="instruction">Listen and write. There is one example[cite: 9].</p>
+        <p class="instruction">Listen and write. There is one example.</p>
         
         <div id="ex2-main">
             <ul class="question-list">
-                <li><strong>Example:</strong> Meet at: <span class="input-wrapper"><input type="text" data-answer="kirby bridge" data-display="Kirby Bridge"></span>[cite: 9]</li>
-                <li><strong>1.</strong> Time: <span class="input-wrapper"><input type="text" data-answer="half past eight|8.30|eight thirty|half past eight a.m.|8.30 a.m." data-display="half past eight"></span>[cite: 9]</li>
-                <li>Take:</li>
-                <li><strong>2.</strong> <span class="input-wrapper"><input type="text" data-answer="rucksack|a rucksack|small rucksack|a small rucksack" data-display="a small rucksack"></span>[cite: 9]</li>
-                <li><strong>3.</strong> <span class="input-wrapper"><input type="text" data-answer="plastic plate|a plastic plate" data-display="a plastic plate"></span>[cite: 9]</li>
-                <li><strong>4.</strong> <span class="input-wrapper"><input type="text" data-answer="torch|a torch" data-display="a torch"></span>[cite: 9]</li>
-                <li><strong>5.</strong> <span class="input-wrapper"><input type="text" data-answer="towel|a towel" data-display="a towel"></span>[cite: 9]</li>
+                <li><span>Meet at:</span> <span class="input-wrapper"><input type="text" data-answer="kirby bridge" data-display="Kirby Bridge"></span> <em>(Example)</em></li>
+                <li><span>1. Time:</span> <span class="input-wrapper"><input type="text" data-answer="half past eight|8.30|eight thirty|half past eight a.m.|8.30 a.m." data-display="half past eight"></span></li>
+                <li><span>Take:</span></li>
+                <li><span>2.</span> <span class="input-wrapper"><input type="text" data-answer="rucksack|a rucksack|small rucksack|a small rucksack" data-display="a small rucksack"></span></li>
+                <li><span>3.</span> <span class="input-wrapper"><input type="text" data-answer="plastic plate|a plastic plate" data-display="a plastic plate"></span></li>
+                <li><span>4.</span> <span class="input-wrapper"><input type="text" data-answer="torch|a torch" data-display="a torch"></span></li>
+                <li><span>5.</span> <span class="input-wrapper"><input type="text" data-answer="towel|a towel" data-display="a towel"></span></li>
             </ul>
             <button class="action-btn" onclick="checkAnswers('ex2-main', 'ex2-main-result')">Submit Part 2</button>
             <div class="result" id="ex2-main-result"></div>
         </div>
 
-        <button class="toggle-btn" onclick="toggleSection('transcript2')">▼ Show Answer & Audioscript</button>
+        <button class="toggle-btn" onclick="toggleSection('transcript2')">▼ Show Transcript Gap-fill Exercise (10 gaps)</button>
 
         <div id="transcript2" class="transcript-section">
-            <p class="instruction">Answer & Audioscript:</p>
-            <div class="transcript-box">
-                <p><strong>Answers:</strong> 1. half past eight/8.30/eight thirty a.m.[cite: 9] | 2. (a) (small) rucksack[cite: 9] | 3. (a) (plastic) plate[cite: 9] | 4. (a) torch[cite: 9] | 5. (a) towel[cite: 9]</p>
-                WOMAN: Hello, everyone. Please listen carefully, because I’m going to tell you some important things about our school camping trip to the lake this weekend. First, we are going to meet at Kirby Bridge. Write this in your books, please. That’s K-I-R-B-Y. You all know that place, don’t you?[cite: 9]<br>
-                BOY: Yes, Miss.[cite: 9]<br>
-                WOMAN: Next, the time. Can we meet at half past eight?[cite: 9]<br>
-                BOY: Oh, that’s very early![cite: 9]<br>
-                WOMAN: No, it isn’t. You start school at that time every day![cite: 9]<br>
-                BOY: OK. What do we have to take with us, Miss?[cite: 9]<br>
-                WOMAN: Well, we’ll only be there for two days, so don’t bring a heavy suitcase! But you will need a small rucksack.[cite: 9]<br>
-                BOY: My brother’s got one. I can use his. Shall we bring some food with us?[cite: 9]<br>
-                WOMAN: No, you don’t need any because we can buy some at the shop in the village. But please bring a plastic plate with you.[cite: 9]<br>
-                BOY: OK. What about a torch, Miss?[cite: 9]<br>
-                WOMAN: Yes. That’s very important because there aren’t any lights in our tents! Now, what else? I know. The farmer is going to let us use the showers at the farm. Isn’t that kind? So, you will all need to bring a towel with you.[cite: 9]<br>
-                BOY: Right. Is that everything?[cite: 9]<br>
-                WOMAN: Yes. So, see you all tomorrow.[cite: 9]<br>
-                BOY: OK. Bye, Miss.[cite: 9]
+            <p class="instruction">Listen again and fill in the 10 missing words (A2 Level):</p>
+            <div id="ex2-transcript-box" class="transcript-box">
+                WOMAN: Hello, everyone. Please listen <span class="input-wrapper"><input type="text" data-answer="carefully" data-display="carefully"></span>, because I’m going to tell you some <span class="input-wrapper"><input type="text" data-answer="important" data-display="important"></span> things about our school camping <span class="input-wrapper"><input type="text" data-answer="trip" data-display="trip"></span> to the lake this weekend.<br>
+                First, we are going to meet at Kirby Bridge. Write this in your <span class="input-wrapper"><input type="text" data-answer="books" data-display="books"></span>, please. That’s K-I-R-B-Y.<br>
+                You all know that <span class="input-wrapper"><input type="text" data-answer="place" data-display="place"></span>, don’t you?<br>
+                BOY: Yes, <span class="input-wrapper"><input type="text" data-answer="miss" data-display="Miss"></span>.<br>
+                WOMAN: Next, the <span class="input-wrapper"><input type="text" data-answer="time" data-display="time"></span>. Can we meet at half past eight?<br>
+                BOY: Oh, that’s very <span class="input-wrapper"><input type="text" data-answer="early" data-display="early"></span>!<br>
+                WOMAN: No, it isn’t. You <span class="input-wrapper"><input type="text" data-answer="start" data-display="start"></span> school at that time every day!<br>
+                BOY: OK. What do we have to <span class="input-wrapper"><input type="text" data-answer="bring" data-display="bring"></span> with us, Miss?
             </div>
+            <button class="action-btn" onclick="checkAnswers('ex2-transcript-box', 'ex2-transcript-result')">Submit Transcript Part 2</button>
+            <div class="result" id="ex2-transcript-result"></div>
         </div>
     </div>
 
@@ -455,51 +428,39 @@
             </div>
         </div>
 
-        <p class="instruction">Listen and write. There is one example[cite: 6].</p>
+        <p class="instruction">Listen and write. There is one example.</p>
         
         <div id="ex3-main">
             <ul class="question-list">
-                <li><strong>Example:</strong> Name: <span class="input-wrapper"><input type="text" data-answer="ann knight" data-display="Ann Knight"></span>[cite: 6]</li>
-                <li><strong>1.</strong> Birthday: 15th <span class="input-wrapper"><input type="text" data-answer="january" data-display="January"></span>[cite: 6]</li>
-                <li><strong>2.</strong> Address: 26 <span class="input-wrapper"><input type="text" data-answer="salford" data-display="Salford"></span> Street[cite: 6]</li>
-                <li><strong>3.</strong> Prefers to come on: <span class="input-wrapper"><input type="text" data-answer="tuesday|tuesdays" data-display="Tuesday"></span>[cite: 6]</li>
-                <li><strong>4.</strong> Starting on: April <span class="input-wrapper"><input type="text" data-answer="22|22nd|twenty-second" data-display="22nd"></span>[cite: 6]</li>
-                <li><strong>5.</strong> Favourite things to paint: <span class="input-wrapper"><input type="text" data-answer="plants" data-display="plants"></span> and trees[cite: 6]</li>
+                <li><span>Name:</span> <span class="input-wrapper"><input type="text" data-answer="ann knight" data-display="Ann Knight"></span> <em>(Example)</em></li>
+                <li><span>1. Birthday: 15th</span> <span class="input-wrapper"><input type="text" data-answer="january" data-display="January"></span></li>
+                <li><span>2. Address: 26</span> <span class="input-wrapper"><input type="text" data-answer="salford" data-display="Salford"></span> <span>Street</span></li>
+                <li><span>3. Prefers to come on:</span> <span class="input-wrapper"><input type="text" data-answer="tuesday|tuesdays" data-display="Tuesday"></span></li>
+                <li><span>4. Starting on: April</span> <span class="input-wrapper"><input type="text" data-answer="22|22nd|twenty-second" data-display="22nd"></span></li>
+                <li><span>5. Favourite things to paint:</span> <span class="input-wrapper"><input type="text" data-answer="plants" data-display="plants"></span> <span>and trees</span></li>
             </ul>
             <button class="action-btn" onclick="checkAnswers('ex3-main', 'ex3-main-result')">Submit Part 3</button>
             <div class="result" id="ex3-main-result"></div>
         </div>
 
-        <button class="toggle-btn" onclick="toggleSection('transcript3')">▼ Show Answer & Audioscript</button>
+        <button class="toggle-btn" onclick="toggleSection('transcript3')">▼ Show Transcript Gap-fill Exercise (10 gaps)</button>
 
         <div id="transcript3" class="transcript-section">
-            <p class="instruction">Answer & Audioscript:</p>
-            <div class="transcript-box">
-                <p><strong>Answers:</strong> 1. (of) January[cite: 6] | 2. Salford[cite: 6] | 3. Tuesday(s)[cite: 6] | 4. (the) 22(nd)/twenty-second[cite: 6] | 5. plants[cite: 6]</p>
-                GIRL: Hello. I’d like to come to your art club, please.[cite: 6]<br>
-                MAN: OK. Let’s see. Can I ask you some questions? First, what’s your name?[cite: 6]<br>
-                GIRL: Ann Knight.[cite: 6]<br>
-                MAN: How do you spell your surname?[cite: 6]<br>
-                GIRL: K-N-I-G-H-T.[cite: 6]<br>
-                MAN: Thank you.[cite: 6]<br>
-                MAN: Now, Ann, how old are you?[cite: 6]<br>
-                GIRL: I’m 12. My birthday is the fifteenth of January.[cite: 6]<br>
-                MAN: Right. OK. And where do you live, Ann?[cite: 6]<br>
-                GIRL: At 26 Salford Street.[cite: 6]<br>
-                MAN: Is that S-U-L-F-O-R-D?[cite: 6]<br>
-                GIRL: No, S-A-L-F-O-R-D.[cite: 6]<br>
-                MAN: Thank you. Next question! Which day would you like to come to the club? We meet every day after school.[cite: 6]<br>
-                GIRL: Um, I can only come on Tuesday. Is that OK?[cite: 6]<br>
-                MAN: That’s fine.[cite: 6]<br>
-                GIRL: Can I ask you a question?[cite: 6]<br>
-                MAN: Of course you can.[cite: 6]<br>
-                GIRL: I can’t come next week. Can I start the week after that?[cite: 6]<br>
-                MAN: Of course you can. That’s April the twenty-second. Don’t forget![cite: 6]<br>
-                GIRL: OK. Thanks.[cite: 6]<br>
-                MAN: My last question. What kind of things do you like painting? Animals? People?[cite: 6]<br>
-                GIRL: They’re OK, but I like painting plants and trees best.[cite: 6]<br>
-                MAN: Right. You’ll enjoy our club, I’m sure![cite: 6]
+            <p class="instruction">Listen again and fill in the 10 missing words (A2 Level):</p>
+            <div id="ex3-transcript-box" class="transcript-box">
+                GIRL: Hello. I’d like to <span class="input-wrapper"><input type="text" data-answer="come" data-display="come"></span> to your art club, please.<br>
+                MAN: OK. Let’s see. Can I <span class="input-wrapper"><input type="text" data-answer="ask" data-display="ask"></span> you some questions? First, what’s your <span class="input-wrapper"><input type="text" data-answer="name" data-display="name"></span>?<br>
+                GIRL: Ann Knight.<br>
+                MAN: How do you <span class="input-wrapper"><input type="text" data-answer="spell" data-display="spell"></span> your surname?<br>
+                GIRL: K-N-I-G-H-T.<br>
+                MAN: Thank you. Now, Ann, how <span class="input-wrapper"><input type="text" data-answer="old" data-display="old"></span> are you?<br>
+                GIRL: I’m 12. My <span class="input-wrapper"><input type="text" data-answer="birthday" data-display="birthday"></span> is the fifteenth of January.<br>
+                MAN: Right. OK. And where do you <span class="input-wrapper"><input type="text" data-answer="live" data-display="live"></span>, Ann?<br>
+                GIRL: At 26 Salford Street.<br>
+                MAN: Is that S-U-L-F-O-R-D? No, S-A-L-F-O-R-D. Thank you. Next <span class="input-wrapper"><input type="text" data-answer="question" data-display="question"></span>!
             </div>
+            <button class="action-btn" onclick="checkAnswers('ex3-transcript-box', 'ex3-transcript-result')">Submit Transcript Part 3</button>
+            <div class="result" id="ex3-transcript-result"></div>
         </div>
     </div>
 </div>
