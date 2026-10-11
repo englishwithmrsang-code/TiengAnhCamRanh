@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 2: City Life - Full Interactive Exercises</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #2c3e50;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        /* Styling cho hệ thống Tabs */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 25px;
+        }
+        .tab-btn {
+            padding: 10px 18px;
+            background-color: #edf2f7;
+            border: none;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #4a5568;
+            transition: all 0.2s ease;
+        }
+        .tab-btn:hover {
+            background-color: #e2e8f0;
+            color: #2d3748;
+        }
+        .tab-btn.active {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+
+        /* Nội dung các Tab */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Khung câu hỏi */
+        .section-title {
+            color: #e74c3c;
+            border-left: 5px solid #e74c3c;
+            padding-left: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        .question-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+        .options label {
+            display: block;
+            margin: 6px 0;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s;
+        }
+        .options label:hover {
+            background: #e2e8f0;
+        }
+        .explanation {
+            margin-top: 12px;
+            padding: 12px;
+            background: #e0f2fe;
+            border-left: 4px solid #0284c7;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .translation {
+            margin-top: 6px;
+            font-style: italic;
+            color: #475569;
+        }
+
+        /* Bài đọc & Highlight dẫn chứng */
+        .reading-passage {
+            background: #fdfefe;
+            border: 2px dashed #cbd5e1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+        .highlight {
+            background-color: #fef08a !important;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .btn-highlight {
+            background-color: #f59e0b;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 8px;
+            font-size: 0.9em;
+        }
+        .btn-highlight:hover {
+            background-color: #d97706;
+        }
+
+        /* Điền từ vào ô trống */
+        .word-bank {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-align: center;
+            color: #1e293b;
+        }
+        .fill-input {
+            padding: 6px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #2563eb;
+            width: 160px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>UNIT 2: CITY LIFE</h1>
+
+    <!-- Thanh chuyển đổi Tabs -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-pronunciation')">A. Pronunciation</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-vocab1')">B. Vocab & Grammar 1</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-vocab2')">B. Vocab & Grammar 2</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-vocab3')">B. Fill in Text</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-reading1')">D. Reading 1</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-reading2')">D. Reading 2</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-reading3')">D. Reading 3</button>
+    </div>
+
+    <!-- ==================== TAB A: PRONUNCIATION ==================== -->
+    <div id="tab-pronunciation" class="tab-content active">
+        <h2 class="section-title">A. Pronunciation</h2>
+        <p><strong>1. Choose the word whose underlined part differs from the other three in pronunciation.</strong></p>
+
+        <!-- Q1 -->
+        <div class="question-box">
+            <div class="question-title">1. A. b<u>ear</u> &nbsp;&nbsp;&nbsp; B. n<u>ear</u> &nbsp;&nbsp;&nbsp; C. w<u>ear</u> &nbsp;&nbsp;&nbsp; D. p<u>ear</u></div>
+            <div class="options">
+                <label><input type="radio" name="p1" onclick="check('exp-p1', 'B', 'B')"> A. bear (/beə/)</label>
+                <label><input type="radio" name="p1" onclick="check('exp-p1', 'B', 'B')"> B. near (/nɪə/)</label>
+                <label><input type="radio" name="p1" onclick="check('exp-p1', 'B', 'B')"> C. wear (/weə/)</label>
+                <label><input type="radio" name="p1" onclick="check('exp-p1', 'B', 'B')"> D. pear (/peə/)</label>
+            </div>
+            <div class="explanation" id="exp-p1">
+                <strong>Đáp án đúng: B. near</strong><br>
+                - B phát âm là /ɪə/, các từ còn lại phát âm là /eə/.<br>
+                <span class="translation">Dịch: bear (gấu/mang), near (gần), wear (mặc), pear (quả lê).</span>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-box">
+            <div class="question-title">2. A. sl<u>ow</u>ly &nbsp;&nbsp;&nbsp; B. d<u>ow</u>ntown &nbsp;&nbsp;&nbsp; C. p<u>ow</u>er &nbsp;&nbsp;&nbsp; D. cr<u>ow</u>ded</div>
+            <div class="options">
+                <label><input type="radio" name="p2" onclick="check('exp-p2', 'A', 'A')"> A. slowly (/əʊ/)</label>
+                <label><input type="radio" name="p2" onclick="check('exp-p2', 'A', 'A')"> B. downtown (/aʊ/)</label>
+                <label><input type="radio" name="p2" onclick="check('exp-p2', 'A', 'A')"> C. power (/aʊ/)</label>
+                <label><input type="radio" name="p2" onclick="check('exp-p2', 'A', 'A')"> D. crowded (/aʊ/)</label>
+            </div>
+            <div class="explanation" id="exp-p2">
+                <strong>Đáp án đúng: A. slowly</strong><br>
+                - A phát âm là /əʊ/, các từ còn lại phát âm là /aʊ/.<br>
+                <span class="translation">Dịch: slowly (chậm rãi), downtown (trung tâm), power (sức mạnh), crowded (đông đúc).</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB B1: VOCABULARY 1 ==================== -->
+    <div id="tab-vocab1" class="tab-content">
+        <h2 class="section-title">B. Vocabulary & Grammar - Exercise 1</h2>
+        <p><strong>Choose the correct option A, B, C, or D to complete each sentence.</strong></p>
+
+        <!-- Q1 -->
+        <div class="question-box">
+            <div class="question-title">1. The city is now a big ________ site with many half-finished buildings.</div>
+            <div class="options">
+                <label><input type="radio" name="vg1" onclick="check('exp-vg1', 'D', 'D')"> A. waste</label>
+                <label><input type="radio" name="vg1" onclick="check('exp-vg1', 'D', 'D')"> B. tourist</label>
+                <label><input type="radio" name="vg1" onclick="check('exp-vg1', 'D', 'D')"> C. storage</label>
+                <label><input type="radio" name="vg1" onclick="check('exp-vg1', 'D', 'D')"> D. construction</label>
+            </div>
+            <div class="explanation" id="exp-vg1">
+                <strong>Đáp án đúng: D. construction</strong><br>
+                - Cụm từ "construction site" nghĩa là công trường xây dựng.<br>
+                <span class="translation">Dịch: Thành phố hiện là một công trường xây dựng lớn với nhiều tòa nhà dở dang.</span>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-box">
+            <div class="question-title">2. The town is overcrowded and lacks public ________.</div>
+            <div class="options">
+                <label><input type="radio" name="vg2" onclick="check('exp-vg2', 'B', 'B')"> A. health</label>
+                <label><input type="radio" name="vg2" onclick="check('exp-vg2', 'B', 'B')"> B. amenities</label>
+                <label><input type="radio" name="vg2" onclick="check('exp-vg2', 'B', 'B')"> C. education</label>
+                <label><input type="radio" name="vg2" onclick="check('exp-vg2', 'B', 'B')"> D. places</label>
+            </div>
+            <div class="explanation" id="exp-vg2">
+                <strong>Đáp án đúng: B. amenities</strong><br>
+                - "Public amenities": Tiện ích công cộng (công viên, khu vui chơi, thư viện...).<br>
+                <span class="translation">Dịch: Thị trấn quá đông đúc và thiếu các tiện ích công cộng.</span>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-box">
+            <div class="question-title">3. I used to live in the ________ area, but I moved to a quiet suburb two years ago.</div>
+            <div class="options">
+                <label><input type="radio" name="vg3" onclick="check('exp-vg3', 'A', 'A')"> A. downtown</label>
+                <label><input type="radio" name="vg3" onclick="check('exp-vg3', 'A', 'A')"> B. underground</label>
+                <label><input type="radio" name="vg3" onclick="check('exp-vg3', 'A', 'A')"> C. outskirts</label>
+                <label><input type="radio" name="vg3" onclick="check('exp-vg3', 'A', 'A')"> D. village</label>
+            </div>
+            <div class="explanation" id="exp-vg3">
+                <strong>Đáp án đúng: A. downtown</strong><br>
+                - "Downtown area": Khu vực trung tâm thành phố (đối lập với ngoaị thành - suburb).<br>
+                <span class="translation">Dịch: Tôi từng sống ở khu vực trung tâm, nhưng tôi đã chuyển đến một vùng ngoại ô yên tĩnh hai năm trước.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB B2: VOCABULARY 2 ==================== -->
+    <div id="tab-vocab2" class="tab-content">
+        <h2 class="section-title">B. Synonyms & Antonyms (Từ đồng nghĩa & Trái nghĩa)</h2>
+        
+        <p><strong>a. CLOSEST in meaning (Đồng nghĩa):</strong></p>
+        <div class="question-box">
+            <div class="question-title">1. She browsed the shop but didn't buy anything. She found it a bit <u>pricey</u>.</div>
+            <div class="options">
+                <label><input type="radio" name="syn1" onclick="check('exp-syn1', 'D', 'D')"> A. crowded</label>
+                <label><input type="radio" name="syn1" onclick="check('exp-syn1', 'D', 'D')"> B. modern</label>
+                <label><input type="radio" name="syn1" onclick="check('exp-syn1', 'D', 'D')"> C. attractive</label>
+                <label><input type="radio" name="syn1" onclick="check('exp-syn1', 'D', 'D')"> D. expensive</label>
+            </div>
+            <div class="explanation" id="exp-syn1">
+                <strong>Đáp án đúng: D. expensive</strong><br>
+                - Pricey = Expensive (Đắt đỏ).<br>
+                <span class="translation">Dịch: Cô ấy xem lướt qua cửa hàng nhưng không mua gì vì thấy đồ ở đây hơi đắt.</span>
+            </div>
+        </div>
+
+        <p><strong>b. OPPOSITE in meaning (Trái nghĩa):</strong></p>
+        <div class="question-box">
+            <div class="question-title">2. Jack: "Well, it's not that bad. They are <u>reliable</u> now."</div>
+            <div class="options">
+                <label><input type="radio" name="ant1" onclick="check('exp-ant1', 'D', 'D')"> A. on time</label>
+                <label><input type="radio" name="ant1" onclick="check('exp-ant1', 'D', 'D')"> B. late</label>
+                <label><input type="radio" name="ant1" onclick="check('exp-ant1', 'D', 'D')"> C. timely</label>
+                <label><input type="radio" name="ant1" onclick="check('exp-ant1', 'D', 'D')"> D. terrible</label>
+            </div>
+            <div class="explanation" id="exp-ant1">
+                <strong>Đáp án đúng: D. terrible (hoặc B. late tùy ngữ cảnh, nhưng ở đây hỏi trái nghĩa với đáng tin cậy/tốt -> tồi tệ)</strong><br>
+                - Reliable (đáng tin cậy) >< Terrible (tồi tệ / không đáng tin).<br>
+                <span class="translation">Dịch: Jack: Chà, không tệ đến thế đâu. Bây giờ xe buýt rất đáng tin cậy mà.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB B3: FILL IN TEXT ==================== -->
+    <div id="tab-vocab3" class="tab-content">
+        <h2 class="section-title">B. Complete the text with words from the box</h2>
+        <div class="word-bank">
+            construction sites | concrete jungle | liveable | public amenities | polluted | security
+        </div>
+        
+        <div class="question-box">
+            I live in a coastal town. It used to be a beautiful and (1) 
+            <input type="text" class="fill-input" id="fill1" placeholder="(1)..."> place. Now, it's a (2) 
+            <input type="text" class="fill-input" id="fill2" placeholder="(2)...">. All we have are big and ugly buildings. There will be even more buildings because (3) 
+            <input type="text" class="fill-input" id="fill3" placeholder="(3)..."> are everywhere. The beaches are (4) 
+            <input type="text" class="fill-input" id="fill4" placeholder="(4)...">. Pickpockets happen frequently. I think the local government should invest in better (5) 
+            <input type="text" class="fill-input" id="fill5" placeholder="(5)..."> such as parks and sports facilities. They should also clean up the beach and increase the (6) 
+            <input type="text" class="fill-input" id="fill6" placeholder="(6)..."> in the town.
+            <br><br>
+            <button class="btn-highlight" onclick="checkFillIn()">Xem Đáp Án & Bản Dịch</button>
+            <div class="explanation" id="exp-fill" style="margin-top:15px;">
+                <strong>Đáp án đúng:</strong><br>
+                (1) <b>liveable</b> (đáng sống)<br>
+                (2) <b>concrete jungle</b> (rừng bê tông)<br>
+                (3) <b>construction sites</b> (công trường xây dựng)<br>
+                (4) <b>polluted</b> (bị ô nhiễm)<br>
+                (5) <b>public amenities</b> (tiện ích công cộng)<br>
+                (6) <b>security</b> (an ninh)<br>
+                <span class="translation">Dịch: Tôi sống ở một thị trấn ven biển. Từng là một nơi đẹp và đáng sống. Bây giờ nó là một rừng bê tông...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB D1: READING 1 ==================== -->
+    <div id="tab-reading1" class="tab-content">
+        <h2 class="section-title">D. Reading 1 - Choose the correct option</h2>
+        
+        <div class="reading-passage" id="pass1">
+            The local newspaper carried out a survey with city dwellers about how to make the city a more (1) <span id="r1-1">liveable</span> place. Most participants talked about traffic. First, they wanted stricter traffic (2) <span id="r1-2">laws</span> to stop drivers from ignoring traffic lights... In addition, they hoped their city would improve its (3) <span id="r1-3">public transport</span> system... so it would be easy for people to (4) <span id="r1-4">get around</span>...
+        </div>
+
+        <div class="question-box">
+            <div class="question-title">1. Choose option for blank (1):</div>
+            <div class="options">
+                <label><input type="radio" name="rd1_1" onclick="check('exp-r1-1', 'D', 'D')"> A. lifelong</label>
+                <label><input type="radio" name="rd1_1" onclick="check('exp-r1-1', 'D', 'D')"> B. living</label>
+                <label><input type="radio" name="rd1_1" onclick="check('exp-r1-1', 'D', 'D')"> C. lively</label>
+                <label><input type="radio" name="rd1_1" onclick="check('exp-r1-1', 'D', 'D')"> D. liveable</label>
+            </div>
+            <div class="explanation" id="exp-r1-1">
+                <strong>Đáp án đúng: D. liveable</strong> (đáng sống).
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB D2: READING 2 ==================== -->
+    <div id="tab-reading2" class="tab-content">
+        <h2 class="section-title">D. Reading 2 - Living in Vancouver (Matching)</h2>
+        
+        <div class="reading-passage">
+            <b>A. Gina (20 years old):</b> I fell in love with Vancouver's natural habitats. I can go hiking in the summer... Sometimes I pack my favourite foods and go to Kitsilano Beach...<br><br>
+            <b>B. Olivia (30 years old):</b> Life in Vancouver is convenient. The food here is good. When I'm too busy to cook, I pick up prepared meals in the supermarket.<br><br>
+            <b>C. Hoai (35 years old):</b> This is such a kid-friendly place... At weekends, I take my daughters to the museum, explore a rainforest... Vancouver is a perfect place for family life.
+        </div>
+
+        <div class="question-box">
+            <div class="question-title">1. Who sometimes doesn't cook?</div>
+            <div class="options">
+                <label><input type="radio" name="m1" onclick="check('exp-m1', 'B', 'B')"> A. Gina</label>
+                <label><input type="radio" name="m1" onclick="check('exp-m1', 'B', 'B')"> B. Olivia</label>
+                <label><input type="radio" name="m1" onclick="check('exp-m1', 'B', 'B')"> C. Hoai</label>
+            </div>
+            <button class="btn-highlight" onclick="highlightText('hl-cook')">Highlight dẫn chứng</button>
+            <div class="explanation" id="exp-m1">
+                <strong>Đáp án: B. Olivia</strong><br>
+                - Dẫn chứng: "When I'm too busy to cook, I pick up prepared meals..."<br>
+                <span class="translation">Dịch: Khi quá bận không thể nấu ăn, tôi mua đồ ăn chế biến sẵn ở siêu thị.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TAB D3: READING 3 ==================== -->
+    <div id="tab-reading3" class="tab-content">
+        <h2 class="section-title">D. Reading 3 - Disadvantages of City Life</h2>
+
+        <div class="reading-passage" id="rdPass3">
+            <p id="p3-1">Twenty years ago, people tried to leave the suburbs for cities but nowadays many people are reluctant to make such a move. They say that compared to suburban areas, city life has many drawbacks.</p>
+            <p id="p3-2">The high cost of living is the first disadvantage. The bigger the city is, the higher the living cost is. <span id="hl-petrol">Accommodation and petrol are expensive. Food and drinks are also pricey.</span> Apart from that, city people seem to suffer from more noise and air pollution. The densely populated neighbourhoods, busy traffic, and big construction sites make cities noisy and dusty. <span id="hl-them">These are harmful to people's health, such as increasing their stress levels, disturbing their sleep and making <b>them</b> suffer from breathing problems.</span></p>
+            <p id="p3-3">Lack of space is another drawback of city life. House prices are high in the city, so people tend to live in smaller houses or in apartment blocks. <span id="hl-mall">Many cities lack spaces for outdoor activities; therefore, teenagers often hang out at shopping malls or in entertainment complexes instead of doing sports outdoors.</span></p>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-box">
+            <div class="question-title">1. What is the passage mainly about?</div>
+            <div class="options">
+                <label><input type="radio" name="rd3_1" onclick="check('exp-rd3-1', 'B', 'B')"> A. The reasons for moving to the suburbs.</label>
+                <label><input type="radio" name="rd3_1" onclick="check('exp-rd3-1', 'B', 'B')"> B. The disadvantages of city life.</label>
+                <label><input type="radio" name="rd3_1" onclick="check('exp-rd3-1', 'B', 'B')"> C. The high cost of living in cities.</label>
+                <label><input type="radio" name="rd3_1" onclick="check('exp-rd3-1', 'B', 'B')"> D. The causes of pollution in cities.</label>
+            </div>
+            <button class="btn-highlight" onclick="highlightSentence('p3-1')">Highlight dẫn chứng Ý Chính</button>
+            <div class="explanation" id="exp-rd3-1">
+                <strong>Đáp án đúng: B. The disadvantages of city life</strong><br>
+                - Dẫn chứng: "city life has many drawbacks" (cuộc sống thành thị có nhiều hạn chế/bất lợi).
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-box">
+            <div class="question-title">3. What does the word "them" in paragraph 2 refer to?</div>
+            <div class="options">
+                <label><input type="radio" name="rd3_3" onclick="check('exp-rd3-3', 'C', 'C')"> A. bad effects</label>
+                <label><input type="radio" name="rd3_3" onclick="check('exp-rd3-3', 'C', 'C')"> B. stress levels</label>
+                <label><input type="radio" name="rd3_3" onclick="check('exp-rd3-3', 'C', 'C')"> C. city people</label>
+                <label><input type="radio" name="rd3_3" onclick="check('exp-rd3-3', 'C', 'C')"> D. construction sites</label>
+            </div>
+            <button class="btn-highlight" onclick="highlightSentence('hl-them')">Highlight dẫn chứng ("them")</button>
+            <div class="explanation" id="exp-rd3-3">
+                <strong>Đáp án đúng: C. city people</strong><br>
+                - Dẫn chứng: "...making them suffer from breathing problems" (khiến họ [người dân thành phố] bị các vấn đề về hô hấp).
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-box">
+            <div class="question-title">4. According to the passage, teenagers often hang out at shopping malls because ________.</div>
+            <div class="options">
+                <label><input type="radio" name="rd3_4" onclick="check('exp-rd3-4', 'B', 'B')"> A. they find shopping malls interesting</label>
+                <label><input type="radio" name="rd3_4" onclick="check('exp-rd3-4', 'B', 'B')"> B. they have few places outdoor to play</label>
+                <label><input type="radio" name="rd3_4" onclick="check('exp-rd3-4', 'B', 'B')"> C. they prefer them to entertainment complexes</label>
+                <label><input type="radio" name="rd3_4" onclick="check('exp-rd3-4', 'B', 'B')"> D. their houses are too small</label>
+            </div>
+            <button class="btn-highlight" onclick="highlightSentence('hl-mall')">Highlight dẫn chứng (Shopping Malls)</button>
+            <div class="explanation" id="exp-rd3-4">
+                <strong>Đáp án đúng: B. they have few places outdoor to play</strong><br>
+                - Dẫn chứng: "Many cities lack spaces for outdoor activities; therefore..." (Nhiều thành phố thiếu không gian cho các hoạt động ngoài trời; do đó...).
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // Hàm mở Tab
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Hàm kiểm tra đáp án chung
+    function check(expId, selectedVal, correctVal) {
+        var expBox = document.getElementById(expId);
+        expBox.style.display = 'block';
+        if (selectedVal === correctVal) {
+            expBox.style.borderLeftColor = '#10b981';
+            expBox.style.background = '#d1fae5';
+        } else {
+            expBox.style.borderLeftColor = '#ef4444';
+            expBox.style.background = '#fee2e2';
+        }
+    }
+
+    // Hàm kiểm tra phần điền từ
+    function checkFillIn() {
+        document.getElementById('fill1').value = "liveable";
+        document.getElementById('fill2').value = "concrete jungle";
+        document.getElementById('fill3').value = "construction sites";
+        document.getElementById('fill4').value = "polluted";
+        document.getElementById('fill5').value = "public amenities";
+        document.getElementById('fill6').value = "security";
+        document.getElementById('exp-fill').style.display = 'block';
+    }
+
+    // Hàm Highlight dẫn chứng
+    function highlightSentence(elementId) {
+        // Clear highlight cũ
+        var highlighted = document.querySelectorAll('.highlight');
+        highlighted.forEach(function(el) {
+            el.classList.remove('highlight');
+        });
+
+        // Thêm highlight mới
+        var target = document.getElementById(elementId);
+        if(target) {
+            target.classList.add('highlight');
+        }
+    }
+</script>
+
+</body>
+</html>
