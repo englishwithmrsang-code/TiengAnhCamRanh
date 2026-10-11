@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 8: Advanced Collocations & Connectors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg-body: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --correct-bg: #dcfce7;
+            --correct-border: #22c55e;
+            --correct-text: #15803d;
+            --wrong-bg: #fee2e2;
+            --wrong-border: #ef4444;
+            --wrong-text: #b91c1c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            padding-top: 90px;
+        }
+
+        /* TRACKING BAR CỐ ĐỊNH Ở ĐỈNH TRANG */
+        .tracker-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 12px 24px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .tracker-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tracker-title {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        .score-badge {
+            background: #eff6ff;
+            color: var(--primary-dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 14px;
+            border: 1px solid #bfdbfe;
+        }
+
+        .progress-container {
+            flex: 1;
+            max-width: 400px;
+            background: #e2e8f0;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #22c55e);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .btn-reset {
+            background: #f1f5f9;
+            color: var(--text-sub);
+            border: 1px solid #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-reset:hover {
+            background: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .group-header {
+            background: var(--primary);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 800;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.2);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card-title {
+            font-weight: 800;
+            font-size: 15px;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .paragraph {
+            font-size: 14.5px;
+            line-height: 2.4;
+            color: var(--text-main);
+            text-align: justify;
+        }
+
+        /* INPUT ĐIỀN TỪ */
+        .gap-input {
+            font-family: 'Nunito', sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.25s;
+            margin: 0 3px;
+            background: #f8fafc;
+        }
+
+        .gap-input:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+        }
+
+        .gap-input.correct {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-border) !important;
+            color: var(--correct-text) !important;
+        }
+
+        .gap-input.wrong {
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong-border) !important;
+            color: var(--wrong-text) !important;
+            animation: shake 0.3s ease;
+        }
+
+        .hint-text {
+            color: #0d9488;
+            font-size: 12.5px;
+            font-style: italic;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+
+        /* HIỂN THỊ ĐÁP ÁN ĐÚNG KHI SAI */
+        .correct-answer-display {
+            color: #d97706;
+            font-size: 12px;
+            font-weight: 800;
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #fde68a;
+            margin-left: 2px;
+            margin-right: 4px;
+            display: inline-block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-4px); }
+            40%, 80% { transform: translateX(4px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TRACKING BAR ĐỈNH -->
+    <div class="tracker-bar">
+        <div class="tracker-info">
+            <span class="tracker-title">Module 8: Advanced Collocations & Connectors</span>
+            <span class="score-badge" id="scoreBadge">0 / 0 (0%)</span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <button class="btn-reset" onclick="resetAll()">Làm lại từ đầu</button>
+    </div>
+
+    <div class="container" id="contentContainer"></div>
+
+    <script>
+        const rawData = [
+            {
+                group: "Nhóm 1. Cuộc sống hằng ngày",
+                items: [
+                    {
+                        title: "1. Sports – Thể thao",
+                        text: "Well, {it depends on}(phụ thuộc vào) the age group. {If we are talking about}(nếu chúng ta nói về) young people, football is very popular because {it is}(nó là) {a fun way to stay active}(một cách thú vị để duy trì sự năng động) and {spend time with friends}(dành thời gian với bạn bè). {However}(Tuy nhiên), {as for}(đối với) older people, some prefer walking because {it helps them}(nó giúp họ) {stay fit and healthy}(giữ dáng và khỏe mạnh), while others enjoy playing badminton with their friends."
+                    },
+                    {
+                        title: "2. Music – Âm nhạc",
+                        text: "{It depends on}(Phụ thuộc vào) my mood. {If I feel tired}(Nếu tôi cảm thấy mệt) after work, I usually listen to slow music because {it helps me}(nó giúp tôi) {unwind and reduce stress}(thư giãn và giảm căng thẳng). {Having said that}(Mặc dù vậy), when I exercise, I prefer {upbeat songs}(những bài hát sôi động) because {they give me more energy}(chúng cho tôi thêm năng lượng) and make my workout more enjoyable."
+                    },
+                    {
+                        title: "3. Food – Đồ ăn",
+                        text: "{It depends on}(Phụ thuộc vào) my mood and appetite. {If I am really hungry}(Nếu tôi thực sự đói), I prefer {a proper meal}(một bữa ăn đàng hoàng) with rice and meat because {it keeps me full for longer}(nó giúp tôi no lâu hơn). {That being said}(Dù vậy), {as for}(đối với) snacks, I often choose fruit because {it is a healthy alternative}(đó là một sự thay thế lành mạnh) to sweets, although I still enjoy chocolate from time to time."
+                    },
+                    {
+                        title: "4. Free time – Thời gian rảnh",
+                        text: "{It depends on}(Phụ thuộc vào) how busy I am. {If I only have}(Nếu tôi chỉ có) {a little free time}(một chút thời gian rảnh), I listen to music or watch videos because these activities help me {unwind and reduce stress}(thư giãn và giảm căng thẳng). {However}(Tuy nhiên), {as for}(đối với) weekends, I enjoy going out with friends because {we can catch up with each other}(chúng tôi có thể trò chuyện, cập nhật tin tức với nhau). {If I feel tired}(Nếu tôi cảm thấy mệt), I sometimes prefer staying at home."
+                    },
+                    {
+                        title: "5. Daily routine – Thói quen hằng ngày",
+                        text: "{It depends on}(Phụ thuộc vào) how much sleep I get. {If I go to bed early}(Nếu tôi đi ngủ sớm), I find it easier to {get an early start}(khởi đầu ngày mới sớm) because {I feel more energetic}(tôi cảm thấy tràn đầy năng lượng hơn) in the morning. {Having said that}(Mặc dù vậy), {as for}(đối với) weekends, I prefer sleeping a little longer because {it gives me more time}(nó cho tôi nhiều thời gian hơn) to {unwind and reduce stress}(thư giãn và giảm căng thẳng) after a busy week."
+                    }
+                ]
+            },
+            {
+                group: "Nhóm 2. Nhà ở, quê hương và du lịch",
+                items: [
+                    {
+                        title: "6. Hometown – Quê hương",
+                        text: "{It depends on}(Phụ thuộc vào) what people enjoy. {If they love nature}(Nếu họ yêu thiên nhiên), they may like the beaches because {they can enjoy}(họ có thể tận hưởng) {the fresh air}(không khí trong lành) and {beautiful views}(cảnh quan đẹp). {However}(Tuy nhiên), {as for me}(đối với tôi), I love the local food because {it is delicious}(nó ngon) and {reasonably priced}(giá cả hợp lý). I also enjoy visiting cafés with my friends at weekends."
+                    },
+                    {
+                        title: "7. Home – Nhà ở",
+                        text: "{It depends on}(Phụ thuộc vào) my budget and lifestyle. {If I lived alone}(Nếu tôi sống một mình), I would choose an apartment because {it is easier to maintain}(nó dễ bảo trì/dọn dẹp) and can {save time and effort}(tiết kiệm thời gian và công sức). {That being said}(Dù vậy), {for a large family}(đối với một gia đình lớn), a house might be a better option because {there is more room}(có nhiều không gian hơn) for everyone."
+                    },
+                    {
+                        title: "8. Travel – Du lịch",
+                        text: "{It depends on}(Phụ thuộc vào) my budget and {who I travel with}(người mà tôi đi cùng). {If I go with friends}(Nếu tôi đi với bạn bè), I like visiting new places because {we can try something new}(chúng ta có thể thử điều mới mẻ) and {take photos together}(chụp ảnh cùng nhau). {Having said that}(Mặc dù vậy), {for family holidays}(cho các kỳ nghỉ gia đình), I prefer quiet beach destinations because {they are great places}(đó là những nơi tuyệt vời) to {unwind and reduce stress}(thư giãn và giảm căng thẳng)."
+                    },
+                    {
+                        title: "9. Weather – Thời tiết",
+                        text: "{It depends on}(Phụ thuộc vào) {what I plan to do}(những gì tôi dự định làm). {If I want to go cycling}(Nếu tôi muốn đi đạp xe), I prefer cool and sunny weather because {it makes outdoor activities}(nó làm cho các hoạt động ngoài trời) more enjoyable. {However}(Tuy nhiên), when I stay at home, I quite like rainy days because {they give me a chance}(chúng cho tôi cơ hội) to {unwind and reduce stress}(thư giãn và giảm căng thẳng)."
+                    },
+                    {
+                        title: "10. Transportation – Giao thông",
+                        text: "{It depends on}(Phụ thuộc vào) the distance. {If I am going}(Nếu tôi đang đi) {somewhere nearby}(đến một nơi gần đây), I usually ride my motorbike because {it is convenient}(nó tiện lợi) and helps me {avoid wasting time}(tránh lãng phí thời gian). {Nevertheless}(Tuy nhiên), {for long journeys}(đối với những chuyến đi dài), I prefer {traveling by car}(đi lại bằng ô tô) because {it is more comfortable}(nó thoải mái hơn)."
+                    }
+                ]
+            },
+            {
+                group: "Nhóm 3. Công nghệ, học tập và giải trí",
+                items: [
+                    {
+                        title: "11. Technology – Công nghệ",
+                        text: "{It depends on}(Phụ thuộc vào) {what I need to do}(những gì tôi cần làm). {If I want to contact my friends}(Nếu tôi muốn liên lạc với bạn bè), I use my phone because {it is always within reach}(nó luôn trong tầm tay). {Having said that}(Mặc dù vậy), {for studying or working}(để học tập hoặc làm việc), I prefer a laptop because {it allows me to}(nó cho phép tôi) {get things done}(hoàn thành công việc) {more efficiently}(một cách hiệu quả hơn)."
+                    },
+                    {
+                        title: "12. Social media – Mạng xã hội",
+                        text: "{It depends on}(Phụ thuộc vào) their needs. {If people want to}(Nếu mọi người muốn) {keep up with friends}(cập nhật tình hình bạn bè), social media makes it easy to {stay in touch}(giữ liên lạc). {However}(Tuy nhiên), {as for students}(đối với học sinh/sinh viên), many use it to watch educational videos or {learn new things}(học những điều mới). Spending too much time online can be distracting."
+                    },
+                    {
+                        title: "13. Shopping – Mua sắm",
+                        text: "{It depends on}(Phụ thuộc vào) {what I want to buy}(những gì tôi muốn mua). {If I need everyday items}(Nếu tôi cần các vật dụng hằng ngày), I shop online because {it is convenient}(nó tiện lợi) and {saves me a lot of time}(tiết kiệm cho tôi rất nhiều thời gian). {Having said that}(Mặc dù vậy), {as for clothes}(đối với quần áo), I prefer going to physical stores because {I can try them on}(tôi có thể thử chúng) and {check the quality}(kiểm tra chất lượng)."
+                    },
+                    {
+                        title: "14. Films – Phim ảnh",
+                        text: "{It depends on}(Phụ thuộc vào) my mood. {If I want to have a laugh}(Nếu tôi muốn cười đùa thoải mái), I watch comedies because {they help me}(chúng giúp tôi) {unwind and reduce stress}(thư giãn và giảm căng thẳng). {That being said}(Dù vậy), when I want to learn something, I enjoy documentaries because {they can broaden my knowledge}(chúng có thể mở rộng kiến thức của tôi)."
+                    },
+                    {
+                        title: "15. Reading – Đọc sách",
+                        text: "{It depends on}(Phụ thuộc vào) where I am. {If I am at home}(Nếu tôi ở nhà), I prefer printed books because {they help me focus better}(chúng giúp tôi tập trung tốt hơn). {However}(Tuy nhiên), when I travel, e-books are more practical because {I can carry them around easily}(tôi có thể mang theo chúng dễ dàng) without {taking up space}(chiếm nhiều diện tích)."
+                    }
+                ]
+            },
+            {
+                group: "Nhóm 4. Sức khỏe và các mối quan hệ",
+                items: [
+                    {
+                        title: "16. Exercise – Tập thể dục",
+                        text: "{It depends on}(Phụ thuộc vào) my schedule. {If I have enough time}(Nếu tôi có đủ thời gian), I go cycling or jogging because these activities help me {stay in good shape}(giữ vóc dáng cân đối) and {unwind and reduce stress}(thư giãn và giảm căng thẳng). {However}(Tuy nhiên), {on busy days}(vào những ngày bận rộn), I try to walk more because {it is easy to}(nó dễ dàng để) {fit into my daily routine}(lồng ghép vào thói quen hằng ngày)."
+                    },
+                    {
+                        title: "17. Friends – Bạn bè",
+                        text: "{It depends on}(Phụ thuộc vào) {how much free time we have}(thời gian rảnh chúng tôi có). {If we are busy}(Nếu chúng tôi bận), we just {send messages}(gửi tin nhắn) because {it is quick and convenient}(nó nhanh chóng và tiện lợi). {Having said that}(Mặc dù vậy), {at weekends}(vào các ngày cuối tuần), we often go out for coffee because {it gives us a chance}(nó cho chúng tôi cơ hội) to {spend quality time together}(dành thời gian chất lượng bên nhau)."
+                    },
+                    {
+                        title: "18. Clothes – Quần áo",
+                        text: "{It depends on}(Phụ thuộc vào) the weather and the occasion. {If it is hot}(Nếu trời nóng), I prefer wearing {light clothes}(quần áo mỏng nhẹ) because {they are comfortable}(chúng thoải mái) and {keep me cool}(giúp tôi mát mẻ). {However}(Tuy nhiên), {for special occasions}(cho các dịp đặc biệt), I usually choose something smarter because {I want to look neat and presentable}(tôi muốn trông gọn gàng và lịch sự)."
+                    },
+                    {
+                        title: "19. Pets – Thú cưng",
+                        text: "{It depends on}(Phụ thuộc vào) {how much time I have}(thời gian tôi có). {If I have enough free time}(Nếu tôi có đủ thời gian rảnh), I would love to have a dog because {dogs can make great companions}(chó có thể trở thành những người bạn đồng hành tuyệt vời). {Having said that}(Mặc dù vậy), pets need {a lot of care and attention}(nhiều sự chăm sóc và chú ý), so {people with busy schedules}(những người có lịch trình bận rộn) should think carefully."
+                    },
+                    {
+                        title: "20. Festivals – Lễ hội",
+                        text: "{It depends on}(Phụ thuộc vào) {what I want to celebrate}(những gì tôi muốn kỷ niệm). {If I want to spend time with my family}(Nếu tôi muốn dành thời gian cho gia đình), I enjoy Tet because {we can get together}(chúng ta có thể tụ họp) and {share a meal}(dùng bữa cùng nhau). {Nevertheless}(Tuy nhiên), {as for other festivals}(đối với các lễ hội khác), I like those with fun activities because {they give people a chance}(chúng cho mọi người cơ hội) to {make good memories}(tạo ra những kỷ niệm đẹp)."
+                    }
+                ]
+            }
+        ];
+
+        let totalGaps = 0;
+        let correctCount = 0;
+
+        function renderWorksheet() {
+            const container = document.getElementById('contentContainer');
+            container.innerHTML = '';
+            totalGaps = 0;
+
+            rawData.forEach((groupData) => {
+                const groupTitle = document.createElement('div');
+                groupTitle.className = 'group-header';
+                groupTitle.innerText = groupData.group;
+                container.appendChild(groupTitle);
+
+                groupData.items.forEach((item) => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    const title = document.createElement('div');
+                    title.className = 'card-title';
+                    title.innerText = item.title;
+                    card.appendChild(title);
+
+                    const paragraph = document.createElement('div');
+                    paragraph.className = 'paragraph';
+
+                    const regex = /\{([^}]+)\}\(([^)]+)\)/g;
+                    let lastIndex = 0;
+                    let match;
+
+                    while ((match = regex.exec(item.text)) !== null) {
+                        paragraph.appendChild(document.createTextNode(item.text.substring(lastIndex, match.index)));
+
+                        const targetWord = match[1].trim();
+                        const hintMeaning = match[2].trim();
+                        totalGaps++;
+
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.className = 'gap-input';
+                        input.dataset.answer = targetWord.toLowerCase();
+                        input.dataset.rawAnswer = targetWord;
+                        input.style.width = Math.max(120, targetWord.length * 9.5) + 'px';
+
+                        const hintSpan = document.createElement('span');
+                        hintSpan.className = 'hint-text';
+                        hintSpan.innerText = ` (${hintMeaning}) `;
+
+                        // Thẻ ẩn chứa đáp án đúng khi nhập sai
+                        const correctDisplay = document.createElement('span');
+                        correctDisplay.className = 'correct-answer-display';
+                        correctDisplay.style.display = 'none';
+
+                        input.addEventListener('keydown', function(e) {
+                            if (e.key === 'Enter') {
+                                checkAnswer(this, correctDisplay);
+                            }
+                        });
+
+                        input.addEventListener('blur', function() {
+                            if (this.value.trim() !== '' && !this.classList.contains('correct')) {
+                                checkAnswer(this, correctDisplay);
+                            }
+                        });
+
+                        paragraph.appendChild(input);
+                        paragraph.appendChild(correctDisplay);
+                        paragraph.appendChild(hintSpan);
+
+                        lastIndex = regex.lastIndex;
+                    }
+
+                    paragraph.appendChild(document.createTextNode(item.text.substring(lastIndex)));
+                    card.appendChild(paragraph);
+                    container.appendChild(card);
+                });
+            });
+
+            updateTracker();
+        }
+
+        function checkAnswer(input, displaySpan) {
+            if (input.classList.contains('correct')) return;
+
+            const userVal = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
+            const correctVal = input.dataset.answer;
+
+            if (userVal === correctVal) {
+                input.classList.remove('wrong');
+                input.classList.add('correct');
+                input.readOnly = true;
+                displaySpan.style.display = 'none'; // Ẩn đáp án nếu đúng
+                correctCount++;
+                updateTracker();
+            } else if (userVal !== '') {
+                input.classList.add('wrong');
+                // Hiển thị đáp án chính xác ngay bên cạnh khi trả lời sai
+                displaySpan.innerText = `[Đúng: ${input.dataset.rawAnswer}]`;
+                displaySpan.style.display = 'inline-block';
+                setTimeout(() => input.classList.remove('wrong'), 1000);
+            }
+        }
+
+        function updateTracker() {
+            const percentage = totalGaps > 0 ? Math.round((correctCount / totalGaps) * 100) : 0;
+            document.getElementById('scoreBadge').innerText = `${correctCount} / ${totalGaps} (${percentage}%)`;
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+        }
+
+        function resetAll() {
+            if (confirm("Bạn có muốn xóa toàn bộ kết quả để làm lại từ đầu?")) {
+                correctCount = 0;
+                renderWorksheet();
+            }
+        }
+
+        window.onload = renderWorksheet;
+    </script>
+</body>
+</html>
