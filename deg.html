@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Task 1: Engineering Company Qualifications (1980 & 2008)</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-radius: 8px;
+            --correct-color: #15803d;
+            --incorrect-color: #b91c1c;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0 0 4px 0;
+            color: #0f172a;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            border: 1px solid transparent;
+            background-color: var(--bg-color);
+            padding: 5px 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn[data-target="v1"] { color: #d97706; border-color: #fde68a; }
+        .tab-btn[data-target="v1"].active, .tab-btn[data-target="v1"]:hover { background-color: #d97706; color: #fff; }
+
+        .tab-btn[data-target="v2"] { color: #2563eb; border-color: #bfdbfe; }
+        .tab-btn[data-target="v2"].active, .tab-btn[data-target="v2"]:hover { background-color: #2563eb; color: #fff; }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            background: #e2e8f0;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover { background: #cbd5e1; }
+
+        /* Tracker Card */
+        .tracker-card {
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .tracker-info {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            white-space: nowrap;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #10b981;
+            transition: width 0.3s ease;
+        }
+
+        /* Version Card */
+        .version-card {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .version-card.active { display: block; }
+
+        .version-header {
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .version-header h2 { margin: 0; font-size: 1.1rem; }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .theme-v1 { border-top: 4px solid #d97706; }
+        .theme-v1 .version-header { background: #fffbeb; color: #92400e; }
+        .theme-v1 .vi-label { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+        .theme-v2 { border-top: 4px solid #2563eb; }
+        .theme-v2 .version-header { background: #eff6ff; color: #1e40af; }
+        .theme-v2 .vi-label { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+
+        .essay-body p {
+            margin-bottom: 18px;
+            text-align: justify;
+            font-size: 0.92rem;
+        }
+
+        /* Blank Elements */
+        .blank-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin: 3px 2px;
+            vertical-align: baseline;
+        }
+
+        .vi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-right: 3px;
+            user-select: none;
+            white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .blank-input {
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 0.86rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+            height: 22px;
+        }
+
+        .blank-input:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .blank-input.correct {
+            border-color: var(--correct-color) !important;
+            background-color: #f0fdf4 !important;
+            color: var(--correct-color) !important;
+            font-weight: 600;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--incorrect-color) !important;
+            background-color: #fef2f2 !important;
+            color: var(--incorrect-color) !important;
+            font-weight: 600;
+        }
+
+        /* Tooltip logic: only shows when class 'submitted' and 'incorrect' are present on hover */
+        .blank-wrapper .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            background-color: #0f172a;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 3px 7px;
+            position: absolute;
+            z-index: 10;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: opacity 0.15s ease-in-out;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .blank-wrapper .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            border-width: 4px;
+            border-style: solid;
+            border-color: #0f172a transparent transparent transparent;
+        }
+
+        .blank-wrapper:hover .blank-input.incorrect.submitted + .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>IELTS Task 1: Engineering Company Qualifications (1980 & 2008)</h1>
+        <p>Nhập đáp án → Nhấn <strong>Enter</strong> hoặc bấm ra ngoài để nộp bài → Nếu sai, **rê chuột vào ô** để xem gợi ý đáp án chuẩn</p>
+    </header>
+
+    <div class="controls">
+        <div class="tabs">
+            <button class="tab-btn active" data-target="v1">Bài 1 (Phân đoạn cấu trúc)</button>
+            <button class="tab-btn" data-target="v2">Bài 2 (Học thuật nâng cao)</button>
+        </div>
+        <div class="action-btns">
+            <button class="btn-action" id="showAnswersBtn">Hiển thị đáp án</button>
+            <button class="btn-action" id="resetBtn">Làm lại</button>
+        </div>
+    </div>
+
+    <!-- Tracker -->
+    <div class="tracker-card">
+        <div class="tracker-info">Tiến độ đúng: <span id="progressText">0 / 0 (0%)</span></div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- BÀI 1 -->
+    <div id="v1" class="version-card theme-v1 active">
+        <div class="version-header">
+            <h2>Bài 1 — Standard Structured Version</h2>
+            <span class="badge">Band 7.5 - 8.0</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Các biểu đồ hình tròn minh họa</span><input type="text" class="blank-input" data-ans="The pie charts illustrate" style="width: 200px;"><span class="tooltip">Đáp án: The pie charts illustrate</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sự phân bổ nhân viên với các trình độ khác nhau</span><input type="text" class="blank-input" data-ans="the distribution of employees with different qualifications" style="width: 320px;"><span class="tooltip">Đáp án: the distribution of employees with different qualifications</span></span>
+                <span class="blank-wrapper"><span class="vi-label">về Khoa học và Nghệ thuật</span><input type="text" class="blank-input" data-ans="in Science and Art" style="width: 150px;"><span class="tooltip">Đáp án: in Science and Art</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tại một công ty kỹ thuật vào năm 1980 và 2008</span><input type="text" class="blank-input" data-ans="at an engineering company in 1980 and 2008" style="width: 290px;"><span class="tooltip">Đáp án: at an engineering company in 1980 and 2008</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nhìn chung, các văn bằng Khoa học chiếm tỷ trọng lớn hơn</span><input type="text" class="blank-input" data-ans="Overall, Science qualifications accounted for a greater proportion" style="width: 360px;"><span class="tooltip">Đáp án: Overall, Science qualifications accounted for a greater proportion</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trong tổng lực lượng lao động so với Nghệ thuật</span><input type="text" class="blank-input" data-ans="of the workforce than Art qualifications" style="width: 290px;"><span class="tooltip">Đáp án: of the workforce than Art qualifications</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trong cả hai năm</span><input type="text" class="blank-input" data-ans="in both years" style="width: 110px;"><span class="tooltip">Đáp án: in both years</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trong suốt giai đoạn này</span><input type="text" class="blank-input" data-ans="Over the period" style="width: 140px;"><span class="tooltip">Đáp án: Over the period</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">tỷ lệ nhân viên có bằng Tiến sĩ tăng ở cả hai lĩnh vực</span><input type="text" class="blank-input" data-ans="the shares of employees holding PhDs rose in both fields" style="width: 330px;"><span class="tooltip">Đáp án: the shares of employees holding PhDs rose in both fields</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi những người có bằng đại học đầu tiên giảm</span><input type="text" class="blank-input" data-ans="whereas those with first degrees declined" style="width: 270px;"><span class="tooltip">Đáp án: whereas those with first degrees declined</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trong khi đó, tỷ lệ tốt nghiệp Thạc sĩ Khoa học giữ nguyên</span><input type="text" class="blank-input" data-ans="Meanwhile, the proportion of Master’s graduates in Science remained constant" style="width: 440px;"><span class="tooltip">Đáp án: Meanwhile, the proportion of Master’s graduates in Science remained constant</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Xét về các văn bằng Khoa học trước tiên</span><input type="text" class="blank-input" data-ans="Looking first at Science qualifications" style="width: 270px;"><span class="tooltip">Đáp án: Looking first at Science qualifications</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">những người có bằng Thạc sĩ đại diện cho nhóm lớn nhất năm 1980</span><input type="text" class="blank-input" data-ans="Master’s degree holders represented the largest group in 1980" style="width: 360px;"><span class="tooltip">Đáp án: Master’s degree holders represented the largest group in 1980</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ở mức 29%</span><input type="text" class="blank-input" data-ans="at 29%" style="width: 80px;"><span class="tooltip">Đáp án: at 29%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">theo sau là bằng Tiến sĩ ở mức 25%</span><input type="text" class="blank-input" data-ans="followed by PhD holders at 25%" style="width: 220px;"><span class="tooltip">Đáp án: followed by PhD holders at 25%</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và tốt nghiệp đại học đầu tiên ở mức 20%</span><input type="text" class="blank-input" data-ans="and first-degree graduates at 20%" style="width: 230px;"><span class="tooltip">Đáp án: and first-degree graduates at 20%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đến năm 2008, tỷ lệ nhân viên có bằng Tiến sĩ Khoa học tăng lên 30%</span><input type="text" class="blank-input" data-ans="By 2008, the proportion of employees with a PhD in Science had climbed to 30%" style="width: 440px;"><span class="tooltip">Đáp án: By 2008, the proportion of employees with a PhD in Science had climbed to 30%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trở thành trình độ phổ biến nhất</span><input type="text" class="blank-input" data-ans="making it the most prevalent qualification" style="width: 260px;"><span class="tooltip">Đáp án: making it the most prevalent qualification</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ngược lại, tỷ lệ cử nhân giảm 8 điểm phần trăm xuống 12%</span><input type="text" class="blank-input" data-ans="In contrast, the share of first-degree holders dropped by eight percentage points to 12%" style="width: 460px;"><span class="tooltip">Đáp án: In contrast, the share of first-degree holders dropped by eight percentage points to 12%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi số liệu thạc sĩ không đổi ở mức 29%</span><input type="text" class="blank-input" data-ans="while the figure for Master’s graduates remained unchanged at 29%" style="width: 370px;"><span class="tooltip">Đáp án: while the figure for Master’s graduates remained unchanged at 29%</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Chuyển sang các văn bằng Nghệ thuật</span><input type="text" class="blank-input" data-ans="Turning to Art qualifications" style="width: 200px;"><span class="tooltip">Đáp án: Turning to Art qualifications</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">cử nhân ban đầu chiếm 11% nhân viên</span><input type="text" class="blank-input" data-ans="first-degree holders initially accounted for 11% of employees" style="width: 330px;"><span class="tooltip">Đáp án: first-degree holders initially accounted for 11% of employees</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">thấp hơn một chút so với 13% của thạc sĩ</span><input type="text" class="blank-input" data-ans="slightly below the 13% recorded for Master’s graduates" style="width: 330px;"><span class="tooltip">Đáp án: slightly below the 13% recorded for Master’s graduates</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đến năm 2008, cả hai số liệu giảm nhẹ xuống 10% và 12%</span><input type="text" class="blank-input" data-ans="By 2008, both figures had declined marginally, to 10% and 12%, respectively" style="width: 440px;"><span class="tooltip">Đáp án: By 2008, both figures had declined marginally, to 10% and 12%, respectively</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ngược lại, tỷ lệ tiến sĩ nghệ thuật tăng hơn gấp ba</span><input type="text" class="blank-input" data-ans="Conversely, the proportion of PhD holders in Art more than tripled" style="width: 370px;"><span class="tooltip">Đáp án: Conversely, the proportion of PhD holders in Art more than tripled</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">từ chỉ 2% lên 7%</span><input type="text" class="blank-input" data-ans="rising from just 2% to 7%" style="width: 170px;"><span class="tooltip">Đáp án: rising from just 2% to 7%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">dù đây vẫn là nhóm nhỏ nhất trong công ty</span><input type="text" class="blank-input" data-ans="although this remained the smallest category in the company" style="width: 340px;"><span class="tooltip">Đáp án: although this remained the smallest category in the company</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- BÀI 2 -->
+    <div id="v2" class="version-card theme-v2">
+        <div class="version-header">
+            <h2>Bài 2 — Advanced Academic Version</h2>
+            <span class="badge">Band 8.0</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Hai biểu đồ hình tròn so sánh tỷ lệ tốt nghiệp</span><input type="text" class="blank-input" data-ans="The two pie charts compare the proportions of graduates" style="width: 330px;"><span class="tooltip">Đáp án: The two pie charts compare the proportions of graduates</span></span>
+                <span class="blank-wrapper"><span class="vi-label">với sáu văn bằng học thuật khác nhau</span><input type="text" class="blank-input" data-ans="with six different academic qualifications" style="width: 250px;"><span class="tooltip">Đáp án: with six different academic qualifications</span></span>
+                <span class="blank-wrapper"><span class="vi-label">được tuyển dụng bởi một công ty kỹ thuật năm 1980 và 2008</span><input type="text" class="blank-input" data-ans="employed by an engineering company in 1980 and 2008" style="width: 340px;"><span class="tooltip">Đáp án: employed by an engineering company in 1980 and 2008</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nhìn chung, bằng cấp Khoa học chiếm tỷ trọng lớn hơn</span><input type="text" class="blank-input" data-ans="Overall, Science qualifications accounted for a greater proportion" style="width: 360px;"><span class="tooltip">Đáp án: Overall, Science qualifications accounted for a greater proportion</span></span>
+                <span class="blank-wrapper"><span class="vi-label">của lực lượng lao động so với Nghệ thuật trong cả hai năm</span><input type="text" class="blank-input" data-ans="of the workforce than Art qualifications in both years" style="width: 330px;"><span class="tooltip">Đáp án: of the workforce than Art qualifications in both years</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trong khi tỷ lệ nhân viên có bằng Tiến sĩ tăng ở cả hai lĩnh vực</span><input type="text" class="blank-input" data-ans="While the percentage of employees holding PhDs increased in both fields" style="width: 410px;"><span class="tooltip">Đáp án: While the percentage of employees holding PhDs increased in both fields</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">số liệu cho cử nhân nhìn chung giảm</span><input type="text" class="blank-input" data-ans="the figures for first-degree holders generally declined" style="width: 310px;"><span class="tooltip">Đáp án: the figures for first-degree holders generally declined</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đáng chú ý, thạc sĩ khoa học duy trì thị phần ổn định</span><input type="text" class="blank-input" data-ans="Notably, Master’s graduates in Science maintained a stable share" style="width: 360px;"><span class="tooltip">Đáp án: Notably, Master’s graduates in Science maintained a stable share</span></span>
+                <span class="blank-wrapper"><span class="vi-label">suốt cả giai đoạn</span><input type="text" class="blank-input" data-ans="throughout the period" style="width: 150px;"><span class="tooltip">Đáp án: throughout the period</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Năm 1980, thạc sĩ khoa học cấu thành nhóm lớn nhất</span><input type="text" class="blank-input" data-ans="In 1980, Master’s graduates in Science constituted the largest group" style="width: 380px;"><span class="tooltip">Đáp án: In 1980, Master’s graduates in Science constituted the largest group</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ở mức 29%</span><input type="text" class="blank-input" data-ans="at 29%" style="width: 80px;"><span class="tooltip">Đáp án: at 29%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">theo sau là tiến sĩ khoa học ở mức 25%</span><input type="text" class="blank-input" data-ans="followed by PhD holders in the same field at 25%" style="width: 310px;"><span class="tooltip">Đáp án: followed by PhD holders in the same field at 25%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Cử nhân khoa học chiếm thêm 20%</span><input type="text" class="blank-input" data-ans="First-degree graduates in Science accounted for a further 20%" style="width: 350px;"><span class="tooltip">Đáp án: First-degree graduates in Science accounted for a further 20%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đến năm 2008, tỷ lệ nhân viên có bằng tiến sĩ khoa học tăng 5% lên 30%</span><input type="text" class="blank-input" data-ans="By 2008, the proportion of employees with a PhD in Science had risen by five percentage points to 30%" style="width: 530px;"><span class="tooltip">Đáp án: By 2008, the proportion of employees with a PhD in Science had risen by five percentage points to 30%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vượt qua nhóm thạc sĩ</span><input type="text" class="blank-input" data-ans="overtaking Master’s graduates" style="width: 190px;"><span class="tooltip">Đáp án: overtaking Master’s graduates</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">với thị phần không đổi ở mức 29%</span><input type="text" class="blank-input" data-ans="whose share remained unchanged at 29%" style="width: 250px;"><span class="tooltip">Đáp án: whose share remained unchanged at 29%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ngược lại, số liệu cử nhân khoa học giảm đáng kể</span><input type="text" class="blank-input" data-ans="In contrast, the figure for first-degree holders in Science fell substantially" style="width: 390px;"><span class="tooltip">Đáp án: In contrast, the figure for first-degree holders in Science fell substantially</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">từ 20% xuống 12%</span><input type="text" class="blank-input" data-ans="from 20% to 12%" style="width: 130px;"><span class="tooltip">Đáp án: from 20% to 12%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">đại diện cho mức giảm lớn nhất trong tất cả các nhóm</span><input type="text" class="blank-input" data-ans="representing the largest decline among all categories" style="width: 330px;"><span class="tooltip">Đáp án: representing the largest decline among all categories</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Liên quan đến các văn bằng Nghệ thuật</span><input type="text" class="blank-input" data-ans="Regarding Art qualifications" style="width: 200px;"><span class="tooltip">Đáp án: Regarding Art qualifications</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">thạc sĩ nghệ thuật ban đầu chiếm 13% lực lượng lao động</span><input type="text" class="blank-input" data-ans="Master’s graduates initially made up 13% of the workforce" style="width: 350px;"><span class="tooltip">Đáp án: Master’s graduates initially made up 13% of the workforce</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">cao hơn một chút so với 11% của cử nhân</span><input type="text" class="blank-input" data-ans="slightly higher than the 11% recorded for first-degree holders" style="width: 350px;"><span class="tooltip">Đáp án: slightly higher than the 11% recorded for first-degree holders</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đến năm 2008, các số liệu này giảm nhẹ xuống 12% và 10%</span><input type="text" class="blank-input" data-ans="By 2008, these figures had edged down to 12% and 10%, respectively" style="width: 390px;"><span class="tooltip">Đáp án: By 2008, these figures had edged down to 12% and 10%, respectively</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ngược lại, tỷ lệ tiến sĩ nghệ thuật tăng hơn gấp ba</span><input type="text" class="blank-input" data-ans="Conversely, the proportion of PhD holders in Art more than tripled" style="width: 370px;"><span class="tooltip">Đáp án: Conversely, the proportion of PhD holders in Art more than tripled</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">từ chỉ 2% lên 7%</span><input type="text" class="blank-input" data-ans="rising from just 2% to 7%" style="width: 170px;"><span class="tooltip">Đáp án: rising from just 2% to 7%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Mặc dù tăng tương đối đáng kể này</span><input type="text" class="blank-input" data-ans="Despite this considerable relative increase" style="width: 270px;"><span class="tooltip">Đáp án: Despite this considerable relative increase</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">họ tiếp tục đại diện cho nhóm nhỏ nhất trong công ty</span><input type="text" class="blank-input" data-ans="they continued to represent the smallest group in the company" style="width: 360px;"><span class="tooltip">Đáp án: they continued to represent the smallest group in the company</span></span>.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.version-card');
+        const showAnswersBtn = document.getElementById('showAnswersBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // Clean text utility
+        function cleanText(text) {
+            return text.trim()
+                       .toLowerCase()
+                       .replace(/’/g, "'")
+                       .replace(/–/g, "-")
+                       .replace(/\s+/g, ' ');
+        }
+
+        // Update progress tracker
+        function updateProgress() {
+            const activeCard = document.querySelector('.version-card.active');
+            const inputs = activeCard.querySelectorAll('.blank-input');
+            const total = inputs.length;
+            let correctCount = 0;
+
+            inputs.forEach(input => {
+                if (input.classList.contains('correct')) {
+                    correctCount++;
+                }
+            });
+
+            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+            progressBar.style.width = percent + '%';
+            progressText.textContent = `${correctCount} / ${total} (${percent}%)`;
+        }
+
+        // Validate Input logic
+        function validateInput(input) {
+            const userVal = cleanText(input.value);
+            const correctVal = cleanText(input.getAttribute('data-ans'));
+
+            if (userVal === "") {
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            } else {
+                input.classList.add('submitted');
+                if (userVal === correctVal) {
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('incorrect');
+                }
+            }
+            updateProgress();
+        }
+
+        // Tab Switching
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                cards.forEach(card => {
+                    if (card.id === targetId) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+                updateProgress();
+            });
+        });
+
+        // Attach listeners for submit action (Enter key or Blur)
+        document.querySelectorAll('.blank-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    validateInput(input);
+                    input.blur();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                validateInput(input);
+            });
+        });
+
+        // Show Answers Button
+        showAnswersBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = input.getAttribute('data-ans');
+                input.classList.remove('incorrect');
+                input.classList.add('correct', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Reset Button
+        resetBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = "";
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Initial state
+        updateProgress();
+    });
+</script>
+
+</body>
+</html>
