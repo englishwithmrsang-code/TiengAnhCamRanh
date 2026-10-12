@@ -1,608 +1,178 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening Practice - Full Script & Gap Fill (A2 Level)</title>
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --primary-light: #eff6ff;
-            --bg-main: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --success: #10b981;
-            --error: #ef4444;
-        }
+<!-- ================= PART 1 ================= -->
+<div class="card">
+    <h2>Listening 1: Children’s Magazine</h2>
 
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            padding-bottom: 40px;
-        }
+    <div class="audio-player-wrapper">
+        <div class="audio-player">
+            <audio id="audio1" src="listening-for-numbers-and-missing-words-10.mp3"></audio>
+            <button class="play-btn" onclick="togglePlay('audio1', this)">▶</button>
+            <div class="timeline-container">
+                <input type="range" class="timeline" id="time1" value="0" min="0" step="0.1" oninput="seekAudio('audio1', this.value)">
+            </div>
+            <div class="time-display" id="clock1">00:00 / 00:00</div>
+        </div>
+    </div>
 
-        /* Top Score Board (Sticky) */
-        .score-tracker-bar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--primary);
-            color: #ffffff;
-            padding: 14px 24px;
-            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-        }
+    <p class="instruction">Listen and write. There is one example.</p>
+    
+    <div id="ex1-main">
+        <ul class="question-list">
+            <li><span>Name:</span> <span class="input-wrapper"><input type="text" data-answer="ben perry" data-display="Ben Perry"></span> <em>(Example)</em></li>
+            <li><span>1. Birthday month:</span> <span class="input-wrapper"><input type="text" data-answer="november" data-display="November"></span></li>
+            <li><span>2. Favourite month:</span> <span class="input-wrapper"><input type="text" data-answer="may" data-display="May"></span></li>
+            <li><span>3. Worst month:</span> <span class="input-wrapper"><input type="text" data-answer="february" data-display="February"></span></li>
+            <li><span>4. Holiday time:</span> <span class="input-wrapper"><input type="text" data-answer="autumn" data-display="Autumn"></span></li>
+            <li><span>5. Holiday place:</span> <span class="input-wrapper"><input type="text" data-answer="cumbline" data-display="Cumbline"></span></li>
+        </ul>
+        <button class="action-btn" onclick="checkAnswers('ex1-main', 'ex1-main-result')">Submit Part 1</button>
+        <div class="result" id="ex1-main-result"></div>
+    </div>
 
-        .score-badge {
-            background-color: rgba(255, 255, 255, 0.18);
-            padding: 6px 18px;
-            border-radius: 9999px;
-            font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(4px);
-        }
+    <button class="toggle-btn" onclick="toggleSection('transcript1')">▼ Show Full Audio Script Gap-fill (15 gaps)</button>
 
-        .score-value {
-            color: #4ade80;
-            font-weight: 700;
-        }
-
-        .percentage-value {
-            color: #fde047;
-            font-weight: 700;
-            margin-left: 4px;
-        }
-
-        .container {
-            max-width: 850px;
-            margin: 28px auto 0;
-            padding: 0 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: var(--text-main);
-            font-weight: 800;
-            font-size: 28px;
-            margin-bottom: 25px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 28px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
-        .card h2 {
-            margin-top: 0;
-            color: var(--primary);
-            font-size: 20px;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 12px;
-        }
-
-        .audio-player-wrapper {
-            position: sticky;
-            top: 70px;
-            z-index: 900;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            padding: 10px 0;
-            margin-bottom: 15px;
-            border-bottom: 1px dashed var(--border-color);
-        }
-
-        .audio-player {
-            background: var(--primary-light);
-            border-radius: 12px;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid #dbeafe;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
-        }
-
-        .play-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 42px;
-            height: 42px;
-            font-size: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
-        }
-
-        .play-btn:hover {
-            background-color: var(--primary-hover);
-            transform: scale(1.03);
-        }
-
-        .timeline-container {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .timeline {
-            width: 100%;
-            height: 6px;
-            -webkit-appearance: none;
-            appearance: none;
-            background: #cbd5e1;
-            border-radius: 3px;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .timeline::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--primary);
-            cursor: pointer;
-        }
-
-        .time-display {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-family: monospace;
-            white-space: nowrap;
-        }
-
-        .instruction {
-            font-style: italic;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .question-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .question-list li {
-            margin-bottom: 14px;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .input-wrapper {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin: 2px 0;
-        }
-
-        input[type="text"] {
-            padding: 5px 10px;
-            border: 1.5px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 14px;
-            width: 130px;
-            background-color: #f8fafc;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--primary);
-            background-color: #ffffff;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-
-        .correct {
-            border-color: var(--success) !important;
-            background-color: #f0fdf4 !important;
-            color: #166534;
-        }
-
-        .incorrect {
-            border-color: var(--error) !important;
-            background-color: #fef2f2 !important;
-            color: #991b1b;
-        }
-
-        .correct-answer-hint {
-            color: var(--error);
-            font-weight: 600;
-            font-size: 13px;
-        }
-
-        .toggle-btn {
-            background-color: #e2e8f0;
-            color: var(--text-main);
-            border: none;
-            padding: 10px 18px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 15px;
-            margin-bottom: 15px;
-            display: inline-block;
-            transition: all 0.2s ease;
-        }
-
-        .toggle-btn:hover {
-            background-color: #cbd5e1;
-        }
-
-        .transcript-section {
-            display: none;
-            margin-top: 15px;
-            background-color: var(--bg-main);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        .transcript-box {
-            font-size: 15px;
-            line-height: 2.2;
-        }
-
-        .action-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
-        }
-
-        .action-btn:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-
-        .result {
-            margin-top: 12px;
-            font-weight: 600;
-            font-size: 15px;
-        }
-    </style>
-</head>
-<body>
-
-<!-- Global Score Bar Header -->
-<div class="score-tracker-bar">
-    <div class="score-tracker-title">Total Progress</div>
-    <div class="score-badge">
-        Correct Answers: <span id="global-correct" class="score-value">0</span> / <span id="global-total">63</span>
-        (<span id="global-percentage" class="percentage-value">0%</span>)
+    <div id="transcript1" class="transcript-section">
+        <p class="instruction">Listen to the audio and fill in all 15 blanks in the full transcript below:</p>
+        <div id="ex1-transcript-box" class="transcript-box">
+            WOMAN: Oh, hello. I work for a children’s <span class="input-wrapper"><input type="text" data-answer="magazine" data-display="magazine"></span> and I’m writing something about children and the different times of the year. Would you like to <span class="input-wrapper"><input type="text" data-answer="answer" data-display="answer"></span> some questions for me?<br>
+            BOY: Well, yes, if I can.<br>
+            WOMAN: Thank you. OK, first, can you give me your <span class="input-wrapper"><input type="text" data-answer="name" data-display="name"></span>, please?<br>
+            BOY: Yes, of course. It’s Ben – Ben Perry. And that’s P-E double R-Y.<br>
+            WOMAN: Right. Thank you, Ben. Now, when’s your <span class="input-wrapper"><input type="text" data-answer="birthday" data-display="birthday"></span>? I mean, which month?<br>
+            BOY: My birthday? Why?<br>
+            WOMAN: It’s <span class="input-wrapper"><input type="text" data-answer="interesting" data-display="interesting"></span>. People usually like their birthday month.<br>
+            BOY: Do they? Well, I don’t like mine very much. It’s <span class="input-wrapper"><input type="text" data-answer="november" data-display="November"></span>.<br>
+            WOMAN: Oh, right. Let me write that here. Now perhaps you can tell me the month you like best. Which is your <span class="input-wrapper"><input type="text" data-answer="favourite" data-display="favourite"></span> month?<br>
+            BOY: Mmmm … I <span class="input-wrapper"><input type="text" data-answer="prefer" data-display="prefer"></span> May, I think. Yes, it’s lovely then. It’s warm and sunny and we often go <span class="input-wrapper"><input type="text" data-answer="swimming" data-display="swimming"></span>.<br>
+            WOMAN: OK, fine. Now, which month is the worst? What about January?<br>
+            BOY: Well, I don’t like it very much – but the month I <span class="input-wrapper"><input type="text" data-answer="hate" data-display="hate"></span> is February. It’s always <span class="input-wrapper"><input type="text" data-answer="cold" data-display="cold"></span> and it rains a lot so we can’t play outside very often.<br>
+            WOMAN: But in some countries it’s warm and sunny then, you know.<br>
+            BOY: Yes, I know! But not here!<br>
+            WOMAN: Now, do you usually have a <span class="input-wrapper"><input type="text" data-answer="holiday" data-display="holiday"></span> in the summer, Ben?<br>
+            BOY: No. All my friends do, but my dad has to work then. So we have our holiday later, in the <span class="input-wrapper"><input type="text" data-answer="autumn" data-display="autumn"></span>.<br>
+            WOMAN: Ah, I see. And where do you go?<br>
+            BOY: We always go to the same place. It’s called Cumbline.<br>
+            WOMAN: Oh. Can you spell that for me, please?<br>
+            BOY: Yes. It’s C-U-M-B-L-I-N-E. It’s a lovely place, with <span class="input-wrapper"><input type="text" data-answer="lakes" data-display="lakes"></span> and a <span class="input-wrapper"><input type="text" data-answer="forest" data-display="forest"></span>.<br>
+            WOMAN: Well, thank you, Ben. That’s all.
+        </div>
+        <button class="action-btn" onclick="checkAnswers('ex1-transcript-box', 'ex1-transcript-result')">Submit Script Part 1</button>
+        <div class="result" id="ex1-transcript-result"></div>
     </div>
 </div>
 
-<div class="container">
-    <h1>Listening Practice</h1>
+<!-- ================= PART 2 ================= -->
+<div class="card">
+    <h2>Listening 2: Camping Trip to Lake</h2>
 
-    <!-- ================= PART 1 ================= -->
-    <div class="card">
-        <h2>Listening 1: Children’s Magazine</h2>
-
-        <div class="audio-player-wrapper">
-            <div class="audio-player">
-                <audio id="audio1" src="listening-for-numbers-and-missing-words-10.mp3"></audio>
-                <button class="play-btn" onclick="togglePlay('audio1', this)">▶</button>
-                <div class="timeline-container">
-                    <input type="range" class="timeline" id="time1" value="0" min="0" step="0.1" oninput="seekAudio('audio1', this.value)">
-                </div>
-                <div class="time-display" id="clock1">00:00 / 00:00</div>
+    <div class="audio-player-wrapper">
+        <div class="audio-player">
+            <audio id="audio2" src="listening-for-numbers-and-missing-words-11.mp3"></audio>
+            <button class="play-btn" onclick="togglePlay('audio2', this)">▶</button>
+            <div class="timeline-container">
+                <input type="range" class="timeline" id="time2" value="0" min="0" step="0.1" oninput="seekAudio('audio2', this.value)">
             </div>
-        </div>
-
-        <p class="instruction">Listen and write. There is one example.</p>
-        
-        <div id="ex1-main">
-            <ul class="question-list">
-                <li><span>Name:</span> <span class="input-wrapper"><input type="text" data-answer="ben perry" data-display="Ben Perry"></span> <em>(Example)</em></li>
-                <li><span>1. Birthday month:</span> <span class="input-wrapper"><input type="text" data-answer="november" data-display="November"></span></li>
-                <li><span>2. Favourite month:</span> <span class="input-wrapper"><input type="text" data-answer="may" data-display="May"></span></li>
-                <li><span>3. Worst month:</span> <span class="input-wrapper"><input type="text" data-answer="february" data-display="February"></span></li>
-                <li><span>4. Holiday time:</span> <span class="input-wrapper"><input type="text" data-answer="autumn" data-display="Autumn"></span></li>
-                <li><span>5. Holiday place:</span> <span class="input-wrapper"><input type="text" data-answer="cumbline" data-display="Cumbline"></span></li>
-            </ul>
-            <button class="action-btn" onclick="checkAnswers('ex1-main', 'ex1-main-result')">Submit Part 1</button>
-            <div class="result" id="ex1-main-result"></div>
-        </div>
-
-        <button class="toggle-btn" onclick="toggleSection('transcript1')">▼ Show Full Script Gap-fill (15 gaps)</button>
-
-        <div id="transcript1" class="transcript-section">
-            <p class="instruction">Fill in the 15 missing words based on the audio script:</p>
-            <div id="ex1-transcript-box" class="transcript-box">
-                WOMAN: Oh, hello. I work for a children’s <span class="input-wrapper"><input type="text" data-answer="magazine" data-display="magazine"></span> and I’m writing something about children and the different <span class="input-wrapper"><input type="text" data-answer="times" data-display="times"></span> of the <span class="input-wrapper"><input type="text" data-answer="year" data-display="year"></span>. Would you like to answer some <span class="input-wrapper"><input type="text" data-answer="questions" data-display="questions"></span> for me?<br>
-                BOY: Well, yes, if I <span class="input-wrapper"><input type="text" data-answer="can" data-display="can"></span>.<br>
-                WOMAN: Thank you. OK, first, can you give me your <span class="input-wrapper"><input type="text" data-answer="name" data-display="name"></span>, please?<br>
-                BOY: Yes, of course. It’s Ben – Ben Perry. And that’s P-E double R-Y.<br>
-                WOMAN: Right. Thank you, Ben. Now, when’s your <span class="input-wrapper"><input type="text" data-answer="birthday" data-display="birthday"></span>? I mean, which <span class="input-wrapper"><input type="text" data-answer="month" data-display="month"></span>?<br>
-                BOY: My birthday? <span class="input-wrapper"><input type="text" data-answer="why" data-display="Why"></span>?<br>
-                WOMAN: It’s <span class="input-wrapper"><input type="text" data-answer="interesting" data-display="interesting"></span>. People usually like their birthday <span class="input-wrapper"><input type="text" data-answer="month" data-display="month"></span>.<br>
-                BOY: Do they? Well, I don’t like <span class="input-wrapper"><input type="text" data-answer="mine" data-display="mine"></span> very much. It’s November.<br>
-                WOMAN: Oh, right. Let me write that here. Now perhaps you can tell me the month you <span class="input-wrapper"><input type="text" data-answer="prefer" data-display="prefer"></span>.<br>
-                BOY: Which is your favourite month? Mmmm … I prefer May, I think.<br>
-                WOMAN: Yes, it’s <span class="input-wrapper"><input type="text" data-answer="lovely" data-display="lovely"></span> then. It’s warm and sunny and we often go <span class="input-wrapper"><input type="text" data-answer="swimming" data-display="swimming"></span>.
-            </div>
-            <button class="action-btn" onclick="checkAnswers('ex1-transcript-box', 'ex1-transcript-result')">Submit Script Part 1</button>
-            <div class="result" id="ex1-transcript-result"></div>
+            <div class="time-display" id="clock2">00:00 / 00:00</div>
         </div>
     </div>
 
-    <!-- ================= PART 2 ================= -->
-    <div class="card">
-        <h2>Listening 2: Camping Trip to Lake</h2>
-
-        <div class="audio-player-wrapper">
-            <div class="audio-player">
-                <audio id="audio2" src="listening-for-numbers-and-missing-words-11.mp3"></audio>
-                <button class="play-btn" onclick="togglePlay('audio2', this)">▶</button>
-                <div class="timeline-container">
-                    <input type="range" class="timeline" id="time2" value="0" min="0" step="0.1" oninput="seekAudio('audio2', this.value)">
-                </div>
-                <div class="time-display" id="clock2">00:00 / 00:00</div>
-            </div>
-        </div>
-
-        <p class="instruction">Listen and write. There is one example.</p>
-        
-        <div id="ex2-main">
-            <ul class="question-list">
-                <li><span>Meet at:</span> <span class="input-wrapper"><input type="text" data-answer="kirby bridge" data-display="Kirby Bridge"></span> <em>(Example)</em></li>
-                <li><span>1. Time:</span> <span class="input-wrapper"><input type="text" data-answer="half past eight|8.30|eight thirty|half past eight a.m.|8.30 a.m." data-display="half past eight"></span></li>
-                <li><span>Take:</span></li>
-                <li><span>2.</span> <span class="input-wrapper"><input type="text" data-answer="rucksack|a rucksack|small rucksack|a small rucksack" data-display="a small rucksack"></span></li>
-                <li><span>3.</span> <span class="input-wrapper"><input type="text" data-answer="plastic plate|a plastic plate" data-display="a plastic plate"></span></li>
-                <li><span>4.</span> <span class="input-wrapper"><input type="text" data-answer="torch|a torch" data-display="a torch"></span></li>
-                <li><span>5.</span> <span class="input-wrapper"><input type="text" data-answer="towel|a towel" data-display="a towel"></span></li>
-            </ul>
-            <button class="action-btn" onclick="checkAnswers('ex2-main', 'ex2-main-result')">Submit Part 2</button>
-            <div class="result" id="ex2-main-result"></div>
-        </div>
-
-        <button class="toggle-btn" onclick="toggleSection('transcript2')">▼ Show Full Script Gap-fill (15 gaps)</button>
-
-        <div id="transcript2" class="transcript-section">
-            <p class="instruction">Fill in the 15 missing words based on the audio script:</p>
-            <div id="ex2-transcript-box" class="transcript-box">
-                WOMAN: Hello, everyone. Please listen <span class="input-wrapper"><input type="text" data-answer="carefully" data-display="carefully"></span>, because I’m going to tell you some <span class="input-wrapper"><input type="text" data-answer="important" data-display="important"></span> things about our school camping <span class="input-wrapper"><input type="text" data-answer="trip" data-display="trip"></span> to the <span class="input-wrapper"><input type="text" data-answer="lake" data-display="lake"></span> this <span class="input-wrapper"><input type="text" data-answer="weekend" data-display="weekend"></span>.<br>
-                First, we are going to meet at Kirby Bridge. Write this in your <span class="input-wrapper"><input type="text" data-answer="books" data-display="books"></span>, please. That’s K-I-R-B-Y.<br>
-                You all know that <span class="input-wrapper"><input type="text" data-answer="place" data-display="place"></span>, don’t you?<br>
-                BOY: Yes, <span class="input-wrapper"><input type="text" data-answer="miss" data-display="Miss"></span>.<br>
-                WOMAN: Next, the <span class="input-wrapper"><input type="text" data-answer="time" data-display="time"></span>. Can we meet at <span class="input-wrapper"><input type="text" data-answer="half" data-display="half"></span> past <span class="input-wrapper"><input type="text" data-answer="eight" data-display="eight"></span>?<br>
-                BOY: Oh, that’s very <span class="input-wrapper"><input type="text" data-answer="early" data-display="early"></span>!<br>
-                WOMAN: No, it isn’t. You <span class="input-wrapper"><input type="text" data-answer="start" data-display="start"></span> school at that time every <span class="input-wrapper"><input type="text" data-answer="day" data-display="day"></span>!<br>
-                BOY: OK. What do we have to <span class="input-wrapper"><input type="text" data-answer="bring" data-display="bring"></span> with us, Miss?
-            </div>
-            <button class="action-btn" onclick="checkAnswers('ex2-transcript-box', 'ex2-transcript-result')">Submit Script Part 2</button>
-            <div class="result" id="ex2-transcript-result"></div>
-        </div>
+    <p class="instruction">Listen and write. There is one example.</p>
+    
+    <div id="ex2-main">
+        <ul class="question-list">
+            <li><span>Meet at:</span> <span class="input-wrapper"><input type="text" data-answer="kirby bridge" data-display="Kirby Bridge"></span> <em>(Example)</em></li>
+            <li><span>1. Time:</span> <span class="input-wrapper"><input type="text" data-answer="half past eight|8.30|eight thirty|half past eight a.m.|8.30 a.m." data-display="half past eight"></span></li>
+            <li><span>Take:</span></li>
+            <li><span>2.</span> <span class="input-wrapper"><input type="text" data-answer="rucksack|a rucksack|small rucksack|a small rucksack" data-display="a small rucksack"></span></li>
+            <li><span>3.</span> <span class="input-wrapper"><input type="text" data-answer="plastic plate|a plastic plate" data-display="a plastic plate"></span></li>
+            <li><span>4.</span> <span class="input-wrapper"><input type="text" data-answer="torch|a torch" data-display="a torch"></span></li>
+            <li><span>5.</span> <span class="input-wrapper"><input type="text" data-answer="towel|a towel" data-display="a towel"></span></li>
+        </ul>
+        <button class="action-btn" onclick="checkAnswers('ex2-main', 'ex2-main-result')">Submit Part 2</button>
+        <div class="result" id="ex2-main-result"></div>
     </div>
 
-    <!-- ================= PART 3 ================= -->
-    <div class="card">
-        <h2>Listening 3: Planet Art Club</h2>
+    <button class="toggle-btn" onclick="toggleSection('transcript2')">▼ Show Full Audio Script Gap-fill (15 gaps)</button>
 
-        <div class="audio-player-wrapper">
-            <div class="audio-player">
-                <audio id="audio3" src="listening-for-numbers-and-missing-words-12.mp3"></audio>
-                <button class="play-btn" onclick="togglePlay('audio3', this)">▶</button>
-                <div class="timeline-container">
-                    <input type="range" class="timeline" id="time3" value="0" min="0" step="0.1" oninput="seekAudio('audio3', this.value)">
-                </div>
-                <div class="time-display" id="clock3">00:00 / 00:00</div>
-            </div>
+    <div id="transcript2" class="transcript-section">
+        <p class="instruction">Listen to the audio and fill in all 15 blanks in the full transcript below:</p>
+        <div id="ex2-transcript-box" class="transcript-box">
+            WOMAN: Hello, everyone. Please listen <span class="input-wrapper"><input type="text" data-answer="carefully" data-display="carefully"></span>, because I’m going to tell you some <span class="input-wrapper"><input type="text" data-answer="important" data-display="important"></span> things about our school camping <span class="input-wrapper"><input type="text" data-answer="trip" data-display="trip"></span> to the lake this weekend. First, we are going to meet at Kirby Bridge. Write this in your <span class="input-wrapper"><input type="text" data-answer="books" data-display="books"></span>, please. That’s K-I-R-B-Y. You all know that place, don’t you?<br>
+            BOY: Yes, Miss.<br>
+            WOMAN: Next, the time. Can we meet at <span class="input-wrapper"><input type="text" data-answer="half" data-display="half"></span> past eight?<br>
+            BOY: Oh, that’s very <span class="input-wrapper"><input type="text" data-answer="early" data-display="early"></span>!<br>
+            WOMAN: No, it isn’t. You <span class="input-wrapper"><input type="text" data-answer="start" data-display="start"></span> school at that time every day!<br>
+            BOY: OK. What do we have to bring with us, Miss?<br>
+            WOMAN: Well, we’ll only be there for two days, so don’t bring a heavy suitcase! But you will need a small <span class="input-wrapper"><input type="text" data-answer="rucksack" data-display="rucksack"></span>.<br>
+            BOY: My brother’s got one. I can use his. Shall we bring some <span class="input-wrapper"><input type="text" data-answer="food" data-display="food"></span> with us?<br>
+            WOMAN: No, you don’t need any because we can buy some at the shop in the village. But please bring a plastic <span class="input-wrapper"><input type="text" data-answer="plate" data-display="plate"></span> with you.<br>
+            BOY: OK. What about a <span class="input-wrapper"><input type="text" data-answer="torch" data-display="torch"></span>, Miss?<br>
+            WOMAN: Yes. That’s very important because there aren’t any <span class="input-wrapper"><input type="text" data-answer="lights" data-display="lights"></span> in our tents! Now, what else? I know. The farmer is going to let us use the <span class="input-wrapper"><input type="text" data-answer="showers" data-display="showers"></span> at the farm. Isn’t that kind? So, you will all need to bring a <span class="input-wrapper"><input type="text" data-answer="towel" data-display="towel"></span> with you.<br>
+            BOY: Right. Is that everything?<br>
+            WOMAN: Yes. So, <span class="input-wrapper"><input type="text" data-answer="see" data-display="see"></span> you all <span class="input-wrapper"><input type="text" data-answer="tomorrow" data-display="tomorrow"></span>.<br>
+            BOY: OK. Bye, Miss.
         </div>
-
-        <p class="instruction">Listen and write. There is one example.</p>
-        
-        <div id="ex3-main">
-            <ul class="question-list">
-                <li><span>Name:</span> <span class="input-wrapper"><input type="text" data-answer="ann knight" data-display="Ann Knight"></span> <em>(Example)</em></li>
-                <li><span>1. Birthday: 15th</span> <span class="input-wrapper"><input type="text" data-answer="january" data-display="January"></span></li>
-                <li><span>2. Address: 26</span> <span class="input-wrapper"><input type="text" data-answer="salford" data-display="Salford"></span> <span>Street</span></li>
-                <li><span>3. Prefers to come on:</span> <span class="input-wrapper"><input type="text" data-answer="tuesday|tuesdays" data-display="Tuesday"></span></li>
-                <li><span>4. Starting on: April</span> <span class="input-wrapper"><input type="text" data-answer="22|22nd|twenty-second" data-display="22nd"></span></li>
-                <li><span>5. Favourite things to paint:</span> <span class="input-wrapper"><input type="text" data-answer="plants" data-display="plants"></span> <span>and trees</span></li>
-            </ul>
-            <button class="action-btn" onclick="checkAnswers('ex3-main', 'ex3-main-result')">Submit Part 3</button>
-            <div class="result" id="ex3-main-result"></div>
-        </div>
-
-        <button class="toggle-btn" onclick="toggleSection('transcript3')">▼ Show Full Script Gap-fill (15 gaps)</button>
-
-        <div id="transcript3" class="transcript-section">
-            <p class="instruction">Fill in the 15 missing words based on the audio script:</p>
-            <div id="ex3-transcript-box" class="transcript-box">
-                GIRL: Hello. I’d like to <span class="input-wrapper"><input type="text" data-answer="come" data-display="come"></span> to your art <span class="input-wrapper"><input type="text" data-answer="club" data-display="club"></span>, please.<br>
-                MAN: OK. Let’s <span class="input-wrapper"><input type="text" data-answer="see" data-display="see"></span>. Can I <span class="input-wrapper"><input type="text" data-answer="ask" data-display="ask"></span> you some <span class="input-wrapper"><input type="text" data-answer="questions" data-display="questions"></span>? First, what’s your <span class="input-wrapper"><input type="text" data-answer="name" data-display="name"></span>?<br>
-                GIRL: Ann Knight.<br>
-                MAN: How do you <span class="input-wrapper"><input type="text" data-answer="spell" data-display="spell"></span> your <span class="input-wrapper"><input type="text" data-answer="surname" data-display="surname"></span>?<br>
-                GIRL: K-N-I-G-H-T.<br>
-                MAN: Thank you. Now, Ann, how <span class="input-wrapper"><input type="text" data-answer="old" data-display="old"></span> are <span class="input-wrapper"><input type="text" data-answer="you" data-display="you"></span>?<br>
-                GIRL: I’m 12. My <span class="input-wrapper"><input type="text" data-answer="birthday" data-display="birthday"></span> is the fifteenth of <span class="input-wrapper"><input type="text" data-answer="january" data-display="January"></span>.<br>
-                MAN: Right. OK. And where do you <span class="input-wrapper"><input type="text" data-answer="live" data-display="live"></span>, Ann?<br>
-                GIRL: At 26 Salford Street.<br>
-                MAN: Is that S-U-L-F-O-R-D? No, S-A-L-F-O-R-D. Thank you. Next <span class="input-wrapper"><input type="text" data-answer="question" data-display="question"></span>!
-            </div>
-            <button class="action-btn" onclick="checkAnswers('ex3-transcript-box', 'ex3-transcript-result')">Submit Script Part 3</button>
-            <div class="result" id="ex3-transcript-result"></div>
-        </div>
+        <button class="action-btn" onclick="checkAnswers('ex2-transcript-box', 'ex2-transcript-result')">Submit Script Part 2</button>
+        <div class="result" id="ex2-transcript-result"></div>
     </div>
 </div>
 
-<script>
-    // --- Audio Player Logic ---
-    function formatTime(seconds) {
-        let mins = Math.floor(seconds / 60);
-        let secs = Math.floor(seconds % 60);
-        if (mins < 10) mins = '0' + mins;
-        if (secs < 10) secs = '0' + secs;
-        return `${mins}:${secs}`;
-    }
+<!-- ================= PART 3 ================= -->
+<div class="card">
+    <h2>Listening 3: Planet Art Club</h2>
 
-    function togglePlay(audioId, btn) {
-        const audio = document.getElementById(audioId);
-        
-        document.querySelectorAll('audio').forEach(a => {
-            if (a.id !== audioId) {
-                a.pause();
-                const otherBtn = a.parentElement.querySelector('.play-btn');
-                if (otherBtn) otherBtn.innerText = '▶';
-            }
-        });
+    <div class="audio-player-wrapper">
+        <div class="audio-player">
+            <audio id="audio3" src="listening-for-numbers-and-missing-words-12.mp3"></audio>
+            <button class="play-btn" onclick="togglePlay('audio3', this)">▶</button>
+            <div class="timeline-container">
+                <input type="range" class="timeline" id="time3" value="0" min="0" step="0.1" oninput="seekAudio('audio3', this.value)">
+            </div>
+            <div class="time-display" id="clock3">00:00 / 00:00</div>
+        </div>
+    </div>
 
-        if (audio.paused) {
-            audio.play();
-            btn.innerText = '❚❚';
-        } else {
-            audio.pause();
-            btn.innerText = '▶';
-        }
-    }
+    <p class="instruction">Listen and write. There is one example.</p>
+    
+    <div id="ex3-main">
+        <ul class="question-list">
+            <li><span>Name:</span> <span class="input-wrapper"><input type="text" data-answer="ann knight" data-display="Ann Knight"></span> <em>(Example)</em></li>
+            <li><span>1. Birthday: 15th</span> <span class="input-wrapper"><input type="text" data-answer="january" data-display="January"></span></li>
+            <li><span>2. Address: 26</span> <span class="input-wrapper"><input type="text" data-answer="salford" data-display="Salford"></span> <span>Street</span></li>
+            <li><span>3. Prefers to come on:</span> <span class="input-wrapper"><input type="text" data-answer="tuesday|tuesdays" data-display="Tuesday"></span></li>
+            <li><span>4. Starting on: April</span> <span class="input-wrapper"><input type="text" data-answer="22|22nd|twenty-second" data-display="22nd"></span></li>
+            <li><span>5. Favourite things to paint:</span> <span class="input-wrapper"><input type="text" data-answer="plants" data-display="plants"></span> <span>and trees</span></li>
+        </ul>
+        <button class="action-btn" onclick="checkAnswers('ex3-main', 'ex3-main-result')">Submit Part 3</button>
+        <div class="result" id="ex3-main-result"></div>
+    </div>
 
-    function seekAudio(audioId, value) {
-        const audio = document.getElementById(audioId);
-        audio.currentTime = value;
-    }
+    <button class="toggle-btn" onclick="toggleSection('transcript3')">▼ Show Full Audio Script Gap-fill (15 gaps)</button>
 
-    document.querySelectorAll('audio').forEach((audio, index) => {
-        const idNum = index + 1;
-        const timeline = document.getElementById(`time${idNum}`);
-        const clock = document.getElementById(`clock${idNum}`);
-
-        audio.addEventListener('loadedmetadata', () => {
-            timeline.max = audio.duration;
-            clock.innerText = `00:00 / ${formatTime(audio.duration)}`;
-        });
-
-        audio.addEventListener('timeupdate', () => {
-            timeline.value = audio.currentTime;
-            const current = formatTime(audio.currentTime);
-            const total = isNaN(audio.duration) ? '00:00' : formatTime(audio.duration);
-            clock.innerText = `${current} / ${total}`;
-        });
-
-        audio.addEventListener('ended', () => {
-            const btn = audio.parentElement.querySelector('.play-btn');
-            if (btn) btn.innerText = '▶';
-            timeline.value = 0;
-        });
-    });
-
-    // --- Toggle Section ---
-    function toggleSection(sectionId) {
-        const section = document.getElementById(sectionId);
-        const btn = section.previousElementSibling;
-        
-        if (section.style.display === "block") {
-            section.style.display = "none";
-            btn.innerText = btn.innerText.replace('▲ Hide', '▼ Show');
-        } else {
-            section.style.display = "block";
-            btn.innerText = btn.innerText.replace('▼ Show', '▲ Hide');
-        }
-    }
-
-    // --- Global Score Update ---
-    function updateGlobalScore() {
-        const allInputs = document.querySelectorAll('input[type="text"]');
-        let globalCorrect = 0;
-        let totalCount = allInputs.length;
-
-        allInputs.forEach(input => {
-            if (input.classList.contains('correct')) {
-                globalCorrect++;
-            }
-        });
-
-        const percentage = Math.round((globalCorrect / totalCount) * 100);
-        document.getElementById('global-correct').innerText = globalCorrect;
-        document.getElementById('global-total').innerText = totalCount;
-        document.getElementById('global-percentage').innerText = `${percentage}%`;
-    }
-
-    // --- Check Answers and Show Answers Directly ---
-    function checkAnswers(containerId, resultId) {
-        const container = document.getElementById(containerId);
-        const inputs = container.querySelectorAll('input[type="text"]');
-        let correctCount = 0;
-        let totalCount = inputs.length;
-
-        inputs.forEach(input => {
-            const userAnswer = input.value.trim().toLowerCase();
-            const validAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
-            const displayAnswer = input.getAttribute('data-display');
-            const wrapper = input.parentElement;
-
-            const existingHint = wrapper.querySelector('.correct-answer-hint');
-            if (existingHint) existingHint.remove();
-
-            if (userAnswer === "") {
-                input.className = "incorrect";
-                const hint = document.createElement('span');
-                hint.className = 'correct-answer-hint';
-                hint.innerText = `(Đáp án: ${displayAnswer})`;
-                wrapper.appendChild(hint);
-            } else {
-                let isCorrect = validAnswers.some(ans => userAnswer === ans.trim());
-                if (isCorrect) {
-                    input.className = "correct";
-                    input.value = displayAnswer; 
-                    correctCount++;
-                } else {
-                    input.className = "incorrect";
-                    const hint = document.createElement('span');
-                    hint.className = 'correct-answer-hint';
-                    hint.innerText = `(Đáp án: ${displayAnswer})`;
-                    wrapper.appendChild(hint);
-                }
-            }
-        });
-
-        const resultDiv = document.getElementById(resultId);
-        if (correctCount === totalCount) {
-            resultDiv.innerHTML = `<span class="feedback-correct">🎉 Xuất sắc! Bạn đã trả lời đúng toàn bộ ${correctCount}/${totalCount} câu.</span>`;
-        } else {
-            resultDiv.innerHTML = `<span class="feedback-incorrect">⚠️ Bạn trả lời đúng ${correctCount}/${totalCount} câu. Hãy xem lại các đáp án được gợi ý màu đỏ nhé!</span>`;
-        }
-
-        updateGlobalScore();
-    }
-</script>
-
-</body>
-</html>
+    <div id="transcript3" class="transcript-section">
+        <p class="instruction">Listen to the audio and fill in all 15 blanks in the full transcript below:</p>
+        <div id="ex3-transcript-box" class="transcript-box">
+            GIRL: Hello. I’d like to <span class="input-wrapper"><input type="text" data-answer="come" data-display="come"></span> to your art <span class="input-wrapper"><input type="text" data-answer="club" data-display="club"></span>, please.<br>
+            MAN: OK. Let’s see. Can I ask you some <span class="input-wrapper"><input type="text" data-answer="questions" data-display="questions"></span>? First, what’s your name?<br>
+            GIRL: Ann Knight.<br>
+            MAN: How do you <span class="input-wrapper"><input type="text" data-answer="spell" data-display="spell"></span> your surname?<br>
+            GIRL: K-N-I-G-H-T.<br>
+            MAN: Thank you. Now, Ann, how <span class="input-wrapper"><input type="text" data-answer="old" data-display="old"></span> are you?<br>
+            GIRL: I’m 12. My <span class="input-wrapper"><input type="text" data-answer="birthday" data-display="birthday"></span> is the fifteenth of <span class="input-wrapper"><input type="text" data-answer="january" data-display="January"></span>.<br>
+            MAN: Right. OK. And where do you <span class="input-wrapper"><input type="text" data-answer="live" data-display="live"></span>, Ann?<br>
+            GIRL: At 26 Salford Street.<br>
+            MAN: Is that S-U-L-F-O-R-D? No, S-A-L-F-O-R-D. Thank you. Next question! Which <span class="input-wrapper"><input type="text" data-answer="day" data-display="day"></span> would you like to come to the club? We meet every day after <span class="input-wrapper"><input type="text" data-answer="school" data-display="school"></span>.<br>
+            GIRL: Um, I can only come on <span class="input-wrapper"><input type="text" data-answer="tuesday" data-display="Tuesday"></span>. Is that OK?<br>
+            MAN: That’s fine.<br>
+            GIRL: Can I ask you a question?<br>
+            MAN: Of course you can.<br>
+            GIRL: I can’t come next <span class="input-wrapper"><input type="text" data-answer="week" data-display="week"></span>. Can I start the week after that?<br>
+            MAN: Of course you can. That’s April the twenty-second. Don’t <span class="input-wrapper"><input type="text" data-answer="forget" data-display="forget"></span>!<br>
+            GIRL: OK. Thanks.<br>
+            MAN: My last question. What kind of things do you like <span class="input-wrapper"><input type="text" data-answer="painting" data-display="painting"></span>? Animals? People?<br>
+            GIRL: They’re OK, but I like painting <span class="input-wrapper"><input type="text" data-answer="plants" data-display="plants"></span> and <span class="input-wrapper"><input type="text" data-answer="trees" data-display="trees"></span> best.<br>
+            MAN: Right. You’ll enjoy our club, I’m sure!
+        </div>
+        <button class="action-btn" onclick="checkAnswers('ex3-transcript-box', 'ex3-transcript-result')">Submit Script Part 3</button>
+        <div class="result" id="ex3-transcript-result"></div>
+    </div>
+</div>
