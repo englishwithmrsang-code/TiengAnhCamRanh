@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luyện Nghe Điền Từ - Unit 2: Exploring Laponia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body {
+      margin: 0;
+      background-color: #f8fafc;
+      color: #1e293b;
+      padding-bottom: 40px;
+    }
+    
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.05);
+    }
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-bottom: 2px;
+    }
+    .brand-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #2563eb;
+      border-radius: 50%;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    header h1 span { color: #2563eb; }
+
+    .audio-sticky-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      border-bottom: 1px solid #cbd5e1;
+      padding: 0.6rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    audio {
+      width: 100%;
+      max-width: 550px;
+      height: 36px;
+      outline: none;
+    }
+
+    .progress-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 4px 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #1e40af;
+      white-space: nowrap;
+    }
+    .progress-box span { color: #2563eb; font-size: 1rem; font-weight: 700; }
+
+    .container {
+      max-width: 860px;
+      margin: 1.2rem auto;
+      padding: 0 1rem;
+    }
+
+    .top-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      background: #ffffff;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.45rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    .btn:hover { background-color: #1d4ed8; }
+    .btn-outline {
+      background-color: #ffffff;
+      border: 1px solid #2563eb;
+      color: #2563eb;
+    }
+    .btn-outline:hover { background-color: #eff6ff; }
+    .btn-sm {
+      padding: 0.25rem 0.65rem;
+      font-size: 0.78rem;
+      border-radius: 12px;
+    }
+
+    .sentence-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.6rem;
+      transition: all 0.2s ease;
+    }
+    .sentence-card:hover { border-color: #93c5fd; }
+
+    .sentence-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+    .sentence-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    .sentence-body {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #0f172a;
+    }
+
+    input.blank {
+      border: none;
+      border-bottom: 2px solid #94a3b8;
+      background: #f8fafc;
+      padding: 2px 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 3px;
+      outline: none;
+      transition: all 0.2s;
+      margin: 0 2px;
+    }
+    input.blank:focus {
+      border-bottom-color: #2563eb;
+      background: #eff6ff;
+    }
+    input.blank.correct {
+      border-bottom-color: #16a34a !important;
+      background-color: #dcfce7 !important;
+      color: #15803d;
+    }
+    input.blank.wrong {
+      border-bottom-color: #dc2626 !important;
+      background-color: #fee2e2 !important;
+      color: #b91c1c;
+    }
+
+    .vi-text {
+      color: #475569;
+      font-size: 0.88rem;
+      margin-top: 0.4rem;
+      padding-top: 0.4rem;
+      border-top: 1px dashed #e2e8f0;
+      display: none;
+    }
+    .vi-text.show { display: block; }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+    }
+    .card-actions-left {
+      display: flex;
+      gap: 6px;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 4px;
+      display: none;
+    }
+    .status-badge.correct { display: inline-block; background: #dcfce7; color: #15803d; }
+    .status-badge.wrong { display: inline-block; background: #fee2e2; color: #b91c1c; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="brand-tag">Học tiếng Anh cùng Mr.Sang</div>
+      <h1>Luyện Nghe Điền Từ <span>- Unit 2: Exploring Laponia</span></h1>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="toggleAllTranslations()">🌐 Ẩn/Hiện Tất Cả Dịch</button>
+  </header>
+
+  <div class="audio-sticky-bar">
+    <audio id="player" controls preload="auto">
+      <source src="https://raw.githubusercontent.com/englishwithmrsang-code/TiengAnhCamRanh/main/Unit%202%20-%20Exploring%20Laponia.mp3" type="audio/mpeg">
+      Trình duyệt không hỗ trợ phát audio.
+    </audio>
+    <div class="progress-box">
+      Hoàn thành: <span id="completed-count">0</span>/25 câu
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="top-tools">
+      <span style="color: #64748b; font-size: 0.82rem;">💡 Nhấp vào câu để nghe. Nhập đáp án và kiểm tra tiến độ.</span>
+      <div style="display:flex; gap:6px;">
+        <button class="btn btn-outline btn-sm" onclick="checkAllAnswers()">Nộp Tất Cả</button>
+        <button class="btn btn-sm" id="btn-toggle-all-answers" onclick="toggleAllAnswers()">Hiện Tất Cả Đáp Án</button>
+      </div>
+    </div>
+
+    <div id="transcript">
+      <!-- 1 -->
+      <div class="sentence-card" id="card-1" data-start="0.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 01</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(0.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          The Laponia World <input type="text" class="blank" data-answer="Heritage" style="width: 80px;"> site in Sweden is located just above the Arctic circle.
+        </div>
+        <div class="vi-text">Khu di sản thế giới Laponia ở Thụy Điển nằm ngay phía trên Vòng Bắc Cực.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-1')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-1')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-1')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="sentence-card" id="card-2" data-start="4.8">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 02</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(4.8)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          This <input type="text" class="blank" data-answer="area" style="width: 55px;"> is located just above the Arctic <input type="text" class="blank" data-answer="circle" style="width: 60px;">.
+        </div>
+        <div class="vi-text">Khu vực này nằm ngay phía trên Vòng Bắc Cực.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-2')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-2')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-2')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="sentence-card" id="card-3" data-start="8.2">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 03</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(8.2)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          It is one of the <input type="text" class="blank" data-answer="largest" style="width: 70px;"> wilderness areas in Europe.
+        </div>
+        <div class="vi-text">Nơi đây là một trong những vùng hoang dã lớn nhất châu Âu.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-3')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-3')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-3')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="sentence-card" id="card-4" data-start="12.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 04</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(12.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          It is a protected <input type="text" class="blank" data-answer="wilderness" style="width: 90px;"> region in Northern Europe.
+        </div>
+        <div class="vi-text">Đó là một vùng hoang dã được bảo tồn ở Bắc Âu.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-4')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-4')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-4')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="sentence-card" id="card-5" data-start="15.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 05</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(15.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Orsolya Haarberg and her <input type="text" class="blank" data-answer="husband" style="width: 75px;"> Erlend are nature photographers.
+        </div>
+        <div class="vi-text">Orsolya Haarberg và chồng cô, Erlend, là những nhiếp ảnh gia thiên nhiên.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-5')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-5')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-5')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="sentence-card" id="card-6" data-start="19.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 06</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(19.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They are professional nature <input type="text" class="blank" data-answer="photographers" style="width: 110px;">.
+        </div>
+        <div class="vi-text">Họ là những nhiếp ảnh gia thiên nhiên chuyên nghiệp.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-6')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-6')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-6')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="sentence-card" id="card-7" data-start="22.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 07</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(22.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They have <input type="text" class="blank" data-answer="traveled" style="width: 75px;"> all over Laponia to take photographs of the area.
+        </div>
+        <div class="vi-text">Họ đã đi khắp Laponia để chụp ảnh khu vực này.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-7')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-7')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-7')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="sentence-card" id="card-8" data-start="26.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 08</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(26.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Their goal is to capture stunning <input type="text" class="blank" data-answer="photographs" style="width: 105px;"> of the region.
+        </div>
+        <div class="vi-text">Mục tiêu của họ là ghi lại những bức ảnh tuyệt đẹp của vùng này.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-8')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-8')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-8')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="sentence-card" id="card-9" data-start="29.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 09</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(29.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          There are no <input type="text" class="blank" data-answer="people" style="width: 60px;"> around for miles.
+        </div>
+        <div class="vi-text">Xung quanh hàng dặm không có một bóng người.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-9')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-9')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-9')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="sentence-card" id="card-10" data-start="33.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 10</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(33.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Many places in Laponia are extremely <input type="text" class="blank" data-answer="hard" style="width: 50px;"> to get to.
+        </div>
+        <div class="vi-text">Nhiều nơi ở Laponia vô cùng khó tiếp cận.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-10')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-10')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-10')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="sentence-card" id="card-11" data-start="37.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 11</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(37.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          But the Haarbergs are <input type="text" class="blank" data-answer="familiar" style="width: 75px;"> with this land.
+        </div>
+        <div class="vi-text">Nhưng vợ chồng Haarberg lại rất quen thuộc với vùng đất này.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-11')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-11')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-11')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="sentence-card" id="card-12" data-start="41.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 12</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(41.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They know both its <input type="text" class="blank" data-answer="beauty" style="width: 60px;"> and its danger.
+        </div>
+        <div class="vi-text">Họ biết cả vẻ đẹp lẫn sự nguy hiểm của nó.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-12')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-12')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-12')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <div class="sentence-card" id="card-13" data-start="45.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 13</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(45.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They know the <input type="text" class="blank" data-answer="challenges" style="width: 85px;"> of traveling, living, and working in an area.
+        </div>
+        <div class="vi-text">Họ hiểu rõ những thách thức khi di chuyển, sinh sống và làm việc ở một vùng đất.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-13')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-13')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-13')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 14 -->
+      <div class="sentence-card" id="card-14" data-start="49.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 14</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(49.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          This region is completely <input type="text" class="blank" data-answer="untouched" style="width: 80px;"> by modern development.
+        </div>
+        <div class="vi-text">Khu vực này hoàn toàn chưa bị tác động bởi sự phát triển hiện đại.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-14')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-14')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-14')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 15 -->
+      <div class="sentence-card" id="card-15" data-start="53.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 15</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(53.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          You really <input type="text" class="blank" data-answer="slow" style="width: 50px;"> down on these trips.
+        </div>
+        <div class="vi-text">Bạn thực sự sống chậm lại trong những chuyến đi này.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-15')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-15')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-15')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 16 -->
+      <div class="sentence-card" id="card-16" data-start="58.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 16</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(58.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          The Haarbergs have <input type="text" class="blank" data-answer="returned" style="width: 70px;"> to this land many times.
+        </div>
+        <div class="vi-text">Vợ chồng Haarberg đã quay trở lại vùng đất này nhiều lần.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-16')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-16')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-16')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <div class="sentence-card" id="card-17" data-start="63.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 17</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(63.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Winter is the <input type="text" class="blank" data-answer="easiest" style="width: 60px;"> time to travel around Laponia.
+        </div>
+        <div class="vi-text">Mùa đông là thời điểm dễ dàng nhất để di chuyển quanh Laponia.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-17')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-17')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-17')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 18 -->
+      <div class="sentence-card" id="card-18" data-start="67.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 18</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(67.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They use <input type="text" class="blank" data-answer="sleds" style="width: 55px;"> to pull their gear over the smooth snow.
+        </div>
+        <div class="vi-text">Họ dùng xe trượt tuyết để kéo dụng cụ qua làn tuyết mịn.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-18')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-18')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-18')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 19 -->
+      <div class="sentence-card" id="card-19" data-start="72.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 19</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(72.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          With sleds, it is <input type="text" class="blank" data-answer="easier" style="width: 55px;"> to transport heavy equipment.
+        </div>
+        <div class="vi-text">Nhờ có xe trượt, việc vận chuyển thiết bị nặng trở nên dễ dàng hơn.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-19')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-19')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-19')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 20 -->
+      <div class="sentence-card" id="card-20" data-start="76.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 20</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(76.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          The weather can get very <input type="text" class="blank" data-answer="cold" style="width: 45px;"> during winter, below minus 30 degrees Celsius.
+        </div>
+        <div class="vi-text">Thời tiết có thể rất lạnh vào mùa đông, xuống dưới âm 30 độ C.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-20')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-20')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-20')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 21 -->
+      <div class="sentence-card" id="card-21" data-start="81.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 21</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(81.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          In summer, the sleds don't <input type="text" class="blank" data-answer="work" style="width: 50px;">, so they carry gear on their backs.
+        </div>
+        <div class="vi-text">Vào mùa hè, xe trượt không dùng được nên họ phải mang dụng cụ trên lưng.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-21')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-21')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-21')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 22 -->
+      <div class="sentence-card" id="card-22" data-start="86.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 22</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(86.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They carry food such as <input type="text" class="blank" data-answer="oatmeal" style="width: 70px;">, crackers, cheese, chocolate, and nuts.
+        </div>
+        <div class="vi-text">Họ mang theo thức ăn như yến mạch, bánh quy, phô mai, socola và các loại hạt.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-22')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-22')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-22')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 23 -->
+      <div class="sentence-card" id="card-23" data-start="91.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 23</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(91.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          There is no <input type="text" class="blank" data-answer="communication" style="width: 110px;"> with the outside world here.
+        </div>
+        <div class="vi-text">Ở đây không hề có liên lạc với thế giới bên ngoài.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-23')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-23')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-23')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 24 -->
+      <div class="sentence-card" id="card-24" data-start="95.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 24</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(95.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          On one trip, Orsolya slipped on a rock and fell into a <input type="text" class="blank" data-answer="river" style="width: 50px;">.
+        </div>
+        <div class="vi-text">Trong một chuyến đi, Orsolya bị trượt chân trên đá và ngã xuống sông.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-24')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-24')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-24')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 25 -->
+      <div class="sentence-card" id="card-25" data-start="101.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 25</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(101.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They work as a <input type="text" class="blank" data-answer="team" style="width: 50px;"> to show the amazing beauty of this land.
+        </div>
+        <div class="vi-text">Họ làm việc như một đội để lưu giữ vẻ đẹp tuyệt vời của vùng đất này.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-25')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-25')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-25')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const player = document.getElementById('player');
+    const cards = document.querySelectorAll('.sentence-card');
+    const completedCountSpan = document.getElementById('completed-count');
+    let completedCards = new Set();
+    let allAnswersShown = false;
+
+    function playAudio(startTime) {
+      player.currentTime = startTime;
+      const playPromise = player.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    }
+
+    function toggleTranslation(cardId) {
+      const card = document.getElementById(cardId);
+      const viText = card.querySelector('.vi-text');
+      viText.classList.toggle('show');
+    }
+
+    function toggleAllTranslations() {
+      const viTexts = document.querySelectorAll('.vi-text');
+      const anyHidden = Array.from(viTexts).some(el => !el.classList.contains('show'));
+      viTexts.forEach(el => {
+        if (anyHidden) el.classList.add('show');
+        else el.classList.remove('show');
+      });
+    }
+
+    function toggleAnswer(cardId) {
+      const card = document.getElementById(cardId);
+      const inputs = card.querySelectorAll('input.blank');
+      const btn = card.querySelector('.btn-ans-toggle');
+      const badge = card.querySelector('.status-badge');
+
+      let isShowing = btn.getAttribute('data-showing') === 'true';
+
+      if (!isShowing) {
+        inputs.forEach(input => {
+          input.setAttribute('data-user-val', input.value);
+          input.value = input.getAttribute('data-answer');
+          input.classList.remove('wrong');
+          input.classList.add('correct');
+        });
+        btn.textContent = '🙈 Tắt đáp án';
+        btn.setAttribute('data-showing', 'true');
+        badge.textContent = "✓ Đáp án";
+        badge.classList.remove('wrong');
+        badge.classList.add('correct');
+        completedCards.add(cardId);
+      } else {
+        inputs.forEach(input => {
+          const oldVal = input.getAttribute('data-user-val') || '';
+          input.value = oldVal;
+          input.classList.remove('correct', 'wrong');
+        });
+        btn.textContent = '💡 Hiện đáp án';
+        btn.setAttribute('data-showing', 'false');
+        badge.style.display = 'none';
+        completedCards.delete(cardId);
+      }
+      updateProgress();
+    }
+
+    function toggleAllAnswers() {
+      const mainBtn = document.getElementById('btn-toggle-all-answers');
+      allAnswersShown = !allAnswersShown;
+
+      cards.forEach(card => {
+        const btn = card.querySelector('.btn-ans-toggle');
+        const isShowing = btn.getAttribute('data-showing') === 'true';
+        if ((allAnswersShown && !isShowing) || (!allAnswersShown && isShowing)) {
+          toggleAnswer(card.id);
+        }
+      });
+
+      if (allAnswersShown) {
+        mainBtn.textContent = 'Tắt Tất Cả Đáp Án';
+      } else {
+        mainBtn.textContent = 'Hiện Tất Cả Đáp Án';
+      }
+    }
+
+    function checkSentence(cardId) {
+      const card = document.getElementById(cardId);
+      const inputs = card.querySelectorAll('input.blank');
+      const badge = card.querySelector('.status-badge');
+      let allCorrect = true;
+      let hasValue = false;
+
+      inputs.forEach(input => {
+        const userAns = input.value.trim().toLowerCase();
+        const correctAns = input.getAttribute('data-answer').toLowerCase();
+        if (userAns !== "") hasValue = true;
+
+        if (userAns === correctAns) {
+          input.classList.remove('wrong');
+          input.classList.add('correct');
+        } else {
+          input.classList.remove('correct');
+          input.classList.add('wrong');
+          allCorrect = false;
+        }
+      });
+
+      if (hasValue) {
+        badge.classList.remove('correct', 'wrong');
+        if (allCorrect) {
+          badge.textContent = "✓ Đúng";
+          badge.classList.add('correct');
+          completedCards.add(cardId);
+        } else {
+          badge.textContent = "✗ Sai";
+          badge.classList.add('wrong');
+        }
+        updateProgress();
+      }
+    }
+
+    function updateProgress() {
+      completedCountSpan.textContent = completedCards.size;
+    }
+
+    function checkAllAnswers() {
+      cards.forEach(card => checkSentence(card.id));
+    }
+  </script>
+</body>
+</html>
