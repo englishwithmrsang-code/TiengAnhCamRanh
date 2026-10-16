@@ -11,7 +11,7 @@
       margin: 0;
       background-color: #f8fafc;
       color: #1e293b;
-      padding-bottom: 40px;
+      padding-bottom: 100px;
     }
     
     header {
@@ -50,36 +50,40 @@
     }
     header h1 span { color: #2563eb; }
 
-    .video-sticky-bar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    .audio-floating-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
       background: #ffffff;
-      border-bottom: 1px solid #cbd5e1;
+      border-top: 1px solid #cbd5e1;
       padding: 0.6rem 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
     }
-    .video-container {
-      width: 100%;
-      max-width: 550px;
-      aspect-ratio: 16 / 9;
+    
+    .audio-player-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 650px;
     }
-    video {
+
+    audio {
       width: 100%;
-      height: 100%;
-      border-radius: 8px;
+      height: 38px;
       outline: none;
-      background: #000;
     }
 
     .progress-box {
       background: #eff6ff;
       border: 1px solid #bfdbfe;
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 10px;
       font-weight: 600;
       font-size: 0.85rem;
@@ -230,15 +234,13 @@
     <button class="btn btn-outline btn-sm" onclick="toggleAllTranslations()">🌐 Ẩn/Hiện Tất Cả Dịch</button>
   </header>
 
- <div class="audio-sticky-bar">
-    <audio id="player" controls preload="auto">
-      <source src="https://raw.githubusercontent.com/englishwithmrsang-code/TiengAnhCamRanh/main/Unit%202%20-%20Exploring%20Laponia%20Let%20sstudyenglishnow%20(%20Reading%20Explorer%201%203rd%20Ed%20)%20Video%20-%20YouTube.mp3" type="audio/mpeg">
-      Trình duyệt không hỗ trợ phát audio.
-    </audio>
-    <div class="progress-box">
-      Hoàn thành: <span id="completed-count">0</span>/25 câu
+  <div class="audio-floating-bar">
+    <div class="audio-player-wrapper">
+      <audio id="player" controls preload="auto">
+        <source src="https://raw.githubusercontent.com/englishwithmrsang-code/TiengAnhCamRanh/main/Unit%202%20-%20Exploring%20Laponia%20Let%20sstudyenglishnow%20(%20Reading%20Explorer%201%203rd%20Ed%20)%20Video%20-%20YouTube.mp3" type="audio/mpeg">
+        Trình duyệt không hỗ trợ phát audio.
+      </audio>
     </div>
-  </div>
     <div class="progress-box">
       Hoàn thành: <span id="completed-count">0</span>/25 câu
     </div>
@@ -246,7 +248,7 @@
 
   <div class="container">
     <div class="top-tools">
-      <span style="color: #64748b; font-size: 0.82rem;">💡 Nhấp vào câu để nghe/xem đoạn video tương ứng. Nhập đáp án và kiểm tra tiến độ.</span>
+      <span style="color: #64748b; font-size: 0.82rem;">💡 Nhấp vào câu để nghe đoạn âm thanh tương ứng. Nhập đáp án và kiểm tra tiến độ.</span>
       <div style="display:flex; gap:6px;">
         <button class="btn btn-outline btn-sm" onclick="checkAllAnswers()">Nộp Tất Cả</button>
         <button class="btn btn-sm" id="btn-toggle-all-answers" onclick="toggleAllAnswers()">Hiện Tất Cả Đáp Án</button>
@@ -258,10 +260,10 @@
       <div class="sentence-card" id="card-1" data-start="0.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 01</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(0.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(0.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          The Laponia <input type="text" class="blank" data-answer="world" style="width: 60px;"> <input type="text" class="blank" data-answer="heritage" style="width: 80px;"> site in Sweden is located just above the Arctic circle[cite: 5].
+          The Laponia <input type="text" class="blank" data-answer="world" style="width: 60px;"> <input type="text" class="blank" data-answer="heritage" style="width: 80px;"> site in Sweden is located just above the Arctic circle.
         </div>
         <div class="vi-text">Khu di sản thế giới Laponia ở Thụy Điển nằm ngay phía trên Vòng Bắc Cực.</div>
         <div class="card-actions">
@@ -278,10 +280,10 @@
       <div class="sentence-card" id="card-2" data-start="5.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 02</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(5.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(5.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          It is one of the <input type="text" class="blank" data-answer="largest" style="width: 75px;"> wilderness <input type="text" class="blank" data-answer="areas" style="width: 60px;"> in Europe[cite: 5].
+          It is one of the <input type="text" class="blank" data-answer="largest" style="width: 75px;"> wilderness <input type="text" class="blank" data-answer="areas" style="width: 60px;"> in Europe.
         </div>
         <div class="vi-text">Nơi đây là một trong những vùng hoang dã lớn nhất châu Âu.</div>
         <div class="card-actions">
@@ -298,10 +300,10 @@
       <div class="sentence-card" id="card-3" data-start="9.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 03</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(9.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(9.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Orsolya Haarberg and her <input type="text" class="blank" data-answer="husband" style="width: 75px;"> Erlend are <input type="text" class="blank" data-answer="nature" style="width: 65px;"> photographers[cite: 5].
+          Orsolya Haarberg and her <input type="text" class="blank" data-answer="husband" style="width: 75px;"> Erlend are <input type="text" class="blank" data-answer="nature" style="width: 65px;"> photographers.
         </div>
         <div class="vi-text">Orsolya Haarberg và chồng cô là Erlend là những nhiếp ảnh gia thiên nhiên.</div>
         <div class="card-actions">
@@ -318,10 +320,10 @@
       <div class="sentence-card" id="card-4" data-start="15.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 04</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(15.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(15.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          They have <input type="text" class="blank" data-answer="traveled" style="width: 75px;"> all over Laponia to take <input type="text" class="blank" data-answer="photographs" style="width: 105px;"> of the area[cite: 5].
+          They have <input type="text" class="blank" data-answer="traveled" style="width: 75px;"> all over Laponia to take <input type="text" class="blank" data-answer="photographs" style="width: 105px;"> of the area.
         </div>
         <div class="vi-text">Họ đã đi khắp Laponia để chụp ảnh khu vực này.</div>
         <div class="card-actions">
@@ -338,10 +340,10 @@
       <div class="sentence-card" id="card-5" data-start="22.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 05</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(22.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(22.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          There are no <input type="text" class="blank" data-answer="people" style="width: 60px;"> around for <input type="text" class="blank" data-answer="miles" style="width: 55px;">[cite: 5].
+          There are no <input type="text" class="blank" data-answer="people" style="width: 60px;"> around for <input type="text" class="blank" data-answer="miles" style="width: 55px;">.
         </div>
         <div class="vi-text">Xung quanh hàng dặm không có bóng người nào.</div>
         <div class="card-actions">
@@ -358,10 +360,10 @@
       <div class="sentence-card" id="card-6" data-start="26.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 06</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(26.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(26.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          And many places in Laponia are extremely <input type="text" class="blank" data-answer="hard" style="width: 50px;"> to get <input type="text" class="blank" data-answer="to" style="width: 35px;">[cite: 5].
+          And many places in Laponia are extremely <input type="text" class="blank" data-answer="hard" style="width: 50px;"> to get <input type="text" class="blank" data-answer="to" style="width: 35px;">.
         </div>
         <div class="vi-text">Và rất nhiều nơi ở Laponia vô cùng khó để tiếp cận.</div>
         <div class="card-actions">
@@ -378,10 +380,10 @@
       <div class="sentence-card" id="card-7" data-start="32.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 07</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(32.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(32.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          But the Haarbergs are <input type="text" class="blank" data-answer="familiar" style="width: 75px;"> with this land, both its beauty and its <input type="text" class="blank" data-answer="danger" style="width: 65px;">[cite: 5].
+          But the Haarbergs are <input type="text" class="blank" data-answer="familiar" style="width: 75px;"> with this land, both its beauty and its <input type="text" class="blank" data-answer="danger" style="width: 65px;">.
         </div>
         <div class="vi-text">Nhưng nhà Haarberg đã quen thuộc với vùng đất này, cả vẻ đẹp lẫn sự nguy hiểm của nó.</div>
         <div class="card-actions">
@@ -398,10 +400,10 @@
       <div class="sentence-card" id="card-8" data-start="40.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 08</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(40.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(40.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          They know the <input type="text" class="blank" data-answer="challenges" style="width: 85px;"> of traveling, living, and working in an <input type="text" class="blank" data-answer="area" style="width: 50px;"> that is completely untouched[cite: 5].
+          They know the <input type="text" class="blank" data-answer="challenges" style="width: 85px;"> of traveling, living, and working in an <input type="text" class="blank" data-answer="area" style="width: 50px;"> that is completely untouched.
         </div>
         <div class="vi-text">Họ biết những thách thức khi đi lại, sinh sống và làm việc ở một vùng đất hoàn toàn hoang sơ.</div>
         <div class="card-actions">
@@ -418,10 +420,10 @@
       <div class="sentence-card" id="card-9" data-start="48.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 09</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(48.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(48.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          You just got in such a special <input type="text" class="blank" data-answer="mood" style="width: 55px;"> there, you really <input type="text" class="blank" data-answer="slow" style="width: 50px;"> down on these trips[cite: 5].
+          You just got in such a special <input type="text" class="blank" data-answer="mood" style="width: 55px;"> there, you really <input type="text" class="blank" data-answer="slow" style="width: 50px;"> down on these trips.
         </div>
         <div class="vi-text">Bạn thực sự hòa mình vào một tâm trạng đặc biệt ở đó, bạn thực sự sống chậm lại trong những chuyến đi này.</div>
         <div class="card-actions">
@@ -438,10 +440,10 @@
       <div class="sentence-card" id="card-10" data-start="55.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 10</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(55.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(55.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          The Haarbergs have <input type="text" class="blank" data-answer="returned" style="width: 75px;"> to this land many <input type="text" class="blank" data-answer="times" style="width: 55px;">[cite: 5].
+          The Haarbergs have <input type="text" class="blank" data-answer="returned" style="width: 75px;"> to this land many <input type="text" class="blank" data-answer="times" style="width: 55px;">.
         </div>
         <div class="vi-text">Nhà Haarberg đã trở lại vùng đất này rất nhiều lần.</div>
         <div class="card-actions">
@@ -458,10 +460,10 @@
       <div class="sentence-card" id="card-11" data-start="61.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 11</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(61.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(61.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Winter is the <input type="text" class="blank" data-answer="easiest" style="width: 65px;"> time to travel around <input type="text" class="blank" data-answer="Laponia" style="width: 65px;">[cite: 5].
+          Winter is the <input type="text" class="blank" data-answer="easiest" style="width: 65px;"> time to travel around <input type="text" class="blank" data-answer="Laponia" style="width: 65px;">.
         </div>
         <div class="vi-text">Mùa đông là thời điểm dễ dàng nhất để di chuyển quanh Laponia.</div>
         <div class="card-actions">
@@ -478,10 +480,10 @@
       <div class="sentence-card" id="card-12" data-start="65.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 12</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(65.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(65.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          The Haarbergs use <input type="text" class="blank" data-answer="sleds" style="width: 50px;"> to pull their <input type="text" class="blank" data-answer="gear" style="width: 45px;"> over the smooth snow[cite: 5].
+          The Haarbergs use <input type="text" class="blank" data-answer="sleds" style="width: 50px;"> to pull their <input type="text" class="blank" data-answer="gear" style="width: 45px;"> over the smooth snow.
         </div>
         <div class="vi-text">Nhà Haarberg dùng xe trượt tuyết để kéo dụng cụ qua lớp tuyết mịn.</div>
         <div class="card-actions">
@@ -498,10 +500,10 @@
       <div class="sentence-card" id="card-13" data-start="70.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 13</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(70.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(70.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          With the sleds, it's <input type="text" class="blank" data-answer="easier" style="width: 55px;"> to transport heavy <input type="text" class="blank" data-answer="gear" style="width: 45px;">[cite: 5].
+          With the sleds, it's <input type="text" class="blank" data-answer="easier" style="width: 55px;"> to transport heavy <input type="text" class="blank" data-answer="gear" style="width: 45px;">.
         </div>
         <div class="vi-text">Với xe trượt, việc vận chuyển thiết bị nặng sẽ dễ dàng hơn.</div>
         <div class="card-actions">
@@ -518,10 +520,10 @@
       <div class="sentence-card" id="card-14" data-start="75.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 14</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(75.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(75.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          The weather can get very <input type="text" class="blank" data-answer="cold" style="width: 45px;"> here during <input type="text" class="blank" data-answer="winter" style="width: 55px;">[cite: 5].
+          The weather can get very <input type="text" class="blank" data-answer="cold" style="width: 45px;"> here during <input type="text" class="blank" data-answer="winter" style="width: 55px;">.
         </div>
         <div class="vi-text">Thời tiết ở đây có thể rất lạnh vào mùa đông.</div>
         <div class="card-actions">
@@ -538,10 +540,10 @@
       <div class="sentence-card" id="card-15" data-start="79.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 15</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(79.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(79.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Below minus 30 degrees Celsius, and the winds are very <input type="text" class="blank" data-answer="strong" style="width: 65px;">[cite: 5].
+          Below minus 30 degrees Celsius, and the winds are very <input type="text" class="blank" data-answer="strong" style="width: 65px;">.
         </div>
         <div class="vi-text">Dưới âm 30 độ C, và gió thổi rất mạnh.</div>
         <div class="card-actions">
@@ -558,10 +560,10 @@
       <div class="sentence-card" id="card-16" data-start="85.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 16</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(85.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(85.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          In summer, the sleds don't <input type="text" class="blank" data-answer="work" style="width: 50px;">, so the Haarbergs have to carry all their gear on their <input type="text" class="blank" data-answer="backs" style="width: 50px;">[cite: 5].
+          In summer, the sleds don't <input type="text" class="blank" data-answer="work" style="width: 50px;">, so the Haarbergs have to carry all their gear on their <input type="text" class="blank" data-answer="backs" style="width: 50px;">.
         </div>
         <div class="vi-text">Vào mùa hè, xe trượt không hoạt động được, nên nhà Haarberg phải mang tất cả dụng cụ trên lưng.</div>
         <div class="card-actions">
@@ -578,10 +580,10 @@
       <div class="sentence-card" id="card-17" data-start="93.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 17</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(93.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(93.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          They carry <input type="text" class="blank" data-answer="food" style="width: 50px;"> such as oatmeal, crackers, and <input type="text" class="blank" data-answer="cheese" style="width: 60px;">[cite: 5].
+          They carry <input type="text" class="blank" data-answer="food" style="width: 50px;"> such as oatmeal, crackers, and <input type="text" class="blank" data-answer="cheese" style="width: 60px;">.
         </div>
         <div class="vi-text">Họ mang theo thức ăn như yến mạch, bánh quy và phô mai.</div>
         <div class="card-actions">
@@ -598,10 +600,10 @@
       <div class="sentence-card" id="card-18" data-start="98.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 18</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(98.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(98.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Chocolate and <input type="text" class="blank" data-answer="nuts" style="width: 45px;"> are also included in their supplies[cite: 5].
+          Chocolate and <input type="text" class="blank" data-answer="nuts" style="width: 45px;"> are also included in their supplies.
         </div>
         <div class="vi-text">Sô-cô-la và các loại hạt cũng nằm trong nguồn tiếp tế của họ.</div>
         <div class="card-actions">
@@ -618,10 +620,10 @@
       <div class="sentence-card" id="card-19" data-start="102.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 19</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(102.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(102.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          There is no <input type="text" class="blank" data-answer="communication" style="width: 105px;"> with the outside world <input type="text" class="blank" data-answer="here" style="width: 45px;">[cite: 5].
+          There is no <input type="text" class="blank" data-answer="communication" style="width: 105px;"> with the outside world <input type="text" class="blank" data-answer="here" style="width: 45px;">.
         </div>
         <div class="vi-text">Không có bất kỳ sự liên lạc nào với thế giới bên ngoài ở đây.</div>
         <div class="card-actions">
@@ -638,10 +640,10 @@
       <div class="sentence-card" id="card-20" data-start="108.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 20</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(108.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(108.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          And it's easy to get hurt or <input type="text" class="blank" data-answer="sick" style="width: 45px;"> if you're not <input type="text" class="blank" data-answer="careful" style="width: 60px;">[cite: 5].
+          And it's easy to get hurt or <input type="text" class="blank" data-answer="sick" style="width: 45px;"> if you're not <input type="text" class="blank" data-answer="careful" style="width: 60px;">.
         </div>
         <div class="vi-text">Và rất dễ bị thương hoặc đổ bệnh nếu bạn không cẩn thận.</div>
         <div class="card-actions">
@@ -658,10 +660,10 @@
       <div class="sentence-card" id="card-21" data-start="115.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 21</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(115.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(115.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          On one <input type="text" class="blank" data-answer="trip" style="width: 45px;">, Orsolya slipped on a rock and fell into a <input type="text" class="blank" data-answer="river" style="width: 50px;">[cite: 5].
+          On one <input type="text" class="blank" data-answer="trip" style="width: 45px;">, Orsolya slipped on a rock and fell into a <input type="text" class="blank" data-answer="river" style="width: 50px;">.
         </div>
         <div class="vi-text">Trong một chuyến đi, Orsolya đã trượt chân trên một hòn đá và ngã xuống sông.</div>
         <div class="card-actions">
@@ -678,10 +680,10 @@
       <div class="sentence-card" id="card-22" data-start="121.5">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 22</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(121.5)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(121.5)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Luckily, she wasn't <input type="text" class="blank" data-answer="seriously" style="width: 75px;"> hurt[cite: 5].
+          Luckily, she wasn't <input type="text" class="blank" data-answer="seriously" style="width: 75px;"> hurt.
         </div>
         <div class="vi-text">May mắn thay, cô ấy không bị thương nặng.</div>
         <div class="card-actions">
@@ -698,10 +700,10 @@
       <div class="sentence-card" id="card-23" data-start="126.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 23</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(126.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(126.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          The Haarbergs work well <input type="text" class="blank" data-answer="together" style="width: 70px;"> because they always support each <input type="text" class="blank" data-answer="other" style="width: 55px;">[cite: 5].
+          The Haarbergs work well <input type="text" class="blank" data-answer="together" style="width: 70px;"> because they always support each <input type="text" class="blank" data-answer="other" style="width: 55px;">.
         </div>
         <div class="vi-text">Nhà Haarberg làm việc rất ăn ý với nhau vì họ luôn hỗ trợ lẫn nhau.</div>
         <div class="card-actions">
@@ -718,10 +720,10 @@
       <div class="sentence-card" id="card-24" data-start="133.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 24</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(133.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(133.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          They work as a <input type="text" class="blank" data-answer="team" style="width: 50px;"> to take photos that show the amazing <input type="text" class="blank" data-answer="beauty" style="width: 60px;"> of this land[cite: 5].
+          They work as a <input type="text" class="blank" data-answer="team" style="width: 50px;"> to take photos that show the amazing <input type="text" class="blank" data-answer="beauty" style="width: 60px;"> of this land.
         </div>
         <div class="vi-text">Họ làm việc như một đội để chụp những bức ảnh thể hiện vẻ đẹp tuyệt vời của vùng đất này.</div>
         <div class="card-actions">
@@ -738,10 +740,10 @@
       <div class="sentence-card" id="card-25" data-start="141.0">
         <div class="sentence-header">
           <span class="sentence-num">CÂU 25</span>
-          <button class="btn btn-outline btn-sm" onclick="playAudio(141.0)">▶ Xem video câu này</button>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(141.0)">▶ Nghe câu này</button>
         </div>
         <div class="sentence-body">
-          Exploring Laponia is an unforgettable <input type="text" class="blank" data-answer="journey" style="width: 70px;"> into the heart of wild <input type="text" class="blank" data-answer="nature" style="width: 60px;">[cite: 5].
+          Exploring Laponia is an unforgettable <input type="text" class="blank" data-answer="journey" style="width: 70px;"> into the heart of wild <input type="text" class="blank" data-answer="nature" style="width: 60px;">.
         </div>
         <div class="vi-text">Khám phá Laponia là một hành trình khó quên vào giữa lòng thiên nhiên hoang dã.</div>
         <div class="card-actions">
