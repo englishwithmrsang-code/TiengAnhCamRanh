@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Practice - 3 Topics (Advantages & Disadvantages)</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-radius: 8px;
+            --correct-color: #15803d;
+            --incorrect-color: #b91c1c;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0 0 4px 0;
+            color: #0f172a;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            border: 1px solid transparent;
+            background-color: var(--bg-color);
+            padding: 5px 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn[data-target="topic1"] { color: #d97706; border-color: #fde68a; }
+        .tab-btn[data-target="topic1"].active, .tab-btn[data-target="topic1"]:hover { background-color: #d97706; color: #fff; }
+
+        .tab-btn[data-target="topic2"] { color: #2563eb; border-color: #bfdbfe; }
+        .tab-btn[data-target="topic2"].active, .tab-btn[data-target="topic2"]:hover { background-color: #2563eb; color: #fff; }
+
+        .tab-btn[data-target="topic3"] { color: #059669; border-color: #a7f3d0; }
+        .tab-btn[data-target="topic3"].active, .tab-btn[data-target="topic3"]:hover { background-color: #059669; color: #fff; }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            background: #e2e8f0;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover { background: #cbd5e1; }
+
+        /* Tracker */
+        .tracker-card {
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .tracker-info {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            white-space: nowrap;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #10b981;
+            transition: width 0.3s ease;
+        }
+
+        /* Card Layout */
+        .version-card {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .version-card.active { display: block; }
+
+        .version-header {
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .version-header h2 { margin: 0; font-size: 1.1rem; }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .theme-topic1 { border-top: 4px solid #d97706; }
+        .theme-topic1 .version-header { background: #fffbeb; color: #92400e; }
+        .theme-topic1 .vi-label { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+        .theme-topic2 { border-top: 4px solid #2563eb; }
+        .theme-topic2 .version-header { background: #eff6ff; color: #1e40af; }
+        .theme-topic2 .vi-label { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+
+        .theme-topic3 { border-top: 4px solid #059669; }
+        .theme-topic3 .version-header { background: #ecfdf5; color: #065f46; }
+        .theme-topic3 .vi-label { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+        .essay-body p {
+            margin-bottom: 18px;
+            text-align: justify;
+            font-size: 0.92rem;
+        }
+
+        /* Blank Elements */
+        .blank-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin: 3px 2px;
+            vertical-align: baseline;
+        }
+
+        .vi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-right: 3px;
+            user-select: none;
+            white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .blank-input {
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 0.86rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+            height: 22px;
+        }
+
+        .blank-input:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .blank-input.correct {
+            border-color: var(--correct-color) !important;
+            background-color: #f0fdf4 !important;
+            color: var(--correct-color) !important;
+            font-weight: 600;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--incorrect-color) !important;
+            background-color: #fef2f2 !important;
+            color: var(--incorrect-color) !important;
+            font-weight: 600;
+        }
+
+        /* Tooltip logic: only shows when class 'submitted' and 'incorrect' are present on hover */
+        .blank-wrapper .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            background-color: #0f172a;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 3px 7px;
+            position: absolute;
+            z-index: 10;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: opacity 0.15s ease-in-out;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .blank-wrapper .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            border-width: 4px;
+            border-style: solid;
+            border-color: #0f172a transparent transparent transparent;
+        }
+
+        .blank-wrapper:hover .blank-input.incorrect.submitted + .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>IELTS Writing Lesson 3: Advantages & Disadvantages</h1>
+        <p>Nhìn cụm <strong>Tiếng Việt in màu</strong> → Nhập đáp án <strong>Tiếng Anh</strong> → Nhấn <strong>Enter</strong> hoặc bấm ra ngoài để nộp bài → Rê chuột vào ô sai để xem gợi ý</p>
+    </header>
+
+    <div class="controls">
+        <div class="tabs">
+            <button class="tab-btn active" data-target="topic1">Topic 1: Education 🎓</button>
+            <button class="tab-btn" data-target="topic2">Topic 2: Work 💼</button>
+            <button class="tab-btn" data-target="topic3">Topic 3: Future Jobs 🚀</button>
+        </div>
+        <div class="action-btns">
+            <button class="btn-action" id="showAnswersBtn">Hiển thị đáp án</button>
+            <button class="btn-action" id="resetBtn">Làm lại</button>
+        </div>
+    </div>
+
+    <!-- Tracker -->
+    <div class="tracker-card">
+        <div class="tracker-info">Tiến độ bài làm: <span id="progressText">0 / 0 (0%)</span></div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- TOPIC 1 -->
+    <div id="topic1" class="version-card theme-topic1 active">
+        <div class="version-header">
+            <h2>Topic 1: Technology in Education 🎓</h2>
+            <span class="badge">A2 - B1 Level</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Công nghệ hiện là một phần của</span><input type="text" class="blank-input" data-ans="Technology is now part of" style="width: 190px;"><span class="tooltip">Đáp án: Technology is now part of</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hầu như mọi lớp học</span><input type="text" class="blank-input" data-ans="almost every classroom" style="width: 170px;"><span class="tooltip">Đáp án: almost every classroom</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và nó đã thay đổi cách học sinh học tập</span><input type="text" class="blank-input" data-ans="and it has changed how students learn" style="width: 250px;"><span class="tooltip">Đáp án: and it has changed how students learn</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Một ưu điểm lớn là</span><input type="text" class="blank-input" data-ans="One major advantage is that" style="width: 190px;"><span class="tooltip">Đáp án: One major advantage is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">học sinh có thể tìm thông tin nhanh chóng</span><input type="text" class="blank-input" data-ans="students can find information quickly" style="width: 260px;"><span class="tooltip">Đáp án: students can find information quickly</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ, nếu họ không hiểu bài toán</span><input type="text" class="blank-input" data-ans="For example, if they do not understand a math lesson" style="width: 340px;"><span class="tooltip">Đáp án: For example, if they do not understand a math lesson</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">họ có thể xem lại video Khan Academy trên YouTube</span><input type="text" class="blank-input" data-ans="they can watch a Khan Academy video on YouTube again" style="width: 340px;"><span class="tooltip">Đáp án: they can watch a Khan Academy video on YouTube again</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một ưu điểm khác là</span><input type="text" class="blank-input" data-ans="Another advantage is that" style="width: 180px;"><span class="tooltip">Đáp án: Another advantage is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">các lớp học trực tuyến tiết kiệm thời gian và tiền bạc</span><input type="text" class="blank-input" data-ans="online classes save time and money" style="width: 240px;"><span class="tooltip">Đáp án: online classes save time and money</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Chẳng hạn, một học sinh ở thị trấn nhỏ</span><input type="text" class="blank-input" data-ans="For instance, a student in a small town" style="width: 260px;"><span class="tooltip">Đáp án: For instance, a student in a small town</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể tham gia lớp học tiếng Anh trên Zoom</span><input type="text" class="blank-input" data-ans="can join an English class on Zoom" style="width: 230px;"><span class="tooltip">Đáp án: can join an English class on Zoom</span></span>
+                <span class="blank-wrapper"><span class="vi-label">với một giáo viên ở Thành phố Hồ Chí Minh</span><input type="text" class="blank-input" data-ans="with a teacher in Ho Chi Minh City" style="width: 240px;"><span class="tooltip">Đáp án: with a teacher in Ho Chi Minh City</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vì vậy học sinh không cần phải đi lại nhiều giờ</span><input type="text" class="blank-input" data-ans="so the student does not need to travel for hours" style="width: 320px;"><span class="tooltip">Đáp án: so the student does not need to travel for hours</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tuy nhiên, công nghệ cũng có những nhược điểm</span><input type="text" class="blank-input" data-ans="However, technology also has disadvantages" style="width: 290px;"><span class="tooltip">Đáp án: However, technology also has disadvantages</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một vấn đề là</span><input type="text" class="blank-input" data-ans="One problem is that" style="width: 140px;"><span class="tooltip">Đáp án: One problem is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">nó có thể làm học sinh xao nhãng</span><input type="text" class="blank-input" data-ans="it can distract students" style="width: 180px;"><span class="tooltip">Đáp án: it can distract students</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ, nhiều thanh thiếu niên mở TikTok</span><input type="text" class="blank-input" data-ans="For example, many teenagers open TikTok" style="width: 270px;"><span class="tooltip">Đáp án: For example, many teenagers open TikTok</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trong khi làm bài tập về nhà</span><input type="text" class="blank-input" data-ans="while doing homework" style="width: 160px;"><span class="tooltip">Đáp án: while doing homework</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vì vậy họ mất tập trung</span><input type="text" class="blank-input" data-ans="so they lose concentration" style="width: 180px;"><span class="tooltip">Đáp án: so they lose concentration</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một vấn đề khác là</span><input type="text" class="blank-input" data-ans="Another problem is that" style="width: 170px;"><span class="tooltip">Đáp án: Another problem is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">việc học trực tuyến cần tinh thần tự giác</span><input type="text" class="blank-input" data-ans="online learning needs self-discipline" style="width: 260px;"><span class="tooltip">Đáp án: online learning needs self-discipline</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Chẳng hạn, học sinh có thể bỏ qua bài tập Google Classroom</span><input type="text" class="blank-input" data-ans="For instance, a student may skip a Google Classroom assignment" style="width: 380px;"><span class="tooltip">Đáp án: For instance, a student may skip a Google Classroom assignment</span></span>
+                <span class="blank-wrapper"><span class="vi-label">vì không có giáo viên ngồi cạnh họ</span><input type="text" class="blank-input" data-ans="because no teacher is sitting next to them" style="width: 280px;"><span class="tooltip">Đáp án: because no teacher is sitting next to them</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Vì vậy, học sinh nên sử dụng công nghệ một cách cẩn thận</span><input type="text" class="blank-input" data-ans="Therefore, students should use technology carefully" style="width: 350px;"><span class="tooltip">Đáp án: Therefore, students should use technology carefully</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tóm lại, nó có thể cải thiện giáo dục</span><input type="text" class="blank-input" data-ans="Overall, it can improve education" style="width: 240px;"><span class="tooltip">Đáp án: Overall, it can improve education</span></span>
+                <span class="blank-wrapper"><span class="vi-label">nếu chúng ta sử dụng nó một cách khôn ngoan</span><input type="text" class="blank-input" data-ans="if we use it wisely" style="width: 160px;"><span class="tooltip">Đáp án: if we use it wisely</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 2 -->
+    <div id="topic2" class="version-card theme-topic2">
+        <div class="version-header">
+            <h2>Topic 2: Technology at Work 💼</h2>
+            <span class="badge">A2 - B1 Level</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Công nghệ đã thay đổi cách con người làm việc</span><input type="text" class="blank-input" data-ans="Technology has changed the way people work" style="width: 300px;"><span class="tooltip">Đáp án: Technology has changed the way people work</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và hầu hết các công việc hiện nay phụ thuộc vào máy tính</span><input type="text" class="blank-input" data-ans="and most jobs now depend on computers" style="width: 280px;"><span class="tooltip">Đáp án: and most jobs now depend on computers</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hoặc các công cụ kỹ thuật số</span><input type="text" class="blank-input" data-ans="or digital tools" style="width: 120px;"><span class="tooltip">Đáp án: or digital tools</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Một ưu điểm lớn là</span><input type="text" class="blank-input" data-ans="One major advantage is that" style="width: 190px;"><span class="tooltip">Đáp án: One major advantage is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">công nghệ làm cho công việc nhanh hơn</span><input type="text" class="blank-input" data-ans="technology makes work faster" style="width: 220px;"><span class="tooltip">Đáp án: technology makes work faster</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ, một kế toán có thể dùng Excel</span><input type="text" class="blank-input" data-ans="For example, an accountant can use Excel" style="width: 280px;"><span class="tooltip">Đáp án: For example, an accountant can use Excel</span></span>
+                <span class="blank-wrapper"><span class="vi-label">để tính doanh thu cả tháng trong vài giây</span><input type="text" class="blank-input" data-ans="to calculate a whole month's sales in a few seconds" style="width: 350px;"><span class="tooltip">Đáp án: to calculate a whole month's sales in a few seconds</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một ưu điểm khác là</span><input type="text" class="blank-input" data-ans="Another advantage is that" style="width: 180px;"><span class="tooltip">Đáp án: Another advantage is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">các cuộc họp trực tuyến giúp đồng nghiệp làm việc cùng nhau</span><input type="text" class="blank-input" data-ans="online meetings help colleagues work together" style="width: 320px;"><span class="tooltip">Đáp án: online meetings help colleagues work together</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Chẳng hạn, một nhóm ở Hà Nội</span><input type="text" class="blank-input" data-ans="For instance, a team in Hanoi" style="width: 210px;"><span class="tooltip">Đáp án: For instance, a team in Hanoi</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể thảo luận một dự án với khách hàng ở Nhật Bản</span><input type="text" class="blank-input" data-ans="can discuss a project with a client in Japan" style="width: 310px;"><span class="tooltip">Đáp án: can discuss a project with a client in Japan</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trên Zoom, vì vậy không ai cần phải bay đến đó</span><input type="text" class="blank-input" data-ans="on Zoom, so nobody needs to fly there" style="width: 270px;"><span class="tooltip">Đáp án: on Zoom, so nobody needs to fly there</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tuy nhiên, công nghệ cũng có những nhược điểm</span><input type="text" class="blank-input" data-ans="However, technology also has disadvantages" style="width: 290px;"><span class="tooltip">Đáp án: However, technology also has disadvantages</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một vấn đề là máy móc có thể thay thế công nhân</span><input type="text" class="blank-input" data-ans="One problem is that machines may replace workers" style="width: 320px;"><span class="tooltip">Đáp án: One problem is that machines may replace workers</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ, vì nhiều nhà máy ô tô hiện nay</span><input type="text" class="blank-input" data-ans="For example, since many car factories now" style="width: 280px;"><span class="tooltip">Đáp án: For example, since many car factories now</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sử dụng robot để hàn các linh kiện</span><input type="text" class="blank-input" data-ans="use robots to weld parts" style="width: 180px;"><span class="tooltip">Đáp án: use robots to weld parts</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">họ cần ít công nhân hơn</span><input type="text" class="blank-input" data-ans="they need fewer workers" style="width: 170px;"><span class="tooltip">Đáp án: they need fewer workers</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một vấn đề khác là rất khó để thư giãn</span><input type="text" class="blank-input" data-ans="Another problem is that it is hard to relax" style="width: 280px;"><span class="tooltip">Đáp án: Another problem is that it is hard to relax</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Chẳng hạn, nhiều nhân viên trả lời tin nhắn công việc</span><input type="text" class="blank-input" data-ans="For instance, many employees answer work messages" style="width: 340px;"><span class="tooltip">Đáp án: For instance, many employees answer work messages</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trên Zalo vào ban đêm</span><input type="text" class="blank-input" data-ans="on Zalo at night" style="width: 130px;"><span class="tooltip">Đáp án: on Zalo at night</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và họ cảm thấy căng thẳng</span><input type="text" class="blank-input" data-ans="and they feel stressed" style="width: 170px;"><span class="tooltip">Đáp án: and they feel stressed</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Vì vậy, người lao động nên tiếp tục học các kỹ năng mới</span><input type="text" class="blank-input" data-ans="Therefore, workers should keep learning new skills" style="width: 360px;"><span class="tooltip">Đáp án: Therefore, workers should keep learning new skills</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và dành thời gian để nghỉ ngơi</span><input type="text" class="blank-input" data-ans="and take time to rest" style="width: 160px;"><span class="tooltip">Đáp án: and take time to rest</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tóm lại, công nghệ hữu ích tại nơi làm việc</span><input type="text" class="blank-input" data-ans="Overall, technology is helpful at work" style="width: 260px;"><span class="tooltip">Đáp án: Overall, technology is helpful at work</span></span>
+                <span class="blank-wrapper"><span class="vi-label">miễn là con người sử dụng nó một cách khôn ngoan</span><input type="text" class="blank-input" data-ans="as long as people use it wisely" style="width: 230px;"><span class="tooltip">Đáp án: as long as people use it wisely</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 3 -->
+    <div id="topic3" class="version-card theme-topic3">
+        <div class="version-header">
+            <h2>Topic 3: Future Jobs & Skills 🚀</h2>
+            <span class="badge">A2 - B1 Level</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Trong tương lai, công nghệ có lẽ sẽ thay đổi</span><input type="text" class="blank-input" data-ans="In the future, technology will probably change" style="width: 320px;"><span class="tooltip">Đáp án: In the future, technology will probably change</span></span>
+                <span class="blank-wrapper"><span class="vi-label">cả giáo dục và nơi làm việc</span><input type="text" class="blank-input" data-ans="both education and the workplace" style="width: 230px;"><span class="tooltip">Đáp án: both education and the workplace</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vì vậy chúng ta nên chuẩn bị cho những thay đổi này</span><input type="text" class="blank-input" data-ans="so we should prepare for these changes" style="width: 290px;"><span class="tooltip">Đáp án: so we should prepare for these changes</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Một ưu điểm là</span><input type="text" class="blank-input" data-ans="One advantage is that" style="width: 160px;"><span class="tooltip">Đáp án: One advantage is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trí tuệ nhân tạo có thể đóng vai trò như một gia sư cá nhân</span><input type="text" class="blank-input" data-ans="artificial intelligence may act like a personal teacher" style="width: 360px;"><span class="tooltip">Đáp án: artificial intelligence may act like a personal teacher</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ, nếu một học sinh phạm nhiều lỗi ngữ pháp</span><input type="text" class="blank-input" data-ans="For example, if a student makes many grammar mistakes" style="width: 370px;"><span class="tooltip">Đáp án: For example, if a student makes many grammar mistakes</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">một ứng dụng như Duolingo có thể đưa ra bài tập thêm ngay lập tức</span><input type="text" class="blank-input" data-ans="an app like Duolingo can give extra exercises right away" style="width: 390px;"><span class="tooltip">Đáp án: an app like Duolingo can give extra exercises right away</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một ưu điểm khác là</span><input type="text" class="blank-input" data-ans="Another advantage is that" style="width: 180px;"><span class="tooltip">Đáp án: Another advantage is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">các công việc mới sẽ xuất hiện</span><input type="text" class="blank-input" data-ans="new jobs will appear" style="width: 160px;"><span class="tooltip">Đáp án: new jobs will appear</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Chẳng hạn, các công ty sẽ cần</span><input type="text" class="blank-input" data-ans="For instance, companies will need" style="width: 240px;"><span class="tooltip">Đáp án: For instance, companies will need</span></span>
+                <span class="blank-wrapper"><span class="vi-label">chuyên gia huấn luyện AI và kỹ sư robot</span><input type="text" class="blank-input" data-ans="AI trainers and robot engineers" style="width: 230px;"><span class="tooltip">Đáp án: AI trainers and robot engineers</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tuy nhiên, những thay đổi này cũng có thể gây ra vấn đề</span><input type="text" class="blank-input" data-ans="However, these changes may also cause problems" style="width: 350px;"><span class="tooltip">Đáp án: However, these changes may also cause problems</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một nhược điểm là</span><input type="text" class="blank-input" data-ans="One disadvantage is that" style="width: 180px;"><span class="tooltip">Đáp án: One disadvantage is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">một số công việc truyền thống có thể biến mất</span><input type="text" class="blank-input" data-ans="some traditional jobs may disappear" style="width: 260px;"><span class="tooltip">Đáp án: some traditional jobs may disappear</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ, siêu thị có thể cần ít thu ngân hơn</span><input type="text" class="blank-input" data-ans="For example, supermarkets may need fewer cashiers" style="width: 340px;"><span class="tooltip">Đáp án: For example, supermarkets may need fewer cashiers</span></span>
+                <span class="blank-wrapper"><span class="vi-label">bởi vì khách hàng có thể thanh toán tại máy tự thanh toán</span><input type="text" class="blank-input" data-ans="because customers can pay at self-checkout machines" style="width: 370px;"><span class="tooltip">Đáp án: because customers can pay at self-checkout machines</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một nhược điểm khác là</span><input type="text" class="blank-input" data-ans="Another disadvantage is that" style="width: 200px;"><span class="tooltip">Đáp án: Another disadvantage is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">không phải ai cũng có thể sử dụng công nghệ mới</span><input type="text" class="blank-input" data-ans="not everyone can use new technology" style="width: 270px;"><span class="tooltip">Đáp án: not everyone can use new technology</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Chẳng hạn, học sinh ở các làng quê hẻo lánh</span><input type="text" class="blank-input" data-ans="For instance, students in remote villages" style="width: 280px;"><span class="tooltip">Đáp án: For instance, students in remote villages</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể không có máy tính xách tay hoặc Wi-Fi ổn định</span><input type="text" class="blank-input" data-ans="may not have a laptop or stable Wi-Fi" style="width: 280px;"><span class="tooltip">Đáp án: may not have a laptop or stable Wi-Fi</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vì vậy họ có thể bị tụt hậu</span><input type="text" class="blank-input" data-ans="so they may fall behind" style="width: 180px;"><span class="tooltip">Đáp án: so they may fall behind</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Vì vậy, mọi người nên học các kỹ năng mới</span><input type="text" class="blank-input" data-ans="Therefore, people should learn new skills" style="width: 290px;"><span class="tooltip">Đáp án: Therefore, people should learn new skills</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chẳng hạn như kỹ năng kỹ thuật và kỹ năng giao tiếp</span><input type="text" class="blank-input" data-ans="such as technical skills and communication skills" style="width: 340px;"><span class="tooltip">Đáp án: such as technical skills and communication skills</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tóm lại, những người sẵn sàng thích nghi</span><input type="text" class="blank-input" data-ans="Overall, people who are ready to adapt" style="width: 270px;"><span class="tooltip">Đáp án: Overall, people who are ready to adapt</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sẽ hưởng lợi nhiều nhất từ công nghệ</span><input type="text" class="blank-input" data-ans="will benefit most from technology" style="width: 240px;"><span class="tooltip">Đáp án: will benefit most from technology</span></span>.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.version-card');
+        const showAnswersBtn = document.getElementById('showAnswersBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // Clean text utility for flexible comparison
+        function cleanText(text) {
+            return text.trim()
+                       .toLowerCase()
+                       .replace(/’/g, "'")
+                       .replace(/–/g, "-")
+                       .replace(/\s+/g, ' ');
+        }
+
+        // Update Progress Tracker
+        function updateProgress() {
+            const activeCard = document.querySelector('.version-card.active');
+            const inputs = activeCard.querySelectorAll('.blank-input');
+            const total = inputs.length;
+            let correctCount = 0;
+
+            inputs.forEach(input => {
+                if (input.classList.contains('correct')) {
+                    correctCount++;
+                }
+            });
+
+            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+            progressBar.style.width = percent + '%';
+            progressText.textContent = `${correctCount} / ${total} (${percent}%)`;
+        }
+
+        // Validate Input logic
+        function validateInput(input) {
+            const userVal = cleanText(input.value);
+            const correctVal = cleanText(input.getAttribute('data-ans'));
+
+            if (userVal === "") {
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            } else {
+                input.classList.add('submitted');
+                if (userVal === correctVal) {
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('incorrect');
+                }
+            }
+            updateProgress();
+        }
+
+        // Tab Switching
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                cards.forEach(card => {
+                    if (card.id === targetId) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+                updateProgress();
+            });
+        });
+
+        // Event listeners for inputs
+        document.querySelectorAll('.blank-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    validateInput(input);
+                    input.blur();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                validateInput(input);
+            });
+        });
+
+        // Show Answers Button
+        showAnswersBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = input.getAttribute('data-ans');
+                input.classList.remove('incorrect');
+                input.classList.add('correct', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Reset Button
+        resetBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = "";
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Initial Progress State
+        updateProgress();
+    });
+</script>
+
+</body>
+</html>
