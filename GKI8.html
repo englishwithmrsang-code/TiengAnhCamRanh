@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Practice Hub with Detailed Progress Tracking</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .tab-btn.active {
+            background-color: #0284c7;
+            color: #ffffff;
+            box-shadow: 0 4px 12px -2px rgba(2, 132, 199, 0.35);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col pb-12">
+
+    <!-- Header & Overall Progress Tracker -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col lg:flex-row items-center justify-between gap-4">
+            
+            <!-- Logo & Brand -->
+            <div class="flex items-center space-x-3 w-full lg:w-auto justify-between lg:justify-start">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-gradient-to-tr from-sky-600 to-indigo-600 text-white p-2.5 rounded-xl shadow-md">
+                        <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-slate-900 leading-tight">English Grammar Master</h1>
+                        <p class="text-xs text-slate-500 font-medium">Hệ thống Luyện tập & Thống kê Tiến độ</p>
+                    </div>
+                </div>
+
+                <!-- Dashboard Modal Trigger Button (Mobile) -->
+                <button onclick="toggleDashboard(true)" class="lg:hidden px-3 py-2 bg-sky-50 text-sky-700 text-xs font-semibold rounded-lg border border-sky-200 flex items-center gap-1.5 hover:bg-sky-100">
+                    <i class="fa-solid fa-chart-pie"></i> Thống kê
+                </button>
+            </div>
+
+            <!-- Global Live Statistics Panel -->
+            <div class="w-full lg:w-auto flex flex-wrap items-center justify-between lg:justify-end gap-3 text-xs font-medium">
+                
+                <!-- Timer Badge -->
+                <div class="flex items-center space-x-2 bg-slate-100 px-3 py-2 rounded-xl border border-slate-200 text-slate-700">
+                    <i class="fa-solid fa-clock text-sky-600"></i>
+                    <span>Thời gian: <strong id="timer-display" class="font-mono text-slate-900 font-bold">00:00</strong></span>
+                </div>
+
+                <!-- Accuracy Rate -->
+                <div class="flex items-center space-x-2 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200 text-emerald-800">
+                    <i class="fa-solid fa-bullseye text-emerald-600"></i>
+                    <span>Chính xác: <strong id="accuracy-rate">0%</strong></span>
+                </div>
+
+                <!-- Progress Count -->
+                <div class="flex items-center space-x-2 bg-sky-50 px-3 py-2 rounded-xl border border-sky-200 text-sky-800">
+                    <i class="fa-solid fa-circle-check text-sky-600"></i>
+                    <span>Tiến độ: <strong id="total-completed">0</strong>/<span id="total-questions-count">50</span></span>
+                </div>
+
+                <!-- Dashboard Modal Button (Desktop) -->
+                <button onclick="toggleDashboard(true)" class="hidden lg:flex items-center gap-1.5 px-3.5 py-2 bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all">
+                    <i class="fa-solid fa-chart-line"></i> Bảng Thống Kê
+                </button>
+
+                <!-- Reset Button -->
+                <button onclick="confirmResetAll()" class="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl transition-all flex items-center gap-1 text-xs font-semibold" title="Làm lại từ đầu">
+                    <i class="fa-solid fa-rotate-right"></i> Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Global Progress Bar -->
+        <div class="w-full bg-slate-100 h-1.5 relative overflow-hidden">
+            <div id="overall-progress-bar" class="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-500 h-1.5 transition-all duration-500" style="width: 0%;"></div>
+        </div>
+
+        <!-- Navigation Tabs with Per-Tab Badges -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-1 overflow-x-auto">
+            <div class="flex space-x-2 py-2 min-w-max">
+                <button onclick="switchTab('ex1')" id="tab-ex1" class="tab-btn active px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check"></i> 
+                    <span>Ex 1: Giới từ</span>
+                    <span id="badge-ex1" class="ml-1 px-2 py-0.5 text-[10px] bg-white/20 text-white rounded-full font-bold">0/10</span>
+                </button>
+
+                <button onclick="switchTab('ex2')" id="tab-ex2" class="tab-btn text-slate-600 hover:bg-slate-100 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i> 
+                    <span>Ex 2: Viết & Dựng câu</span>
+                    <span id="badge-ex2" class="ml-1 px-2 py-0.5 text-[10px] bg-slate-200 text-slate-700 rounded-full font-bold">0/10</span>
+                </button>
+
+                <button onclick="switchTab('ex3')" id="tab-ex3" class="tab-btn text-slate-600 hover:bg-slate-100 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-scale-balanced"></i> 
+                    <span>Ex 3: So sánh (P1)</span>
+                    <span id="badge-ex3" class="ml-1 px-2 py-0.5 text-[10px] bg-slate-200 text-slate-700 rounded-full font-bold">0/10</span>
+                </button>
+
+                <button onclick="switchTab('ex4')" id="tab-ex4" class="tab-btn text-slate-600 hover:bg-slate-100 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-up-right-dots"></i> 
+                    <span>Ex 4: So sánh tính từ</span>
+                    <span id="badge-ex4" class="ml-1 px-2 py-0.5 text-[10px] bg-slate-200 text-slate-700 rounded-full font-bold">0/10</span>
+                </button>
+
+                <button onclick="switchTab('ex5')" id="tab-ex5" class="tab-btn text-slate-600 hover:bg-slate-100 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-2">
+                    <i class="fa-solid fa-link"></i> 
+                    <span>Ex 5: Nối câu (Liên từ)</span>
+                    <span id="badge-ex5" class="ml-1 px-2 py-0.5 text-[10px] bg-slate-200 text-slate-700 rounded-full font-bold">0/10</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- TAB 1: EXERCISE 1 (MCQ) -->
+        <section id="content-ex1" class="tab-content animate-fade-in space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80">
+                <div class="border-b border-slate-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-sky-100 text-sky-700 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold">1</span>
+                            Exercise 1. Fill in a suitable preposition.
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">Click chọn đáp án để nhận ngay kết quả, dịch nghĩa và giải thích ngữ pháp.</p>
+                    </div>
+                    <span id="status-summary-ex1" class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full font-medium border border-slate-200">
+                        Đã làm: 0/10
+                    </span>
+                </div>
+
+                <div id="ex1-container" class="space-y-6">
+                    <!-- MCQ Items Rendered dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: EXERCISE 2 (Rewrite & Form) -->
+        <section id="content-ex2" class="tab-content hidden animate-fade-in space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80">
+                <div class="border-b border-slate-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-sky-100 text-sky-700 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold">2</span>
+                            Exercise 2. Sentence Transformation & Sentence Building
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">Gõ câu hoàn chỉnh vào ô bên dưới rồi nhấn "Nộp bài / Xem đáp án".</p>
+                    </div>
+                    <span id="status-summary-ex2" class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full font-medium border border-slate-200">
+                        Đã làm: 0/10
+                    </span>
+                </div>
+
+                <!-- Part A -->
+                <div class="mb-8">
+                    <h3 class="text-sm font-bold text-sky-800 bg-sky-50 px-3.5 py-2 rounded-lg border border-sky-100 inline-block mb-4">
+                        Part A: Viết lại câu dựa vào từ gợi ý trong ngoặc
+                    </h3>
+                    <div id="ex2a-container" class="space-y-6"></div>
+                </div>
+
+                <!-- Part B -->
+                <div>
+                    <h3 class="text-sm font-bold text-sky-800 bg-sky-50 px-3.5 py-2 rounded-lg border border-sky-100 inline-block mb-4">
+                        Part B: Dựng câu hoàn chỉnh từ cụm từ cho sẵn
+                    </h3>
+                    <div id="ex2b-container" class="space-y-6"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: EXERCISE 3 (Comparative Part 1) -->
+        <section id="content-ex3" class="tab-content hidden animate-fade-in space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80">
+                <div class="border-b border-slate-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-sky-100 text-sky-700 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold">3</span>
+                            Exercise 3. Rewrite sentences based on given words (Comparatives)
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">Sử dụng dạng so sánh thích hợp theo gợi ý để viết lại câu.</p>
+                    </div>
+                    <span id="status-summary-ex3" class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full font-medium border border-slate-200">
+                        Đã làm: 0/10
+                    </span>
+                </div>
+                <div id="ex3-container" class="space-y-6"></div>
+            </div>
+        </section>
+
+        <!-- TAB 4: EXERCISE 4 (Comparative Adjectives) -->
+        <section id="content-ex4" class="tab-content hidden animate-fade-in space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80">
+                <div class="border-b border-slate-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-sky-100 text-sky-700 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold">4</span>
+                            Exercise 4. Rewrite using comparative form of adjective
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">Dùng hình thức so sánh hơn của tính từ/trạng từ trong ngoặc.</p>
+                    </div>
+                    <span id="status-summary-ex4" class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full font-medium border border-slate-200">
+                        Đã làm: 0/10
+                    </span>
+                </div>
+                <div id="ex4-container" class="space-y-6"></div>
+            </div>
+        </section>
+
+        <!-- TAB 5: EXERCISE 5 (Conjunctions) -->
+        <section id="content-ex5" class="tab-content hidden animate-fade-in space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80">
+                <div class="border-b border-slate-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <span class="bg-sky-100 text-sky-700 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold">5</span>
+                            Exercise 5. Join sentences using conjunctions (and, but, or, so, for)
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">Nối hai câu đơn bằng liên từ phù hợp để thành câu ghép.</p>
+                    </div>
+                    <span id="status-summary-ex5" class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full font-medium border border-slate-200">
+                        Đã làm: 0/10
+                    </span>
+                </div>
+                <div id="ex5-container" class="space-y-6"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- DETAILED PERFORMANCE DASHBOARD MODAL -->
+    <div id="dashboard-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden animate-fade-in">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-100">
+            
+            <!-- Modal Header -->
+            <div class="p-5 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white/95 backdrop-blur z-10">
+                <div class="flex items-center space-x-2.5">
+                    <div class="bg-sky-100 text-sky-700 p-2 rounded-lg">
+                        <i class="fa-solid fa-chart-pie text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-lg">Bảng Phân Tích Kết Quả Học Tập</h3>
+                        <p class="text-xs text-slate-500">Báo cáo chi tiết hiệu suất làm bài toàn khóa</p>
+                    </div>
+                </div>
+                <button onclick="toggleDashboard(false)" class="text-slate-400 hover:text-slate-600 p-2 rounded-lg hover:bg-slate-100 transition-all">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 space-y-6">
+                
+                <!-- Evaluation Badge Banner -->
+                <div class="p-5 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white flex items-center justify-between shadow-md">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-sky-100">Đánh giá chung</span>
+                        <h4 id="eval-badge-title" class="text-2xl font-black mt-0.5">Khởi đầu tốt!</h4>
+                        <p id="eval-badge-desc" class="text-xs text-sky-100 mt-1">Hãy tiếp tục hoàn thành các bài tập còn lại để đánh giá tổng thể.</p>
+                    </div>
+                    <div class="text-4xl text-white/90 pr-2">
+                        <i id="eval-badge-icon" class="fa-solid fa-award"></i>
+                    </div>
+                </div>
+
+                <!-- Key Metrics Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 font-medium">Đã Hoàn Thành</span>
+                        <div class="text-xl font-extrabold text-slate-800 mt-1" id="dash-completed">0/50</div>
+                    </div>
+                    <div class="bg-emerald-50 p-3.5 rounded-xl border border-emerald-200">
+                        <span class="text-xs text-emerald-600 font-medium">Chính Xác (Ex 1)</span>
+                        <div class="text-xl font-extrabold text-emerald-700 mt-1" id="dash-mcq-correct">0</div>
+                    </div>
+                    <div class="bg-sky-50 p-3.5 rounded-xl border border-sky-200">
+                        <span class="text-xs text-sky-600 font-medium">Đã Nộp Bài</span>
+                        <div class="text-xl font-extrabold text-sky-700 mt-1" id="dash-submitted">0</div>
+                    </div>
+                    <div class="bg-amber-50 p-3.5 rounded-xl border border-amber-200">
+                        <span class="text-xs text-amber-600 font-medium">Thời Gian Học</span>
+                        <div class="text-xl font-extrabold text-amber-700 mt-1 font-mono" id="dash-time">00:00</div>
+                    </div>
+                </div>
+
+                <!-- Per Exercise Detailed Breakdown -->
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Chi tiết từng bài tập</h4>
+                    <div id="exercise-breakdown-list" class="space-y-3">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 bg-slate-50 border-t border-slate-100 text-right rounded-b-2xl">
+                <button onclick="toggleDashboard(false)" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs rounded-xl shadow-sm transition-all">
+                    Đóng Bảng Thống Kê
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            <p>Hệ thống Bài tập Tiếng Anh Tương Tác với Tracking Tiến độ Chi tiết • Tự động lưu LocalStorage</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // Exercise Data
+        const ex1Data = [
+            { id: "1_1", question: "1. John is keen ______________ watching cartoons.", options: ["A. on", "B. in", "C. at", "D. off"], answer: "A", answerText: "on", trans: "John rất thích xem hoạt hình.", explain: "Cấu trúc 'be keen on + V-ing/N': thích, đam mê làm gì." },
+            { id: "1_2", question: "2. I am not mad ______________ walking alone.", options: ["A. in", "B. at", "C. about", "D. with"], answer: "C", answerText: "about", trans: "Tôi không quá cuồng/thích đi dạo một mình.", explain: "Cấu trúc 'be mad about + V-ing/N': phát cuồng, rất thích cái gì." },
+            { id: "1_3", question: "3. Our kids are interested ______________ playing with pets when they have free time.", options: ["A. on", "B. in", "C. of", "D. about"], answer: "B", answerText: "in", trans: "Con của chúng tôi thích chơi với thú cưng khi chúng có thời gian rảnh.", explain: "Cấu trúc 'be interested in + V-ing/N': quan tâm, thích thú với cái gì." },
+            { id: "1_4", question: "4. My son was crazy ______________ football when he was young.", options: ["A. about", "B. of", "C. at", "D. with"], answer: "A", answerText: "about", trans: "Con trai tôi đã rất mê bóng đá khi nó còn nhỏ.", explain: "Cấu trúc 'be crazy about + V-ing/N': phát cuồng, say mê cái gì." },
+            { id: "1_5", question: "5. Peter is a big fan ______________ reading science fiction.", options: ["A. in", "B. about", "C. of", "D. with"], answer: "C", answerText: "of", trans: "Peter là một người rất hâm mộ/thích đọc sách khoa học viễn tưởng.", explain: "Cấu trúc 'a big fan of + V-ing/N': là người hâm mộ lớn / rất thích cái gì." },
+            { id: "1_6", question: "6. My aunt is bad ______________ cooking, so she usually eats out.", options: ["A. on", "B. by", "C. about", "D. at"], answer: "D", answerText: "at", trans: "Dì của tôi nấu ăn rất dở, nên dì thường ăn ở ngoài.", explain: "Cấu trúc 'be bad at + V-ing/N': dở/kém về cái gì." },
+            { id: "1_7", question: "7. We are really hooked ______________ playing computer games.", options: ["A. on", "B. at", "C. in", "D. from"], answer: "A", answerText: "on", trans: "Chúng tôi thực sự bị nghiện/cuồng chơi trò chơi máy tính.", explain: "Cấu trúc 'be hooked on + V-ing/N': bị nghiện, bị thu hút mạnh mẽ bởi cái gì." },
+            { id: "1_8", question: "8. I am obsessed ______________ painting and drawing.", options: ["A. of", "B. with", "C. on", "D. about"], answer: "B", answerText: "with", trans: "Tôi bị ám ảnh/mê mẩn việc tô màu và vẽ tranh.", explain: "Cấu trúc 'be obsessed with + V-ing/N': bị ám ảnh, cuồng làm gì." },
+            { id: "1_9", question: "9. Julia is terrible ______________ getting up early to go to work in the morning.", options: ["A. of", "B. about", "C. at", "D. on"], answer: "C", answerText: "at", trans: "Julia rất tệ trong việc dậy sớm để đi làm vào buổi sáng.", explain: "Cấu trúc 'be terrible at + V-ing/N': rất dở/tệ trong việc gì." },
+            { id: "1_10", question: "10. Jenifer is addicted ______________ doing DIY.", options: ["A. with", "B. of", "C. about", "D. to"], answer: "D", answerText: "to", trans: "Jenifer bị nghiện làm đồ tự làm (DIY).", explain: "Cấu trúc 'be addicted to + V-ing/N': nghiện cái gì." }
+        ];
+
+        const ex2aData = [
+            { id: "2a_1", q: "1. I fancy making origami in my free time. (interested)", ans: "I am interested in making origami in my free time.", trans: "Tôi thích làm đồ xếp hình origami vào thời gian rảnh.", exp: "Cấu trúc: 'fancy + V-ing' tương đương với 'be interested in + V-ing' (thích làm gì)." },
+            { id: "2a_2", q: "2. My brother dislikes going for a walk. (hates)", ans: "My brother hates going for a walk.", altAns: "My brother hates to go for a walk.", trans: "Anh/em trai tôi ghét đi dạo.", exp: "Cấu trúc: 'dislike + V-ing' tương đương với 'hate + V-ing / to V' (ghét làm gì)." },
+            { id: "2a_3", q: "3. Are you a fan of romantic novels? (adore)", ans: "Do you adore romantic novels?", trans: "Bạn có mê/thích tiểu thuyết lãng mạn không?", exp: "Cấu trúc: 'be a fan of' tương đương 'adore' (yêu thích/mê). Dùng trợ động từ 'Do' cho câu hỏi Hiện tại đơn." },
+            { id: "2a_4", q: "4. She detests snowboarding because it’s dangerous. (bad)", ans: "She is bad at snowboarding because it’s dangerous.", trans: "Cô ấy trượt tuyết rất dở vì nó nguy hiểm.", exp: "Chuyển sang cấu trúc: 'be bad at + V-ing' (kém/dở về môn gì)." },
+            { id: "2a_5", q: "5. I’m obsessed with eating Korean food. (enjoy)", ans: "I enjoy eating Korean food.", trans: "Tôi rất thích ăn món ăn Hàn Quốc.", exp: "Cấu trúc: 'be obsessed with + V-ing' tương đương 'enjoy + V-ing' (thích/mê làm gì)." }
+        ];
+
+        const ex2bData = [
+            { id: "2b_1", q: "6. My sister and I fancy reading novels when we have free time. (fond)", ans: "My sister and I are fond of reading novels when we have free time.", trans: "Chị/em gái tôi và tôi thích đọc tiểu thuyết khi có thời gian rảnh.", exp: "Cấu trúc: 'fancy + V-ing' = 'be fond of + V-ing'. Chủ ngữ gồm 2 người nên dùng 'are'." },
+            { id: "2b_2", q: "7. Nowadays, many young people are addicted to surfing the Internet. (hooked)", ans: "Nowadays, many young people are hooked on surfing the Internet.", trans: "Ngày nay, nhiều người trẻ bị nghiện lướt Internet.", exp: "Cấu trúc: 'be addicted to' tương đương 'be hooked on' (nghiện/cuồng cái gì)." },
+            { id: "2b_3", q: "8. Jenny dislikes doing karate, but she likes playing table tennis. (interested in - love)", ans: "Jenny isn't interested in doing karate, but she loves playing table tennis.", trans: "Jenny không thích tập karate, nhưng cô ấy yêu thích chơi bóng bàn.", exp: "Chuyển đổi: 'dislike' = 'be not interested in', và 'like' = 'love + V-ing'." },
+            { id: "2b_4", q: "9. We love watching movies at the cinema because of the great visual effects. (like)", ans: "We like watching movies at the cinema because of the great visual effects.", trans: "Chúng tôi thích xem phim ở rạp vì hiệu ứng hình ảnh tuyệt vời.", exp: "Cấu trúc: 'love + V-ing' = 'like + V-ing' (thích làm gì)." },
+            { id: "2b_5", q: "10. My mother hates to commute to work by train because it is always crowded. (detest)", ans: "My mother detests commuting to work by train because it is always crowded.", trans: "Mẹ tôi ghét việc đi làm bằng tàu hỏa vì nó luôn đông đúc.", exp: "Cấu trúc: 'hate to V' = 'detest + V-ing' (cực kỳ ghét làm việc gì)." }
+        ];
+
+        const ex3Data = [
+            { id: "3_1", q: "1. I arrived at the meeting at 8.00 a.m. However, the manager had already been there. (than)", prefix: "🡪 The manager arrived ", ans: "The manager arrived at the meeting earlier than I did.", altAns: "The manager arrived earlier than me.", trans: "Quản lý đã đến cuộc họp sớm hơn tôi.", exp: "Dùng so sánh hơn của trạng từ 'early' -> 'earlier than'." },
+            { id: "3_2", q: "2. This board game is more interesting than that video game. (boring)", prefix: "🡪 That video game ", ans: "That video game is more boring than this board game.", trans: "Trò chơi video đó nhàm chán hơn trò chơi cờ bàn này.", exp: "Trái nghĩa với 'more interesting' là 'more boring'." },
+            { id: "3_3", q: "3. James is a more skillful football player than David. (skillfully)", prefix: "🡪 James ", ans: "James plays football more skillfully than David.", trans: "James chơi bóng đá thành thạo/khéo léo hơn David.", exp: "Chuyển tính từ 'skillful' thành trạng từ 'skillfully' bổ nghĩa cho động từ 'plays'." },
+            { id: "3_4", q: "4. Julia is a better cook than I am. (cooks)", prefix: "🡪 Julia ", ans: "Julia cooks better than I do.", altAns: "Julia cooks better than me.", trans: "Julia nấu ăn giỏi hơn tôi.", exp: "Chuyển 'cook' làm động từ, so sánh hơn của trạng từ 'well' là 'better'." },
+            { id: "3_5", q: "5. Susan finished this project in 5 days, but Henry finished it in only 2 days. (than)", prefix: "🡪 Henry ", ans: "Henry finished this project faster than Susan.", altAns: "Henry finished this project in fewer days than Susan.", trans: "Henry đã hoàn thành dự án này nhanh hơn Susan.", exp: "Dùng so sánh hơn 'faster than' hoặc 'in fewer days than'." },
+            { id: "3_6", q: "6. Life in the countryside isn’t as stressful as life in the city. (more)", prefix: "🡪 Life in the city ", ans: "Life in the city is more stressful than life in the countryside.", trans: "Cuộc sống ở thành phố căng thẳng hơn cuộc sống ở nông thôn.", exp: "Chuyển từ so sánh không bằng 'not as... as' sang so sánh hơn 'more... than'." },
+            { id: "3_7", q: "7. It is quite easy to find a shopping centre in the city, but it is not easy to find one in the countryside. (than)", prefix: "🡪 Finding ", ans: "Finding a shopping centre in the city is easier than in the countryside.", trans: "Việc tìm một trung tâm thương mại ở thành phố dễ hơn ở nông thôn.", exp: "Dùng V-ing 'Finding...' làm chủ ngữ, tính từ ngắn 'easy' -> 'easier than'." },
+            { id: "3_8", q: "8. I spent two hours doing this task and three hours doing that one. (than)", prefix: "🡪 That task ", ans: "That task took more time than this one.", altAns: "I spent more time doing that task than this task.", trans: "Bài tập đó tốn nhiều thời gian hơn bài tập này.", exp: "So sánh thời gian: 3 giờ > 2 giờ -> 'took more time than'." },
+            { id: "3_9", q: "9. Where I live is not as noisy as where you live. (than)", prefix: "🡪 Where you live ", ans: "Where you live is noisier than where I live.", trans: "Nơi bạn sống ồn ào hơn nơi tôi sống.", exp: "So sánh không bằng 'not as noisy as' chuyển thành 'noisier than'." },
+            { id: "3_10", q: "10. Living costs in the city are much more expensive than those in the countryside. (than)", prefix: "🡪 Living costs in the countryside ", ans: "Living costs in the countryside are much cheaper than those in the city.", trans: "Chi phí sinh hoạt ở nông thôn rẻ hơn nhiều so với ở thành phố.", exp: "Trái nghĩa với 'more expensive' là 'cheaper' (rẻ hơn)." }
+        ];
+
+        const ex4Data = [
+            { id: "4_1", q: "1. Tim is older than Sarah. (young)", prefix: "🡪 Sarah ", ans: "Sarah is younger than Tim.", trans: "Sarah trẻ hơn Tim.", exp: "Trái nghĩa của 'older' là 'younger'." },
+            { id: "4_2", q: "2. Our house is larger than yours. (small)", prefix: "🡪 Your house is ", ans: "Your house is smaller than ours.", trans: "Nhà của bạn nhỏ hơn nhà của chúng tôi.", exp: "Trái nghĩa của 'larger' là 'smaller'." },
+            { id: "4_3", q: "3. Bill is not as tall as David. (short)", prefix: "🡪 Bill is ", ans: "Bill is shorter than David.", trans: "Bill thấp hơn David.", exp: "Không cao bằng đồng nghĩa với thấp hơn -> 'shorter than'." },
+            { id: "4_4", q: "4. Jack’s marks are worse than mine. (good)", prefix: "🡪 My marks ", ans: "My marks are better than Jack’s.", trans: "Điểm của tôi tốt hơn điểm của Jack.", exp: "Trái nghĩa của 'worse' (tệ hơn) là 'better' (tốt hơn)." },
+            { id: "4_5", q: "5. This book is cheaper than that one. (expensive)", prefix: "🡪 That book is ", ans: "That book is more expensive than this one.", trans: "Quyển sách đó đắt hơn quyển sách này.", exp: "Trái nghĩa của 'cheaper' là 'more expensive'." },
+            { id: "4_6", q: "6. Your bike runs faster than mine. (slowly)", prefix: "🡪 My bike ", ans: "My bike runs more slowly than yours.", trans: "Xe đạp của tôi chạy chậm hơn xe của bạn.", exp: "Chuyển sang so sánh hơn của trạng từ dài: 'more slowly than'." },
+            { id: "4_7", q: "7. Yesterday the temperature was nine degrees. Today it’s only six degrees. (cold)", prefix: "🡪 It’s ", ans: "It’s colder today than yesterday.", altAns: "Today is colder than yesterday.", trans: "Hôm nay trời lạnh hơn hôm qua.", exp: "6 độ lạnh hơn 9 độ -> 'colder today than yesterday'." },
+            { id: "4_8", q: "8. The journey takes four hours by car and five hours by train. (more)", prefix: "🡪 It takes ", ans: "It takes more time by train than by car.", trans: "Đi bằng tàu hỏa mất nhiều thời gian hơn đi bằng ô tô.", exp: "5 giờ > 4 giờ -> đi tàu mất nhiều thời gian hơn ('more time')." },
+            { id: "4_9", q: "9. We were very busy at work today. We are not as busy as that every day. (busy)", prefix: "🡪 We ", ans: "We were busier at work today than usual.", altAns: "We were busier today than other days.", trans: "Hôm nay chúng tôi bận rộn hơn thường ngày ở nơi làm việc.", exp: "Dùng so sánh hơn của tính từ 'busy' -> 'busier... than'." },
+            { id: "4_10", q: "10. Jane cooks better than her sister. (bad)", prefix: "🡪 Jane’s sister ", ans: "Jane’s sister cooks worse than Jane.", altAns: "Jane's sister is worse at cooking than Jane.", trans: "Chị/em gái của Jane nấu ăn kém hơn Jane.", exp: "Trái nghĩa với 'better' khi nói về khả năng là 'worse' (dở/kém hơn)." }
+        ];
+
+        const ex5Data = [
+            { id: "5_1", q: "1. The coach stopped at the final destination. Everyone got off.", ans: "The coach stopped at the final destination, so everyone got off.", trans: "Xe khách đã dừng ở điểm đến cuối cùng, vì vậy mọi người đều xuống xe.", exp: "Dùng liên từ 'so' (vì vậy) chỉ kết quả." },
+            { id: "5_2", q: "2. Sweets taste so good. It is bad for your teeth.", ans: "Sweets taste so good, but they are bad for your teeth.", trans: "Kẹo có vị rất ngon, nhưng chúng lại không tốt cho răng của bạn.", exp: "Dùng liên từ 'but' (nhưng) chỉ sự tương phản. Đổi 'It is' thành 'they are' cho danh từ số nhiều 'Sweets'." },
+            { id: "5_3", q: "3. You had better eat less junk food. You will gain weight.", ans: "You had better eat less junk food, or you will gain weight.", trans: "Bạn nên ăn ít đồ ăn nhanh lại, nếu không bạn sẽ bị tăng cân.", exp: "Dùng liên từ 'or' (nếu không thì/hoặc)." },
+            { id: "5_4", q: "4. My grandmother doesn’t eat any meat. She is a vegetarian.", ans: "My grandmother doesn’t eat any meat, for she is a vegetarian.", altAns: "My grandmother is a vegetarian, so she doesn't eat any meat.", trans: "Bà tôi không ăn bất kỳ loại thịt nào, vì bà là người ăn chay.", exp: "Dùng liên từ 'for' (vì/bởi vì) giải thích nguyên nhân." },
+            { id: "5_5", q: "5. Would you like Korean food for lunch? Would you like Italian food for lunch?", ans: "Would you like Korean food or Italian food for lunch?", trans: "Bạn muốn ăn đồ ăn Hàn Quốc hay đồ ăn Ý cho bữa trưa?", exp: "Dùng liên từ 'or' biểu thị sự lựa chọn giữa 2 phương án." },
+            { id: "5_6", q: "6. Susan went on a safari. She wanted to see some wild animals.", ans: "Susan went on a safari, for she wanted to see some wild animals.", trans: "Susan đã đi thám hiểm dã ngoại, bởi vì cô ấy muốn nhìn ngắm một số động vật hoang dã.", exp: "Dùng liên từ 'for' (bởi vì) chỉ lý do." },
+            { id: "5_7", q: "7. I love seafood. I am allergic to crabs.", ans: "I love seafood, but I am allergic to crabs.", trans: "Tôi rất thích hải sản, nhưng tôi bị dị ứng với cua.", exp: "Dùng liên từ 'but' (nhưng) chỉ sự đối lập." },
+            { id: "5_8", q: "8. There was a heavy storm. Many houses were destroyed.", ans: "There was a heavy storm, so many houses were destroyed.", trans: "Đã có một trận bão lớn, vì vậy nhiều ngôi nhà đã bị phá hủy.", exp: "Dùng liên từ 'so' (vì vậy) chỉ kết quả." },
+            { id: "5_9", q: "9. Anna is a beautiful girl. She is also very intelligent.", ans: "Anna is a beautiful girl, and she is also very intelligent.", trans: "Anna là một cô gái đẹp, và cô ấy cũng rất thông minh.", exp: "Dùng liên từ 'and' (và) để bổ sung thông tin cùng chiều." },
+            { id: "5_10", q: "10. My house is quite small. It is very cozy.", ans: "My house is quite small, but it is very cozy.", trans: "Ngôi nhà của tôi khá nhỏ, nhưng nó rất ấm cúng.", exp: "Dùng liên từ 'but' (nhưng) chỉ sự đối lập giữa diện tích nhỏ và sự ấm cúng." }
+        ];
+
+        const TOTAL_QUESTIONS = 50;
+
+        // TRACKING STATE (Persisted in LocalStorage)
+        let state = {
+            completed: {}, // id -> { userAns, isCorrect, selectedOpt, timestamp }
+            secondsSpent: 0,
+            tabStats: { ex1: 0, ex2: 0, ex3: 0, ex4: 0, ex5: 0 }
+        };
+
+        let timerInterval = null;
+
+        // Load State from LocalStorage
+        function loadSavedState() {
+            try {
+                const saved = localStorage.getItem('eng_practice_state_v2');
+                if (saved) {
+                    state = JSON.parse(saved);
+                }
+            } catch (e) {
+                console.error("Failed to load local storage state", e);
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem('eng_practice_state_v2', JSON.stringify(state));
+            } catch (e) {
+                console.error("Failed to save state to local storage", e);
+            }
+        }
+
+        // Timer Functionality
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                state.secondsSpent++;
+                updateTimerDisplay();
+                if (state.secondsSpent % 5 === 0) saveState(); // Save state periodically
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(state.secondsSpent / 60);
+            const secs = state.secondsSpent % 60;
+            const str = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            document.getElementById('timer-display').innerText = str;
+            document.getElementById('dash-time').innerText = str;
+        }
+
+        // Tab Navigation Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            const activeContent = document.getElementById(`content-${tabId}`);
+            
+            if (activeBtn && activeContent) {
+                activeBtn.classList.add('active');
+                activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+                activeContent.classList.remove('hidden');
+            }
+        }
+
+        // Render MCQ Exercise 1
+        function renderEx1() {
+            const container = document.getElementById('ex1-container');
+            container.innerHTML = ex1Data.map(item => {
+                const saved = state.completed[item.id];
+                const isDone = !!saved;
+                
+                let cardBorderClass = "border-slate-200";
+                let statusBadge = `<span id="chip-${item.id}" class="text-[11px] font-bold px-2.5 py-1 rounded-md bg-slate-100 text-slate-500 border border-slate-200"><i class="fa-regular fa-circle"></i> Chưa làm</span>`;
+
+                if (isDone) {
+                    if (saved.isCorrect) {
+                        cardBorderClass = "border-emerald-300 bg-emerald-50/20";
+                        statusBadge = `<span id="chip-${item.id}" class="text-[11px] font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300"><i class="fa-solid fa-circle-check"></i> Đã làm đúng</span>`;
+                    } else {
+                        cardBorderClass = "border-rose-300 bg-rose-50/20";
+                        statusBadge = `<span id="chip-${item.id}" class="text-[11px] font-bold px-2.5 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-300"><i class="fa-solid fa-circle-xmark"></i> Sai (Đã chọn ${saved.selectedOpt})</span>`;
+                    }
+                }
+
+                return `
+                <div class="bg-slate-50/80 p-5 rounded-2xl border ${cardBorderClass} transition-all" id="card-${item.id}">
+                    <div class="flex justify-between items-start gap-3 mb-3">
+                        <p class="font-semibold text-slate-800 text-base leading-relaxed">${item.question}</p>
+                        ${statusBadge}
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
+                        ${item.options.map(opt => {
+                            const optCode = opt.substring(0, 1);
+                            let btnStyle = "bg-white border-slate-300 text-slate-700 hover:border-sky-500 hover:bg-sky-50";
+                            
+                            if (isDone) {
+                                if (optCode === item.answer) {
+                                    btnStyle = "bg-emerald-100 border-2 border-emerald-500 text-emerald-900 font-bold";
+                                } else if (optCode === saved.selectedOpt && !saved.isCorrect) {
+                                    btnStyle = "bg-rose-100 border-2 border-rose-500 text-rose-900 font-bold";
+                                } else {
+                                    btnStyle = "bg-slate-100 border-slate-200 text-slate-400";
+                                }
+                            }
+
+                            return `
+                                <button onclick="selectMcq('${item.id}', '${optCode}', '${item.answer}')" 
+                                    id="btn-${item.id}-${optCode}"
+                                    ${isDone ? 'disabled' : ''}
+                                    class="mcq-btn-${item.id} px-4 py-2.5 border rounded-xl text-sm font-medium text-left transition-all ${btnStyle} ${isDone ? 'cursor-not-allowed opacity-90' : ''}">
+                                    ${opt}
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div id="feedback-${item.id}" class="${isDone ? '' : 'hidden'} mt-3 p-4 rounded-xl text-sm border animate-fade-in ${isDone ? (saved.isCorrect ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-rose-50 border-rose-200 text-rose-900') : ''}">
+                        ${isDone ? `
+                            <div class="flex items-center gap-2 font-bold ${saved.isCorrect ? 'text-emerald-700' : 'text-rose-700'} mb-1">
+                                <i class="fa-solid ${saved.isCorrect ? 'fa-circle-check' : 'fa-circle-xmark'} text-base"></i> 
+                                ${saved.isCorrect ? 'Chính xác!' : `Chưa chính xác! (Đáp án đúng: ${item.answer})`}
+                            </div>
+                            <p class="mb-1"><strong>Dịch nghĩa:</strong> ${item.trans}</p>
+                            <p class="text-xs"><strong>Giải thích:</strong> ${item.explain}</p>
+                        ` : ''}
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function selectMcq(itemId, selectedOpt, correctOpt) {
+            if (state.completed[itemId]) return; // prevent double click
+
+            const itemData = ex1Data.find(i => i.id === itemId);
+            const isCorrect = selectedOpt === correctOpt;
+
+            state.completed[itemId] = {
+                selectedOpt: selectedOpt,
+                isCorrect: isCorrect,
+                timestamp: new Date().toISOString()
+            };
+
+            saveState();
+            updateAllTracking();
+
+            // Disable options
+            document.querySelectorAll(`.mcq-btn-${itemId}`).forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('cursor-not-allowed', 'opacity-90');
+            });
+
+            // Update card UI
+            const cardEl = document.getElementById(`card-${itemId}`);
+            if (cardEl) {
+                cardEl.className = `bg-slate-50/80 p-5 rounded-2xl border transition-all ${isCorrect ? 'border-emerald-300 bg-emerald-50/20' : 'border-rose-300 bg-rose-50/20'}`;
+            }
+
+            // Update status chip
+            const chipEl = document.getElementById(`chip-${itemId}`);
+            if (chipEl) {
+                chipEl.className = `text-[11px] font-bold px-2.5 py-1 rounded-md border ${isCorrect ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-rose-100 text-rose-800 border-rose-300'}`;
+                chipEl.innerHTML = isCorrect ? `<i class="fa-solid fa-circle-check"></i> Đã làm đúng` : `<i class="fa-solid fa-circle-xmark"></i> Sai (Đã chọn ${selectedOpt})`;
+            }
+
+            // Button styling
+            itemData.options.forEach(opt => {
+                const optCode = opt.substring(0, 1);
+                const btn = document.getElementById(`btn-${itemId}-${optCode}`);
+                if (!btn) return;
+
+                if (optCode === correctOpt) {
+                    btn.className = "px-4 py-2.5 bg-emerald-100 border-2 border-emerald-500 text-emerald-900 font-bold rounded-xl text-sm text-left cursor-not-allowed";
+                } else if (optCode === selectedOpt && !isCorrect) {
+                    btn.className = "px-4 py-2.5 bg-rose-100 border-2 border-rose-500 text-rose-900 font-bold rounded-xl text-sm text-left cursor-not-allowed";
+                } else {
+                    btn.className = "px-4 py-2.5 bg-slate-100 border-slate-200 text-slate-400 rounded-xl text-sm text-left cursor-not-allowed";
+                }
+            });
+
+            // Feedback container
+            const feedbackEl = document.getElementById(`feedback-${itemId}`);
+            feedbackEl.classList.remove('hidden');
+            feedbackEl.className = `mt-3 p-4 rounded-xl text-sm border animate-fade-in ${isCorrect ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-rose-50 border-rose-200 text-rose-900'}`;
+            feedbackEl.innerHTML = `
+                <div class="flex items-center gap-2 font-bold ${isCorrect ? 'text-emerald-700' : 'text-rose-700'} mb-1">
+                    <i class="fa-solid ${isCorrect ? 'fa-circle-check' : 'fa-circle-xmark'} text-base"></i> 
+                    ${isCorrect ? 'Chính xác!' : `Chưa chính xác! (Đáp án đúng: ${itemData.answer})`}
+                </div>
+                <p class="mb-1"><strong>Dịch nghĩa:</strong> ${itemData.trans}</p>
+                <p class="text-xs"><strong>Giải thích:</strong> ${itemData.explain}</p>
+            `;
+        }
+
+        // Render Input Exercises
+        function renderInputExercise(containerId, dataList) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = dataList.map(item => {
+                const saved = state.completed[item.id];
+                const isDone = !!saved;
+
+                let cardBorder = "border-slate-200";
+                let statusChip = `<span id="chip-${item.id}" class="text-[11px] font-bold px-2.5 py-1 rounded-md bg-slate-100 text-slate-500 border border-slate-200"><i class="fa-regular fa-circle"></i> Chưa làm</span>`;
+
+                if (isDone) {
+                    cardBorder = saved.isMatch ? "border-emerald-300 bg-emerald-50/20" : "border-sky-300 bg-sky-50/20";
+                    statusChip = saved.isMatch ? 
+                        `<span id="chip-${item.id}" class="text-[11px] font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300"><i class="fa-solid fa-circle-check"></i> Đã làm đúng</span>` :
+                        `<span id="chip-${item.id}" class="text-[11px] font-bold px-2.5 py-1 rounded-md bg-sky-100 text-sky-800 border border-sky-300"><i class="fa-solid fa-circle-info"></i> Đã nộp bài</span>`;
+                }
+
+                return `
+                <div class="bg-slate-50/80 p-5 rounded-2xl border ${cardBorder} space-y-3 transition-all" id="card-${item.id}">
+                    <div class="flex justify-between items-start gap-3">
+                        <label class="block font-semibold text-slate-800 text-base leading-relaxed">${item.q}</label>
+                        ${statusChip}
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="text" id="input-${item.id}" 
+                            value="${saved ? saved.userAns : ''}"
+                            placeholder="Nhập câu trả lời của bạn..." 
+                            class="flex-grow px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-800 text-sm bg-white" />
+                        <button onclick="submitAnswer('${item.id}')" 
+                            class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 whitespace-nowrap">
+                            <i class="fa-solid fa-paper-plane text-xs"></i> ${isDone ? 'Cập nhật / Xem lại' : 'Nộp bài / Xem đáp án'}
+                        </button>
+                    </div>
+
+                    <div id="result-${item.id}" class="${isDone ? '' : 'hidden'} p-4 rounded-xl text-sm border bg-white animate-fade-in space-y-2">
+                        ${isDone ? renderInputResultHtml(item, saved.userAns, saved.isMatch) : ''}
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function renderInputResultHtml(item, userVal, isMatch) {
+            let matchStatusHtml = "";
+            if (!userVal) {
+                matchStatusHtml = `<span class="inline-flex items-center gap-1 text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md text-xs font-bold border border-amber-200"><i class="fa-solid fa-eye"></i> Đáp án tham khảo</span>`;
+            } else if (isMatch) {
+                matchStatusHtml = `<span class="inline-flex items-center gap-1 text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md text-xs font-bold border border-emerald-200"><i class="fa-solid fa-circle-check"></i> Trùng khớp hoàn toàn!</span>`;
+            } else {
+                matchStatusHtml = `<span class="inline-flex items-center gap-1 text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md text-xs font-bold border border-sky-200"><i class="fa-solid fa-circle-info"></i> Đã nộp (So sánh bên dưới)</span>`;
+            }
+
+            return `
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
+                    ${matchStatusHtml}
+                    ${userVal ? `<span class="text-xs text-slate-500 italic">Bạn đã nhập: "${userVal}"</span>` : ''}
+                </div>
+                <div class="text-slate-800 space-y-1 pt-1">
+                    <p class="font-bold text-sky-700"><i class="fa-solid fa-check text-xs"></i> Đáp án chuẩn: <span class="text-slate-900 font-semibold">${item.ans}</span></p>
+                    ${item.altAns ? `<p class="text-xs text-sky-600 font-medium">Hoặc: ${item.altAns}</p>` : ''}
+                    <p class="text-sm text-slate-600"><strong>Dịch nghĩa:</strong> ${item.trans}</p>
+                    <p class="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-200 mt-2"><strong>Giải thích:</strong> ${item.exp}</p>
+                </div>
+            `;
+        }
+
+        function submitAnswer(itemId) {
+            const inputEl = document.getElementById(`input-${itemId}`);
+            const resultEl = document.getElementById(`result-${itemId}`);
+            const userVal = inputEl.value.trim();
+
+            const allItems = [...ex2aData, ...ex2bData, ...ex3Data, ...ex4Data, ...ex5Data];
+            const item = allItems.find(i => i.id === itemId);
+            if (!item) return;
+
+            // Clean normalization
+            const cleanUser = userVal.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ");
+            const cleanAns = item.ans.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ");
+            const cleanAlt = item.altAns ? item.altAns.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ") : null;
+
+            const isMatch = (cleanUser === cleanAns) || (cleanAlt && cleanUser === cleanAlt);
+
+            state.completed[itemId] = {
+                userAns: userVal,
+                isMatch: isMatch,
+                timestamp: new Date().toISOString()
+            };
+
+            saveState();
+            updateAllTracking();
+
+            // Update status chip
+            const chipEl = document.getElementById(`chip-${itemId}`);
+            if (chipEl) {
+                chipEl.className = isMatch ? 
+                    "text-[11px] font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300" :
+                    "text-[11px] font-bold px-2.5 py-1 rounded-md bg-sky-100 text-sky-800 border border-sky-300";
+                chipEl.innerHTML = isMatch ? `<i class="fa-solid fa-circle-check"></i> Đã làm đúng` : `<i class="fa-solid fa-circle-info"></i> Đã nộp bài`;
+            }
+
+            // Update card border
+            const cardEl = document.getElementById(`card-${itemId}`);
+            if (cardEl) {
+                cardEl.className = `bg-slate-50/80 p-5 rounded-2xl border ${isMatch ? 'border-emerald-300 bg-emerald-50/20' : 'border-sky-300 bg-sky-50/20'} space-y-3 transition-all`;
+            }
+
+            resultEl.classList.remove('hidden');
+            resultEl.innerHTML = renderInputResultHtml(item, userVal, isMatch);
+        }
+
+        // Tracking Analytics Update Engine
+        function updateAllTracking() {
+            const totalDone = Object.keys(state.completed).length;
+            const progressPercent = Math.round((totalDone / TOTAL_QUESTIONS) * 100);
+
+            // Total counters
+            document.getElementById('total-completed').innerText = totalDone;
+            document.getElementById('overall-progress-bar').style.width = `${progressPercent}%`;
+
+            // Calculate Ex1 Accuracy
+            let ex1Correct = 0;
+            let ex1Done = 0;
+            ex1Data.forEach(item => {
+                if (state.completed[item.id]) {
+                    ex1Done++;
+                    if (state.completed[item.id].isCorrect) ex1Correct++;
+                }
+            });
+
+            const accuracy = ex1Done > 0 ? Math.round((ex1Correct / ex1Done) * 100) : 0;
+            document.getElementById('accuracy-rate').innerText = `${accuracy}%`;
+
+            // Count per Exercise
+            const counts = { ex1: 0, ex2: 0, ex3: 0, ex4: 0, ex5: 0 };
+
+            Object.keys(state.completed).forEach(id => {
+                if (id.startsWith('1_')) counts.ex1++;
+                else if (id.startsWith('2a_') || id.startsWith('2b_')) counts.ex2++;
+                else if (id.startsWith('3_')) counts.ex3++;
+                else if (id.startsWith('4_')) counts.ex4++;
+                else if (id.startsWith('5_')) counts.ex5++;
+            });
+
+            // Update Tab Badges
+            document.getElementById('badge-ex1').innerText = `${counts.ex1}/10`;
+            document.getElementById('badge-ex2').innerText = `${counts.ex2}/10`;
+            document.getElementById('badge-ex3').innerText = `${counts.ex3}/10`;
+            document.getElementById('badge-ex4').innerText = `${counts.ex4}/10`;
+            document.getElementById('badge-ex5').innerText = `${counts.ex5}/10`;
+
+            // Update In-Tab Status Summaries
+            document.getElementById('status-summary-ex1').innerText = `Đã làm: ${counts.ex1}/10`;
+            document.getElementById('status-summary-ex2').innerText = `Đã làm: ${counts.ex2}/10`;
+            document.getElementById('status-summary-ex3').innerText = `Đã làm: ${counts.ex3}/10`;
+            document.getElementById('status-summary-ex4').innerText = `Đã làm: ${counts.ex4}/10`;
+            document.getElementById('status-summary-ex5').innerText = `Đã làm: ${counts.ex5}/10`;
+
+            // Update Dashboard modal stats
+            document.getElementById('dash-completed').innerText = `${totalDone}/${TOTAL_QUESTIONS}`;
+            document.getElementById('dash-mcq-correct').innerText = `${ex1Correct}/10`;
+            
+            const totalSubmittedInputs = totalDone - ex1Done;
+            document.getElementById('dash-submitted').innerText = `${totalSubmittedInputs}/40`;
+
+            // Update evaluation badge
+            updateEvaluationBadge(totalDone, accuracy);
+
+            // Update Breakdown List in Modal
+            renderDashboardBreakdown(counts, ex1Correct);
+        }
+
+        function updateEvaluationBadge(totalDone, accuracy) {
+            const title = document.getElementById('eval-badge-title');
+            const desc = document.getElementById('eval-badge-desc');
+            const icon = document.getElementById('eval-badge-icon');
+
+            if (totalDone === 0) {
+                title.innerText = "Sẵn sàng học tập!";
+                desc.innerText = "Hãy chọn một câu hỏi bất kỳ để bắt đầu làm bài.";
+                icon.className = "fa-solid fa-play-circle";
+            } else if (totalDone < 15) {
+                title.innerText = "Khởi đầu tuyệt vời!";
+                desc.innerText = `Bạn đã hoàn thành ${totalDone}/50 câu. Hãy tiếp tục duy trì tiến độ!`;
+                icon.className = "fa-solid fa-seedling";
+            } else if (totalDone < 35) {
+                title.innerText = "Đang tiến bộ nhanh!";
+                desc.innerText = `Đã làm được ${totalDone} câu. Tỷ lệ chính xác Trắc nghiệm đạt ${accuracy}%.`;
+                icon.className = "fa-solid fa-fire";
+            } else if (totalDone < 50) {
+                title.innerText = "Sắp hoàn thành!";
+                desc.innerText = `Chỉ còn ${50 - totalDone} câu nữa là bạn sẽ chinh phục toàn bộ 5 bài tập!`;
+                icon.className = "fa-solid fa-trophy";
+            } else {
+                title.innerText = "Bậc Thầy Ngữ Pháp!";
+                desc.innerText = `Chúc mừng! Bạn đã hoàn thành xuất sắc toàn bộ 50 câu hỏi ôn tập.`;
+                icon.className = "fa-solid fa-crown text-amber-300";
+            }
+        }
+
+        function renderDashboardBreakdown(counts, ex1Correct) {
+            const listContainer = document.getElementById('exercise-breakdown-list');
+            const exInfo = [
+                { key: 'ex1', title: 'Exercise 1: Trắc nghiệm Giới từ', total: 10, extra: `Đúng ${ex1Correct}/10` },
+                { key: 'ex2', title: 'Exercise 2: Viết lại & Dựng câu', total: 10 },
+                { key: 'ex3', title: 'Exercise 3: Câu So sánh (Phần 1)', total: 10 },
+                { key: 'ex4', title: 'Exercise 4: Tính từ So sánh', total: 10 },
+                { key: 'ex5', title: 'Exercise 5: Nối câu bằng Liên từ', total: 10 }
+            ];
+
+            listContainer.innerHTML = exInfo.map(item => {
+                const done = counts[item.key];
+                const pct = Math.round((done / item.total) * 100);
+                return `
+                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-1.5">
+                        <div class="flex justify-between items-center text-xs font-semibold">
+                            <span class="text-slate-800">${item.title}</span>
+                            <span class="text-slate-600">${done}/${item.total} (${pct}%) ${item.extra ? `• <strong class="text-emerald-600">${item.extra}</strong>` : ''}</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                            <div class="bg-sky-600 h-2 rounded-full transition-all duration-300" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Toggle Modal
+        function toggleDashboard(show) {
+            const modal = document.getElementById('dashboard-modal');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        // Reset Everything
+        function confirmResetAll() {
+            if (confirm("Bạn có chắc chắn muốn xoá toàn bộ lịch sử làm bài và làm lại từ đầu không?")) {
+                localStorage.removeItem('eng_practice_state_v2');
+                state = {
+                    completed: {},
+                    secondsSpent: 0,
+                    tabStats: { ex1: 0, ex2: 0, ex3: 0, ex4: 0, ex5: 0 }
+                };
+                
+                // Re-render components
+                renderEx1();
+                renderInputExercise('ex2a-container', ex2aData);
+                renderInputExercise('ex2b-container', ex2bData);
+                renderInputExercise('ex3-container', ex3Data);
+                renderInputExercise('ex4-container', ex4Data);
+                renderInputExercise('ex5-container', ex5Data);
+
+                updateAllTracking();
+                updateTimerDisplay();
+            }
+        }
+
+        // App Initialization
+        window.onload = function() {
+            loadSavedState();
+            startTimer();
+
+            renderEx1();
+            renderInputExercise('ex2a-container', ex2aData);
+            renderInputExercise('ex2b-container', ex2bData);
+            renderInputExercise('ex3-container', ex3Data);
+            renderInputExercise('ex4-container', ex4Data);
+            renderInputExercise('ex5-container', ex5Data);
+
+            updateAllTracking();
+        };
+    </script>
+</body>
+</html>
