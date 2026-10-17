@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 9: Speaking Practice with Tab Navigation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --bg-body: #f0f9ff;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --correct-bg: #dcfce7;
+            --correct-border: #22c55e;
+            --correct-text: #15803d;
+            --wrong-bg: #fee2e2;
+            --wrong-border: #ef4444;
+            --wrong-text: #b91c1c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            padding-top: 140px;
+        }
+
+        /* TRACKING BAR CỐ ĐỊNH Ở ĐỈNH TRANG */
+        .tracker-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 12px 24px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 2px solid #bae6fd;
+        }
+
+        .tracker-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tracker-title {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        .score-badge {
+            background: #e0f2fe;
+            color: var(--primary-dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 14px;
+            border: 1px solid #7dd3fc;
+        }
+
+        .progress-container {
+            flex: 1;
+            max-width: 350px;
+            background: #e2e8f0;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #38bdf8, #22c55e);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .btn-reset {
+            background: #f1f5f9;
+            color: var(--text-sub);
+            border: 1px solid #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-reset:hover {
+            background: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        /* NAVIGATION TABS CỐ ĐỊNH */
+        .tabs-container {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-bottom: 2px solid #e2e8f0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .tab-btn {
+            background: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            color: var(--text-sub);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-btn:hover {
+            background: #e0f2fe;
+            color: var(--primary-dark);
+            border-color: #7dd3fc;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary-dark);
+            box-shadow: 0 3px 8px rgba(2, 132, 199, 0.3);
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .group-header {
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 800;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card-question {
+            font-weight: 800;
+            font-size: 15.5px;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            background-color: #f8fafc;
+            padding: 10px 14px;
+            border-left: 4px solid var(--primary);
+            border-radius: 4px 8px 8px 4px;
+        }
+
+        .paragraph {
+            font-size: 15px;
+            line-height: 2.4;
+            color: var(--text-main);
+            text-align: justify;
+        }
+
+        /* INPUT ĐIỀN TỪ */
+        .gap-input {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.25s;
+            margin: 0 3px;
+            background: #f8fafc;
+        }
+
+        .gap-input:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+        }
+
+        .gap-input.correct {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-border) !important;
+            color: var(--correct-text) !important;
+        }
+
+        .gap-input.wrong {
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong-border) !important;
+            color: var(--wrong-text) !important;
+            animation: shake 0.3s ease;
+        }
+
+        .hint-text {
+            color: #0d9488;
+            font-size: 13px;
+            font-style: italic;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+
+        /* HIỂN THỊ ĐÁP ÁN ĐÚNG KHI SAI */
+        .correct-answer-display {
+            color: #d97706;
+            font-size: 12.5px;
+            font-weight: 800;
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #fde68a;
+            margin-left: 2px;
+            margin-right: 4px;
+            display: inline-block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-4px); }
+            40%, 80% { transform: translateX(4px); }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding-top: 160px;
+            }
+            .tracker-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+                padding: 10px 14px;
+            }
+            .tabs-container {
+                top: 95px;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TRACKING BAR ĐỈNH -->
+    <div class="tracker-bar">
+        <div class="tracker-info">
+            <span class="tracker-title">Module 9: Speaking Practice with Tab Navigation</span>
+            <span class="score-badge" id="scoreBadge">0 / 0 (0%)</span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <button class="btn-reset" onclick="resetAll()">Làm lại từ đầu</button>
+    </div>
+
+    <!-- TAB NAVIGATION BAR -->
+    <div class="tabs-container" id="tabsContainer">
+        <button class="tab-btn active" onclick="switchTab(0)">1. Health & Healthy Habits</button>
+        <button class="tab-btn" onclick="switchTab(1)">2. Traffic & Environment</button>
+        <button class="tab-btn" onclick="switchTab(2)">3. Food, Daily Habits & Technology</button>
+        <button class="tab-btn" onclick="switchTab(3)">4. Education</button>
+        <button class="tab-btn" onclick="switchTab(4)">5. Work & Future Jobs</button>
+    </div>
+
+    <div class="container" id="contentContainer"></div>
+
+    <script>
+        const rawData = [
+            {
+                group: "1. Health & Healthy Habits",
+                items: [
+                    {
+                        title: "Q1. Why is it important to maintain a healthy lifestyle?",
+                        text: "{In my opinion}(Theo ý kiến của tôi), maintaining a healthy lifestyle is important for several reasons. Firstly, {a balanced diet}(một chế độ ăn cân bằng) provides {essential nutrients}(các chất dinh dưỡng thiết yếu) simply because the body needs them to {function properly}(hoạt động bình thường). Besides, {regular exercise}(tập thể dục thường xuyên) improves {physical fitness}(thể lực) since it keeps the body {active and strong}(năng động và khỏe mạnh)."
+                    },
+                    {
+                        title: "Q2. Why do some people find it difficult to exercise regularly?",
+                        text: "{Personally}(Cá nhân tôi), I think people's {exercise habits}(thói quen tập thể dục) depend on several factors. Firstly, {lack of time}(thiếu thời gian) is {a major problem}(một vấn đề lớn) simply because many people have {busy work or study schedules}(lịch làm việc hoặc học tập bận rộn). Besides, some people {lack motivation}(thiếu động lực) since they do not see {immediate results}(kết quả ngay lập tức)."
+                    },
+                    {
+                        title: "Q3. What can people do to reduce stress?",
+                        text: "{From my perspective}(Theo góc nhìn của tôi), there are several simple ways to {manage stress}(quản lý căng thẳng). Firstly, people can exercise simply because {physical activity}(hoạt động thể chất) helps them {unwind and reduce stress}(thư giãn và giảm căng thẳng). Besides, {spending time}(dành thời gian) with family and friends can help since {talking to others}(trò chuyện với người khác) provides {emotional support}(sự hỗ trợ về mặt cảm xúc)."
+                    }
+                ]
+            },
+            {
+                group: "2. Traffic & Environment",
+                items: [
+                    {
+                        title: "Q1. Why do people prefer using public transport?",
+                        text: "{From my perspective}(Theo góc nhìn của tôi), people prefer {public transport}(phương tiện công cộng) for several reasons. Firstly, it is {affordable}(giá cả hợp lý/vừa túi tiền) simply because passengers can {save money}(tiết kiệm tiền) on {fuel and parking fees}(tiền nhiên liệu và phí gửi xe). Besides, it is {convenient}(tiện lợi) for {commuters}(người đi làm hàng ngày) since they do not have to worry about finding {parking spaces}(chỗ đỗ xe) in {busy areas}(các khu vực đông đúc)."
+                    },
+                    {
+                        title: "Q2. What can individuals do to reduce pollution?",
+                        text: "{In my opinion}(Theo ý kiến của tôi), {individuals}(các cá nhân) can take several {practical steps}(các bước thực tế) to {reduce pollution}(giảm ô nhiễm). Firstly, people should use {reusable bags}(túi tái sử dụng) simply because this helps reduce {plastic waste}(rác thải nhựa). Besides, they can use public transport since it can {reduce emissions}(giảm lượng khí thải) per passenger compared with {travelling alone}(đi lại một mình) in a car."
+                    },
+                    {
+                        title: "Q3. What are the advantages of living in a city?",
+                        text: "{From my perspective}(Theo góc nhìn của tôi), living in a city offers {several advantages}(một số lợi thế). Firstly, cities offer more {job opportunities}(cơ hội việc làm) simply because many companies are {based there}(đặt trụ sở ở đó). Besides, {residents}(cư dân) have {better access}(sự tiếp cận tốt hơn) to education since cities often have a {wider choice}(lựa chọn rộng rãi hơn) of schools and universities."
+                    }
+                ]
+            },
+            {
+                group: "3. Food, Daily Habits & Technology",
+                items: [
+                    {
+                        title: "Q1. Why do some people prefer fast food?",
+                        text: "{From my point of view}(Theo quan điểm của tôi), people choose {fast food}(đồ ăn nhanh) for {a couple of common reasons}(một vài lý do phổ biến). Firstly, it is {convenient}(tiện lợi) simply because people can buy a meal quickly without {spending much time cooking}(dành nhiều thời gian nấu nướng). Besides, it can be {affordable}(vừa túi tiền) since many restaurants offer {inexpensive meal options}(lựa chọn bữa ăn không đắt đỏ)."
+                    },
+                    {
+                        title: "Q2. What daily habits can help people stay healthy?",
+                        text: "{In my opinion}(Theo ý kiến của tôi), people can develop several {healthy habits}(thói quen lành mạnh) in their daily lives. Firstly, eating {nutritious meals}(các bữa ăn bổ dưỡng) is important simply because the body needs {enough energy}(đủ năng lượng) to {function well}(hoạt động tốt). Besides, maintaining a {consistent sleep schedule}(lịch trình giấc ngủ đều đặn) helps since {adequate sleep}(giấc ngủ đầy đủ) supports {concentration and recovery}(sự tập trung và phục hồi)."
+                    },
+                    {
+                        title: "Q3. How does technology affect people's daily lives?",
+                        text: "{From my point of view}(Theo quan điểm của tôi), technology affects people's daily lives in both {positive and negative ways}(những cách tích cực và tiêu cực). Firstly, it makes {communication}(sự giao tiếp) easier simply because people can contact each other {instantly}(ngay lập tức). However, {excessive screen time}(thời gian sử dụng màn hình quá nhiều) can be {harmful}(có hại) since it may reduce physical activity and {affect sleep}(ảnh hưởng đến giấc ngủ)."
+                    }
+                ]
+            },
+            {
+                group: "4. Education",
+                items: [
+                    {
+                        title: "Q1. What qualities make someone a good teacher?",
+                        text: "{From my perspective}(Theo góc nhìn của tôi), a good teacher needs several {important qualities}(phẩm chất quan trọng). Firstly, teachers should be {patient}(kiên nhẫn) simply because students learn at {different speeds}(tốc độ khác nhau) and may need {extra explanation}(sự giải thích thêm). Besides, they need to {explain things clearly}(giải thích mọi thứ rõ ràng) since students learn more easily when lessons are {easy to understand}(dễ hiểu)."
+                    },
+                    {
+                        title: "Q2. What makes a lesson interesting for students?",
+                        text: "{In my opinion}(Theo ý kiến của tôi), an interesting lesson needs {clear explanations}(những giải thích rõ ràng) and {active participation}(sự tham gia tích cực). Firstly, teachers should {explain ideas clearly}(giải thích các ý tưởng rõ ràng) simply because students are more likely to {stay interested}(giữ sự hứng thú) when they understand the lesson. Besides, {interactive activities}(các hoạt động tương tác) make learning more {enjoyable}(thú vị) since students have opportunities to {participate}(tham gia) rather than just listen."
+                    },
+                    {
+                        title: "Q3. Do you think students should have homework?",
+                        text: "{Personally}(Cá nhân tôi), I think homework is {useful}(hữu ích) {as long as}(miễn là) students are not given too much. Firstly, it helps students {review}(ôn tập) what they have learned simply because {regular practice}(luyện tập thường xuyên) makes new information {easier to remember}(dễ nhớ hơn). Besides, homework develops {independent learning}(học tập độc lập) since students have to {solve some problems}(giải quyết một số vấn đề) on their own."
+                    }
+                ]
+            },
+            {
+                group: "5. Work & Future Jobs",
+                items: [
+                    {
+                        title: "Q1. What factors do people consider when choosing a job?",
+                        text: "{In my opinion}(Theo ý kiến của tôi), people consider {several factors}(một số yếu tố) when choosing a job. Firstly, {salary matters}(mức lương rất quan trọng) simply because people need to {cover their living expenses}(trang trải chi phí sinh hoạt). Besides, a {good working environment}(môi trường làm việc tốt) is important since it can make employees feel more {comfortable and motivated}(thoải mái và có động lực)."
+                    },
+                    {
+                        title: "Q2. What makes people happy at work?",
+                        text: "{From my perspective}(Theo góc nhìn của tôi), {job satisfaction}(sự hài lòng trong công việc) depends on several important factors. Firstly, {supportive colleagues}(đồng nghiệp luôn hỗ trợ) make a difference simply because people feel more comfortable when they can {rely on their team}(dựa dẫm/tin tưởng vào đội ngũ của mình). Besides, {career development opportunities}(cơ hội phát triển nghề nghiệp) are {valuable}(có giá trị) since employees want to {improve their skills}(nâng cao kỹ năng) and {make progress}(tiến bộ)."
+                    },
+                    {
+                        title: "Q3. What skills will be important for future jobs?",
+                        text: "I believe that {several skills}(một số kỹ năng) will be {essential}(thiết yếu) in the {future workplace}(nơi làm việc trong tương lai). Firstly, {digital skills}(kỹ năng kỹ thuật số) will be important simply because many jobs now {involve technology}(liên quan đến công nghệ) and {online tools}(các công cụ trực tuyến). Besides, {communication skills}(kỹ năng giao tiếp) will {remain valuable}(tiếp tục có giá trị) since employees often need to {work with others}(làm việc với những người khác) and {share ideas}(chia sẻ ý tưởng)."
+                    },
+                    {
+                        title: "Q4. What are the advantages of working from home?",
+                        text: "{From my point of view}(Theo quan điểm của tôi), {working from home}(làm việc tại nhà) offers {several advantages}(một số lợi thế). Firstly, it {saves commuting time}(tiết kiệm thời gian đi lại) simply because employees do not have to {travel to an office}(đi đến văn phòng) every day. Besides, it provides {greater flexibility}(sự linh hoạt lớn hơn) since workers may be able to {organise their schedules}(tổ chức lịch trình) around their tasks."
+                    }
+                ]
+            }
+        ];
+
+        let totalGaps = 0;
+        let correctCount = 0;
+        let activeTabIndex = 0;
+
+        function renderWorksheet() {
+            const container = document.getElementById('contentContainer');
+            container.innerHTML = '';
+            totalGaps = 0;
+            correctCount = 0;
+
+            rawData.forEach((groupData, groupIdx) => {
+                const tabContent = document.createElement('div');
+                tabContent.className = `tab-content ${groupIdx === activeTabIndex ? 'active' : ''}`;
+                tabContent.id = `tab-content-${groupIdx}`;
+
+                const groupTitle = document.createElement('div');
+                groupTitle.className = 'group-header';
+                groupTitle.innerText = groupData.group;
+                tabContent.appendChild(groupTitle);
+
+                groupData.items.forEach((item) => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    const question = document.createElement('div');
+                    question.className = 'card-question';
+                    question.innerText = item.title;
+                    card.appendChild(question);
+
+                    const paragraph = document.createElement('div');
+                    paragraph.className = 'paragraph';
+
+                    const regex = /\{([^}]+)\}\(([^)]+)\)/g;
+                    let lastIndex = 0;
+                    let match;
+
+                    while ((match = regex.exec(item.text)) !== null) {
+                        paragraph.appendChild(document.createTextNode(item.text.substring(lastIndex, match.index)));
+
+                        const targetWord = match[1].trim();
+                        const hintMeaning = match[2].trim();
+                        totalGaps++;
+
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.className = 'gap-input';
+                        input.dataset.answer = targetWord.toLowerCase();
+                        input.dataset.rawAnswer = targetWord;
+                        
+                        input.style.width = Math.max(100, Math.min(targetWord.length * 9.5, 380)) + 'px';
+
+                        const hintSpan = document.createElement('span');
+                        hintSpan.className = 'hint-text';
+                        hintSpan.innerText = ` (${hintMeaning}) `;
+
+                        const correctDisplay = document.createElement('span');
+                        correctDisplay.className = 'correct-answer-display';
+                        correctDisplay.style.display = 'none';
+
+                        input.addEventListener('keydown', function(e) {
+                            if (e.key === 'Enter') {
+                                checkAnswer(this, correctDisplay);
+                            }
+                        });
+
+                        input.addEventListener('blur', function() {
+                            if (this.value.trim() !== '' && !this.classList.contains('correct')) {
+                                checkAnswer(this, correctDisplay);
+                            }
+                        });
+
+                        paragraph.appendChild(input);
+                        paragraph.appendChild(correctDisplay);
+                        paragraph.appendChild(hintSpan);
+
+                        lastIndex = regex.lastIndex;
+                    }
+
+                    paragraph.appendChild(document.createTextNode(item.text.substring(lastIndex)));
+                    card.appendChild(paragraph);
+                    tabContent.appendChild(card);
+                });
+
+                container.appendChild(tabContent);
+            });
+
+            updateTracker();
+        }
+
+        function switchTab(index) {
+            activeTabIndex = index;
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach((btn, i) => {
+                if (i === index) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            tabContents.forEach((content, i) => {
+                if (i === index) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        }
+
+        function checkAnswer(input, displaySpan) {
+            if (input.classList.contains('correct')) return;
+
+            const userVal = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
+            const correctVal = input.dataset.answer;
+
+            if (userVal === correctVal) {
+                input.classList.remove('wrong');
+                input.classList.add('correct');
+                input.readOnly = true;
+                displaySpan.style.display = 'none';
+                recalculateScore();
+            } else if (userVal !== '') {
+                input.classList.add('wrong');
+                displaySpan.innerText = `[Đúng: ${input.dataset.rawAnswer}]`;
+                displaySpan.style.display = 'inline-block';
+                setTimeout(() => input.classList.remove('wrong'), 1000);
+            }
+        }
+
+        function recalculateScore() {
+            const correctInputs = document.querySelectorAll('.gap-input.correct');
+            correctCount = correctInputs.length;
+            updateTracker();
+        }
+
+        function updateTracker() {
+            const percentage = totalGaps > 0 ? Math.round((correctCount / totalGaps) * 100) : 0;
+            document.getElementById('scoreBadge').innerText = `${correctCount} / ${totalGaps} (${percentage}%)`;
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+        }
+
+        function resetAll() {
+            if (confirm("Bạn có muốn xóa toàn bộ kết quả để làm lại từ đầu?")) {
+                correctCount = 0;
+                renderWorksheet();
+            }
+        }
+
+        window.onload = renderWorksheet;
+    </script>
+</body>
+</html>
