@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Task 1: Migration Reasons to/from a European Country (2009)</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-radius: 8px;
+            --correct-color: #15803d;
+            --incorrect-color: #b91c1c;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0 0 4px 0;
+            color: #0f172a;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            border: 1px solid transparent;
+            background-color: var(--bg-color);
+            padding: 5px 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn[data-target="v1"] { color: #d97706; border-color: #fde68a; }
+        .tab-btn[data-target="v1"].active, .tab-btn[data-target="v1"]:hover { background-color: #d97706; color: #fff; }
+
+        .tab-btn[data-target="v2"] { color: #2563eb; border-color: #bfdbfe; }
+        .tab-btn[data-target="v2"].active, .tab-btn[data-target="v2"]:hover { background-color: #2563eb; color: #fff; }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            background: #e2e8f0;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover { background: #cbd5e1; }
+
+        .tracker-card {
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .tracker-info {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            white-space: nowrap;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #10b981;
+            transition: width 0.3s ease;
+        }
+
+        .version-card {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .version-card.active { display: block; }
+
+        .version-header {
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .version-header h2 { margin: 0; font-size: 1.1rem; }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .theme-v1 { border-top: 4px solid #d97706; }
+        .theme-v1 .version-header { background: #fffbeb; color: #92400e; }
+        .theme-v1 .vi-label { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+        .theme-v2 { border-top: 4px solid #2563eb; }
+        .theme-v2 .version-header { background: #eff6ff; color: #1e40af; }
+        .theme-v2 .vi-label { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+
+        .essay-body p {
+            margin-bottom: 18px;
+            text-align: justify;
+            font-size: 0.92rem;
+        }
+
+        .blank-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin: 3px 2px;
+            vertical-align: baseline;
+        }
+
+        .vi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-right: 3px;
+            user-select: none;
+            white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .blank-input {
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 0.86rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+            height: 22px;
+        }
+
+        .blank-input:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .blank-input.correct {
+            border-color: var(--correct-color) !important;
+            background-color: #f0fdf4 !important;
+            color: var(--correct-color) !important;
+            font-weight: 600;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--incorrect-color) !important;
+            background-color: #fef2f2 !important;
+            color: var(--incorrect-color) !important;
+            font-weight: 600;
+        }
+
+        .blank-wrapper .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            background-color: #0f172a;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 3px 7px;
+            position: absolute;
+            z-index: 10;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: opacity 0.15s ease-in-out;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .blank-wrapper .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            border-width: 4px;
+            border-style: solid;
+            border-color: #0f172a transparent transparent transparent;
+        }
+
+        .blank-wrapper:hover .blank-input.incorrect.submitted + .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>IELTS Task 1: Migration Reasons to/from a European Country (2009)</h1>
+        <p>Nhập đáp án → Nhấn <strong>Enter</strong> hoặc bấm ra ngoài để nộp bài → Nếu sai, **rê chuột vào ô** để xem gợi ý đáp án chuẩn</p>
+    </header>
+
+    <div class="controls">
+        <div class="tabs">
+            <button class="tab-btn active" data-target="v1">Bài 1 (Standard Structured)</button>
+            <button class="tab-btn" data-target="v2">Bài 2 (Advanced Academic)</button>
+        </div>
+        <div class="action-btns">
+            <button class="btn-action" id="showAnswersBtn">Hiển thị đáp án</button>
+            <button class="btn-action" id="resetBtn">Làm lại</button>
+        </div>
+    </div>
+
+    <!-- Tracker -->
+    <div class="tracker-card">
+        <div class="tracker-info">Tiến độ đúng: <span id="progressText">0 / 0 (0%)</span></div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- BÀI 1 -->
+    <div id="v1" class="version-card theme-v1 active">
+        <div class="version-header">
+            <h2>Bài 1 — Standard Structured Version</h2>
+            <span class="badge">Band 7.5 - 8.0</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Hai biểu đồ hình tròn so sánh</span><input type="text" class="blank-input" data-ans="The two pie charts compare" style="width: 200px;"><span class="tooltip">Đáp án: The two pie charts compare</span></span>
+                <span class="blank-wrapper"><span class="vi-label">các lý do tại sao mọi người chuyển đến và đi khỏi</span><input type="text" class="blank-input" data-ans="the reasons why people moved to and from" style="width: 290px;"><span class="tooltip">Đáp án: the reasons why people moved to and from</span></span>
+                <span class="blank-wrapper"><span class="vi-label">một quốc gia Châu Âu vào năm 2009</span><input type="text" class="blank-input" data-ans="a European country in 2009" style="width: 200px;"><span class="tooltip">Đáp án: a European country in 2009</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nhìn chung, việc học tập và đoàn tụ gia đình</span><input type="text" class="blank-input" data-ans="Overall, studying and joining family members" style="width: 300px;"><span class="tooltip">Đáp án: Overall, studying and joining family members</span></span>
+                <span class="blank-wrapper"><span class="vi-label">nằm trong số những lý do chính để chuyển đến quốc gia này</span><input type="text" class="blank-input" data-ans="were among the main reasons for moving to the country" style="width: 350px;"><span class="tooltip">Đáp án: were among the main reasons for moving to the country</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi có một công việc chính thức là lý do phổ biến nhất</span><input type="text" class="blank-input" data-ans="while having a definite job was the most common reason" style="width: 360px;"><span class="tooltip">Đáp án: while having a definite job was the most common reason</span></span>
+                <span class="blank-wrapper"><span class="vi-label">cho việc rời đi</span><input type="text" class="blank-input" data-ans="for leaving it" style="width: 110px;"><span class="tooltip">Đáp án: for leaving it</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Cũng dễ nhận thấy rằng</span><input type="text" class="blank-input" data-ans="It is also noticeable that" style="width: 180px;"><span class="tooltip">Đáp án: It is also noticeable that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tỷ lệ những người rời đi vì một công việc cụ thể</span><input type="text" class="blank-input" data-ans="the proportion of people who left for a specific job" style="width: 330px;"><span class="tooltip">Đáp án: the proportion of people who left for a specific job</span></span>
+                <span class="blank-wrapper"><span class="vi-label">cao hơn đáng kể so với tỷ lệ những người đến vì cùng lý do</span><input type="text" class="blank-input" data-ans="was considerably higher than that of those who arrived for the same reason" style="width: 450px;"><span class="tooltip">Đáp án: was considerably higher than that of those who arrived for the same reason</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Về việc nhập cư</span><input type="text" class="blank-input" data-ans="Regarding immigration" style="width: 170px;"><span class="tooltip">Đáp án: Regarding immigration</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">việc học tập chiếm tỷ trọng lớn nhất, ở mức 25%</span><input type="text" class="blank-input" data-ans="studying accounted for the largest share, at 25%" style="width: 310px;"><span class="tooltip">Đáp án: studying accounted for the largest share, at 25%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">theo sát bởi việc có công việc chính thức, ở mức 23%</span><input type="text" class="blank-input" data-ans="followed closely by having a definite job, at 23%" style="width: 330px;"><span class="tooltip">Đáp án: followed closely by having a definite job, at 23%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tìm kiếm việc làm, đi cùng người thân</span><input type="text" class="blank-input" data-ans="Looking for employment, accompanying family members" style="width: 340px;"><span class="tooltip">Đáp án: Looking for employment, accompanying family members</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và các lý do khác mỗi nhóm đại diện cho 15% số người đến</span><input type="text" class="blank-input" data-ans="and other reasons each represented 15% of arrivals" style="width: 340px;"><span class="tooltip">Đáp án: and other reasons each represented 15% of arrivals</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ngược lại, chỉ 7% người nhập cư</span><input type="text" class="blank-input" data-ans="By contrast, only 7% of immigrants" style="width: 230px;"><span class="tooltip">Đáp án: By contrast, only 7% of immigrants</span></span>
+                <span class="blank-wrapper"><span class="vi-label">không đưa ra lý do cụ thể nào cho việc chuyển đến</span><input type="text" class="blank-input" data-ans="gave no specific reason for moving to the country" style="width: 320px;"><span class="tooltip">Đáp án: gave no specific reason for moving to the country</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Chuyển sang việc xuất cư</span><input type="text" class="blank-input" data-ans="Turning to emigration" style="width: 170px;"><span class="tooltip">Đáp án: Turning to emigration</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">có công việc chính thức là lý do hàng đầu</span><input type="text" class="blank-input" data-ans="having a definite job was the leading reason" style="width: 290px;"><span class="tooltip">Đáp án: having a definite job was the leading reason</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chiếm 38% số người rời khỏi quốc gia này</span><input type="text" class="blank-input" data-ans="accounting for 38% of people leaving the country" style="width: 310px;"><span class="tooltip">Đáp án: accounting for 38% of people leaving the country</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Học tập là yếu tố phổ biến thứ hai, ở mức 23%</span><input type="text" class="blank-input" data-ans="Studying was the second most common factor, at 23%" style="width: 330px;"><span class="tooltip">Đáp án: Studying was the second most common factor, at 23%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi các lý do khác cấu thành 15%</span><input type="text" class="blank-input" data-ans="while other reasons made up 15%" style="width: 220px;"><span class="tooltip">Đáp án: while other reasons made up 15%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Các số liệu cho việc không có lý do cụ thể và đi cùng gia đình</span><input type="text" class="blank-input" data-ans="The figures for having no specific reason and accompanying family members" style="width: 440px;"><span class="tooltip">Đáp án: The figures for having no specific reason and accompanying family members</span></span>
+                <span class="blank-wrapper"><span class="vi-label">lần lượt dừng ở mức 13% và 7%</span><input type="text" class="blank-input" data-ans="stood at 13% and 7%, respectively" style="width: 220px;"><span class="tooltip">Đáp án: stood at 13% and 7%, respectively</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Cuối cùng, chỉ 4% người xuất cư rời đi để tìm việc</span><input type="text" class="blank-input" data-ans="Finally, just 4% of emigrants left to look for a job" style="width: 320px;"><span class="tooltip">Đáp án: Finally, just 4% of emigrants left to look for a job</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">so với 15% số người nhập cảnh vào quốc gia này</span><input type="text" class="blank-input" data-ans="compared with 15% of those entering the country" style="width: 310px;"><span class="tooltip">Đáp án: compared with 15% of those entering the country</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- BÀI 2 -->
+    <div id="v2" class="version-card theme-v2">
+        <div class="version-header">
+            <h2>Bài 2 — Advanced Academic Version</h2>
+            <span class="badge">Band 8.0</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Các biểu đồ hình tròn minh họa sự phân bổ</span><input type="text" class="blank-input" data-ans="The pie charts illustrate the distribution of" style="width: 300px;"><span class="tooltip">Đáp án: The pie charts illustrate the distribution of</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sáu lý do nhập cư và xuất cư</span><input type="text" class="blank-input" data-ans="six reasons for immigration to and emigration from" style="width: 340px;"><span class="tooltip">Đáp án: six reasons for immigration to and emigration from</span></span>
+                <span class="blank-wrapper"><span class="vi-label">một quốc gia Châu Âu trong năm 2009</span><input type="text" class="blank-input" data-ans="a European country in 2009" style="width: 200px;"><span class="tooltip">Đáp án: a European country in 2009</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nhìn chung, sự khác biệt chính giữa hai nhóm</span><input type="text" class="blank-input" data-ans="Overall, the main distinction between the two groups" style="width: 350px;"><span class="tooltip">Đáp án: Overall, the main distinction between the two groups</span></span>
+                <span class="blank-wrapper"><span class="vi-label">là tầm quan trọng của việc làm</span><input type="text" class="blank-input" data-ans="was the importance of employment" style="width: 230px;"><span class="tooltip">Đáp án: was the importance of employment</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trong khi học tập là lý do được trích dẫn nhiều nhất khi vào quốc gia</span><input type="text" class="blank-input" data-ans="While studying was the most frequently cited reason for entering the country" style="width: 450px;"><span class="tooltip">Đáp án: While studying was the most frequently cited reason for entering the country</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">đảm bảo một công việc chính thức là động lực vượt trội nhất để rời đi</span><input type="text" class="blank-input" data-ans="securing a definite job was by far the leading motivation for leaving it" style="width: 450px;"><span class="tooltip">Đáp án: securing a definite job was by far the leading motivation for leaving it</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Di cư liên quan đến gia đình và tìm việc</span><input type="text" class="blank-input" data-ans="Family-related migration and job-seeking" style="width: 280px;"><span class="tooltip">Đáp án: Family-related migration and job-seeking</span></span>
+                <span class="blank-wrapper"><span class="vi-label">cũng chiếm tỷ trọng khác biệt rõ rệt theo hai chiều</span><input type="text" class="blank-input" data-ans="also accounted for noticeably different proportions in the two directions" style="width: 450px;"><span class="tooltip">Đáp án: also accounted for noticeably different proportions in the two directions</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nhìn vào việc nhập cư trước tiên</span><input type="text" class="blank-input" data-ans="Looking first at immigration" style="width: 210px;"><span class="tooltip">Đáp án: Looking first at immigration</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">giáo dục đại diện cho danh mục lớn nhất, ở mức 25%</span><input type="text" class="blank-input" data-ans="education represented the largest category, at 25%" style="width: 330px;"><span class="tooltip">Đáp án: education represented the largest category, at 25%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vượt nhẹ so với việc làm chính thức, vốn chiếm 23%</span><input type="text" class="blank-input" data-ans="narrowly ahead of definite employment, which accounted for 23%" style="width: 400px;"><span class="tooltip">Đáp án: narrowly ahead of definite employment, which accounted for 23%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ba danh mục còn lại là tìm việc, đi cùng gia đình</span><input type="text" class="blank-input" data-ans="The remaining three categories of job-seeking, accompanying family members" style="width: 460px;"><span class="tooltip">Đáp án: The remaining three categories of job-seeking, accompanying family members</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và các lý do khác đều quan trọng như nhau</span><input type="text" class="blank-input" data-ans="and other reasons were equally significant" style="width: 280px;"><span class="tooltip">Đáp án: and other reasons were equally significant</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mỗi nhóm chiếm 15% tổng số</span><input type="text" class="blank-input" data-ans="each making up 15% of the total" style="width: 210px;"><span class="tooltip">Đáp án: each making up 15% of the total</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Chỉ 7% số người vào quốc gia này không nêu rõ lý do</span><input type="text" class="blank-input" data-ans="Only 7% of people entering the country did not specify a reason" style="width: 390px;"><span class="tooltip">Đáp án: Only 7% of people entering the country did not specify a reason</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Một xu hướng khác xuất hiện ở những người xuất cư</span><input type="text" class="blank-input" data-ans="A different pattern emerged among emigrants" style="width: 320px;"><span class="tooltip">Đáp án: A different pattern emerged among emigrants</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Việc làm chính thức áp đảo, ở mức 38%</span><input type="text" class="blank-input" data-ans="Definite employment dominated, at 38%" style="width: 250px;"><span class="tooltip">Đáp án: Definite employment dominated, at 38%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">con số này cao hơn 15 điểm phần trăm</span><input type="text" class="blank-input" data-ans="a figure 15 percentage points higher" style="width: 250px;"><span class="tooltip">Đáp án: a figure 15 percentage points higher</span></span>
+                <span class="blank-wrapper"><span class="vi-label">so với tỷ lệ tương ứng của người nhập cư</span><input type="text" class="blank-input" data-ans="than the corresponding proportion for immigrants" style="width: 330px;"><span class="tooltip">Đáp án: than the corresponding proportion for immigrants</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Học tập là danh mục lớn thứ hai, ở mức 23%</span><input type="text" class="blank-input" data-ans="Study was the second-largest category, at 23%" style="width: 310px;"><span class="tooltip">Đáp án: Study was the second-largest category, at 23%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi thị phần thuộc về các lý do khác giữ nguyên ở 15%</span><input type="text" class="blank-input" data-ans="while the share attributed to other reasons remained unchanged at 15%" style="width: 450px;"><span class="tooltip">Đáp án: while the share attributed to other reasons remained unchanged at 15%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trong khi đó, tỷ lệ người rời đi mà không có lý do cụ thể tăng gần gấp đôi</span><input type="text" class="blank-input" data-ans="Meanwhile, the proportion of people leaving without a specific reason almost doubled" style="width: 500px;"><span class="tooltip">Đáp án: Meanwhile, the proportion of people leaving without a specific reason almost doubled</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">tăng từ 7% lên 13%</span><input type="text" class="blank-input" data-ans="rising from 7% to 13%" style="width: 150px;"><span class="tooltip">Đáp án: rising from 7% to 13%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trái lại, di cư theo gia đình giảm từ 15% xuống 7%</span><input type="text" class="blank-input" data-ans="In contrast, family-related migration fell from 15% to 7%" style="width: 360px;"><span class="tooltip">Đáp án: In contrast, family-related migration fell from 15% to 7%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và việc tìm kiếm công việc giảm mạnh từ 15% xuống chỉ còn 4%</span><input type="text" class="blank-input" data-ans="and job-seeking dropped sharply from 15% to just 4%" style="width: 360px;"><span class="tooltip">Đáp án: and job-seeking dropped sharply from 15% to just 4%</span></span>.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.version-card');
+        const showAnswersBtn = document.getElementById('showAnswersBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // Clean text helper to handle punctuation and case normalization
+        function cleanText(text) {
+            return text.trim()
+                       .toLowerCase()
+                       .replace(/’/g, "'")
+                       .replace(/–/g, "-")
+                       .replace(/\s+/g, ' ');
+        }
+
+        // Realtime Progress Tracker Update
+        function updateProgress() {
+            const activeCard = document.querySelector('.version-card.active');
+            const inputs = activeCard.querySelectorAll('.blank-input');
+            const total = inputs.length;
+            let correctCount = 0;
+
+            inputs.forEach(input => {
+                if (input.classList.contains('correct')) {
+                    correctCount++;
+                }
+            });
+
+            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+            progressBar.style.width = percent + '%';
+            progressText.textContent = `${correctCount} / ${total} (${percent}%)`;
+        }
+
+        // Validate Input logic (Only set submitted state on Enter/Blur)
+        function validateInput(input) {
+            const userVal = cleanText(input.value);
+            const correctVal = cleanText(input.getAttribute('data-ans'));
+
+            if (userVal === "") {
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            } else {
+                input.classList.add('submitted');
+                if (userVal === correctVal) {
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('incorrect');
+                }
+            }
+            updateProgress();
+        }
+
+        // Tab Switching logic
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                cards.forEach(card => {
+                    if (card.id === targetId) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+                updateProgress();
+            });
+        });
+
+        // Event listeners for Enter key and Blur on input elements
+        document.querySelectorAll('.blank-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    validateInput(input);
+                    input.blur();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                validateInput(input);
+            });
+        });
+
+        // Show Answers Button logic
+        showAnswersBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = input.getAttribute('data-ans');
+                input.classList.remove('incorrect');
+                input.classList.add('correct', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Reset Button logic
+        resetBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = "";
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Initial progress calculation
+        updateProgress();
+    });
+</script>
+
+</body>
+</html>
