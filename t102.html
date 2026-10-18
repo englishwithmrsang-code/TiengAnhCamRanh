@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Task 1: Airport Travel Purposes - Interactive Fill</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-radius: 8px;
+            --correct-color: #15803d;
+            --incorrect-color: #b91c1c;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0 0 4px 0;
+            color: #0f172a;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            border: 1px solid transparent;
+            background-color: var(--bg-color);
+            padding: 5px 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn[data-target="v1"] { color: #d97706; border-color: #fde68a; }
+        .tab-btn[data-target="v1"].active, .tab-btn[data-target="v1"]:hover { background-color: #d97706; color: #fff; }
+
+        .tab-btn[data-target="v2"] { color: #2563eb; border-color: #bfdbfe; }
+        .tab-btn[data-target="v2"].active, .tab-btn[data-target="v2"]:hover { background-color: #2563eb; color: #fff; }
+
+        .tab-btn[data-target="v3"] { color: #059669; border-color: #a7f3d0; }
+        .tab-btn[data-target="v3"].active, .tab-btn[data-target="v3"]:hover { background-color: #059669; color: #fff; }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            background: #e2e8f0;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover { background: #cbd5e1; }
+
+        /* Tracker Card */
+        .tracker-card {
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .tracker-info {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            white-space: nowrap;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #10b981;
+            transition: width 0.3s ease;
+        }
+
+        /* Version Card */
+        .version-card {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .version-card.active { display: block; }
+
+        .version-header {
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .version-header h2 { margin: 0; font-size: 1.1rem; }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .theme-v1 { border-top: 4px solid #d97706; }
+        .theme-v1 .version-header { background: #fffbeb; color: #92400e; }
+        .theme-v1 .vi-label { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+        .theme-v2 { border-top: 4px solid #2563eb; }
+        .theme-v2 .version-header { background: #eff6ff; color: #1e40af; }
+        .theme-v2 .vi-label { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+
+        .theme-v3 { border-top: 4px solid #059669; }
+        .theme-v3 .version-header { background: #ecfdf5; color: #065f46; }
+        .theme-v3 .vi-label { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+        .essay-body p {
+            margin-bottom: 18px;
+            text-align: justify;
+            font-size: 0.92rem;
+        }
+
+        /* Blank Elements */
+        .blank-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin: 3px 2px;
+            vertical-align: baseline;
+        }
+
+        .vi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-right: 3px;
+            user-select: none;
+            white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .blank-input {
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 0.86rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+            height: 22px;
+        }
+
+        .blank-input:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .blank-input.correct {
+            border-color: var(--correct-color) !important;
+            background-color: #f0fdf4 !important;
+            color: var(--correct-color) !important;
+            font-weight: 600;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--incorrect-color) !important;
+            background-color: #fef2f2 !important;
+            color: var(--incorrect-color) !important;
+            font-weight: 600;
+        }
+
+        /* Tooltip logic: only shows when class 'submitted' and 'incorrect' are present on hover */
+        .blank-wrapper .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            background-color: #0f172a;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 3px 7px;
+            position: absolute;
+            z-index: 10;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: opacity 0.15s ease-in-out;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .blank-wrapper .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            border-width: 4px;
+            border-style: solid;
+            border-color: #0f172a transparent transparent transparent;
+        }
+
+        .blank-wrapper:hover .blank-input.incorrect.submitted + .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>IELTS Task 1: Airport Travel Purposes (Interactive Fill)</h1>
+        <p>Nhập đáp án → Nhấn <strong>Enter</strong> hoặc bấm ra ngoài để nộp bài → Nếu sai, **rê chuột vào ô** để xem gợi ý đáp án chuẩn</p>
+    </header>
+
+    <div class="controls">
+        <div class="tabs">
+            <button class="tab-btn active" data-target="v1">Bài 1 (By Purpose)</button>
+            <button class="tab-btn" data-target="v2">Bài 2 (By Similarities)</button>
+            <button class="tab-btn" data-target="v3">Bài 3 (By Major/Minor)</button>
+        </div>
+        <div class="action-btns">
+            <button class="btn-action" id="showAnswersBtn">Hiển thị đáp án</button>
+            <button class="btn-action" id="resetBtn">Làm lại</button>
+        </div>
+    </div>
+
+    <!-- Tracker -->
+    <div class="tracker-card">
+        <div class="tracker-info">Tiến độ đúng: <span id="progressText">0 / 0 (0%)</span></div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- BÀI 1 -->
+    <div id="v1" class="version-card theme-v1 active">
+        <div class="version-header">
+            <h2>Bài 1 — Group by dominant purposes</h2>
+            <span class="badge">Band 7.5 - 8.0</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Bốn biểu đồ hình tròn minh họa</span><input type="text" class="blank-input" data-ans="The four pie charts illustrate" style="width: 200px;"><span class="tooltip">Đáp án: The four pie charts illustrate</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tỷ lệ hành khách di chuyển đến Anh</span><input type="text" class="blank-input" data-ans="the proportions of passengers travelling to the UK" style="width: 290px;"><span class="tooltip">Đáp án: the proportions of passengers travelling to the UK</span></span>
+                <span class="blank-wrapper"><span class="vi-label">vì các mục đích khác nhau qua</span><input type="text" class="blank-input" data-ans="for different purposes via" style="width: 170px;"><span class="tooltip">Đáp án: for different purposes via</span></span>
+                <span class="blank-wrapper"><span class="vi-label">các sân bay Gatwick, Heathrow, Luton và Stansted vào năm 2016</span><input type="text" class="blank-input" data-ans="Gatwick, Heathrow, Luton and Stansted airports in 2016" style="width: 330px;"><span class="tooltip">Đáp án: Gatwick, Heathrow, Luton and Stansted airports in 2016</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nhìn chung, kỳ nghỉ là lý do chính</span><input type="text" class="blank-input" data-ans="Overall, holidays were the main reason" style="width: 240px;"><span class="tooltip">Đáp án: Overall, holidays were the main reason</span></span>
+                <span class="blank-wrapper"><span class="vi-label">cho việc đi lại qua Gatwick</span><input type="text" class="blank-input" data-ans="for travelling through Gatwick" style="width: 190px;"><span class="tooltip">Đáp án: for travelling through Gatwick</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi việc thăm bạn bè và người thân</span><input type="text" class="blank-input" data-ans="whereas visiting friends and family" style="width: 230px;"><span class="tooltip">Đáp án: whereas visiting friends and family</span></span>
+                <span class="blank-wrapper"><span class="vi-label">là mục đích phổ biến nhất tại Luton và Stansted</span><input type="text" class="blank-input" data-ans="was the most common purpose at Luton and Stansted" style="width: 310px;"><span class="tooltip">Đáp án: was the most common purpose at Luton and Stansted</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Heathrow nổi bật vì có</span><input type="text" class="blank-input" data-ans="Heathrow stood out for having" style="width: 200px;"><span class="tooltip">Đáp án: Heathrow stood out for having</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tỷ lệ khách đi công tác cao nhất</span><input type="text" class="blank-input" data-ans="the highest proportion of business travellers" style="width: 270px;"><span class="tooltip">Đáp án: the highest proportion of business travellers</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi các mục đích khác chiếm thị phần nhỏ nhất</span><input type="text" class="blank-input" data-ans="while other purposes accounted for the smallest shares" style="width: 320px;"><span class="tooltip">Đáp án: while other purposes accounted for the smallest shares</span></span>
+                <span class="blank-wrapper"><span class="vi-label">ở cả bốn sân bay</span><input type="text" class="blank-input" data-ans="at all four airports" style="width: 130px;"><span class="tooltip">Đáp án: at all four airports</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tại Gatwick, kỳ nghỉ chiếm 54%</span><input type="text" class="blank-input" data-ans="At Gatwick, holidays accounted for 54%" style="width: 230px;"><span class="tooltip">Đáp án: At Gatwick, holidays accounted for 54%</span></span>
+                <span class="blank-wrapper"><span class="vi-label">số lượng hành khách</span><input type="text" class="blank-input" data-ans="of passengers" style="width: 100px;"><span class="tooltip">Đáp án: of passengers</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">cao hơn đáng kể so với con số</span><input type="text" class="blank-input" data-ans="considerably higher than the figure for" style="width: 240px;"><span class="tooltip">Đáp án: considerably higher than the figure for</span></span>
+                <span class="blank-wrapper"><span class="vi-label">thăm bạn bè và người thân, ở mức 30%</span><input type="text" class="blank-input" data-ans="visiting friends and family, at 30%" style="width: 220px;"><span class="tooltip">Đáp án: visiting friends and family, at 30%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một xu hướng tương tự được ghi nhận tại Heathrow</span><input type="text" class="blank-input" data-ans="A similar pattern was observed at Heathrow" style="width: 270px;"><span class="tooltip">Đáp án: A similar pattern was observed at Heathrow</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mặc dù việc thăm bạn bè và gia đình vượt nhẹ</span><input type="text" class="blank-input" data-ans="although visiting friends and family slightly exceeded" style="width: 310px;"><span class="tooltip">Đáp án: although visiting friends and family slightly exceeded</span></span>
+                <span class="blank-wrapper"><span class="vi-label">các kỳ nghỉ, lần lượt ở mức 37% và 33%</span><input type="text" class="blank-input" data-ans="holidays, at 37% and 33% respectively" style="width: 240px;"><span class="tooltip">Đáp án: holidays, at 37% and 33% respectively</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đáng chú ý, Heathrow ghi nhận</span><input type="text" class="blank-input" data-ans="Notably, Heathrow recorded" style="width: 180px;"><span class="tooltip">Đáp án: Notably, Heathrow recorded</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tỷ lệ khách công tác cao nhất, ở mức 26%</span><input type="text" class="blank-input" data-ans="the highest proportion of business travellers, at 26%" style="width: 320px;"><span class="tooltip">Đáp án: the highest proportion of business travellers, at 26%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">so với chỉ 14% ở Gatwick</span><input type="text" class="blank-input" data-ans="compared with just 14% at Gatwick" style="width: 220px;"><span class="tooltip">Đáp án: compared with just 14% at Gatwick</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Trái lại, việc thăm bạn bè và gia đình chiếm ưu thế</span><input type="text" class="blank-input" data-ans="By contrast, visiting friends and family dominated" style="width: 310px;"><span class="tooltip">Đáp án: By contrast, visiting friends and family dominated</span></span>
+                <span class="blank-wrapper"><span class="vi-label">mục đích di chuyển tại Luton và Stansted</span><input type="text" class="blank-input" data-ans="travel purposes at Luton and Stansted" style="width: 230px;"><span class="tooltip">Đáp án: travel purposes at Luton and Stansted</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">lần lượt đại diện cho 50% và 48% hành khách</span><input type="text" class="blank-input" data-ans="representing 50% and 48% of passengers respectively" style="width: 320px;"><span class="tooltip">Đáp án: representing 50% and 48% of passengers respectively</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Những con số này cao hơn đáng kể</span><input type="text" class="blank-input" data-ans="These figures were substantially higher" style="width: 250px;"><span class="tooltip">Đáp án: These figures were substantially higher</span></span>
+                <span class="blank-wrapper"><span class="vi-label">so với những con số dành cho kỳ nghỉ</span><input type="text" class="blank-input" data-ans="than those for holidays" style="width: 160px;"><span class="tooltip">Đáp án: than those for holidays</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vốn chiếm 35% tại Luton và 36% tại Stansted</span><input type="text" class="blank-input" data-ans="which accounted for 35% at Luton and 36% at Stansted" style="width: 320px;"><span class="tooltip">Đáp án: which accounted for 35% at Luton and 36% at Stansted</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Du lịch công tác cho thấy một xu hướng tương tự</span><input type="text" class="blank-input" data-ans="Business travel showed a similar pattern" style="width: 250px;"><span class="tooltip">Đáp án: Business travel showed a similar pattern</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tại hai sân bay này</span><input type="text" class="blank-input" data-ans="at these two airports" style="width: 140px;"><span class="tooltip">Đáp án: at these two airports</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">với tỷ lệ gần như giống hệt nhau là 13% và 14%</span><input type="text" class="blank-input" data-ans="with almost identical proportions of 13% and 14%" style="width: 300px;"><span class="tooltip">Đáp án: with almost identical proportions of 13% and 14%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Cuối cùng, các mục đích khác chỉ đại diện cho 2%</span><input type="text" class="blank-input" data-ans="Finally, other purposes represented only 2%" style="width: 270px;"><span class="tooltip">Đáp án: Finally, other purposes represented only 2%</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hành khách tại Gatwick, Luton và Stansted</span><input type="text" class="blank-input" data-ans="of passengers at Gatwick, Luton and Stansted" style="width: 260px;"><span class="tooltip">Đáp án: of passengers at Gatwick, Luton and Stansted</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">so với 4% tại Heathrow</span><input type="text" class="blank-input" data-ans="compared with 4% at Heathrow" style="width: 180px;"><span class="tooltip">Đáp án: compared with 4% at Heathrow</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- BÀI 2 -->
+    <div id="v2" class="version-card theme-v2">
+        <div class="version-header">
+            <h2>Bài 2 — Group by similarities between airports</h2>
+            <span class="badge">Band 7.5 - 8.0</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Các biểu đồ hình tròn so sánh tỷ lệ phần trăm</span><input type="text" class="blank-input" data-ans="The pie charts compare the percentages of" style="width: 260px;"><span class="tooltip">Đáp án: The pie charts compare the percentages of</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hành khách tới Anh vì bốn mục đích khác nhau</span><input type="text" class="blank-input" data-ans="passengers travelling to the UK for four different purposes" style="width: 360px;"><span class="tooltip">Đáp án: passengers travelling to the UK for four different purposes</span></span>
+                <span class="blank-wrapper"><span class="vi-label">qua bốn sân bay trong năm 2016</span><input type="text" class="blank-input" data-ans="via four airports in 2016" style="width: 160px;"><span class="tooltip">Đáp án: via four airports in 2016</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nhìn chung, Luton và Stansted thể hiện</span><input type="text" class="blank-input" data-ans="Overall, Luton and Stansted displayed" style="width: 230px;"><span class="tooltip">Đáp án: Overall, Luton and Stansted displayed</span></span>
+                <span class="blank-wrapper"><span class="vi-label">các xu hướng di chuyển rất giống nhau</span><input type="text" class="blank-input" data-ans="very similar travel patterns" style="width: 180px;"><span class="tooltip">Đáp án: very similar travel patterns</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">với việc thăm bạn bè và gia đình chiếm</span><input type="text" class="blank-input" data-ans="with visiting friends and family accounting for" style="width: 290px;"><span class="tooltip">Đáp án: with visiting friends and family accounting for</span></span>
+                <span class="blank-wrapper"><span class="vi-label">khoảng một nửa tổng số hành khách</span><input type="text" class="blank-input" data-ans="approximately half of all passengers" style="width: 220px;"><span class="tooltip">Đáp án: approximately half of all passengers</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trái lại, kỳ nghỉ là mục đích thống trị</span><input type="text" class="blank-input" data-ans="In contrast, holidays were the dominant purpose" style="width: 290px;"><span class="tooltip">Đáp án: In contrast, holidays were the dominant purpose</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tại Gatwick</span><input type="text" class="blank-input" data-ans="at Gatwick" style="width: 80px;"><span class="tooltip">Đáp án: at Gatwick</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi Heathrow có sự phân bổ cân bằng hơn</span><input type="text" class="blank-input" data-ans="while Heathrow had a more balanced distribution" style="width: 300px;"><span class="tooltip">Đáp án: while Heathrow had a more balanced distribution</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và một tỷ lệ khách công tác cao hơn đáng kể</span><input type="text" class="blank-input" data-ans="and a notably higher proportion of business travellers" style="width: 330px;"><span class="tooltip">Đáp án: and a notably higher proportion of business travellers</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Các số liệu của Luton và Stansted</span><input type="text" class="blank-input" data-ans="The figures for Luton and Stansted were" style="width: 240px;"><span class="tooltip">Đáp án: The figures for Luton and Stansted were</span></span>
+                <span class="blank-wrapper"><span class="vi-label">giống nhau một cách đáng kinh ngạc</span><input type="text" class="blank-input" data-ans="remarkably alike" style="width: 120px;"><span class="tooltip">Đáp án: remarkably alike</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Thăm người thân và bạn bè là mục đích dẫn đầu</span><input type="text" class="blank-input" data-ans="Visiting friends and family was the leading purpose" style="width: 310px;"><span class="tooltip">Đáp án: Visiting friends and family was the leading purpose</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tại cả hai sân bay</span><input type="text" class="blank-input" data-ans="at both airports" style="width: 120px;"><span class="tooltip">Đáp án: at both airports</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chiếm lần lượt 50% và 48%</span><input type="text" class="blank-input" data-ans="accounting for 50% and 48% respectively" style="width: 260px;"><span class="tooltip">Đáp án: accounting for 50% and 48% respectively</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Du lịch nghỉ dưỡng xếp thứ hai</span><input type="text" class="blank-input" data-ans="Holiday travel ranked second" style="width: 190px;"><span class="tooltip">Đáp án: Holiday travel ranked second</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ở mức 35% tại Luton và 36% tại Stansted</span><input type="text" class="blank-input" data-ans="at 35% in Luton and 36% in Stansted" style="width: 230px;"><span class="tooltip">Đáp án: at 35% in Luton and 36% in Stansted</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi các chuyến công tác đại diện cho 13% và 14%</span><input type="text" class="blank-input" data-ans="while business trips represented 13% and 14%" style="width: 280px;"><span class="tooltip">Đáp án: while business trips represented 13% and 14%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trong cả hai trường hợp</span><input type="text" class="blank-input" data-ans="In both cases" style="width: 100px;"><span class="tooltip">Đáp án: In both cases</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">các mục đích khác chỉ tạo nên 2% tổng số</span><input type="text" class="blank-input" data-ans="other purposes made up just 2% of the total" style="width: 270px;"><span class="tooltip">Đáp án: other purposes made up just 2% of the total</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Gatwick khác biệt đáng kể từ hai sân bay này</span><input type="text" class="blank-input" data-ans="Gatwick differed considerably from these two airports" style="width: 320px;"><span class="tooltip">Đáp án: Gatwick differed considerably from these two airports</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">khi các kỳ nghỉ chiếm 54% hành khách</span><input type="text" class="blank-input" data-ans="as holidays accounted for 54% of passengers" style="width: 280px;"><span class="tooltip">Đáp án: as holidays accounted for 54% of passengers</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">khiến đây trở thành con số cao nhất cho bất kỳ mục đích nào</span><input type="text" class="blank-input" data-ans="making this the highest figure for any purpose" style="width: 310px;"><span class="tooltip">Đáp án: making this the highest figure for any purpose</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trên cả bốn biểu đồ</span><input type="text" class="blank-input" data-ans="across the four charts" style="width: 150px;"><span class="tooltip">Đáp án: across the four charts</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Khi so sánh, chỉ có 30% di chuyển để</span><input type="text" class="blank-input" data-ans="By comparison, only 30% travelled to" style="width: 230px;"><span class="tooltip">Đáp án: By comparison, only 30% travelled to</span></span>
+                <span class="blank-wrapper"><span class="vi-label">thăm người thân và bạn bè</span><input type="text" class="blank-input" data-ans="visit friends and family" style="width: 160px;"><span class="tooltip">Đáp án: visit friends and family</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi các chuyến công tác chiếm 14%</span><input type="text" class="blank-input" data-ans="while business trips accounted for 14%" style="width: 240px;"><span class="tooltip">Đáp án: while business trips accounted for 14%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Heathrow trình bày một sự phân bổ khác</span><input type="text" class="blank-input" data-ans="Heathrow presented a different distribution" style="width: 270px;"><span class="tooltip">Đáp án: Heathrow presented a different distribution</span></span>:
+                <span class="blank-wrapper"><span class="vi-label">thăm người thân và bạn bè là nhóm lớn nhất</span><input type="text" class="blank-input" data-ans="visiting friends and family was the largest category" style="width: 320px;"><span class="tooltip">Đáp án: visiting friends and family was the largest category</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ở mức 37%, nhỉnh hơn kỳ nghỉ ở mức 33%</span><input type="text" class="blank-input" data-ans="at 37%, narrowly exceeding holidays at 33%" style="width: 270px;"><span class="tooltip">Đáp án: at 37%, narrowly exceeding holidays at 33%</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Hơn nữa, tỷ lệ di chuyển vì công việc</span><input type="text" class="blank-input" data-ans="Furthermore, the proportion travelling for business" style="width: 300px;"><span class="tooltip">Đáp án: Furthermore, the proportion travelling for business</span></span>
+                <span class="blank-wrapper"><span class="vi-label">đạt 26%, gần như gấp đôi con số tương ứng</span><input type="text" class="blank-input" data-ans="reached 26%, almost twice the corresponding figures" style="width: 320px;"><span class="tooltip">Đáp án: reached 26%, almost twice the corresponding figures</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tại Gatwick, Luton và Stansted</span><input type="text" class="blank-input" data-ans="at Gatwick, Luton and Stansted" style="width: 210px;"><span class="tooltip">Đáp án: at Gatwick, Luton and Stansted</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Các mục đích khác vẫn tương đối nhỏ</span><input type="text" class="blank-input" data-ans="Other purposes remained relatively minor" style="width: 250px;"><span class="tooltip">Đáp án: Other purposes remained relatively minor</span></span>
+                <span class="blank-wrapper"><span class="vi-label">ở cả Gatwick và Heathrow, lần lượt là 2% và 4%</span><input type="text" class="blank-input" data-ans="at both Gatwick and Heathrow, at 2% and 4% respectively" style="width: 340px;"><span class="tooltip">Đáp án: at both Gatwick and Heathrow, at 2% and 4% respectively</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- BÀI 3 -->
+    <div id="v3" class="version-card theme-v3">
+        <div class="version-header">
+            <h2>Bài 3 — Group by major and minor travel purposes</h2>
+            <span class="badge">Band 8.0</span>
+        </div>
+        <div class="essay-body">
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Bốn biểu đồ tròn cho thấy tỷ lệ</span><input type="text" class="blank-input" data-ans="The four pie charts show the proportions of" style="width: 270px;"><span class="tooltip">Đáp án: The four pie charts show the proportions of</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hành khách sử dụng các sân bay Gatwick, Heathrow, Luton và Stansted</span><input type="text" class="blank-input" data-ans="passengers using Gatwick, Heathrow, Luton and Stansted airports" style="width: 380px;"><span class="tooltip">Đáp án: passengers using Gatwick, Heathrow, Luton and Stansted airports</span></span>
+                <span class="blank-wrapper"><span class="vi-label">để tới Anh cho nhiều mục đích khác nhau vào năm 2016</span><input type="text" class="blank-input" data-ans="to travel to the UK for various purposes in 2016" style="width: 310px;"><span class="tooltip">Đáp án: to travel to the UK for various purposes in 2016</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nhìn chung, kỳ nghỉ và thăm bạn bè người thân</span><input type="text" class="blank-input" data-ans="Overall, holidays and visits to friends and family" style="width: 310px;"><span class="tooltip">Đáp án: Overall, holidays and visits to friends and family</span></span>
+                <span class="blank-wrapper"><span class="vi-label">chiếm đại đa số lượt đi lại của hành khách</span><input type="text" class="blank-input" data-ans="accounted for the vast majority of passenger travel" style="width: 320px;"><span class="tooltip">Đáp án: accounted for the vast majority of passenger travel</span></span>
+                <span class="blank-wrapper"><span class="vi-label">trên cả bốn sân bay</span><input type="text" class="blank-input" data-ans="across the four airports" style="width: 150px;"><span class="tooltip">Đáp án: across the four airports</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tuy nhiên, mục đích thống trị khác nhau tùy theo sân bay</span><input type="text" class="blank-input" data-ans="However, the dominant purpose varied by airport" style="width: 320px;"><span class="tooltip">Đáp án: However, the dominant purpose varied by airport</span></span>:
+                <span class="blank-wrapper"><span class="vi-label">du lịch kỳ nghỉ dẫn đầu tại Gatwick</span><input type="text" class="blank-input" data-ans="holiday travel led at Gatwick" style="width: 190px;"><span class="tooltip">Đáp án: holiday travel led at Gatwick</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trong khi việc thăm bạn bè gia đình phổ biến hơn</span><input type="text" class="blank-input" data-ans="whereas visiting friends and family was more common" style="width: 320px;"><span class="tooltip">Đáp án: whereas visiting friends and family was more common</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tại Luton và Stansted</span><input type="text" class="blank-input" data-ans="at Luton and Stansted" style="width: 140px;"><span class="tooltip">Đáp án: at Luton and Stansted</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Heathrow có thị phần lớn nhất</span><input type="text" class="blank-input" data-ans="Heathrow had the largest share of" style="width: 220px;"><span class="tooltip">Đáp án: Heathrow had the largest share of</span></span>
+                <span class="blank-wrapper"><span class="vi-label">khách đi lại vì công việc</span><input type="text" class="blank-input" data-ans="business travellers" style="width: 130px;"><span class="tooltip">Đáp án: business travellers</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Du lịch kỳ nghỉ đặc biệt nổi bật tại Gatwick</span><input type="text" class="blank-input" data-ans="Holiday travel was particularly prominent at Gatwick" style="width: 330px;"><span class="tooltip">Đáp án: Holiday travel was particularly prominent at Gatwick</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nơi nó chiếm 54% lượng hành khách</span><input type="text" class="blank-input" data-ans="where it accounted for 54% of passengers" style="width: 260px;"><span class="tooltip">Đáp án: where it accounted for 54% of passengers</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">so với 30% đi lại để thăm bạn bè và người thân</span><input type="text" class="blank-input" data-ans="compared with 30% travelling to visit friends and family" style="width: 340px;"><span class="tooltip">Đáp án: compared with 30% travelling to visit friends and family</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tại ba sân bay còn lại</span><input type="text" class="blank-input" data-ans="At the other three airports" style="width: 170px;"><span class="tooltip">Đáp án: At the other three airports</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">tỷ lệ đi lại cho các kỳ nghỉ thấp hơn đáng kể</span><input type="text" class="blank-input" data-ans="the proportion travelling for holidays was considerably lower" style="width: 370px;"><span class="tooltip">Đáp án: the proportion travelling for holidays was considerably lower</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">dao động từ 33% tại Heathrow tới 36% tại Stansted</span><input type="text" class="blank-input" data-ans="ranging from 33% at Heathrow to 36% at Stansted" style="width: 310px;"><span class="tooltip">Đáp án: ranging from 33% at Heathrow to 36% at Stansted</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trong khi đó, việc thăm người thân đại diện cho 37%</span><input type="text" class="blank-input" data-ans="Meanwhile, visiting friends and family represented 37%" style="width: 330px;"><span class="tooltip">Đáp án: Meanwhile, visiting friends and family represented 37%</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hành khách tại Heathrow, tăng lên 48% tại Stansted</span><input type="text" class="blank-input" data-ans="of passengers at Heathrow, rising to 48% at Stansted" style="width: 320px;"><span class="tooltip">Đáp án: of passengers at Heathrow, rising to 48% at Stansted</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và chạm đỉnh ở mức 50% tại Luton</span><input type="text" class="blank-input" data-ans="and peaking at 50% at Luton" style="width: 200px;"><span class="tooltip">Đáp án: and peaking at 50% at Luton</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Các con số cho Luton và Stansted đặc biệt xấp xỉ</span><input type="text" class="blank-input" data-ans="The figures for Luton and Stansted were especially close" style="width: 340px;"><span class="tooltip">Đáp án: The figures for Luton and Stansted were especially close</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chỉ khác nhau 2 điểm phần trăm</span><input type="text" class="blank-input" data-ans="differing by only two percentage points" style="width: 250px;"><span class="tooltip">Đáp án: differing by only two percentage points</span></span>.
+            </p>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Du lịch công tác chiếm tỷ lệ nhỏ hơn</span><input type="text" class="blank-input" data-ans="Business travel accounted for a smaller proportion" style="width: 320px;"><span class="tooltip">Đáp án: Business travel accounted for a smaller proportion</span></span>
+                <span class="blank-wrapper"><span class="vi-label">tại Gatwick, Luton và Stansted</span><input type="text" class="blank-input" data-ans="at Gatwick, Luton and Stansted" style="width: 200px;"><span class="tooltip">Đáp án: at Gatwick, Luton and Stansted</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">với các số liệu lần lượt là 14%, 13% và 14%</span><input type="text" class="blank-input" data-ans="with figures of 14%, 13% and 14% respectively" style="width: 280px;"><span class="tooltip">Đáp án: with figures of 14%, 13% and 14% respectively</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tuy nhiên, Heathrow ghi nhận</span><input type="text" class="blank-input" data-ans="Heathrow, however, recorded" style="width: 190px;"><span class="tooltip">Đáp án: Heathrow, however, recorded</span></span>
+                <span class="blank-wrapper"><span class="vi-label">một tỷ lệ cao hơn đáng kể là 26%</span><input type="text" class="blank-input" data-ans="a substantially higher share of 26%" style="width: 240px;"><span class="tooltip">Đáp án: a substantially higher share of 26%</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">khiến nó trở thành đơn vị dẫn đầu rõ rệt ở nhóm này</span><input type="text" class="blank-input" data-ans="making it the clear leader in this category" style="width: 280px;"><span class="tooltip">Đáp án: making it the clear leader in this category</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Các mục đích khác nhất quán là lý do ít phổ biến nhất</span><input type="text" class="blank-input" data-ans="Other purposes were consistently the least common reason" style="width: 360px;"><span class="tooltip">Đáp án: Other purposes were consistently the least common reason</span></span>
+                <span class="blank-wrapper"><span class="vi-label">cho việc di chuyển, chỉ đại diện 2% tại 3 sân bay</span><input type="text" class="blank-input" data-ans="for travel, representing just 2% at three airports" style="width: 310px;"><span class="tooltip">Đáp án: for travel, representing just 2% at three airports</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và 4% tại Heathrow</span><input type="text" class="blank-input" data-ans="and 4% at Heathrow" style="width: 140px;"><span class="tooltip">Đáp án: and 4% at Heathrow</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Như vậy, trong khi 4 sân bay khác nhau về mục đích dẫn đầu</span><input type="text" class="blank-input" data-ans="Thus, while the four airports differed in their leading travel purposes" style="width: 410px;"><span class="tooltip">Đáp án: Thus, while the four airports differed in their leading travel purposes</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">việc di chuyển vì công việc và các lý do khác nhìn chung chiếm tỷ lệ nhỏ hơn</span><input type="text" class="blank-input" data-ans="business and other travel generally accounted for smaller proportions" style="width: 420px;"><span class="tooltip">Đáp án: business and other travel generally accounted for smaller proportions</span></span>
+                <span class="blank-wrapper"><span class="vi-label">so với các kỳ nghỉ hoặc thăm bạn bè và người thân</span><input type="text" class="blank-input" data-ans="than holidays or visits to friends and family" style="width: 280px;"><span class="tooltip">Đáp án: than holidays or visits to friends and family</span></span>.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.version-card');
+        const showAnswersBtn = document.getElementById('showAnswersBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // Clean text utility
+        function cleanText(text) {
+            return text.trim()
+                       .toLowerCase()
+                       .replace(/’/g, "'")
+                       .replace(/–/g, "-")
+                       .replace(/\s+/g, ' ');
+        }
+
+        // Update progress tracker
+        function updateProgress() {
+            const activeCard = document.querySelector('.version-card.active');
+            const inputs = activeCard.querySelectorAll('.blank-input');
+            const total = inputs.length;
+            let correctCount = 0;
+
+            inputs.forEach(input => {
+                if (input.classList.contains('correct')) {
+                    correctCount++;
+                }
+            });
+
+            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+            progressBar.style.width = percent + '%';
+            progressText.textContent = `${correctCount} / ${total} (${percent}%)`;
+        }
+
+        // Validate Input logic (Only mark submitted when Enter/Blur occurs)
+        function validateInput(input) {
+            const userVal = cleanText(input.value);
+            const correctVal = cleanText(input.getAttribute('data-ans'));
+
+            if (userVal === "") {
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            } else {
+                input.classList.add('submitted');
+                if (userVal === correctVal) {
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('incorrect');
+                }
+            }
+            updateProgress();
+        }
+
+        // Tab Switching
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                cards.forEach(card => {
+                    if (card.id === targetId) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+                updateProgress();
+            });
+        });
+
+        // Attach listeners for submit action (Enter key or Blur)
+        document.querySelectorAll('.blank-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    validateInput(input);
+                    input.blur();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                validateInput(input);
+            });
+        });
+
+        // Show Answers Button
+        showAnswersBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = input.getAttribute('data-ans');
+                input.classList.remove('incorrect');
+                input.classList.add('correct', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Reset Button
+        resetBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = "";
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Initial state
+        updateProgress();
+    });
+</script>
+
+</body>
+</html>
