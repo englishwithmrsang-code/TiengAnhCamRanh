@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1: Local Community - Tiếng Anh 9 Interactive Exercises</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        /* Custom scrollbar for tab menu */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .correct-bg {
+            background-color: #f0fdf4;
+            border-color: #22c55e;
+        }
+        .incorrect-bg {
+            background-color: #fef2f2;
+            border-color: #ef4444;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-teal-600 via-emerald-600 to-indigo-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/20 p-2.5 rounded-xl backdrop-blur-md">
+                    <i class="fa-solid font-bold fa-book-open text-2xl text-yellow-300"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">UNIT 1: LOCAL COMMUNITY</h1>
+                    <p class="text-xs sm:text-sm text-emerald-100 font-medium">Tiếng Anh 9 - English with Vinh | Venglish</p>
+                </div>
+            </div>
+            
+            <!-- Global Stats Bar -->
+            <div class="flex items-center space-x-4 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20">
+                <div class="text-center">
+                    <p class="text-xs text-emerald-100 uppercase font-semibold">Tổng Tiến Độ</p>
+                    <p class="text-lg font-bold text-yellow-300" id="total-progress">0/120</p>
+                </div>
+                <div class="h-8 w-px bg-white/20"></div>
+                <button onclick="resetAllExercises()" class="bg-red-500 hover:bg-red-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-rotate-right"></i> Làm lại toàn bộ
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 mt-2 overflow-x-auto no-scrollbar border-t border-white/10">
+            <div class="flex space-x-1 py-2" id="tab-headers">
+                <!-- Tabs will be rendered here dynamically -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+        <!-- Instruction Banner -->
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl mb-6 shadow-sm flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-amber-600 text-xl mt-0.5"></i>
+            <div>
+                <h4 class="font-bold text-amber-900 text-sm sm:text-base">Hướng dẫn làm bài:</h4>
+                <p class="text-xs sm:text-sm text-amber-800">
+                    - Với câu hỏi trắc nghiệm / nối: Chọn đáp án tương ứng.<br>
+                    - Với câu tự luận / viết lại / tìm lỗi / đọc hiểu: <strong>Gõ đáp án và bấm phím ENTER</strong> (hoặc bấm nút "Kiểm tra") để chấm điểm, xem bản dịch và giải thích chi tiết!
+                </p>
+            </div>
+        </div>
+
+        <!-- Dynamic Exercise Tabs Render Area -->
+        <div id="tab-contents" class="relative min-h-[500px]">
+            <!-- Content will be rendered dynamically by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-center text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-semibold text-slate-300">Ứng dụng Bài tập Tiếng Anh 9 - Unit 1: Local Community</p>
+            <p class="text-xs mt-1 text-slate-500">Biên soạn: English with Vinh | Venglish - Zalo: 0988.843.507</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Data Structure for all 12 exercises
+        const exercisesData = {
+            1: {
+                title: "Bài 1. Matching",
+                subtitle: "Nối từ ở cột A với định nghĩa ở cột B",
+                type: "matching",
+                items: [
+                    { id: 1, word: "artisan", options: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], correct: "D", trans: "thợ thủ công", explain: "Artisan là người có tay nghề làm các sản phẩm thủ công (a person who is skilled at making things by hand)." },
+                    { id: 2, word: "suburb", options: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], correct: "I", trans: "ngoại ô", explain: "Suburb là vùng ngoại ô thành phố nơi mọi người sinh sống (an area outside the centre of a city where people live)." },
+                    { id: 3, word: "facilities", options: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], correct: "E", trans: "cơ sở vật chất", explain: "Facilities là các tòa nhà, dịch vụ hoặc thiết bị được cung cấp cho mục đích nhất định (buildings, services or equipment...)." },
+                    { id: 4, word: "fragrance", options: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], correct: "B", trans: "hương thơm", explain: "Fragrance nghĩa là mùi hương dễ chịu (a pleasant smell)." },
+                    { id: 5, word: "speciality", options: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], correct: "J", trans: "đặc sản", explain: "Speciality là món ăn hoặc sản phẩm mà một nơi nổi tiếng đặc biệt về nó (a food or product that a place is especially famous for)." },
+                    { id: 6, word: "preserve", options: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], correct: "H", trans: "bảo tồn, giữ gìn", explain: "Preserve là giữ cái gì ở trạng thái ban đầu để không bị hư hỏng (to keep something in its original state...)." },
+                    { id: 7, word: "handicraft", options: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], correct: "F", trans: "sản phẩm thủ công", explain: "Handicraft là vật được làm khéo léo bằng tay thay vì bằng máy (an object made skilfully by hand...)." },
+                    { id: 8, word: "tourist attraction", options: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], correct: "G", trans: "điểm thu hút du khách", explain: "Tourist attraction là nơi nhiều du khách đến tham quan (a place that many visitors come to see)." },
+                    { id: 9, word: "house-warming party", options: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], correct: "A", trans: "tiệc tân gia", explain: "House-warming party là bữa tiệc khi chuyển về nhà mới (a party that people hold when they move into a new home)." },
+                    { id: 10, word: "garbage collector", options: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"], correct: "C", trans: "người thu gom rác", explain: "Garbage collector là người thu gom rác từ nhà dân và đường phố (a person whose job is to take waste away...)." }
+                ],
+                columnB: [
+                    "A. a party that people hold when they move into a new home",
+                    "B. a pleasant smell",
+                    "C. a person whose job is to take waste away from homes and streets",
+                    "D. a person who is skilled at making things by hand",
+                    "E. buildings, services or equipment provided for a particular purpose",
+                    "F. an object made skilfully by hand rather than by machine",
+                    "G. a place that many visitors come to see",
+                    "H. to keep something in its original state so that it is not damaged or lost",
+                    "I. an area outside the centre of a city where people live",
+                    "J. a food or product that a place is especially famous for"
+                ]
+            },
+            2: {
+                title: "Bài 2. Phân loại từ",
+                subtitle: "Xếp các từ sau vào đúng nhóm thích hợp",
+                type: "categorization",
+                words: [
+                    { id: 1, text: "1. artisan", category: "people", label: "Artisan (Thợ thủ công)" },
+                    { id: 2, text: "2. craft village", category: "places", label: "Craft village (Làng nghề)" },
+                    { id: 3, text: "3. pottery", category: "products", label: "Pottery (Đồ gốm)" },
+                    { id: 4, text: "4. preserve", category: "actions", label: "Preserve (Bảo tồn)" },
+                    { id: 5, text: "5. suburb", category: "places", label: "Suburb (Ngoại ô)" },
+                    { id: 6, text: "6. firefighter", category: "people", label: "Firefighter (Lính cứu hỏa)" },
+                    { id: 7, text: "7. handicraft", category: "products", label: "Handicraft (Đồ thủ công)" },
+                    { id: 8, text: "8. house-warming party", category: "actions", label: "House-warming party (Tiệc tân gia)" },
+                    { id: 9, text: "9. community helper", category: "people", label: "Community helper (Người hỗ trợ cộng đồng)" },
+                    { id: 10, text: "10. speciality", category: "products", label: "Speciality (Đặc sản)" }
+                ],
+                categories: [
+                    { id: "people", title: "People (Con người)" },
+                    { id: "places", title: "Places (Địa điểm)" },
+                    { id: "products", title: "Products & things (Sản phẩm & Đồ vật)" },
+                    { id: "actions", title: "Actions & events (Hành động & Sự kiện)" }
+                ]
+            },
+            3: {
+                title: "Bài 3. Điền từ",
+                subtitle: "Chọn từ/cụm từ thích hợp điền vào ô trống (Viết chính xác từ và nhấn ENTER)",
+                type: "fill_blank",
+                box: ["artisans", "community", "craft village", "facilities", "fragrance", "function", "handicrafts", "original", "pottery", "preserve", "speciality", "suburb"],
+                questions: [
+                    { id: 1, sentence: "1. Nam’s cousin lives in a ______ of Ho Chi Minh City and takes a bus to the centre every morning.", correct: "suburb", trans: "Anh họ của Nam sống ở một khu ngoại ô TP.HCM và đi xe buýt vào trung tâm mỗi sáng.", explain: "Vị trí cần một danh từ chỉ địa điểm: 'suburb' (vùng ngoại ô)." },
+                    { id: 2, sentence: "2. Bat Trang is a famous ______ where people have made ceramics for more than 500 years.", correct: "craft village", trans: "Bát Tràng là một làng nghề nổi tiếng nơi người dân đã làm đồ gốm hơn 500 năm.", explain: "Bát Tràng là một 'craft village' (làng nghề thủ công)." },
+                    { id: 3, sentence: "3. Mai bought a set of blue-and-white ______ bowls as a birthday gift for her aunt.", correct: "pottery", trans: "Mai đã mua một bộ bát gốm sứ xanh trắng làm quà sinh nhật cho cô.", explain: "'pottery bowls' nghĩa là bát gốm sứ." },
+                    { id: 4, sentence: "4. The new sports centre has excellent ______, including a swimming pool and two tennis courts.", correct: "facilities", trans: "Trung tâm thể thao mới có cơ sở vật chất tuyệt vời, bao gồm bể bơi và hai sân tennis.", explain: "'facilities' (cơ sở vật chất/tiện ích)." },
+                    { id: 5, sentence: "5. As soon as we stepped into Mrs Hoa’s garden, we noticed the sweet ______ of the roses.", correct: "fragrance", trans: "Ngay khi bước vào vườn cô Hòa, chúng tôi nhận thấy hương thơm ngọt ngào của hoa hồng.", explain: "'sweet fragrance' nghĩa là hương thơm ngọt ngào." },
+                    { id: 6, sentence: "6. Skilled ______ in Van Phuc village can weave a silk scarf in only a few hours.", correct: "artisans", trans: "Các nghệ nhân lành nghề ở làng Vạn Phúc có thể dệt một chiếc khăn lụa chỉ trong vài giờ.", explain: "'artisans' (thợ thủ công/nghệ nhân) đứng trước động từ 'weave' (dệt)." },
+                    { id: 7, sentence: "7. Living in the same lane for over twenty years has given the families here a strong sense of ______.", correct: "community", trans: "Sống trong cùng một ngõ hơn 20 năm đã mang lại cho các gia đình ở đây ý thức cộng đồng mạnh mẽ.", explain: "'sense of community' nghĩa là ý thức/tinh thần cộng đồng." },
+                    { id: 8, sentence: "8. The ______ of this small tool is to remove the outer skin of the bamboo before weaving.", correct: "function", trans: "Chức năng của dụng cụ nhỏ này là loại bỏ lớp vỏ ngoài của tre trước khi dệt.", explain: "'function' nghĩa là chức năng/công dụng." },
+                    { id: 9, sentence: "9. Grilled fish with turmeric and dill is a ______ of Hanoi that visitors should not miss.", correct: "speciality", trans: "Chả cá nghệ thì là là một đặc sản của Hà Nội mà du khách không nên bỏ lỡ.", explain: "'speciality' nghĩa là đặc sản." },
+                    { id: 10, sentence: "10. Young people should learn traditional crafts to help ______ them for future generations.", correct: "preserve", trans: "Giới trẻ nên học các nghề truyền thống để giúp bảo tồn chúng cho các thế hệ tương lai.", explain: "Sau 'help' dùng động từ nguyên thể 'preserve' (bảo tồn, gìn giữ)." }
+                ]
+            },
+            4: {
+                title: "Bài 4. Word Form",
+                subtitle: "Cho dạng đúng của từ trong ngoặc (Gõ từ rồi nhấn ENTER)",
+                type: "word_form",
+                questions: [
+                    { id: 1, sentence: "1. Hoi An is one of the most ______ destinations in central Vietnam. (ATTRACT)", correct: "attractive", trans: "Hội An là một trong những điểm đến hấp dẫn nhất ở miền Trung Việt Nam.", explain: "Sau 'the most' cần tính từ: 'ATTRACT' -> 'attractive' (hấp dẫn, thu hút)." },
+                    { id: 2, sentence: "2. The ______ of the old wooden houses in this street costs the town a lot of money. (PRESERVE)", correct: "preservation", trans: "Việc bảo tồn những ngôi nhà gỗ cổ ở con phố này tiêu tốn của thị trấn rất nhiều tiền.", explain: "Sau 'The' và trước 'of' cần một danh từ: 'PRESERVE' -> 'preservation' (sự bảo tồn)." },
+                    { id: 3, sentence: "3. My uncle works as an ______, so he can fix almost any wiring problem at home. (ELECTRICITY)", correct: "electrician", trans: "Chú tôi làm thợ điện, nên chú có thể sửa hầu hết các sự cố về điện ở nhà.", explain: "Sau 'an' cần danh từ chỉ nghề nghiệp: 'ELECTRICITY' -> 'electrician' (thợ điện)." },
+                    { id: 4, sentence: "4. ______ has brought many new jobs to this quiet fishing town. (TOUR)", correct: "Tourism", trans: "Ngành du lịch đã mang lại nhiều việc làm mới cho thị trấn đánh cá yên bình này.", explain: "Đứng đầu câu làm chủ ngữ cần danh từ: 'TOUR' -> 'Tourism' (ngành du lịch)." },
+                    { id: 5, sentence: "5. These blue vases were ______ made for the royal family, not for ordinary people. (ORIGIN)", correct: "originally", trans: "Những chiếc bình xanh này ban đầu được làm cho hoàng gia, không phải cho người dân thường.", explain: "Bổ nghĩa cho động từ 'made' cần trạng từ: 'ORIGIN' -> 'originally' (ban đầu, gốc)." },
+                    { id: 6, sentence: "6. Lan’s grandmother grows jasmine because she loves the ______ smell of its flowers. (FRAGRANCE)", correct: "fragrant", trans: "Bà của Lan trồng hoa nhài vì bà thích mùi thơm của hoa.", explain: "Bổ nghĩa cho danh từ 'smell' cần tính từ: 'FRAGRANCE' -> 'fragrant' (thơm phức)." },
+                    { id: 7, sentence: "7. The bamboo chairs look simple but they are very ______ – you can fold them and store them easily. (FUNCTION)", correct: "functional", trans: "Những chiếc ghế tre trông đơn giản nhưng rất tiện dụng – bạn có thể gấp lại và cất đi dễ dàng.", explain: "Sau 'are very' cần tính từ: 'FUNCTION' -> 'functional' (tiện dụng, thiết thực)." },
+                    { id: 8, sentence: "8. Mr Tuan has worked as a rubbish ______ in our ward for fifteen years. (COLLECT)", correct: "collector", trans: "Chú Tuấn đã làm người thu gom rác ở phường chúng tôi được 15 năm.", explain: "Cụm 'rubbish collector' nghĩa là người thu gom rác. 'COLLECT' -> 'collector'." },
+                    { id: 9, sentence: "9. More and more young families are moving to ______ areas where the air is cleaner. (SUBURB)", correct: "suburban", trans: "Ngày càng nhiều gia đình trẻ chuyển đến các khu vực ngoại ô nơi không khí sạch hơn.", explain: "Bổ nghĩa cho danh từ 'areas' cần tính từ: 'SUBURB' -> 'suburban' (thuộc ngoại ô)." },
+                    { id: 10, sentence: "10. In many Vietnamese villages, people still gather in the ______ house for meetings and festivals. (COMMUNITY)", correct: "communal", trans: "Ở nhiều làng quê Việt Nam, mọi người vẫn tập trung tại nhà văn hóa/đình làng để họp hành và lễ hội.", explain: "Cụm 'communal house' (nhà cộng đồng/đình làng). 'COMMUNITY' -> tính từ 'communal'." }
+                ]
+            },
+            5: {
+                title: "Bài 5. Cụm động từ",
+                subtitle: "Điền cụm động từ thích hợp vào ô trống (Gõ cụm từ chia đúng thì và nhấn ENTER)",
+                type: "fill_blank",
+                box: ["come down with", "cut down on", "deal with", "find out", "hand down", "keep up with", "live on", "look forward to", "run out of", "show around", "take care of", "turn down"],
+                questions: [
+                    { id: 1, sentence: "1. Nam couldn’t join the school trip because he ______ the flu two days before.", correct: "came down with", trans: "Nam không thể tham gia chuyến dạo chơi của trường vì bạn ấy bị cảm cúm 2 ngày trước.", explain: "Quá khứ đơn của 'come down with' (bị bệnh nhẹ/cảm cúm) là 'came down with'." },
+                    { id: 2, sentence: "2. This silver necklace was ______ from my great-grandmother to my mother.", correct: "handed down", trans: "Chiếc dây chuyền bạc này được truyền lại từ bà cố sang mẹ tôi.", explain: "Thì bị động: 'handed down' (được truyền lại)." },
+                    { id: 3, sentence: "3. When the visitors arrived, Mai ______ them ______ her family’s pottery workshop.", correct: "showed / around", altCorrect: "showed around", isSplit: true, trans: "Khi du khách đến, Mai đã dẫn họ đi tham quan xưởng gốm của gia đình cô.", explain: "Quá khứ đơn 'showed ... around' (dẫn ai đi tham quan)." },
+                    { id: 4, sentence: "4. The workshop had to close early yesterday because the artisans ______ clay.", correct: "ran out of", trans: "Xưởng phải đóng cửa sớm ngày hôm qua vì các nghệ nhân đã hết đất sét.", explain: "Quá khứ đơn của 'run out of' (hết/cạn kiệt) là 'ran out of'." },
+                    { id: 5, sentence: "5. I’m really ______ visiting my grandparents in Hue this summer.", correct: "looking forward to", trans: "Tôi thực sự rất mong đợi được đi thăm ông bà ở Huế vào mùa hè này.", explain: "Thì hiện tại tiếp diễn: 'looking forward to' (mong chờ, trông ngóng)." },
+                    { id: 6, sentence: "6. Our school is trying to ______ the amount of plastic waste it produces every week.", correct: "cut down on", trans: "Trường chúng tôi đang cố gắng cắt giảm lượng rác thải nhựa tạo ra mỗi tuần.", explain: "'cut down on' nghĩa là cắt giảm." },
+                    { id: 7, sentence: "7. Could you ______ my little brother for an hour while I go to the market?", correct: "take care of", trans: "Bạn có thể chăm sóc/trông em trai tôi một tiếng trong khi tôi đi chợ được không?", explain: "'take care of' nghĩa là chăm sóc/trông nom." },
+                    { id: 8, sentence: "8. Lan ______ the invitation to the singing contest because she had to prepare for her exam.", correct: "turned down", trans: "Lan đã từ chối lời mời tham gia cuộc thi hát vì cô phải chuẩn bị cho kỳ thi.", explain: "Quá khứ đơn 'turned down' nghĩa là từ chối." },
+                    { id: 9, sentence: "9. Huy walks so fast that I can never ______ him on the way to school.", correct: "keep up with", trans: "Huy đi bộ quá nhanh đến mức tôi không bao giờ theo kịp bạn ấy trên đường đến trường.", explain: "'keep up with' nghĩa là theo kịp/bắt kịp." },
+                    { id: 10, sentence: "10. After the flood, the volunteers helped our ward ______ a huge amount of rubbish.", correct: "deal with", trans: "Sau trận lũ, các tình nguyện viên đã giúp phường chúng tôi xử lý một lượng rác khổng lồ.", explain: "'deal with' nghĩa là giải quyết, xử lý." }
+                ]
+            },
+            6: {
+                title: "Bài 6. Trắc nghiệm từ vựng",
+                subtitle: "Chọn đáp án đúng nhất A, B, C hoặc D",
+                type: "mcq",
+                questions: [
+                    { id: 1, sentence: "1. Traditional weaving skills in this village have been ______ from one generation to the next.", options: ["A. taken down", "B. put down", "C. passed down", "D. brought down"], correct: "C", trans: "Kỹ năng dệt truyền thống ở làng này đã được truyền từ thế hệ này sang thế hệ khác.", explain: "'pass down' nghĩa là truyền lại qua các thế hệ." },
+                    { id: 2, sentence: "2. Mai spent all morning ______ her lost student card, but it was nowhere in the classroom.", options: ["A. looking around", "B. looking for", "C. looking after", "D. looking forward to"], correct: "B", trans: "Mai dành cả buổi sáng để tìm kiếm thẻ sinh viên bị mất của mình, nhưng không thấy ở đâu trong lớp học.", explain: "'look for' nghĩa là tìm kiếm." },
+                    { id: 3, sentence: "3. In our house, my brother and I take turns to ______ the rubbish before dinner.", options: ["A. take out", "B. take off", "C. take up", "D. take over"], correct: "A", trans: "Ở nhà tôi, tôi và anh trai luân phiên đi đổ rác trước bữa tối.", explain: "'take out the rubbish' nghĩa là đi đổ rác." },
+                    { id: 4, sentence: "4. The bamboo lamps in this shop are made by local ______, so no two of them are exactly the same.", options: ["A. artists", "B. tourists", "C. collectors", "D. artisans"], correct: "D", trans: "Những chiếc đèn tre trong cửa hàng này được làm bởi các nghệ nhân địa phương, nên không có hai chiếc nào hoàn toàn giống nhau.", explain: "'artisans' là các nghệ nhân/thợ thủ công." },
+                    { id: 5, sentence: "5. My grandmother refuses to sell the wooden bed because it is the only ______ piece of furniture left in the house.", options: ["A. origin", "B. original", "C. originally", "D. originate"], correct: "B", trans: "Bà tôi từ chối bán chiếc giường gỗ vì đó là món đồ nội thất nguyên bản/gốc duy nhất còn lại trong nhà.", explain: "Cần tính từ 'original' để bổ nghĩa cho 'piece of furniture'." },
+                    { id: 6, sentence: "6. Whenever Mai smells fresh bread, it ______ her of the small bakery near her old school.", options: ["A. remembers", "B. recalls", "C. reminds", "D. remains"], correct: "C", trans: "Mỗi khi Mai ngửi thấy mùi bánh mì mới nướng, nó gợi cho cô nhớ đến tiệm bánh nhỏ gần trường cũ.", explain: "'remind sb of sth' nghĩa là gợi cho ai nhớ đến cái gì." },
+                    { id: 7, sentence: "7. Huy was absent for two weeks, so now he can hardly ______ the rest of the class.", options: ["A. keep up with", "B. come down with", "C. get on with", "D. run out of"], correct: "A", trans: "Huy đã nghỉ học hai tuần, vì vậy bây giờ bạn ấy khó có thể theo kịp phần còn lại của lớp.", explain: "'keep up with' nghĩa là theo kịp, bắt kịp." },
+                    { id: 8, sentence: "8. Doctors advise us to ______ salt if we want to protect our heart.", options: ["A. run out of", "B. live on", "C. take out", "D. cut down on"], correct: "D", trans: "Các bác sĩ khuyên chúng ta nên cắt giảm muối nếu muốn bảo vệ tim mạch.", explain: "'cut down on' nghĩa là cắt giảm sử dụng." },
+                    { id: 9, sentence: "9. This small hole in the pot has an important ______: it lets hot air escape while the clay is being fired.", options: ["A. function", "B. fragrance", "C. facility", "D. speciality"], correct: "A", trans: "Lỗ nhỏ này trên nồi có một chức năng quan trọng: nó giúp không khí nóng thoát ra ngoài khi nung đất sét.", explain: "'function' nghĩa là chức năng/công dụng." },
+                    { id: 10, sentence: "10. Thousands of visitors come to Trang An every year, which makes it the most popular ______ in Ninh Binh.", options: ["A. speciality", "B. facility", "C. tourist attraction", "D. neighbourhood"], correct: "C", trans: "Hàng ngàn du khách đến Tràng An mỗi năm, điều này khiến nơi đây trở thành địa điểm thu hút du khách phổ biến nhất ở Ninh Bình.", explain: "'tourist attraction' nghĩa là điểm du lịch/thu hút du khách." }
+                ]
+            },
+            7: {
+                title: "Bài 7. Question Words + To-Infinitive",
+                subtitle: "Chọn đáp án đúng A, B, C hoặc D",
+                type: "mcq",
+                questions: [
+                    { id: 1, sentence: "1. Mai has never been to Hue, so she doesn’t know ______ first.", options: ["A. where to visit", "B. where visiting", "C. where visit", "D. why to visit"], correct: "A", trans: "Mai chưa bao giờ đến Huế, nên cô ấy không biết đi thăm nơi nào trước.", explain: "Cấu trúc: Từ hỏi + to-V (where to visit)." },
+                    { id: 2, sentence: "2. Nam couldn’t decide ______ for his mother’s birthday.", options: ["A. what buy", "B. what buying", "C. what to buy", "D. to buy what"], correct: "C", trans: "Nam không thể quyết định nên mua gì cho sinh nhật mẹ.", explain: "Cấu trúc: what + to-V (what to buy)." },
+                    { id: 3, sentence: "3. The instructions on the box tell you exactly ______ the machine.", options: ["A. how using", "B. how use", "C. how to using", "D. how to use"], correct: "D", trans: "Hướng dẫn trên hộp cho bạn biết chính xác cách sử dụng máy.", explain: "Cấu trúc: how + to-V (how to use)." },
+                    { id: 4, sentence: "4. I’m not sure ______ the meeting, so I’ll ask Mr Quang.", options: ["A. when to start", "B. when start", "C. when I should to start", "D. when starting"], correct: "A", trans: "Tôi không chắc khi nào bắt đầu cuộc họp, nên tôi sẽ hỏi thầy Quang.", explain: "Cấu trúc: when + to-V (when to start)." },
+                    { id: 5, sentence: "5. My sister can’t make up her mind ______ the blue dress or the white one.", options: ["A. if to buy", "B. whether to buy", "C. whether buying", "D. whether buy"], correct: "B", trans: "Chị gái tôi không thể quyết định nên mua chiếc váy màu xanh hay màu trắng.", explain: "Dùng 'whether + to-V' khi có sự lựa chọn (không dùng 'if to-V')." },
+                    { id: 6, sentence: "6. Nobody told us ______ the tickets, so we waited in the wrong queue.", options: ["A. where get", "B. where getting", "C. where to get", "D. to get where"], correct: "C", trans: "Không ai nói với chúng tôi lấy vé ở đâu, nên chúng tôi đã xếp hàng nhầm hàng.", explain: "Cấu trúc: where + to-V (where to get)." },
+                    { id: 7, sentence: "7. He explained ______ to the craft village by bus, but I still got lost.", options: ["A. how getting", "B. how I to get", "C. how get", "D. how to get"], correct: "D", trans: "Anh ấy đã giải thích cách đến làng nghề bằng xe buýt, nhưng tôi vẫn bị lạc.", explain: "Cấu trúc: how + to-V (how to get)." },
+                    { id: 8, sentence: "8. I don’t understand ______ so early when the shop opens at nine.", options: ["A. why to leave", "B. why we should leave", "C. why leaving", "D. why leave"], correct: "B", trans: "Tôi không hiểu tại sao chúng ta nên đi sớm như vậy khi cửa hàng đến 9 giờ mới mở cửa.", explain: "Lưu ý: Từ hỏi 'WHY' KHÔNG đi với to-Infinitive! Cần dùng mệnh đề đầy đủ 'why we should leave'." },
+                    { id: 9, sentence: "9. Mrs Hoa taught ______ how to make rice paper last summer.", options: ["A. to us", "B. for us", "C. us", "D. with us"], correct: "C", trans: "Cô Hòa đã dạy chúng tôi cách làm bánh đa/bánh tráng vào mùa hè năm ngoái.", explain: "Cấu trúc: teach sb how to do sth -> 'taught us how to make'." },
+                    { id: 10, sentence: "10. I have no idea ______ about the broken street light in our lane.", options: ["A. who to complain", "B. who to complain to", "C. whom complaining", "D. to whom complain"], correct: "B", trans: "Tôi không biết phải phàn nàn/báo cáo với ai về chiếc đèn đường bị hỏng trong ngõ.", explain: "Complain đi với giới từ 'to': 'who to complain to'." }
+                ]
+            },
+            8: {
+                title: "Bài 8. Viết lại câu",
+                subtitle: "Viết lại câu sử dụng Từ hỏi + To-Infinitive. Nếu không rút gọn được, gõ NO CHANGE. (Nhập xong nhấn ENTER)",
+                type: "text_input",
+                questions: [
+                    { id: 1, original: "1. I don’t know where I should put these boxes.", correct: ["I don't know where to put these boxes.", "I don’t know where to put these boxes."], trans: "Tôi không biết nên đặt những cái hộp này ở đâu.", explain: "Rút gọn 'where I should put' thành 'where to put'." },
+                    { id: 2, original: "2. Lan couldn’t decide which shirt she should choose.", correct: ["Lan couldn't decide which shirt to choose.", "Lan couldn’t decide which shirt to choose."], trans: "Lan không thể quyết định nên chọn chiếc áo sơ mi nào.", explain: "Rút gọn 'which shirt she should choose' thành 'which shirt to choose'." },
+                    { id: 3, original: "3. Could you tell me how I can get to the bus station?", correct: ["Could you tell me how to get to the bus station?", "Could you tell me how to get to the bus station"], trans: "Bạn có thể chỉ cho tôi cách đến bến xe buýt được không?", explain: "Rút gọn 'how I can get' thành 'how to get'." },
+                    { id: 4, original: "4. Mr Binh showed the students how they could mix the clay.", correct: ["Mr Binh showed the students how to mix the clay.", "Mr Binh showed the students how to mix the clay"], trans: "Thầy Bình đã hướng dẫn các học sinh cách trộn đất sét.", explain: "Rút gọn 'how they could mix' thành 'how to mix'." },
+                    { id: 5, original: "5. We haven’t decided when we should start the clean-up day.", correct: ["We haven't decided when to start the clean-up day.", "We haven’t decided when to start the clean-up day."], trans: "Chúng tôi vẫn chưa quyết định khi nào nên bắt đầu ngày dọn dẹp vệ sinh.", explain: "Rút gọn 'when we should start' thành 'when to start'." },
+                    { id: 6, original: "6. My brother doesn’t know what he should say at the interview.", correct: ["My brother doesn't know what to say at the interview.", "My brother doesn’t know what to say at the interview."], trans: "Anh trai tôi không biết nên nói gì tại buổi phỏng vấn.", explain: "Rút gọn 'what he should say' thành 'what to say'." },
+                    { id: 7, original: "7. Nobody told me where I could buy a SIM card.", correct: ["Nobody told me where to buy a SIM card.", "Nobody told me where to buy a SIM card"], trans: "Không ai nói với tôi nơi có thể mua thẻ SIM.", explain: "Rút gọn 'where I could buy' thành 'where to buy'." },
+                    { id: 8, original: "8. We didn’t know how we should behave inside the temple.", correct: ["We didn't know how to behave inside the temple.", "We didn’t know how to behave inside the temple."], trans: "Chúng tôi không biết nên cư xử thế nào bên trong đền chùa.", explain: "Rút gọn 'how we should behave' thành 'how to behave'." },
+                    { id: 9, original: "9. I don’t know where my sister should study next year.", correct: ["NO CHANGE"], trans: "Tôi không biết chị gái tôi nên học ở đâu vào năm tới.", explain: "KHÔNG rút gọn được (NO CHANGE) vì chủ ngữ mệnh đề chính (I) và mệnh đề phụ (my sister) KHÁC NHAU." },
+                    { id: 10, original: "10. Mai wondered why she should apologise first.", correct: ["NO CHANGE"], trans: "Mai băn khoăn tại sao cô ấy lại phải xin lỗi trước.", explain: "KHÔNG rút gọn được (NO CHANGE) vì từ hỏi 'WHY' KHÔNG dùng với cấu trúc to-Infinitive." }
+                ]
+            },
+            9: {
+                title: "Bài 9. Tìm lỗi sai",
+                subtitle: "Nhập từ/cụm từ đúng để sửa cho vị trí lỗi sai (Nhập sửa đổi rồi nhấn ENTER)",
+                type: "error_correction",
+                questions: [
+                    { id: 1, sentence: "1. My cousin doesn’t know(A) how(B) <u>making</u>(C) a paper kite(D).", errorPart: "C (making)", correct: "to make", trans: "Anh họ tôi không biết cách làm diều giấy.", explain: "Sau từ hỏi 'how' phải dùng to-V ('to make') chứ không dùng V-ing." },
+                    { id: 2, sentence: "2. Nobody told(A) me(B) where(C) <u>finding</u>(D) the ticket office.", errorPart: "D (finding)", correct: "to find", trans: "Không ai chỉ cho tôi tìm phòng bán vé ở đâu.", explain: "Sau từ hỏi 'where' phải dùng to-V ('to find') chứ không dùng V-ing." },
+                    { id: 3, sentence: "3. I can’t decide(A) <u>if to take</u>(B) the blue one(C) or the white one(D).", errorPart: "B (if to take)", correct: "whether to buy", altCorrect: "whether to take", trans: "Tôi không thể quyết định nên chọn chiếc màu xanh hay chiếc màu trắng.", explain: "Không dùng 'if to-V', phải dùng 'whether to-V' khi thể hiện sự lựa chọn." },
+                    { id: 4, sentence: "4. The guide explained how(A) to(B) <u>getting</u>(C) to the old quarter(D).", errorPart: "C (getting)", correct: "get", trans: "Người hướng dẫn đã giải thích cách đi đến khu phố cổ.", explain: "Sau 'how to' phải dùng động từ nguyên mẫu 'get'." },
+                    { id: 5, sentence: "5. My father <u>don’t know</u>(A) where to buy(B) spare parts(C) for this old motorbike(D).", errorPart: "A (don’t know)", correct: "doesn't know", altCorrect: "doesn’t know", trans: "Bố tôi không biết mua phụ tùng cho chiếc xe máy cũ này ở đâu.", explain: "Chủ ngữ 'My father' là số ít, trợ động từ phủ định phải là 'doesn't know'." },
+                    { id: 6, sentence: "6. My brother doesn’t know(A) who(B) to ask(C) <u>advice</u>(D) about his future job.", errorPart: "D (advice)", correct: "for advice", trans: "Anh trai tôi không biết xin lời khuyên từ ai về công việc tương lai.", explain: "Cấu trúc: 'ask somebody FOR advice' (hỏi xin lời khuyên từ ai)." },
+                    { id: 7, sentence: "7. <u>Local artisan</u>(A) in this village can make(B) a silk scarf(C) in a few hours(D).", errorPart: "A (Local artisan)", correct: "Local artisans", trans: "Các nghệ nhân địa phương ở làng này có thể dệt một chiếc khăn lụa trong vài giờ.", explain: "Danh từ đếm được chỉ chung mang nghĩa số nhiều phải ở dạng số nhiều: 'Local artisans'." },
+                    { id: 8, sentence: "8. My grandmother handed(A) the ring(B) <u>up to</u>(C) my mother(D).", errorPart: "C (up to)", correct: "down to", trans: "Bà nội tôi đã trao lại chiếc nhẫn cho mẹ tôi.", explain: "Cụm động từ 'hand down to' nghĩa là truyền lại cho thế hệ sau (không dùng 'hand up to')." },
+                    { id: 9, sentence: "9. The new school has(A) modern <u>facility</u>(B), including(C) a library and a lab(D).", errorPart: "B (facility)", correct: "facilities", trans: "Trường học mới có trang thiết bị cơ sở vật chất hiện đại, bao gồm thư viện và phòng thí nghiệm.", explain: "'Facilities' thường dùng ở dạng số nhiều để chỉ cơ sở vật chất, tiện nghi." },
+                    { id: 10, sentence: "10. Mai is looking forward(A) to <u>receive</u>(B) a letter(C) from her pen friend(D).", errorPart: "B (receive)", correct: "receiving", trans: "Mai đang rất mong nhận được thư từ bạn phương xa của cô ấy.", explain: "Cấu trúc: 'look forward to + V-ing' -> sửa thành 'receiving'." }
+                ]
+            },
+            10: {
+                title: "Bài 10. Cloze Test",
+                subtitle: "Đọc đoạn văn và chọn đáp án đúng nhất cho từng ô trống",
+                type: "cloze",
+                passage: `<b>A DAY IN CHUONG VILLAGE</b><br><br>
+Last Saturday my class visited Chuong village, about thirty kilometres from the centre of Hanoi. People here have made conical hats for hundreds of years, and the skill is still (1)______ down from parents to children.<br>
+An old woman called Mrs Tam showed us (2)______ her yard, where bamboo and palm leaves were drying in the sun. The whole place had a light, sweet (3)______.<br> 
+She explained that one hat needs sixteen bamboo rings, and that every ring must be exactly the right size. Then she taught us (4)______ to sew the leaves onto the frame. It looked simple, but after ten minutes my fingers hurt and my stitches were crooked. “Nobody learns this in a week,” Mrs Tam laughed. “I still ask my mother (5)______ when I have to make a difficult hat.”<br>
+She also said that a family can hardly (6)______ hat-making alone these days, because one hat is sold for very little. Some workshops have already (7)______ down orders from big shops because there are not enough hands left to make the hats. Her son, however, has decided to stay. He is learning (8)______ photographs of the hats for an online shop.<br>
+Before we left, we bought a few hats for our families. They were light, strong and much cheaper than in the city – the (9)______ that Chuong is famous for. On the bus home, our teacher asked us (10)______ we had learnt that day. I said the most important thing was patience.`,
+                questions: [
+                    { id: 1, options: ["A. taken", "B. passed", "C. brought", "D. put"], correct: "B", explain: "'passed down' nghĩa là được truyền lại." },
+                    { id: 2, options: ["A. for", "B. after", "C. up", "D. around"], correct: "D", explain: "'showed us around' nghĩa là dẫn chúng tôi đi quanh tham quan." },
+                    { id: 3, options: ["A. fragrance", "B. function", "C. facility", "D. speciality"], correct: "A", explain: "'sweet fragrance' nghĩa là hương thơm ngọt ngào." },
+                    { id: 4, options: ["A. what", "B. why", "C. how", "D. which"], correct: "C", explain: "'taught us how to sew' (dạy chúng tôi cách khâu)." },
+                    { id: 5, options: ["A. why to do", "B. what to do", "C. what doing", "D. what should do"], correct: "B", explain: "'ask my mother what to do' (hỏi mẹ tôi phải làm gì)." },
+                    { id: 6, options: ["A. keep up with", "B. deal with", "C. run out of", "D. live on"], correct: "D", explain: "'live on' nghĩa là sống dựa vào / sống bằng nghề gì." },
+                    { id: 7, options: ["A. cut", "B. handed", "C. turned", "D. taken"], correct: "C", explain: "'turned down' nghĩa là từ chối (đơn đặt hàng)." },
+                    { id: 8, options: ["A. how to take", "B. how taking", "C. what to take", "D. to take how"], correct: "A", explain: "'learning how to take photographs' (học cách chụp ảnh)." },
+                    { id: 9, options: ["A. facility", "B. fragrance", "C. speciality", "D. neighbourhood"], correct: "C", explain: "'speciality' nghĩa là đặc sản/sản phẩm đặc trưng." },
+                    { id: 10, options: ["A. that", "B. what", "C. how", "D. why"], correct: "B", explain: "'asked us what we had learnt' (hỏi chúng tôi đã học được những gì)." }
+                ],
+                translation: `<b>DỊCH NGHĨA TOÀN BỘ ĐOẠN VĂN:</b><br>
+<b>MỘT NGÀY Ở LÀNG CHUÔNG</b><br>
+Thứ Bảy tuần trước, lớp tôi đã đến thăm làng Chuông, cách trung tâm Hà Nội khoảng 30 km. Mọi người ở đây đã làm nón lá hàng trăm năm nay, và kỹ năng này vẫn được <i>(1) truyền lại (passed)</i> từ cha mẹ sang con cái.<br>
+Một cụ bà tên là bà Tám đã dẫn chúng tôi <i>(2) đi quanh (around)</i> sân nhà bà, nơi tre và lá cọ đang được phơi dưới ánh nắng mặt trời. Toàn bộ khu vực có một <i>(3) hương thơm (fragrance)</i> nhẹ nhàng, ngọt ngào. Bà giải thích rằng một chiếc nón cần 16 vành tre và mỗi vành phải có kích thước chuẩn xác. Sau đó bà dạy chúng tôi <i>(4) cách (how)</i> khâu lá vào khung. Trông có vẻ đơn giản nhưng sau 10 phút ngón tay tôi đã bị đau và các đường khâu thì bị lệch. "Không ai học được điều này trong một tuần đâu," bà Tám cười. "Tôi vẫn phải hỏi mẹ tôi <i>(5) phải làm gì (what to do)</i> khi phải làm một chiếc nón khó."<br>
+Bà cũng nói rằng một gia đình ngày nay khó có thể <i>(6) sống dựa vào (live on)</i> nghề làm nón đơn thuần, vì một chiếc nón bán ra được rất ít tiền. Một số xưởng đã phải <i>(7) từ chối (turned)</i> đơn đặt hàng từ các cửa hàng lớn vì không còn đủ người làm nón. Tuy nhiên, con trai bà đã quyết định ở lại. Anh ấy đang học <i>(8) cách chụp (how to take)</i> ảnh những chiếc nón cho một cửa hàng trực tuyến.<br>
+Trước khi rời đi, chúng tôi đã mua một vài chiếc nón cho gia đình. Chúng nhẹ, bền và rẻ hơn nhiều so với ở thành phố – <i>(9) đặc sản (speciality)</i> mà làng Chuông nổi tiếng. Trên chuyến xe buýt về nhà, cô giáo hỏi chúng tôi đã học được <i>(10) những gì (what)</i> ngày hôm đó. Tôi trả lời rằng điều quan trọng nhất chính là sự kiên nhẫn.`
+            },
+            11: {
+                title: "Bài 11. Đọc hiểu",
+                subtitle: "Đọc đoạn văn và hoàn thành 3 nhiệm vụ (Task 1 MCQ, Task 2 T/F, Task 3 Trả lời ngắn)",
+                type: "reading",
+                passage: `<b>THE PEOPLE WE HARDLY NOTICE</b><br><br>
+My family lives on the fifth floor of an old block of flats in Thanh Xuan. There is no lift, the stairs are dark, and the wall by the gate is covered with phone numbers of people who fix things.<br>
+Every morning at about half past five, Mr Chien comes with his cart. By then most families have already taken out their rubbish and left it by the gate. He has done this work for eleven years, and he knows which family is away, because their bags do not appear for days.<br>
+Ms Hoa runs the small shop under our building. If a parcel arrives when nobody is at home, the delivery person leaves it with her. She writes everything down in an old notebook and has never lost anything.<br>
+Last May the power went out for two days. An electrician from the ward, Mr Dong, worked until midnight on the second day. Nobody paid him. He only said that his father had lived in this building too.<br>
+We do not really call ourselves a community. Nobody organises meetings. But when my grandmother fell ill last year, three neighbours took turns to bring her rice porridge, and my mother did not have to ask.`,
+                translation: `<b>DỊCH NGHĨA BÀI ĐỌC:</b><br>
+<b>NHỮNG NGUỜI CHÚNG TA ÍT KHI CHÚ Ý ĐẾN</b><br>
+Gia đình tôi sống ở tầng 5 của một khu tập thể cũ ở Thanh Xuân. Ở đây không có thang máy, cầu thang thì tối, và bức tường gần cổng phủ đầy số điện thoại của những người thợ sửa chữa.<br>
+Mỗi sáng vào khoảng 5 giờ rưỡi, chú Chiến đến cùng với chiếc xe đẩy của mình. Đến lúc đó, hầu hết các gia đình đã mang rác ra đặt ở cổng. Chú đã làm công việc này được 11 năm, và chú biết gia đình nào vắng nhà vì túi rác của họ không xuất hiện trong nhiều ngày.<br>
+Cô Hòa quản lý một cửa hàng tạp hóa nhỏ dưới tòa nhà. Nếu có bưu kiện đến khi không có ai ở nhà, người giao hàng sẽ gửi lại cho cô. Cô ghi chép mọi thứ vào một quyển sổ cũ và chưa bao giờ làm mất thứ gì.<br>
+Tháng 5 năm ngoái bị mất điện suốt 2 ngày. Một người thợ điện trong phường, chú Đông, đã làm việc đến tận nửa đêm ngày thứ hai. Không ai trả tiền cho chú cả. Chú chỉ nói rằng bố chú cũng từng sống trong tòa nhà này.<br>
+Chúng tôi không thực sự tự gọi mình là một cộng đồng. Không ai tổ chức các cuộc họp cả. Nhưng khi bà tôi bị ốm vào năm ngoái, ba người hàng xóm đã luân phiên mang cháo trắng/cháo gạo đến cho bà, và mẹ tôi thậm chí không cần phải lên tiếng nhờ giúp đỡ.`,
+                task1: [
+                    { id: 1, sentence: "1. What do we learn about the writer’s building?", options: ["A. It is new but has no lift.", "B. It is old and has no lift.", "C. It has only five families.", "D. It stands next to a rubbish dump."], correct: "B", explain: "Đoạn 1 ghi: 'an old block of flats... There is no lift' (khu chung cư cũ và không có thang máy)." },
+                    { id: 2, sentence: "2. Why does Mr Chien know when a family is away?", options: ["A. The family tells him before they leave.", "B. Ms Hoa writes it in her notebook.", "C. Their rubbish bags do not appear for days.", "D. Their windows are always closed."], correct: "C", explain: "Đoạn 2 ghi: 'he knows which family is away, because their bags do not appear for days'." },
+                    { id: 3, sentence: "3. What did Mr Dong do during the power cut?", options: ["A. He charged each family a small fee.", "B. He asked his father to help him.", "C. He repaired only his own flat.", "D. He worked late into the night for free."], correct: "D", explain: "Đoạn 4 ghi chú làm việc đến nửa đêm (until midnight) và không nhận tiền (Nobody paid him)." },
+                    { id: 4, sentence: "4. What is the writer’s main idea in the last paragraph?", options: ["A. Their building needs a community leader.", "B. Neighbours still help each other without any organisation.", "C. His grandmother should move somewhere quieter.", "D. People in the building hardly ever talk."], correct: "B", explain: "Ý chính đoạn cuối: Dù không tổ chức các buổi họp nhưng hàng xóm vẫn luôn tự giác giúp đỡ lẫn nhau." }
+                ],
+                task2: [
+                    { id: 5, sentence: "5. Mr Chien has collected the rubbish there for more than ten years.", correct: "T", explain: "Đúng (True) vì chú Chiến đã làm 11 năm (eleven years > 10 years)." },
+                    { id: 6, sentence: "6. Ms Hoa sometimes loses the parcels she keeps.", correct: "F", explain: "Sai (False) vì bài đọc ghi 'has never lost anything' (chưa từng làm mất thứ gì)." },
+                    { id: 7, sentence: "7. The neighbours held a meeting before helping the writer’s grandmother.", correct: "F", explain: "Sai (False) vì bài đọc ghi 'Nobody organises meetings' và họ tự giác mang cháo đến." }
+                ],
+                task3: [
+                    { id: 8, sentence: "8. What time does Mr Chien usually start his work?", correct: ["At about half past five", "At 5:30", "5:30", "half past five", "At about 5:30 am"], trans: "Chú Chiến thường bắt đầu công việc lúc mấy giờ?", explain: "Đáp án trong bài: 'at about half past five' (khoảng 5 giờ 30 sáng)." },
+                    { id: 9, sentence: "9. Where does the delivery person leave a parcel if nobody is at home?", correct: ["With Ms Hoa", "At Ms Hoa's shop", "Ms Hoa", "With Ms Hoa at her small shop"], trans: "Người giao hàng để lại bưu kiện ở đâu nếu không có ai ở nhà?", explain: "Đáp án trong bài: 'leaves it with her [Ms Hoa]' (gửi lại cho cô Hòa)." },
+                    { id: 10, sentence: "10. What did the three neighbours bring the writer’s grandmother?", correct: ["Rice porridge", "porridge", "some rice porridge"], trans: "Ba người hàng xóm đã mang gì đến cho bà của tác giả?", explain: "Đáp án trong bài: 'rice porridge' (cháo gạo/cháo trắng)." }
+                ]
+            },
+            12: {
+                title: "Bài 12. Dịch Việt - Anh",
+                subtitle: "Dịch các câu sau sang tiếng Anh sử dụng từ gợi ý trong ngoặc (Gõ câu hoàn chỉnh rồi nhấn ENTER)",
+                type: "translation",
+                questions: [
+                    { id: 1, original: "1. Tôi không biết phải giải quyết vấn đề này thế nào. (deal with)", correct: ["I don't know how to deal with this problem.", "I don’t know how to deal with this problem."], trans: "Tôi không biết phải giải quyết vấn đề này thế nào.", explain: "Cấu trúc: know how to V... Cụm 'deal with this problem'." },
+                    { id: 2, original: "2. Bà tôi đã truyền lại nghề làm hương cho mẹ tôi. (pass down)", correct: ["My grandmother passed down the incense-making craft to my mother.", "My grandmother passed down the incense making craft to my mother.", "My grandmother has passed down the incense-making craft to my mother."], trans: "Bà tôi đã truyền lại nghề làm hương cho mẹ tôi.", explain: "'pass down' (truyền lại), 'incense-making craft' (nghề làm hương)." },
+                    { id: 3, original: "3. Lan đã từ chối lời mời đi xem phim vì phải trông em trai. (turn down / take care of)", correct: ["Lan turned down the invitation to the cinema because she had to take care of her younger brother.", "Lan turned down the invitation to go to the movies because she had to take care of her younger brother.", "Lan turned down the invitation to go to the cinema because she had to take care of her brother."], trans: "Lan đã từ chối lời mời đi xem phim vì phải trông em trai.", explain: "'turn down the invitation' (từ chối lời mời), 'take care of her brother' (trông em trai)." },
+                    { id: 4, original: "4. Bố tôi là thợ điện; ông đã làm việc trong khu phố này hai mươi năm. (electrician / neighbourhood)", correct: ["My father is an electrician; he has worked in this neighbourhood for twenty years.", "My father is an electrician; he has worked in this neighbourhood for 20 years.", "My father is an electrician. He has worked in this neighbourhood for twenty years."], trans: "Bố tôi là thợ điện; ông đã làm việc trong khu phố này 20 năm.", explain: "'an electrician' (thợ điện), 'neighbourhood' (khu phố), dùng thì Hiện tại hoàn thành." },
+                    { id: 5, original: "5. Bạn có thể chỉ cho tôi cách đi đến làng gốm không? (show / get)", correct: ["Could you show me how to get to the pottery village?", "Can you show me how to get to the pottery village?"], trans: "Bạn có thể chỉ cho tôi cách đi đến làng gốm không?", explain: "'show me how to get to...' (chỉ cho tôi cách đi tới...)." },
+                    { id: 6, original: "6. Nhiều bạn trẻ không biết nên chọn nghề gì. (what to choose)", correct: ["Many young people don't know what to choose as a job.", "Many young people do not know what job to choose.", "Many young people don't know what career to choose.", "Many young people don't know what job to choose."], trans: "Nhiều bạn trẻ không biết nên chọn nghề gì.", explain: "Cấu trúc: 'what job to choose' hoặc 'what to choose'." },
+                    { id: 7, original: "7. Chúng ta nên cắt giảm rác thải nhựa để bảo vệ môi trường. (cut down on)", correct: ["We should cut down on plastic waste to protect the environment."], trans: "Chúng ta nên cắt giảm rác thải nhựa để bảo vệ môi trường.", explain: "'cut down on plastic waste' (cắt giảm rác thải nhựa)." },
+                    { id: 8, original: "8. Ngôi nhà này gợi cho tôi nhớ về tuổi thơ ở quê. (remind)", correct: ["This house reminds me of my childhood in the countryside."], trans: "Ngôi nhà này gợi cho tôi nhớ về tuổi thơ ở quê.", explain: "Cấu trúc 'remind sb of sth' (gợi cho ai nhớ về cái gì)." },
+                    { id: 9, original: "9. Tôi rất mong được đi thăm làng nghề vào Chủ nhật này. (look forward to)", correct: ["I am really looking forward to visiting the craft village this Sunday.", "I'm looking forward to visiting the craft village this Sunday."], trans: "Tôi rất mong được đi thăm làng nghề vào Chủ nhật này.", explain: "'look forward to + V-ing' -> 'looking forward to visiting'." },
+                    { id: 10, original: "10. Tối qua đến lượt em trai tôi đi đổ rác. (take out the rubbish)", correct: ["Last night it was my younger brother's turn to take out the rubbish.", "It was my younger brother's turn to take out the rubbish last night.", "It was my brother's turn to take out the rubbish last night."], trans: "Tối qua đến lượt em trai tôi đi đổ rác.", explain: "Cấu trúc 'it was sb's turn to V' (đến lượt ai làm gì)." }
+                ]
+            }
+        };
+
+        // User answers state store
+        let userAnswers = {};
+        let activeTab = 1;
+
+        // Initialize App
+        window.onload = function() {
+            renderTabsNav();
+            renderTabContent(activeTab);
+            updateTotalProgress();
+        };
+
+        // Render Tab Headers
+        function renderTabsNav() {
+            const navContainer = document.getElementById('tab-headers');
+            navContainer.innerHTML = '';
+
+            for (let i = 1; i <= 12; i++) {
+                const isActive = i === activeTab;
+                const btn = document.createElement('button');
+                btn.className = `px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 ${
+                    isActive 
+                    ? 'bg-yellow-400 text-slate-900 shadow-md scale-105' 
+                    : 'bg-white/10 text-white hover:bg-white/20'
+                }`;
+                btn.onclick = () => switchTab(i);
+                btn.innerHTML = `<span>TAB ${i}</span>`;
+                navContainer.appendChild(btn);
+            }
+        }
+
+        // Switch Active Tab
+        function switchTab(tabIndex) {
+            activeTab = tabIndex;
+            renderTabsNav();
+            renderTabContent(tabIndex);
+        }
+
+        // Main Render Function for Content
+        function renderTabContent(tabIndex) {
+            const container = document.getElementById('tab-contents');
+            const data = exercisesData[tabIndex];
+
+            let html = `
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6 transition-all duration-300">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-2 mb-6">
+                        <div>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">Bài Tập ${tabIndex}</span>
+                            <h2 class="text-xl font-bold text-slate-800 mt-1">${data.title}</h2>
+                            <p class="text-xs sm:text-sm text-slate-500">${data.subtitle}</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="resetCurrentTab(${tabIndex})" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg font-medium transition">
+                                <i class="fa-solid fa-arrow-rotate-left"></i> Làm lại bài này
+                            </button>
+                        </div>
+                    </div>
+            `;
+
+            if (data.type === 'matching') {
+                html += renderMatchingTask(data, tabIndex);
+            } else if (data.type === 'categorization') {
+                html += renderCategorizationTask(data, tabIndex);
+            } else if (data.type === 'fill_blank' || data.type === 'word_form') {
+                html += renderFillBlankTask(data, tabIndex);
+            } else if (data.type === 'mcq') {
+                html += renderMCQTask(data, tabIndex);
+            } else if (data.type === 'text_input' || data.type === 'translation') {
+                html += renderTextInputTask(data, tabIndex);
+            } else if (data.type === 'error_correction') {
+                html += renderErrorCorrectionTask(data, tabIndex);
+            } else if (data.type === 'cloze') {
+                html += renderClozeTask(data, tabIndex);
+            } else if (data.type === 'reading') {
+                html += renderReadingTask(data, tabIndex);
+            }
+
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        // Render Bài 1: Matching
+        function renderMatchingTask(data, tabIndex) {
+            let html = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-slate-700 text-sm border-b pb-2">Cột A - Word & Answer</h3>
+            `;
+
+            data.items.forEach(item => {
+                const userKey = `${tabIndex}_${item.id}`;
+                const userVal = userAnswers[userKey] || '';
+                const isAnswered = userVal !== '';
+                const isCorrect = userVal === item.correct;
+
+                html += `
+                    <div class="p-3 rounded-xl border ${isAnswered ? (isCorrect ? 'correct-bg' : 'incorrect-bg') : 'border-slate-200 bg-slate-50'} transition">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="font-semibold text-sm text-slate-800">${item.id}. ${item.word}</span>
+                            <div class="flex items-center gap-2">
+                                <label class="text-xs text-slate-500 font-medium">Đáp án:</label>
+                                <select onchange="checkMatchingAnswer(${tabIndex}, ${item.id}, this.value)" class="border rounded-lg px-2 py-1 text-sm font-bold bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                    <option value="">-- Select --</option>
+                                    ${item.options.map(opt => `<option value="${opt}" ${userVal === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        ${isAnswered ? `
+                            <div class="mt-2 text-xs pt-2 border-t border-slate-200/60">
+                                <p class="${isCorrect ? 'text-emerald-700 font-bold' : 'text-red-600 font-bold'}">
+                                    ${isCorrect ? '<i class="fa-solid fa-circle-check"></i> Đúng rồi!' : `<i class="fa-solid fa-circle-xmark"></i> Sai rồi! Đáp án đúng: ${item.correct}`}
+                                </p>
+                                <p class="text-slate-600 mt-1"><strong>Nghĩa:</strong> ${item.trans}</p>
+                                <p class="text-slate-500 mt-0.5"><strong>Giải thích:</strong> ${item.explain}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            html += `</div><div class="space-y-2 border-l pl-0 md:pl-6 border-slate-200">
+                <h3 class="font-bold text-slate-700 text-sm border-b pb-2">Cột B - Definition</h3>
+                ${data.columnB.map(def => `<div class="p-2.5 bg-slate-100 rounded-lg text-xs sm:text-sm text-slate-700 font-medium">${def}</div>`).join('')}
+            </div></div>`;
+
+            return html;
+        }
+
+        function checkMatchingAnswer(tabIndex, itemId, val) {
+            userAnswers[`${tabIndex}_${itemId}`] = val;
+            renderTabContent(tabIndex);
+            updateTotalProgress();
+        }
+
+        // Render Bài 2: Phân loại từ
+        function renderCategorizationTask(data, tabIndex) {
+            let html = `
+                <div class="mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p class="font-bold text-xs uppercase text-slate-500 mb-2">Danh sách từ cần phân loại:</p>
+                    <div class="flex flex-wrap gap-2">
+                        ${data.words.map(w => {
+                            const userCat = userAnswers[`${tabIndex}_${w.id}`];
+                            return `<span class="px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs font-semibold shadow-sm ${userCat ? 'opacity-40 line-through' : 'text-slate-800'}">${w.label}</span>`;
+                        }).join('')}
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            `;
+
+            data.categories.forEach(cat => {
+                html += `
+                    <div class="bg-emerald-50/50 border-2 border-dashed border-emerald-200 p-4 rounded-xl">
+                        <h4 class="font-bold text-emerald-900 text-sm mb-3 border-b border-emerald-200 pb-1">${cat.title}</h4>
+                        <div class="space-y-2">
+                            ${data.words.map(w => {
+                                const key = `${tabIndex}_${w.id}`;
+                                const isSelectedInThisCat = userAnswers[key] === cat.id;
+                                const isCorrectCat = w.category === cat.id;
+                                const isAnswered = !!userAnswers[key];
+
+                                return `
+                                    <div class="flex items-center justify-between text-xs bg-white p-2 rounded-lg border border-slate-200">
+                                        <span class="font-medium text-slate-700">${w.label}</span>
+                                        <button onclick="assignCategory(${tabIndex}, ${w.id}, '${cat.id}')" 
+                                            class="px-2.5 py-1 rounded-md font-bold text-xs transition ${
+                                                isSelectedInThisCat 
+                                                ? (isCorrectCat ? 'bg-emerald-600 text-white' : 'bg-red-500 text-white')
+                                                : 'bg-slate-100 hover:bg-emerald-100 text-slate-600'
+                                            }">
+                                            ${isSelectedInThisCat ? (isCorrectCat ? 'Đúng ✓' : 'Sai ✗') : 'Thêm vào đây'}
+                                        </button>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            return html;
+        }
+
+        function assignCategory(tabIndex, wordId, catId) {
+            const key = `${tabIndex}_${wordId}`;
+            if (userAnswers[key] === catId) {
+                delete userAnswers[key];
+            } else {
+                userAnswers[key] = catId;
+            }
+            renderTabContent(tabIndex);
+            updateTotalProgress();
+        }
+
+        // Render Bài 3 & 4 & 5: Điền từ / Word Form / Cụm động từ
+        function renderFillBlankTask(data, tabIndex) {
+            let html = '';
+
+            if (data.box) {
+                html += `
+                    <div class="mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <p class="font-bold text-xs uppercase text-slate-500 mb-2">Hộp từ vựng (Word Box):</p>
+                        <div class="flex flex-wrap gap-2">
+                            ${data.box.map(w => `<span class="px-2.5 py-1 bg-white border border-slate-300 rounded-md text-xs font-semibold text-emerald-700 shadow-sm">${w}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `<div class="space-y-4">`;
+
+            data.questions.forEach(q => {
+                const userKey = `${tabIndex}_${q.id}`;
+                const userVal = userAnswers[userKey] || '';
+                const isSubmitted = userVal !== '';
+
+                let isCorrect = false;
+                if (isSubmitted) {
+                    const cleanUser = userVal.trim().toLowerCase();
+                    const cleanCorrect = q.correct.trim().toLowerCase();
+                    const cleanAlt = q.altCorrect ? q.altCorrect.trim().toLowerCase() : null;
+                    isCorrect = cleanUser === cleanCorrect || cleanUser === cleanAlt;
+                }
+
+                html += `
+                    <div class="p-4 rounded-xl border ${isSubmitted ? (isCorrect ? 'correct-bg' : 'incorrect-bg') : 'border-slate-200 bg-white'} shadow-sm">
+                        <p class="font-medium text-sm text-slate-800 mb-2">${q.sentence}</p>
+                        <div class="flex items-center gap-2">
+                            <input type="text" id="input_${tabIndex}_${q.id}" value="${userVal}" 
+                                onkeypress="handleKeyPress(event, ${tabIndex}, ${q.id})"
+                                placeholder="Gõ đáp án rồi nhấn Enter..." 
+                                class="flex-grow max-w-md border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold text-slate-800" />
+                            <button onclick="submitTextInput(${tabIndex}, ${q.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition">
+                                Kiểm tra
+                            </button>
+                        </div>
+
+                        ${isSubmitted ? `
+                            <div class="mt-3 text-xs pt-2 border-t border-slate-200/60">
+                                <p class="${isCorrect ? 'text-emerald-700 font-bold' : 'text-red-600 font-bold'}">
+                                    ${isCorrect ? '<i class="fa-solid fa-circle-check"></i> Chính xác!' : `<i class="fa-solid fa-circle-xmark"></i> Chưa đúng! Đáp án đúng: <span class="underline">${q.correct}</span>`}
+                                </p>
+                                <p class="text-slate-700 mt-1"><strong>Dịch câu:</strong> ${q.trans}</p>
+                                <p class="text-slate-500 mt-0.5"><strong>Giải thích:</strong> ${q.explain}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            return html;
+        }
+
+        // Render Bài 6 & 7: Multiple Choice Questions
+        function renderMCQTask(data, tabIndex) {
+            let html = `<div class="space-y-4">`;
+
+            data.questions.forEach(q => {
+                const userKey = `${tabIndex}_${q.id}`;
+                const userVal = userAnswers[userKey] || '';
+                const isSubmitted = userVal !== '';
+                const isCorrect = userVal === q.correct;
+
+                html += `
+                    <div class="p-4 rounded-xl border ${isSubmitted ? (isCorrect ? 'correct-bg' : 'incorrect-bg') : 'border-slate-200 bg-white'} shadow-sm">
+                        <p class="font-semibold text-sm text-slate-800 mb-3">${q.sentence}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
+                            ${q.options.map(opt => {
+                                const optLetter = opt.charAt(0);
+                                const isSelected = userVal === optLetter;
+                                return `
+                                    <button onclick="selectMCQOption(${tabIndex}, ${q.id}, '${optLetter}')" 
+                                        class="text-left px-3 py-2 rounded-lg text-xs sm:text-sm font-medium border transition flex items-center justify-between ${
+                                            isSelected 
+                                            ? 'bg-emerald-600 text-white border-emerald-600 font-bold shadow' 
+                                            : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+                                        }">
+                                        <span>${opt}</span>
+                                        ${isSelected ? '<i class="fa-solid fa-check text-xs"></i>' : ''}
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+
+                        ${isSubmitted ? `
+                            <div class="mt-3 text-xs pt-2 border-t border-slate-200/60">
+                                <p class="${isCorrect ? 'text-emerald-700 font-bold' : 'text-red-600 font-bold'}">
+                                    ${isCorrect ? '<i class="fa-solid fa-circle-check"></i> Đúng rồi!' : `<i class="fa-solid fa-circle-xmark"></i> Sai rồi! Đáp án đúng: ${q.correct}`}
+                                </p>
+                                <p class="text-slate-700 mt-1"><strong>Dịch câu:</strong> ${q.trans}</p>
+                                <p class="text-slate-500 mt-0.5"><strong>Giải thích:</strong> ${q.explain}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            return html;
+        }
+
+        function selectMCQOption(tabIndex, itemId, optionLetter) {
+            userAnswers[`${tabIndex}_${itemId}`] = optionLetter;
+            renderTabContent(tabIndex);
+            updateTotalProgress();
+        }
+
+        // Render Bài 8 & 12: Viết lại câu & Dịch câu
+        function renderTextInputTask(data, tabIndex) {
+            let html = `<div class="space-y-4">`;
+
+            data.questions.forEach(q => {
+                const userKey = `${tabIndex}_${q.id}`;
+                const userVal = userAnswers[userKey] || '';
+                const isSubmitted = userVal !== '';
+
+                let isCorrect = false;
+                if (isSubmitted) {
+                    const cleanUser = userVal.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "");
+                    isCorrect = q.correct.some(c => c.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "") === cleanUser);
+                }
+
+                html += `
+                    <div class="p-4 rounded-xl border ${isSubmitted ? (isCorrect ? 'correct-bg' : 'incorrect-bg') : 'border-slate-200 bg-white'} shadow-sm">
+                        <p class="font-semibold text-sm text-slate-800 mb-1">${q.original}</p>
+                        <div class="mt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                            <input type="text" id="input_${tabIndex}_${q.id}" value="${userVal}" 
+                                onkeypress="handleKeyPress(event, ${tabIndex}, ${q.id})"
+                                placeholder="Gõ câu trả lời hoàn chỉnh rồi nhấn ENTER..." 
+                                class="flex-grow border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800" />
+                            <button onclick="submitTextInput(${tabIndex}, ${q.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition">
+                                Gửi đáp án
+                            </button>
+                        </div>
+
+                        ${isSubmitted ? `
+                            <div class="mt-3 text-xs pt-2 border-t border-slate-200/60">
+                                <p class="${isCorrect ? 'text-emerald-700 font-bold' : 'text-red-600 font-bold'}">
+                                    ${isCorrect ? '<i class="fa-solid fa-circle-check"></i> Rất tốt! Đáp án chuẩn xác.' : `<i class="fa-solid fa-circle-xmark"></i> Sai hoặc chưa chuẩn cấu trúc!`}
+                                </p>
+                                <p class="text-slate-800 font-bold mt-1">Đáp án gợi ý: <span class="text-emerald-800 underline">${q.correct[0]}</span></p>
+                                <p class="text-slate-700 mt-1"><strong>Dịch nghĩa:</strong> ${q.trans}</p>
+                                <p class="text-slate-500 mt-0.5"><strong>Giải thích chi tiết:</strong> ${q.explain}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            return html;
+        }
+
+        // Render Bài 9: Tìm lỗi sai
+        function renderErrorCorrectionTask(data, tabIndex) {
+            let html = `<div class="space-y-4">`;
+
+            data.questions.forEach(q => {
+                const userKey = `${tabIndex}_${q.id}`;
+                const userVal = userAnswers[userKey] || '';
+                const isSubmitted = userVal !== '';
+
+                let isCorrect = false;
+                if (isSubmitted) {
+                    const cleanUser = userVal.trim().toLowerCase();
+                    const cleanCorrect = q.correct.trim().toLowerCase();
+                    const cleanAlt = q.altCorrect ? q.altCorrect.trim().toLowerCase() : null;
+                    isCorrect = cleanUser === cleanCorrect || cleanUser === cleanAlt;
+                }
+
+                html += `
+                    <div class="p-4 rounded-xl border ${isSubmitted ? (isCorrect ? 'correct-bg' : 'incorrect-bg') : 'border-slate-200 bg-white'} shadow-sm">
+                        <p class="font-medium text-sm text-slate-800 mb-2">${q.sentence}</p>
+                        <p class="text-xs text-red-500 font-bold mb-2"><i class="fa-solid fa-triangle-exclamation"></i> Lỗi sai ở phần: ${q.errorPart}</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-semibold text-slate-600 whitespace-nowrap">Sửa thành:</span>
+                            <input type="text" id="input_${tabIndex}_${q.id}" value="${userVal}" 
+                                onkeypress="handleKeyPress(event, ${tabIndex}, ${q.id})"
+                                placeholder="Gõ từ/cụm từ đúng rồi nhấn Enter..." 
+                                class="flex-grow max-w-md border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-bold text-emerald-800" />
+                            <button onclick="submitTextInput(${tabIndex}, ${q.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition">
+                                Sửa lỗi
+                            </button>
+                        </div>
+
+                        ${isSubmitted ? `
+                            <div class="mt-3 text-xs pt-2 border-t border-slate-200/60">
+                                <p class="${isCorrect ? 'text-emerald-700 font-bold' : 'text-red-600 font-bold'}">
+                                    ${isCorrect ? '<i class="fa-solid fa-circle-check"></i> Sửa đúng rồi!' : `<i class="fa-solid fa-circle-xmark"></i> Sửa chưa đúng! Sửa lại đúng là: <span class="underline font-bold">${q.correct}</span>`}
+                                </p>
+                                <p class="text-slate-700 mt-1"><strong>Dịch câu:</strong> ${q.trans}</p>
+                                <p class="text-slate-500 mt-0.5"><strong>Giải thích ngữ pháp:</strong> ${q.explain}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            return html;
+        }
+
+        // Render Bài 10: Cloze Test
+        function renderClozeTask(data, tabIndex) {
+            let html = `
+                <div class="bg-slate-50 border border-slate-200 p-4 sm:p-5 rounded-xl text-sm leading-relaxed text-slate-800 mb-6 font-serif">
+                    ${data.passage}
+                </div>
+
+                <h3 class="font-bold text-slate-800 text-sm mb-3">Chọn đáp án điền vào các vị trí trống:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            `;
+
+            data.questions.forEach(q => {
+                const userKey = `${tabIndex}_${q.id}`;
+                const userVal = userAnswers[userKey] || '';
+                const isSubmitted = userVal !== '';
+                const isCorrect = userVal === q.correct;
+
+                html += `
+                    <div class="p-3 rounded-xl border ${isSubmitted ? (isCorrect ? 'correct-bg' : 'incorrect-bg') : 'border-slate-200 bg-white'}">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-xs text-slate-700">Vị trí (${q.id})</span>
+                            <span class="text-xs text-slate-500 font-medium">${q.explain}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-1.5">
+                            ${q.options.map(opt => {
+                                const optLetter = opt.charAt(0);
+                                const isSelected = userVal === optLetter;
+                                return `
+                                    <button onclick="selectMCQOption(${tabIndex}, ${q.id}, '${optLetter}')" 
+                                        class="px-2 py-1.5 text-xs rounded-lg font-medium border text-left transition ${
+                                            isSelected 
+                                            ? 'bg-emerald-600 text-white font-bold border-emerald-600' 
+                                            : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+                                        }">
+                                        ${opt}
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>
+                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-xs sm:text-sm text-emerald-900 leading-relaxed">
+                    ${data.translation}
+                </div>
+            `;
+
+            return html;
+        }
+
+        // Render Bài 11: Reading Comprehension
+        function renderReadingTask(data, tabIndex) {
+            let html = `
+                <div class="bg-slate-50 border border-slate-200 p-4 sm:p-5 rounded-xl text-sm leading-relaxed text-slate-800 mb-6 font-serif">
+                    ${data.passage}
+                </div>
+
+                <!-- Task 1 -->
+                <div class="mb-8">
+                    <h3 class="font-bold text-emerald-800 text-sm mb-3 uppercase tracking-wider">Task 1. Choose the best answer A, B, C or D</h3>
+                    <div class="space-y-3">
+            `;
+
+            data.task1.forEach(q => {
+                const userKey = `${tabIndex}_t1_${q.id}`;
+                const userVal = userAnswers[userKey] || '';
+                const isSubmitted = userVal !== '';
+                const isCorrect = userVal === q.correct;
+
+                html += `
+                    <div class="p-3.5 rounded-xl border ${isSubmitted ? (isCorrect ? 'correct-bg' : 'incorrect-bg') : 'border-slate-200 bg-white'}">
+                        <p class="font-semibold text-xs sm:text-sm text-slate-800 mb-2">${q.sentence}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                            ${q.options.map(opt => {
+                                const optLetter = opt.charAt(0);
+                                const isSelected = userVal === optLetter;
+                                return `
+                                    <button onclick="selectReadingMCQ(${tabIndex}, 't1_${q.id}', '${optLetter}')" 
+                                        class="px-2.5 py-1.5 text-xs rounded-lg font-medium border text-left transition ${
+                                            isSelected 
+                                            ? 'bg-emerald-600 text-white font-bold border-emerald-600' 
+                                            : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+                                        }">
+                                        ${opt}
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+                        ${isSubmitted ? `
+                            <p class="text-xs ${isCorrect ? 'text-emerald-700' : 'text-red-600'} font-bold mt-2">
+                                ${isCorrect ? '✓ Đúng rồi' : `✗ Sai rồi! Đáp án: ${q.correct}`}: ${q.explain}
+                            </p>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            html += `</div></div>
+
+                <!-- Task 2 -->
+                <div class="mb-8">
+                    <h3 class="font-bold text-emerald-800 text-sm mb-3 uppercase tracking-wider">Task 2. Write T (true) or F (false)</h3>
+                    <div class="space-y-3">
+            `;
+
+            data.task2.forEach(q => {
+                const userKey = `${tabIndex}_t2_${q.id}`;
+                const userVal = userAnswers[userKey] || '';
+                const isSubmitted = userVal !== '';
+                const isCorrect = userVal === q.correct;
+
+                html += `
+                    <div class="p-3.5 rounded-xl border ${isSubmitted ? (isCorrect ? 'correct-bg' : 'incorrect-bg') : 'border-slate-200 bg-white'} flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <p class="font-semibold text-xs sm:text-sm text-slate-800">${q.sentence}</p>
+                            ${isSubmitted ? `<p class="text-xs ${isCorrect ? 'text-emerald-700' : 'text-red-600'} font-bold mt-1">${isCorrect ? '✓ Đúng' : `✗ Sai! Đáp án chuẩn: ${q.correct}`}: ${q.explain}</p>` : ''}
+                        </div>
+                        <div class="flex items-center gap-2 self-end sm:self-center">
+                            <button onclick="selectReadingMCQ(${tabIndex}, 't2_${q.id}', 'T')" class="px-3 py-1 text-xs font-bold rounded-lg border ${userVal === 'T' ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-700'}">T</button>
+                            <button onclick="selectReadingMCQ(${tabIndex}, 't2_${q.id}', 'F')" class="px-3 py-1 text-xs font-bold rounded-lg border ${userVal === 'F' ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-700'}">F</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div></div>
+
+                <!-- Task 3 -->
+                <div class="mb-6">
+                    <h3 class="font-bold text-emerald-800 text-sm mb-3 uppercase tracking-wider">Task 3. Answer the questions in your own words (Nhấn ENTER)</h3>
+                    <div class="space-y-3">
+            `;
+
+            data.task3.forEach(q => {
+                const userKey = `${tabIndex}_t3_${q.id}`;
+                const userVal = userAnswers[userKey] || '';
+                const isSubmitted = userVal !== '';
+
+                let isCorrect = false;
+                if (isSubmitted) {
+                    const cleanUser = userVal.trim().toLowerCase();
+                    isCorrect = q.correct.some(c => cleanUser.includes(c.toLowerCase()));
+                }
+
+                html += `
+                    <div class="p-3.5 rounded-xl border ${isSubmitted ? (isCorrect ? 'correct-bg' : 'incorrect-bg') : 'border-slate-200 bg-white'}">
+                        <p class="font-semibold text-xs sm:text-sm text-slate-800 mb-2">${q.sentence}</p>
+                        <div class="flex items-center gap-2">
+                            <input type="text" id="input_${tabIndex}_t3_${q.id}" value="${userVal}" 
+                                onkeypress="handleKeyPressReading(event, ${tabIndex}, 't3_${q.id}')"
+                                placeholder="Gõ câu trả lời rồi nhấn Enter..." 
+                                class="flex-grow border rounded-lg px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800" />
+                            <button onclick="submitReadingInput(${tabIndex}, 't3_${q.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg">Check</button>
+                        </div>
+                        ${isSubmitted ? `
+                            <div class="mt-2 text-xs pt-1.5 border-t border-slate-200/60">
+                                <p class="${isCorrect ? 'text-emerald-700 font-bold' : 'text-red-600 font-bold'}">${isCorrect ? '✓ Đáp án phù hợp' : '✗ Chưa chính xác'}</p>
+                                <p class="text-slate-700"><strong>Dịch câu hỏi:</strong> ${q.trans}</p>
+                                <p class="text-slate-500"><strong>Gợi ý đáp án:</strong> ${q.correct[0]} (${q.explain})</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+
+            html += `</div></div>
+                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-xs sm:text-sm text-emerald-900 leading-relaxed">
+                    ${data.translation}
+                </div>
+            `;
+
+            return html;
+        }
+
+        function selectReadingMCQ(tabIndex, taskKey, val) {
+            userAnswers[`${tabIndex}_${taskKey}`] = val;
+            renderTabContent(tabIndex);
+            updateTotalProgress();
+        }
+
+        function handleKeyPressReading(e, tabIndex, taskKey) {
+            if (e.key === 'Enter') {
+                submitReadingInput(tabIndex, taskKey);
+            }
+        }
+
+        function submitReadingInput(tabIndex, taskKey) {
+            const inputElem = document.getElementById(`input_${tabIndex}_${taskKey}`);
+            if (inputElem) {
+                userAnswers[`${tabIndex}_${taskKey}`] = inputElem.value;
+                renderTabContent(tabIndex);
+                updateTotalProgress();
+            }
+        }
+
+        // Generic Keypress handler for Enter key
+        function handleKeyPress(e, tabIndex, itemId) {
+            if (e.key === 'Enter') {
+                submitTextInput(tabIndex, itemId);
+            }
+        }
+
+        function submitTextInput(tabIndex, itemId) {
+            const inputElem = document.getElementById(`input_${tabIndex}_${itemId}`);
+            if (inputElem) {
+                userAnswers[`${tabIndex}_${itemId}`] = inputElem.value;
+                renderTabContent(tabIndex);
+                updateTotalProgress();
+            }
+        }
+
+        // Reset functions
+        function resetCurrentTab(tabIndex) {
+            Object.keys(userAnswers).forEach(key => {
+                if (key.startsWith(`${tabIndex}_`)) {
+                    delete userAnswers[key];
+                }
+            });
+            renderTabContent(tabIndex);
+            updateTotalProgress();
+        }
+
+        function resetAllExercises() {
+            if (confirm("Bạn có chắc chắn muốn làm lại toàn bộ 12 bài tập không?")) {
+                userAnswers = {};
+                renderTabContent(activeTab);
+                updateTotalProgress();
+            }
+        }
+
+        // Calculate and Update Total Progress Score
+        function updateTotalProgress() {
+            const totalCount = Object.keys(userAnswers).length;
+            const elem = document.getElementById('total-progress');
+            if (elem) {
+                elem.innerText = `${totalCount}/120`;
+            }
+        }
+    </script>
+</body>
+</html>
