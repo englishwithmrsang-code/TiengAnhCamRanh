@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Practice - Part 4 & 5 | Học tiếng Anh cùng Mr. Sang</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 40px;
+        }
+
+        /* Top Score Board (Sticky) */
+        .score-tracker-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--primary);
+            color: #ffffff;
+            padding: 14px 24px;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .score-badge {
+            background-color: rgba(255, 255, 255, 0.18);
+            padding: 6px 18px;
+            border-radius: 9999px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(4px);
+        }
+
+        .score-value {
+            color: #4ade80;
+            font-weight: 700;
+        }
+
+        .percentage-value {
+            color: #fde047;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 28px auto 0;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 20px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 12px;
+        }
+
+        .audio-player-wrapper {
+            position: sticky;
+            top: 70px;
+            z-index: 900;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            padding: 10px 0;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .audio-player {
+            background: var(--primary-light);
+            border-radius: 12px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #dbeafe;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+        }
+
+        .play-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        .play-btn:hover {
+            background-color: var(--primary-hover);
+            transform: scale(1.03);
+        }
+
+        .timeline-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #cbd5e1;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .timeline::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .time-display {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-family: monospace;
+            white-space: nowrap;
+        }
+
+        .instruction {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .question-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .question-list li {
+            margin-bottom: 14px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .input-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 2px 0;
+        }
+
+        input[type="text"] {
+            padding: 5px 10px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            width: 140px;
+            background-color: #f8fafc;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+            background-color: #ffffff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .correct {
+            border-color: var(--success) !important;
+            background-color: #f0fdf4 !important;
+            color: #166534;
+        }
+
+        .incorrect {
+            border-color: var(--error) !important;
+            background-color: #fef2f2 !important;
+            color: #991b1b;
+        }
+
+        .correct-answer-hint {
+            color: var(--error);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .toggle-btn {
+            background-color: #e2e8f0;
+            color: var(--text-main);
+            border: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #cbd5e1;
+        }
+
+        .transcript-section {
+            display: none;
+            margin-top: 15px;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .transcript-box {
+            font-size: 15px;
+            line-height: 2.2;
+        }
+
+        .action-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .action-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .result {
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .info-box {
+            background-color: #f0f9ff;
+            border: 1px solid #bae6fd;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Global Score Bar Header -->
+<div class="score-tracker-bar">
+    <div class="score-tracker-title">Total Progress</div>
+    <div class="score-badge">
+        Correct Answers: <span id="global-correct" class="score-value">0</span> / <span id="global-total">40</span>
+        (<span id="global-percentage" class="percentage-value">0%</span>)
+    </div>
+</div>
+
+<div class="container">
+    <h1>Listening Practice - Part 4 & 5</h1>
+
+    <!-- ================= LISTENING 4 ================= -->
+    <div class="card">
+        <h2>Listening Part 4: International Languages School</h2>
+
+        <div class="audio-player-wrapper">
+            <div class="audio-player">
+                <audio id="audio4" src="Mini T1 P1.mp3"></audio>
+                <button class="play-btn" onclick="togglePlay('audio4', this)">▶</button>
+                <div class="timeline-container">
+                    <input type="range" class="timeline" id="time4" value="0" min="0" step="0.1" oninput="seekAudio('audio4', this.value)">
+                </div>
+                <div class="time-display" id="clock4">00:00 / 00:00</div>
+            </div>
+        </div>
+
+        <p class="instruction">You will hear a student telephoning a school. Listen and complete questions 16-20.</p>
+        
+        <div id="ex4-main" class="info-box">
+            <p><strong>NOTEBOOK</strong></p>
+            <ul class="question-list">
+                <li><span>Name of school:</span> International Languages School</li>
+                <li><span>Next course begins:</span></li>
+                <li style="padding-left: 20px;"><span>Day:</span> <span class="input-wrapper"><input type="text" data-answer="monday" data-display="Monday"></span></li>
+                <li style="padding-left: 20px;"><span>Date:</span> 3rd <span class="input-wrapper"><input type="text" data-answer="january" data-display="January"></span></li>
+                <li><span>Classes begin at:</span> <span class="input-wrapper"><input type="text" data-answer="9.15|quarter past nine|nine fifteen" data-display="9.15"></span></li>
+                <li><span>Address:</span> <span class="input-wrapper"><input type="text" data-answer="57|fifty-seven" data-display="57"></span> London Road</li>
+                <li><span>Near:</span> <span class="input-wrapper"><input type="text" data-answer="station|the station" data-display="station"></span></li>
+            </ul>
+            <button class="action-btn" onclick="checkAnswers('ex4-main', 'ex4-main-result')">Submit Part 4</button>
+            <div class="result" id="ex4-main-result"></div>
+        </div>
+
+        <button class="toggle-btn" onclick="toggleSection('transcript4')">▼ Show Full Transcript Gap-fill (15 gaps)</button>
+
+        <div id="transcript4" class="transcript-section">
+            <p class="instruction">Listen again and fill in the 15 missing words in the full transcript:</p>
+            <div id="ex4-transcript-box" class="transcript-box">
+                MALE: Good morning. International Language <span class="input-wrapper"><input type="text" data-answer="school" data-display="School"></span>. Can I help you?<br>
+                FEMALE: Yes, please, I’d like some <span class="input-wrapper"><input type="text" data-answer="information" data-display="information"></span> about your school.<br>
+                MALE: Certainly. What do you want to <span class="input-wrapper"><input type="text" data-answer="know" data-display="know"></span>?<br>
+                FEMALE: Well, first, what day does the next course <span class="input-wrapper"><input type="text" data-answer="begin" data-display="begin"></span>?<br>
+                MALE: Well, our courses always begin on the <span class="input-wrapper"><input type="text" data-answer="first" data-display="first"></span> Monday of every month. Let me see, the next course begins on the third of January.<br>
+                FEMALE: That’s <span class="input-wrapper"><input type="text" data-answer="next" data-display="next"></span> week.<br>
+                MALE: Yes, that’s right.<br>
+                FEMALE: And what time do classes <span class="input-wrapper"><input type="text" data-answer="start" data-display="start"></span>?<br>
+                MALE: Well, they begin at a quarter past nine so you should be here a little <span class="input-wrapper"><input type="text" data-answer="earlier" data-display="earlier"></span>, at about nine o’clock.<br>
+                FEMALE: And I don’t have the <span class="input-wrapper"><input type="text" data-answer="address" data-display="address"></span>. Could you give it to me, please?<br>
+                MALE: Yes, the school is at 57 London <span class="input-wrapper"><input type="text" data-answer="road" data-display="Road"></span>.<br>
+                FEMALE: Just a moment. I’ve got a <span class="input-wrapper"><input type="text" data-answer="map" data-display="map"></span> of the town. Could you tell me where London Road is, please?<br>
+                MALE: Yes, it’s a <span class="input-wrapper"><input type="text" data-answer="long" data-display="long"></span> road and we’re quite near the station.<br>
+                FEMALE: OK. I’ll find it on my map. Thank you <span class="input-wrapper"><input type="text" data-answer="very" data-display="very"></span> much for your help.<br>
+                MALE: You’re welcome.
+            </div>
+            <button class="action-btn" onclick="checkAnswers('ex4-transcript-box', 'ex4-transcript-result')">Submit Transcript Part 4</button>
+            <div class="result" id="ex4-transcript-result"></div>
+        </div>
+    </div>
+
+    <!-- ================= LISTENING 5 ================= -->
+    <div class="card">
+        <h2>Listening Part 5: Town in Scotland</h2>
+
+        <div class="audio-player-wrapper">
+            <div class="audio-player">
+                <audio id="audio5" src="Mini T1 P2.mp3"></audio>
+                <button class="play-btn" onclick="togglePlay('audio5', this)">▶</button>
+                <div class="timeline-container">
+                    <input type="range" class="timeline" id="time5" value="0" min="0" step="0.1" oninput="seekAudio('audio5', this.value)">
+                </div>
+                <div class="time-display" id="clock5">00:00 / 00:00</div>
+            </div>
+        </div>
+
+        <p class="instruction">You will hear a tour guide talking about a town in Scotland. Listen and complete questions 21-25.</p>
+        
+        <div id="ex5-main" class="info-box">
+            <p><strong>NOTES</strong></p>
+            <ul class="question-list">
+                <li><span>Guide’s name:</span> Jim</li>
+                <li><span>Banks open from:</span> <span class="input-wrapper"><input type="text" data-answer="9.30|half past nine|nine thirty" data-display="9.30"></span></li>
+                <li><span>to:</span> <span class="input-wrapper"><input type="text" data-answer="4.00|four o'clock|16.00|four" data-display="4.00"></span></li>
+                <li><span>closed on:</span> <span class="input-wrapper"><input type="text" data-answer="sunday|sundays" data-display="Sunday"></span></li>
+                <li><span>Bus to city centre</span></li>
+                <li style="padding-left: 20px;"><span>number:</span> <span class="input-wrapper"><input type="text" data-answer="21|twenty-one" data-display="21"></span></li>
+                <li style="padding-left: 20px;"><span>cost:</span> <span class="input-wrapper"><input type="text" data-answer="60p|sixty pence|60 pence" data-display="60p"></span></li>
+            </ul>
+            <button class="action-btn" onclick="checkAnswers('ex5-main', 'ex5-main-result')">Submit Part 5</button>
+            <div class="result" id="ex5-main-result"></div>
+        </div>
+
+        <button class="toggle-btn" onclick="toggleSection('transcript5')">▼ Show Full Transcript Gap-fill (15 gaps)</button>
+
+        <div id="transcript5" class="transcript-section">
+            <p class="instruction">Listen again and fill in the 15 missing words in the full transcript:</p>
+            <div id="ex5-transcript-box" class="transcript-box">
+                GUIDE: Good morning and welcome to <span class="input-wrapper"><input type="text" data-answer="scotland" data-display="Scotland"></span>. I hope you had a good journey and are not too tired this morning. My name is Jim and I am here to <span class="input-wrapper"><input type="text" data-answer="help" data-display="help"></span> you. I want to tell you a few things which you might find <span class="input-wrapper"><input type="text" data-answer="useful" data-display="useful"></span>.<br>
+                Firstly, the banks. They’re open from nine thirty in the morning until four <span class="input-wrapper"><input type="text" data-answer="o'clock|oclock" data-display="o'clock"></span> in the afternoon. That’s nine thirty until four. They’re open every day <span class="input-wrapper"><input type="text" data-answer="except" data-display="except"></span> Sunday. But on Sunday you can change money in the <span class="input-wrapper"><input type="text" data-answer="hotel" data-display="hotel"></span>.<br>
+                Next, the buses. You can take a bus from the hotel to the city <span class="input-wrapper"><input type="text" data-answer="centre|center" data-display="centre"></span>. It’s the number twenty-one. There are buses every fifteen <span class="input-wrapper"><input type="text" data-answer="minutes" data-display="minutes"></span> so you won’t have to wait <span class="input-wrapper"><input type="text" data-answer="long" data-display="long"></span>.<br>
+                You’ll find the bus stop just <span class="input-wrapper"><input type="text" data-answer="outside" data-display="outside"></span> the hotel. A ticket to the city centre costs sixty <span class="input-wrapper"><input type="text" data-answer="pence|p" data-display="pence"></span>.<br>
+                Finally, <span class="input-wrapper"><input type="text" data-answer="tonight" data-display="tonight"></span> we’re having a party for you in the <span class="input-wrapper"><input type="text" data-answer="restaurant" data-display="Restaurant"></span>. I hope I’ll see you all <span class="input-wrapper"><input type="text" data-answer="there" data-display="there"></span>. Thank you.
+            </div>
+            <button class="action-btn" onclick="checkAnswers('ex5-transcript-box', 'ex5-transcript-result')">Submit Transcript Part 5</button>
+            <div class="result" id="ex5-transcript-result"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- Audio Player Logic ---
+    function formatTime(seconds) {
+        let mins = Math.floor(seconds / 60);
+        let secs = Math.floor(seconds % 60);
+        if (mins < 10) mins = '0' + mins;
+        if (secs < 10) secs = '0' + secs;
+        return `${mins}:${secs}`;
+    }
+
+    function togglePlay(audioId, btn) {
+        const audio = document.getElementById(audioId);
+        
+        document.querySelectorAll('audio').forEach(a => {
+            if (a.id !== audioId) {
+                a.pause();
+                const otherBtn = a.parentElement.querySelector('.play-btn');
+                if (otherBtn) otherBtn.innerText = '▶';
+            }
+        });
+
+        if (audio.paused) {
+            audio.play();
+            btn.innerText = '❚❚';
+        } else {
+            audio.pause();
+            btn.innerText = '▶';
+        }
+    }
+
+    function seekAudio(audioId, value) {
+        const audio = document.getElementById(audioId);
+        audio.currentTime = value;
+    }
+
+    document.querySelectorAll('audio').forEach((audio, index) => {
+        const idNum = index + 4; // Bắt đầu từ audio4, audio5
+        const timeline = document.getElementById(`time${idNum}`);
+        const clock = document.getElementById(`clock${idNum}`);
+
+        if (timeline && clock) {
+            audio.addEventListener('loadedmetadata', () => {
+                timeline.max = audio.duration;
+                clock.innerText = `00:00 / ${formatTime(audio.duration)}`;
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                timeline.value = audio.currentTime;
+                const current = formatTime(audio.currentTime);
+                const total = isNaN(audio.duration) ? '00:00' : formatTime(audio.duration);
+                clock.innerText = `${current} / ${total}`;
+            });
+
+            audio.addEventListener('ended', () => {
+                const btn = audio.parentElement.querySelector('.play-btn');
+                if (btn) btn.innerText = '▶';
+                timeline.value = 0;
+            });
+        }
+    });
+
+    // --- Toggle Section ---
+    function toggleSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        const btn = section.previousElementSibling;
+        
+        if (section.style.display === "block") {
+            section.style.display = "none";
+            btn.innerText = btn.innerText.replace('▲ Hide', '▼ Show');
+        } else {
+            section.style.display = "block";
+            btn.innerText = btn.innerText.replace('▼ Show', '▲ Hide');
+        }
+    }
+
+    // --- Global Score Update ---
+    function updateGlobalScore() {
+        const allInputs = document.querySelectorAll('input[type="text"]');
+        let globalCorrect = 0;
+        let totalCount = allInputs.length;
+
+        // Cập nhật tổng số lượng input động lên header
+        document.getElementById('global-total').innerText = totalCount;
+
+        allInputs.forEach(input => {
+            if (input.classList.contains('correct')) {
+                globalCorrect++;
+            }
+        });
+
+        const percentage = totalCount > 0 ? Math.round((globalCorrect / totalCount) * 100) : 0;
+        document.getElementById('global-correct').innerText = globalCorrect;
+        document.getElementById('global-percentage').innerText = `${percentage}%`;
+    }
+
+    // --- Check Answers and Show Answers Directly ---
+    function checkAnswers(containerId, resultId) {
+        const container = document.getElementById(containerId);
+        const inputs = container.querySelectorAll('input[type="text"]');
+        let correctCount = 0;
+        let totalCount = inputs.length;
+
+        inputs.forEach(input => {
+            const userAnswer = input.value.trim().toLowerCase();
+            const validAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
+            const displayAnswer = input.getAttribute('data-display');
+            const wrapper = input.parentElement;
+
+            const existingHint = wrapper.querySelector('.correct-answer-hint');
+            if (existingHint) existingHint.remove();
+
+            if (userAnswer === "") {
+                input.className = "incorrect";
+                const hint = document.createElement('span');
+                hint.className = 'correct-answer-hint';
+                hint.innerText = `(${displayAnswer})`;
+                wrapper.appendChild(hint);
+            } else {
+                let isCorrect = validAnswers.some(ans => userAnswer === ans.trim());
+                if (isCorrect) {
+                    input.className = "correct";
+                    input.value = displayAnswer; 
+                    correctCount++;
+                } else {
+                    input.className = "incorrect";
+                    const hint = document.createElement('span');
+                    hint.className = 'correct-answer-hint';
+                    hint.innerText = `(${displayAnswer})`;
+                    wrapper.appendChild(hint);
+                }
+            }
+        });
+
+        const resultDiv = document.getElementById(resultId);
+        if (correctCount === totalCount) {
+            resultDiv.innerHTML = `<span style="color: var(--success);">🎉 Excellent! You got ${correctCount}/${totalCount} correct.</span>`;
+        } else {
+            resultDiv.innerHTML = `<span style="color: var(--error);">⚠️ You scored ${correctCount}/${totalCount}. Check the answers in red!</span>`;
+        }
+
+        updateGlobalScore();
+    }
+
+    // Khởi tạo tổng số câu hỏi ban đầu khi load trang
+    window.addEventListener('DOMContentLoaded', () => {
+        updateGlobalScore();
+    });
+</script>
+
+</body>
+</html>
