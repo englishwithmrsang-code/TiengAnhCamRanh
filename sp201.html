@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Dịch IELTS Speaking Part 2 - Smartphone & Notebook</title>
+    <style>
+        :root {
+            /* Gam màu xanh biển / xanh ngọc chủ đạo theo mẫu */
+            --bg-color: #eef9f8;
+            --main-title-color: #00827b;
+            --card-bg: #ffffff;
+            --highlight-bg: #ccf2ee;
+            --highlight-text: #00605a;
+            --border-color: #9ee5df;
+            
+            --correct-bg: #e8f8f5;
+            --correct-border: #27ae60;
+            --correct-text: #1e8449;
+            
+            --wrong-bg: #fdf0ed;
+            --wrong-border: #d9381e;
+            --wrong-text: #b0230c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: #2c3e50;
+            margin: 0;
+            padding: 25px;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        /* Title block */
+        .main-title {
+            text-align: center;
+            color: var(--main-title-color);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        /* Instructions block */
+        .instructions-box {
+            background-color: #e2f5f3;
+            border-radius: 12px;
+            padding: 18px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid #b3e6e2;
+        }
+
+        .instructions-title {
+            font-weight: bold;
+            color: var(--main-title-color);
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .instructions-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .instructions-box li {
+            margin-bottom: 5px;
+            color: #333333;
+        }
+
+        /* Tabs Navigation Bar */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background-color: #ffffff;
+            color: var(--main-title-color);
+            border: 1.5px solid var(--border-color);
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--highlight-bg);
+        }
+
+        .tab-btn.active {
+            background-color: var(--main-title-color);
+            color: #ffffff;
+            border-color: var(--main-title-color);
+            box-shadow: 0 3px 8px rgba(0, 130, 123, 0.25);
+        }
+
+        /* Tab Content Panes */
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+            animation: fadeInPane 0.25s ease-in-out;
+        }
+
+        @keyframes fadeInPane {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 25px 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            margin-bottom: 25px;
+        }
+
+        .cue-card-prompt {
+            background-color: #f7fcff;
+            border-left: 4px solid var(--main-title-color);
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            font-size: 0.98rem;
+        }
+
+        .cue-card-prompt ul {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+        }
+
+        .section-subhead {
+            color: var(--main-title-color);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 20px 0 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-subhead::before {
+            content: "✦";
+            font-size: 0.9rem;
+        }
+
+        .text-content {
+            font-size: 1.05rem;
+            color: #2c3e50;
+            line-height: 2.3;
+            margin-bottom: 12px;
+        }
+
+        /* Highlights */
+        .hl {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 3px 4px;
+            white-space: nowrap;
+        }
+
+        /* Input Wrapper for Tooltip positioning */
+        .input-wrapper {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 3px 4px;
+        }
+
+        input[type="text"] {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+            font-family: inherit;
+            background-color: #ffffff;
+            width: auto;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--main-title-color);
+            box-shadow: 0 0 5px rgba(0, 130, 123, 0.3);
+        }
+
+        /* Correct State */
+        input.correct {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-border) !important;
+            color: var(--correct-text) !important;
+            font-weight: bold;
+        }
+
+        /* Wrong State */
+        input.wrong {
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong-border) !important;
+            color: var(--wrong-text) !important;
+            font-weight: bold;
+        }
+
+        /* Answer Tooltip */
+        .tooltip-ans {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            background-color: #101e23;
+            color: #ffffff;
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 6px;
+            white-space: nowrap;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            pointer-events: none;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        .tooltip-ans::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #101e23 transparent transparent transparent;
+        }
+
+        /* Linking Words / Table Structure */
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid #d8f1f0;
+        }
+
+        .reference-table th, .reference-table td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid #e2f5f3;
+            font-size: 0.95rem;
+        }
+
+        .reference-table th {
+            background-color: #e2f5f3;
+            color: var(--main-title-color);
+            font-weight: 700;
+        }
+
+        .reference-table tr:hover {
+            background-color: #f7fcff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, 4px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="main-title">Luyện Tập Dịch IELTS Speaking Part 2</div>
+
+    <div class="instructions-box">
+        <div class="instructions-title">💡 Hướng dẫn sử dụng:</div>
+        <ul>
+            <li>1. Chọn đề bài ở <strong>Tab 1 (Smartphone)</strong> hoặc <strong>Tab 2 (Notebook)</strong> phía dưới để luyện tập.</li>
+            <li>2. Điền cụm từ tiếng Anh tương ứng với phần <span class="hl">(highlight xanh ngọc)</span> vào ô trống rồi bấm phím <strong>Enter</strong>.</li>
+            <li>3. Nếu đúng, ô báo màu xanh lá. Nếu sai, ô báo viền đỏ và <strong>hiển thị đáp án ngay trên đầu ô trống</strong>[cite: 2].</li>
+        </ul>
+    </div>
+
+    <!-- Thanh chuyển Tab -->
+    <div class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-smartphone')">Bài 1: A Technological Device (Smartphone)</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-notebook')">Bài 2: An Important Object (Notebook)</button>
+    </div>
+
+    <!-- TAB 1: SMARTPHONE -->
+    <div id="tab-smartphone" class="tab-pane active">
+        <div class="question-card">
+            <div class="cue-card-prompt">
+                <strong>Describe a technological device you use every day</strong><br>
+                <em>You should say:</em>
+                <ul>
+                    <li>What it is</li>
+                    <li>When and how you use it</li>
+                    <li>What you use it for</li>
+                    <li>And explain why you find it useful</li>
+                </ul>
+            </div>
+
+            <!-- Introduction -->
+            <div class="section-subhead">Introduction</div>
+            <div class="text-content">
+                <span class="hl">(Một thiết bị công nghệ mà tôi sử dụng mỗi ngày)</span> <span class="input-wrapper"><input type="text" data-ans="One technological device that I use every single day" size="42"></span> is my smartphone. <span class="hl">(Thành thật mà nói)</span> <span class="input-wrapper"><input type="text" data-ans="To be honest" size="14"></span>, I can <span class="hl">(khó có thể tưởng tượng)</span> <span class="input-wrapper"><input type="text" data-ans="hardly imagine" size="16"></span> going through a normal day without it because I use it for <span class="hl">(hầu như mọi thứ)</span> <span class="input-wrapper"><input type="text" data-ans="almost everything" size="18"></span>, from studying to <span class="hl">(giữ liên lạc với bạn bè của tôi)</span> <span class="input-wrapper"><input type="text" data-ans="keeping in touch with my friends" size="30"></span>.
+            </div>
+
+            <!-- When I Use It -->
+            <div class="section-subhead">When I Use It</div>
+            <div class="text-content">
+                <span class="hl">(Về thời điểm tôi sử dụng nó)</span> <span class="input-wrapper"><input type="text" data-ans="As for when I use it" size="22"></span>, I usually <span class="hl">(kiểm tra điện thoại vào buổi sáng)</span> <span class="input-wrapper"><input type="text" data-ans="check my phone in the morning" size="26"></span> to read messages and <span class="hl">(xem lại lịch trình của mình)</span> <span class="input-wrapper"><input type="text" data-ans="check my schedule" size="18"></span>. <span class="hl">(Suốt cả ngày)</span> <span class="input-wrapper"><input type="text" data-ans="Throughout the day" size="18"></span>, I use it whenever I need to <span class="hl">(tra cứu thông tin)</span> <span class="input-wrapper"><input type="text" data-ans="look up information" size="20"></span>, <span class="hl">(giao tiếp với người khác)</span> <span class="input-wrapper"><input type="text" data-ans="communicate with others" size="24"></span>, or <span class="hl">(nghỉ ngơi một chút khỏi việc học)</span> <span class="input-wrapper"><input type="text" data-ans="take a short break from studying" size="30"></span>.
+            </div>
+
+            <!-- How I Use It -->
+            <div class="section-subhead">How I Use It</div>
+            <div class="text-content">
+                <span class="hl">(Khi nói đến việc học)</span> <span class="input-wrapper"><input type="text" data-ans="When it comes to studying" size="24"></span>, my smartphone is <span class="hl">(đặc biệt hữu ích)</span> <span class="input-wrapper"><input type="text" data-ans="particularly useful" size="18"></span>. For example, I often use it to <span class="hl">(tra cứu từ vựng mới)</span> <span class="input-wrapper"><input type="text" data-ans="look up new vocabulary" size="22"></span>, <span class="hl">(kiểm tra cách phát âm của những từ lạ)</span> <span class="input-wrapper"><input type="text" data-ans="check the pronunciation of unfamiliar words" size="38"></span>, and watch <span class="hl">(các video mang tính giáo dục)</span> <span class="input-wrapper"><input type="text" data-ans="educational videos" size="20"></span>. <span class="hl">(Thêm vào đó)</span> <span class="input-wrapper"><input type="text" data-ans="On top of that" size="14"></span>, I sometimes <span class="hl">(nghe podcast tiếng Anh)</span> <span class="input-wrapper"><input type="text" data-ans="listen to English podcasts" size="24"></span> while doing simple tasks, which <span class="hl">(cho phép tôi cải thiện kỹ năng nghe)</span> <span class="input-wrapper"><input type="text" data-ans="allows me to improve my listening skills" size="36"></span> without spending too much <span class="hl">(thời gian phụ thêm)</span> <span class="input-wrapper"><input type="text" data-ans="extra time" size="12"></span>.
+            </div>
+
+            <!-- Why It's Useful -->
+            <div class="section-subhead">Why It's Useful</div>
+            <div class="text-content">
+                <span class="hl">(Điều tôi thấy hữu ích nhất về nó là)</span> <span class="input-wrapper"><input type="text" data-ans="What I find most useful about it is that" size="36"></span> it <span class="hl">(tiết kiệm cho tôi nhiều thời gian và công sức)</span> <span class="input-wrapper"><input type="text" data-ans="saves me a lot of time and effort" size="34"></span>. <span class="hl">(Thay vì mang theo vài thiết bị khác nhau)</span> <span class="input-wrapper"><input type="text" data-ans="Instead of carrying several different devices" size="38"></span>, I can do almost everything on one small screen. <span class="hl">(Một điều khác tôi trân trọng là)</span> <span class="input-wrapper"><input type="text" data-ans="Another thing I appreciate is that" size="32"></span> I can <span class="hl">(duy trì kết nối với bạn bè và gia đình)</span> <span class="input-wrapper"><input type="text" data-ans="stay connected with my friends and family" size="36"></span>, even when we're too busy to <span class="hl">(gặp mặt trực tiếp)</span> <span class="input-wrapper"><input type="text" data-ans="meet in person" size="16"></span>.<br><br>
+                <span class="hl">(Dù nói là vậy)</span> <span class="input-wrapper"><input type="text" data-ans="Having said that" size="16"></span>, I sometimes <span class="hl">(bị xao nhãng bởi mạng xã hội)</span> <span class="input-wrapper"><input type="text" data-ans="get distracted by social media" size="28"></span> when I should be <span class="hl">(tập trung vào việc học)</span> <span class="input-wrapper"><input type="text" data-ans="focusing on my studies" size="22"></span>, so I'm trying to <span class="hl">(quản lý thời gian sử dụng màn hình tốt hơn)</span> <span class="input-wrapper"><input type="text" data-ans="manage my screen time better" size="28"></span>.
+            </div>
+
+            <!-- Conclusion -->
+            <div class="section-subhead">Conclusion</div>
+            <div class="text-content">
+                <span class="hl">(Nhìn chung, tôi muốn nói rằng)</span> <span class="input-wrapper"><input type="text" data-ans="Overall, I'd say that" size="22"></span> my smartphone is <span class="hl">(nhiều hơn chỉ là một thiết bị liên lạc)</span> <span class="input-wrapper"><input type="text" data-ans="more than just a communication device" size="34"></span>. It's an <span class="hl">(phần thiết yếu trong thói quen hàng ngày của tôi)</span> <span class="input-wrapper"><input type="text" data-ans="essential part of my daily routine" size="32"></span> because it helps me study more effectively, <span class="hl">(giữ được sự ngăn nắp)</span> <span class="input-wrapper"><input type="text" data-ans="stay organized" size="16"></span>, and keep in touch with the people <span class="hl">(tôi quan tâm)</span> <span class="input-wrapper"><input type="text" data-ans="I care about" size="14"></span>.
+            </div>
+
+            <h4 style="color: var(--main-title-color); margin: 25px 0 10px 0;">Useful linking expressions</h4>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Expression</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>To be honest</td><td>Give a personal opinion</td></tr>
+                    <tr><td>As for when I use it</td><td>Introduce the next point</td></tr>
+                    <tr><td>When it comes to studying</td><td>Shift to a specific use</td></tr>
+                    <tr><td>On top of that</td><td>Add another idea</td></tr>
+                    <tr><td>What I find most useful about it is that</td><td>Highlight the main benefit</td></tr>
+                    <tr><td>Another thing I appreciate is that</td><td>Add a second benefit</td></tr>
+                    <tr><td>Having said that</td><td>Introduce a drawback</td></tr>
+                    <tr><td>Overall, I'd say that</td><td>Conclude naturally</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 2: NOTEBOOK -->
+    <div id="tab-notebook" class="tab-pane">
+        <div class="question-card">
+            <div class="cue-card-prompt">
+                <strong>Describe an object that is important to you</strong><br>
+                <em>You should say:</em>
+                <ul>
+                    <li>What it is</li>
+                    <li>When you got it</li>
+                    <li>How you use it</li>
+                    <li>And explain why it is important to you</li>
+                </ul>
+            </div>
+
+            <!-- Introduction -->
+            <div class="section-subhead">Introduction</div>
+            <div class="text-content">
+                <span class="hl">(Một món đồ mà tôi sử dụng hầu như mỗi ngày)</span> <span class="input-wrapper"><input type="text" data-ans="An object that I use almost every day" size="36"></span> is my notebook. <span class="hl">(Mặc dù nó có vẻ giống như một đồ vật bình thường)</span> <span class="input-wrapper"><input type="text" data-ans="Although it may seem like an ordinary item" size="38"></span>, it's actually one of the <span class="hl">(những thứ hữu dụng nhất tôi sở hữu)</span> <span class="input-wrapper"><input type="text" data-ans="most useful things I own" size="26"></span>, especially <span class="hl">(với tư cách là một học sinh)</span> <span class="input-wrapper"><input type="text" data-ans="as a student" size="14"></span>.
+            </div>
+
+            <!-- When I Got It -->
+            <div class="section-subhead">When I Got It</div>
+            <div class="text-content">
+                <span class="hl">(Nếu tôi nhớ không nhầm)</span> <span class="input-wrapper"><input type="text" data-ans="If I remember correctly" size="22"></span>, I bought it <span class="hl">(vào đầu năm học)</span> <span class="input-wrapper"><input type="text" data-ans="at the beginning of the school year" size="32"></span> because I wanted to <span class="hl">(trở nên giỏi hơn trong việc sắp xếp việc học)</span> <span class="input-wrapper"><input type="text" data-ans="become better at organizing my studies" size="34"></span>. It's a <span class="hl">(cuốn sổ tay khá đơn giản)</span> <span class="input-wrapper"><input type="text" data-ans="fairly simple notebook" size="22"></span> with a dark cover, but <span class="hl">(điều làm cho nó có giá trị đối với tôi là)</span> <span class="input-wrapper"><input type="text" data-ans="what makes it valuable to me is" size="30"></span> how useful it is in my daily life.
+            </div>
+
+            <!-- How I Use It -->
+            <div class="section-subhead">How I Use It</div>
+            <div class="text-content">
+                As a student, I <span class="hl">(chủ yếu sử dụng nó cho việc ghi chép bài)</span> <span class="input-wrapper"><input type="text" data-ans="mainly use it for taking notes in class" size="34"></span>, <span class="hl">(viết lại những thông tin quan trọng)</span> <span class="input-wrapper"><input type="text" data-ans="writing down important information" size="32"></span>, and <span class="hl">(theo dõi bài tập về nhà và thời hạn nộp)</span> <span class="input-wrapper"><input type="text" data-ans="keeping track of my homework and deadlines" size="38"></span>. <span class="hl">(Chẳng hạn như)</span> <span class="input-wrapper"><input type="text" data-ans="For instance" size="14"></span>, whenever my teachers explain something important, I write down the <span class="hl">(những điểm mấu chốt)</span> <span class="input-wrapper"><input type="text" data-ans="key points" size="12"></span> so that I can <span class="hl">(ôn tập lại chúng sau đó)</span> <span class="input-wrapper"><input type="text" data-ans="review them later" size="18"></span>. I also use it to <span class="hl">(lập danh sách việc cần làm)</span> <span class="input-wrapper"><input type="text" data-ans="make a to-do list" size="18"></span> and <span class="hl">(lên kế hoạch cho lịch học)</span> <span class="input-wrapper"><input type="text" data-ans="plan my study schedule" size="24"></span> before exams.
+            </div>
+
+            <!-- Why It's Important -->
+            <div class="section-subhead">Why It's Important</div>
+            <div class="text-content">
+                <span class="hl">(Một lý do khác tôi thấy nó hữu ích là)</span> <span class="input-wrapper"><input type="text" data-ans="Another reason I find it useful is that" size="36"></span> <span class="hl">(việc viết mọi thứ ra giấy)</span> <span class="input-wrapper"><input type="text" data-ans="writing things down" size="20"></span> helps me <span class="hl">(ghi nhớ thông tin dễ dàng hơn)</span> <span class="input-wrapper"><input type="text" data-ans="remember information more easily" size="30"></span>. <span class="hl">(Bên cạnh điều đó)</span> <span class="input-wrapper"><input type="text" data-ans="Besides that" size="14"></span>, <span class="hl">(có tất cả các ghi chú ở cùng một nơi)</span> <span class="input-wrapper"><input type="text" data-ans="having all my notes in one place" size="30"></span> makes it much easier to review lessons and <span class="hl">(chuẩn bị cho các bài kiểm tra)</span> <span class="input-wrapper"><input type="text" data-ans="prepare for tests" size="18"></span>.<br><br>
+                <span class="hl">(Điều tôi thích nhất về cuốn sổ này là)</span> <span class="input-wrapper"><input type="text" data-ans="What I like most about this notebook is that" size="38"></span> it helps me stay organized and <span class="hl">(quản lý thời gian tốt hơn)</span> <span class="input-wrapper"><input type="text" data-ans="manage my time better" size="22"></span>. Sometimes, I have several assignments to finish, and I <span class="hl">(cảm thấy một chút choáng ngợp/quá tải)</span> <span class="input-wrapper"><input type="text" data-ans="feel a little overwhelmed" size="24"></span>. <span class="hl">(Trong hoàn cảnh đó)</span> <span class="input-wrapper"><input type="text" data-ans="In that situation" size="18"></span>, I write down everything I need to do and <span class="hl">(sắp xếp các nhiệm vụ theo thứ tự ưu tiên)</span> <span class="input-wrapper"><input type="text" data-ans="arrange the tasks in order of priority" size="36"></span>, which makes my <span class="hl">(khối lượng công việc)</span> <span class="input-wrapper"><input type="text" data-ans="workload" size="10"></span> feel <span class="hl">(dễ quản lý hơn)</span> <span class="input-wrapper"><input type="text" data-ans="more manageable" size="16"></span>.
+            </div>
+
+            <!-- Conclusion -->
+            <div class="section-subhead">Conclusion</div>
+            <div class="text-content">
+                <span class="hl">(Tựu trung lại, tôi sẽ nói rằng)</span> <span class="input-wrapper"><input type="text" data-ans="All in all, I'd say that" size="24"></span> my notebook isn't <span class="hl">(đặc biệt đắt tiền hay ấn tượng)</span> <span class="input-wrapper"><input type="text" data-ans="particularly expensive or impressive" size="34"></span>, but it's important to me because it <span class="hl">(hỗ trợ việc học của tôi)</span> <span class="input-wrapper"><input type="text" data-ans="supports my learning" size="20"></span> and helps me become a <span class="hl">(học sinh có tổ chức hơn)</span> <span class="input-wrapper"><input type="text" data-ans="more organized student" size="22"></span>.
+            </div>
+
+            <h4 style="color: var(--main-title-color); margin: 25px 0 10px 0;">Useful linking expressions</h4>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Expression</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Although it may seem like</td><td>Introduce contrast</td></tr>
+                    <tr><td>If I remember correctly</td><td>Recall the past</td></tr>
+                    <tr><td>As a student, I mainly use it for</td><td>Introduce the main use</td></tr>
+                    <tr><td>For instance</td><td>Give an example</td></tr>
+                    <tr><td>Another reason I find it useful is that</td><td>Develop another point</td></tr>
+                    <tr><td>Besides that</td><td>Add supporting information</td></tr>
+                    <tr><td>What I like most about this notebook is that</td><td>Highlight the biggest benefit</td></tr>
+                    <tr><td>In that situation</td><td>Describe a real-life example</td></tr>
+                    <tr><td>All in all, I'd say that</td><td>Finish naturally</td></tr>
+                </tbody>
+            </table>
+
+            <h4 style="color: var(--main-title-color); margin: 25px 0 10px 0;">Easy-to-remember Part 2 Structure (2 minutes)</h4>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Heading</th>
+                        <th>Purpose</th>
+                        <th>Useful phrase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Introduction</td><td>Introduce the object</td><td>One object/device that I use every day is...</td></tr>
+                    <tr><td>Background</td><td>Say when you got it or use it</td><td>If I remember correctly...</td></tr>
+                    <tr><td>Main Uses</td><td>Explain how you use it</td><td>As for how I use it...</td></tr>
+                    <tr><td>Benefits</td><td>Give two reasons and examples</td><td>What I find most useful is...</td></tr>
+                    <tr><td>Conclusion</td><td>Summarize your opinion</td><td>Overall, I'd say that...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Hàm chuyển Tab
+    function openTab(evt, tabId) {
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        tabPanes.forEach(pane => pane.classList.remove('active'));
+
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => btn.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    // Xử lý kiểm tra đáp án khi nhấn Enter
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+        input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                
+                const expectedAnswer = this.dataset.ans.trim();
+                const userAnswer = this.value.trim();
+                const wrapper = this.parentElement;
+
+                // Xóa tooltip cũ nếu có
+                const oldTooltip = wrapper.querySelector('.tooltip-ans');
+                if (oldTooltip) {
+                    oldTooltip.remove();
+                }
+                
+                // Chuẩn hóa chuỗi so sánh
+                const cleanExpected = expectedAnswer.toLowerCase().replace(/[’']/g, "'");
+                const cleanUser = userAnswer.toLowerCase().replace(/[’']/g, "'");
+
+                if (cleanUser === cleanExpected) {
+                    this.classList.remove('wrong');
+                    this.classList.add('correct');
+                } else {
+                    this.classList.remove('correct');
+                    this.classList.add('wrong');
+
+                    // Tạo thẻ Tooltip hiển thị đáp án đúng trên đầu ô input giống hệt ảnh mẫu
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'tooltip-ans';
+                    tooltip.innerText = `Đáp án: "${expectedAnswer}"`;
+                    wrapper.appendChild(tooltip);
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
