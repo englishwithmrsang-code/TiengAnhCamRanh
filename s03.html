@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Speaking Templates – 3 Modules × 12 Topics</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f7fb;--card:#fff;--ink:#1e2b3a;--mute:#5d6b7c;--line:#dce5ee;--acc:#3a75b3;--p0:#dbeafe;--p1:#d3f0e4;--p2:#e5defa;--p3:#fde8d8;--p4:#f6efc6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141b24;--card:#1c2531;--ink:#e6edf5;--mute:#9aa8b8;--line:#2b3746;--p0:#1f3a5c;--p1:#1d4a3d;--p2:#3a3162;--p3:#5a3a28;--p4:#524a1f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141b24;--card:#1c2531;--ink:#e6edf5;--mute:#9aa8b8;--line:#2b3746;--p0:#1f3a5c;--p1:#1d4a3d;--p2:#3a3162;--p3:#5a3a28;--p4:#524a1f;color-scheme:dark}
+body[data-m="1"]{--acc:#2a8577}body[data-m="2"]{--acc:#6a58c0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 "Be Vietnam Pro",system-ui,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.5rem;margin:0 0 4px;font-weight:700}
+.sub{color:var(--mute);margin:0 0 18px;font-size:.95rem}
+.mods{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+button{font:inherit;color:inherit;cursor:pointer}
+.mod{flex:1 1 200px;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 14px;font-weight:600}
+.mod small{display:block;font-weight:400;color:var(--mute);font-size:.8rem}
+.mod.on{background:var(--acc);border-color:var(--acc);color:#fff}.mod.on small{color:#ffffffcc}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px}
+.tab{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:.9rem}
+.tab.on{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc);font-weight:600}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.q{font-size:1.2rem;font-weight:600;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+.card h2{font-size:.95rem;margin:0 0 10px;color:var(--mute);font-weight:600}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th{text-align:left;color:var(--mute);font-weight:500;padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.r{cursor:pointer}tr.r.on td{background:color-mix(in srgb,var(--acc) 10%,transparent)}
+.lab{display:inline-block;border-radius:6px;padding:1px 8px;font-weight:600;white-space:nowrap}
+.st{font-weight:600}.ex{color:var(--mute)}
+.sample{font-size:1.02rem;line-height:1.9}
+.s{border-radius:6px;padding:1px 4px;cursor:pointer;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.s.on{outline:2px solid var(--acc)}
+.note{color:var(--mute);font-size:.85rem;margin:8px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:6px 12px;font-size:.92rem}
+.chip:hover{border-color:var(--acc)}
+.voc{display:grid;gap:8px}
+.v{padding:8px 12px;border-radius:10px;background:var(--bg)}
+.v b{display:block}.v span{color:var(--mute);font-size:.88rem}
+</style>
+</head>
+<body data-m="0">
+<div class="wrap">
+<h1>Speaking Templates</h1>
+<p class="sub">Chọn module → chọn chủ đề → bấm vào cấu trúc (hoặc câu mẫu) để xem cách nói tương tự.</p>
+<div class="mods" id="mods"></div>
+<div class="tabs" id="tabs"></div>
+<p class="q" id="q"></p>
+<div class="grid">
+<div>
+<div class="card"><h2>Bảng công thức</h2><div class="scroll"><table id="tbl"></table></div></div>
+<div class="card"><h2 id="sh">Cách nói tương tự</h2><div class="chips" id="sg"></div><p class="note" id="sn"></p></div>
+</div>
+<div>
+<div class="card"><h2>Câu trả lời mẫu</h2><div class="sample" id="smp"></div></div>
+<div class="card"><h2>Collocations theo chủ đề</h2><div class="voc" id="voc"></div></div>
+</div>
+</div>
+</div>
+<script>
+var M=[["Module 1","Do you prefer … or …?"],["Module 2","When was the last time you …?"],["Module 3","Do you often …?"]];
+// a:[A,B,reason1,reason2,however] b:[past,time,context,interest,why,adj,base] c:[ing,neg,freq,reason1,reason2,however,base]
+var T=[
+["Shopping","Mua sắm",[["do some window shopping","đi dạo ngắm đồ"],["snap up a bargain","chộp được món hời"],["compare prices","so sánh giá"],["splurge on","vung tiền mua"],["stick to a budget","giữ đúng ngân sách"]],
+["shopping online","visiting stores","It saves me time and effort.","I can compare prices easily.","I sometimes visit stores to try things on."],
+["went shopping","last weekend","I went to a local supermarket to stock up on groceries","finding good deals","I wanted to stick to my budget","productive","go shopping"],
+["shopping",1,"I only do it from time to time","I don’t like spending too much money.","I prefer buying things only when I need them.","I sometimes go shopping with my friends.","go shopping"]],
+["Music","Âm nhạc",[["listen to music on repeat","nghe đi nghe lại"],["a catchy tune","giai điệu bắt tai"],["unwind after work","thư giãn sau giờ làm"],["set the mood","tạo không khí"],["soothing melodies","giai điệu êm dịu"]],
+["listening to music","listening to podcasts","It helps me unwind and reduce stress.","it makes boring tasks more enjoyable.","I sometimes listen to podcasts instead."],
+["listened to music","this morning","I played my favourite songs while getting ready for work","relaxing tracks","they lifted my mood","refreshing","listen to music"],
+["listening to music",0,"I do it on a daily basis","It helps me unwind and reduce stress.","it makes boring tasks more enjoyable.","I sometimes prefer listening to podcasts.","listen to music"]],
+["Movies","Phim ảnh",[["binge-watch a series","cày phim liền mạch"],["a gripping plot","cốt truyện lôi cuốn"],["a must-see film","phim không thể bỏ lỡ"],["hit the cinema","đi xem phim rạp"],["a heart-warming story","câu chuyện ấm lòng"]],
+["watching movies at home","going to the cinema","It allows me to save money.","I can pause the movie whenever I want.","I sometimes go to the cinema for a big blockbuster."],
+["watched a movie","last weekend","I watched a comedy at home with my family","the storyline","it was funny and entertaining","enjoyable","watch a movie"],
+["watching movies",0,"I watch them a few times a week","They help me unwind after a long day.","I find them entertaining.","I sometimes prefer watching short videos.","watch movies"]],
+["Reading","Đọc sách",[["curl up with a good book","cuộn tròn với cuốn sách hay"],["a real page-turner","cuốn sách khó rời tay"],["read for pleasure","đọc để giải trí"],["skim through","đọc lướt"],["get lost in a story","đắm chìm trong câu chuyện"]],
+["reading fiction","reading non-fiction","I find novels more entertaining.","they help develop my imagination.","I sometimes pick up a non-fiction book."],
+["read a book","a few days ago","I spent a few hours reading a novel before bed","the story","it was meaningful and inspiring","enjoyable","read a book"],
+["reading books",1,"I hardly ever do it","I find watching videos more entertaining.","it saves me time.","I sometimes read when I have plenty of free time.","read books"]],
+["Cooking & Food","Nấu ăn",[["whip up a meal","nấu nhanh một bữa"],["home-cooked meals","bữa ăn nhà nấu"],["fresh ingredients","nguyên liệu tươi"],["eat out","ăn ngoài"],["a balanced diet","chế độ ăn cân bằng"]],
+["cooking at home","eating out","It allows me to choose fresh ingredients.","it helps me save money.","I sometimes eat out when I’m busy."],
+["cooked a meal","last night","I prepared a simple dinner at home","making something healthy","I wanted to keep a balanced diet","satisfying","cook a meal"],
+["cooking",0,"I prepare meals at home quite regularly","It allows me to choose fresh ingredients.","it helps me save money.","I sometimes eat out when I’m busy.","cook at home"]],
+["Exercise","Thể dục",[["work out","tập luyện"],["stay in shape","giữ dáng"],["break a sweat","đổ mồ hôi"],["keep fit","giữ sức khoẻ"],["burn off stress","xả stress"]],
+["working out at the gym","exercising at home","I find the equipment more useful.","the atmosphere keeps me motivated.","I sometimes work out at home."],
+["exercised","yesterday evening","I went cycling around my neighbourhood for thirty minutes","staying fit","exercise helps me reduce stress","energising","exercise"],
+["exercising",0,"I work out on a regular basis","It helps me stay fit and healthy.","it gives me more energy throughout the day.","I sometimes skip a workout when I’m busy.","exercise"]],
+["Travel","Du lịch",[["go sightseeing","đi tham quan"],["off the beaten track","nơi ít người biết"],["soak up the local culture","thấm nhuần văn hoá địa phương"],["a short getaway","chuyến đi ngắn ngày"],["breathtaking scenery","phong cảnh ngoạn mục"]],
+["travelling with family","travelling with friends","I find family trips more relaxing.","we can create wonderful memories together.","I sometimes travel with friends."],
+["travelled somewhere","earlier this year","I visited Da Nang with my friends for a short holiday","exploring local attractions","I wanted to experience something different","unforgettable","travel somewhere"],
+["travelling",0,"I try to go away whenever I have a long break","It gives me a chance to explore new places.","I can experience different cultures.","I usually travel during holidays because I’m quite busy.","travel"]],
+["Social media","Mạng xã hội",[["scroll through the feed","lướt bảng tin"],["keep in touch","giữ liên lạc"],["stay up to date","cập nhật thông tin"],["cut down on screen time","giảm thời gian dùng màn hình"],["post an update","đăng trạng thái"]],
+["texting","making phone calls","It allows me to reply whenever I have time.","texting saves time.","I sometimes call my friends."],
+["used social media","earlier today","I checked Facebook and watched a few short videos","educational content","I wanted to learn something useful","informative","use social media"],
+["using social media",0,"I check my accounts on a daily basis","It allows me to keep in touch with friends.","I can stay updated with the latest news.","I try to limit my screen time.","use social media"]],
+["Friends & Family","Bạn bè, gia đình",[["catch up with","gặp lại, cập nhật tin tức"],["spend quality time","dành thời gian chất lượng"],["hang out","đi chơi"],["stay connected","giữ kết nối"],["a close-knit family","gia đình gắn bó"]],
+["spending time with family","spending time with friends","It helps us stay connected.","we can share our daily experiences.","I sometimes meet my friends."],
+["met my friends","about two weeks ago","we went to a coffee shop and talked about our daily lives","hearing about their experiences","we hadn’t seen each other for a while","memorable","meet your friends"],
+["spending time with my friends",0,"we meet from time to time","It gives us a chance to catch up.","we can share interesting stories.","We sometimes get too busy to meet.","meet your friends"]],
+["Photography","Chụp ảnh",[["capture the moment","ghi lại khoảnh khắc"],["snap a picture","chụp nhanh một tấm"],["golden hour","giờ vàng (hoàng hôn)"],["look back on memories","nhìn lại kỷ niệm"],["stunning views","khung cảnh tuyệt đẹp"]],
+["taking photos","recording videos","I find it easier.","photos help me keep memories.","I sometimes record videos."],
+["took a photo","yesterday afternoon","I took pictures of a sunset near my house","capturing the colours of the sky","they looked amazing","wonderful","take a photo"],
+["taking photos",0,"I do it whenever I travel","It allows me to capture special moments.","I can look back on those memories later.","I don’t take many photos when I’m busy.","take photos"]],
+["Cafés & Drinks","Quán cà phê",[["grab a coffee","uống nhanh ly cà phê"],["a cosy atmosphere","không gian ấm cúng"],["a quiet corner","góc yên tĩnh"],["perk me up","giúp tôi tỉnh táo"],["a soothing cup of tea","tách trà dễ chịu"]],
+["drinking tea","drinking coffee","I find coffee a little too strong.","tea is more soothing.","I sometimes have a coffee when I feel sleepy."],
+["went to a café","a few days ago","I sat in a quiet corner and read for an hour","the cosy atmosphere","I needed a break from work","relaxing","go to a café"],
+["going to cafés",0,"I go there from time to time","I enjoy the relaxing atmosphere.","it’s a nice place to read or study.","I sometimes prefer staying at home.","go to cafés"]],
+["Study & English","Học tập",[["pick up new vocabulary","học thêm từ mới"],["brush up on","ôn lại"],["practise speaking","luyện nói"],["make progress","tiến bộ"],["immerse myself in","đắm mình vào"]],
+["learning through videos","reading books","It lets me improve my listening skills.","videos are more engaging.","I sometimes read books."],
+["learned something new","yesterday","I watched an online video about English pronunciation","new techniques","I wanted to sound more natural","useful","learn something new"],
+["practising English",0,"I practise it on a daily basis","It helps me improve my communication skills.","I can learn useful expressions.","I sometimes take a short break when I feel tired.","practise English"]]
+];
+// rows: [label, structure, similar[], note]
+var R=[[
+["Mở đầu","Well, honestly, …",["To be honest, …","Well, actually, …","Frankly speaking, …","If I had to choose, …"],"Câu đệm tự nhiên, giúp bạn có thêm thời gian nghĩ."],
+["Trả lời","I prefer A to B.",["I’d rather A than B.","I’m more into A than B.","A suits me better than B.","I tend to go for A over B."],"Hai vế A và B phải cùng dạng: cùng V-ing hoặc cùng danh từ."],
+["Lý do","It allows me to + V. / I find it + adj.",["It gives me the chance to + V.","It helps me + V.","I find it far more + adj.","The main reason is that …"],"Nêu một lý do chính, ngắn gọn."],
+["Bổ sung","Besides, …",["Plus, …","In addition, …","On top of that, …","What’s more, …"],"Thêm một ý để câu trả lời đủ dài."],
+["Nhượng bộ","However, I sometimes + V.",["That said, I occasionally …","Having said that, I now and then …","Still, I once in a while …","Every now and then, I …"],"Cho thấy quan điểm cân bằng, nghe tự nhiên hơn."]],
+[
+["Thời điểm","The last time I + V2 was + time.",["It was + time + when I last …","I last + V2 + time + ago.","The most recent time I … was …","If I remember rightly, it was …"],"Dùng mốc thời gian cụ thể: last weekend, a few days ago, earlier this year."],
+["Bối cảnh","At the time, / Back then, I + V2 …",["On that occasion, …","That day, …","Around that time, …","Back in those days, …"],"Back then hợp với việc đã xảy ra khá lâu."],
+["Điểm nhấn","I was particularly interested in + V-ing because …",["What caught my attention was …","I was especially keen on … as …","I was really drawn to … since …","I had my eye on … because …"],"Phần ghi điểm: nêu lý do cảm xúc hoặc mục đích."],
+["Đánh giá","Overall, it was a/an + adj + experience.",["All in all, it was …","Looking back, it was …","To sum up, it was …","In hindsight, it was …"],"Chọn tính từ khác nhau: memorable, rewarding, enjoyable, eye-opening."]],
+[
+["Thái độ","Absolutely! I’m really into + V-ing, so … / Not really. I’m not into + V-ing, so …",["Definitely! I’m quite keen on …","Certainly! I’m a big fan of …","Without a doubt! I’m passionate about …","Not particularly. I’m not a big fan of …"],"Trả lời thẳng Yes/No trước, rồi giải thích."],
+["Tần suất","… on a daily basis",["on a regular basis","a few times a week","from time to time","once in a blue moon","hardly ever"],"Từ hay xuyên suốt: daily → regular → from time to time → hardly ever."],
+["Lý do","It helps me + V.",["It allows me to + V.","It gives me a chance to + V.","I find it + adj.","It’s a great way to + V."],"Mỗi câu một lý do rõ ràng."],
+["Bổ sung","Besides, …",["Plus, …","In addition, …","On top of that, …","What’s more, …"],"Thêm một lợi ích hoặc lý do nữa."],
+["Nhượng bộ","However, I sometimes …",["That said, I occasionally …","Having said that, I now and then …","Still, I once in a while …","Every now and then, I …"],"Kết bằng ngoại lệ để câu trả lời thật hơn."]]];
+function an(w){return (/^[aeiou]/i.test(w)?"an ":"a ")+w}
+var P=[
+function(x){var a=x[3];return ["Well, honestly,","I prefer "+a[0]+" to "+a[1]+".",a[2],"Besides, "+a[3],"However, "+a[4]]},
+function(x){var b=x[4];return ["The last time I "+b[0]+" was "+b[1]+".","At the time, "+b[2]+".","I was particularly interested in "+b[3]+" because "+b[4]+".","Overall, it was "+an(b[5])+" experience."]},
+function(x){var c=x[5];return [(c[1]?"Not really. I’m not really into ":"Absolutely! I’m really into ")+c[0]+",","so "+c[2]+".",c[3],"Besides, "+c[4],"However, "+c[5]]}];
+var Q=[
+function(x){return "Do you prefer "+x[3][0]+" or "+x[3][1]+"?"},
+function(x){return "When was the last time you "+x[4][6]+"?"},
+function(x){return "Do you often "+x[5][6]+"?"}];
+var m=0,t=0,sel=0,$=function(i){return document.getElementById(i)};
+function chip(txt,cls){return '<button class="'+cls+'">'+txt+'</button>'}
+function render(){
+document.body.dataset.m=m;
+$("mods").innerHTML=M.map(function(v,i){return '<button class="mod'+(i==m?' on':'')+'" data-m="'+i+'">'+v[0]+'<small>'+v[1]+'</small></button>'}).join("");
+$("tabs").innerHTML=T.map(function(v,i){return '<button class="tab'+(i==t?' on':'')+'" data-t="'+i+'">'+v[0]+'</button>'}).join("");
+var x=T[t],parts=P[m](x),rows=R[m];
+if(sel>=rows.length)sel=0;
+$("q").textContent=Q[m](x);
+$("smp").innerHTML=parts.map(function(p,i){return '<span class="s'+(i==sel?' on':'')+'" data-s="'+i+'" style="background:var(--p'+i+')">'+p+'</span>'}).join(" ");
+$("tbl").innerHTML='<tr><th>Phần</th><th>Cấu trúc</th><th>Ví dụ</th></tr>'+rows.map(function(r,i){return '<tr class="r'+(i==sel?' on':'')+'" data-s="'+i+'"><td><span class="lab" style="background:var(--p'+i+')">'+r[0]+'</span></td><td class="st">'+r[1]+'</td><td class="ex">'+parts[i]+'</td></tr>'}).join("");
+var r=rows[sel];
+$("sh").textContent="Cách nói tương tự: "+r[0];
+$("sg").innerHTML=r[2].map(function(s,i){return '<button class="chip" data-c="'+i+'">'+s+'</button>'}).join("");
+$("sn").textContent=r[3];
+$("voc").innerHTML=x[2].map(function(v){return '<div class="v"><b>'+v[0]+'</b><span>'+v[1]+'</span></div>'}).join("");
+}
+document.addEventListener("click",function(e){
+var el=e.target.closest("[data-m],[data-t],[data-s],[data-c]");if(!el)return;
+if(el.dataset.m!==undefined&&el.classList.contains("mod")){m=+el.dataset.m;sel=0;render()}
+else if(el.dataset.t!==undefined){t=+el.dataset.t;render()}
+else if(el.dataset.s!==undefined){sel=+el.dataset.s;render()}
+else if(el.dataset.c!==undefined){
+var s=R[m][sel][2][+el.dataset.c],old=el.textContent;
+try{navigator.clipboard.writeText(s)}catch(err){}
+el.textContent="Đã chọn ✓";setTimeout(function(){el.textContent=old},900)}
+});
+render();
+</script>
+</body>
+</html>
