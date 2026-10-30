@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luyện viết đoạn văn Speaking</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef6fc;--card:#fff;--ink:#1e2b3a;--mute:#5d6b7c;--line:#d3e0ec;--acc:#0a7fc2;--hint:#0f8f7e;--ok:#d3f0e4;--okb:#3fa888;--no:#fde8d8;--nob:#e0a070;--field:#f6f9fc;
+box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141b24;--card:#1c2531;--ink:#e6edf5;--mute:#9aa8b8;--line:#2b3746;--acc:#3a9ad9;--hint:#5fd3be;--ok:#1d4a3d;--okb:#3fa888;--no:#5a3a28;--nob:#c08050;--field:#222e3c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141b24;--card:#1c2531;--ink:#e6edf5;--mute:#9aa8b8;--line:#2b3746;--acc:#3a9ad9;--hint:#5fd3be;--ok:#1d4a3d;--okb:#3fa888;--no:#5a3a28;--nob:#c08050;--field:#222e3c;color-scheme:dark}
+body[data-m="1"]{--acc:#1f8f80}body[data-m="2"]{--acc:#6a58c0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "Be Vietnam Pro",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:20}
+button,input{font:inherit;color:inherit}button{cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--card);border-bottom:2px solid var(--line);display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 18px}
+header h1{margin:0;font-size:1.15rem;color:var(--acc);font-weight:700}
+.pill{border:1px solid var(--acc);border-radius:99px;padding:2px 14px;font-weight:600;font-size:.9rem;color:var(--acc);white-space:nowrap}
+.bar{flex:1 1 160px;height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .25s}
+.ghost{border:1px solid var(--line);background:var(--field);border-radius:10px;padding:6px 16px;font-size:.88rem;color:var(--mute);font-weight:600}
+nav{max-width:1000px;margin:0 auto;padding:16px 16px 0}
+.mods{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.mod{flex:1 1 180px;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:8px 14px;font-weight:600}
+.mod small{display:block;font-weight:400;color:var(--mute);font-size:.78rem}
+.mod.on{background:var(--acc);border-color:var(--acc);color:#fff}.mod.on small{color:#ffffffcc}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px}
+.tab{flex:none;border:2px solid var(--line);background:var(--card);border-radius:999px;padding:6px 16px;font-size:.92rem;font-weight:600}
+.tab.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.tab em{font-style:normal;font-weight:400;font-size:.78rem;margin-left:6px;opacity:.75}
+main{max-width:1000px;margin:0 auto;padding:8px 16px 48px}
+.ttl{background:var(--acc);color:#fff;border-radius:16px;padding:16px 24px;font-size:1.35rem;font-weight:700;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 24px 24px}
+.q{background:var(--field);border-left:5px solid var(--acc);border-radius:4px 12px 12px 4px;padding:14px 20px;font-weight:700;color:var(--acc);margin-bottom:18px}
+.para{line-height:3;text-align:justify}
+.bl{position:relative;display:inline-block;margin:0 2px}
+.bl input{border:2px solid var(--line);background:var(--field);border-radius:8px;padding:2px 8px;height:38px;font-size:.95rem}
+.bl.ok input{background:var(--ok);border-color:var(--okb)}
+.bl.no input{background:var(--no);border-color:var(--nob)}
+.hint{color:var(--hint);font-style:italic;font-weight:500;font-size:.95rem;margin:0 4px 0 2px}
+.ans{display:none;position:absolute;left:0;bottom:calc(100% - 2px);width:max-content;max-width:min(320px,80vw);background:var(--ink);color:var(--bg);border-radius:8px;padding:4px 12px;font-size:.9rem;line-height:1.5;text-align:left;box-shadow:0 4px 14px #0003;z-index:5}
+.bl.done:hover .ans,.bl.done:focus-within .ans{display:block}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px;flex-wrap:wrap}
+.note{color:var(--mute);font-size:.85rem;margin:0}
+</style>
+</head>
+<body data-m="0">
+<header>
+<h1>Luyện viết đoạn văn Speaking</h1>
+<span class="pill" id="pill"></span>
+<div class="bar"><i id="bar"></i></div>
+<button class="ghost" id="ra">Làm lại từ đầu</button>
+</header>
+<nav><div class="mods" id="mods"></div><div class="tabs" id="tabs"></div></nav>
+<main>
+<div class="ttl" id="ttl"></div>
+<div class="card">
+<div class="q" id="q"></div>
+<div class="para" id="para"></div>
+<div class="foot"><p class="note">Gõ cụm tiếng Anh vào ô, nhấn Enter để chấm. Rê chuột vào ô đã làm để xem đáp án. Enter khi ô trống = xem đáp án.</p><button class="ghost" id="rs">Làm lại chủ đề</button></div>
+</div>
+</main>
+<script>
+var TN=["Shopping","Music","Movies","Reading","Cooking & Food","Exercise","Travel","Social media","Friends & Family","Photography","Cafés & Drinks","Study & English"];
+var MN=[["Module 1","Do you prefer…?"],["Module 2","When was the last time…?"],["Module 3","Do you often…?"]];
+var D=[[
+"Do you prefer shopping online or in stores?~Well, honestly, I [thích mua sắm trực tuyến hơn|prefer shopping online] to visiting stores. It [giúp tôi tiết kiệm thời gian và công sức|saves me time and effort]. Besides, I can [so sánh giá dễ dàng|compare prices easily] and [chộp được món hời|snap up a bargain] before I buy. However, I sometimes [đến cửa hàng để thử đồ|visit stores to try things on].",
+"Do you prefer listening to music or podcasts?~To be honest, I [thích nghe nhạc hơn nghe podcast|prefer listening to music to listening to podcasts]. It helps me [thư giãn sau giờ làm|unwind after work] and [giảm căng thẳng|reduce stress]. Besides, [một giai điệu bắt tai|a catchy tune] can [tạo không khí|set the mood] for any task. However, I sometimes listen to podcasts.",
+"Do you prefer watching movies at home or at the cinema?~Well, actually, I [thích xem phim ở nhà hơn|prefer watching movies at home] to going to the cinema. It allows me to [tiết kiệm tiền|save money]. Besides, I can [tạm dừng phim bất cứ khi nào tôi muốn|pause the movie whenever I want] and [cày phim liền mạch|binge-watch a series] on weekends. However, I sometimes [đi xem phim rạp|hit the cinema] for a [phim không thể bỏ lỡ|must-see film].",
+"Do you prefer reading fiction or non-fiction?~Well, honestly, I [thích đọc tiểu thuyết hơn|prefer reading fiction] to reading non-fiction. A [cuốn sách khó rời tay|real page-turner] helps me [đắm chìm trong câu chuyện|get lost in a story]. Besides, fiction helps [phát triển trí tưởng tượng|develop my imagination]. However, I sometimes [cầm lên một cuốn sách phi hư cấu|pick up a non-fiction book] to learn something new.",
+"Do you prefer cooking at home or eating out?~To be honest, I [thích nấu ăn ở nhà hơn|prefer cooking at home] to eating out. It allows me to choose [nguyên liệu tươi|fresh ingredients] and [nấu nhanh một bữa|whip up a meal] after work. Besides, [bữa ăn nhà nấu|home-cooked meals] help me keep [chế độ ăn cân bằng|a balanced diet]. However, I sometimes eat out when I’m busy.",
+"Do you prefer working out at the gym or at home?~Well, honestly, I [thích tập ở phòng gym hơn|prefer working out at the gym] to exercising at home. I find the equipment more useful, so I can [đổ mồ hôi|break a sweat] and [giữ dáng|stay in shape]. Besides, the atmosphere helps me [xả stress|burn off stress]. However, I sometimes work out at home.",
+"Do you prefer travelling with family or friends?~Well, actually, I [thích đi du lịch cùng gia đình hơn|prefer travelling with family] to travelling with friends. We can [đi tham quan|go sightseeing] at a relaxed pace. Besides, we can [thấm nhuần văn hoá địa phương|soak up the local culture] and [tạo nên những kỷ niệm tuyệt vời|create wonderful memories]. However, I sometimes take [một chuyến đi ngắn ngày|a short getaway] with friends.",
+"Do you prefer texting or making phone calls?~To be honest, I [thích nhắn tin hơn gọi điện|prefer texting to making phone calls]. It allows me to [trả lời bất cứ khi nào tôi có thời gian|reply whenever I have time], and I can [giữ liên lạc|keep in touch] easily. Besides, I can [cập nhật thông tin|stay up to date] without [lướt bảng tin|scrolling through the feed] for hours. However, I sometimes call my friends.",
+"Do you prefer spending time with family or friends?~Well, actually, I [thích dành thời gian cho gia đình hơn|prefer spending time with my family] to spending time with friends. It helps us [giữ kết nối|stay connected], and we can [dành thời gian chất lượng|spend quality time] together. Besides, [một gia đình gắn bó|a close-knit family] shares daily experiences. However, I sometimes [đi chơi|hang out] with my friends.",
+"Do you prefer taking photos or recording videos?~To be honest, I [thích chụp ảnh hơn quay video|prefer taking photos to recording videos]. I find it easier to [chụp nhanh một tấm|snap a picture] and [ghi lại khoảnh khắc|capture the moment], especially at [giờ vàng|golden hour]. Besides, I can [nhìn lại kỷ niệm|look back on memories] whenever I want. However, I sometimes record videos.",
+"Do you prefer drinking tea or coffee?~Well, honestly, I [thích uống trà hơn uống cà phê|prefer drinking tea to drinking coffee]. I find coffee a little too strong, and a [tách trà dễ chịu|soothing cup of tea] suits [một góc yên tĩnh|a quiet corner] perfectly. Besides, tea helps me relax in [không gian ấm cúng|a cosy atmosphere]. However, I sometimes [uống nhanh ly cà phê|grab a coffee] when I need something to [giúp tôi tỉnh táo|perk me up].",
+"Do you prefer learning through videos or books?~Well, actually, I [thích học qua video hơn đọc sách|prefer learning through videos to reading books]. It helps me [học thêm từ mới|pick up new vocabulary] and [luyện nói|practise speaking] in a natural way. Besides, I can [tiến bộ|make progress] faster when I [đắm mình vào|immerse myself in] English content. However, I sometimes read books."],[
+"When was the last time you went shopping?~The last time I [đi mua sắm|went shopping] was [cuối tuần trước|last weekend]. At the time, I went to a local supermarket to [mua đồ dự trữ|stock up on groceries]. I was particularly interested in [tìm ưu đãi tốt|finding good deals] because I wanted to [giữ đúng ngân sách|stick to my budget]. Overall, it was [một trải nghiệm hiệu quả|a productive experience].",
+"When was the last time you listened to music?~The last time I [nghe nhạc|listened to music] was [sáng nay|this morning]. At the time, I [bật bài hát yêu thích|played my favourite songs] while [chuẩn bị đi làm|getting ready for work]. I was particularly interested in relaxing tracks because they [cải thiện tâm trạng|lifted my mood]. Looking back, it was [một trải nghiệm sảng khoái|a refreshing experience].",
+"When was the last time you watched a movie?~The last time I [xem phim|watched a movie] was [cuối tuần trước|last weekend]. At the time, I [xem phim hài|watched a comedy] [cùng gia đình|with my family] at home. I was particularly interested in [cốt truyện|the storyline] because it was funny and entertaining. Overall, it was [một trải nghiệm thú vị|an enjoyable experience].",
+"When was the last time you read a book?~The last time I [đọc sách|read a book] was [vài ngày trước|a few days ago]. Back then, I [dành vài giờ đọc tiểu thuyết|spent a few hours reading a novel] [trước khi đi ngủ|before going to bed]. I was particularly interested in the story because it was [ý nghĩa và truyền cảm hứng|meaningful and inspiring]. Looking back, it was [một trải nghiệm thú vị|an enjoyable experience].",
+"When was the last time you cooked a meal?~The last time I [nấu một bữa ăn|cooked a meal] was [tối qua|last night]. At the time, I [chuẩn bị bữa tối đơn giản|prepared a simple dinner] at home. I was particularly interested in making [một món tốt cho sức khoẻ|a healthy dish] because I wanted to [duy trì chế độ ăn cân bằng|maintain a balanced diet]. Looking back, it was [một trải nghiệm thoả mãn|a satisfying experience].",
+"When was the last time you exercised?~The last time I [tập thể dục|exercised] was [chiều tối qua|yesterday evening]. At the time, I [đạp xe quanh khu phố|went cycling around my neighbourhood] [khoảng ba mươi phút|for about thirty minutes]. I was particularly interested in staying fit because exercise helps me [giảm căng thẳng|reduce stress]. Overall, it was [một trải nghiệm tràn đầy năng lượng|an energising experience].",
+"When was the last time you travelled somewhere?~The last time I [đi du lịch đâu đó|travelled somewhere] was [đầu năm nay|earlier this year]. At the time, I [đến Đà Nẵng cùng bạn bè|visited Da Nang with my friends] for [một kỳ nghỉ ngắn|a short holiday]. I was particularly interested in [khám phá điểm tham quan địa phương|exploring local attractions] because I wanted to experience something different. Looking back, it was [một trải nghiệm khó quên|an unforgettable experience].",
+"When was the last time you used social media?~The last time I [dùng mạng xã hội|used social media] was [sớm nay|earlier today]. At the time, I [kiểm tra tài khoản Facebook|checked my Facebook account] and [xem vài video ngắn|watched a few short videos]. I was particularly interested in [nội dung giáo dục|educational content] because I wanted to [học điều hữu ích|learn something useful]. Overall, it was an informative experience.",
+"When was the last time you met your friends?~The last time I [gặp bạn bè|met my friends] was [khoảng hai tuần trước|about two weeks ago]. At the time, we [đi quán cà phê|went to a coffee shop] and [trò chuyện về cuộc sống hàng ngày|talked about our daily lives]. I was particularly interested in hearing about their experiences because we [chưa gặp nhau một thời gian|hadn’t seen each other for a while]. Looking back, it was [một trải nghiệm đáng nhớ|a memorable experience].",
+"When was the last time you took a photo?~The last time I [chụp ảnh|took a photo] was [chiều qua|yesterday afternoon]. At the time, I [chụp ảnh hoàng hôn|took pictures of a sunset] [gần nhà tôi|near my house]. I was particularly interested in [ghi lại màu sắc của bầu trời|capturing the colours of the sky] because they [trông tuyệt đẹp|looked amazing]. Overall, it was a wonderful experience.",
+"When was the last time you went to a café?~The last time I [đến quán cà phê|went to a café] was [vài ngày trước|a few days ago]. At the time, I [ngồi ở góc yên tĩnh|sat in a quiet corner] and [đọc sách một tiếng|read for an hour]. I was particularly interested in [không gian ấm cúng|the cosy atmosphere] because I [cần nghỉ ngơi khỏi công việc|needed a break from work]. Overall, it was [một trải nghiệm thư giãn|a relaxing experience].",
+"When was the last time you learned something new?~The last time I [học được điều mới|learned something new] was [hôm qua|yesterday]. At the time, I [xem video trực tuyến|watched an online video] about [phát âm tiếng Anh|English pronunciation]. I was particularly interested in new techniques because I wanted to [nghe tự nhiên hơn|sound more natural]. Overall, it was [một trải nghiệm hữu ích|a useful experience]."],[
+"Do you often go shopping?~Not really. I’m not into shopping, so I only go [thỉnh thoảng|from time to time]. I [không thích tiêu nhiều tiền|don’t like spending too much money], and I prefer to [chỉ mua khi cần|buy things only when I need them]. Besides, I often [so sánh giá|compare prices] before I [chộp được món hời|snap up a bargain]. However, I sometimes go shopping with my friends.",
+"Do you often listen to music?~Absolutely! I’m really into listening to music, so I do it [hàng ngày|on a daily basis]. It helps me [thư giãn và giảm căng thẳng|unwind and reduce stress]. Besides, it makes [những việc nhàm chán thú vị hơn|boring tasks more enjoyable], and [một giai điệu bắt tai|a catchy tune] can [tạo không khí|set the mood]. However, I sometimes prefer listening to podcasts.",
+"Do you often watch movies?~Definitely! I’m quite keen on watching movies, so I watch them [vài lần một tuần|a few times a week]. They help me [thư giãn sau một ngày dài|unwind after a long day]. Besides, I love to [cày phim liền mạch|binge-watch a series] when I find [một cốt truyện lôi cuốn|a gripping plot]. However, I sometimes prefer [xem video ngắn|watching short videos].",
+"Do you often read books?~Not really. I’m not into reading books, so I [hiếm khi đọc|hardly ever do it]. I find [xem video thú vị hơn|watching videos more entertaining], and it [tiết kiệm thời gian|saves me time]. Besides, I usually [đọc lướt|skim through] articles online. However, I sometimes [cuộn tròn với cuốn sách hay|curl up with a good book] when I have plenty of free time.",
+"Do you often cook at home?~Certainly! I’m a big fan of cooking, so I prepare meals at home [khá đều đặn|quite regularly]. It allows me to choose [nguyên liệu tươi|fresh ingredients]. Besides, I can [nấu nhanh một bữa|whip up a meal] in twenty minutes, and [bữa ăn nhà nấu|home-cooked meals] help me [tiết kiệm tiền|save money]. However, I sometimes [ăn ngoài khi bận|eat out when I’m busy].",
+"Do you often exercise?~Definitely! I’m quite keen on exercising, so I [tập đều đặn|work out on a regular basis]. It helps me [giữ vóc dáng khoẻ mạnh|stay fit and healthy] and [đổ mồ hôi|break a sweat] after a long day. Besides, it gives me [thêm năng lượng cả ngày|more energy throughout the day]. However, I sometimes [bỏ một buổi tập|skip a workout] when I’m busy.",
+"Do you often travel?~Definitely! I’m a big fan of travelling, although I only go [vào dịp lễ|during holidays]. It gives me a chance to [khám phá nơi mới|explore new places], and I love going [nơi ít người biết|off the beaten track]. Besides, I can [trải nghiệm các nền văn hoá khác nhau|experience different cultures]. However, I’m [khá bận rộn|quite busy] most of the year.",
+"Do you often use social media?~Absolutely! I’m really into social media, so I [kiểm tra tài khoản hàng ngày|check my accounts on a daily basis]. It allows me to [giữ liên lạc với bạn bè|keep in touch with friends], and I can [cập nhật tin tức mới nhất|stay updated with the latest news]. Besides, I enjoy [lướt bảng tin|scrolling through the feed] during breaks. However, I try to [hạn chế thời gian dùng màn hình|limit my screen time].",
+"Do you often meet your friends?~Definitely! I’m a big fan of spending time with my friends, so we [thỉnh thoảng gặp nhau|meet from time to time]. It gives us a chance to [trò chuyện cập nhật|catch up] and [giữ kết nối|stay connected]. Besides, we can [chia sẻ những câu chuyện thú vị|share interesting stories] while we [đi chơi|hang out]. However, we are sometimes [quá bận để gặp|too busy to meet].",
+"Do you often take photos?~Absolutely! I’m really into taking photos, especially [mỗi khi đi du lịch|whenever I travel]. It allows me to [ghi lại khoảnh khắc đặc biệt|capture special moments], and I love the light at [giờ vàng|golden hour]. Besides, I can [nhìn lại kỷ niệm sau này|look back on those memories later]. However, I don’t take many photos [khi bận|when I’m busy].",
+"Do you often go to cafés?~Definitely! I’m really into visiting cafés, so I go there [thỉnh thoảng|from time to time]. I enjoy [không gian ấm cúng|the cosy atmosphere]. Besides, it’s [nơi lý tưởng để đọc hoặc học|a nice place to read or study], and I can [uống nhanh ly cà phê|grab a coffee] in [một góc yên tĩnh|a quiet corner]. However, I sometimes [ở nhà thay vì ra ngoài|stay at home instead].",
+"Do you often practise English?~Without a doubt! I’m really interested in learning English, so I [luyện tập hàng ngày|practise on a daily basis]. It helps me [cải thiện kỹ năng giao tiếp|improve my communication skills]. Besides, I can [học thêm từ mới|pick up new vocabulary] and [học cách diễn đạt hữu ích|learn useful expressions]. However, I sometimes [nghỉ ngơi một chút|take a short break] when I feel tired."]];
+var m=0,t=0,S={},$=function(i){return document.getElementById(i)};
+try{S=JSON.parse(localStorage.getItem("tr3"))||{}}catch(e){S={}}
+function save(){try{localStorage.setItem("tr3",JSON.stringify(S))}catch(e){}}
+var CM={"Well, honestly,":"Nói thật thì","To be honest,":"Thành thật mà nói","Well, actually,":"Thật ra thì","Besides,":"Bên cạnh đó","However, I sometimes":"Tuy nhiên, đôi khi tôi","However,":"Tuy nhiên","Absolutely!":"Chắc chắn rồi!","Definitely!":"Chắc chắn!","Certainly!":"Tất nhiên!","Without a doubt!":"Không nghi ngờ gì!","Not really.":"Không hẳn.","At the time,":"Vào lúc đó","Back then,":"Hồi đó","Overall, it was":"Nhìn chung, đó là","Looking back, it was":"Nhìn lại, đó là","The last time I":"Lần cuối tôi","I was particularly interested in":"Tôi đặc biệt quan tâm đến","I’m really into":"Tôi rất mê","I’m quite keen on":"Tôi khá mê","I’m a big fan of":"Tôi là fan lớn của","I’m not into":"Tôi không mê","I’m really interested in":"Tôi rất hứng thú với","It helps me":"Nó giúp tôi","It allows me to":"Nó cho phép tôi","It gives me a chance to":"Nó cho tôi cơ hội","because I wanted to":"bởi vì tôi muốn"};
+var RX=new RegExp("\\[([^|\\]]+)\\|([^\\]]+)\\]|("+Object.keys(CM).sort(function(a,b){return b.length-a.length}).map(function(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}).join("|")+")","g"),C={};
+function parse(a,b){var key=a+"-"+b;if(C[key])return C[key];var s=D[a][b],k=s.indexOf("~"),bl=[];
+var html=s.slice(k+1).replace(RX,function(_,vi,en,c){if(c){vi=CM[c];en=c}var i=bl.length;bl.push(en);
+return '<span class="bl" data-i="'+i+'"><input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="'+vi+'" style="width:'+(en.length*.85+3)+'ch"><span class="ans">'+en+'</span></span><span class="hint">('+vi+')</span>'});
+return C[key]={q:s.slice(0,k),html:html,ans:bl}}
+function nb(a,b){return parse(a,b).ans.length}
+function dn(a,b){var n=0;for(var i=0;i<nb(a,b);i++)if(S[a+"-"+b+"-"+i])n++;return n}
+function norm(s){return s.toLowerCase().replace(/[’‘]/g,"'").replace(/n't\b/g," not").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim()}
+function stats(){
+var all=0,tot=0;
+for(var a=0;a<3;a++){var d=0,k=0;for(var b=0;b<12;b++){d+=dn(a,b);k+=nb(a,b)}all+=d;tot+=k;
+var el=document.querySelector('.mod[data-m="'+a+'"] small');if(el)el.textContent=MN[a][1]+" · "+Math.round(d/k*100)+"%"}
+var p=Math.round(all/tot*100);$("pill").textContent=all+" / "+tot+" ("+p+"%)";$("bar").style.width=p+"%";
+document.querySelectorAll(".tab").forEach(function(el){var b=+el.dataset.t;el.querySelector("em").textContent=dn(m,b)+"/"+nb(m,b)})}
+function mark(el,r){el.classList.remove("ok","no");el.classList.add("done",r.ok?"ok":"no")}
+function render(){
+document.body.dataset.m=m;
+$("mods").innerHTML=MN.map(function(v,i){return '<button class="mod'+(i==m?' on':'')+'" data-m="'+i+'">'+v[0]+'<small></small></button>'}).join("");
+$("tabs").innerHTML=TN.map(function(v,i){return '<button class="tab'+(i==t?' on':'')+'" data-t="'+i+'">'+(i+1)+'. '+v+'<em></em></button>'}).join("");
+var p=parse(m,t);
+$("ttl").textContent=MN[m][0]+" · "+TN[t];
+$("q").textContent="Q"+(t+1)+". "+p.q;
+$("para").innerHTML=p.html;
+document.querySelectorAll(".bl").forEach(function(el){var r=S[m+"-"+t+"-"+el.dataset.i];if(r){el.querySelector("input").value=r.v;mark(el,r)}});
+stats()}
+function answers(){return[].map.call(document.querySelectorAll(".ans"),function(x){return x.textContent})}
+document.addEventListener("keydown",function(e){
+if(e.key!=="Enter"||e.target.tagName!=="INPUT")return;
+var el=e.target.closest(".bl"),i=+el.dataset.i,v=e.target.value.trim(),ans=answers()[i];
+var r={v:v,ok:!!v&&norm(v)===norm(ans)};S[m+"-"+t+"-"+i]=r;save();mark(el,r);stats();
+var all=document.querySelectorAll(".bl input"),nx=all[i+1];if(nx)nx.focus()});
+document.addEventListener("click",function(e){
+var el=e.target.closest("button");if(!el)return;
+if(el.classList.contains("mod")){m=+el.dataset.m;render()}
+else if(el.classList.contains("tab")){t=+el.dataset.t;render()}
+else if(el.id==="rs"){for(var i=0;i<nb(m,t);i++)delete S[m+"-"+t+"-"+i];save();render()}
+else if(el.id==="ra"){if(el.dataset.s){S={};save();render();el.textContent="Làm lại từ đầu";delete el.dataset.s}else{el.dataset.s=1;el.textContent="Bấm lần nữa để xác nhận"}}});
+render();
+</script>
+</body>
+</html>
