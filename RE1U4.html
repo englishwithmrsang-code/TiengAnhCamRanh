@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luyện Nghe Điền Từ - The Red Planet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body {
+      margin: 0;
+      background-color: #f8fafc;
+      color: #1e293b;
+      padding-bottom: 100px;
+    }
+    
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.05);
+    }
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-bottom: 2px;
+    }
+    .brand-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #2563eb;
+      border-radius: 50%;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    header h1 span { color: #2563eb; }
+
+    .audio-floating-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: #ffffff;
+      border-top: 1px solid #cbd5e1;
+      padding: 0.6rem 1.5rem;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    
+    .audio-player-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      max-width: 650px;
+    }
+
+    audio {
+      width: 100%;
+      height: 38px;
+      outline: none;
+    }
+
+    .progress-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #1e40af;
+      white-space: nowrap;
+    }
+    .progress-box span { color: #2563eb; font-size: 1rem; font-weight: 700; }
+
+    .container {
+      max-width: 860px;
+      margin: 1.2rem auto;
+      padding: 0 1rem;
+    }
+
+    .top-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      background: #ffffff;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.45rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    .btn:hover { background-color: #1d4ed8; }
+    .btn-outline {
+      background-color: #ffffff;
+      border: 1px solid #2563eb;
+      color: #2563eb;
+    }
+    .btn-outline:hover { background-color: #eff6ff; }
+    .btn-sm {
+      padding: 0.25rem 0.65rem;
+      font-size: 0.78rem;
+      border-radius: 12px;
+    }
+
+    .sentence-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.6rem;
+      transition: all 0.2s ease;
+    }
+    .sentence-card:hover { border-color: #93c5fd; }
+
+    .sentence-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+    .sentence-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    .sentence-body {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #0f172a;
+    }
+
+    input.blank {
+      border: none;
+      border-bottom: 2px solid #94a3b8;
+      background: #f8fafc;
+      padding: 2px 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 3px;
+      outline: none;
+      transition: all 0.2s;
+      margin: 0 2px;
+    }
+    input.blank:focus {
+      border-bottom-color: #2563eb;
+      background: #eff6ff;
+    }
+    input.blank.correct {
+      border-bottom-color: #16a34a !important;
+      background-color: #dcfce7 !important;
+      color: #15803d;
+    }
+    input.blank.wrong {
+      border-bottom-color: #dc2626 !important;
+      background-color: #fee2e2 !important;
+      color: #b91c1c;
+    }
+
+    .vi-text {
+      color: #475569;
+      font-size: 0.88rem;
+      margin-top: 0.4rem;
+      padding-top: 0.4rem;
+      border-top: 1px dashed #e2e8f0;
+      display: none;
+    }
+    .vi-text.show { display: block; }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+    }
+    .card-actions-left {
+      display: flex;
+      gap: 6px;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 4px;
+      display: none;
+    }
+    .status-badge.correct { display: inline-block; background: #dcfce7; color: #15803d; }
+    .status-badge.wrong { display: inline-block; background: #fee2e2; color: #b91c1c; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="brand-tag">Học tiếng Anh cùng Mr. Sang</div>
+      <h1>Luyện Nghe Điền Từ <span>- The Red Planet</span></h1>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="toggleAllTranslations()">🌐 Ẩn/Hiện Tất Cả Dịch</button>
+  </header>
+
+  <div class="audio-floating-bar">
+    <div class="audio-player-wrapper">
+      <audio id="player" controls preload="auto">
+        <source src="https://raw.githubusercontent.com/englishwithmrsang-code/TiengAnhCamRanh/main/National%20Geographic%20Reading%20Explorer%201%20Unit%204%20The%20Red%20Planet.mp3" type="audio/mpeg">
+        Trình duyệt không hỗ trợ phát audio.
+      </audio>
+    </div>
+    <div class="progress-box">
+      Hoàn thành: <span id="completed-count">0</span>/25 câu
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="top-tools">
+      <span style="color: #64748b; font-size: 0.82rem;">💡 Nhấp vào câu để nghe đoạn âm thanh tương ứng. Nhập đáp án và kiểm tra tiến độ.</span>
+      <div style="display:flex; gap:6px;">
+        <button class="btn btn-outline btn-sm" onclick="checkAllAnswers()">Nộp Tất Cả</button>
+        <button class="btn btn-sm" id="btn-toggle-all-answers" onclick="toggleAllAnswers()">Hiện Tất Cả Đáp Án</button>
+      </div>
+    </div>
+
+    <div id="transcript">
+      <!-- 1 -->
+      <div class="sentence-card" id="card-1" data-start="5.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 01</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(5.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Mars is the most <input type="text" class="blank" data-answer="studied" style="width: 75px;"> planet in the solar <input type="text" class="blank" data-answer="system" style="width: 70px;"> after Earth.
+        </div>
+        <div class="vi-text">Sao Hỏa là hành tinh được nghiên cứu nhiều nhất trong hệ mặt trời sau Trái Đất.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-1')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-1')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-1')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="sentence-card" id="card-2" data-start="10.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 02</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(10.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Today NASA and other space <input type="text" class="blank" data-answer="programs" style="width: 85px;"> are working to send people to <input type="text" class="blank" data-answer="Mars" style="width: 60px;">.
+        </div>
+        <div class="vi-text">Ngày nay NASA và các chương trình không gian khác đang nỗ lực đưa con người lên Sao Hỏa.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-2')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-2')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-2')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="sentence-card" id="card-3" data-start="16.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 03</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(16.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          However, we still have much to <input type="text" class="blank" data-answer="learn" style="width: 55px;"> about the red <input type="text" class="blank" data-answer="planet" style="width: 65px;">.
+        </div>
+        <div class="vi-text">Tuy nhiên, chúng ta vẫn còn rất nhiều điều phải học hỏi về hành tinh đỏ này.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-3')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-3')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-3')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="sentence-card" id="card-4" data-start="20.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 04</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(20.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Scientists believe Mars was formed about 4.5 <input type="text" class="blank" data-answer="billion" style="width: 65px;"> years <input type="text" class="blank" data-answer="ago" style="width: 45px;">.
+        </div>
+        <div class="vi-text">Các nhà khoa học tin rằng Sao Hỏa được hình thành khoảng 4,5 tỷ năm trước.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-4')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-4')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-4')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="sentence-card" id="card-5" data-start="26.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 05</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(26.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          It is the fourth <input type="text" class="blank" data-answer="planet" style="width: 65px;"> from the Sun and the second <input type="text" class="blank" data-answer="smallest" style="width: 75px;"> planet.
+        </div>
+        <div class="vi-text">Đây là hành tinh thứ tư tính từ Mặt Trời và là hành tinh nhỏ thứ hai.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-5')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-5')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-5')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="sentence-card" id="card-6" data-start="35.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 06</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(35.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Its <input type="text" class="blank" data-answer="diameter" style="width: 75px;"> is almost the width of Africa and its surface <input type="text" class="blank" data-answer="area" style="width: 50px;"> is similar.
+        </div>
+        <div class="vi-text">Đường kính của nó gần bằng chiều rộng của châu Phi và diện tích bề mặt của nó cũng tương tự.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-6')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-6')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-6')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="sentence-card" id="card-7" data-start="46.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 07</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(46.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Just like Earth, Mars is a <input type="text" class="blank" data-answer="rocky" style="width: 55px;"> planet.
+        </div>
+        <div class="vi-text">Giống như Trái Đất, Sao Hỏa là một hành tinh đất đá.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-7')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-7')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-7')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="sentence-card" id="card-8" data-start="49.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 08</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(49.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          The ancient Romans named the planet Mars after their God of <input type="text" class="blank" data-answer="War" style="width: 45px;">.
+        </div>
+        <div class="vi-text">Người La Mã cổ đại đã đặt tên hành tinh này theo tên vị Thần Chiến Tranh của họ.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-8')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-8')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-8')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="sentence-card" id="card-9" data-start="57.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 09</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(57.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Because of its <input type="text" class="blank" data-answer="blood" style="width: 55px;"> red <input type="text" class="blank" data-answer="appearance" style="width: 85px;">, we now know that Mars is red.
+        </div>
+        <div class="vi-text">Vì vẻ ngoài đỏ như máu của nó, chúng ta hiện biết rằng Sao Hỏa có màu đỏ.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-9')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-9')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-9')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="sentence-card" id="card-10" data-start="66.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 10</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(66.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          It is covered with red <input type="text" class="blank" data-answer="dust" style="width: 50px;">.
+        </div>
+        <div class="vi-text">Nó được bao phủ bởi bụi đỏ.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-10')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-10')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-10')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="sentence-card" id="card-11" data-start="69.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 11</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(69.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Today Mars is dry, <input type="text" class="blank" data-answer="barren" style="width: 60px;">, and cold.
+        </div>
+        <div class="vi-text">Ngày nay Sao Hỏa khô cằn, cằn cỗi và lạnh giá.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-11')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-11')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-11')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="sentence-card" id="card-12" data-start="74.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 12</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(74.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Temperatures can be as low as minus 142 degrees <input type="text" class="blank" data-answer="Celsius" style="width: 70px;">.
+        </div>
+        <div class="vi-text">Nhiệt độ có thể thấp tới âm 142 độ C.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-12')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-12')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-12')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <div class="sentence-card" id="card-13" data-start="83.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 13</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(83.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          But scientists think that billions of years ago Mars was much <input type="text" class="blank" data-answer="warmer" style="width: 65px;">.
+        </div>
+        <div class="vi-text">Nhưng các nhà khoa học nghĩ rằng hàng tỷ năm trước Sao Hỏa ấm hơn nhiều.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-13')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-13')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-13')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 14 -->
+      <div class="sentence-card" id="card-14" data-start="91.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 14</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(91.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          And it had <input type="text" class="blank" data-answer="liquid" style="width: 55px;"> water on its surface.
+        </div>
+        <div class="vi-text">Và nó đã từng có nước lỏng trên bề mặt.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-14')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-14')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-14')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 15 -->
+      <div class="sentence-card" id="card-15" data-start="95.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 15</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(95.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Scientists have found <input type="text" class="blank" data-answer="lake" style="width: 45px;"> beds and river <input type="text" class="blank" data-answer="valleys" style="width: 65px;"> on Mars.
+        </div>
+        <div class="vi-text">Các nhà khoa học đã tìm thấy lòng hồ và thung lũng sông trên Sao Hỏa.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-15')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-15')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-15')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 16 -->
+      <div class="sentence-card" id="card-16" data-start="102.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 16</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(102.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Mars also has <input type="text" class="blank" data-answer="volcanoes" style="width: 75px;">, such as Olympus Mons, the largest <input type="text" class="blank" data-answer="volcano" style="width: 65px;">.
+        </div>
+        <div class="vi-text">Sao Hỏa cũng có các núi lửa, như Olympus Mons, ngọn núi lửa lớn nhất.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-16')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-16')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-16')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <div class="sentence-card" id="card-17" data-start="113.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 17</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(113.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          It is three <input type="text" class="blank" data-answer="times" style="width: 50px;"> the height of Mount Everest.
+        </div>
+        <div class="vi-text">Nó cao gấp ba lần đỉnh núi Everest.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-17')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-17')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-17')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 18 -->
+      <div class="sentence-card" id="card-18" data-start="121.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 18</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(121.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Water can still be found on Mars in the form of polar <input type="text" class="blank" data-answer="ice" style="width: 40px;"> caps.
+        </div>
+        <div class="vi-text">Nước vẫn có thể được tìm thấy trên Sao Hỏa dưới dạng các chỏm băng ở cực.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-18')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-18')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-18')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 19 -->
+      <div class="sentence-card" id="card-19" data-start="132.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 19</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(132.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Because of this, some scientists believe that <input type="text" class="blank" data-answer="life" style="width: 45px;"> may have once <input type="text" class="blank" data-answer="existed" style="width: 65px;">.
+        </div>
+        <div class="vi-text">Vì điều này, một số nhà khoa học tin rằng sự sống có thể đã từng tồn tại.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-19')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-19')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-19')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 20 -->
+      <div class="sentence-card" id="card-20" data-start="139.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 20</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(139.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          Since the 1960s, scientists from around the world have <input type="text" class="blank" data-answer="launched" style="width: 75px;"> missions.
+        </div>
+        <div class="vi-text">Kể từ những năm 1960, các nhà khoa học từ khắp nơi trên thế giới đã phóng các sứ mệnh.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-20')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-20')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-20')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 21 -->
+      <div class="sentence-card" id="card-21" data-start="147.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 21</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(147.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They want to understand the planet, its <input type="text" class="blank" data-answer="past" style="width: 50px;"> and its <input type="text" class="blank" data-answer="present" style="width: 65px;">.
+        </div>
+        <div class="vi-text">Họ muốn hiểu về hành tinh này, quá khứ và hiện tại của nó.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-21')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-21')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-21')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 22 -->
+      <div class="sentence-card" id="card-22" data-start="152.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 22</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(152.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          They hope to discover that the planet can support <input type="text" class="blank" data-answer="life" style="width: 45px;"> once <input type="text" class="blank" data-answer="again" style="width: 55px;">.
+        </div>
+        <div class="vi-text">Họ hy vọng khám phá ra rằng hành tinh này có thể nuôi dưỡng sự sống một lần nữa.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-22')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-22')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-22')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 23 -->
+      <div class="sentence-card" id="card-23" data-start="158.5">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 23</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(158.5)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          There are some who even think that life on Mars might be the <input type="text" class="blank" data-answer="key" style="width: 45px;">.
+        </div>
+        <div class="vi-text">Có những người thậm chí còn nghĩ rằng sự sống trên Sao Hỏa có thể là chìa khóa.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-23')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-23')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-23')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+      <!-- 24 -->
+      <div class="sentence-card" id="card-24" data-start="164.0">
+        <div class="sentence-header">
+          <span class="sentence-num">CÂU 24</span>
+          <button class="btn btn-outline btn-sm" onclick="playAudio(164.0)">▶ Nghe câu này</button>
+        </div>
+        <div class="sentence-body">
+          It could be the key to a <input type="text" class="blank" data-answer="bright" style="width: 55px;"> new <input type="text" class="blank" data-answer="future" style="width: 55px;"> for humanity.
+        </div>
+        <div class="vi-text">Nó có thể là chìa khóa cho một tương lai tươi sáng mới của nhân loại.</div>
+        <div class="card-actions">
+          <div class="card-actions-left">
+            <button class="btn btn-sm" onclick="checkSentence('card-24')">Nộp câu</button>
+            <button class="btn btn-outline btn-sm btn-ans-toggle" onclick="toggleAnswer('card-24')">💡 Hiện đáp án</button>
+            <button class="btn btn-outline btn-sm" onclick="toggleTranslation('card-24')">🌐 Dịch</button>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const player = document.getElementById('player');
+    const cards = document.querySelectorAll('.sentence-card');
+    const completedCountSpan = document.getElementById('completed-count');
+    let completedCards = new Set();
+    let allAnswersShown = false;
+
+    function playAudio(startTime) {
+      player.currentTime = startTime;
+      const playPromise = player.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    }
+
+    function toggleTranslation(cardId) {
+      const card = document.getElementById(cardId);
+      const viText = card.querySelector('.vi-text');
+      viText.classList.toggle('show');
+    }
+
+    function toggleAllTranslations() {
+      const viTexts = document.querySelectorAll('.vi-text');
+      const anyHidden = Array.from(viTexts).some(el => !el.classList.contains('show'));
+      viTexts.forEach(el => {
+        if (anyHidden) el.classList.add('show');
+        else el.classList.remove('show');
+      });
+    }
+
+    function toggleAnswer(cardId) {
+      const card = document.getElementById(cardId);
+      const inputs = card.querySelectorAll('input.blank');
+      const btn = card.querySelector('.btn-ans-toggle');
+      const badge = card.querySelector('.status-badge');
+
+      let isShowing = btn.getAttribute('data-showing') === 'true';
+
+      if (!isShowing) {
+        inputs.forEach(input => {
+          input.setAttribute('data-user-val', input.value);
+          input.value = input.getAttribute('data-answer');
+          input.classList.remove('wrong');
+          input.classList.add('correct');
+        });
+        btn.textContent = '🙈 Tắt đáp án';
+        btn.setAttribute('data-showing', 'true');
+        badge.textContent = "✓ Đáp án";
+        badge.classList.remove('wrong');
+        badge.classList.add('correct');
+        completedCards.add(cardId);
+      } else {
+        inputs.forEach(input => {
+          const oldVal = input.getAttribute('data-user-val') || '';
+          input.value = oldVal;
+          input.classList.remove('correct', 'wrong');
+        });
+        btn.textContent = '💡 Hiện đáp án';
+        btn.setAttribute('data-showing', 'false');
+        badge.style.display = 'none';
+        completedCards.delete(cardId);
+      }
+      updateProgress();
+    }
+
+    function toggleAllAnswers() {
+      const mainBtn = document.getElementById('btn-toggle-all-answers');
+      allAnswersShown = !allAnswersShown;
+
+      cards.forEach(card => {
+        const btn = card.querySelector('.btn-ans-toggle');
+        const isShowing = btn.getAttribute('data-showing') === 'true';
+        if ((allAnswersShown && !isShowing) || (!allAnswersShown && isShowing)) {
+          toggleAnswer(card.id);
+        }
+      });
+
+      if (allAnswersShown) {
+        mainBtn.textContent = 'Tắt Tất Cả Đáp Án';
+      } else {
+        mainBtn.textContent = 'Hiện Tất Cả Đáp Án';
+      }
+    }
+
+    function checkSentence(cardId) {
+      const card = document.getElementById(cardId);
+      const inputs = card.querySelectorAll('input.blank');
+      const badge = card.querySelector('.status-badge');
+      let allCorrect = true;
+      let hasValue = false;
+
+      inputs.forEach(input => {
+        const userAns = input.value.trim().toLowerCase();
+        const correctAns = input.getAttribute('data-answer').toLowerCase();
+        if (userAns !== "") hasValue = true;
+
+        if (userAns === correctAns) {
+          input.classList.remove('wrong');
+          input.classList.add('correct');
+        } else {
+          input.classList.remove('correct');
+          input.classList.add('wrong');
+          allCorrect = false;
+        }
+      });
+
+      if (hasValue) {
+        badge.classList.remove('correct', 'wrong');
+        if (allCorrect) {
+          badge.textContent = "✓ Đúng";
+          badge.classList.add('correct');
+          completedCards.add(cardId);
+        } else {
+          badge.textContent = "✗ Sai";
+          badge.classList.add('wrong');
+        }
+        updateProgress();
+      }
+    }
+
+    function updateProgress() {
+      completedCountSpan.textContent = completedCards.size;
+    }
+
+    function checkAllAnswers() {
+      cards.forEach(card => checkSentence(card.id));
+    }
+  </script>
+</body>
+</html>
