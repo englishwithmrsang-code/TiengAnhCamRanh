@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing & Speaking Practice - Family, Children & Education</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-radius: 8px;
+            --correct-color: #15803d;
+            --incorrect-color: #b91c1c;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0 0 4px 0;
+            color: #0f172a;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            border: 1px solid transparent;
+            background-color: var(--bg-color);
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn[data-target="topic1"] { color: #d97706; border-color: #fde68a; }
+        .tab-btn[data-target="topic1"].active, .tab-btn[data-target="topic1"]:hover { background-color: #d97706; color: #fff; }
+
+        .tab-btn[data-target="topic2"] { color: #2563eb; border-color: #bfdbfe; }
+        .tab-btn[data-target="topic2"].active, .tab-btn[data-target="topic2"]:hover { background-color: #2563eb; color: #fff; }
+
+        .tab-btn[data-target="topic3"] { color: #059669; border-color: #a7f3d0; }
+        .tab-btn[data-target="topic3"].active, .tab-btn[data-target="topic3"]:hover { background-color: #059669; color: #fff; }
+
+        .tab-btn[data-target="topic4"] { color: #7c3aed; border-color: #ddd6fe; }
+        .tab-btn[data-target="topic4"].active, .tab-btn[data-target="topic4"]:hover { background-color: #7c3aed; color: #fff; }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            background: #e2e8f0;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover { background: #cbd5e1; }
+
+        /* Tracker */
+        .tracker-card {
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .tracker-info {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            white-space: nowrap;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #10b981;
+            transition: width 0.3s ease;
+        }
+
+        /* Card Layout */
+        .version-card {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            margin-bottom: 20px;
+        }
+
+        .version-card.active { display: block; }
+
+        .version-header {
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .version-header h2 { margin: 0; font-size: 1.1rem; }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .section-subtitle {
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            border-left: 3px solid #3b82f6;
+            padding-left: 8px;
+        }
+
+        .theme-topic1 { border-top: 4px solid #d97706; }
+        .theme-topic1 .version-header { background: #fffbeb; color: #92400e; }
+        .theme-topic1 .vi-label { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+        .theme-topic2 { border-top: 4px solid #2563eb; }
+        .theme-topic2 .version-header { background: #eff6ff; color: #1e40af; }
+        .theme-topic2 .vi-label { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+
+        .theme-topic3 { border-top: 4px solid #059669; }
+        .theme-topic3 .version-header { background: #ecfdf5; color: #065f46; }
+        .theme-topic3 .vi-label { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+        .theme-topic4 { border-top: 4px solid #7c3aed; }
+        .theme-topic4 .version-header { background: #f5f3ff; color: #5b21b6; }
+        .theme-topic4 .vi-label { background-color: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe; }
+
+        .essay-body p {
+            margin-bottom: 16px;
+            text-align: justify;
+            font-size: 0.92rem;
+        }
+
+        /* Blank Elements */
+        .blank-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin: 3px 2px;
+            vertical-align: baseline;
+        }
+
+        .vi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-right: 3px;
+            user-select: none;
+            white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .blank-input {
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 0.86rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+            height: 22px;
+        }
+
+        .blank-input:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .blank-input.correct {
+            border-color: var(--correct-color) !important;
+            background-color: #f0fdf4 !important;
+            color: var(--correct-color) !important;
+            font-weight: 600;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--incorrect-color) !important;
+            background-color: #fef2f2 !important;
+            color: var(--incorrect-color) !important;
+            font-weight: 600;
+        }
+
+        /* Tooltip logic */
+        .blank-wrapper .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            background-color: #0f172a;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 3px 7px;
+            position: absolute;
+            z-index: 10;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: opacity 0.15s ease-in-out;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .blank-wrapper .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            border-width: 4px;
+            border-style: solid;
+            border-color: #0f172a transparent transparent transparent;
+        }
+
+        .blank-wrapper:hover .blank-input.incorrect.submitted + .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>MODULE 4 · WRITING LESSON 4: Family, Children & Education</h1>
+        <p>Nhìn cụm <strong>Tiếng Việt in màu</strong> → Nhập đáp án <strong>Tiếng Anh</strong> → Nhấn <strong>Enter</strong> hoặc bấm ra ngoài để nộp bài → Rê chuột vào ô sai để xem gợi ý</p>
+    </header>
+
+    <div class="controls">
+        <div class="tabs">
+            <button class="tab-btn active" data-target="topic1">Topic 1: Strict Parents 👨‍👩‍👧</button>
+            <button class="tab-btn" data-target="topic2">Topic 2: Household Chores 🧹</button>
+            <button class="tab-btn" data-target="topic3">Topic 3: Practical Skills 🎒</button>
+            <button class="tab-btn" data-target="topic4">Topic 4: Family Meals 🍲</button>
+        </div>
+        <div class="action-btns">
+            <button class="btn-action" id="showAnswersBtn">Hiển thị đáp án</button>
+            <button class="btn-action" id="resetBtn">Làm lại</button>
+        </div>
+    </div>
+
+    <!-- Tracker -->
+    <div class="tracker-card">
+        <div class="tracker-info">Tiến độ bài làm: <span id="progressText">0 / 0 (0%)</span></div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- TOPIC 1 -->
+    <div id="topic1" class="version-card theme-topic1 active">
+        <div class="version-header">
+            <h2>Topic 1: Should parents be strict with their children?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Model Paragraph</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Theo quan điểm của tôi</span><input type="text" class="blank-input" data-ans="In my opinion" style="width: 140px;"><span class="tooltip">Đáp án: In my opinion</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">cha mẹ nên đặt ra các quy tắc rõ ràng</span><input type="text" class="blank-input" data-ans="parents should set clear rules" style="width: 235px;"><span class="tooltip">Đáp án: parents should set clear rules</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nhưng họ không nên quá nghiêm khắc</span><input type="text" class="blank-input" data-ans="but they should not be too strict" style="width: 235px;"><span class="tooltip">Đáp án: but they should not be too strict</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một mặt</span><input type="text" class="blank-input" data-ans="On the one hand" style="width: 135px;"><span class="tooltip">Đáp án: On the one hand</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">các quy tắc giúp trẻ học cách chịu trách nhiệm</span><input type="text" class="blank-input" data-ans="rules help children learn to be responsible" style="width: 275px;"><span class="tooltip">Đáp án: rules help children learn to be responsible</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chẳng hạn như hoàn thành bài tập về nhà trước khi chơi game</span><input type="text" class="blank-input" data-ans="such as finishing homework before playing games" style="width: 335px;"><span class="tooltip">Đáp án: such as finishing homework before playing games</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Mặt khác</span><input type="text" class="blank-input" data-ans="On the other hand" style="width: 155px;"><span class="tooltip">Đáp án: On the other hand</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">những đứa trẻ bị phạt suốt</span><input type="text" class="blank-input" data-ans="children who are punished all the time" style="width: 255px;"><span class="tooltip">Đáp án: children who are punished all the time</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể cảm thấy căng thẳng hoặc thậm chí nói dối cha mẹ</span><input type="text" class="blank-input" data-ans="may feel stressed or even lie to their parents" style="width: 305px;"><span class="tooltip">Đáp án: may feel stressed or even lie to their parents</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ, một thiếu niên sợ bị la mắng</span><input type="text" class="blank-input" data-ans="For example, a teenager who is afraid of being scolded" style="width: 335px;"><span class="tooltip">Đáp án: For example, a teenager who is afraid of being scolded</span></span>
+                <span class="blank-wrapper"><span class="vi-label">có thể giấu kết quả thi kém</span><input type="text" class="blank-input" data-ans="may hide bad exam results" style="width: 195px;"><span class="tooltip">Đáp án: may hide bad exam results</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Thay vì la mắng</span><input type="text" class="blank-input" data-ans="Instead of shouting" style="width: 165px;"><span class="tooltip">Đáp án: Instead of shouting</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">cha mẹ nên giải thích tại sao một quy tắc lại quan trọng</span><input type="text" class="blank-input" data-ans="parents should explain why a rule is important" style="width: 305px;"><span class="tooltip">Đáp án: parents should explain why a rule is important</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">điều này giúp trẻ tin tưởng họ và trò chuyện cởi mở hơn</span><input type="text" class="blank-input" data-ans="which helps children trust them and talk more openly" style="width: 335px;"><span class="tooltip">Đáp án: which helps children trust them and talk more openly</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tóm lại</span><input type="text" class="blank-input" data-ans="In conclusion" style="width: 125px;"><span class="tooltip">Đáp án: In conclusion</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">cha mẹ nên kiên quyết nhưng thấu hiểu</span><input type="text" class="blank-input" data-ans="parents should be firm but understanding" style="width: 275px;"><span class="tooltip">Đáp án: parents should be firm but understanding</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Thực ra là không hẳn vậy</span><input type="text" class="blank-input" data-ans="Not really" style="width: 110px;"><span class="tooltip">Đáp án: Not really</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">tôi muốn nói là</span><input type="text" class="blank-input" data-ans="I’d say" style="width: 90px;"><span class="tooltip">Đáp án: I’d say</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Cha mẹ ngày nay trò chuyện với con cái nhiều hơn</span><input type="text" class="blank-input" data-ans="Parents today talk to their children more" style="width: 275px;"><span class="tooltip">Đáp án: Parents today talk to their children more</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và giải thích các quy tắc thay vì chỉ ra lệnh</span><input type="text" class="blank-input" data-ans="and explain the rules instead of just giving orders" style="width: 325px;"><span class="tooltip">Đáp án: and explain the rules instead of just giving orders</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Nhưng trẻ em có nhiều thứ gây xao nhãng hơn</span><input type="text" class="blank-input" data-ans="But kids have more distractions" style="width: 235px;"><span class="tooltip">Đáp án: But kids have more distractions</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">giống như điện thoại</span><input type="text" class="blank-input" data-ans="like phones" style="width: 115px;"><span class="tooltip">Đáp án: like phones</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nên có thể khó giữ được sự cân bằng</span><input type="text" class="blank-input" data-ans="so it can be hard to keep a balance" style="width: 255px;"><span class="tooltip">Đáp án: so it can be hard to keep a balance</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 2 -->
+    <div id="topic2" class="version-card theme-topic2">
+        <div class="version-header">
+            <h2>Topic 2: Should children help with household chores?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Model Paragraph</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tôi tin rằng trẻ em nên giúp việc nhà</span><input type="text" class="blank-input" data-ans="I believe that children should help with housework" style="width: 305px;"><span class="tooltip">Đáp án: I believe that children should help with housework</span></span>
+                <span class="blank-wrapper"><span class="vi-label">từ khi còn nhỏ</span><input type="text" class="blank-input" data-ans="from an early age" style="width: 145px;"><span class="tooltip">Đáp án: from an early age</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trước tiên</span><input type="text" class="blank-input" data-ans="To begin with" style="width: 125px;"><span class="tooltip">Đáp án: To begin with</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">việc nhà giúp chúng học các kỹ năng sống hữu ích</span><input type="text" class="blank-input" data-ans="chores help them learn useful life skills" style="width: 285px;"><span class="tooltip">Đáp án: chores help them learn useful life skills</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chẳng hạn như nấu ăn, rửa bát và dọn dẹp</span><input type="text" class="blank-input" data-ans="such as cooking, washing dishes and cleaning" style="width: 305px;"><span class="tooltip">Đáp án: such as cooking, washing dishes and cleaning</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Những kỹ năng này rất quan trọng</span><input type="text" class="blank-input" data-ans="These skills are very important" style="width: 225px;"><span class="tooltip">Đáp án: These skills are very important</span></span>
+                <span class="blank-wrapper"><span class="vi-label">khi chúng sống tự lập ở trường đại học</span><input type="text" class="blank-input" data-ans="when they live on their own at university" style="width: 265px;"><span class="tooltip">Đáp án: when they live on their own at university</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một lý do khác là</span><input type="text" class="blank-input" data-ans="Another reason is that" style="width: 185px;"><span class="tooltip">Đáp án: Another reason is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">việc nhà làm cho trẻ cảm thấy có trách nhiệm với gia đình</span><input type="text" class="blank-input" data-ans="chores make children feel responsible for their family" style="width: 345px;"><span class="tooltip">Đáp án: chores make children feel responsible for their family</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For instance" style="width: 110px;"><span class="tooltip">Đáp án: For instance</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">khi chúng giúp chuẩn bị bữa tối</span><input type="text" class="blank-input" data-ans="when they help prepare dinner" style="width: 215px;"><span class="tooltip">Đáp án: when they help prepare dinner</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chúng hiểu cha mẹ vất vả thế nào</span><input type="text" class="blank-input" data-ans="they understand how hard their parents work" style="width: 285px;"><span class="tooltip">Đáp án: they understand how hard their parents work</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Phải thừa nhận rằng</span><input type="text" class="blank-input" data-ans="Admittedly" style="width: 115px;"><span class="tooltip">Đáp án: Admittedly</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trẻ em bận rộn với việc học ở trường</span><input type="text" class="blank-input" data-ans="children are busy with schoolwork" style="width: 235px;"><span class="tooltip">Đáp án: children are busy with schoolwork</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nhưng một vài nhiệm vụ nhỏ mỗi ngày sẽ không ảnh hưởng đến việc học</span><input type="text" class="blank-input" data-ans="but a few small tasks every day will not affect their studies" style="width: 385px;"><span class="tooltip">Đáp án: but a few small tasks every day will not affect their studies</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Nhìn chung</span><input type="text" class="blank-input" data-ans="Overall" style="width: 95px;"><span class="tooltip">Đáp án: Overall</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">làm việc nhà tốt cho cả trẻ em và gia đình</span><input type="text" class="blank-input" data-ans="doing chores is good for both children and families" style="width: 305px;"><span class="tooltip">Đáp án: doing chores is good for both children and families</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tôi nghĩ khoảng sáu hoặc bảy tuổi</span><input type="text" class="blank-input" data-ans="I think around six or seven" style="width: 205px;"><span class="tooltip">Đáp án: I think around six or seven</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">với những việc dễ như dọn dẹp đồ chơi</span><input type="text" class="blank-input" data-ans="with easy jobs like tidying up their toys" style="width: 265px;"><span class="tooltip">Đáp án: with easy jobs like tidying up their toys</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Khi chúng lớn hơn</span><input type="text" class="blank-input" data-ans="When they get older" style="width: 155px;"><span class="tooltip">Đáp án: When they get older</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chúng có thể đảm nhận nhiều hơn</span><input type="text" class="blank-input" data-ans="they can take on more" style="width: 175px;"><span class="tooltip">Đáp án: they can take on more</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">như nấu ăn hoặc giặt giũ</span><input type="text" class="blank-input" data-ans="like cooking or doing the laundry" style="width: 225px;"><span class="tooltip">Đáp án: like cooking or doing the laundry</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Điều đó thực sự giúp chúng tự lập hơn</span><input type="text" class="blank-input" data-ans="It really helps them become more independent" style="width: 285px;"><span class="tooltip">Đáp án: It really helps them become more independent</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 3 -->
+    <div id="topic3" class="version-card theme-topic3">
+        <div class="version-header">
+            <h2>Topic 3: Should schools teach practical skills besides academic subjects?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Model Paragraph</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nhiều người nghĩ rằng trường học tập trung quá nhiều vào thi cử</span><input type="text" class="blank-input" data-ans="Many people think that schools focus too much on exams" style="width: 345px;"><span class="tooltip">Đáp án: Many people think that schools focus too much on exams</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nên học sinh thiếu các kỹ năng thực tế</span><input type="text" class="blank-input" data-ans="so students lack practical skills" style="width: 235px;"><span class="tooltip">Đáp án: so students lack practical skills</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tôi đồng ý phần nào</span><input type="text" class="blank-input" data-ans="I agree to some extent" style="width: 175px;"><span class="tooltip">Đáp án: I agree to some extent</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Thứ nhất</span><input type="text" class="blank-input" data-ans="Firstly" style="width: 95px;"><span class="tooltip">Đáp án: Firstly</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">các kỹ năng như quản lý tài chính và nấu ăn rất hữu ích trong đời sống hàng ngày</span><input type="text" class="blank-input" data-ans="skills like budgeting and cooking are useful in daily life" style="width: 395px;"><span class="tooltip">Đáp án: skills like budgeting and cooking are useful in daily life</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For example" style="width: 110px;"><span class="tooltip">Đáp án: For example</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">học sinh biết quản lý tiền bạc ít có khả năng vướng vào nợ nần sau này</span><input type="text" class="blank-input" data-ans="students who can manage their money are less likely to get into debt later" style="width: 445px;"><span class="tooltip">Đáp án: students who can manage their money are less likely to get into debt later</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Thứ hai</span><input type="text" class="blank-input" data-ans="Secondly" style="width: 95px;"><span class="tooltip">Đáp án: Secondly</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">các dự án nhóm giúp học sinh phát triển kỹ năng làm việc nhóm và giao tiếp</span><input type="text" class="blank-input" data-ans="group projects help students develop teamwork and communication skills" style="width: 415px;"><span class="tooltip">Đáp án: group projects help students develop teamwork and communication skills</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">điều mà các nhà tuyển dụng đánh giá rất cao</span><input type="text" class="blank-input" data-ans="which employers value highly" style="width: 225px;"><span class="tooltip">Đáp án: which employers value highly</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tuy nhiên</span><input type="text" class="blank-input" data-ans="However" style="width: 105px;"><span class="tooltip">Đáp án: However</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trường học đã có lịch học dày đặc</span><input type="text" class="blank-input" data-ans="schools already have a busy timetable" style="width: 265px;"><span class="tooltip">Đáp án: schools already have a busy timetable</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nên các bài học thực tế có thể là các khóa học ngắn hạn hoặc câu lạc bộ ngoại khóa</span><input type="text" class="blank-input" data-ans="so practical lessons could be short courses or after-school clubs" style="width: 435px;"><span class="tooltip">Đáp án: so practical lessons could be short courses or after-school clubs</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Nói chung</span><input type="text" class="blank-input" data-ans="All in all" style="width: 105px;"><span class="tooltip">Đáp án: All in all</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">trường học nên dạy cả môn học lý thuyết và thực </span><input type="text" class="blank-input" data-ans="schools should teach both academic and practical subjects" style="width: 365px;"><span class="tooltip">Đáp án: schools should teach both academic and practical subjects</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Có lẽ là kỹ năng quản lý tiền bạc như lập ngân sách</span><input type="text" class="blank-input" data-ans="Probably money skills, like budgeting" style="width: 265px;"><span class="tooltip">Đáp án: Probably money skills, like budgeting</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vì nhiều người trẻ tiêu tiền quá nhiều</span><input type="text" class="blank-input" data-ans="because many young people spend too much" style="width: 275px;"><span class="tooltip">Đáp án: because many young people spend too much</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Kỹ năng giao tiếp và sơ cứu cơ bản</span><input type="text" class="blank-input" data-ans="Communication skills and basic first aid" style="width: 275px;"><span class="tooltip">Đáp án: Communication skills and basic first aid</span></span>
+                <span class="blank-wrapper"><span class="vi-label">cũng sẽ rất hữu ích trong đời thực</span><input type="text" class="blank-input" data-ans="would also be really useful in real life" style="width: 255px;"><span class="tooltip">Đáp án: would also be really useful in real life</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 4 -->
+    <div id="topic4" class="version-card theme-topic4">
+        <div class="version-header">
+            <h2>Topic 4: Should families have meals together regularly?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Model Paragraph</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Ngày nay, nhiều gia đình bận rộn đến mức hiếm khi ăn cùng nhau</span><input type="text" class="blank-input" data-ans="Nowadays, many families are so busy that they rarely eat together" style="width: 415px;"><span class="tooltip">Đáp án: Nowadays, many families are so busy that they rarely eat together</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và tôi nghĩ điều này thật đáng tiếc</span><input type="text" class="blank-input" data-ans="and I think this is a pity" style="width: 205px;"><span class="tooltip">Đáp án: and I think this is a pity</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Lý do chính là</span><input type="text" class="blank-input" data-ans="The main reason is that" style="width: 175px;"><span class="tooltip">Đáp án: The main reason is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">bữa ăn là cơ hội tốt để các thành viên trong gia đình trò chuyện không có điện thoại hay TV</span><input type="text" class="blank-input" data-ans="meals are a good chance for family members to talk without phones or TV" style="width: 465px;"><span class="tooltip">Đáp án: meals are a good chance for family members to talk without phones or TV</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Cha mẹ có thể tìm hiểu về đời sống học đường của con cái</span><input type="text" class="blank-input" data-ans="Parents can find out about their children’s school life" style="width: 365px;"><span class="tooltip">Đáp án: Parents can find out about their children’s school life</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và trẻ em cảm thấy được lắng nghe</span><input type="text" class="blank-input" data-ans="and children feel listened to" style="width: 205px;"><span class="tooltip">Đáp án: and children feel listened to</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Bên cạnh đó</span><input type="text" class="blank-input" data-ans="Besides" style="width: 110px;"><span class="tooltip">Đáp án: Besides</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">các bữa ăn nấu tại nhà lành mạnh hơn đồ ăn nhanh</span><input type="text" class="blank-input" data-ans="home-cooked meals are healthier than fast food" style="width: 325px;"><span class="tooltip">Đáp án: home-cooked meals are healthier than fast food</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">giúp trẻ phát triển thói quen ăn uống tốt</span><input type="text" class="blank-input" data-ans="which helps children develop good eating habits" style="width: 305px;"><span class="tooltip">Đáp án: which helps children develop good eating habits</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Phải thừa nhận rằng</span><input type="text" class="blank-input" data-ans="Admittedly" style="width: 115px;"><span class="tooltip">Đáp án: Admittedly</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">cha mẹ có thể làm việc muộn</span><input type="text" class="blank-input" data-ans="parents may work late" style="width: 175px;"><span class="tooltip">Đáp án: parents may work late</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nhưng ngay cả một vài bữa ăn gia đình một tuần cũng có thể tạo ra sự khác biệt lớn</span><input type="text" class="blank-input" data-ans="but even a few family meals a week can make a big difference" style="width: 445px;"><span class="tooltip">Đáp án: but even a few family meals a week can make a big difference</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tóm lại</span><input type="text" class="blank-input" data-ans="In short" style="width: 100px;"><span class="tooltip">Đáp án: In short</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">việc ăn uống cùng nhau kéo các gia đình lại gần nhau hơn</span><input type="text" class="blank-input" data-ans="eating together brings families closer" style="width: 305px;"><span class="tooltip">Đáp án: eating together brings families closer</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Chủ yếu là vì mọi người đều bận rộn</span><input type="text" class="blank-input" data-ans="Mainly because everyone is busy" style="width: 265px;"><span class="tooltip">Đáp án: Mainly because everyone is busy</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Cha mẹ thường về nhà muộn</span><input type="text" class="blank-input" data-ans="Parents often come home late" style="width: 205px;"><span class="tooltip">Đáp án: Parents often come home late</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và trẻ em có các lớp học thêm</span><input type="text" class="blank-input" data-ans="and children have extra classes" style="width: 225px;"><span class="tooltip">Đáp án: and children have extra classes</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ngoài ra</span><input type="text" class="blank-input" data-ans="Also" style="width: 80px;"><span class="tooltip">Đáp án: Also</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mọi người có xu hướng ăn trước điện thoại hoặc TV</span><input type="text" class="blank-input" data-ans="people tend to eat in front of their phones or the TV" style="width: 345px;"><span class="tooltip">Đáp án: people tend to eat in front of their phones or the TV</span></span>.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.version-card');
+        const showAnswersBtn = document.getElementById('showAnswersBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // Clean text utility for flexible comparison
+        function cleanText(text) {
+            return text.trim()
+                       .toLowerCase()
+                       .replace(/’/g, "'")
+                       .replace(/–/g, "-")
+                       .replace(/\s+/g, ' ');
+        }
+
+        // Update Progress Tracker
+        function updateProgress() {
+            const activeCard = document.querySelector('.version-card.active');
+            const inputs = activeCard.querySelectorAll('.blank-input');
+            const total = inputs.length;
+            let correctCount = 0;
+
+            inputs.forEach(input => {
+                if (input.classList.contains('correct')) {
+                    correctCount++;
+                }
+            });
+
+            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+            progressBar.style.width = percent + '%';
+            progressText.textContent = `${correctCount} / ${total} (${percent}%)`;
+        }
+
+        // Validate Input logic
+        function validateInput(input) {
+            const userVal = cleanText(input.value);
+            const correctVal = cleanText(input.getAttribute('data-ans'));
+
+            if (userVal === "") {
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            } else {
+                input.classList.add('submitted');
+                if (userVal === correctVal) {
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('incorrect');
+                }
+            }
+            updateProgress();
+        }
+
+        // Tab Switching
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                cards.forEach(card => {
+                    if (card.id === targetId) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+                updateProgress();
+            });
+        });
+
+        // Event listeners for inputs
+        document.querySelectorAll('.blank-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    validateInput(input);
+                    input.blur();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                validateInput(input);
+            });
+        });
+
+        // Show Answers Button
+        showAnswersBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = input.getAttribute('data-ans');
+                input.classList.remove('incorrect');
+                input.classList.add('correct', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Reset Button
+        resetBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = "";
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Initial Progress State
+        updateProgress();
+    });
+</script>
+
+</body>
+</html>
