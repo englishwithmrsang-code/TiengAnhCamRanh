@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Ôn Tập Giữa Học Kỳ I - Môn Tiếng Anh Lớp 8</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --success-color: #16a34a;
+            --error-color: #dc2626;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        /* Tabs styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: #e2e8f0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #475569;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Question styling */
+        .question-card {
+            background: #f1f5f9;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .options-list li {
+            margin-bottom: 8px;
+        }
+
+        .options-list label {
+            display: block;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .options-list label:hover {
+            background: #e0f2fe;
+            border-color: #38bdf8;
+        }
+
+        .options-list input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        /* Explanation box */
+        .explanation {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .explanation.correct {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .explanation.incorrect {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid var(--error-color);
+        }
+
+        /* Writing section */
+        .writing-group {
+            margin-bottom: 20px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .writing-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .writing-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .writing-result {
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Action buttons */
+        .action-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0;
+            transition: background 0.3s;
+        }
+
+        .action-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .score-board {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--success-color);
+        }
+
+        .passage-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ĐỀ ÔN TẬP GIỮA HỌC KỲ I - NĂM HỌC 2026 - 2027</h1>
+    <div class="subtitle">MÔN: TIẾNG ANH LỚP 8</div>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'listening-tab')">I. Listening (Tham khảo)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'grammar-vocab-tab')">II. Multiple Choice (9 - 25)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'reading-tab')">III. Reading (26 - 30)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'writing-tab')">IV. Writing (31 - 40)</button>
+    </div>
+
+    <!-- TAB 1: LISTENING -->
+    <div id="listening-tab" class="tab-content active">
+        <h3>A. LISTENING (Nội dung và Đáp án nghe mẫu)</h3>
+        <div class="question-card">
+            <p><strong>I. Listen and choose the correct answer:</strong></p>
+            <p>Question 1. How many suitcases will they take? ➔ <strong>Đáp án: A. Two suitcases</strong></p>
+            <p>Question 2. What time does the plane leave? ➔ <strong>Đáp án: B. 12:15</strong></p>
+            <p>Question 3. Where will the family have lunch? ➔ <strong>Đáp án: C. On the plane</strong></p>
+            <p>Question 4. What must Mum remember to put in her bag? ➔ <strong>Đáp án: D. An umbrella</strong></p>
+        </div>
+        <div class="question-card">
+            <p><strong>II. Listen and state True (T) or False (F):</strong></p>
+            <p>Question 5. They have to leave school at eight o’clock. ➔ <strong>False (F)</strong></p>
+            <p>Question 6. The museum is called the Harding Museum. ➔ <strong>True (T)</strong></p>
+            <p>Question 7. The children will learn about paintings in the museum. ➔ <strong>False (F)</strong></p>
+            <p>Question 8. The children can wear jeans instead of their school uniform. ➔ <strong>True (T)</strong></p>
+        </div>
+    </div>
+
+    <!-- TAB 2: MULTIPLE CHOICE (Grammar & Vocab + Cloze 21-25) -->
+    <div id="grammar-vocab-tab" class="tab-content">
+        <h3>B. MULTIPLE CHOICE (Câu 9 - 25)</h3>
+        <div id="quiz-container">
+            <!-- JavaScript will render questions here -->
+        </div>
+        <button class="action-btn" onclick="checkMultipleChoice()">Nộp bài Trắc nghiệm</button>
+        <div id="mc-score" class="score-board" style="margin-top: 15px;"></div>
+    </div>
+
+    <!-- TAB 3: READING -->
+    <div id="reading-tab" class="tab-content">
+        <h3>C. READING COMPREHENSION (Câu 26 - 30)</h3>
+        
+        <div class="passage-box">
+            <strong>Passage:</strong> Life in the countryside is peaceful and full of beauty. People who live there enjoy the fresh air, green trees, and quiet surroundings. The environment is clean, and the pace of life is slow, which makes everyone feel relaxed and comfortable. Most people in the countryside are farmers. They grow rice, vegetables, and fruits or raise animals like chickens, cows, and buffaloes. Although their work is hard, they are very proud of it because it helps them earn a living and provide food for others.<br><br>
+            Children in the countryside also have a happy and healthy life. They often play traditional games, ride bicycles, or go swimming in the river after school. There are not many cars or tall buildings, so it is safe for them to play outside. People here are friendly and always ready to help their neighbors.<br><br>
+            I love the countryside because it brings me peace and happiness. Whenever I visit my grandparents there, I feel free, relaxed, and close to nature. Life in the countryside may be simple, but it is truly meaningful and beautiful.
+        </div>
+
+        <div id="reading-container">
+            <!-- JavaScript will render reading questions here -->
+        </div>
+        <button class="action-btn" onclick="checkReading()">Nộp bài Đọc hiểu</button>
+        <div id="rd-score" class="score-board" style="margin-top: 15px;"></div>
+    </div>
+
+    <!-- TAB 4: WRITING -->
+    <div id="writing-tab" class="tab-content">
+        <h3>D. WRITING (Câu 31 - 40)</h3>
+        <p>Nhập câu trả lời của bạn vào các ô bên dưới, sau đó bấm nút để kiểm tra kết quả và xem hướng dẫn chi tiết.</p>
+        
+        <div id="writing-container">
+            <!-- JavaScript will render writing questions here -->
+        </div>
+        <button class="action-btn" onclick="checkWriting()">Nộp bài Viết & Xem Đáp Án</button>
+    </div>
+
+</div>
+
+<script>
+    // Tab switching logic
+    function switchTab(evt, tabId) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(c => c.classList.remove('active'));
+
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(b => b.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    // Data for Multiple Choice (Grammar & Vocab + Cloze test questions 21 - 25)
+    const mcQuestions = [
+        {
+            id: 9,
+            q: "Question 9. Choose the word that needs correcting: 'She can swim more well than anyone else in her class.'",
+            options: { A: "can", B: "more well", C: "anyone else", D: "her" },
+            correct: "B",
+            explain: "Trạng từ của 'good' là 'well', không dùng 'more well'. Dạng so sánh hơn của 'well' là 'better'."
+        },
+        {
+            id: 10,
+            q: "Question 10. Choose the word CLOSEST in meaning to the underlined word: Young people still like wearing jeans nowadays.",
+            options: { A: "are fond of", B: "hate", C: "dislike", D: "detest" },
+            correct: "A",
+            explain: "'like' (thích) đồng nghĩa với 'are fond of' (thích, mê cái gì)."
+        },
+        {
+            id: 11,
+            q: "Question 11. Johnny is keen ..... playing computer games.",
+            options: { A: "of", B: "in", C: "on", D: "about" },
+            correct: "C",
+            explain: "Cấu trúc cố định: 'be keen on + V-ing' (thích thú làm gì)."
+        },
+        {
+            id: 12,
+            q: "Question 12. She ...... visits the library to borrow books.",
+            options: { A: "frequently", B: "frequent", C: "frequence", D: "frequenter" },
+            correct: "A",
+            explain: "Cần một trạng từ chỉ tần suất đứng trước động từ thường 'visits'. 'frequently' là trạng từ."
+        },
+        {
+            id: 13,
+            q: "Question 13. Son Tung often helps his mom to pick.......in the orchard.",
+            options: { A: "fruit", B: "trees", C: "plants", D: "A & B are correct" },
+            correct: "A",
+            explain: "Trong vườn cây ăn quả (orchard), người ta thường hái quả ('pick fruit')."
+        },
+        {
+            id: 14,
+            q: "Question 14. Choose the word OPPOSITE in meaning to the underlined word: The Sahara Desert is a vast area of sand and rocks.",
+            options: { A: "huge", B: "beautiful", C: "small", D: "picturesque" },
+            correct: "C",
+            explain: "'vast' nghĩa là rộng lớn, bao la. Từ trái nghĩa là 'small' (nhỏ)."
+        },
+        {
+            id: 15,
+            q: "Question 15. Lan and Mai are at the party. Lan: 'What a lovely dress you have, Mai!' Mai: ...... ",
+            options: { A: "Thank you, Lan.", B: "I envy you.", C: "No, thanks.", D: "How about you?" },
+            correct: "A",
+            explain: "Khi được khen ngợi trang phục, câu trả lời lịch sự là 'Thank you'."
+        },
+        {
+            id: 16,
+            q: "Question 16. What does this sign mean? (Biển báo cấm chơi đùa trên đường)",
+            options: { A: "No playing in the street", B: "No parking", C: "No bicycles.", D: "No crossing the street" },
+            correct: "A",
+            explain: "'No playing in the street' có nghĩa là cấm chơi đùa dưới lòng đường."
+        },
+        {
+            id: 17,
+            q: "Question 17. My grandma enjoys ...... woolly hats in her free time.",
+            options: { A: "make", B: "making", C: "to make", D: "B & C are correct" },
+            correct: "B",
+            explain: "Sau động từ 'enjoy' luôn dùng động từ thêm đuôi -ing (V-ing)."
+        },
+        {
+            id: 18,
+            q: "Question 18. It rained heavily; ......., we didn't play football.",
+            options: { A: "therefore", B: "however", C: "otherwise", D: "because" },
+            correct: "A",
+            explain: "Trời mưa lớn; vì vậy, chúng tôi không đá bóng. 'therefore' chỉ kết quả."
+        },
+        {
+            id: 19,
+            q: "Question 19. He drives ...... than his brother.",
+            options: { A: "careful", B: "more careful", C: "carefully", D: "more carefully" },
+            correct: "D",
+            explain: "Bổ nghĩa cho động từ 'drives' cần trạng từ ('carefully'). So sánh hơn với trạng từ dài dùng 'more carefully'."
+        },
+        {
+            id: 20,
+            q: "Question 20. I like watching movies, ...... I don't have much free time.",
+            options: { A: "but", B: "however", C: "therefore", D: "otherwise" },
+            correct: "A",
+            explain: "Hai vế mang ý nghĩa tương phản nhưng nối tiếp nhau trong một câu ghép dùng liên từ 'but'."
+        },
+        // Cloze test questions 21 - 25
+        {
+            id: 21,
+            q: "Question 21. After school, they like spending time (21) ...... their friends.",
+            options: { A: "of", B: "to", C: "with", D: "in" },
+            correct: "C",
+            explain: "Cấu trúc: 'spend time with someone' (dành thời gian với ai)."
+        },
+        {
+            id: 22,
+            q: "Question 22. Some (22) ...... playing sports, while others prefer listening to music...",
+            options: { A: "enjoy", B: "enjoyed", C: "enjoys", D: "enjoying" },
+            correct: "A",
+            explain: "Chủ ngữ 'Some' là số nhiều, chia động từ nguyên thể ở hiện tại đơn 'enjoy'."
+        },
+        {
+            id: 23,
+            q: "Question 23. Teenagers often have big dreams about their (23) ...... They want to become doctors...",
+            options: { A: "present", B: "past", C: "friends", D: "future" },
+            correct: "D",
+            explain: "Học sinh/thanh thiếu niên thường có ước mơ lớn về 'tương lai' ('future')."
+        },
+        {
+            id: 24,
+            q: "Question 24. Sometimes they feel stressed because of exams or problems with (24) ...... parents.",
+            options: { A: "they", B: "my", C: "them", D: "their" },
+            correct: "D",
+            explain: "Cần tính từ sở hữu đứng trước danh từ 'parents', dùng 'their'."
+        },
+        {
+            id: 25,
+            q: "Question 25. She always tries to help people and studies (25) ...... to get her goals.",
+            options: { A: "hard", B: "quick", C: "careful", D: "good" },
+            correct: "A",
+            explain: "Cụm từ 'study hard' có nghĩa là học tập chăm chỉ."
+        }
+    ];
+
+    // Data for Reading comprehension (26 - 30)
+    const readingQuestions = [
+        {
+            id: 26,
+            q: "Question 26. What is the main idea of the passage?",
+            options: {
+                A: "People in the countryside are rich and busy.",
+                B: "Life in the countryside is peaceful, simple and meaningful.",
+                C: "Countryside life makes me happy.",
+                D: "Children in the countryside have many problems."
+            },
+            correct: "B",
+            explain: "Đoạn văn miêu tả bức tranh tổng thể về cuộc sống ở miền quê: thanh bình, giản dị và đầy ý nghĩa."
+        },
+        {
+            id: 27,
+            q: "Question 27. The word 'peaceful' in paragraph 1 is closest in meaning to......?",
+            options: { A: "quiet", B: "crowded", C: "stressful", D: "dirty" },
+            correct: "A",
+            explain: "'peaceful' (thanh bình, yên ả) đồng nghĩa với 'quiet' (yên tĩnh)."
+        },
+        {
+            id: 28,
+            q: "Question 28. The word 'They' in paragraph 2 refers to......?",
+            options: { A: "Farmers", B: "People", C: "Students", D: "Children" },
+            correct: "D",
+            explain: "Đoạn 2 bắt đầu bằng 'Children in the countryside...' và các câu sau nói về các hoạt động của 'They' (những đứa trẻ)."
+        },
+        {
+            id: 29,
+            q: "Question 29. How do people feel when living in the countryside?",
+            options: {
+                A: "They feel bored and lonely.",
+                B: "They feel relaxed and comfortable.",
+                C: "They feel tired and stressed.",
+                D: "They feel busy and noisy."
+            },
+            correct: "B",
+            explain: "Dựa vào đoạn 1: '...makes everyone feel relaxed and comfortable.'"
+        },
+        {
+            id: 30,
+            q: "Question 30. According to the passage, which of the following statements is NOT true?",
+            options: {
+                A: "People in the countryside live in a clean and quiet place.",
+                B: "Children in the countryside often play outside after school.",
+                C: "The countryside has many cars and tall buildings.",
+                D: "People in the countryside are friendly and helpful."
+            },
+            correct: "C",
+            explain: "Đoạn văn nêu rõ: 'There are not many cars or tall buildings' (Không có nhiều ô tô hay nhà cao tầng), nên phương án C là phát biểu KHÔNG ĐÚNG."
+        }
+    ];
+
+    // Data for Writing (31 - 40)
+    const writingData = [
+        { id: 31, prompt: "31. She loves to watch movies at the weekend.<br>→ She enjoys", answer: "watching movies at the weekend." },
+        { id: 32, prompt: "32. They are interested in playing football.<br>→ They are fond of", answer: "playing football." },
+        { id: 33, prompt: "33. Lan likes reading books rather than watching TV.<br>→ Lan prefers", answer: "reading books to watching TV." },
+        { id: 34, prompt: "34. The red car moves faster than the blue car.<br>→ The blue car moves", answer: "more slowly than the red car." },
+        { id: 35, prompt: "35. Minh's English is more fluent than Nam's.<br>→ Minh speaks English", answer: "more fluently than Nam." },
+        { id: 36, prompt: "36. My dad hates to surf the internet very much. (Use: DETEST)<br>→ My dad", answer: "detests surfing the internet." },
+        { id: 37, prompt: "37. Tim's brother likes making crafts. (Use: KEEN)<br>→ Tim's brother is", answer: "keen on making crafts." },
+        { id: 38, prompt: "38. She was tired, but she kept working. (Use: HOWEVER)<br>→ She was tired; however,", answer: "she kept working." },
+        { id: 39, prompt: "39. I like reading books in my free time. (Use: FAVOURITE)<br>→ My favourite", answer: "hobby is reading books in my free time." },
+        { id: 40, prompt: "40. The farmers are drying the rice. (Make a question for underlined words)<br>→", answer: "What are the farmers doing?" }
+    ];
+
+    // Render Multiple Choice Quiz
+    function renderMCQ() {
+        const container = document.getElementById('quiz-container');
+        let html = '';
+        mcQuestions.forEach(item => {
+            html += `
+                <div class="question-card" id="q-card-${item.id}">
+                    <div class="question-title">${item.q}</div>
+                    <ul class="options-list">
+            `;
+            for (let key in item.options) {
+                html += `
+                    <li>
+                        <label>
+                            <input type="radio" name="q${item.id}" value="${key}">
+                            <strong>${key}.</strong> ${item.options[key]}
+                        </label>
+                    </li>
+                `;
+            }
+            html += `
+                    </ul>
+                    <div class="explanation" id="exp-${item.id}"></div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    // Render Reading Quiz
+    function renderReading() {
+        const container = document.getElementById('reading-container');
+        let html = '';
+        readingQuestions.forEach(item => {
+            html += `
+                <div class="question-card" id="q-card-${item.id}">
+                    <div class="question-title">${item.q}</div>
+                    <ul class="options-list">
+            `;
+            for (let key in item.options) {
+                html += `
+                    <li>
+                        <label>
+                            <input type="radio" name="q${item.id}" value="${key}">
+                            <strong>${key}.</strong> ${item.options[key]}
+                        </label>
+                    </li>
+                `;
+            }
+            html += `
+                    </ul>
+                    <div class="explanation" id="exp-${item.id}"></div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    // Render Writing section
+    function renderWriting() {
+        const container = document.getElementById('writing-container');
+        let html = '';
+        writingData.forEach(item => {
+            html += `
+                <div class="writing-group">
+                    <label>${item.prompt}</label>
+                    <input type="text" id="w-${item.id}" placeholder="Nhập câu trả lời của bạn vào đây...">
+                    <div class="writing-result" id="w-res-${item.id}"></div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    // Check Multiple Choice
+    function checkMultipleChoice() {
+        let score = 0;
+        mcQuestions.forEach(item => {
+            const selected = document.querySelector(`input[name="q${item.id}"]:checked`);
+            const expBox = document.getElementById(`exp-${item.id}`);
+            expBox.style.display = 'block';
+
+            if (selected && selected.value === item.correct) {
+                score++;
+                expBox.className = 'explanation correct';
+                expBox.innerHTML = `<strong>Chính xác!</strong> Giải thích: ${item.explain}`;
+            } else {
+                expBox.className = 'explanation incorrect';
+                const userAns = selected ? selected.value : 'Chưa chọn';
+                expBox.innerHTML = `<strong>Chưa chính xác!</strong> Bạn chọn ${userAns}, đáp án đúng là <strong>${item.correct}</strong>. Giải thích: ${item.explain}`;
+            }
+        });
+        document.getElementById('mc-score').innerText = `Kết quả Trắc nghiệm: ${score} / ${mcQuestions.length} câu đúng`;
+    }
+
+    // Check Reading
+    function checkReading() {
+        let score = 0;
+        readingQuestions.forEach(item => {
+            const selected = document.querySelector(`input[name="q${item.id}"]:checked`);
+            const expBox = document.getElementById(`exp-${item.id}`);
+            expBox.style.display = 'block';
+
+            if (selected && selected.value === item.correct) {
+                score++;
+                expBox.className = 'explanation correct';
+                expBox.innerHTML = `<strong>Chính xác!</strong> Giải thích: ${item.explain}`;
+            } else {
+                expBox.className = 'explanation incorrect';
+                const userAns = selected ? selected.value : 'Chưa chọn';
+                expBox.innerHTML = `<strong>Chưa chính xác!</strong> Bạn chọn ${userAns}, đáp án đúng là <strong>${item.correct}</strong>. Giải thích: ${item.explain}`;
+            }
+        });
+        document.getElementById('rd-score').innerText = `Kết quả Đọc hiểu: ${score} / ${readingQuestions.length} câu đúng`;
+    }
+
+    // Check Writing
+    function checkWriting() {
+        writingData.forEach(item => {
+            const inputVal = document.getElementById(`w-${item.id}`).value.trim();
+            const resBox = document.getElementById(`w-res-${item.id}`);
+            resBox.style.display = 'block';
+
+            if (inputVal.length > 0) {
+                resBox.className = 'writing-result';
+                resBox.style.display = 'block';
+                resBox.style.background = '#e2e8f0';
+                resBox.style.padding = '8px';
+                resBox.style.borderRadius = '6px';
+                resBox.innerHTML = `<strong>Bài làm của bạn:</strong> ${inputVal}<br><strong>Đáp án gợi ý:</strong> ${item.answer}`;
+            } else {
+                resBox.className = 'writing-result';
+                resBox.style.display = 'block';
+                resBox.style.background = '#fee2e2';
+                resBox.style.color = '#991b1b';
+                resBox.style.padding = '8px';
+                resBox.style.borderRadius = '6px';
+                resBox.innerHTML = `Bạn chưa nhập câu trả lời! <strong>Đáp án gợi ý:</strong> ${item.answer}`;
+            }
+        });
+    }
+
+    // Initialize UI on load
+    window.onload = function() {
+        renderMCQ();
+        renderReading();
+        renderWriting();
+    };
+</script>
+
+</body>
+</html>
