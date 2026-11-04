@@ -659,27 +659,86 @@
 <!-- MODAL TẠO / SỬA TÀI KHOẢN HỌC VIÊN -->
   <div id="modal-student" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-blue-100 transition-all">
-      <!-- Nút đóng Modal -->
       <button onclick="closeStudentModal()" type="button" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-700 flex items-center justify-center transition text-lg">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+     function openCreateClassModal() {
+      if (!['teacher','admin'].includes(currentRole)) return alert('Chỉ giáo viên hoặc admin mới được tạo lớp.');
+      document.getElementById('modal-create-class').classList.remove('hidden');
+    }
 
-      <!-- Header Modal -->
-      <div class="flex items-center gap-3.5 mb-6 border-b border-slate-100 pb-4">
-        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-xs shrink-0">
-          <i class="fa-solid fa-user-gear"></i>
-        </div>
+    function closeCreateClassModal() {
+      document.getElementById('modal-create-class').classList.add('hidden');
+    }
+
+    function createClass() {
+      openCreateClassModal();
+    }
+
+    function handleFullClassSubmit(e) {
+      e.preventDefault();
+      if (!['teacher','admin'].includes(currentRole)) return;
+
+      const name = document.getElementById('new-class-name').value.trim();
+      const rawMembers = document.getElementById('new-class-members').value.trim();
+      const matTitle = document.getElementById('new-class-mat-title').value.trim();
+      const matUrl = document.getElementById('new-class-mat-url').value.trim();
+      const hwTitle = document.getElementById('new-class-hw-title').value.trim();
+      const hwUrl = document.getElementById('new-class-hw-url').value.trim();
+      const hwDue = document.getElementById('new-class-hw-due').value;
+
+      if (!name || !rawMembers || !matTitle || !matUrl || !hwTitle || !hwUrl || !hwDue) {
+        alert('Vui lòng điền đầy đủ tất cả các trường thông tin để tạo lớp.');
+        return;
+      }
+
+      const memberList = rawMembers.split(',').map(m => m.trim()).filter(Boolean);
+      const students = JSON.parse(localStorage.getItem('mrsang_students') || '{}');
+
+      const missingAccounts = memberList.filter(user => !students[user]);
+      if (missingAccounts.length > 0) {
+        alert('Các tài khoản học viên sau chưa có trên hệ thống: ' + missingAccounts.join(', ') + '\nVui lòng tạo tài khoản học viên ở mục Admin Tracking trước!');
+        return;
+      }
+
+      const classId = Date.now();
+      const newClass = {
+        id: classId,
+        name: name,
+        teacher: currentRole === 'admin' ? 'Admin' : currentUser,
+        members: memberList,
+        materials: [
+          { id: Date.now(), title: matTitle, url: matUrl, createdBy: currentRole === 'admin' ? 'Admin' : currentUser }
+        ],
+        homework: [
+          { id: Date.now() + 1, title: hwTitle, url: hwUrl, due: hwDue, createdBy: currentRole === 'admin' ? 'Admin' : currentUser, submissions: {} }
+        ]
+      };
+
+      memberList.forEach(user => {
+        students[user].classes = students[user].classes || [];
+        if (!students[user].classes.includes(String(classId))) {
+          students[user].classes.push(String(classId));
+        }
+      });
+      localStorage.setItem('mrsang_students', JSON.stringify(students));
+
+      const classes = getClasses();
+      classes.push(newClass);
+      saveClasses(classes);
+
+      e.target.reset();
+      closeCreateClassModal();
+      renderClasses();
+      alert(`Đã tạo lớp "${name}" thành công với đầy đủ học viên, học liệu và bài tập!`);
+    }
         <div>
           <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight" id="student-modal-title">Tạo tài khoản học viên</h3>
           <p class="text-xs text-slate-500 mt-0.5">Nhập thông tin phân quyền và quản lý tài khoản trên hệ thống</p>
         </div>
       </div>
 
-      <!-- Form nhập liệu -->
       <form onsubmit="saveStudent(event)" class="space-y-4">
         <input type="hidden" id="student-edit-username">
 
-        <!-- Họ và tên -->
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
             <i class="fa-regular fa-id-card text-blue-500 mr-1"></i> Họ và tên
@@ -689,7 +748,6 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          <!-- Tên tài khoản -->
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
               <i class="fa-solid fa-at text-blue-500 mr-1"></i> Tài khoản / SĐT
@@ -698,7 +756,6 @@
               class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/50 text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition disabled:bg-slate-100 disabled:text-slate-400">
           </div>
 
-          <!-- Loại tài khoản -->
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
               <i class="fa-solid fa-shield-halved text-blue-500 mr-1"></i> Loại tài khoản
@@ -711,7 +768,6 @@
           </div>
         </div>
 
-        <!-- Mật khẩu -->
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
             <i class="fa-solid fa-key text-blue-500 mr-1"></i> Mật khẩu cấp ban đầu
@@ -720,7 +776,6 @@
             class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/50 text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition">
         </div>
 
-        <!-- Phân lớp học -->
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
             <i class="fa-solid fa-chalkboard-user text-blue-500 mr-1"></i> Phân vào lớp (Tùy chọn)
@@ -730,13 +785,83 @@
           <p class="text-[11px] text-slate-400 mt-1 pl-1">Để trống nếu chưa muốn gán học viên vào lớp cụ thể nào.</p>
         </div>
 
-        <!-- Thao tác hành động -->
         <div class="flex items-center justify-end gap-3 pt-3 mt-2 border-t border-slate-100">
           <button type="button" onclick="closeStudentModal()" class="px-5 py-2.5 rounded-2xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition">
             Hủy
           </button>
           <button type="submit" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-md shadow-blue-200 hover:shadow-lg transition flex items-center gap-2">
             <i class="fa-solid fa-floppy-disk"></i> Lưu tài khoản
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL TẠO LỚP HỌC ĐẦY ĐỦ THÔNG TIN -->
+  <div id="modal-create-class" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative border border-blue-100 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeCreateClassModal()" type="button" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-700 flex items-center justify-center transition text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-3.5 mb-6 border-b border-slate-100 pb-4">
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-xs shrink-0">
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+        <div>
+          <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Tạo Lớp Học Mới</h3>
+          <p class="text-xs text-slate-500 mt-0.5">Vui lòng điền đủ thông tin lớp, học viên và bài học trước khi khởi tạo</p>
+        </div>
+      </div>
+
+      <form onsubmit="handleFullClassSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            <i class="fa-solid fa-school text-blue-500 mr-1"></i> Tên Lớp Học <span class="text-rose-500">*</span>
+          </label>
+          <input id="new-class-name" required placeholder="Ví dụ: Lớp IELTS Intensive K1" 
+            class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/50 text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+            <i class="fa-solid fa-users text-blue-500 mr-1"></i> Danh Sách Học Viên Ban Đầu <span class="text-rose-500">*</span>
+          </label>
+          <input id="new-class-members" required placeholder="Nhập tài khoản/SĐT học viên, cách nhau bởi dấu phẩy (,)" 
+            class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/50 text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition">
+          <p class="text-[11px] text-slate-400 mt-1 pl-1">Nhập tài khoản đã có sẵn trên hệ thống. Ví dụ: 0399640763, student01</p>
+        </div>
+
+        <div class="p-4 bg-blue-50/50 border border-blue-100 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-blue-800 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-book-bookmark text-blue-600"></i> Học liệu bài giảng ban đầu <span class="text-rose-500">*</span>
+          </div>
+          <input id="new-class-mat-title" required placeholder="Tên học liệu (Ví dụ: Slide Unit 1 Reading)" 
+            class="w-full px-4 py-2 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-800 outline-none focus:border-blue-500">
+          <input id="new-class-mat-url" required type="url" placeholder="Đường dẫn URL học liệu (https://...)" 
+            class="w-full px-4 py-2 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-800 outline-none focus:border-blue-500">
+        </div>
+
+        <div class="p-4 bg-amber-50/50 border border-amber-100 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-clipboard-question text-amber-600"></i> Bài tập về nhà đầu tiên <span class="text-rose-500">*</span>
+          </div>
+          <input id="new-class-hw-title" required placeholder="Tên bài tập (Ví dụ: Quiz Vocabulary)" 
+            class="w-full px-4 py-2 rounded-xl border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-800 outline-none focus:border-amber-500">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input id="new-class-hw-url" required type="url" placeholder="URL bài làm (https://...)" 
+              class="w-full px-4 py-2 rounded-xl border border-slate-200 bg-white text-xs font-semibold text-slate-800 outline-none focus:border-amber-500">
+            <input id="new-class-hw-due" required type="datetime-local" 
+              class="w-full px-4 py-2 rounded-xl border border-slate-200 bg-white text-xs font-semibold text-slate-800 outline-none focus:border-amber-500">
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-3 mt-2 border-t border-slate-100">
+          <button type="button" onclick="closeCreateClassModal()" class="px-5 py-2.5 rounded-2xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition">
+            Hủy
+          </button>
+          <button type="submit" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-md shadow-blue-200 hover:shadow-lg transition flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> Xác Nhận Tạo Lớp
           </button>
         </div>
       </form>
