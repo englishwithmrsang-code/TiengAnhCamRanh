@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Sentence Building & Useful Writing Structures - Lesson 5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hl-struct {
+            background-color: #dbeafe;
+            color: #1e40af;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-weight: 700;
+            border-bottom: 2px solid #3b82f6;
+        }
+        .hl-ex {
+            background-color: #fef08a;
+            color: #854d0e;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-slate-900 via-indigo-900 to-blue-900 text-white shadow-lg py-5 px-4">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider mb-1">
+                    <i class="fa-solid fa-layer-group"></i> Writing & Speaking Lesson 5 • Useful Writing Structures
+                </div>
+                <h1 class="text-xl md:text-2xl font-bold">Money, Shopping, Advertising & Consumerism</h1>
+                <p class="text-slate-300 text-xs sm:text-sm mt-0.5">5 cấu trúc cốt lõi + 5 cấu trúc văn viết tự nhiên (Useful Structures) mỗi chủ đề</p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="clearAllData()" class="bg-white/10 hover:bg-white/20 text-white text-xs font-medium px-3.5 py-2 rounded-xl transition border border-white/20 flex items-center gap-1.5">
+                    <i class="fa-solid fa-rotate-right"></i> Làm lại tất cả
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-5xl w-full mx-auto p-4 md:p-6 space-y-5">
+
+        <!-- 4 Topic Tabs -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 bg-white p-2 rounded-2xl shadow-sm border border-slate-200">
+            <button onclick="switchTopic('topic1')" id="tab-topic1" class="py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-md">
+                <i class="fa-solid fa-wallet"></i> 1. Spending Money
+            </button>
+            <button onclick="switchTopic('topic2')" id="tab-topic2" class="py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                <i class="fa-solid fa-bullhorn"></i> 2. Advertising
+            </button>
+            <button onclick="switchTopic('topic3')" id="tab-topic3" class="py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                <i class="fa-solid fa-cart-shopping"></i> 3. Online Shopping
+            </button>
+            <button onclick="switchTopic('topic4')" id="tab-topic4" class="py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                <i class="fa-solid fa-bag-shopping"></i> 4. Consumerism
+            </button>
+        </div>
+
+        <!-- Dynamic Topic Content Container -->
+        <div id="topic-render-area" class="space-y-5"></div>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-xl flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-msg" class="text-xs sm:text-sm font-medium">Đã lưu tiến độ!</span>
+    </div>
+
+    <script>
+        const lessonData = {
+            topic1: {
+                title: "1. Spending Money — How can people spend their money wisely?",
+                vocabBank: [
+                    { word: "manage money well", pos: "v.phr", ipa: "/ˈmænɪdʒ ˈmʌni wel/", meaning: "quản lý tiền bạc tốt" },
+                    { word: "make a monthly budget", pos: "v.phr", ipa: "/meɪk ə ˈmʌnθli ˈbʌdʒɪt/", meaning: "lập ngân sách hàng tháng" },
+                    { word: "needs before wants", pos: "n.phr", ipa: "/niːdz bɪˈfɔː wɒnts/", meaning: "nhu cầu thiết yếu trước mong muốn" },
+                    { word: "for emergencies", pos: "prep.phr", ipa: "/fɔːr ɪˈmɜːdʒənsiz/", meaning: "cho những trường hợp khẩn cấp" },
+                    { word: "think twice before + V-ing", pos: "idiom", ipa: "/θɪŋk twaɪs bɪˈfɔː/", meaning: "suy nghĩ kỹ trước khi làm gì" },
+                    { word: "keep track of expenses", pos: "v.phr", ipa: "/kiːp træk əv ɪkˈspensɪz/", meaning: "theo dõi các khoản chi tiêu" },
+                    { word: "run out of money", pos: "v.phr", ipa: "/rʌn aʊt əv ˈmʌni/", meaning: "tiêu hết sạch tiền" },
+                    { word: "financial habits", pos: "n.phr", ipa: "/faɪˈnænʃl ˈhæbɪts/", meaning: "thói quen tài chính" }
+                ],
+                structures: [
+                    {
+                        id: "s1",
+                        tag: "Cấu trúc gốc 1",
+                        formula: "V-ing + is + an important life skill",
+                        usage: "Nhấn mạnh tầm quan trọng của một kỹ năng sống.",
+                        example: "<span class='hl-ex'>Managing money well is an important life skill</span> for young adults.",
+                        taskVn: "Đặt câu: Nấu ăn tại nhà là một kỹ năng sống quan trọng giúp sinh viên tiết kiệm tiền.",
+                        vocabHint: "cooking at home / important life skill / save money",
+                        sampleAns: "Cooking at home is an important life skill that helps students save money."
+                    },
+                    {
+                        id: "s2",
+                        tag: "Cấu trúc gốc 2",
+                        formula: "S + should + make a monthly budget and spend money on A before B",
+                        usage: "Khuyên ai đó nên lập ngân sách và ưu tiên chi tiêu hợp lý.",
+                        example: "People <span class='hl-ex'>should make a monthly budget and spend money on needs before wants</span>.",
+                        taskVn: "Đặt câu: Người trẻ nên lập ngân sách hàng tháng và chi tiền cho việc học trước giải trí.",
+                        vocabHint: "young people / make a monthly budget / education / entertainment",
+                        sampleAns: "Young people should make a monthly budget and spend money on education before entertainment."
+                    },
+                    {
+                        id: "s3",
+                        tag: "Cấu trúc gốc 3",
+                        formula: "S + V, even if + S + V",
+                        usage: "Diễn đạt sự nhượng bộ ('ngay cả khi...').",
+                        example: "Another good habit is to save a small amount every month, <span class='hl-ex'>even if it is only a little</span>.",
+                        taskVn: "Đặt câu: Bạn nên tiết kiệm một ít tiền mỗi tuần, ngay cả khi thu nhập của bạn không cao.",
+                        vocabHint: "save some money / even if / income is not high",
+                        sampleAns: "You should save some money every week, even if your income is not high."
+                    },
+                    {
+                        id: "s4",
+                        tag: "Cấu trúc gốc 4",
+                        formula: "S + V, so that + S + can + V",
+                        usage: "Chỉ mục đích ('để mà có thể...').",
+                        example: "Students should learn these skills at school, <span class='hl-ex'>so that they can make smart choices</span> when they grow up.",
+                        taskVn: "Đặt câu: Học sinh nên theo dõi chi tiêu của mình để có thể kiểm soát tiền tiêu vặt tốt hơn.",
+                        vocabHint: "keep track of their expenses / control their pocket money better",
+                        sampleAns: "Students should keep track of their expenses so that they can control their pocket money better."
+                    },
+                    {
+                        id: "s5",
+                        tag: "Cấu trúc gốc 5",
+                        formula: "S + always think twice before + V-ing",
+                        usage: "Diễn đạt thói quen cân nhắc kỹ trước khi hành động.",
+                        example: "I <span class='hl-ex'>always think twice before buying</span> something expensive.",
+                        taskVn: "Đặt câu: Người tiêu dùng thông minh luôn suy nghĩ kỹ trước khi mua những món đồ đắt tiền.",
+                        vocabHint: "smart consumers / think twice before / buying expensive items",
+                        sampleAns: "Smart consumers always think twice before buying expensive items."
+                    },
+                    {
+                        id: "s6",
+                        tag: "Useful Structure 6",
+                        formula: "It is + adj + for + O + to + V (It is important/wise/necessary for...)",
+                        usage: "Cấu trúc chủ ngữ giả 'It is + adj' cực kỳ tự nhiên để đưa ra lời khuyên trong văn viết.",
+                        example: "<span class='hl-ex'>It is wise for</span> young people <span class='hl-ex'>to</span> set aside some money every month for emergencies.",
+                        taskVn: "Đặt câu: Thật khôn ngoan khi sinh viên ghi chép lại các khoản chi tiêu hàng ngày của mình.",
+                        vocabHint: "wise for students / keep track of / daily expenses",
+                        sampleAns: "It is wise for students to keep track of their daily expenses."
+                    },
+                    {
+                        id: "s7",
+                        tag: "Useful Structure 7",
+                        formula: "When it comes to + N/V-ing, S + should + V",
+                        usage: "Cụm chuyển ý tự nhiên ('Khi nói đến việc... thì ai đó nên...').",
+                        example: "<span class='hl-ex'>When it comes to</span> spending money, people <span class='hl-ex'>should</span> always put their basic needs first.",
+                        taskVn: "Đặt câu: Khi nói đến việc tiết kiệm tiền, sự đều đặn quan trọng hơn số tiền bạn tiết kiệm.",
+                        vocabHint: "when it comes to / saving money / regularity / amount you save",
+                        sampleAns: "When it comes to saving money, regularity is more important than the amount you save."
+                    },
+                    {
+                        id: "s8",
+                        tag: "Useful Structure 8",
+                        formula: "Instead of + V-ing, S + can + V",
+                        usage: "Đưa ra giải pháp thay thế tự nhiên ('Thay vì làm A, ai đó có thể làm B').",
+                        example: "<span class='hl-ex'>Instead of</span> eating out every day, students <span class='hl-ex'>can</span> cook at home to save money.",
+                        taskVn: "Đặt câu: Thay vì mua cà phê đắt tiền mỗi sáng, mọi người có thể tự pha tại nhà.",
+                        vocabHint: "instead of / buying expensive coffee / make it at home",
+                        sampleAns: "Instead of buying expensive coffee every morning, people can make it at home."
+                    },
+                    {
+                        id: "s9",
+                        tag: "Useful Structure 9",
+                        formula: "Not only does + S + V, but it also + V",
+                        usage: "Cấu trúc đảo ngữ 'Không những... mà còn...' giúp câu văn giàu tính học thuật và tự nhiên.",
+                        example: "<span class='hl-ex'>Not only does</span> a monthly budget help people save money, <span class='hl-ex'>but it also</span> reduces financial stress.",
+                        taskVn: "Đặt câu: Việc tiết kiệm tiền không những giúp bạn chuẩn bị cho trường hợp khẩn cấp mà còn mang lại sự an tâm.",
+                        vocabHint: "not only does saving money / prepare for emergencies / bring peace of mind",
+                        sampleAns: "Not only does saving money help you prepare for emergencies, but it also brings peace of mind."
+                    },
+                    {
+                        id: "s10",
+                        tag: "Useful Structure 10",
+                        formula: "To avoid + V-ing, S + need to + V",
+                        usage: "Cụm chỉ mục đích phòng tránh ('Để tránh việc..., ai đó cần phải...').",
+                        example: "<span class='hl-ex'>To avoid</span> running out of money at the end of the month, workers <span class='hl-ex'>need to</span> control their spending.",
+                        taskVn: "Đặt câu: Để tránh tiêu hết sạch tiền quá nhanh, người trẻ cần lập ngân sách hàng tháng.",
+                        vocabHint: "to avoid / running out of money / too quickly / make a monthly budget",
+                        sampleAns: "To avoid running out of money too quickly, young people need to make a monthly budget."
+                    }
+                ]
+            },
+            topic2: {
+                title: "2. Advertising — How does advertising influence consumers?",
+                vocabBank: [
+                    { word: "have a strong influence on", pos: "v.phr", ipa: "/hæv ə strɒŋ ˈɪnfluəns ɒn/", meaning: "có ảnh hưởng mạnh mẽ đến" },
+                    { word: "shopping habits", pos: "n.phr", ipa: "/ˈʃɒpɪŋ ˈhæbɪts/", meaning: "thói quen mua sắm" },
+                    { word: "make products look attractive", pos: "v.phr", ipa: "/meɪk ˈprɒdʌkts lʊk əˈtræktɪv/", meaning: "làm sản phẩm trông hấp dẫn" },
+                    { word: "special discounts", pos: "n.phr", ipa: "/ˈspeʃl ˈdɪskaʊnts/", meaning: "giảm giá đặc biệt" },
+                    { word: "make a purchase", pos: "v.phr", ipa: "/meɪk ə ˈpɜːtʃəs/", meaning: "thực hiện việc mua hàng" },
+                    { word: "catch people's attention", pos: "v.phr", ipa: "/kætʃ ˈpiːplz əˈtenʃn/", meaning: "thu hút sự chú ý của mọi người" },
+                    { word: "persuade sb to buy", pos: "v.phr", ipa: "/pəˈsweɪd ˈsʌmbədi tə baɪ/", meaning: "thuyết phục ai đó mua hàng" },
+                    { word: "buying decisions", pos: "n.phr", ipa: "/ˈbaɪɪŋ dɪˈsɪʒnz/", meaning: "quyết định mua sắm" }
+                ],
+                structures: [
+                    {
+                        id: "s1",
+                        tag: "Cấu trúc gốc 1",
+                        formula: "S + has a strong influence on + N",
+                        usage: "Diễn tả sự tác động mạnh mẽ của yếu tố A lên yếu tố B.",
+                        example: "Advertising <span class='hl-ex'>has a strong influence on</span> people’s shopping habits.",
+                        taskVn: "Đặt câu: Mạng xã hội có ảnh hưởng mạnh mẽ đến lựa chọn thời trang của giới trẻ.",
+                        vocabHint: "social media / strong influence on / young people's fashion choices",
+                        sampleAns: "Social media has a strong influence on young people's fashion choices."
+                    },
+                    {
+                        id: "s2",
+                        tag: "Cấu trúc gốc 2",
+                        formula: "S + make + O + look + adj",
+                        usage: "Miêu tả cách quảng cáo/hình ảnh làm thay đổi cảm nhận về sản phẩm.",
+                        example: "Advertisements <span class='hl-ex'>make products look attractive</span>.",
+                        taskVn: "Đặt câu: Hình ảnh đẹp và ánh sáng tốt làm cho chiếc điện thoại mới trông rất hiện đại.",
+                        vocabHint: "beautiful images / good lighting / look very modern",
+                        sampleAns: "Beautiful images and good lighting make the new phone look very modern."
+                    },
+                    {
+                        id: "s3",
+                        tag: "Cấu trúc gốc 3",
+                        formula: "Companies often use + N + to promote their products",
+                        usage: "Nêu chiến lược tiếp thị của doanh nghiệp.",
+                        example: "<span class='hl-ex'>Companies often use</span> beautiful images, special discounts and famous people <span class='hl-ex'>to promote their products</span>.",
+                        taskVn: "Đặt câu: Nhiều thương hiệu sử dụng người nổi tiếng và giảm giá đặc biệt để quảng bá sản phẩm mới.",
+                        vocabHint: "many brands / famous people / special discounts / new products",
+                        sampleAns: "Many brands use famous people and special discounts to promote their new products."
+                    },
+                    {
+                        id: "s4",
+                        tag: "Cấu trúc gốc 4",
+                        formula: "S + may want + N + after V-ing + again and again",
+                        usage: "Giải thích hiệu ứng lặp lại trong quảng cáo.",
+                        example: "A teenager <span class='hl-ex'>may want new shoes after seeing them again and again</span> on social media.",
+                        taskVn: "Đặt câu: Khách hàng có thể muốn mua một thương hiệu sau khi nghe tên nó lặp đi lặp lại trên TV.",
+                        vocabHint: "customers / buy a brand / hearing its name / on TV",
+                        sampleAns: "Customers may want to buy a brand after hearing its name again and again on TV."
+                    },
+                    {
+                        id: "s5",
+                        tag: "Cấu trúc gốc 5",
+                        formula: "Therefore, consumers should + V + before making a purchase",
+                        usage: "Đưa ra lời khuyên kết luận cho người tiêu dùng.",
+                        example: "<span class='hl-ex'>Therefore, consumers should</span> think <span class='hl-ex'>before making a purchase</span>.",
+                        taskVn: "Đặt câu: Vì vậy, người tiêu dùng nên so sánh giá cả trước khi mua hàng.",
+                        vocabHint: "compare prices / before making a purchase",
+                        sampleAns: "Therefore, consumers should compare prices before making a purchase."
+                    },
+                    {
+                        id: "s6",
+                        tag: "Useful Structure 6",
+                        formula: "One of the main ways + S + V + is by + V-ing",
+                        usage: "Cấu trúc giải thích phương thức rất tự nhiên ('Một trong những cách chính mà... là bằng cách...').",
+                        example: "<span class='hl-ex'>One of the main ways</span> ads attract buyers <span class='hl-ex'>is by</span> offering special discounts.",
+                        taskVn: "Đặt câu: Một trong những cách chính các công ty quảng bá sản phẩm là bằng cách thuê người nổi tiếng.",
+                        vocabHint: "one of the main ways / promote products / hiring famous people",
+                        sampleAns: "One of the main ways companies promote products is by hiring famous people."
+                    },
+                    {
+                        id: "s7",
+                        tag: "Useful Structure 7",
+                        formula: "When + S + see + N + repeatedly, S + tend to + V",
+                        usage: "Diễn đạt xu hướng tâm lý tự nhiên ('Khi ai đó nhìn thấy... liên tục, họ có xu hướng...').",
+                        example: "<span class='hl-ex'>When</span> consumers <span class='hl-ex'>see</span> an ad <span class='hl-ex'>repeatedly, they tend to</span> trust the brand more.",
+                        taskVn: "Đặt câu: Khi thanh thiếu niên thấy đôi giày mới trên mạng xã hội liên tục, họ có xu hướng muốn mua nó.",
+                        vocabHint: "when teenagers see / new shoes / on social media repeatedly / tend to want to buy",
+                        sampleAns: "When teenagers see new shoes on social media repeatedly, they tend to want to buy them."
+                    },
+                    {
+                        id: "s8",
+                        tag: "Useful Structure 8",
+                        formula: "The purpose of + N + is not only to + V1, but also to + V2",
+                        usage: "Phân tích mục đích kép một cách mạch lạc, tự nhiên.",
+                        example: "<span class='hl-ex'>The purpose of</span> advertising <span class='hl-ex'>is not only to</span> give information, <span class='hl-ex'>but also to</span> persuade people to buy.",
+                        taskVn: "Đặt câu: Mục đích của hình ảnh đẹp không chỉ là để thu hút sự chú ý mà còn để làm sản phẩm trông hấp dẫn.",
+                        vocabHint: "purpose of beautiful images / catch people's attention / make products look attractive",
+                        sampleAns: "The purpose of beautiful images is not only to catch people's attention, but also to make products look attractive."
+                    },
+                    {
+                        id: "s9",
+                        tag: "Useful Structure 9",
+                        formula: "It is easy for + O + to be influenced by + N",
+                        usage: "Cấu trúc bị động tự nhiên diễn tả việc dễ bị tác động bởi yếu tố bên ngoài.",
+                        example: "<span class='hl-ex'>It is easy for</span> young shoppers <span class='hl-ex'>to be influenced by</span> advertisements on social media.",
+                        taskVn: "Đặt câu: Rất dễ để người tiêu dùng bị ảnh hưởng bởi các chương trình giảm giá đặc biệt.",
+                        vocabHint: "easy for consumers / influenced by / special discounts",
+                        sampleAns: "It is easy for consumers to be influenced by special discounts."
+                    },
+                    {
+                        id: "s10",
+                        tag: "Useful Structure 10",
+                        formula: "Rather than + V-ing, S + should + V",
+                        usage: "Cấu trúc so sánh lựa chọn tự nhiên ('Thay vì làm điều cảm tính, nên làm điều lý trí').",
+                        example: "<span class='hl-ex'>Rather than</span> trusting every advertisement, buyers <span class='hl-ex'>should</span> read customer reviews first.",
+                        taskVn: "Đặt câu: Thay vì mua sắm dựa trên quảng cáo, người tiêu dùng nên tự hỏi liệu họ có thực sự cần sản phẩm đó không.",
+                        vocabHint: "rather than / buying based on ads / ask themselves / really need the product",
+                        sampleAns: "Rather than buying based on ads, consumers should ask themselves if they really need the product."
+                    }
+                ]
+            },
+            topic3: {
+                title: "3. Online Shopping — Is online shopping always good?",
+                vocabBank: [
+                    { word: "convenient", pos: "adj", ipa: "/kənˈviːniənt/", meaning: "tiện lợi, thuận tiện" },
+                    { word: "compare prices easily", pos: "v.phr", ipa: "/kəmˈpeə ˈpraɪsɪz ˈiːzəli/", meaning: "so sánh giá cả dễ dàng" },
+                    { word: "encourage impulse buying", pos: "v.phr", ipa: "/ɪnˈkʌrɪdʒ ˈɪmpʌls ˈbaɪɪŋ/", meaning: "khuyến khích mua sắm bốc đồng" },
+                    { word: "with only a few clicks", pos: "prep.phr", ipa: "/wɪð ˈəʊnli ə fjuː klɪks/", meaning: "chỉ với vài cú nhấp chuột" },
+                    { word: "without thinking carefully", pos: "prep.phr", ipa: "/wɪˈðaʊt ˈθɪŋkɪŋ ˈkeəfəli/", meaning: "mà không suy nghĩ cẩn thận" },
+                    { word: "a wide range of products", pos: "n.phr", ipa: "/ə waɪd reɪndʒ əv ˈprɒdʌkts/", meaning: "đa dạng các loại sản phẩm" },
+                    { word: "save time and effort", pos: "v.phr", ipa: "/seɪv taɪm ənd ˈefət/", meaning: "tiết kiệm thời gian và công sức" },
+                    { word: "lose control of spending", pos: "v.phr", ipa: "/luːz kənˈtrəʊl əv ˈspendɪŋ/", meaning: "mất kiểm soát chi tiêu" }
+                ],
+                structures: [
+                    {
+                        id: "s1",
+                        tag: "Cấu trúc gốc 1",
+                        formula: "S + has both advantages and disadvantages",
+                        usage: "Câu mở đầu (Thesis statement) chuẩn cho dạng bài thảo luận 2 mặt.",
+                        example: "Online shopping <span class='hl-ex'>has both advantages and disadvantages</span>.",
+                        taskVn: "Đặt câu: Việc sử dụng thẻ tín dụng có cả ưu điểm và nhược điểm.",
+                        vocabHint: "using credit cards / advantages and disadvantages",
+                        sampleAns: "Using credit cards has both advantages and disadvantages."
+                    },
+                    {
+                        id: "s2",
+                        tag: "Cấu trúc gốc 2",
+                        formula: "On the one hand, it is convenient because + S + can + V",
+                        usage: "Trình bày mặt tích cực thứ nhất.",
+                        example: "<span class='hl-ex'>On the one hand, it is convenient because people can</span> buy products from home and compare prices easily.",
+                        taskVn: "Đặt câu: Một mặt, các ứng dụng giao đồ ăn rất tiện lợi vì mọi người có thể đặt bữa ăn từ nhà.",
+                        vocabHint: "food delivery apps / convenient / order meals from home",
+                        sampleAns: "On the one hand, food delivery apps are convenient because people can order meals from home."
+                    },
+                    {
+                        id: "s3",
+                        tag: "Cấu trúc gốc 3",
+                        formula: "On the other hand, it can encourage impulse buying because + S + V",
+                        usage: "Chuyển ý sang mặt tiêu cực.",
+                        example: "<span class='hl-ex'>On the other hand, it can encourage impulse buying because</span> consumers can purchase products with only a few clicks.",
+                        taskVn: "Đặt câu: Mặt khác, giảm giá trực tuyến có thể khuyến khích mua sắm bốc đồng vì giá trông rất rẻ.",
+                        vocabHint: "online discounts / encourage impulse buying / prices look very cheap",
+                        sampleAns: "On the other hand, online discounts can encourage impulse buying because prices look very cheap."
+                    },
+                    {
+                        id: "s4",
+                        tag: "Cấu trúc gốc 4",
+                        formula: "Someone may + V + without thinking carefully",
+                        usage: "Nêu ví dụ về hành vi thiếu cân nhắc.",
+                        example: "For example, <span class='hl-ex'>someone may buy clothes late at night without thinking carefully</span>.",
+                        taskVn: "Đặt câu: Ví dụ, ai đó có thể đặt mua nhiều đồ ăn vặt khi đang đói mà không suy nghĩ kỹ.",
+                        vocabHint: "order a lot of snacks / when they are hungry / without thinking carefully",
+                        sampleAns: "For example, someone may order a lot of snacks when they are hungry without thinking carefully."
+                    },
+                    {
+                        id: "s5",
+                        tag: "Cấu trúc gốc 5",
+                        formula: "S + is useful if + S + manage their money carefully",
+                        usage: "Câu kết luận đưa ra điều kiện để tận dụng lợi ích.",
+                        example: "In my opinion, <span class='hl-ex'>online shopping is useful if people manage their money carefully</span>.",
+                        taskVn: "Đặt câu: Mua sắm trực tuyến rất hữu ích nếu học sinh quản lý tiền tiêu vặt của mình cẩn thận.",
+                        vocabHint: "online shopping / useful if / manage their pocket money carefully",
+                        sampleAns: "Online shopping is useful if students manage their pocket money carefully."
+                    },
+                    {
+                        id: "s6",
+                        tag: "Useful Structure 6",
+                        formula: "One of the biggest benefits of + V-ing + is that + S + can + V",
+                        usage: "Cấu trúc nêu lợi ích nổi bật nhất rất tự nhiên trong văn viết IELTS.",
+                        example: "<span class='hl-ex'>One of the biggest benefits of</span> shopping online <span class='hl-ex'>is that</span> buyers <span class='hl-ex'>can</span> compare prices easily across different stores.",
+                        taskVn: "Đặt câu: Một trong những lợi ích lớn nhất của mua sắm trực tuyến là mọi người có thể tiết kiệm thời gian và công sức.",
+                        vocabHint: "one of the biggest benefits of / online shopping / save time and effort",
+                        sampleAns: "One of the biggest benefits of online shopping is that people can save time and effort."
+                    },
+                    {
+                        id: "s7",
+                        tag: "Useful Structure 7",
+                        formula: "Because + S + can + V, it is easy for + O + to + V",
+                        usage: "Cấu trúc nguyên nhân – hệ quả tự nhiên ('Bởi vì có thể..., rất dễ để ai đó...').",
+                        example: "<span class='hl-ex'>Because</span> consumers <span class='hl-ex'>can</span> pay with only a few clicks, <span class='hl-ex'>it is easy for</span> them <span class='hl-ex'>to</span> lose control of their spending.",
+                        taskVn: "Đặt câu: Bởi vì các cửa hàng trực tuyến mở cửa cả ngày lẫn đêm, rất dễ để mọi người mua sắm vào đêm khuya.",
+                        vocabHint: "because online stores / open day and night / easy for people / shop late at night",
+                        sampleAns: "Because online stores are open day and night, it is easy for people to shop late at night."
+                    },
+                    {
+                        id: "s8",
+                        tag: "Useful Structure 8",
+                        formula: "Although + S + V, S + still need to + V",
+                        usage: "Câu nhượng bộ tự nhiên ('Mặc dù..., mọi người vẫn cần...').",
+                        example: "<span class='hl-ex'>Although</span> online shopping saves a lot of time, consumers <span class='hl-ex'>still need to</span> think carefully before paying.",
+                        taskVn: "Đặt câu: Mặc dù mua sắm trực tuyến mang lại đa dạng sản phẩm, người mua vẫn nên kiểm tra đánh giá trước.",
+                        vocabHint: "although online shopping / wide range of products / check reviews first",
+                        sampleAns: "Although online shopping offers a wide range of products, buyers should still check reviews first."
+                    },
+                    {
+                        id: "s9",
+                        tag: "Useful Structure 9",
+                        formula: "Another problem with + V-ing + is that + S + V",
+                        usage: "Cấu trúc bổ sung luận điểm tiêu cực mạch lạc ('Một vấn đề khác của việc... là...').",
+                        example: "<span class='hl-ex'>Another problem with</span> buying clothes online <span class='hl-ex'>is that</span> the items sometimes do not fit well.",
+                        taskVn: "Đặt câu: Một vấn đề khác của việc mua sắm trực tuyến là người tiêu dùng có thể tiêu quá nhiều tiền vào những món đồ không cần thiết.",
+                        vocabHint: "another problem with / shopping online / spend too much money / unnecessary items",
+                        sampleAns: "Another problem with shopping online is that consumers may spend too much money on unnecessary items."
+                    },
+                    {
+                        id: "s10",
+                        tag: "Useful Structure 10",
+                        formula: "As long as + S + V, S + can enjoy the convenience of + N",
+                        usage: "Câu điều kiện 'Miễn là...' dùng làm câu kết đoạn rất mượt mà.",
+                        example: "<span class='hl-ex'>As long as</span> people stick to their budget, they <span class='hl-ex'>can enjoy the convenience of</span> online shopping without overspending.",
+                        taskVn: "Đặt câu: Miễn là người tiêu dùng quản lý tiền bạc cẩn thận, họ có thể tận hưởng sự tiện lợi của việc mua hàng từ nhà.",
+                        vocabHint: "as long as consumers / manage their money carefully / enjoy the convenience of / buying from home",
+                        sampleAns: "As long as consumers manage their money carefully, they can enjoy the convenience of buying from home."
+                    }
+                ]
+            },
+            topic4: {
+                title: "4. Consumerism — What problems can excessive shopping cause?",
+                vocabBank: [
+                    { word: "excessive consumption", pos: "n.phr", ipa: "/ɪkˈsesɪv kənˈsʌmpʃn/", meaning: "sự tiêu dùng quá mức" },
+                    { word: "at the individual / social level", pos: "prep.phr", ipa: "/ˌɪndɪˈvɪdʒuəl / ˈsəʊʃl ˈlevl/", meaning: "ở cấp độ cá nhân / xã hội" },
+                    { word: "have financial problems", pos: "v.phr", ipa: "/hæv faɪˈnænʃl ˈprɒbləmz/", meaning: "gặp các vấn đề về tài chính" },
+                    { word: "unnecessary products", pos: "n.phr", ipa: "/ʌnˈnesəsəri ˈprɒdʌkts/", meaning: "những sản phẩm không cần thiết" },
+                    { word: "environmental damage", pos: "n.phr", ipa: "/ɪnˌvaɪrənˈmentl ˈdæmɪdʒ/", meaning: "thiệt hại về môi trường" },
+                    { word: "reduce unnecessary packaging", pos: "v.phr", ipa: "/rɪˈdjuːs ʌnˈnesəsəri ˈpækɪdʒɪŋ/", meaning: "giảm bớt bao bì không cần thiết" },
+                    { word: "protect the environment", pos: "v.phr", ipa: "/prəˈtekt ði ɪnˈvaɪrənmənt/", meaning: "bảo vệ môi trường" },
+                    { word: "smart consumers", pos: "n.phr", ipa: "/smɑːt kənˈsjuːməz/", meaning: "người tiêu dùng thông minh" }
+                ],
+                structures: [
+                    {
+                        id: "s1",
+                        tag: "Cấu trúc gốc 1",
+                        formula: "Excessive + N + can cause serious problems",
+                        usage: "Mở đầu đoạn văn nêu tác hại của một hành vi quá mức.",
+                        example: "<span class='hl-ex'>Excessive consumption can cause serious problems</span>.",
+                        taskVn: "Đặt câu: Việc mua sắm quá mức có thể gây ra những vấn đề nghiêm trọng cho ngân sách gia đình.",
+                        vocabHint: "excessive shopping / cause serious problems / family budget",
+                        sampleAns: "Excessive shopping can cause serious problems for a family budget."
+                    },
+                    {
+                        id: "s2",
+                        tag: "Cấu trúc gốc 2",
+                        formula: "At the individual level, S + may + V1 + and + V2",
+                        usage: "Phân tích tác động ở góc độ cá nhân.",
+                        example: "<span class='hl-ex'>At the individual level, people may waste money and have financial problems</span>.",
+                        taskVn: "Đặt câu: Ở cấp độ cá nhân, mọi người có thể lãng phí tiền bạc và cảm thấy căng thẳng vì nợ nần.",
+                        vocabHint: "at the individual level / waste money / feel stressed because of debt",
+                        sampleAns: "At the individual level, people may waste money and feel stressed because of debt."
+                    },
+                    {
+                        id: "s3",
+                        tag: "Cấu trúc gốc 3",
+                        formula: "At the social level, A means B, which can lead to C",
+                        usage: "Dùng mệnh đề quan hệ nối tiếp (, which) để phân tích hệ quả xã hội/môi trường.",
+                        example: "<span class='hl-ex'>At the social level, more products also mean more packaging and more waste, which can lead to environmental damage</span>.",
+                        taskVn: "Đặt câu: Ở cấp độ xã hội, nhiều rác thải nhựa hơn đồng nghĩa với nhiều ô nhiễm hơn, điều này có thể dẫn đến thiệt hại môi trường.",
+                        vocabHint: "more plastic waste / more pollution / lead to environmental damage",
+                        sampleAns: "At the social level, more plastic waste means more pollution, which can lead to environmental damage."
+                    },
+                    {
+                        id: "s4",
+                        tag: "Cấu trúc gốc 4",
+                        formula: "Therefore, people should buy only what they need",
+                        usage: "Đưa ra giải pháp thực tế cho người tiêu dùng.",
+                        example: "<span class='hl-ex'>Therefore, people should buy only what they need</span>, and governments should reduce unnecessary packaging.",
+                        taskVn: "Đặt câu: Vì vậy, người tiêu dùng chỉ nên mua những gì họ cần và tránh mua sắm bốc đồng.",
+                        vocabHint: "consumers / buy only what they need / avoid impulse buying",
+                        sampleAns: "Therefore, consumers should buy only what they need and avoid impulse buying."
+                    },
+                    {
+                        id: "s5",
+                        tag: "Cấu trúc gốc 5",
+                        formula: "Before buying something, S + should make a shopping list and ask: ...",
+                        usage: "Đưa ra mẹo cụ thể cho câu hỏi Speaking Part 3.",
+                        example: "<span class='hl-ex'>Before buying something, they should ask: do I really need this?</span>",
+                        taskVn: "Đặt câu: Trước khi đi siêu thị, mọi người nên lập danh sách mua sắm để không mua những sản phẩm không cần thiết.",
+                        vocabHint: "going to the supermarket / make a shopping list / unnecessary products",
+                        sampleAns: "Before going to the supermarket, people should make a shopping list so they do not buy unnecessary products."
+                    },
+                    {
+                        id: "s6",
+                        tag: "Useful Structure 6",
+                        formula: "The more + N + S + buy, the more + N + S + produce",
+                        usage: "Cấu trúc so sánh kép ('Càng mua nhiều..., càng tạo ra nhiều...') cực kỳ tự nhiên và đắt giá.",
+                        example: "<span class='hl-ex'>The more</span> unnecessary products people <span class='hl-ex'>buy, the more</span> plastic waste they <span class='hl-ex'>produce</span>.",
+                        taskVn: "Đặt câu: Mọi người càng mua sắm nhiều, họ càng lãng phí nhiều tiền bạc.",
+                        vocabHint: "the more people shop / the more money / waste",
+                        sampleAns: "The more people shop, the more money they waste."
+                    },
+                    {
+                        id: "s7",
+                        tag: "Useful Structure 7",
+                        formula: "Buying too many + N + not only + V1 + but also + V2",
+                        usage: "Cấu trúc liệt kê tác hại kép tự nhiên ('Việc mua quá nhiều... không chỉ... mà còn...').",
+                        example: "<span class='hl-ex'>Buying too many</span> clothes <span class='hl-ex'>not only</span> wastes money <span class='hl-ex'>but also</span> harms the environment.",
+                        taskVn: "Đặt câu: Việc mua quá nhiều sản phẩm không cần thiết không chỉ gây ra vấn đề tài chính mà còn tạo ra nhiều rác thải hơn.",
+                        vocabHint: "buying too many unnecessary products / causes financial problems / creates more waste",
+                        sampleAns: "Buying too many unnecessary products not only causes financial problems but also creates more waste."
+                    },
+                    {
+                        id: "s8",
+                        tag: "Useful Structure 8",
+                        formula: "To become smarter consumers, people should get into the habit of + V-ing",
+                        usage: "Cấu trúc chỉ mục đích + cụm 'get into the habit of' (hình thành thói quen) rất tự nhiên.",
+                        example: "<span class='hl-ex'>To become smarter consumers, people should get into the habit of</span> making a shopping list before going to the store.",
+                        taskVn: "Đặt câu: Để trở thành người tiêu dùng thông minh hơn, mọi người nên hình thành thói quen lập ngân sách hàng tháng.",
+                        vocabHint: "to become smarter consumers / get into the habit of / making a monthly budget",
+                        sampleAns: "To become smarter consumers, people should get into the habit of making a monthly budget."
+                    },
+                    {
+                        id: "s9",
+                        tag: "Useful Structure 9",
+                        formula: "Both + A + and + B + play an important role in + V-ing",
+                        usage: "Cấu trúc phân chia trách nhiệm ('Cả A và B đều đóng vai trò quan trọng trong việc...').",
+                        example: "<span class='hl-ex'>Both</span> individuals <span class='hl-ex'>and</span> governments <span class='hl-ex'>play an important role in</span> reducing unnecessary waste.",
+                        taskVn: "Đặt câu: Cả gia đình và chính phủ đều đóng vai trò quan trọng trong việc bảo vệ môi trường.",
+                        vocabHint: "both families and governments / play an important role in / protecting the environment",
+                        sampleAns: "Both families and governments play an important role in protecting the environment."
+                    },
+                    {
+                        id: "s10",
+                        tag: "Useful Structure 10",
+                        formula: "If + S + V (hiện tại đơn), S + will be able to + V",
+                        usage: "Câu điều kiện loại 1 tự nhiên dùng để kết bài nêu viễn cảnh tích cực.",
+                        example: "<span class='hl-ex'>If</span> consumers buy only what they truly need, they <span class='hl-ex'>will be able to</span> save money and protect the planet at the same time.",
+                        taskVn: "Đặt câu: Nếu mọi người áp dụng thói quen mua sắm thông minh hơn, họ sẽ có thể tiết kiệm tiền cho những thứ quan trọng.",
+                        vocabHint: "if people adopt / smarter shopping habits / save money for important things",
+                        sampleAns: "If people adopt smarter shopping habits, they will be able to save money for important things."
+                    }
+                ]
+            }
+        };
+
+        let currentTopic = 'topic1';
+        let savedData = JSON.parse(localStorage.getItem('lesson5_useful_structures_v2')) || {};
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 1800);
+        }
+
+        function switchTopic(topicKey) {
+            currentTopic = topicKey;
+            const topics = ['topic1', 'topic2', 'topic3', 'topic4'];
+            const activeMap = {
+                topic1: 'bg-indigo-600 text-white shadow-md',
+                topic2: 'bg-emerald-600 text-white shadow-md',
+                topic3: 'bg-amber-600 text-white shadow-md',
+                topic4: 'bg-purple-600 text-white shadow-md'
+            };
+
+            topics.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === topicKey) {
+                    btn.className = `py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2 ${activeMap[t]}`;
+                } else {
+                    btn.className = 'py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200';
+                }
+            });
+
+            renderTopic(topicKey);
+        }
+
+        function saveUserSentence(topicKey, structId, val) {
+            if (!savedData[topicKey]) savedData[topicKey] = {};
+            savedData[topicKey][structId] = val;
+            localStorage.setItem('lesson5_useful_structures_v2', JSON.stringify(savedData));
+            showToast('Đã lưu câu của bạn!');
+        }
+
+        function insertHintToInput(inputId, text) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const current = input.value.trim();
+            input.value = current ? `${current} ${text}` : text;
+            input.focus();
+            input.dispatchEvent(new Event('input'));
+        }
+
+        function toggleBox(id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('hidden');
+        }
+
+        function clearAllData() {
+            if (confirm('Bạn có chắc muốn xóa toàn bộ câu đã đặt để luyện lại từ đầu không?')) {
+                savedData = {};
+                localStorage.removeItem('lesson5_useful_structures_v2');
+                renderTopic(currentTopic);
+                showToast('Đã xóa dữ liệu làm lại!');
+            }
+        }
+
+        function renderTopic(topicKey) {
+            const data = lessonData[topicKey];
+            const area = document.getElementById('topic-render-area');
+
+            const vocabCardsHTML = data.vocabBank.map(v => `
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 hover:border-amber-400 transition">
+                    <div class="flex items-center justify-between gap-1">
+                        <span class="font-bold text-slate-900 text-xs sm:text-sm">${v.word}</span>
+                        <span class="text-[10px] font-mono bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-semibold">${v.pos}</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 font-mono mt-0.5">${v.ipa}</div>
+                    <div class="text-xs text-slate-700 font-medium mt-0.5">${v.meaning}</div>
+                </div>
+            `).join('');
+
+            const structuresHTML = data.structures.map((st, idx) => {
+                const inputId = `${topicKey}_${st.id}_input`;
+                const savedVal = (savedData[topicKey] && savedData[topicKey][st.id]) ? savedData[topicKey][st.id] : '';
+                const hintTokens = st.vocabHint.split('/').map(t => t.trim());
+                const isUseful = idx >= 5;
+
+                const badgeStyle = isUseful 
+                    ? 'bg-emerald-600 text-white' 
+                    : 'bg-indigo-600 text-white';
+
+                const clickableChips = hintTokens.map(token => `
+                    <button type="button" onclick="insertHintToInput('${inputId}', '${token.replace(/'/g, "\\'")}')" 
+                        class="text-xs bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-lg font-medium transition flex items-center gap-1" title="Bấm để chèn cụm từ vào ô nhập">
+                        <i class="fa-solid fa-plus text-[9px] text-amber-600"></i> ${token}
+                    </button>
+                `).join('');
+
+                return `
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-xs font-bold ${badgeStyle} px-2.5 py-1 rounded-lg">${st.tag}</span>
+                                <span class="hl-struct text-xs sm:text-sm">${st.formula}</span>
+                            </div>
+                        </div>
+
+                        <div class="text-xs sm:text-sm bg-white p-3 rounded-xl border border-slate-200 space-y-1">
+                            <div class="text-slate-600"><strong class="text-slate-800">Chức năng:</strong> ${st.usage}</div>
+                            <div class="text-slate-800"><strong class="text-indigo-700"><i class="fa-solid fa-quote-left text-[10px]"></i> Ví dụ:</strong> ${st.example}</div>
+                        </div>
+
+                        <p class="text-sm font-bold text-slate-900 pt-0.5">${st.taskVn}</p>
+
+                        <!-- Gợi ý từ vựng bấm chèn nhanh -->
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <span class="text-xs font-semibold text-amber-800 mr-1">
+                                <i class="fa-solid fa-lightbulb text-amber-500"></i> Từ vựng gợi ý:
+                            </span>
+                            ${clickableChips}
+                        </div>
+
+                        <!-- Input -->
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="text" id="${inputId}" value="${savedVal.replace(/"/g, '&quot;')}" 
+                                oninput="saveUserSentence('${topicKey}', '${st.id}', this.value)"
+                                placeholder="Nhập câu tiếng Anh của bạn theo cấu trúc trên..." 
+                                class="flex-1 px-3.5 py-2 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <button type="button" onclick="toggleBox('${topicKey}_${st.id}_ans')" 
+                                class="px-3.5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5 shrink-0">
+                                <i class="fa-solid fa-key"></i> Đáp án mẫu
+                            </button>
+                        </div>
+
+                        <!-- Sample Answer -->
+                        <div id="${topicKey}_${st.id}_ans" class="hidden text-xs text-emerald-800 bg-emerald-50 p-2.5 rounded-xl border border-emerald-200 font-medium">
+                            <strong><i class="fa-solid fa-check-circle"></i> Gợi ý:</strong> ${st.sampleAns}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            area.innerHTML = `
+                <!-- Section 1: Compact Vocabulary & Collocations Bank -->
+                <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 md:p-5 space-y-3">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <h2 class="font-bold text-base md:text-lg text-slate-900">${data.title}</h2>
+                        <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full">${data.vocabBank.length} từ vựng cốt lõi</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                        ${vocabCardsHTML}
+                    </div>
+                </section>
+
+                <!-- Section 2: 10 Key Structures & Sentence Building -->
+                <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 md:p-5 space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
+                        <h3 class="font-bold text-base md:text-lg text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-to-square text-indigo-600"></i> 10 Cấu Trúc Diễn Đạt & Luyện Đặt Câu
+                        </h3>
+                        <div class="flex items-center gap-2 text-xs">
+                            <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-semibold">1–5: Cấu trúc bài học</span>
+                            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold">6–10: Useful Writing Structures</span>
+                        </div>
+                    </div>
+                    <div class="space-y-3.5">
+                        ${structuresHTML}
+                    </div>
+                </section>
+            `;
+        }
+
+        window.onload = () => renderTopic('topic1');
+    </script>
+</body>
+</html>
