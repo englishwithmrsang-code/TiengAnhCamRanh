@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing & Speaking Practice - Money, Shopping, Advertising & Consumerism</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-radius: 8px;
+            --correct-color: #15803d;
+            --incorrect-color: #b91c1c;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0 0 4px 0;
+            color: #0f172a;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            border: 1px solid transparent;
+            background-color: var(--bg-color);
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn[data-target="topic1"] { color: #d97706; border-color: #fde68a; }
+        .tab-btn[data-target="topic1"].active, .tab-btn[data-target="topic1"]:hover { background-color: #d97706; color: #fff; }
+
+        .tab-btn[data-target="topic2"] { color: #2563eb; border-color: #bfdbfe; }
+        .tab-btn[data-target="topic2"].active, .tab-btn[data-target="topic2"]:hover { background-color: #2563eb; color: #fff; }
+
+        .tab-btn[data-target="topic3"] { color: #059669; border-color: #a7f3d0; }
+        .tab-btn[data-target="topic3"].active, .tab-btn[data-target="topic3"]:hover { background-color: #059669; color: #fff; }
+
+        .tab-btn[data-target="topic4"] { color: #7c3aed; border-color: #ddd6fe; }
+        .tab-btn[data-target="topic4"].active, .tab-btn[data-target="topic4"]:hover { background-color: #7c3aed; color: #fff; }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            background: #e2e8f0;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover { background: #cbd5e1; }
+
+        /* Tracker */
+        .tracker-card {
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .tracker-info {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            white-space: nowrap;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #10b981;
+            transition: width 0.3s ease;
+        }
+
+        /* Card Layout */
+        .version-card {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            margin-bottom: 20px;
+        }
+
+        .version-card.active { display: block; }
+
+        .version-header {
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .version-header h2 { margin: 0; font-size: 1.1rem; }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .section-subtitle {
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            border-left: 3px solid #3b82f6;
+            padding-left: 8px;
+        }
+
+        .speaking-question {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+            background-color: #f1f5f9;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .theme-topic1 { border-top: 4px solid #d97706; }
+        .theme-topic1 .version-header { background: #fffbeb; color: #92400e; }
+        .theme-topic1 .vi-label { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+        .theme-topic2 { border-top: 4px solid #2563eb; }
+        .theme-topic2 .version-header { background: #eff6ff; color: #1e40af; }
+        .theme-topic2 .vi-label { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+
+        .theme-topic3 { border-top: 4px solid #059669; }
+        .theme-topic3 .version-header { background: #ecfdf5; color: #065f46; }
+        .theme-topic3 .vi-label { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+        .theme-topic4 { border-top: 4px solid #7c3aed; }
+        .theme-topic4 .version-header { background: #f5f3ff; color: #5b21b6; }
+        .theme-topic4 .vi-label { background-color: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe; }
+
+        .essay-body p {
+            margin-bottom: 16px;
+            text-align: justify;
+            font-size: 0.92rem;
+        }
+
+        /* Blank Elements */
+        .blank-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin: 3px 2px;
+            vertical-align: baseline;
+        }
+
+        .vi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-right: 3px;
+            user-select: none;
+            white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .blank-input {
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 0.86rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+            height: 22px;
+        }
+
+        .blank-input:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .blank-input.correct {
+            border-color: var(--correct-color) !important;
+            background-color: #f0fdf4 !important;
+            color: var(--correct-color) !important;
+            font-weight: 600;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--incorrect-color) !important;
+            background-color: #fef2f2 !important;
+            color: var(--incorrect-color) !important;
+            font-weight: 600;
+        }
+
+        /* Tooltip logic */
+        .blank-wrapper .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            background-color: #0f172a;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 3px 7px;
+            position: absolute;
+            z-index: 10;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: opacity 0.15s ease-in-out;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .blank-wrapper .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            border-width: 4px;
+            border-style: solid;
+            border-color: #0f172a transparent transparent transparent;
+        }
+
+        .blank-wrapper:hover .blank-input.incorrect.submitted + .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>WRITING LESSON 5: Money, Shopping, Advertising & Consumerism</h1>
+        <p>Nhìn cụm <strong>Tiếng Việt in màu</strong> → Nhập đáp án <strong>Tiếng Anh</strong> → Nhấn <strong>Enter</strong> hoặc bấm ra ngoài để nộp bài → Rê chuột vào ô sai để xem gợi ý</p>
+    </header>
+
+    <div class="controls">
+        <div class="tabs">
+            <button class="tab-btn active" data-target="topic1">Topic 1: Spending Money 💰</button>
+            <button class="tab-btn" data-target="topic2">Topic 2: Advertising 📢</button>
+            <button class="tab-btn" data-target="topic3">Topic 3: Online Shopping 🛒</button>
+            <button class="tab-btn" data-target="topic4">Topic 4: Consumerism 🛍️</button>
+        </div>
+        <div class="action-btns">
+            <button class="btn-action" id="showAnswersBtn">Hiển thị đáp án</button>
+            <button class="btn-action" id="resetBtn">Làm lại</button>
+        </div>
+    </div>
+
+    <!-- Tracker -->
+    <div class="tracker-card">
+        <div class="tracker-info">Tiến độ bài làm: <span id="progressText">0 / 0 (0%)</span></div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- TOPIC 1 -->
+    <div id="topic1" class="version-card theme-topic1 active">
+        <div class="version-header">
+            <h2>Topic 1: How can people spend their money wisely?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Reading Passage</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Quản lý tiền bạc tốt</span><input type="text" class="blank-input" data-ans="Managing money well" style="width: 175px;"><span class="tooltip">Đáp án: Managing money well</span></span>
+                <span class="blank-wrapper"><span class="vi-label">là một kỹ năng sống quan trọng</span><input type="text" class="blank-input" data-ans="is an important life skill" style="width: 195px;"><span class="tooltip">Đáp án: is an important life skill</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đầu tiên</span><input type="text" class="blank-input" data-ans="First" style="width: 75px;"><span class="tooltip">Đáp án: First</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mọi người nên lập ngân sách hàng tháng</span><input type="text" class="blank-input" data-ans="people should make a monthly budget" style="width: 265px;"><span class="tooltip">Đáp án: people should make a monthly budget</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và chi tiền cho nhu cầu thiết yếu trước mong muốn</span><input type="text" class="blank-input" data-ans="and spend money on needs before wants" style="width: 285px;"><span class="tooltip">Đáp án: and spend money on needs before wants</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For example" style="width: 110px;"><span class="tooltip">Đáp án: For example</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">một học sinh có thể ghi lại tiền tiêu vặt của mình</span><input type="text" class="blank-input" data-ans="a student can write down his pocket money" style="width: 295px;"><span class="tooltip">Đáp án: a student can write down his pocket money</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và quyết định chi bao nhiêu cho thức ăn, sách vở và giải trí</span><input type="text" class="blank-input" data-ans="and decide how much to spend on food, books and fun" style="width: 365px;"><span class="tooltip">Đáp án: and decide how much to spend on food, books and fun</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một thói quen tốt khác là tiết kiệm một khoản nhỏ mỗi tháng</span><input type="text" class="blank-input" data-ans="Another good habit is to save a small amount every month" style="width: 385px;"><span class="tooltip">Đáp án: Another good habit is to save a small amount every month</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ngay cả khi nó chỉ là một ít</span><input type="text" class="blank-input" data-ans="even if it is only a little" style="width: 185px;"><span class="tooltip">Đáp án: even if it is only a little</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Kết quả là</span><input type="text" class="blank-input" data-ans="As a result" style="width: 105px;"><span class="tooltip">Đáp án: As a result</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">cậu ấy sẽ có đủ tiền cho những trường hợp khẩn cấp</span><input type="text" class="blank-input" data-ans="he will have enough money for emergencies" style="width: 295px;"><span class="tooltip">Đáp án: he will have enough money for emergencies</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hoặc cho thứ gì đó cậu ấy thực sự muốn</span><input type="text" class="blank-input" data-ans="or for something he really wants" style="width: 235px;"><span class="tooltip">Đáp án: or for something he really wants</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Theo quan điểm của tôi</span><input type="text" class="blank-input" data-ans="In my opinion" style="width: 135px;"><span class="tooltip">Đáp án: In my opinion</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">học sinh nên học những kỹ năng này ở trường</span><input type="text" class="blank-input" data-ans="students should learn these skills at school" style="width: 295px;"><span class="tooltip">Đáp án: students should learn these skills at school</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">để chúng có thể đưa ra những lựa chọn thông minh khi lớn lên</span><input type="text" class="blank-input" data-ans="so that they can make smart choices when they grow up" style="width: 375px;"><span class="tooltip">Đáp án: so that they can make smart choices when they grow up</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <div class="speaking-question">Question: How do you usually spend your pocket money?</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tôi thường chi phần lớn số tiền đó</span><input type="text" class="blank-input" data-ans="I usually spend most of it" style="width: 205px;"><span class="tooltip">Đáp án: I usually spend most of it</span></span>
+                <span class="blank-wrapper"><span class="vi-label">cho đồ ăn và đồ dùng học tập</span><input type="text" class="blank-input" data-ans="on food and school things" style="width: 205px;"><span class="tooltip">Đáp án: on food and school things</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tôi cố gắng tiết kiệm một ít tiền mỗi tháng</span><input type="text" class="blank-input" data-ans="I try to save some money every month" style="width: 265px;"><span class="tooltip">Đáp án: I try to save some money every month</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và tôi luôn suy nghĩ kỹ trước khi mua thứ gì đó đắt tiền</span><input type="text" class="blank-input" data-ans="and I always think twice before buying something expensive" style="width: 385px;"><span class="tooltip">Đáp án: and I always think twice before buying something expensive</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 2 -->
+    <div id="topic2" class="version-card theme-topic2">
+        <div class="version-header">
+            <h2>Topic 2: How does advertising influence consumers?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Reading Passage</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Quảng cáo có ảnh hưởng mạnh mẽ</span><input type="text" class="blank-input" data-ans="Advertising has a strong influence" style="width: 245px;"><span class="tooltip">Đáp án: Advertising has a strong influence</span></span>
+                <span class="blank-wrapper"><span class="vi-label">đến thói quen mua sắm của mọi người</span><input type="text" class="blank-input" data-ans="on people’s shopping habits" style="width: 215px;"><span class="tooltip">Đáp án: on people’s shopping habits</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đầu tiên</span><input type="text" class="blank-input" data-ans="First" style="width: 75px;"><span class="tooltip">Đáp án: First</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">các quảng cáo làm cho sản phẩm trông hấp dẫn</span><input type="text" class="blank-input" data-ans="advertisements make products look attractive" style="width: 315px;"><span class="tooltip">Đáp án: advertisements make products look attractive</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Các công ty thường sử dụng hình ảnh đẹp, giảm giá đặc biệt</span><input type="text" class="blank-input" data-ans="Companies often use beautiful images, special discounts" style="width: 365px;"><span class="tooltip">Đáp án: Companies often use beautiful images, special discounts</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và người nổi tiếng để quảng bá sản phẩm của họ</span><input type="text" class="blank-input" data-ans="and famous people to promote their products" style="width: 305px;"><span class="tooltip">Đáp án: and famous people to promote their products</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For example" style="width: 110px;"><span class="tooltip">Đáp án: For example</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">một thiếu niên có thể muốn giày mới</span><input type="text" class="blank-input" data-ans="a teenager may want new shoes" style="width: 225px;"><span class="tooltip">Đáp án: a teenager may want new shoes</span></span>
+                <span class="blank-wrapper"><span class="vi-label">sau khi nhìn thấy chúng lặp đi lặp lại trên mạng xã hội</span><input type="text" class="blank-input" data-ans="after seeing them again and again on social media" style="width: 345px;"><span class="tooltip">Đáp án: after seeing them again and again on social media</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Kết quả là</span><input type="text" class="blank-input" data-ans="As a result" style="width: 105px;"><span class="tooltip">Đáp án: As a result</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mọi người có thể mua những sản phẩm mà họ không cần</span><input type="text" class="blank-input" data-ans="people may buy products that they do not need" style="width: 325px;"><span class="tooltip">Đáp án: people may buy products that they do not need</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Vì vậy</span><input type="text" class="blank-input" data-ans="Therefore" style="width: 105px;"><span class="tooltip">Đáp án: Therefore</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">người tiêu dùng nên suy nghĩ trước khi mua hàng</span><input type="text" class="blank-input" data-ans="consumers should think before making a purchase" style="width: 335px;"><span class="tooltip">Đáp án: consumers should think before making a purchase</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <div class="speaking-question">Question: How does advertising influence consumers?</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Quảng cáo làm cho sản phẩm trông rất hấp dẫn</span><input type="text" class="blank-input" data-ans="Ads make products look very attractive" style="width: 285px;"><span class="tooltip">Đáp án: Ads make products look very attractive</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For example" style="width: 110px;"><span class="tooltip">Đáp án: For example</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nếu bạn thấy một chiếc điện thoại mới trên mạng xã hội mỗi ngày</span><input type="text" class="blank-input" data-ans="if you see a new phone on social media every day" style="width: 345px;"><span class="tooltip">Đáp án: if you see a new phone on social media every day</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">bạn bắt đầu muốn có nó</span><input type="text" class="blank-input" data-ans="you start to want it" style="width: 165px;"><span class="tooltip">Đáp án: you start to want it</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 3 -->
+    <div id="topic3" class="version-card theme-topic3">
+        <div class="version-header">
+            <h2>Topic 3: Is online shopping always good?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Reading Passage</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Mua sắm trực tuyến có cả ưu điểm và nhược điểm</span><input type="text" class="blank-input" data-ans="Online shopping has both advantages and disadvantages" style="width: 365px;"><span class="tooltip">Đáp án: Online shopping has both advantages and disadvantages</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một mặt</span><input type="text" class="blank-input" data-ans="On the one hand" style="width: 135px;"><span class="tooltip">Đáp án: On the one hand</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nó tiện lợi vì mọi người có thể mua sản phẩm từ nhà</span><input type="text" class="blank-input" data-ans="it is convenient because people can buy products from home" style="width: 385px;"><span class="tooltip">Đáp án: it is convenient because people can buy products from home</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và so sánh giá cả dễ dàng</span><input type="text" class="blank-input" data-ans="and compare prices easily" style="width: 195px;"><span class="tooltip">Đáp án: and compare prices easily</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Mặt khác</span><input type="text" class="blank-input" data-ans="On the other hand" style="width: 145px;"><span class="tooltip">Đáp án: On the other hand</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nó có thể khuyến khích việc mua sắm bốc đồng</span><input type="text" class="blank-input" data-ans="it can encourage impulse buying" style="width: 235px;"><span class="tooltip">Đáp án: it can encourage impulse buying</span></span>
+                <span class="blank-wrapper"><span class="vi-label">vì người tiêu dùng có thể mua sản phẩm chỉ với vài cú nhấp chuột</span><input type="text" class="blank-input" data-ans="because consumers can purchase products with only a few clicks" style="width: 415px;"><span class="tooltip">Đáp án: because consumers can purchase products with only a few clicks</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For example" style="width: 110px;"><span class="tooltip">Đáp án: For example</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ai đó có thể mua quần áo vào đêm khuya mà không suy nghĩ kỹ</span><input type="text" class="blank-input" data-ans="someone may buy clothes late at night without thinking carefully" style="width: 405px;"><span class="tooltip">Đáp án: someone may buy clothes late at night without thinking carefully</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Kết quả là</span><input type="text" class="blank-input" data-ans="As a result" style="width: 105px;"><span class="tooltip">Đáp án: As a result</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">họ có thể tiêu quá nhiều tiền</span><input type="text" class="blank-input" data-ans="they may spend too much money" style="width: 225px;"><span class="tooltip">Đáp án: they may spend too much money</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Theo quan điểm của tôi</span><input type="text" class="blank-input" data-ans="In my opinion" style="width: 135px;"><span class="tooltip">Đáp án: In my opinion</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mua sắm trực tuyến rất hữu ích nếu mọi người quản lý tiền bạc cẩn thận</span><input type="text" class="blank-input" data-ans="online shopping is useful if people manage their money carefully" style="width: 415px;"><span class="tooltip">Đáp án: online shopping is useful if people manage their money carefully</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <div class="speaking-question">Question: What are the advantages and disadvantages of online shopping?</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nó tiện lợi vì bạn có thể mua đồ từ nhà</span><input type="text" class="blank-input" data-ans="It’s convenient because you can buy things from home" style="width: 345px;"><span class="tooltip">Đáp án: It’s convenient because you can buy things from home</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và so sánh giá cả</span><input type="text" class="blank-input" data-ans="and compare prices" style="width: 155px;"><span class="tooltip">Đáp án: and compare prices</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Nhưng cũng rất dễ tiêu quá nhiều tiền</span><input type="text" class="blank-input" data-ans="But it’s also easy to spend too much money" style="width: 295px;"><span class="tooltip">Đáp án: But it’s also easy to spend too much money</span></span>
+                <span class="blank-wrapper"><span class="vi-label">chỉ với vài cú nhấp chuột</span><input type="text" class="blank-input" data-ans="with just a few clicks" style="width: 165px;"><span class="tooltip">Đáp án: with just a few clicks</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 4 -->
+    <div id="topic4" class="version-card theme-topic4">
+        <div class="version-header">
+            <h2>Topic 4: What problems can excessive shopping cause?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Reading Passage</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tiêu dùng quá mức có thể gây ra những vấn đề nghiêm trọng</span><input type="text" class="blank-input" data-ans="Excessive consumption can cause serious problems" style="width: 345px;"><span class="tooltip">Đáp án: Excessive consumption can cause serious problems</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ở cấp độ cá nhân</span><input type="text" class="blank-input" data-ans="At the individual level" style="width: 165px;"><span class="tooltip">Đáp án: At the individual level</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mọi người có thể lãng phí tiền bạc và gặp khó khăn tài chính</span><input type="text" class="blank-input" data-ans="people may waste money and have financial problems" style="width: 345px;"><span class="tooltip">Đáp án: people may waste money and have financial problems</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For instance" style="width: 110px;"><span class="tooltip">Đáp án: For instance</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">một gia đình có thể chi quá nhiều cho những sản phẩm không cần thiết</span><input type="text" class="blank-input" data-ans="a family may spend too much on unnecessary products" style="width: 365px;"><span class="tooltip">Đáp án: a family may spend too much on unnecessary products</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và còn rất ít tiền cho những thứ quan trọng</span><input type="text" class="blank-input" data-ans="and have little money for important things" style="width: 285px;"><span class="tooltip">Đáp án: and have little money for important things</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ở cấp độ xã hội</span><input type="text" class="blank-input" data-ans="At the social level" style="width: 145px;"><span class="tooltip">Đáp án: At the social level</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nhiều sản phẩm hơn cũng đồng nghĩa với nhiều bao bì và rác thải hơn</span><input type="text" class="blank-input" data-ans="more products also mean more packaging and more waste" style="width: 375px;"><span class="tooltip">Đáp án: more products also mean more packaging and more waste</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">điều này có thể dẫn đến thiệt hại về môi trường</span><input type="text" class="blank-input" data-ans="which can lead to environmental damage" style="width: 285px;"><span class="tooltip">Đáp án: which can lead to environmental damage</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Vì vậy</span><input type="text" class="blank-input" data-ans="Therefore" style="width: 105px;"><span class="tooltip">Đáp án: Therefore</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mọi người chỉ nên mua những gì họ cần</span><input type="text" class="blank-input" data-ans="people should buy only what they need" style="width: 265px;"><span class="tooltip">Đáp án: people should buy only what they need</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và chính phủ nên giảm bớt bao bì không cần thiết</span><input type="text" class="blank-input" data-ans="and governments should reduce unnecessary packaging" style="width: 345px;"><span class="tooltip">Đáp án: and governments should reduce unnecessary packaging</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tóm lại</span><input type="text" class="blank-input" data-ans="In conclusion" style="width: 125px;"><span class="tooltip">Đáp án: In conclusion</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">mua sắm thông minh hơn tốt cho cả gia đình và môi trường</span><input type="text" class="blank-input" data-ans="smarter shopping is good for both families and the environment" style="width: 395px;"><span class="tooltip">Đáp án: smarter shopping is good for both families and the environment</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <div class="speaking-question">Question: How can people become smarter consumers?</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Họ có thể lập danh sách mua sắm và ngân sách hàng tháng</span><input type="text" class="blank-input" data-ans="They can make a shopping list and a monthly budget" style="width: 345px;"><span class="tooltip">Đáp án: They can make a shopping list and a monthly budget</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Trước khi mua thứ gì đó</span><input type="text" class="blank-input" data-ans="Before buying something" style="width: 185px;"><span class="tooltip">Đáp án: Before buying something</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">họ nên tự hỏi: mình có thực sự cần thứ này không?</span><input type="text" class="blank-input" data-ans="they should ask: do I really need this?" style="width: 265px;"><span class="tooltip">Đáp án: they should ask: do I really need this?</span></span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.version-card');
+        const showAnswersBtn = document.getElementById('showAnswersBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // Clean text utility for flexible comparison
+        function cleanText(text) {
+            return text.trim()
+                       .toLowerCase()
+                       .replace(/’/g, "'")
+                       .replace(/–/g, "-")
+                       .replace(/\s+/g, ' ');
+        }
+
+        // Update Progress Tracker
+        function updateProgress() {
+            const activeCard = document.querySelector('.version-card.active');
+            const inputs = activeCard.querySelectorAll('.blank-input');
+            const total = inputs.length;
+            let correctCount = 0;
+
+            inputs.forEach(input => {
+                if (input.classList.contains('correct')) {
+                    correctCount++;
+                }
+            });
+
+            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+            progressBar.style.width = percent + '%';
+            progressText.textContent = `${correctCount} / ${total} (${percent}%)`;
+        }
+
+        // Validate Input logic
+        function validateInput(input) {
+            const userVal = cleanText(input.value);
+            const correctVal = cleanText(input.getAttribute('data-ans'));
+
+            if (userVal === "") {
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            } else {
+                input.classList.add('submitted');
+                if (userVal === correctVal) {
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('incorrect');
+                }
+            }
+            updateProgress();
+        }
+
+        // Tab Switching
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                cards.forEach(card => {
+                    if (card.id === targetId) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+                updateProgress();
+            });
+        });
+
+        // Event listeners for inputs
+        document.querySelectorAll('.blank-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    validateInput(input);
+                    input.blur();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                validateInput(input);
+            });
+        });
+
+        // Show Answers Button
+        showAnswersBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = input.getAttribute('data-ans');
+                input.classList.remove('incorrect');
+                input.classList.add('correct', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Reset Button
+        resetBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = "";
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Initial Progress State
+        updateProgress();
+    });
+</script>
+
+</body>
+</html>
