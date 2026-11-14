@@ -100,7 +100,7 @@ button.active {
 h2 { margin: 0 0 12px; color: #1e1b4b; font-size: 19px; }
 h3 { margin: 8px 0 6px; color: var(--primary); font-size: 16px; }
 
-/* Clean, Minimal Rounded Audio Player */
+/* Rounded Audio Player */
 .audio-card {
   background: linear-gradient(135deg, #eef2ff 0%, #f0fdfa 100%);
   border: 1px solid var(--primary-border);
@@ -108,10 +108,15 @@ h3 { margin: 8px 0 6px; color: var(--primary); font-size: 16px; }
   padding: 12px 16px;
   margin: 10px 0 18px;
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.audio-row {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 .audio-btns {
   display: flex;
@@ -122,18 +127,19 @@ h3 { margin: 8px 0 6px; color: var(--primary); font-size: 16px; }
 .play-trigger {
   background: var(--teal);
   color: white;
-  padding: 7px 16px;
+  padding: 8px 18px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  box-shadow: 0 3px 10px rgba(13, 148, 136, 0.22);
+  gap: 6px;
+  box-shadow: 0 3px 10px rgba(13, 148, 136, 0.25);
 }
 .play-trigger:hover { background: #0f766e; }
+.play-trigger.playing { background: #e11d48; }
 .mini-ctrl {
-  padding: 5px 10px;
+  padding: 6px 11px;
   font-size: 12px;
   border-radius: 999px;
   background: white;
@@ -144,10 +150,34 @@ h3 { margin: 8px 0 6px; color: var(--primary); font-size: 16px; }
 .mini-ctrl:hover { background: var(--primary-soft); border-color: var(--primary); }
 audio {
   flex: 1;
-  min-width: 240px;
+  min-width: 220px;
   height: 36px;
   border-radius: 999px;
   outline: none;
+}
+.synth-bar {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  color: #0f766e;
+  font-weight: 600;
+  border: 1px solid #99f6e4;
+}
+.synth-bar.active { display: flex; }
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0d9488;
+  animation: pulse 1s infinite alternate;
+}
+@keyframes pulse {
+  from { opacity: 0.4; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1.2); }
 }
 
 /* Questions & Options */
@@ -437,32 +467,157 @@ input[type=text]:focus, select:focus {
 </div>
 
 <script>
-// Exact file names from your folder (0 -> Part 1, (1) -> Part 2, (2) -> Part 3, (3) -> Part 4, (4) -> Part 5)
-const audioConfig = {
+// Properly URL-encoded file names (%23 instead of # so browsers don't break the path)
+const audioCandidates = {
   1: [
-    "Practice English Listening Test for A2 with answer and audioscript - Test #01 - English Practice Test 0.mp3",
-    "0.mp3",
-    "https://englishpracticetest.net/wp-content/uploads/2022/11/KET-1-Test-1-Part-1.mp3"
+    "Practice%20English%20Listening%20Test%20for%20A2%20with%20answer%20and%20audioscript%20-%20Test%20%2301%20-%20English%20Practice%20Test%200.mp3",
+    "Practice English Listening Test for A2 with answer and audioscript - Test %2301 - English Practice Test 0.mp3",
+    "0.mp3"
   ],
   2: [
-    "Practice English Listening Test for A2 with answer and audioscript - Test #01 - English Practice Test (1).mp3",
-    "1.mp3",
-    "https://englishpracticetest.net/wp-content/uploads/2022/11/KET-1-Test-1-Part-2.mp3"
+    "Practice%20English%20Listening%20Test%20for%20A2%20with%20answer%20and%20audioscript%20-%20Test%20%2301%20-%20English%20Practice%20Test%20(1).mp3",
+    "Practice English Listening Test for A2 with answer and audioscript - Test %2301 - English Practice Test (1).mp3",
+    "1.mp3"
   ],
   3: [
-    "Practice English Listening Test for A2 with answer and audioscript - Test #01 - English Practice Test (2).mp3",
-    "2.mp3",
-    "https://englishpracticetest.net/wp-content/uploads/2022/11/KET-1-Test-1-Part-3.mp3"
+    "Practice%20English%20Listening%20Test%20for%20A2%20with%20answer%20and%20audioscript%20-%20Test%20%2301%20-%20English%20Practice%20Test%20(2).mp3",
+    "Practice English Listening Test for A2 with answer and audioscript - Test %2301 - English Practice Test (2).mp3",
+    "2.mp3"
   ],
   4: [
-    "Practice English Listening Test for A2 with answer and audioscript - Test #01 - English Practice Test (3).mp3",
-    "3.mp3",
-    "https://englishpracticetest.net/wp-content/uploads/2022/11/KET-1-Test-1-Part-4.mp3"
+    "Practice%20English%20Listening%20Test%20for%20A2%20with%20answer%20and%20audioscript%20-%20Test%20%2301%20-%20English%20Practice%20Test%20(3).mp3",
+    "Practice English Listening Test for A2 with answer and audioscript - Test %2301 - English Practice Test (3).mp3",
+    "3.mp3"
   ],
   5: [
-    "Practice English Listening Test for A2 with answer and audioscript - Test #01 - English Practice Test (4).mp3",
-    "4.mp3",
-    "https://englishpracticetest.net/wp-content/uploads/2022/11/KET-1-Test-1-Part-5.mp3"
+    "Practice%20English%20Listening%20Test%20for%20A2%20with%20answer%20and%20audioscript%20-%20Test%20%2301%20-%20English%20Practice%20Test%20(4).mp3",
+    "Practice English Listening Test for A2 with answer and audioscript - Test %2301 - English Practice Test (4).mp3",
+    "4.mp3"
+  ]
+};
+
+// Full exam audio script (including announcements & "Now listen again" exactly matching the MP3s)
+const fullExamScripts = {
+  1: [
+    ["Announcer", "Look at question one. One. What have they forgotten?"],
+    ["Male", "I’ve got the passports here."],
+    ["Female", "And the tickets are in my bag."],
+    ["Male", "What about the camera?"],
+    ["Female", "Oh no! I’ve left it at home. And I really wanted to take some holiday photos."],
+    ["Announcer", "Now listen again."],
+    ["Male", "I’ve got the passports here."],
+    ["Female", "And the tickets are in my bag."],
+    ["Male", "What about the camera?"],
+    ["Female", "Oh no! I’ve left it at home. And I really wanted to take some holiday photos."],
+    ["Announcer", "Two. What time does the train go?"],
+    ["Male", "Hurry up! We’ll be late."],
+    ["Female", "What time does the train go?"],
+    ["Male", "At six fifteen. We’ve got to leave in ten minutes."],
+    ["Female", "I’m nearly ready."],
+    ["Announcer", "Now listen again."],
+    ["Male", "Hurry up! We’ll be late."],
+    ["Female", "What time does the train go?"],
+    ["Male", "At six fifteen. We’ve got to leave in ten minutes."],
+    ["Female", "I’m nearly ready."],
+    ["Announcer", "Three. Where is Room 22?"],
+    ["Male", "Can you tell me the way to Room 22?"],
+    ["Female", "Well, go straight down here and it’s the second door on the right."],
+    ["Male", "Do I have to go through the main hall?"],
+    ["Female", "No, it’s the door on the right, just before you get to the main hall."],
+    ["Announcer", "Now listen again."],
+    ["Male", "Can you tell me the way to Room 22?"],
+    ["Female", "Well, go straight down here and it’s the second door on the right."],
+    ["Male", "Do I have to go through the main hall?"],
+    ["Female", "No, it’s the door on the right, just before you get to the main hall."],
+    ["Announcer", "Four. Which man wants to see him?"],
+    ["Male", "Which man wants to see me?"],
+    ["Female", "The one over there, wearing a hat."],
+    ["Male", "The one with the glasses?"],
+    ["Female", "No, not him. The other one."],
+    ["Announcer", "Now listen again."],
+    ["Male", "Which man wants to see me?"],
+    ["Female", "The one over there, wearing a hat."],
+    ["Male", "The one with the glasses?"],
+    ["Female", "No, not him. The other one."],
+    ["Announcer", "Five. How did the woman get to work?"],
+    ["Female", "Oh, the traffic’s terrible today."],
+    ["Male", "Yes, it took me forty minutes by bus."],
+    ["Female", "Well, I drove and it took me an hour!"],
+    ["Male", "An hour! It’s probably quicker by bicycle."],
+    ["Announcer", "Now listen again."],
+    ["Female", "Oh, the traffic’s terrible today."],
+    ["Male", "Yes, it took me forty minutes by bus."],
+    ["Female", "Well, I drove and it took me an hour!"],
+    ["Male", "An hour! It’s probably quicker by bicycle."]
+  ],
+  2: [
+    ["Female", "Tell me about your family, Paul."],
+    ["Male", "Well, you know Sally, my sister – the writer – don’t you?"],
+    ["Female", "Yes. Is she your only sister?"],
+    ["Male", "She is. But I’ve got two brothers. David’s older than me, and Bill’s younger."],
+    ["Female", "How old is Bill?"],
+    ["Male", "He’s nineteen. He’s studying French in Paris at the moment."],
+    ["Female", "Well, that sounds interesting. And David? What does he do?"],
+    ["Male", "Oh, he’s a teacher, the same as my mother was. But she finished working last year."],
+    ["Female", "And what about your father?"],
+    ["Male", "Oh, he’s a doctor at the local hospital."],
+    ["Female", "Of course. I’ve seen him there."],
+    ["Male", "My mother says he works too hard. She wants him to stop. She wants to go and live on a farm in the country, near David."],
+    ["Female", "Um, are you a doctor too, Paul?"],
+    ["Male", "I’m not clever enough! I work in a bank – the one in the High Street, next to the bookshop."],
+    ["Female", "Do you? So does my sister!"],
+    ["Announcer", "Now listen again."]
+  ],
+  3: [
+    ["Announcer", "Now listen to the conversation."],
+    ["Male", "Mary, what do you want to do at the weekend, when Carlos comes?"],
+    ["Female", "Well, Eric, I must go shopping on Saturday morning."],
+    ["Male", "He hates shopping. But we could go to the museum and then meet you for lunch."],
+    ["Female", "Fine. What shall we do in the afternoon?"],
+    ["Male", "There’s a good football match on – Carlos’ll like that."],
+    ["Female", "OK. Do you want to eat at home in the evening?"],
+    ["Male", "What about going to a restaurant? We haven’t been to that Italian one for months."],
+    ["Female", "Or we could try that new Chinese one."],
+    ["Male", "OK. Let’s do that. Now, what about Sunday?"],
+    ["Female", "If we get up early on Sunday, we could go for a drive in the countryside."],
+    ["Male", "Yes, and we could have lunch in a pub somewhere."],
+    ["Female", "Yes, the one near the river’s nice. Shall we go to the cinema after lunch?"],
+    ["Male", "We can’t. His train’s at four o’clock and I’ll have to take him back to the station."],
+    ["Announcer", "Now listen again."]
+  ],
+  4: [
+    ["Male", "Hello. 7 8 5, 3 1 2 6."],
+    ["Female", "Hello. Could I speak to Martin please?"],
+    ["Male", "I’m afraid he’s out at the moment. Can I take a message for him?"],
+    ["Female", "Yes, please. My name’s Elaine."],
+    ["Male", "How do you spell that?"],
+    ["Female", "E - L - A - I - N - E."],
+    ["Male", "Right, Elaine. And what’s the message?"],
+    ["Female", "Tell Martin that the party tonight is at the Grand Hotel. I’ll meet him there."],
+    ["Male", "Does he know the address?"],
+    ["Female", "Oh yes. Everyone knows the Grand Hotel."],
+    ["Male", "OK. I’ll tell him."],
+    ["Female", "And tell him I’ll try to be there at half past eight. But I may be a bit late."],
+    ["Male", "Oh, I’m sure he won’t mind waiting. I’ll tell him eight thirty. Is there anything else?"],
+    ["Female", "Oh, yes. Ask him to bring a friend."],
+    ["Male", "A friend? Oh good, that could be me."],
+    ["Female", "Well... and please ask him to phone me if he can’t come."],
+    ["Male", "Has he got your phone number?"],
+    ["Female", "It’s 7 2 4, 5 9 3 6."],
+    ["Male", "Right, I’ve got that."],
+    ["Female", "Thanks a lot. Bye."],
+    ["Male", "Bye."]
+  ],
+  5: [
+    ["Male", "Hello. This is the South Seas Travel Agency. I’m sorry, no one can speak to you right now. The South Seas Travel Agency has moved to another part of town."],
+    ["Male", "We also have a new phone number. Please ring us on 8 4 7, double 2, 9 6."],
+    ["Male", "Our new address is 98 Warnock Road. That’s W - A - R - N - O - C - K."],
+    ["Male", "It’s easy to find. It’s near the park, at the end of the road, opposite the bank."],
+    ["Male", "We will be open for business at our new office on the 21st of May."],
+    ["Male", "We hope to see you soon at our new address. We have many exciting holidays at special prices."],
+    ["Male", "And we have a present for anyone who spends 350 pounds or more on a holiday."],
+    ["Male", "If your holiday costs 350 pounds, we will give you a travel bag, absolutely free."],
+    ["Male", "This beautiful bag can carry everything you need on a plane journey, and it can be yours, free. Thank you for calling the South Seas Travel Agency."]
   ]
 };
 
@@ -714,82 +869,173 @@ const vocabularyData = {
 };
 
 let currentTest = 1, currentTranscript = 1, currentVocab = 1;
+let currentSpeechRate = 0.95;
+let isSynthPlaying = false;
+let synthLineIndex = 0;
+let activeSynthPart = null;
+let activeSynthBarId = null;
 
 function audioMarkup(mode, part) {
-  const sources = audioConfig[part];
   const playerId = `player-${mode}-${part}`;
-  const sourcesHtml = sources.map(s => `<source src="${s}" type="audio/mpeg">`).join("");
+  const btnId = `playbtn-${mode}-${part}`;
+  const barId = `synthbar-${mode}-${part}`;
+  const firstSrc = audioCandidates[part][0];
 
   return `
   <div class="audio-card">
-    <div class="audio-btns">
-      <button type="button" class="play-trigger" onclick="instantPlay('${playerId}', ${part})">▶ Play</button>
-      <button type="button" class="mini-ctrl" onclick="seekAudio('${playerId}', -5)">-5s</button>
-      <button type="button" class="mini-ctrl" onclick="seekAudio('${playerId}', 5)">+5s</button>
-      <button type="button" class="mini-ctrl" onclick="cycleSpeed('${playerId}', this)">1.0x</button>
-      <button type="button" class="mini-ctrl" onclick="stopAllAudio('${playerId}')">⏹</button>
+    <div class="audio-row">
+      <div class="audio-btns">
+        <button type="button" id="${btnId}" class="play-trigger" onclick="smartPlay('${playerId}', ${part}, '${btnId}', '${barId}')">▶ Play</button>
+        <button type="button" class="mini-ctrl" onclick="seekAudio('${playerId}', ${part}, -5)">-5s</button>
+        <button type="button" class="mini-ctrl" onclick="seekAudio('${playerId}', ${part}, 5)">+5s</button>
+        <button type="button" class="mini-ctrl" onclick="cycleSpeed('${playerId}', this)">1.0x</button>
+        <button type="button" class="mini-ctrl" onclick="stopAllAudio('${playerId}', '${btnId}', '${barId}')">⏹</button>
+      </div>
+      <audio id="${playerId}" controls preload="metadata" src="${firstSrc}" data-part="${part}" data-try="0" onerror="tryNextAudioSource(this, '${btnId}', '${barId}')"></audio>
     </div>
-    <audio id="${playerId}" controls preload="auto">${sourcesHtml}</audio>
+    <div id="${barId}" class="synth-bar">
+      <span class="pulse-dot"></span>
+      <span id="${barId}-text">Playing Part ${part} audio...</span>
+    </div>
   </div>`;
 }
 
-function instantPlay(playerId, part) {
-  const player = document.getElementById(playerId);
-  if (!player) return;
-  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+// Automatically steps through encoded filename -> plain filename -> 0.mp3 -> Built-in Speech
+function tryNextAudioSource(audioEl, btnId, barId) {
+  const part = +audioEl.dataset.part;
+  let tryIdx = (+audioEl.dataset.try || 0) + 1;
+  const list = audioCandidates[part];
 
-  const playPromise = player.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(() => {
-      playBuiltInScript(part);
-    });
+  if (tryIdx < list.length) {
+    audioEl.dataset.try = tryIdx;
+    audioEl.src = list[tryIdx];
+  } else {
+    audioEl.dataset.fallback = "synth";
   }
 }
 
-function playBuiltInScript(part) {
+function smartPlay(playerId, part, btnId, barId) {
+  const player = document.getElementById(playerId);
+  const btn = document.getElementById(btnId);
+
+  // If already playing synth, pause/stop it
+  if (isSynthPlaying && activeSynthPart === part) {
+    stopAllAudio(playerId, btnId, barId);
+    return;
+  }
+
+  // If HTML5 player is currently playing, pause it
+  if (player && !player.paused) {
+    player.pause();
+    if (btn) { btn.textContent = "▶ Play"; btn.classList.remove("playing"); }
+    return;
+  }
+
+  stopAllAudio(playerId, btnId, barId);
+
+  if (player && player.dataset.fallback !== "synth") {
+    const p = player.play();
+    if (p !== undefined) {
+      p.then(() => {
+        if (btn) { btn.textContent = "⏸ Pause"; btn.classList.add("playing"); }
+      }).catch(() => {
+        startSynthPlayback(part, btnId, barId);
+      });
+    }
+  } else {
+    startSynthPlayback(part, btnId, barId);
+  }
+}
+
+function startSynthPlayback(part, btnId, barId, startIndex = 0) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
-  const lines = parts[part].transcript;
+
+  isSynthPlaying = true;
+  activeSynthPart = part;
+  activeSynthBarId = barId;
+  synthLineIndex = startIndex;
+
+  const btn = document.getElementById(btnId);
+  const bar = document.getElementById(barId);
+  const barText = document.getElementById(`${barId}-text`);
+
+  if (btn) { btn.textContent = "⏹ Stop"; btn.classList.add("playing"); }
+  if (bar) bar.classList.add("active");
+
+  const lines = fullExamScripts[part];
   const voices = window.speechSynthesis.getVoices();
   const enVoices = voices.filter(v => v.lang.startsWith("en"));
 
-  let index = 0;
-  function speakNext() {
-    if (index >= lines.length) return;
-    const [speaker, ...segs] = lines[index];
-    const text = segs.map(s => Array.isArray(s) ? s[0] : s).join("");
+  function speakCurrentLine() {
+    if (!isSynthPlaying || synthLineIndex >= lines.length) {
+      isSynthPlaying = false;
+      if (btn) { btn.textContent = "▶ Play"; btn.classList.remove("playing"); }
+      if (bar) bar.classList.remove("active");
+      return;
+    }
+
+    const [speaker, text] = lines[synthLineIndex];
+    if (barText) barText.textContent = `Playing (${synthLineIndex + 1}/${lines.length})...`;
+
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = "en-GB";
-    utter.rate = 0.95;
+    utter.rate = currentSpeechRate;
 
-    if (speaker === "Male" || speaker === "Paul" || speaker === "Eric") {
-      utter.pitch = 0.88;
+    if (speaker === "Male") {
+      utter.pitch = 0.85;
       if (enVoices[0]) utter.voice = enVoices[0];
-    } else {
-      utter.pitch = 1.12;
+    } else if (speaker === "Female") {
+      utter.pitch = 1.15;
       if (enVoices[1]) utter.voice = enVoices[1];
+    } else {
+      utter.pitch = 1.0;
     }
 
     utter.onend = () => {
-      index++;
-      setTimeout(speakNext, 250);
+      if (!isSynthPlaying) return;
+      synthLineIndex++;
+      setTimeout(speakCurrentLine, 280);
     };
+
+    utter.onerror = () => {
+      if (!isSynthPlaying) return;
+      synthLineIndex++;
+      speakCurrentLine();
+    };
+
     window.speechSynthesis.speak(utter);
   }
-  speakNext();
+
+  speakCurrentLine();
 }
 
-function stopAllAudio(playerId) {
+function stopAllAudio(playerId, btnId, barId) {
+  isSynthPlaying = false;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+
   const player = document.getElementById(playerId);
   if (player) {
-    player.pause();
-    player.currentTime = 0;
+    try { player.pause(); player.currentTime = 0; } catch(e) {}
   }
-  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+
+  document.querySelectorAll(".play-trigger").forEach(b => {
+    b.textContent = "▶ Play";
+    b.classList.remove("playing");
+  });
+  document.querySelectorAll(".synth-bar").forEach(b => b.classList.remove("active"));
 }
 
-function seekAudio(playerId, delta) {
+function seekAudio(playerId, part, delta) {
   const player = document.getElementById(playerId);
+  if (isSynthPlaying && activeSynthPart === part) {
+    const step = delta > 0 ? 2 : -2;
+    const nextIdx = Math.max(0, Math.min(fullExamScripts[part].length - 1, synthLineIndex + step));
+    const btnId = playerId.replace("player-", "playbtn-");
+    const barId = playerId.replace("player-", "synthbar-");
+    startSynthPlayback(part, btnId, barId, nextIdx);
+    return;
+  }
   if (player && player.duration) {
     player.currentTime = Math.max(0, Math.min(player.duration, player.currentTime + delta));
   }
@@ -798,15 +1044,16 @@ function seekAudio(playerId, delta) {
 function cycleSpeed(playerId, btn) {
   const speeds = [1.0, 0.85, 0.75, 1.15];
   const player = document.getElementById(playerId);
-  if (!player) return;
-  let idx = speeds.indexOf(player.playbackRate);
+  let idx = speeds.indexOf(currentSpeechRate);
   idx = (idx + 1) % speeds.length;
-  player.playbackRate = speeds[idx];
-  btn.textContent = speeds[idx] + "x";
+  currentSpeechRate = speeds[idx];
+  if (player) player.playbackRate = currentSpeechRate;
+  btn.textContent = currentSpeechRate + "x";
 }
 
 function speakWord(word) {
   if (!('speechSynthesis' in window)) return;
+  isSynthPlaying = false;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(word);
   u.lang = "en-GB";
@@ -831,6 +1078,7 @@ function saveCurrentTestInputs(part) {
 }
 
 function renderTest(part) {
+  stopAllAudio();
   currentTest = part;
   const d = parts[part];
   const saved = trackerState.savedTestInputs[part] || {};
@@ -914,6 +1162,7 @@ function saveCurrentTranscriptInputs(part) {
 }
 
 function renderTranscript(part) {
+  stopAllAudio();
   currentTranscript = part;
   const d = parts[part];
   const saved = trackerState.savedTransInputs[part] || {};
@@ -1043,6 +1292,7 @@ function updateTrackerUI() {
 }
 
 document.querySelectorAll(".main-tabs button").forEach(b => b.addEventListener("click", () => {
+  stopAllAudio();
   document.querySelectorAll(".main-tabs button").forEach(x => x.classList.toggle("active", x === b));
   document.querySelectorAll(".main-content").forEach(x => x.classList.toggle("hidden", x.id !== b.dataset.main));
 }));
