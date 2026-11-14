@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mr Sang English – Listening Practice</title>
+<style>
+:root {
+  --bg: #f3f6fb;
+  --card: #ffffff;
+  --ink: #1e293b;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --primary: #4f46e5;
+  --primary-soft: #eef2ff;
+  --primary-border: #c7d2fe;
+  --teal: #0d9488;
+  --teal-soft: #f0fdfa;
+  --green: #16a34a;
+  --green-soft: #f0fdf4;
+  --red: #e11d48;
+  --red-soft: #fff1f2;
+  --radius-xl: 22px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  padding-bottom: 60px;
+}
+
+header {
+  background: linear-gradient(135deg, #312e81 0%, #4f46e5 55%, #0d9488 100%);
+  color: white;
+  padding: 22px 18px;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.15);
+  margin-bottom: 20px;
+}
+
+.wrap { max-width: 1020px; margin: auto; padding: 0 16px; }
+h1 { margin: 0; font-size: clamp(21px, 3.2vw, 28px); letter-spacing: -0.3px; }
+
+.main-tabs, .subtabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background: #e2e8f0;
+  color: #334155;
+  transition: all 0.2s ease;
+}
+
+button:hover { filter: brightness(0.97); transform: translateY(-1px); }
+button.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.subtabs button {
+  padding: 7px 16px;
+  font-size: 13.5px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  color: #475569;
+}
+.subtabs button.active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: white;
+  box-shadow: 0 4px 10px rgba(13, 148, 136, 0.2);
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.04);
+}
+
+h2 { margin: 0 0 12px; color: #1e1b4b; font-size: 19px; }
+h3 { margin: 8px 0 6px; color: var(--primary); font-size: 16px; }
+
+/* Clean, Minimal Rounded Audio Player */
+.audio-card {
+  background: linear-gradient(135deg, #eef2ff 0%, #f0fdfa 100%);
+  border: 1px solid var(--primary-border);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  margin: 10px 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.audio-btns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.play-trigger {
+  background: var(--teal);
+  color: white;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 3px 10px rgba(13, 148, 136, 0.22);
+}
+.play-trigger:hover { background: #0f766e; }
+.mini-ctrl {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-weight: 600;
+}
+.mini-ctrl:hover { background: var(--primary-soft); border-color: var(--primary); }
+audio {
+  flex: 1;
+  min-width: 240px;
+  height: 36px;
+  border-radius: 999px;
+  outline: none;
+}
+
+/* Questions & Options */
+.question {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+.question:last-child { border-bottom: 0; }
+.qtitle { font-weight: 700; margin-bottom: 10px; color: #1e293b; }
+.options { display: grid; gap: 8px; }
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #fcfdff;
+}
+.option:hover { background: var(--primary-soft); border-color: #a5b4fc; }
+.option input { margin: 0; accent-color: var(--primary); transform: scale(1.1); }
+
+input[type=text], select {
+  width: 100%;
+  max-width: 400px;
+  padding: 9px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  background: #fff;
+  transition: all 0.2s;
+}
+input[type=text]:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
+}
+
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.primary { background: var(--primary); color: white; }
+.secondary { background: #e2e8f0; color: #334155; }
+
+.result {
+  display: none;
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
+  margin-top: 16px;
+  background: var(--primary-soft);
+  border: 1px solid var(--primary-border);
+}
+.result.show { display: block; }
+.good { color: var(--green); font-weight: 600; margin: 3px 0; }
+.bad { color: var(--red); font-weight: 600; margin: 3px 0; }
+
+/* Transcript Gap-fill */
+.transcript { font-size: 15.5px; line-height: 2.25; }
+.blank {
+  display: inline-block;
+  width: 135px;
+  max-width: 40vw;
+  padding: 4px 10px;
+  margin: 0 4px;
+  border: 1px solid #a5b4fc;
+  border-radius: 10px;
+  font-size: 14.5px;
+  background: var(--primary-soft);
+  text-align: center;
+  font-weight: 600;
+  color: #312e81;
+}
+.blank.correct { border: 2px solid var(--green); background: var(--green-soft); color: var(--green); }
+.blank.wrong { border: 2px solid var(--red); background: var(--red-soft); color: var(--red); }
+.transcript p { margin: 8px 0; }
+.speaker { font-weight: 700; color: var(--primary); }
+
+.image-options { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.image-options img {
+  max-width: 100%;
+  width: 240px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+/* Vocabulary Cards (Tab 3) */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+.vocab-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 13px 15px;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.vocab-card:hover {
+  border-color: #a5b4fc;
+  background: #fafbff;
+  transform: translateY(-2px);
+}
+.vocab-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.vocab-word { font-weight: 700; font-size: 15.5px; color: #312e81; }
+.vocab-pos {
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--teal-soft);
+  color: var(--teal);
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 5px;
+}
+.vocab-ipa {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: 'Lucida Sans Unicode', Arial, sans-serif;
+  margin: 2px 0 5px;
+}
+.vocab-vn { font-weight: 700; color: #0f766e; font-size: 14px; margin-bottom: 6px; }
+.vocab-ex {
+  font-size: 13px;
+  color: #475569;
+  background: #f8fafc;
+  padding: 6px 10px;
+  border-radius: 9px;
+  border-left: 3px solid var(--primary);
+  font-style: italic;
+}
+.speak-btn {
+  background: var(--primary-soft);
+  color: var(--primary);
+  border: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.speak-btn:hover { background: var(--primary); color: white; }
+
+.hidden { display: none !important; }
+
+/* Small Unobtrusive Corner Tracker */
+.corner-tracker {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid #cbd5e1;
+  border-radius: 16px;
+  padding: 6px 12px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.1);
+  font-size: 11.5px;
+  color: #1e293b;
+  transition: all 0.2s ease;
+  max-width: 220px;
+}
+.corner-tracker.minimized { border-radius: 999px; }
+.tracker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.tracker-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  display: inline-block;
+}
+.tracker-body {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 3px;
+}
+.corner-tracker.minimized .tracker-body { display: none; }
+.tracker-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+}
+.tracker-badge {
+  background: #f1f5f9;
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #475569;
+}
+.tracker-badge.done { background: #ccfbf1; color: #0f766e; }
+
+@media(max-width: 600px) {
+  .panel { padding: 15px; border-radius: 16px; }
+  .blank { width: 110px; }
+  .image-options img { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Mr Sang English · Listening Practice</h1>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="main-tabs">
+    <button class="active" data-main="test">LISTENING TEST</button>
+    <button data-main="transcript">TRANSCRIPT PRACTICE</button>
+    <button data-main="vocab">VOCABULARY</button>
+  </div>
+
+  <!-- TAB 1: TEST -->
+  <div id="test" class="main-content">
+    <div class="panel">
+      <div class="subtabs" id="testTabs">
+        <button class="active" data-part="1">Part 1</button>
+        <button data-part="2">Part 2</button>
+        <button data-part="3">Part 3</button>
+        <button data-part="4">Part 4</button>
+        <button data-part="5">Part 5</button>
+      </div>
+      <div id="testPartContent"></div>
+    </div>
+  </div>
+
+  <!-- TAB 2: TRANSCRIPT -->
+  <div id="transcript" class="main-content hidden">
+    <div class="panel">
+      <div class="subtabs" id="transcriptTabs">
+        <button class="active" data-part="1">Part 1</button>
+        <button data-part="2">Part 2</button>
+        <button data-part="3">Part 3</button>
+        <button data-part="4">Part 4</button>
+        <button data-part="5">Part 5</button>
+      </div>
+      <div id="transcriptPartContent"></div>
+    </div>
+  </div>
+
+  <!-- TAB 3: VOCABULARY -->
+  <div id="vocab" class="main-content hidden">
+    <div class="panel">
+      <div class="subtabs" id="vocabTabs">
+        <button class="active" data-part="1">Part 1</button>
+        <button data-part="2">Part 2</button>
+        <button data-part="3">Part 3</button>
+        <button data-part="4">Part 4</button>
+        <button data-part="5">Part 5</button>
+      </div>
+      <div id="vocabPartContent"></div>
+    </div>
+  </div>
+</main>
+
+<!-- Small Corner Tracker -->
+<div class="corner-tracker" id="cornerTracker">
+  <div class="tracker-header" onclick="toggleTracker()">
+    <span><span class="tracker-dot"></span> <span id="trackerSummary">0/75</span></span>
+    <span id="trackerToggleIcon">▾</span>
+  </div>
+  <div class="tracker-body" id="trackerDetails"></div>
+</div>
+
+<script>
+// Exact file names from your folder (0 -> Part 1, (1) -> Part 2, (2) -> Part 3, (3) -> Part 4, (4) -> Part 5)
+const audioConfig = {
+  1: [
+    "Practice English Listening Test for A2 with answer and audioscript - Test #01 - English Practice Test 0.mp3",
+    "0.mp3",
+    "https://englishpracticetest.net/wp-content/uploads/2022/11/KET-1-Test-1-Part-1.mp3"
+  ],
+  2: [
+    "Practice English Listening Test for A2 with answer and audioscript - Test #01 - English Practice Test (1).mp3",
+    "1.mp3",
+    "https://englishpracticetest.net/wp-content/uploads/2022/11/KET-1-Test-1-Part-2.mp3"
+  ],
+  3: [
+    "Practice English Listening Test for A2 with answer and audioscript - Test #01 - English Practice Test (2).mp3",
+    "2.mp3",
+    "https://englishpracticetest.net/wp-content/uploads/2022/11/KET-1-Test-1-Part-3.mp3"
+  ],
+  4: [
+    "Practice English Listening Test for A2 with answer and audioscript - Test #01 - English Practice Test (3).mp3",
+    "3.mp3",
+    "https://englishpracticetest.net/wp-content/uploads/2022/11/KET-1-Test-1-Part-4.mp3"
+  ],
+  5: [
+    "Practice English Listening Test for A2 with answer and audioscript - Test #01 - English Practice Test (4).mp3",
+    "4.mp3",
+    "https://englishpracticetest.net/wp-content/uploads/2022/11/KET-1-Test-1-Part-5.mp3"
+  ]
+};
+
+const answerKeys = {
+  1: { 1: "B", 2: "A", 3: "B", 4: "A", 5: "C" },
+  2: { 6: "F", 7: "G", 8: "E", 9: "B", 10: "A" },
+  3: { 11: "B", 12: "C", 13: "A", 14: "B", 15: "C" },
+  4: { 16: "Elaine", 17: "Grand Hotel", 18: "8.30 p.m.", 19: "friend", 20: "724 5936" },
+  5: { 21: "Warnock", 22: "bank", 23: "21st May", 24: "350", 25: "travel bag" }
+};
+
+const trackerState = {
+  testScores: { 1: null, 2: null, 3: null, 4: null, 5: null },
+  transScores: { 1: null, 2: null, 3: null, 4: null, 5: null },
+  savedTestInputs: { 1: {}, 2: {}, 3: {}, 4: {}, 5: {} },
+  savedTransInputs: { 1: {}, 2: {}, 3: {}, 4: {}, 5: {} }
+};
+
+const parts = {
+  1: {
+    title: "Part 1 · Questions 1–5",
+    questions: [
+      { n: 1, q: "What have they forgotten?", opts: ["A · The passports", "B · The camera", "C · The tickets"], img: "https://englishpracticetest.net/wp-content/uploads/2022/11/test-1-01.jpg" },
+      { n: 2, q: "What time does the train go?", opts: ["A · 6:15", "B · 6:50", "C · 5:15"], img: "https://englishpracticetest.net/wp-content/uploads/2022/11/test-1-02.jpg" },
+      { n: 3, q: "Where is Room 22?", opts: ["A · Through the main hall", "B · Second door on the right, before the main hall", "C · First door on the left"], img: "https://englishpracticetest.net/wp-content/uploads/2022/11/test-1-03.jpg" },
+      { n: 4, q: "Which man wants to see him?", opts: ["A · The man wearing a hat", "B · The man with glasses", "C · The man standing by the door"], img: "https://englishpracticetest.net/wp-content/uploads/2022/11/test-1-04.jpg" },
+      { n: 5, q: "How did the woman get to work?", opts: ["A · By bus", "B · By bicycle", "C · By car"], img: "https://englishpracticetest.net/wp-content/uploads/2022/11/test-1-05.jpg" }
+    ],
+    transcript: [
+      ["Male", "I’ve got the ", ["passports"], " here."],
+      ["Female", "And the ", ["tickets"], " are in my bag."],
+      ["Male", "What about the ", ["camera"], "?"],
+      ["Female", "Oh no! I’ve left it at home. And I really wanted to take some holiday photos."],
+      ["Male", "Hurry up! We’ll be late."],
+      ["Female", "What time does the ", ["train"], " go?"],
+      ["Male", "At six fifteen. We’ve got to leave in ten minutes."],
+      ["Female", "I’m nearly ready."],
+      ["Male", "Can you tell me the way to Room 22?"],
+      ["Female", "Go straight down here and it’s the second door on the ", ["right"], "."],
+      ["Male", "Do I have to go through the main hall?"],
+      ["Female", "No, it’s the door on the right, just before you get to the main hall."],
+      ["Male", "Which man wants to see me?"],
+      ["Female", "The one over there, wearing a ", ["hat"], "."],
+      ["Male", "The one with the glasses?"],
+      ["Female", "No, not him. The other one."],
+      ["Female", "Oh, the traffic’s terrible today."],
+      ["Male", "Yes, it took me forty minutes by ", ["bus"], "."],
+      ["Female", "Well, I drove and it took me an hour!"],
+      ["Male", "An hour! It’s probably quicker by ", ["bicycle"], "."]
+    ]
+  },
+  2: {
+    title: "Part 2 · Questions 6–10",
+    questions: [
+      { n: 6, q: "Bill", type: "select", opts: ["A · bank clerk", "B · doctor", "C · farmer", "D · shop assistant", "E · stopped work", "F · student", "G · teacher", "H · writer"] },
+      { n: 7, q: "David", type: "select", opts: ["A · bank clerk", "B · doctor", "C · farmer", "D · shop assistant", "E · stopped work", "F · student", "G · teacher", "H · writer"] },
+      { n: 8, q: "Paul’s mother", type: "select", opts: ["A · bank clerk", "B · doctor", "C · farmer", "D · shop assistant", "E · stopped work", "F · student", "G · teacher", "H · writer"] },
+      { n: 9, q: "Paul’s father", type: "select", opts: ["A · bank clerk", "B · doctor", "C · farmer", "D · shop assistant", "E · stopped work", "F · student", "G · teacher", "H · writer"] },
+      { n: 10, q: "Paul", type: "select", opts: ["A · bank clerk", "B · doctor", "C · farmer", "D · shop assistant", "E · stopped work", "F · student", "G · teacher", "H · writer"] }
+    ],
+    transcript: [
+      ["Female", "Tell me about your ", ["family"], ", Paul."],
+      ["Paul", "Well, you know Sally, my sister – the ", ["writer"], " – don’t you?"],
+      ["Female", "Yes. Is she your only sister?"],
+      ["Paul", "She is. But I’ve got two brothers. David’s older than me, and Bill’s younger."],
+      ["Female", "How old is Bill?"],
+      ["Paul", "He’s nineteen. He’s ", ["studying"], " French in Paris at the moment."],
+      ["Female", "That sounds interesting … And David? What does he do?"],
+      ["Paul", "Oh, he’s a ", ["teacher"], ", the same as my mother was. But she finished working last year."],
+      ["Female", "And what about your father?"],
+      ["Paul", "Oh, he’s a ", ["doctor"], " at the local hospital."],
+      ["Female", "Of course. I’ve seen him there."],
+      ["Paul", "My mother says he works too hard. She wants him to stop. She wants to go and live on a ", ["farm"], " in the country, near David."],
+      ["Female", "Um … Are you a doctor too, Paul?"],
+      ["Paul", "I’m not clever enough! I work in a ", ["bank"], " – the one in the High Street, next to the bookshop."],
+      ["Female", "Do you? So does my sister!"]
+    ]
+  },
+  3: {
+    title: "Part 3 · Questions 11–15",
+    questions: [
+      { n: 11, q: "When is the football match?", opts: ["A · Saturday morning", "B · Saturday afternoon", "C · Sunday afternoon"] },
+      { n: 12, q: "Where are they going to eat on Saturday evening?", opts: ["A · At home", "B · In an Italian restaurant", "C · In a Chinese restaurant"] },
+      { n: 13, q: "What are they going to do on Sunday morning?", opts: ["A · Go for a drive", "B · Get up late", "C · Go to the cinema"] },
+      { n: 14, q: "Where are they going to have lunch on Sunday?", opts: ["A · In a café", "B · In a pub", "C · At home"] },
+      { n: 15, q: "They can’t go to the cinema on Sunday afternoon because …", opts: ["A · Carlos doesn’t like films.", "B · Eric doesn’t like films.", "C · They don’t have time."] }
+    ],
+    transcript: [
+      ["Eric", "Mary … what do you want to do at the ", ["weekend"], ", when Carlos comes?"],
+      ["Mary", "Well, Eric, I must go ", ["shopping"], " on Saturday morning."],
+      ["Eric", "He hates shopping. But we could go to the museum and then meet you for lunch."],
+      ["Mary", "Fine. What shall we do in the afternoon?"],
+      ["Eric", "There’s a good football ", ["match"], " on – Carlos’ll like that."],
+      ["Mary", "OK. Do you want to eat at home in the evening?"],
+      ["Eric", "What about going to a ", ["restaurant"], "? We haven’t been to that Italian one for months."],
+      ["Mary", "Or we could try that new Chinese one."],
+      ["Eric", "OK. Let’s do that. Now, what about Sunday?"],
+      ["Mary", "If we get up early on Sunday, we could go for a ", ["drive"], " in the countryside."],
+      ["Eric", "Yes, and we could have lunch in a ", ["pub"], " somewhere."],
+      ["Mary", "Yes, the one near the river’s nice. Shall we go to the cinema after lunch?"],
+      ["Eric", "We can’t. His train’s at four o’clock and I’ll have to take him back to the ", ["station"], "."]
+    ]
+  },
+  4: {
+    title: "Part 4 · Questions 16–20",
+    questions: [
+      { n: 16, q: "From:", type: "text", placeholder: "Write the caller’s name" },
+      { n: 17, q: "Party at:", type: "text", placeholder: "Write the place" },
+      { n: 18, q: "Time:", type: "text", placeholder: "e.g. 8.30 p.m." },
+      { n: 19, q: "Please bring:", type: "text", placeholder: "Write one word" },
+      { n: 20, q: "Her phone number:", type: "text", placeholder: "Write the phone number" }
+    ],
+    transcript: [
+      ["Male", "Hello. 785 3126."],
+      ["Elaine", "Hello. Could I speak to Martin please?"],
+      ["Male", "I’m afraid he’s ", ["out"], " at the moment. Can I take a message for him?"],
+      ["Elaine", "Yes, please. My name’s ", ["Elaine"], "."],
+      ["Male", "How do you spell that?"],
+      ["Elaine", "E-L-A-I-N-E."],
+      ["Male", "Right, Elaine. And what’s the message?"],
+      ["Elaine", "Tell Martin that the party tonight is at the ", ["Grand Hotel"], ". I’ll meet him there."],
+      ["Male", "Does he know the address?"],
+      ["Elaine", "Oh yes. Everyone knows the Grand Hotel."],
+      ["Male", "OK. I’ll tell him."],
+      ["Elaine", "And tell him I’ll try to be there at half past ", ["eight"], ". But I may be a bit late."],
+      ["Male", "Oh, I’m sure he won’t mind waiting. I’ll tell him eight thirty … Is there anything else?"],
+      ["Elaine", "Oh, yes … ask him to bring a ", ["friend"], "."],
+      ["Male", "A friend? Oh good, that could be me."],
+      ["Elaine", "Hmm … well … and please ask him to phone me if he can’t come."],
+      ["Male", "Has he got your phone number?"],
+      ["Elaine", "It’s ", ["724 5936"], "."],
+      ["Male", "Right, I’ve got that."]
+    ]
+  },
+  5: {
+    title: "Part 5 · Questions 21–25",
+    questions: [
+      { n: 21, q: "New address: 98 ______ Road", type: "text", placeholder: "Road name" },
+      { n: 22, q: "Opposite:", type: "text", placeholder: "A place" },
+      { n: 23, q: "Opens on:", type: "text", placeholder: "Date" },
+      { n: 24, q: "Book a holiday for £______ or more", type: "text", placeholder: "Amount" },
+      { n: 25, q: "Get a free:", type: "text", placeholder: "Present" }
+    ],
+    transcript: [
+      ["Answerphone", "Hello. This is the South Seas Travel Agency. I’m sorry, no one can speak to you right now. The South Seas Travel Agency has ", ["moved"], " to another part of town."],
+      ["Answerphone", "We also have a new phone number. Please ring us on 847 2296."],
+      ["Answerphone", "Our new address is 98 ", ["Warnock"], " Road, that’s W-A-R-N-O-C-K."],
+      ["Answerphone", "It’s easy to find – it’s near the park, at the end of the road, opposite the ", ["bank"], "."],
+      ["Answerphone", "We will be open for business at our new office on ", ["21st May"], "."],
+      ["Answerphone", "We hope to see you soon at our new address. We have many exciting holidays at special prices."],
+      ["Answerphone", "And we have a present for anyone who ", ["spends"], " £350 or more on a holiday."],
+      ["Answerphone", "If your holiday costs £350, we will give you a travel bag absolutely ", ["free"], "."],
+      ["Answerphone", "This beautiful bag can carry everything you need on a plane journey."]
+    ]
+  }
+};
+
+const vocabularyData = {
+  1: [
+    { w: "passport", pos: "n", ipa: "/ˈpɑːspɔːt/", vn: "hộ chiếu", ex: "I’ve got the passports here." },
+    { w: "ticket", pos: "n", ipa: "/ˈtɪkɪt/", vn: "vé (tàu, máy bay...)", ex: "And the tickets are in my bag." },
+    { w: "camera", pos: "n", ipa: "/ˈkæmərə/", vn: "máy ảnh", ex: "What about the camera?" },
+    { w: "forget – forgot – forgotten", pos: "v", ipa: "/fəˈɡɒtn/", vn: "quên, bỏ quên", ex: "What have they forgotten?" },
+    { w: "leave – left – left", pos: "v", ipa: "/lɛft/", vn: "để quên; rời đi", ex: "Oh no! I’ve left it at home." },
+    { w: "holiday photo", pos: "n.p", ipa: "/ˈhɒlɪdeɪ ˈfəʊtəʊ/", vn: "ảnh chụp kỳ nghỉ", ex: "I really wanted to take some holiday photos." },
+    { w: "hurry up", pos: "phr.v", ipa: "/ˈhʌri ʌp/", vn: "nhanh lên, khẩn trương lên", ex: "Hurry up! We’ll be late." },
+    { w: "nearly ready", pos: "adj.p", ipa: "/ˈnɪəli ˈrɛdi/", vn: "gần xong, sắp sẵn sàng", ex: "I’m nearly ready." },
+    { w: "go straight down", pos: "phr.v", ipa: "/ɡəʊ streɪt daʊn/", vn: "đi thẳng xuống", ex: "Go straight down here and it’s the second door." },
+    { w: "main hall", pos: "n.p", ipa: "/meɪn hɔːl/", vn: "sảnh chính, hội trường chính", ex: "Do I have to go through the main hall?" },
+    { w: "go through", pos: "phr.v", ipa: "/ɡəʊ θruː/", vn: "đi xuyên qua, đi qua", ex: "Do I have to go through the main hall?" },
+    { w: "wear a hat", pos: "v.p", ipa: "/weər ə hæt/", vn: "đội mũ", ex: "The one over there, wearing a hat." },
+    { w: "glasses", pos: "n", ipa: "/ˈɡlɑːsɪz/", vn: "kính mắt", ex: "The one with the glasses?" },
+    { w: "traffic", pos: "n", ipa: "/ˈtræfɪk/", vn: "giao thông, xe cộ", ex: "Oh, the traffic’s terrible today." },
+    { w: "terrible", pos: "adj", ipa: "/ˈtɛrəbl/", vn: "tồi tệ, khủng khiếp", ex: "Oh, the traffic’s terrible today." },
+    { w: "probably", pos: "adv", ipa: "/ˈprɒbəbli/", vn: "có lẽ, chắc là", ex: "It’s probably quicker by bicycle." }
+  ],
+  2: [
+    { w: "writer", pos: "n", ipa: "/ˈraɪtə/", vn: "nhà văn, tác giả", ex: "You know Sally, my sister – the writer." },
+    { w: "at the moment", pos: "phr", ipa: "/æt ðə ˈməʊmənt/", vn: "hiện tại, ngay lúc này", ex: "He’s studying French in Paris at the moment." },
+    { w: "sound interesting", pos: "v.p", ipa: "/saʊnd ˈɪntrəstɪŋ/", vn: "nghe có vẻ thú vị", ex: "That sounds interesting!" },
+    { w: "the same as", pos: "phr", ipa: "/ðə seɪm æz/", vn: "giống như", ex: "He’s a teacher, the same as my mother was." },
+    { w: "finish working", pos: "v.p", ipa: "/ˈfɪnɪʃ ˈwɜːkɪŋ/", vn: "nghỉ hưu, ngừng làm việc", ex: "But she finished working last year." },
+    { w: "local hospital", pos: "n.p", ipa: "/ˈləʊkl ˈhɒspɪtl/", vn: "bệnh viện địa phương", ex: "He’s a doctor at the local hospital." },
+    { w: "of course", pos: "phr", ipa: "/ɒv kɔːs/", vn: "tất nhiên, dĩ nhiên", ex: "Of course. I’ve seen him there." },
+    { w: "work hard", pos: "v.p", ipa: "/wɜːk hɑːd/", vn: "làm việc vất vả, chăm chỉ", ex: "My mother says he works too hard." },
+    { w: "live on a farm", pos: "v.p", ipa: "/lɪv ɒn ə fɑːm/", vn: "sống ở nông trại", ex: "She wants to go and live on a farm." },
+    { w: "in the country", pos: "phr", ipa: "/ɪn ðə ˈkʌntri/", vn: "ở vùng nông thôn, miền quê", ex: "She wants to live on a farm in the country." },
+    { w: "clever", pos: "adj", ipa: "/ˈklɛvə/", vn: "thông minh, lanh lợi", ex: "I’m not clever enough!" },
+    { w: "clever enough", pos: "adj.p", ipa: "/ˈklɛvər ɪˈnʌf/", vn: "đủ thông minh", ex: "I’m not clever enough to be a doctor." },
+    { w: "bank clerk", pos: "n.p", ipa: "/bæŋk klɑːk/", vn: "nhân viên giao dịch ngân hàng", ex: "Paul works as a bank clerk." },
+    { w: "High Street", pos: "n.p", ipa: "/haɪ striːt/", vn: "phố chính, trục đường trung tâm", ex: "The one in the High Street, next to the bookshop." },
+    { w: "bookshop", pos: "n", ipa: "/ˈbʊkʃɒp/", vn: "hiệu sách", ex: "The bank is next to the bookshop." },
+    { w: "shop assistant", pos: "n.p", ipa: "/ʃɒp əˈsɪstənt/", vn: "nhân viên bán hàng", ex: "Choose the correct job: shop assistant." }
+  ],
+  3: [
+    { w: "at the weekend", pos: "phr", ipa: "/æt ðə ˌwiːkˈɛnd/", vn: "vào dịp cuối tuần", ex: "What do you want to do at the weekend?" },
+    { w: "go shopping", pos: "v.p", ipa: "/ɡəʊ ˈʃɒpɪŋ/", vn: "đi mua sắm", ex: "I must go shopping on Saturday morning." },
+    { w: "hate", pos: "v", ipa: "/heɪt/", vn: "ghét", ex: "He hates shopping." },
+    { w: "museum", pos: "n", ipa: "/mjuːˈziːəm/", vn: "viện bảo tàng", ex: "We could go to the museum." },
+    { w: "meet for lunch", pos: "v.p", ipa: "/miːt fɔː lʌntʃ/", vn: "gặp nhau ăn trưa", ex: "And then meet you for lunch." },
+    { w: "football match", pos: "n.p", ipa: "/ˈfʊtbɔːl mætʃ/", vn: "trận đấu bóng đá", ex: "There’s a good football match on." },
+    { w: "restaurant", pos: "n", ipa: "/ˈrɛstrɒnt/", vn: "nhà hàng", ex: "What about going to a restaurant?" },
+    { w: "for months", pos: "phr", ipa: "/fɔː mʌnθs/", vn: "hàng tháng trời, nhiều tháng nay", ex: "We haven’t been to that Italian one for months." },
+    { w: "try a new one", pos: "v.p", ipa: "/traɪ ə njuː wʌn/", vn: "thử một quán mới", ex: "Or we could try that new Chinese one." },
+    { w: "get up early", pos: "v.p", ipa: "/ɡɛt ʌp ˈɜːli/", vn: "thức dậy sớm", ex: "If we get up early on Sunday..." },
+    { w: "go for a drive", pos: "v.p", ipa: "/ɡəʊ fɔːr ə draɪv/", vn: "đi dạo một vòng bằng ô tô", ex: "We could go for a drive in the countryside." },
+    { w: "countryside", pos: "n", ipa: "/ˈkʌntrɪsaɪd/", vn: "vùng ngoại ô, miền quê", ex: "We could go for a drive in the countryside." },
+    { w: "pub", pos: "n", ipa: "/pʌb/", vn: "quán rượu, quán ăn truyền thống Anh", ex: "We could have lunch in a pub somewhere." },
+    { w: "near the river", pos: "phr", ipa: "/nɪə ðə ˈrɪvə/", vn: "gần bờ sông", ex: "Yes, the one near the river’s nice." },
+    { w: "after lunch", pos: "phr", ipa: "/ˈɑːftə lʌntʃ/", vn: "sau bữa trưa", ex: "Shall we go to the cinema after lunch?" },
+    { w: "train station", pos: "n.p", ipa: "/treɪn ˈsteɪʃn/", vn: "nhà ga tàu hỏa", ex: "I’ll have to take him back to the station." }
+  ],
+  4: [
+    { w: "speak to someone", pos: "v.p", ipa: "/spiːk tuː ˈsʌmwʌn/", vn: "nói chuyện điện thoại với ai", ex: "Could I speak to Martin please?" },
+    { w: "I’m afraid...", pos: "phr", ipa: "/aɪm əˈfreɪd/", vn: "tôi e rằng, rất tiếc là...", ex: "I’m afraid he’s out at the moment." },
+    { w: "be out", pos: "v.p", ipa: "/biː aʊt/", vn: "đi vắng, ra ngoài", ex: "I’m afraid he’s out at the moment." },
+    { w: "take a message", pos: "v.p", ipa: "/teɪk ə ˈmɛsɪdʒ/", vn: "nhận lời nhắn", ex: "Can I take a message for him?" },
+    { w: "spell", pos: "v", ipa: "/spɛl/", vn: "đánh vần", ex: "How do you spell that?" },
+    { w: "tonight", pos: "adv", ipa: "/təˈnaɪt/", vn: "tối nay", ex: "Tell Martin that the party tonight is at the Grand Hotel." },
+    { w: "Grand Hotel", pos: "n.p", ipa: "/ɡrænd həʊˈtɛl/", vn: "Khách sạn Grand", ex: "Everyone knows the Grand Hotel." },
+    { w: "address", pos: "n", ipa: "/əˈdrɛs/", vn: "địa chỉ", ex: "Does he know the address?" },
+    { w: "half past eight", pos: "phr", ipa: "/hɑːf pɑːst eɪt/", vn: "8 giờ rưỡi (8:30)", ex: "I’ll try to be there at half past eight." },
+    { w: "a bit late", pos: "adj.p", ipa: "/ə bɪt leɪt/", vn: "muộn một chút", ex: "But I may be a bit late." },
+    { w: "mind waiting", pos: "v.p", ipa: "/maɪnd ˈweɪtɪŋ/", vn: "ngại/phiền khi phải chờ đợi", ex: "I’m sure he won’t mind waiting." },
+    { w: "anything else", pos: "pron", ipa: "/ˈɛnɪθɪŋ ɛls/", vn: "còn điều gì nữa không", ex: "Is there anything else?" },
+    { w: "bring a friend", pos: "v.p", ipa: "/brɪŋ ə frɛnd/", vn: "dẫn theo một người bạn", ex: "Ask him to bring a friend." },
+    { w: "phone someone", pos: "v", ipa: "/fəʊn ˈsʌmwʌn/", vn: "gọi điện thoại cho ai", ex: "Please ask him to phone me if he can’t come." },
+    { w: "caller", pos: "n", ipa: "/ˈkɔːlə/", vn: "người gọi điện", ex: "Write the caller’s name on the note." },
+    { w: "phone number", pos: "n.p", ipa: "/fəʊn ˈnʌmbə/", vn: "số điện thoại", ex: "Has he got your phone number?" }
+  ],
+  5: [
+    { w: "travel agency", pos: "n.p", ipa: "/ˈtrævl ˈeɪdʒənsi/", vn: "công ty du lịch, đại lý lữ hành", ex: "Hello. This is the South Seas Travel Agency." },
+    { w: "answerphone", pos: "n", ipa: "/ˈɑːnsəfəʊn/", vn: "máy trả lời điện thoại tự động", ex: "Listen to the message on the answerphone." },
+    { w: "right now", pos: "adv", ipa: "/raɪt naʊ/", vn: "ngay bây giờ", ex: "No one can speak to you right now." },
+    { w: "move to", pos: "v.p", ipa: "/muːv tuː/", vn: "chuyển địa điểm đến", ex: "The agency has moved to another part of town." },
+    { w: "another part of town", pos: "n.p", ipa: "/əˈnʌðə pɑːt ɒv taʊn/", vn: "một khu vực khác trong thị trấn", ex: "It has moved to another part of town." },
+    { w: "ring someone", pos: "v", ipa: "/rɪŋ ˈsʌmwʌn/", vn: "gọi điện cho ai", ex: "Please ring us on 847 2296." },
+    { w: "easy to find", pos: "adj.p", ipa: "/ˈiːzi tuː faɪnd/", vn: "dễ tìm", ex: "It’s easy to find – it’s near the park." },
+    { w: "at the end of the road", pos: "phr", ipa: "/æt ði ɛnd ɒv ðə rəʊd/", vn: "ở cuối con đường", ex: "It’s near the park, at the end of the road." },
+    { w: "opposite", pos: "prep", ipa: "/ˈɒpəzɪt/", vn: "đối diện", ex: "It’s at the end of the road, opposite the bank." },
+    { w: "open for business", pos: "adj.p", ipa: "/ˈəʊpən fɔː ˈbɪznɪs/", vn: "mở cửa hoạt động kinh doanh", ex: "We will be open for business on 21st May." },
+    { w: "exciting holiday", pos: "n.p", ipa: "/ɪkˈsaɪtɪŋ ˈhɒlɪdeɪ/", vn: "kỳ nghỉ thú vị, hấp dẫn", ex: "We have many exciting holidays at special prices." },
+    { w: "special price", pos: "n.p", ipa: "/ˈspɛʃl praɪs/", vn: "mức giá ưu đãi đặc biệt", ex: "We have many exciting holidays at special prices." },
+    { w: "present", pos: "n", ipa: "/ˈprɛznt/", vn: "món quà tặng", ex: "And we have a present for anyone who spends £350." },
+    { w: "spend money on", pos: "v.p", ipa: "/spɛnd ˈmʌni ɒn/", vn: "chi tiêu tiền vào việc gì", ex: "Anyone who spends £350 or more on a holiday." },
+    { w: "absolutely free", pos: "adj.p", ipa: "/ˌæbsəˈluːtli friː/", vn: "hoàn toàn miễn phí", ex: "We will give you a travel bag absolutely free." },
+    { w: "plane journey", pos: "n.p", ipa: "/pleɪn ˈdʒɜːni/", vn: "chuyến đi bằng máy bay", ex: "Carry everything you need on a plane journey." }
+  ]
+};
+
+let currentTest = 1, currentTranscript = 1, currentVocab = 1;
+
+function audioMarkup(mode, part) {
+  const sources = audioConfig[part];
+  const playerId = `player-${mode}-${part}`;
+  const sourcesHtml = sources.map(s => `<source src="${s}" type="audio/mpeg">`).join("");
+
+  return `
+  <div class="audio-card">
+    <div class="audio-btns">
+      <button type="button" class="play-trigger" onclick="instantPlay('${playerId}', ${part})">▶ Play</button>
+      <button type="button" class="mini-ctrl" onclick="seekAudio('${playerId}', -5)">-5s</button>
+      <button type="button" class="mini-ctrl" onclick="seekAudio('${playerId}', 5)">+5s</button>
+      <button type="button" class="mini-ctrl" onclick="cycleSpeed('${playerId}', this)">1.0x</button>
+      <button type="button" class="mini-ctrl" onclick="stopAllAudio('${playerId}')">⏹</button>
+    </div>
+    <audio id="${playerId}" controls preload="auto">${sourcesHtml}</audio>
+  </div>`;
+}
+
+function instantPlay(playerId, part) {
+  const player = document.getElementById(playerId);
+  if (!player) return;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+
+  const playPromise = player.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      playBuiltInScript(part);
+    });
+  }
+}
+
+function playBuiltInScript(part) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const lines = parts[part].transcript;
+  const voices = window.speechSynthesis.getVoices();
+  const enVoices = voices.filter(v => v.lang.startsWith("en"));
+
+  let index = 0;
+  function speakNext() {
+    if (index >= lines.length) return;
+    const [speaker, ...segs] = lines[index];
+    const text = segs.map(s => Array.isArray(s) ? s[0] : s).join("");
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "en-GB";
+    utter.rate = 0.95;
+
+    if (speaker === "Male" || speaker === "Paul" || speaker === "Eric") {
+      utter.pitch = 0.88;
+      if (enVoices[0]) utter.voice = enVoices[0];
+    } else {
+      utter.pitch = 1.12;
+      if (enVoices[1]) utter.voice = enVoices[1];
+    }
+
+    utter.onend = () => {
+      index++;
+      setTimeout(speakNext, 250);
+    };
+    window.speechSynthesis.speak(utter);
+  }
+  speakNext();
+}
+
+function stopAllAudio(playerId) {
+  const player = document.getElementById(playerId);
+  if (player) {
+    player.pause();
+    player.currentTime = 0;
+  }
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+
+function seekAudio(playerId, delta) {
+  const player = document.getElementById(playerId);
+  if (player && player.duration) {
+    player.currentTime = Math.max(0, Math.min(player.duration, player.currentTime + delta));
+  }
+}
+
+function cycleSpeed(playerId, btn) {
+  const speeds = [1.0, 0.85, 0.75, 1.15];
+  const player = document.getElementById(playerId);
+  if (!player) return;
+  let idx = speeds.indexOf(player.playbackRate);
+  idx = (idx + 1) % speeds.length;
+  player.playbackRate = speeds[idx];
+  btn.textContent = speeds[idx] + "x";
+}
+
+function speakWord(word) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = "en-GB";
+  u.rate = 0.92;
+  window.speechSynthesis.speak(u);
+}
+
+function saveCurrentTestInputs(part) {
+  const form = document.getElementById("testForm");
+  if (!form) return;
+  const d = parts[part];
+  d.questions.forEach(q => {
+    const el = form.elements[String(q.n)];
+    if (!el) return;
+    if (el.length && el[0] && el[0].type === "radio") {
+      const checked = form.querySelector(`input[name="${q.n}"]:checked`);
+      trackerState.savedTestInputs[part][q.n] = checked ? checked.value : "";
+    } else {
+      trackerState.savedTestInputs[part][q.n] = el.value;
+    }
+  });
+}
+
+function renderTest(part) {
+  currentTest = part;
+  const d = parts[part];
+  const saved = trackerState.savedTestInputs[part] || {};
+  let html = `<h2>${d.title}</h2>${audioMarkup('test', part)}<form id="testForm" oninput="saveCurrentTestInputs(${part})">`;
+
+  if (part === 2) {
+    html += `<p style="background:#f8fafc;padding:10px 14px;border-radius:12px;border:1px solid #e2e8f0;font-size:14px;"><b>Jobs:</b> A bank clerk · B doctor · C farmer · D shop assistant · E stopped work · F student · G teacher · H writer</p>`;
+  }
+
+  d.questions.forEach(q => {
+    const val = saved[q.n] || "";
+    html += `<div class="question"><div class="qtitle">${q.n}. ${q.q}</div>`;
+    if (q.img) html += `<div class="image-options"><a href="${q.img}" target="_blank" rel="noopener"><img src="${q.img}" alt="Question ${q.n}"></a></div>`;
+    if (q.type === "text") {
+      html += `<input type="text" name="${q.n}" value="${val.replace(/"/g, '&quot;')}" placeholder="${q.placeholder || 'Your answer'}" autocomplete="off">`;
+    } else if (q.type === "select") {
+      html += `<select name="${q.n}"><option value="">Choose a job</option>${q.opts.map(o => `<option value="${o.charAt(0)}" ${val === o.charAt(0) ? 'selected' : ''}>${o}</option>`).join("")}</select>`;
+    } else {
+      html += `<div class="options">${q.opts.map((o, i) => {
+        const letter = "ABC"[i];
+        return `<label class="option"><input type="radio" name="${q.n}" value="${letter}" ${val === letter ? 'checked' : ''}><span>${o}</span></label>`;
+      }).join("")}</div>`;
+    }
+    html += `</div>`;
+  });
+
+  html += `</form><div class="actions"><button class="primary" onclick="submitTest(${part})" type="button">Submit</button><button class="secondary" onclick="resetTest(${part})" type="button">Reset</button></div><div id="testResult" class="result"></div>`;
+  document.getElementById("testPartContent").innerHTML = html;
+  document.querySelectorAll("#testTabs button").forEach(b => b.classList.toggle("active", +b.dataset.part === part));
+}
+
+function normalize(s) {
+  return (s || "").toLowerCase().trim().replace(/[.,!?']/g, "").replace(/\s+/g, " ");
+}
+
+function submitTest(part) {
+  saveCurrentTestInputs(part);
+  const d = parts[part];
+  let score = 0, details = [];
+  d.questions.forEach(q => {
+    const val = trackerState.savedTestInputs[part][q.n] || "";
+    const correct = answerKeys[part][q.n];
+    let ok;
+    if (part <= 3) {
+      ok = normalize(val) === normalize(correct);
+    } else {
+      let v = normalize(val), c = normalize(correct);
+      if (q.n === 18) ok = ["830 pm", "8.30 pm", "2030", "20.30", "half past eight", "8 30", "8 30 pm", "830"].includes(v);
+      else if (q.n === 17) ok = ["grand hotel", "the grand hotel"].includes(v);
+      else if (q.n === 24) ok = ["350", "£350", "350 pounds"].includes(v);
+      else if (q.n === 25) ok = ["travel bag", "a travel bag"].includes(v);
+      else if (q.n === 22) ok = ["bank", "the bank"].includes(v);
+      else if (q.n === 23) ok = ["21st may", "21 may", "the 21st of may", "may 21st"].includes(v);
+      else if (q.n === 20) ok = v.replace(/\D/g, "") === "7245936";
+      else ok = v === c;
+    }
+    if (ok) score++;
+    details.push(`<div class="${ok ? 'good' : 'bad'}">${q.n}. ${ok ? '✓ Correct' : '✗ Incorrect'} · Answer: <b>${correct}</b></div>`);
+  });
+
+  trackerState.testScores[part] = score;
+  updateTrackerUI();
+
+  const result = document.getElementById("testResult");
+  result.className = "result show";
+  result.innerHTML = `<h3>Score: ${score}/${d.questions.length}</h3>${details.join("")}`;
+}
+
+function resetTest(part) {
+  trackerState.savedTestInputs[part] = {};
+  trackerState.testScores[part] = null;
+  updateTrackerUI();
+  renderTest(part);
+}
+
+function saveCurrentTranscriptInputs(part) {
+  const inputs = [...document.querySelectorAll("#transcriptForm .blank")];
+  inputs.forEach((inp, idx) => {
+    trackerState.savedTransInputs[part][idx + 1] = inp.value;
+  });
+}
+
+function renderTranscript(part) {
+  currentTranscript = part;
+  const d = parts[part];
+  const saved = trackerState.savedTransInputs[part] || {};
+  let blanks = 0;
+  let html = `<h2>${d.title} · Transcript</h2>${audioMarkup('transcript', part)}<form id="transcriptForm" class="transcript" oninput="saveCurrentTranscriptInputs(${part})">`;
+
+  d.transcript.forEach(line => {
+    const [speaker, ...segments] = line;
+    html += `<p><span class="speaker">${speaker}:</span> `;
+    segments.forEach(seg => {
+      if (Array.isArray(seg)) {
+        blanks++;
+        const savedVal = saved[blanks] || "";
+        html += `<input class="blank" type="text" name="blank${blanks}" value="${savedVal.replace(/"/g, '&quot;')}" data-answer="${seg[0].replace(/&/g, '&amp;').replace(/"/g, '&quot;')}" placeholder="(${blanks})">`;
+      } else {
+        html += seg;
+      }
+    });
+    html += `</p>`;
+  });
+
+  html += `</form><div class="actions"><button class="primary" onclick="submitTranscript(${part})" type="button">Submit</button><button class="secondary" onclick="resetTranscript(${part})" type="button">Reset</button><button class="secondary" onclick="showTranscriptAnswers(${part})" type="button">Show answers</button></div><div id="transcriptResult" class="result"></div>`;
+  document.getElementById("transcriptPartContent").innerHTML = html;
+  document.querySelectorAll("#transcriptTabs button").forEach(b => b.classList.toggle("active", +b.dataset.part === part));
+}
+
+function submitTranscript(part) {
+  saveCurrentTranscriptInputs(part);
+  const inputs = [...document.querySelectorAll("#transcriptForm .blank")];
+  let score = 0;
+  inputs.forEach(i => {
+    const ok = normalize(i.value) === normalize(i.dataset.answer);
+    i.classList.toggle("correct", ok);
+    i.classList.toggle("wrong", !ok);
+    if (ok) score++;
+  });
+
+  trackerState.transScores[part] = { score, total: inputs.length };
+  updateTrackerUI();
+
+  const r = document.getElementById("transcriptResult");
+  r.className = "result show";
+  r.innerHTML = `<h3>Score: ${score}/${inputs.length}</h3>`;
+}
+
+function resetTranscript(part) {
+  trackerState.savedTransInputs[part] = {};
+  trackerState.transScores[part] = null;
+  updateTrackerUI();
+  renderTranscript(part);
+}
+
+function showTranscriptAnswers(part) {
+  const inputs = [...document.querySelectorAll("#transcriptForm .blank")];
+  inputs.forEach((i, idx) => {
+    i.value = i.dataset.answer;
+    i.classList.remove("wrong");
+    i.classList.add("correct");
+    trackerState.savedTransInputs[part][idx + 1] = i.value;
+  });
+}
+
+function renderVocab(part) {
+  currentVocab = part;
+  const list = vocabularyData[part];
+  let html = `<h2>Part ${part} · Vocabulary (${list.length})</h2><div class="vocab-grid">`;
+
+  list.forEach((item, idx) => {
+    const cleanWord = item.w.split("–")[0].replace(/\.\.\./g, "").trim().replace(/'/g, "\\'");
+    html += `
+      <div class="vocab-card">
+        <div>
+          <div class="vocab-top">
+            <div>
+              <span class="vocab-word">${idx + 1}. ${item.w}</span>
+              <span class="vocab-pos">${item.pos}</span>
+            </div>
+            <button type="button" class="speak-btn" onclick="speakWord('${cleanWord}')">🔊</button>
+          </div>
+          <div class="vocab-ipa">${item.ipa}</div>
+          <div class="vocab-vn">${item.vn}</div>
+        </div>
+        <div class="vocab-ex">“${item.ex}”</div>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+  document.getElementById("vocabPartContent").innerHTML = html;
+  document.querySelectorAll("#vocabTabs button").forEach(b => b.classList.toggle("active", +b.dataset.part === part));
+}
+
+function toggleTracker() {
+  const el = document.getElementById("cornerTracker");
+  const icon = document.getElementById("trackerToggleIcon");
+  el.classList.toggle("minimized");
+  icon.textContent = el.classList.contains("minimized") ? "▴" : "▾";
+}
+
+function updateTrackerUI() {
+  let totalEarned = 0;
+  let totalPossible = 25;
+  let rowsHtml = "";
+
+  for (let p = 1; p <= 5; p++) {
+    const tScore = trackerState.testScores[p];
+    const trObj = trackerState.transScores[p];
+    const pBlanks = parts[p].transcript.reduce((acc, line) => acc + line.slice(1).filter(Array.isArray).length, 0);
+    totalPossible += pBlanks;
+
+    if (tScore !== null) totalEarned += tScore;
+    if (trObj !== null) totalEarned += trObj.score;
+
+    const tText = tScore !== null ? `${tScore}/5` : `-`;
+    const trText = trObj !== null ? `${trObj.score}/${trObj.total}` : `-`;
+    const isDone = tScore !== null && trObj !== null;
+
+    rowsHtml += `
+      <div class="tracker-row">
+        <span>Part ${p}</span>
+        <span class="tracker-badge ${isDone ? 'done' : ''}">T: ${tText} · G: ${trText}</span>
+      </div>`;
+  }
+
+  document.getElementById("trackerSummary").textContent = `${totalEarned}/${totalPossible}`;
+  document.getElementById("trackerDetails").innerHTML = rowsHtml;
+}
+
+document.querySelectorAll(".main-tabs button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".main-tabs button").forEach(x => x.classList.toggle("active", x === b));
+  document.querySelectorAll(".main-content").forEach(x => x.classList.toggle("hidden", x.id !== b.dataset.main));
+}));
+
+document.querySelectorAll("#testTabs button").forEach(b => b.addEventListener("click", () => renderTest(+b.dataset.part)));
+document.querySelectorAll("#transcriptTabs button").forEach(b => b.addEventListener("click", () => renderTranscript(+b.dataset.part)));
+document.querySelectorAll("#vocabTabs button").forEach(b => b.addEventListener("click", () => renderVocab(+b.dataset.part)));
+
+renderTest(1);
+renderTranscript(1);
+renderVocab(1);
+updateTrackerUI();
+</script>
+</body>
+</html>
