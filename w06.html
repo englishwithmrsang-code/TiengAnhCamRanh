@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing & Speaking Practice - Travel, Tourism, Culture & Environment</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-radius: 8px;
+            --correct-color: #15803d;
+            --incorrect-color: #b91c1c;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin: 0 0 4px 0;
+            color: #0f172a;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            border: 1px solid transparent;
+            background-color: var(--bg-color);
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn[data-target="topic1"] { color: #d97706; border-color: #fde68a; }
+        .tab-btn[data-target="topic1"].active, .tab-btn[data-target="topic1"]:hover { background-color: #d97706; color: #fff; }
+
+        .tab-btn[data-target="topic2"] { color: #2563eb; border-color: #bfdbfe; }
+        .tab-btn[data-target="topic2"].active, .tab-btn[data-target="topic2"]:hover { background-color: #2563eb; color: #fff; }
+
+        .tab-btn[data-target="topic3"] { color: #059669; border-color: #a7f3d0; }
+        .tab-btn[data-target="topic3"].active, .tab-btn[data-target="topic3"]:hover { background-color: #059669; color: #fff; }
+
+        .tab-btn[data-target="topic4"] { color: #7c3aed; border-color: #ddd6fe; }
+        .tab-btn[data-target="topic4"].active, .tab-btn[data-target="topic4"]:hover { background-color: #7c3aed; color: #fff; }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            background: #e2e8f0;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover { background: #cbd5e1; }
+
+        /* Tracker */
+        .tracker-card {
+            background: #ffffff;
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .tracker-info {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            white-space: nowrap;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #10b981;
+            transition: width 0.3s ease;
+        }
+
+        /* Card Layout */
+        .version-card {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            margin-bottom: 20px;
+        }
+
+        .version-card.active { display: block; }
+
+        .version-header {
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .version-header h2 { margin: 0; font-size: 1.1rem; }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .section-subtitle {
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            border-left: 3px solid #3b82f6;
+            padding-left: 8px;
+        }
+
+        .speaking-question {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+            background-color: #f1f5f9;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .theme-topic1 { border-top: 4px solid #d97706; }
+        .theme-topic1 .version-header { background: #fffbeb; color: #92400e; }
+        .theme-topic1 .vi-label { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+        .theme-topic2 { border-top: 4px solid #2563eb; }
+        .theme-topic2 .version-header { background: #eff6ff; color: #1e40af; }
+        .theme-topic2 .vi-label { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+
+        .theme-topic3 { border-top: 4px solid #059669; }
+        .theme-topic3 .version-header { background: #ecfdf5; color: #065f46; }
+        .theme-topic3 .vi-label { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+        .theme-topic4 { border-top: 4px solid #7c3aed; }
+        .theme-topic4 .version-header { background: #f5f3ff; color: #5b21b6; }
+        .theme-topic4 .vi-label { background-color: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe; }
+
+        .essay-body p {
+            margin-bottom: 16px;
+            text-align: justify;
+            font-size: 0.92rem;
+        }
+
+        /* Blank Elements */
+        .blank-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin: 3px 2px;
+            vertical-align: baseline;
+        }
+
+        .vi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-right: 3px;
+            user-select: none;
+            white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .blank-input {
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 0.86rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+            height: 22px;
+        }
+
+        .blank-input:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .blank-input.correct {
+            border-color: var(--correct-color) !important;
+            background-color: #f0fdf4 !important;
+            color: var(--correct-color) !important;
+            font-weight: 600;
+        }
+
+        .blank-input.incorrect {
+            border-color: var(--incorrect-color) !important;
+            background-color: #fef2f2 !important;
+            color: var(--incorrect-color) !important;
+            font-weight: 600;
+        }
+
+        /* Tooltip logic */
+        .blank-wrapper .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            background-color: #0f172a;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 3px 7px;
+            position: absolute;
+            z-index: 10;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: opacity 0.15s ease-in-out;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .blank-wrapper .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            border-width: 4px;
+            border-style: solid;
+            border-color: #0f172a transparent transparent transparent;
+        }
+
+        .blank-wrapper:hover .blank-input.incorrect.submitted + .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>WRITING LESSON 6: Travel, Tourism, Culture & Environment</h1>
+        <p>Nhìn cụm <strong>Tiếng Việt in màu</strong> → Nhập đáp án <strong>Tiếng Anh</strong> → Nhấn <strong>Enter</strong> hoặc bấm ra ngoài để nộp bài → Rê chuột vào ô sai để xem gợi ý</p>
+    </header>
+
+    <div class="controls">
+        <div class="tabs">
+            <button class="tab-btn active" data-target="topic1">Topic 1: Why People Travel 🧳</button>
+            <button class="tab-btn" data-target="topic2">Topic 2: Benefits of Tourism 🏨</button>
+            <button class="tab-btn" data-target="topic3">Topic 3: Problems of Tourism 🗑️</button>
+            <button class="tab-btn" data-target="topic4">Topic 4: Culture & Sustainability 🌿</button>
+        </div>
+        <div class="action-btns">
+            <button class="btn-action" id="showAnswersBtn">Hiển thị đáp án</button>
+            <button class="btn-action" id="resetBtn">Làm lại</button>
+        </div>
+    </div>
+
+    <!-- Tracker -->
+    <div class="tracker-card">
+        <div class="tracker-info">Tiến độ bài làm: <span id="progressText">0 / 0 (0%)</span></div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- TOPIC 1 -->
+    <div id="topic1" class="version-card theme-topic1 active">
+        <div class="version-header">
+            <h2>Topic 1: Why do people travel?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Reading Passage</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Mọi người đi du lịch vì nhiều lý do khác nhau</span><input type="text" class="blank-input" data-ans="People travel for a variety of reasons" style="width: 255px;"><span class="tooltip">Đáp án: People travel for a variety of reasons</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Đầu tiên</span><input type="text" class="blank-input" data-ans="To begin with" style="width: 105px;"><span class="tooltip">Đáp án: To begin with</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">việc đi du lịch mang lại cho họ cơ hội thư giãn</span><input type="text" class="blank-input" data-ans="travelling gives them a chance to relax" style="width: 265px;"><span class="tooltip">Đáp án: travelling gives them a chance to relax</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và thoát khỏi những áp lực của cuộc sống hàng ngày</span><input type="text" class="blank-input" data-ans="and escape from the pressures of daily life" style="width: 295px;"><span class="tooltip">Đáp án: and escape from the pressures of daily life</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For instance" style="width: 95px;"><span class="tooltip">Đáp án: For instance</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nhiều gia đình dành kỳ nghỉ hè ở bãi biển</span><input type="text" class="blank-input" data-ans="many families spend their summer holidays at the beach" style="width: 380px;"><span class="tooltip">Đáp án: many families spend their summer holidays at the beach</span></span>
+                <span class="blank-wrapper"><span class="vi-label">để nghỉ ngơi và dành thời gian bên nhau</span><input type="text" class="blank-input" data-ans="in order to rest and spend time together" style="width: 275px;"><span class="tooltip">Đáp án: in order to rest and spend time together</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Thêm vào đó</span><input type="text" class="blank-input" data-ans="In addition" style="width: 90px;"><span class="tooltip">Đáp án: In addition</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">du lịch cho phép mọi người hiểu rõ hơn về các nền văn hóa khác</span><input type="text" class="blank-input" data-ans="travel allows people to gain a better understanding of other cultures" style="width: 445px;"><span class="tooltip">Đáp án: travel allows people to gain a better understanding of other cultures</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Bằng cách thăm bảo tàng, nếm thử món ăn địa phương</span><input type="text" class="blank-input" data-ans="By visiting museums, tasting local food" style="width: 270px;"><span class="tooltip">Đáp án: By visiting museums, tasting local food</span></span>
+                <span class="blank-wrapper"><span class="vi-label">hoặc tham gia vào các lễ hội truyền thống</span><input type="text" class="blank-input" data-ans="or taking part in traditional festivals" style="width: 250px;"><span class="tooltip">Đáp án: or taking part in traditional festivals</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">họ có thể trải nghiệm một lối sống khác</span><input type="text" class="blank-input" data-ans="they can experience a different way of life" style="width: 285px;"><span class="tooltip">Đáp án: they can experience a different way of life</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Kết quả là</span><input type="text" class="blank-input" data-ans="As a result" style="width: 90px;"><span class="tooltip">Đáp án: As a result</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">việc đi du lịch không chỉ thú vị</span><input type="text" class="blank-input" data-ans="travelling is not only enjoyable" style="width: 215px;"><span class="tooltip">Đáp án: travelling is not only enjoyable</span></span>
+                <span class="blank-wrapper"><span class="vi-label">mà còn giúp mọi người mở rộng tầm hiểu biết</span><input type="text" class="blank-input" data-ans="but also helps people broaden their horizons" style="width: 300px;"><span class="tooltip">Đáp án: but also helps people broaden their horizons</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Nhìn chung</span><input type="text" class="blank-input" data-ans="Overall" style="width: 70px;"><span class="tooltip">Đáp án: Overall</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">du lịch có lợi cho cả sức khỏe thể chất và tinh thần</span><input type="text" class="blank-input" data-ans="travel benefits both physical and mental well-being" style="width: 345px;"><span class="tooltip">Đáp án: travel benefits both physical and mental well-being</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">điều này giải thích tại sao nó lại phổ biến đến vậy</span><input type="text" class="blank-input" data-ans="which explains why it is so popular" style="width: 240px;"><span class="tooltip">Đáp án: which explains why it is so popular</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <div class="speaking-question">Question: Why do people travel?</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Chủ yếu là để thư giãn và thoát khỏi cuộc sống hàng ngày</span><input type="text" class="blank-input" data-ans="Mostly to relax and escape from daily life" style="width: 285px;"><span class="tooltip">Đáp án: Mostly to relax and escape from daily life</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một số người cũng đi du lịch để tìm hiểu về các nền văn hóa khác</span><input type="text" class="blank-input" data-ans="Some people also travel to learn about other cultures" style="width: 360px;"><span class="tooltip">Đáp án: Some people also travel to learn about other cultures</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">ví dụ bằng cách thử món ăn địa phương hoặc thăm các bảo tàng</span><input type="text" class="blank-input" data-ans="for example by trying local food or visiting museums" style="width: 355px;"><span class="tooltip">Đáp án: for example by trying local food or visiting museums</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 2 -->
+    <div id="topic2" class="version-card theme-topic2">
+        <div class="version-header">
+            <h2>Topic 2: How can tourism help local people?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Reading Passage</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Du lịch có thể mang lại một số lợi ích cho cộng đồng địa phương</span><input type="text" class="blank-input" data-ans="Tourism can bring a number of benefits to local communities" style="width: 405px;"><span class="tooltip">Đáp án: Tourism can bring a number of benefits to local communities</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Lợi ích đáng kể nhất là</span><input type="text" class="blank-input" data-ans="The most significant advantage is that" style="width: 260px;"><span class="tooltip">Đáp án: The most significant advantage is that</span></span>
+                <span class="blank-wrapper"><span class="vi-label">nó tạo ra cơ hội việc làm</span><input type="text" class="blank-input" data-ans="it creates employment opportunities" style="width: 250px;"><span class="tooltip">Đáp án: it creates employment opportunities</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Điều này là bởi vì du khách cần chỗ ở</span><input type="text" class="blank-input" data-ans="This is because visitors require accommodation" style="width: 320px;"><span class="tooltip">Đáp án: This is because visitors require accommodation</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">thức ăn, phương tiện đi lại và giải trí</span><input type="text" class="blank-input" data-ans="food, transport and entertainment" style="width: 235px;"><span class="tooltip">Đáp án: food, transport and entertainment</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For example" style="width: 95px;"><span class="tooltip">Đáp án: For example</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">người dân địa phương có thể tìm việc làm trong các khách sạn</span><input type="text" class="blank-input" data-ans="local residents can find work in hotels" style="width: 265px;"><span class="tooltip">Đáp án: local residents can find work in hotels</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nhà hàng hoặc các công ty du lịch</span><input type="text" class="blank-input" data-ans="restaurants or tour companies" style="width: 215px;"><span class="tooltip">Đáp án: restaurants or tour companies</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Do đó</span><input type="text" class="blank-input" data-ans="Consequently" style="width: 105px;"><span class="tooltip">Đáp án: Consequently</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">du lịch có thể làm tăng thu nhập hộ gia đình</span><input type="text" class="blank-input" data-ans="tourism can raise household incomes" style="width: 255px;"><span class="tooltip">Đáp án: tourism can raise household incomes</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và thúc đẩy nền kinh tế địa phương</span><input type="text" class="blank-input" data-ans="and stimulate the local economy" style="width: 225px;"><span class="tooltip">Đáp án: and stimulate the local economy</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Hơn nữa</span><input type="text" class="blank-input" data-ans="Furthermore" style="width: 100px;"><span class="tooltip">Đáp án: Furthermore</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">du lịch gắn kết mọi người từ những hoàn cảnh khác nhau lại với nhau</span><input type="text" class="blank-input" data-ans="tourism brings people from different backgrounds together" style="width: 395px;"><span class="tooltip">Đáp án: tourism brings people from different backgrounds together</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">điều này thúc đẩy giao lưu văn hóa và sự thấu hiểu lẫn nhau</span><input type="text" class="blank-input" data-ans="which promotes cultural exchange and mutual understanding" style="width: 405px;"><span class="tooltip">Đáp án: which promotes cultural exchange and mutual understanding</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Nhìn chung</span><input type="text" class="blank-input" data-ans="Overall" style="width: 70px;"><span class="tooltip">Đáp án: Overall</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">khi được quản lý tốt</span><input type="text" class="blank-input" data-ans="when it is well managed" style="width: 170px;"><span class="tooltip">Đáp án: when it is well managed</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">du lịch có thể góp phần vào sự phát triển của khu vực</span><input type="text" class="blank-input" data-ans="tourism can contribute to regional development" style="width: 325px;"><span class="tooltip">Đáp án: tourism can contribute to regional development</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <div class="speaking-question">Question: How can tourism help local people?</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Nó có thể tạo ra việc làm vì du khách cần khách sạn và nhà hàng</span><input type="text" class="blank-input" data-ans="It can create jobs because tourists need hotels and restaurants" style="width: 415px;"><span class="tooltip">Đáp án: It can create jobs because tourists need hotels and restaurants</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For example" style="width: 95px;"><span class="tooltip">Đáp án: For example</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">người dân địa phương có thể làm việc ở những nơi này</span><input type="text" class="blank-input" data-ans="local people can work in these places" style="width: 255px;"><span class="tooltip">Đáp án: local people can work in these places</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vì vậy gia đình họ có thể kiếm được nhiều tiền hơn</span><input type="text" class="blank-input" data-ans="so their families can earn more money" style="width: 265px;"><span class="tooltip">Đáp án: so their families can earn more money</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 3 -->
+    <div id="topic3" class="version-card theme-topic3">
+        <div class="version-header">
+            <h2>Topic 3: How can tourism damage the environment?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Reading Passage</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Tuy nhiên, du lịch cũng có thể gây ra một số vấn đề</span><input type="text" class="blank-input" data-ans="However, tourism can also cause a number of problems" style="width: 370px;"><span class="tooltip">Đáp án: However, tourism can also cause a number of problems</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một mối lo ngại nghiêm trọng là tình trạng quá đông đúc</span><input type="text" class="blank-input" data-ans="One serious concern is overcrowding" style="width: 255px;"><span class="tooltip">Đáp án: One serious concern is overcrowding</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Khi có quá nhiều du khách đến thăm một khu vực nhỏ</span><input type="text" class="blank-input" data-ans="When too many tourists visit a small area" style="width: 285px;"><span class="tooltip">Đáp án: When too many tourists visit a small area</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">những nơi công cộng trở nên đông đúc và giá cả thường tăng lên</span><input type="text" class="blank-input" data-ans="public places become crowded and prices often rise" style="width: 345px;"><span class="tooltip">Đáp án: public places become crowded and prices often rise</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">bởi vì các doanh nghiệp tăng giá khi nhu cầu cao</span><input type="text" class="blank-input" data-ans="because businesses raise their prices when demand is high" style="width: 390px;"><span class="tooltip">Đáp án: because businesses raise their prices when demand is high</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một mối lo ngại khác là tác động đến môi trường</span><input type="text" class="blank-input" data-ans="Another concern is the impact on the environment" style="width: 335px;"><span class="tooltip">Đáp án: Another concern is the impact on the environment</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Số lượng lớn du khách tạo ra rất nhiều rác thải</span><input type="text" class="blank-input" data-ans="Large numbers of visitors produce a great deal of rubbish" style="width: 385px;"><span class="tooltip">Đáp án: Large numbers of visitors produce a great deal of rubbish</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và lưu lượng giao thông tăng thêm dẫn đến ô nhiễm không khí</span><input type="text" class="blank-input" data-ans="and the extra traffic results in air pollution" style="width: 295px;"><span class="tooltip">Đáp án: and the extra traffic results in air pollution</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Do đó</span><input type="text" class="blank-input" data-ans="Consequently" style="width: 105px;"><span class="tooltip">Đáp án: Consequently</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">các khu vực tự nhiên như bãi biển và rừng có thể bị hư hại</span><input type="text" class="blank-input" data-ans="natural areas such as beaches and forests may be damaged" style="width: 395px;"><span class="tooltip">Đáp án: natural areas such as beaches and forests may be damaged</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Để giải quyết vấn đề này</span><input type="text" class="blank-input" data-ans="To address this issue" style="width: 155px;"><span class="tooltip">Đáp án: To address this issue</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chính quyền địa phương nên cải thiện việc quản lý rác thải</span><input type="text" class="blank-input" data-ans="local authorities should improve waste management" style="width: 350px;"><span class="tooltip">Đáp án: local authorities should improve waste management</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và giới hạn lượng khách ở những khu vực nhạy cảm</span><input type="text" class="blank-input" data-ans="and limit visitor numbers in sensitive areas" style="width: 295px;"><span class="tooltip">Đáp án: and limit visitor numbers in sensitive areas</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <div class="speaking-question">Question: How can tourism damage the environment?</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Quá nhiều du khách tạo ra nhiều rác thải</span><input type="text" class="blank-input" data-ans="Too many tourists produce a lot of rubbish" style="width: 285px;"><span class="tooltip">Đáp án: Too many tourists produce a lot of rubbish</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và gây ô nhiễm không khí từ xe buýt và máy bay</span><input type="text" class="blank-input" data-ans="and cause air pollution from buses and planes" style="width: 315px;"><span class="tooltip">Đáp án: and cause air pollution from buses and planes</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Theo thời gian, điều này có thể làm hỏng các bãi biển và rừng</span><input type="text" class="blank-input" data-ans="Over time, this can damage beaches and forests" style="width: 325px;"><span class="tooltip">Đáp án: Over time, this can damage beaches and forests</span></span>.
+            </p>
+        </div>
+    </div>
+
+    <!-- TOPIC 4 -->
+    <div id="topic4" class="version-card theme-topic4">
+        <div class="version-header">
+            <h2>Topic 4: How can tourism affect local culture?</h2>
+            <span class="badge">Writing & Speaking Practice</span>
+        </div>
+        <div class="essay-body">
+            <div class="section-subtitle">Writing – Reading Passage</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Du lịch cũng có thể ảnh hưởng đến văn hóa địa phương theo nhiều cách khác nhau</span><input type="text" class="blank-input" data-ans="Tourism can also influence local culture in different ways" style="width: 380px;"><span class="tooltip">Đáp án: Tourism can also influence local culture in different ways</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Một mặt</span><input type="text" class="blank-input" data-ans="On the one hand" style="width: 125px;"><span class="tooltip">Đáp án: On the one hand</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nó có thể thúc đẩy các cộng đồng gìn giữ truyền thống của họ</span><input type="text" class="blank-input" data-ans="it can motivate communities to preserve their traditions" style="width: 375px;"><span class="tooltip">Đáp án: it can motivate communities to preserve their traditions</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">vì du khách thể hiện sự quan tâm lớn đến ẩm thực và lễ hội địa phương</span><input type="text" class="blank-input" data-ans="since visitors show great interest in local food and festivals" style="width: 395px;"><span class="tooltip">Đáp án: since visitors show great interest in local food and festivals</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và việc chi tiêu của họ mang lại nguồn tiền để duy trì những sự kiện này</span><input type="text" class="blank-input" data-ans="and their spending provides money to keep these events alive" style="width: 410px;"><span class="tooltip">Đáp án: and their spending provides money to keep these events alive</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Mặt khác</span><input type="text" class="blank-input" data-ans="On the other hand" style="width: 135px;"><span class="tooltip">Đáp án: On the other hand</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">số lượng du khách quá mức có thể gây áp lực lên các cộng đồng truyền thống</span><input type="text" class="blank-input" data-ans="excessive numbers of tourists may put pressure on traditional communities" style="width: 490px;"><span class="tooltip">Đáp án: excessive numbers of tourists may put pressure on traditional communities</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">và một số phong tục có thể bị thương mại hóa quá mức</span><input type="text" class="blank-input" data-ans="and some customs may become overly commercialised" style="width: 365px;"><span class="tooltip">Đáp án: and some customs may become overly commercialised</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Vì lý do này</span><input type="text" class="blank-input" data-ans="For this reason" style="width: 115px;"><span class="tooltip">Đáp án: For this reason</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">chính phủ nên thúc đẩy du lịch bền vững</span><input type="text" class="blank-input" data-ans="governments should promote sustainable tourism" style="width: 335px;"><span class="tooltip">Đáp án: governments should promote sustainable tourism</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Ví dụ</span><input type="text" class="blank-input" data-ans="For instance" style="width: 95px;"><span class="tooltip">Đáp án: For instance</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">họ có thể giới hạn lượng khách tại các địa điểm nổi tiếng</span><input type="text" class="blank-input" data-ans="they can limit visitor numbers at popular sites" style="width: 310px;"><span class="tooltip">Đáp án: they can limit visitor numbers at popular sites</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và giáo dục du khách tôn trọng phong tục địa phương</span><input type="text" class="blank-input" data-ans="and educate tourists to respect local customs" style="width: 310px;"><span class="tooltip">Đáp án: and educate tourists to respect local customs</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Tóm lại</span><input type="text" class="blank-input" data-ans="In conclusion" style="width: 105px;"><span class="tooltip">Đáp án: In conclusion</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">du lịch mang lại những lợi ích đáng kể</span><input type="text" class="blank-input" data-ans="tourism offers significant benefits" style="width: 235px;"><span class="tooltip">Đáp án: tourism offers significant benefits</span></span>,
+                <span class="blank-wrapper"><span class="vi-label">nhưng nó phải được quản lý cẩn thận</span><input type="text" class="blank-input" data-ans="but it must be managed carefully" style="width: 230px;"><span class="tooltip">Đáp án: but it must be managed carefully</span></span>
+                <span class="blank-wrapper"><span class="vi-label">để bảo vệ cộng đồng địa phương và môi trường</span><input type="text" class="blank-input" data-ans="in order to protect local communities and the environment" style="width: 385px;"><span class="tooltip">Đáp án: in order to protect local communities and the environment</span></span>.
+            </p>
+
+            <div class="section-subtitle">Speaking Part 3 – Sample Answer</div>
+            <div class="speaking-question">Question: What can governments do to make tourism more sustainable?</div>
+            <p>
+                <span class="blank-wrapper"><span class="vi-label">Họ có thể giới hạn số lượng du khách ở những nơi nổi tiếng</span><input type="text" class="blank-input" data-ans="They can limit the number of visitors in popular places" style="width: 365px;"><span class="tooltip">Đáp án: They can limit the number of visitors in popular places</span></span>
+                <span class="blank-wrapper"><span class="vi-label">và khuyến khích du lịch thân thiện với môi trường</span><input type="text" class="blank-input" data-ans="and encourage eco-friendly travel" style="width: 235px;"><span class="tooltip">Đáp án: and encourage eco-friendly travel</span></span>.
+                <span class="blank-wrapper"><span class="vi-label">Họ cũng có thể dạy du khách tôn trọng truyền thống địa phương</span><input type="text" class="blank-input" data-ans="They can also teach tourists to respect local traditions" style="width: 360px;"><span class="tooltip">Đáp án: They can also teach tourists to respect local traditions</span></span>.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.version-card');
+        const showAnswersBtn = document.getElementById('showAnswersBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // Clean text utility for flexible comparison
+        function cleanText(text) {
+            return text.trim()
+                       .toLowerCase()
+                       .replace(/’/g, "'")
+                       .replace(/–/g, "-")
+                       .replace(/\s+/g, ' ');
+        }
+
+        // Update Progress Tracker
+        function updateProgress() {
+            const activeCard = document.querySelector('.version-card.active');
+            const inputs = activeCard.querySelectorAll('.blank-input');
+            const total = inputs.length;
+            let correctCount = 0;
+
+            inputs.forEach(input => {
+                if (input.classList.contains('correct')) {
+                    correctCount++;
+                }
+            });
+
+            const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+            progressBar.style.width = percent + '%';
+            progressText.textContent = `${correctCount} / ${total} (${percent}%)`;
+        }
+
+        // Validate Input logic
+        function validateInput(input) {
+            const userVal = cleanText(input.value);
+            const correctVal = cleanText(input.getAttribute('data-ans'));
+
+            if (userVal === "") {
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            } else {
+                input.classList.add('submitted');
+                if (userVal === correctVal) {
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('incorrect');
+                }
+            }
+            updateProgress();
+        }
+
+        // Tab Switching
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                cards.forEach(card => {
+                    if (card.id === targetId) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+                updateProgress();
+            });
+        });
+
+        // Event listeners for inputs
+        document.querySelectorAll('.blank-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    validateInput(input);
+                    input.blur();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                validateInput(input);
+            });
+        });
+
+        // Show Answers Button
+        showAnswersBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = input.getAttribute('data-ans');
+                input.classList.remove('incorrect');
+                input.classList.add('correct', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Reset Button
+        resetBtn.addEventListener('click', () => {
+            const activeCard = document.querySelector('.version-card.active');
+            const activeInputs = activeCard.querySelectorAll('.blank-input');
+
+            activeInputs.forEach(input => {
+                input.value = "";
+                input.classList.remove('correct', 'incorrect', 'submitted');
+            });
+            updateProgress();
+        });
+
+        // Initial Progress State
+        updateProgress();
+    });
+</script>
+
+</body>
+</html>
