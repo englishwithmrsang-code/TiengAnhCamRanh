@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice English Listening Test - Test #27 (Full 5 Parts) | Học tiếng Anh cùng Mr. Sang</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 50px;
+        }
+
+        /* Top Score Board (Sticky) */
+        .score-tracker-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--primary);
+            color: #ffffff;
+            padding: 14px 24px;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .score-badge {
+            background-color: rgba(255, 255, 255, 0.18);
+            padding: 6px 18px;
+            border-radius: 9999px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(4px);
+        }
+
+        .score-value {
+            color: #4ade80;
+            font-weight: 700;
+        }
+
+        .percentage-value {
+            color: #fde047;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 28px auto 0;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 20px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 12px;
+        }
+
+        .audio-player-wrapper {
+            position: sticky;
+            top: 66px;
+            z-index: 900;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            padding: 10px 0;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .audio-player {
+            background: var(--primary-light);
+            border-radius: 12px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #dbeafe;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+        }
+
+        .play-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        .play-btn:hover {
+            background-color: var(--primary-hover);
+            transform: scale(1.03);
+        }
+
+        .timeline-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #cbd5e1;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .timeline::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .time-display {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-family: monospace;
+            white-space: nowrap;
+        }
+
+        .instruction {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .info-box {
+            background-color: #f0f9ff;
+            border: 1px solid #bae6fd;
+            padding: 18px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Gap-fill & Matching Lists */
+        .question-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .question-list li {
+            margin-bottom: 14px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .input-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 2px 0;
+        }
+
+        input[type="text"], select {
+            padding: 6px 10px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #ffffff;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"] {
+            width: 150px;
+        }
+
+        select {
+            min-width: 190px;
+            cursor: pointer;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .example-badge {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid #bae6fd;
+        }
+
+        /* Multiple Choice Styling */
+        .mcq-item {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+
+        .mcq-question {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .mcq-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mcq-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-size: 14.5px;
+            background: #f8fafc;
+        }
+
+        .mcq-option:hover {
+            border-color: #93c5fd;
+            background: #eff6ff;
+        }
+
+        .mcq-option input[type="radio"] {
+            accent-color: var(--primary);
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        /* Validation States */
+        .correct {
+            border-color: var(--success) !important;
+            background-color: #f0fdf4 !important;
+            color: #166534 !important;
+        }
+
+        .incorrect {
+            border-color: var(--error) !important;
+            background-color: #fef2f2 !important;
+            color: #991b1b !important;
+        }
+
+        .correct-answer-hint {
+            color: var(--error);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .action-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .action-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .result {
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Global Score Bar Header -->
+<div class="score-tracker-bar">
+    <div class="score-tracker-title">Total Progress (Listening Test #27 – Full 5 Parts)</div>
+    <div class="score-badge">
+        Correct Answers: <span id="global-correct" class="score-value">0</span> / <span id="global-total">25</span>
+        (<span id="global-percentage" class="percentage-value">0%</span>)
+    </div>
+</div>
+
+<div class="container">
+    <h1>Practice English Listening Test for A2 – Test #27</h1>
+
+    <!-- ================= PART 1: MULTIPLE CHOICE ================= -->
+    <div class="card">
+        <h2>Part 1: Short Conversations (Questions 1–5)</h2>
+
+        <div class="audio-player-wrapper">
+            <div class="audio-player">
+                <audio id="audio1" src="27.1.mp3"></audio>
+                <button class="play-btn" onclick="togglePlay('audio1', this)">▶</button>
+                <div class="timeline-container">
+                    <input type="range" class="timeline" id="time1" value="0" min="0" step="0.1" oninput="seekAudio('audio1', this.value)">
+                </div>
+                <div class="time-display" id="clock1">00:00 / 00:00</div>
+            </div>
+        </div>
+
+        <p class="instruction">For each question, choose the correct answer (A, B, or C).</p>
+
+        <div id="part1-box" class="info-box">
+            <div class="mcq-item" data-answer="B">
+                <div class="mcq-question">1. What instrument is Edward learning to play?</div>
+                <div class="mcq-options">
+                    <label class="mcq-option"><input type="radio" name="p1q1" value="A"> A. The piano</label>
+                    <label class="mcq-option"><input type="radio" name="p1q1" value="B"> B. The guitar</label>
+                    <label class="mcq-option"><input type="radio" name="p1q1" value="C"> C. The drums</label>
+                </div>
+            </div>
+
+            <div class="mcq-item" data-answer="C">
+                <div class="mcq-question">2. What will Anna have for breakfast today?</div>
+                <div class="mcq-options">
+                    <label class="mcq-option"><input type="radio" name="p1q2" value="A"> A. Cereal and fruit</label>
+                    <label class="mcq-option"><input type="radio" name="p1q2" value="B"> B. An omelette</label>
+                    <label class="mcq-option"><input type="radio" name="p1q2" value="C"> C. Bread and jam</label>
+                </div>
+            </div>
+
+            <div class="mcq-item" data-answer="A">
+                <div class="mcq-question">3. How much is the watch now?</div>
+                <div class="mcq-options">
+                    <label class="mcq-option"><input type="radio" name="p1q3" value="A"> A. €18</label>
+                    <label class="mcq-option"><input type="radio" name="p1q3" value="B"> B. €20</label>
+                    <label class="mcq-option"><input type="radio" name="p1q3" value="C"> C. €22</label>
+                </div>
+            </div>
+
+            <div class="mcq-item" data-answer="C">
+                <div class="mcq-question">4. What does Mandy's brother do at the university?</div>
+                <div class="mcq-options">
+                    <label class="mcq-option"><input type="radio" name="p1q4" value="A"> A. He is a student</label>
+                    <label class="mcq-option"><input type="radio" name="p1q4" value="B"> B. He is a receptionist</label>
+                    <label class="mcq-option"><input type="radio" name="p1q4" value="C"> C. He is a teacher</label>
+                </div>
+            </div>
+
+            <div class="mcq-item" data-answer="B">
+                <div class="mcq-question">5. Who is coming to stay this weekend?</div>
+                <div class="mcq-options">
+                    <label class="mcq-option"><input type="radio" name="p1q5" value="A"> A. Josh</label>
+                    <label class="mcq-option"><input type="radio" name="p1q5" value="B"> B. Auntie Suzy and her baby</label>
+                    <label class="mcq-option"><input type="radio" name="p1q5" value="C"> C. Grandma</label>
+                </div>
+            </div>
+
+            <button class="action-btn" onclick="checkMCQ('part1-box', 'part1-result')">Submit Part 1</button>
+            <div class="result" id="part1-result"></div>
+        </div>
+    </div>
+
+    <!-- ================= PART 2: MATCHING ================= -->
+    <div class="card">
+        <h2>Part 2: Computer Course Free Places (Questions 6–10)</h2>
+
+        <div class="audio-player-wrapper">
+            <div class="audio-player">
+                <audio id="audio2" src="27.2.mp3"></audio>
+                <button class="play-btn" onclick="togglePlay('audio2', this)">▶</button>
+                <div class="timeline-container">
+                    <input type="range" class="timeline" id="time2" value="0" min="0" step="0.1" oninput="seekAudio('audio2', this.value)">
+                </div>
+                <div class="time-display" id="clock2">00:00 / 00:00</div>
+            </div>
+        </div>
+
+        <p class="instruction">Listen to Sally and her dad talking about a computer course. How many free places are there on each day? There is one example.</p>
+
+        <div id="part2-box" class="info-box">
+            <p><strong>Computer Course – Free Places Next Week</strong></p>
+            <ul class="question-list">
+                <li><span>Monday:</span> <span class="example-badge">3 free places</span> <em>(Example)</em></li>
+                <li>
+                    <span>6. Tuesday:</span>
+                    <span class="input-wrapper">
+                        <select data-answer="0" data-display="0 (Full)">
+                            <option value="">-- Choose free places --</option>
+                            <option value="0">0 (Full)</option>
+                            <option value="1">1 free place</option>
+                            <option value="2">2 free places</option>
+                            <option value="4">4 free places</option>
+                            <option value="5">5 free places</option>
+                            <option value="6">6 free places</option>
+                            <option value="7">7 free places</option>
+                        </select>
+                    </span>
+                </li>
+                <li>
+                    <span>7. Wednesday:</span>
+                    <span class="input-wrapper">
+                        <select data-answer="5" data-display="5 free places">
+                            <option value="">-- Choose free places --</option>
+                            <option value="0">0 (Full)</option>
+                            <option value="1">1 free place</option>
+                            <option value="2">2 free places</option>
+                            <option value="4">4 free places</option>
+                            <option value="5">5 free places</option>
+                            <option value="6">6 free places</option>
+                            <option value="7">7 free places</option>
+                        </select>
+                    </span>
+                </li>
+                <li>
+                    <span>8. Thursday:</span>
+                    <span class="input-wrapper">
+                        <select data-answer="1" data-display="1 free place">
+                            <option value="">-- Choose free places --</option>
+                            <option value="0">0 (Full)</option>
+                            <option value="1">1 free place</option>
+                            <option value="2">2 free places</option>
+                            <option value="4">4 free places</option>
+                            <option value="5">5 free places</option>
+                            <option value="6">6 free places</option>
+                            <option value="7">7 free places</option>
+                        </select>
+                    </span>
+                </li>
+                <li>
+                    <span>9. Friday:</span>
+                    <span class="input-wrapper">
+                        <select data-answer="2" data-display="2 free places">
+                            <option value="">-- Choose free places --</option>
+                            <option value="0">0 (Full)</option>
+                            <option value="1">1 free place</option>
+                            <option value="2">2 free places</option>
+                            <option value="4">4 free places</option>
+                            <option value="5">5 free places</option>
+                            <option value="6">6 free places</option>
+                            <option value="7">7 free places</option>
+                        </select>
+                    </span>
+                </li>
+                <li>
+                    <span>10. Saturday:</span>
+                    <span class="input-wrapper">
+                        <select data-answer="4" data-display="4 free places">
+                            <option value="">-- Choose free places --</option>
+                            <option value="0">0 (Full)</option>
+                            <option value="1">1 free place</option>
+                            <option value="2">2 free places</option>
+                            <option value="4">4 free places</option>
+                            <option value="5">5 free places</option>
+                            <option value="6">6 free places</option>
+                            <option value="7">7 free places</option>
+                        </select>
+                    </span>
+                </li>
+            </ul>
+            <button class="action-btn" onclick="checkSelects('part2-box', 'part2-result')">Submit Part 2</button>
+            <div class="result" id="part2-result"></div>
+        </div>
+    </div>
+
+    <!-- ================= PART 3: LONG CONVERSATION MCQ ================= -->
+    <div class="card">
+        <h2>Part 3: Making Tomato Soup (Questions 11–15)</h2>
+
+        <div class="audio-player-wrapper">
+            <div class="audio-player">
+                <audio id="audio3" src="27.3.mp3"></audio>
+                <button class="play-btn" onclick="togglePlay('audio3', this)">▶</button>
+                <div class="timeline-container">
+                    <input type="range" class="timeline" id="time3" value="0" min="0" step="0.1" oninput="seekAudio('audio3', this.value)">
+                </div>
+                <div class="time-display" id="clock3">00:00 / 00:00</div>
+            </div>
+        </div>
+
+        <p class="instruction">Listen to Steven and Jenny talking about tomato soup. Choose the correct answer (A, B, or C). Example: Jenny uses a can of tomatoes.</p>
+
+        <div id="part3-box" class="info-box">
+            <div class="mcq-item" data-answer="B">
+                <div class="mcq-question">11. Who taught Jenny how to make the soup?</div>
+                <div class="mcq-options">
+                    <label class="mcq-option"><input type="radio" name="p3q1" value="A"> A. Her aunt</label>
+                    <label class="mcq-option"><input type="radio" name="p3q1" value="B"> B. Her mother</label>
+                    <label class="mcq-option"><input type="radio" name="p3q1" value="C"> C. Her aunt's friend</label>
+                </div>
+            </div>
+
+            <div class="mcq-item" data-answer="A">
+                <div class="mcq-question">12. How many cups of water does Jenny think is best?</div>
+                <div class="mcq-options">
+                    <label class="mcq-option"><input type="radio" name="p3q2" value="A"> A. Two cups</label>
+                    <label class="mcq-option"><input type="radio" name="p3q2" value="B"> B. Three cups</label>
+                    <label class="mcq-option"><input type="radio" name="p3q2" value="C"> C. Four cups</label>
+                </div>
+            </div>
+
+            <div class="mcq-item" data-answer="C">
+                <div class="mcq-question">13. To make the soup really nice, Jenny adds a cup of...</div>
+                <div class="mcq-options">
+                    <label class="mcq-option"><input type="radio" name="p3q3" value="A"> A. butter</label>
+                    <label class="mcq-option"><input type="radio" name="p3q3" value="B"> B. cream</label>
+                    <label class="mcq-option"><input type="radio" name="p3q3" value="C"> C. milk</label>
+                </div>
+            </div>
+
+            <div class="mcq-item" data-answer="C">
+                <div class="mcq-question">14. How long does the soup take to make?</div>
+                <div class="mcq-options">
+                    <label class="mcq-option"><input type="radio" name="p3q4" value="A"> A. 5 minutes</label>
+                    <label class="mcq-option"><input type="radio" name="p3q4" value="B"> B. 10 minutes</label>
+                    <label class="mcq-option"><input type="radio" name="p3q4" value="C"> C. No longer than 20 minutes</label>
+                </div>
+            </div>
+
+            <div class="mcq-item" data-answer="B">
+                <div class="mcq-question">15. What are they having for the main course?</div>
+                <div class="mcq-options">
+                    <label class="mcq-option"><input type="radio" name="p3q5" value="A"> A. Lemon chicken</label>
+                    <label class="mcq-option"><input type="radio" name="p3q5" value="B"> B. Pasta</label>
+                    <label class="mcq-option"><input type="radio" name="p3q5" value="C"> C. Fruit cake</label>
+                </div>
+            </div>
+
+            <button class="action-btn" onclick="checkMCQ('part3-box', 'part3-result')">Submit Part 3</button>
+            <div class="result" id="part3-result"></div>
+        </div>
+    </div>
+
+    <!-- ================= PART 4: GAP FILL (DIALOGUE) ================= -->
+    <div class="card">
+        <h2>Part 4: York Garden Centre (Questions 16–20)</h2>
+
+        <div class="audio-player-wrapper">
+            <div class="audio-player">
+                <audio id="audio4" src="27.4.mp3"></audio>
+                <button class="play-btn" onclick="togglePlay('audio4', this)">▶</button>
+                <div class="timeline-container">
+                    <input type="range" class="timeline" id="time4" value="0" min="0" step="0.1" oninput="seekAudio('audio4', this.value)">
+                </div>
+                <div class="time-display" id="clock4">00:00 / 00:00</div>
+            </div>
+        </div>
+
+        <p class="instruction">Listen and write one word, a number, or a price. There is one example.</p>
+
+        <div id="part4-box" class="info-box">
+            <p><strong>Plant for Mum's Birthday</strong></p>
+            <ul class="question-list">
+                <li><span>Name of plant:</span> <span class="example-badge">Sweet William</span> <em>(Example)</em></li>
+                <li><span>16. Colour of flowers (on this plant):</span> <span class="input-wrapper"><input type="text" data-answer="pink" data-display="pink"></span></li>
+                <li><span>17. Flowers appear every:</span> <span class="input-wrapper"><input type="text" data-answer="spring" data-display="spring"></span></li>
+                <li><span>18. Month to put it in the garden:</span> <span class="input-wrapper"><input type="text" data-answer="september" data-display="September"></span></li>
+                <li><span>19. Height (in 2 or 3 years):</span> <span class="input-wrapper"><input type="text" data-answer="40|forty|40 cm|40cm" data-display="40"></span> <span>cm</span></li>
+                <li><span>20. Price this weekend: £</span> <span class="input-wrapper"><input type="text" data-answer="8|£8|eight|8 pounds" data-display="8"></span></li>
+            </ul>
+            <button class="action-btn" onclick="checkInputs('part4-box', 'part4-result')">Submit Part 4</button>
+            <div class="result" id="part4-result"></div>
+        </div>
+    </div>
+
+    <!-- ================= PART 5: GAP FILL (MONOLOGUE) ================= -->
+    <div class="card">
+        <h2>Part 5: Day Trip to North Lake (Questions 21–25)</h2>
+
+        <div class="audio-player-wrapper">
+            <div class="audio-player">
+                <audio id="audio5" src="27.5.mp3"></audio>
+                <button class="play-btn" onclick="togglePlay('audio5', this)">▶</button>
+                <div class="timeline-container">
+                    <input type="range" class="timeline" id="time5" value="0" min="0" step="0.1" oninput="seekAudio('audio5', this.value)">
+                </div>
+                <div class="time-display" id="clock5">00:00 / 00:00</div>
+            </div>
+        </div>
+
+        <p class="instruction">Listen and write one word, a number, a time, or a price. There is one example.</p>
+
+        <div id="part5-box" class="info-box">
+            <p><strong>Tomorrow's Day Trip</strong></p>
+            <ul class="question-list">
+                <li><span>Destination:</span> <span class="example-badge">North Lake</span> <em>(Example)</em></li>
+                <li><span>21. Travel by:</span> <span class="input-wrapper"><input type="text" data-answer="train|the train" data-display="train"></span></li>
+                <li><span>22. Time to meet to join the trip:</span> <span class="input-wrapper"><input type="text" data-answer="1:15|1.15|1:15 pm|1:15pm|quarter past one" data-display="1:15"></span></li>
+                <li><span>23. Activities: walking or</span> <span class="input-wrapper"><input type="text" data-answer="fishing" data-display="fishing"></span></li>
+                <li><span>24. Total money to bring: £</span> <span class="input-wrapper"><input type="text" data-answer="12|£12|twelve|12 pounds" data-display="12"></span></li>
+                <li><span>25. Meeting place to return: outside the</span> <span class="input-wrapper"><input type="text" data-answer="aster" data-display="Aster"></span> <span>Hotel</span></li>
+            </ul>
+            <button class="action-btn" onclick="checkInputs('part5-box', 'part5-result')">Submit Part 5</button>
+            <div class="result" id="part5-result"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- Audio Player Logic ---
+    function formatTime(seconds) {
+        let mins = Math.floor(seconds / 60);
+        let secs = Math.floor(seconds % 60);
+        if (mins < 10) mins = '0' + mins;
+        if (secs < 10) secs = '0' + secs;
+        return `${mins}:${secs}`;
+    }
+
+    function togglePlay(audioId, btn) {
+        const audio = document.getElementById(audioId);
+
+        document.querySelectorAll('audio').forEach(a => {
+            if (a.id !== audioId) {
+                a.pause();
+                const otherBtn = a.parentElement.querySelector('.play-btn');
+                if (otherBtn) otherBtn.innerText = '▶';
+            }
+        });
+
+        if (audio.paused) {
+            audio.play();
+            btn.innerText = '❚❚';
+        } else {
+            audio.pause();
+            btn.innerText = '▶';
+        }
+    }
+
+    function seekAudio(audioId, value) {
+        const audio = document.getElementById(audioId);
+        audio.currentTime = value;
+    }
+
+    document.querySelectorAll('audio').forEach((audio, index) => {
+        const idNum = index + 1;
+        const timeline = document.getElementById(`time${idNum}`);
+        const clock = document.getElementById(`clock${idNum}`);
+
+        if (timeline && clock) {
+            audio.addEventListener('loadedmetadata', () => {
+                timeline.max = audio.duration;
+                clock.innerText = `00:00 / ${formatTime(audio.duration)}`;
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                timeline.value = audio.currentTime;
+                const current = formatTime(audio.currentTime);
+                const total = isNaN(audio.duration) ? '00:00' : formatTime(audio.duration);
+                clock.innerText = `${current} / ${total}`;
+            });
+
+            audio.addEventListener('ended', () => {
+                const btn = audio.parentElement.querySelector('.play-btn');
+                if (btn) btn.innerText = '▶';
+                timeline.value = 0;
+            });
+        }
+    });
+
+    // --- Score Tracker State ---
+    const partScores = {
+        'part1-box': 0,
+        'part2-box': 0,
+        'part3-box': 0,
+        'part4-box': 0,
+        'part5-box': 0
+    };
+
+    function updateGlobalScore() {
+        const totalQuestions = 25;
+        let globalCorrect = Object.values(partScores).reduce((sum, val) => sum + val, 0);
+        const percentage = Math.round((globalCorrect / totalQuestions) * 100);
+
+        document.getElementById('global-total').innerText = totalQuestions;
+        document.getElementById('global-correct').innerText = globalCorrect;
+        document.getElementById('global-percentage').innerText = `${percentage}%`;
+    }
+
+    function renderResult(resultId, correctCount, totalCount) {
+        const resultDiv = document.getElementById(resultId);
+        if (correctCount === totalCount) {
+            resultDiv.innerHTML = `<span style="color: var(--success);">🎉 Excellent! You got ${correctCount}/${totalCount} correct.</span>`;
+        } else {
+            resultDiv.innerHTML = `<span style="color: var(--error);">⚠️ You scored ${correctCount}/${totalCount}. Check the highlighted answers!</span>`;
+        }
+    }
+
+    // --- Check Multiple Choice (Part 1 & Part 3) ---
+    function checkMCQ(containerId, resultId) {
+        const container = document.getElementById(containerId);
+        const items = container.querySelectorAll('.mcq-item');
+        let correctCount = 0;
+
+        items.forEach(item => {
+            const correctAnswer = item.getAttribute('data-answer');
+            const options = item.querySelectorAll('.mcq-option');
+            let userSelected = null;
+
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                const radio = opt.querySelector('input[type="radio"]');
+                if (radio.checked) {
+                    userSelected = { radio, opt };
+                }
+            });
+
+            if (userSelected) {
+                if (userSelected.radio.value === correctAnswer) {
+                    userSelected.opt.classList.add('correct');
+                    correctCount++;
+                } else {
+                    userSelected.opt.classList.add('incorrect');
+                    options.forEach(opt => {
+                        if (opt.querySelector('input').value === correctAnswer) {
+                            opt.classList.add('correct');
+                        }
+                    });
+                }
+            } else {
+                options.forEach(opt => {
+                    if (opt.querySelector('input').value === correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        });
+
+        partScores[containerId] = correctCount;
+        renderResult(resultId, correctCount, items.length);
+        updateGlobalScore();
+    }
+
+    // --- Check Dropdown Matching (Part 2) ---
+    function checkSelects(containerId, resultId) {
+        const container = document.getElementById(containerId);
+        const selects = container.querySelectorAll('select');
+        let correctCount = 0;
+
+        selects.forEach(sel => {
+            const correctAnswer = sel.getAttribute('data-answer');
+            const displayAnswer = sel.getAttribute('data-display');
+            const wrapper = sel.parentElement;
+
+            const existingHint = wrapper.querySelector('.correct-answer-hint');
+            if (existingHint) existingHint.remove();
+
+            if (sel.value === correctAnswer) {
+                sel.className = 'correct';
+                correctCount++;
+            } else {
+                sel.className = 'incorrect';
+                const hint = document.createElement('span');
+                hint.className = 'correct-answer-hint';
+                hint.innerText = `(${displayAnswer})`;
+                wrapper.appendChild(hint);
+            }
+        });
+
+        partScores[containerId] = correctCount;
+        renderResult(resultId, correctCount, selects.length);
+        updateGlobalScore();
+    }
+
+    // --- Check Text Inputs (Part 4 & Part 5) ---
+    function checkInputs(containerId, resultId) {
+        const container = document.getElementById(containerId);
+        const inputs = container.querySelectorAll('input[type="text"]');
+        let correctCount = 0;
+
+        inputs.forEach(input => {
+            const userAnswer = input.value.trim().toLowerCase();
+            const validAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
+            const displayAnswer = input.getAttribute('data-display');
+            const wrapper = input.parentElement;
+
+            const existingHint = wrapper.querySelector('.correct-answer-hint');
+            if (existingHint) existingHint.remove();
+
+            let isCorrect = userAnswer !== "" && validAnswers.some(ans => userAnswer === ans.trim());
+
+            if (isCorrect) {
+                input.className = 'correct';
+                input.value = displayAnswer;
+                correctCount++;
+            } else {
+                input.className = 'incorrect';
+                const hint = document.createElement('span');
+                hint.className = 'correct-answer-hint';
+                hint.innerText = `(${displayAnswer})`;
+                wrapper.appendChild(hint);
+            }
+        });
+
+        partScores[containerId] = correctCount;
+        renderResult(resultId, correctCount, inputs.length);
+        updateGlobalScore();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        updateGlobalScore();
+    });
+</script>
+
+</body>
+</html>
